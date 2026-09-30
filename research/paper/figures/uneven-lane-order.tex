@@ -1,0 +1,66 @@
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\small,
+  block/.style={draw=Ink!65,rounded corners=2pt,minimum width=2.25cm,
+    minimum height=0.58cm,inner sep=2pt,align=center},
+  absent/.style={block,draw=Ink!45,dashed,fill=white,text=Ink!65},
+  visit/.style={-{Latex[length=1.7mm]},draw=Ink!70},
+  d/.style={fill=violet!12},c/.style={fill=RecoveryAmber},
+  b/.style={fill=ExecutionGreen},a/.style={fill=ConsensusBlue}]
+  \node[anchor=west,font=\sffamily\small\bfseries] at (0,6.85)
+    {Relative height first; lane visit order within each height};
+  \node[anchor=west] at (0,6.38)
+    {Configured visit order for this example: $D\rightarrow C\rightarrow B\rightarrow A$};
+
+  \node[anchor=east,align=right] at (2.15,5.7) {Producer lane};
+  \node[anchor=east,align=right] at (2.15,5.12) {Already ordered};
+  \foreach \x/\lane/\anchorblock/\tip in
+      {3.65/D/D40/D44,6.6/C/C7/C9,9.55/B/B20/B21,12.5/A/A100/A103} {
+    \node[font=\sffamily\small\bfseries] at (\x,5.7) {\lane};
+    \node[text=Ink!65] at (\x,5.12) {\anchorblock};
+    \node[text=Ink!65] at (\x,0.98) {\tip};
+  }
+  \draw[visit] (4.05,5.7)--(6.2,5.7);
+  \draw[visit] (7,5.7)--(9.15,5.7);
+  \draw[visit] (9.95,5.7)--(12.1,5.7);
+  \draw[Ink!25] (0,4.73)--(13.7,4.73);
+  \node[anchor=east,align=right] at (2.15,4.25) {Relative height 1};
+  \node[anchor=east,align=right] at (2.15,3.42) {2};
+  \node[anchor=east,align=right] at (2.15,2.59) {3};
+  \node[anchor=east,align=right] at (2.15,1.76) {4};
+
+  \foreach \y/\label in {4.25/D41,3.42/D42,2.59/D43,1.76/D44}
+    \node[block,d] at (3.65,\y) {\label};
+  \foreach \y/\label in {4.25/C8,3.42/C9}
+    \node[block,c] at (6.6,\y) {\label};
+  \node[block,b] at (9.55,4.25) {B21};
+  \foreach \y/\label in {4.25/A101,3.42/A102,2.59/A103}
+    \node[block,a] at (12.5,\y) {\label};
+  \foreach \x/\y in {6.6/2.59,6.6/1.76,9.55/3.42,9.55/2.59,9.55/1.76,12.5/1.76}
+    \node[absent] at (\x,\y) {-};
+  \node[anchor=east] at (2.15,0.98) {Settled segment tips};
+  \node[anchor=west,text=Ink!70] at (0,0.4)
+    {Dashed cells: settled absence; unresolved positions cannot be skipped};
+
+  \node[anchor=west,font=\sffamily\small\bfseries] at (0,-0.2)
+    {Reference block order (skip unselected positions)};
+  \foreach \x/\label/\colorname/\id in
+      {0.62/D41/d/o1,2.04/C8/c/o2,3.46/B21/b/o3,4.88/A101/a/o4,
+       6.3/D42/d/o5,7.72/C9/c/o6,9.14/A102/a/o7,10.56/D43/d/o8,
+       11.98/A103/a/o9,13.4/D44/d/o10} {
+    \node[block,\colorname,minimum width=1.02cm] (\id) at (\x,-0.82) {\label};
+  }
+  \foreach \from/\to in {o1/o2,o2/o3,o3/o4,o4/o5,o5/o6,o6/o7,o7/o8,o8/o9,o9/o10}
+    \draw[visit] (\from.east)--(\to.west);
+  \node[anchor=west,text=Ink!70] at (0,-1.4)
+    {Arrows specify reference order, not execution barriers.};
+\end{tikzpicture}
+\caption{Unequal lane growth under a common ordering rule. The example's
+configured lane list is $(D,C,B,A)$; the first artifact uses its pinned native
+Multimmit chain order, not per-cut rotation. Relative height is measured from
+the authenticated segment anchor. All endpoints in this example are settled:
+empty cells are not missing bodies or unresolved sweep positions. Native
+emission must halt at an unresolved position. Arrows specify order, not
+execution barriers.}
+\label{fig:uneven-lane-order}
+\end{figure*}

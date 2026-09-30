@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+\input{preamble}
+\hypersetup{pdftitle={Overpass: Evidence and Validation Tasks}}
+\title{Overpass:\\Evidence and Validation Tasks}
+\author{}
+\date{\small Internal review companion --- September 2026}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+This document reviews the draft's logical progression and supporting evidence. The research objective is to reduce transaction-ingress-to-certified-state-finalization latency, with the post-cut interval as the principal optimization target. The ingress clock starts before producer selection or admission and is never reset by forwarding, regrouping, or retries. Applying the common ordering rule in advance and pipelining DA, ordering, and execution are the central method; bounded multilevel grouping and enforced producer placement address the subsequent problem of re-execution consuming those gains. STM is a planned benchmark backend, not a conceptual requirement or contribution. Experimental results and validation of the execution integration and placement transitions are not yet available, so the draft should not be read as a validated protocol.
+
+Red text marks outstanding work. [Experiment needed] indicates missing performance evidence; [Proof needed], incomplete formal or implementation validation of stated conditions; [Design unresolved], an outstanding concrete design choice; and [Prior-work comparison needed], incomplete differentiation or comparative evaluation. Where conditions are already specified, the review should not imply that no design exists.
+
+\section{Central Claim and Paper Structure}
+
+Central claim: We overlap DA, ordering, and execution for the same cut to reduce execution time exposed after cut finality. Late inputs can invalidate earlier computation and offset the latency gain. We therefore also design history-based grouping and whole-transaction producer placement around declared state accesses and operations. Declarations inform dependencies and placement; they do not reveal missing predecessors' effects or eliminate final validation. The primary outcome includes ingress waiting, placement validation, and ordering, so a smaller post-cut interval alone is not sufficient evidence of improvement. The magnitude of any improvement and the conditions under which it holds remain to be measured.
+
+The Introduction and Abstract connect the objective, the initial solution, its subsequent cost, and the role of placement.
+
+Background and Motivation distinguishes cut finality, execution-result certification, and durable readiness, then explains the opportunity for early execution.
+
+Pipelined Ordering and State Finalization contains the core pipeline, declared accesses and safe reuse, and certified result transfer. The separate section, Reducing Re-execution through Producer Placement, first explains the remaining invalidation cost, then specifies bounded multilevel grouping, reproducible map proposals, authorized-producer checks, and outstanding transition obligations. This separation keeps the pipeline understandable before its placement optimization. Neither section proposes a concurrency-control algorithm or assumes that arbitrary backends support safe reuse without adaptation.
+
+Correctness and Liveness argues input and result uniqueness, safe reuse, \(f+1\) certification, and conditional progress. Its Byzantine Behavior subsection separates malformed or unauthorized input, certified forks, false declarations, forged or replayed results, censorship, and unavailable or corrupted state updates. Each case identifies the check or assumption that prevents unsafe adoption, without claiming that the attack cannot occur. Fixed-map owner checking is specified; the c-to-c+1 schedule and canonical duplicate filtering are specified, while authenticated map applicability and failed-producer reassignment remain unverified.
+
+Evaluation uses Original, Pipeline, and Pipeline + Placement as its primary configurations, with the same planned STM-based backend and controls that hold execution order fixed. Grouping and placement enforcement require separate controlled ablations: hold enforcement fixed when comparing grouped and ungrouped mappings, and hold the mapping fixed when isolating enforcement. Concrete Block-STM and Aggregators V2 behavior belongs to the benchmark profile, with a brief attribution in Related Work, rather than to the paper's core contribution.
+
+Discussion and Limitations and the Conclusion return to the original latency objective, including the conditions under which the approach fails.
+
+\section{Paragraph Roles and Logical Progression}
+
+The opening Introduction paragraph defines ingress-to-certified-state-finalization latency as the outcome and the exposed post-cut work as the interval to shorten. The application examples explain why this matters; they do not introduce a particular execution engine before the problem. Certification and durable read readiness remain separate completion events.
+
+The second paragraph establishes the background and opportunity; the third introduces the method. The observation that data arrives before the final cut motivates applying the common ordering rule early to overlap execution. Acknowledging existing deterministic zipping prevents determinism itself from being mistaken for a novel contribution.
+
+The subsequent challenge follows the method: the gains from early execution can disappear through re-execution. Placement then addresses that cost using transaction-declared state scopes and operations, a common historical window, and a versioned producer map. Runtime containment is required; declaration alone does not establish correctness. Multilevel refinement improves a historical proxy, while owner checks enforce authorized inclusion; neither establishes lower future latency. Fewer retries must not be equated with lower latency.
+
+The safety boundary for adopting results precedes the contribution and evaluation scope. The \(f+1\) matching signatures certify a result for the same fully finalized ordered input, subject to an exact signing context, canonical parent, deterministic execution, and honest direct executors. Eligibility is parameterized as \(\mathcal{A}_e(F)\subseteq V_e\); its concrete Multimmit policy remains M2, rather than importing an Autobahn \(2f+1\)-voter subset. These signatures do not replace ordering finality, and a cut vote does not imply completed execution. Original, Pipeline, and Pipeline + Placement all use the selected Multimmit profile.
+
+Pipelined Ordering and State Finalization explains how execution starts earlier, defines declared accesses and safe reuse under the exact cut, parent, and rules, and explains result use by lagging nodes. Reducing Re-execution through Producer Placement then develops the follow-on cost and its proposed mitigation, rather than interrupting the core pipeline with an optimization. Correctness checks these backend-independent obligations, while Evaluation tests one concrete integration. Separating the contract from the backend is not a claim that the integration is already proved or universally portable.
+
+Related Work covers ordering, execution, placement, and recovery. Zaptos appears briefly as prior work on consensus--execution overlap, not as a required direct benchmark; overlap in general is not claimed as a new contribution. The Conclusion contains no results that have not yet been measured. The writing review applies one main point per paragraph, reverse outlining, and claim--evidence alignment while preserving the requested progression: problem  to  method  to  subsequent cost  to  additional solution. \citep{writingSkill}
+
+\section{Claims and Supporting Evidence}
+
+\subsection*{C1 Cut Finality and State Finalization Have Different Completion Conditions}
+
+Claim: Completing ordering does not automatically complete certification of the application's execution result or durable readiness. Evidence: Autobahn's processing boundary after a committed cut and the completion events defined in Background and Motivation. Status: supported--the stage distinction is grounded, but the size of this bottleneck in our workloads has not been measured. \citep{autobahn}
+
+\reviewnote{Experiment needed E1}{Instrument the implementation to separate residual execution, signing, and application after cut finality. Measure ingress before producer selection or admission on the same observer's clock, preserve that timestamp across retries, and report rejected and unfinished requests. Required evidence includes absolute latency across loads and full end-to-end latency; a conceptual diagram is not performance evidence.}
+
+\subsection*{C2 Earlier Execution Can Advance State Finalization}
+
+Claim: Starting execution during DA can reduce useful work remaining after cut finality. Evidence: The current support is the pipeline design and an argument about available execution time. Status: needs evidence. Zaptos is related work on consensus--execution overlap; it neither establishes our latency gains nor makes overlap itself a novel contribution. \citep{zaptos}
+
+\reviewnote{Experiment needed E1}{Alongside the Original and Pipeline system comparison, use a control with the same exact blocks, order, canonical parent, execution backend, and resources to isolate pre-cut overlap; Pipeline + Placement then measures the added effect of placement. Include any apparent reduction in the post-cut interval caused by slower consensus, CPU spent on unselected work, and waiting for the parent. A proposal-triggered timing control is optional and becomes necessary only if the paper specifically claims an advantage from starting before proposal.}
+
+\subsection*{C3 Multilevel Grouping Targets Re-execution Cost}
+
+Claim: Grouping related scopes and assigning whole transactions to authorized producers can reduce independently arriving conflicting predecessors and preserve the pipeline's gains. Evidence: The proposed bounded multilevel search recomputes whole-transaction routes under a historical dependency-separation, load, and reassignment proxy; honest DA voters check the authorized map and producer. Status: the algorithm and fixed-map admission predicate are specified, but online transition correctness and measured retry and latency results are absent. Shard Scheduler supports verifiable placement as a design precedent, and TxAllo supports deterministic historical allocation heuristics, not a theorem about our latency objective. \citep{shardscheduler,txallo}
+
+The proxy distinguishes read--read compatibility from routing weight: a read can have unit assignment weight because it may depend on a writer, although a pair of reads contributes no conflict weight. Conditional try operations remain potentially sensitive, and only schema-approved purely compositional operations receive zero routing weight. Multi-state transactions have one route, so a candidate move or merge must recompute affected transaction assignments and load, not merely count edges between two groups. Improving this bounded historical score does not establish optimal grouping, fewer actual invalidations, or better future latency.
+
+Multilevel is selected because coordinated scope moves can cross transaction-routing thresholds that individually improving greedy moves cannot. The draft gives an analytic example with baseline score 15, no improving one/two-scope reassignment, and a three-scope move scoring 12. It is a normalized example, not a performance result or proof that the chosen hierarchy finds the move. KaHyPar motivates coarsening and refinement, while deterministic parallel hypergraph partitioning motivates explicit reproducibility rules. Their standard connectivity objectives and measured gains do not transfer automatically to our plurality routing, transaction-load, and reassignment objective. Original-scope weights must survive contractions. \citep{kahypar,deterministicHypergraph}
+
+\reviewnote{Experiment needed E2}{Train on a bounded past finalized window and evaluate the next unseen window. Compare hash, ungrouped affinity, small-move greedy, and multilevel with the same objective and enforcement; then isolate enforcement using one map. Report hierarchy construction, refinement work, background certification, cut verification, queueing, unfinished requests, and ingress-to-finality tails alongside retry CPU. Small-instance exhaustive search is a quality oracle, not the production algorithm. The selected multilevel heuristic has no demonstrated latency advantage yet.}
+
+The placement sidecar separates background validation from canonical selection: \(q_{\rm map}>f\) validators reproduce and retain a candidate; a leader may propose its certificate or \texttt{KEEP}. Native ordering must bind the selection and activation context. The exact readiness threshold and native metadata binding remain M3. A map selected at cut \(c\) activates after cut \(c+1\) finalizes, using authenticated consensus identifiers rather than local L-QC arrival counts. Production continues without draining old blocks; old- and new-map blocks may coexist. Rerouted copies preserve one transaction ID. Canonical first-occurrence filtering, including prior consumed IDs, selects application inputs independently of arrival order or application success. No mandatory ingress coordinator is introduced. Candidate certification is not independent consensus finality, and \texttt{KEEP} does not cancel a previously scheduled update.
+
+\reviewnote{Design unresolved D4 / Proof needed P3}{Validate canonical first-occurrence filtering across map versions and cuts, stable transaction IDs, failed-attempt effects, and durable consumed-ID history. Cross-block duplicates are permitted, but repeated fees and application effects are not. Complete authenticated old-map applicability, retirement, custody, and failed-producer reassignment. A map tag or local receipt time cannot prove that a stale-map block was constructed before activation. The c+1 schedule is not an all-node delivery or authority-transfer proof.}
+
+\subsection*{C4 Identical Final Inputs Have One Correct Result}
+
+Claim: For the same cut, cumulative history, canonical parent, and deterministic runtime, the reference result is unique. Evidence: The deterministic state-machine assumption and a sequential oracle. Status: supported as a conditional proposition; whether the parallel implementation with changing candidates satisfies these conditions remains unverified.
+
+\reviewnote{Proof needed P1 / P2}{Prove deterministic extraction of the final input separately from execution-integration correctness. Check containment before out-of-scope access, and validate actual observations and reused results against the final context. Differentially test the concrete cache-import adapter against a sequential oracle. Different candidate views or roots are not, by themselves, evidence of Byzantine behavior. Matching state with different events, statuses, or fees is a validation failure.}
+
+\subsection*{C5 \(f+1\) Signatures Can Certify a Result}
+
+Claim: Given full ordering finality, the exact ordered input and canonical parent, deterministic execution, and at most \(f\) Byzantine validators, \(f+1\) matching direct-execution signatures from configured eligible epoch members include an honest executor. Evidence: the elementary honest-witness argument and PBFT's matching-result principle. Status: supported conditionally; the concrete eligibility and common execution-checkpoint policy remain M2. This logic does not require the old Autobahn voter subset and does not prove that all cut voters have executed. It also applies under Multimmit's larger validator population if the same global fault bound holds. The result certificate neither replaces native ordering finality nor constitutes a new BFT ordering step. \citep{pbft}
+
+\reviewnote{Proof needed P2}{These certification assumptions must hold in the actual adapter. Include tests rejecting incorrect parents, different runtimes, incomplete or unresolved outputs, duplicate signers, and signatures for different candidates. The \(f+1\) threshold itself need not be labeled novel or unresolved.}
+
+Boundary: an \(f+1\) input-availability certificate is not this execution-result certificate. Autobahn's certificate establishes honest custody and the admission predicates actually checked; it does not establish application success or non-equivocation. Competing certified blocks at one lane position are possible, while canonical commit selects at most one. Branch-aware reuse and full ordering finality remain necessary. \citep[Sections 4--5 and Appendix A.4]{autobahn}
+
+\subsection*{C6 Certified Updates Allow Lagging Nodes to Catch Up}
+
+Claim: Installing a certified delta on a verified parent can produce the same post-state without re-executing application transactions. Evidence: The requirements for parent verification, commitments, the post-state root, and atomic publication, together with established authenticated state-transfer principles. Status: supported as a conditional correctness claim; actual catch-up performance and retention policies remain incomplete. \citep{pbft}
+
+\reviewnote{Design unresolved D2}{Test no-op intervals with identical roots but different processing positions, partial chunks, duplicate application, and crashes. Specify retention, checkpoint, and garbage-collection policies, and measure operation when only one honest signer provides the data. Skipping re-execution does not eliminate transfer, hashing, or database costs.}
+
+\subsection*{C7 Non-blocking Execution Does Not Establish Placement Liveness}
+
+Claim: State work can continue to complete without making execution completion a prerequisite for ordering votes. Evidence: The design specifies speculation budgets, fallback to finalized execution, and retention and refetching requirements. Status: needs evidence--progress guarantees must be established for resource scheduling, transport, and enforced-placement transitions. Progress requires at least \(f+1\) honest eligible executors to finish and sign the same checkpoint. A fixed committee of only \(f+1\) executors is not sufficient for liveness under withholding. Restricting eligibility or allowing incompatible checkpoint endpoints may delay collection; M2 must resolve both. Map reproduction and historical-input retrieval move to background readiness signers, while normal cut votes check their certificate and context. Those background costs, certificate verification, map recovery, and DA assignment checks are not free. Optional preparation can be skipped; an adopted map's handoff cannot. The old soft-routing fanout is not the proposed hard-placement liveness mechanism, because an unauthorized fallback producer cannot include the transaction.
+
+\reviewnote{Design unresolved D3 / D4 / Proof needed P3}{Prevent new candidates from cancelling work for finalized inputs. Ensure execution participation so that not every node waits solely for a certificate. Verify continued honest progress under withholding, false acknowledgments, restarts, and exhausted transfer budgets. A placement transition needs canonical authority before reassignment, without retroactively invalidating admissible issued blocks or allowing duplicate application attempts. Until that protocol is specified, evaluate a fixed authorized map and report censorship as an unresolved liveness limitation rather than claiming an automatic fallback deadline.}
+
+\subsection*{C8 The Design Offers a Meaningful Contribution Beyond Prior Work}
+
+Claim: Combining pre-cut execution during multi-producer DA with reproducible, operation-aware producer placement offers a distinct design point for reducing end-to-end state-finalization latency by shortening exposed post-cut work. Evidence: The design scope can be distinguished from existing techniques, but its novelty and performance advantages remain unvalidated. Multilevel grouping, deterministic allocation, and checking placement validity are not standalone novelty claims. Status: needs evidence.
+
+\reviewnote{Prior-work comparison needed N1 / N2}{Ground the incremental contribution in Original, Pipeline, and Pipeline + Placement, keeping the same backend and using fixed-order, grouping-only, and enforcement-only controls. Preserve the selected backend's existing validation, re-execution, and dependency waiting in every applicable baseline. Distinguish Shard Scheduler's account migration and TxAllo's account--shard allocation from whole-transaction producer placement targeting late-predecessor invalidations. Neither reference proves our placement proxy's future performance. Zaptos remains brief related work on consensus--execution overlap; reproducing it is not required. \citep{blockstm,zaptos,shardscheduler,txallo}}
+
+\section{Entity-Based Byzantine Audit}
+
+This audit asks what happens when each role is faulty, including collusion among at most f distinct validator identities across all roles. Arbitrarily many faulty clients and relays add no validator votes. Conditional rejection means that the specified checks would reject the attack if correctly implemented; it is not a completed test result. Safety, transaction delivery, update adaptation, and low latency are separate claims.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Faulty role / action & Honest-side condition & Remaining boundary \\
+\midrule
+Leader: alter or equivocate on a map & Readiness signers reproduce and store it; cut voters check the certificate and bound map/KEEP decision. & Tips-only certificates are insufficient; schedule, restart, and handoff integration remain D4. \\
+\addlinespace
+Leader: hide data or retain KEEP & Require checked data for readiness signatures; recover from custodians without local map substitution. & KEEP may suppress adoption, not cancel scheduled activation; late recovery may delay admission. \\
+\addlinespace
+Producer / relay: stop or falsely acknowledge & Authenticate original bytes and exact producer authority; an ACK does not prove inclusion. & Unrelated ordering can continue while the assigned request remains censored. D4/P3 is unresolved. \\
+\addlinespace
+Client: pad declarations or poison history & Enforce access containment and input bounds; split and rebuild candidate groups from common history. & Valid manipulation can still pass; regrouping does not guarantee fair load or latency. \\
+\addlinespace
+DA voter: endorse wrong placement or forks & Count distinct epoch members; a threshold above \(f\) must cover honest placement checks on every native admission path, including uncertified extensions. & DA does not establish non-equivocation, successful execution, or strict duplicate-free inclusion. \\
+\addlinespace
+Executor / collector: forge, replay, or suppress & Verify exact-context, domain-separated \(f+1\) direct-execution signatures, including configured \(\mathcal{A}_e(F)\) eligibility, parent history, and outputs (M2). & False results are rejected conditionally; independent endorsement discovery remains D2/P3. \\
+\addlinespace
+Data provider: corrupt or withhold updates & Verify complete commitments and staged installation; recover from other authenticated signers. & One honest provider is not prompt availability; retention and connectivity are required. \\
+\addlinespace
+Read server: claim stale data is latest & Honest readiness follows complete installation at an identified cut. & Arbitrary RPC replies and global freshness are not authenticated by a state certificate alone. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+The most consequential counterexample uses only one faulty producer: the map assigns it a transaction, it never includes that transaction, and other lanes continue finalizing cuts. Inherited ordering liveness has not provided ingress-to-inclusion liveness. An old producer may also reveal a certified block after reassignment. Canonical first-occurrence filtering handles repeated IDs without a second application attempt, but does not authorize fresh stale-map production or bound duplicate traffic. These are separate admission and performance obligations, not completed delivery tests.
+
+\reviewnote{Design unresolved D2 / D3 / D4; Proof needed P3}{Bind placement metadata throughout the consensus subject and recovery path, specify safe authority transfer, retain map and result data, and allow collection independently of one aggregator. Keep valid-input poisoning and repeated KEEP as performance/adaptation limitations. Silence and slow responses alone are not cryptographic evidence for punishment.}
+
+\section{Priority Evidence Gaps}
+
+\reviewnote{Design unresolved M1--M3}{M1: bind the execution adapter to the native canonical emitted prefix, including extensions, sweep anchors, halt positions, and deduplication. M2: define common execution checkpoints and signer eligibility; different compatible L-QCs need not identify identical endpoints. M3: bind placement selection and activation to native finality, choose the readiness threshold, and audit uncertified proposal-relative and extension endorsements. Native voting thresholds and emission rules are retained, not replaced.}
+
+First, pin the Multimmit artifact and profile for M1 / D1: the paper uses an Autobahn-family contract, while the selected implementation and all primary benchmarks use Multimmit with its native \(n\geq5f+1\) profile. Do not assume that the local fork matches the cited paper version. Specify membership finality, canonical ordered-prefix emission, execution checkpoints and signer eligibility (M2), and placement metadata/admission paths (M3). Block-STM with supported Aggregators V2 operations is the planned benchmark backend, not an implemented result or a protocol prerequisite. Pin its commit/API, schema, fees, replay semantics, and output encoding. \citep{multimmit,blockstm,aip47}
+
+Second, differentially test the execution integration for P1 / P2. Compare against a sequential oracle while varying arrival order, candidate insertion and removal, the parent, and worker completion order for each exact input. Test undeclared or incorrectly declared accesses, conservative over-declarations, and effects outside the permitted operation modes. For the selected benchmark backend, include predicates changing from false to true, changes in snapshot position, materialization, and stale completions. Passing these tests does not constitute a complete safety proof or establish compatibility with every execution engine.
+
+Before claiming online enforcement, resolve D4 / P3 separately from fixed-map validation. Specify and test proposal/lock binding, restart recovery, applicability, reproducible update validation, old-map block handling, pending transactions, and canonical reassignment under producer withholding. Include same-ID occurrences hidden on certified forks or revealed after a map change. The defined canonical filtering rule must be validated against native log semantics and recovery; owner checks alone neither implement it nor authenticate stale-map authority. A new map needs the existing full finality procedure over the placement decision, not a certificate over tips alone or a count of leaders that previously proposed it. Protect ordinary ordering from unbounded map recomputation or historical-body fetches, and account for any unavoidable validation delay.
+
+Third, run a minimal timing experiment for E1 / N2. Compare Original and Pipeline under the same order, execution backend, and resources, measuring latency and CPU to determine whether the extra execution window produces reusable work. Diagnose any lack of benefit before running a larger placement study. Add a proposal-triggered control only if asserting a specific advantage from execution before proposal.
+
+Fourth, isolate the placement components in E2. Compare ungrouped affinity, small-move greedy, and multilevel under the same objective, enforcement, and work accounting; compare enforcement policies separately. Fit historical groups without future information. Report retry CPU, producer queues, certification and validation overhead, unfinished requests, and ingress-to-finality p99 together. Narrow the contribution if multilevel adds no value beyond cheaper alternatives.
+
+\section{Review from Five Perspectives}
+
+Contribution. Question: What knowledge does the work provide beyond combining existing techniques? Answer: It aims to identify when re-execution erases the benefits of early execution as candidate inputs change during multi-producer DA, and when historical grouping with enforced producer placement mitigates that loss after including queueing and validation costs. The distinctive target is insertion-induced wasted work and end-to-end latency, not multilevel partitioning itself. This remains a proposed distinction, not a demonstrated contribution.
+
+\reviewnote{ASSESSMENT}{needs new experiments. Until N1 / N2 and E1 / E2 are resolved, claims beyond the opportunity for earlier execution remain difficult to support.}
+
+Clarity. Question: Are objectives confused with means, or are paragraph transitions disconnected? Answer: The objective is ingress-to-certified-state latency; the central method is the ordering--execution pipeline; the subsequent cost is re-execution; and the separate placement section develops grouping and authorized producer assignment as the response. STM is only the planned evaluation backend. The draft distinguishes cut votes from execution completion, producers from state owners, declaration from validation, certification from readiness, and a lower historical proxy from better future performance.
+
+\reviewnote{ASSESSMENT}{draft structure passes. A submission should remove repeated review notes and integrate the evidence into the main text. The current red notes are collaborative review markers requested by the user.}
+
+Experimental strength. Question: Are improvements substantial, consistent, and evaluated with their costs? Answer: Results are not yet available. In addition to varying RTT \(\times\) logical state operations, the plan separates late predecessors from hot-key skew and reports absolute latency, total CPU consumption, queueing, and map-validation overhead. History-to-future evaluation must expose workload shifts and overloaded groups rather than optimizing and testing on the same trace window.
+
+\reviewnote{ASSESSMENT}{needs new experiments. Report the regimes where net benefits disappear, rather than presenting only improvement percentages, scale figures, or favorable cases.}
+
+Evaluation completeness. Question: Are the baselines strong and the contributions isolated by ablation? Answer: The plan retains Original, Pipeline, and Pipeline + Placement, uses the same STM-based benchmark backend, and includes fixed-order controls and separate grouping and enforcement comparisons. Declarations and runtime validation remain the same across these comparisons; additional owner-check and map-update costs are measured explicitly. A proposal-triggered timing control is optional unless the paper claims a specific pre-proposal advantage. These are planned experiments, not completed results.
+
+\reviewnote{ASSESSMENT}{needs revision and new experiments. Fix resources, offered loads, repetitions, and seeds, and account for incomplete requests and queue growth. Report each native system's original response condition separately from the common certification condition used for instrumentation.}
+
+Method validity. Question: Are there hidden safety or liveness assumptions? Answer: Result uniqueness and the conditional \(f+1\) argument can be explained. Backend-independent wording does not discharge the contract: implementation validation remains necessary for access containment, exact-context reuse, the concrete execution adapter, protection of finalized work, delivery, retention, and garbage collection. Hard placement adds map applicability, safe activation and handoff, cross-fork and cross-map duplicate handling, and censorship-recovery obligations that the former soft-routing argument does not satisfy.
+
+\reviewnote{ASSESSMENT}{needs proof and implementation. Do not claim validated end-to-end correctness, implemented at-most-once application, or unconditional non-blocking state progress until P1 / P2 / P3 and D1 / D2 / D3 / D4 are resolved.}
+
+\bibliographystyle{plainnat}
+\begingroup\small\raggedright
+\setlength{\bibsep}{3pt}
+\bibliography{references}
+\endgroup
+\end{document}

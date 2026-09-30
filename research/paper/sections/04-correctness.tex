@@ -1,0 +1,54 @@
+\section{Correctness and Liveness}
+\label{sec:correctness}
+
+\subsection{Safety Argument}
+
+Safety begins with uniqueness of the execution input. Once existing consensus fixes the exact cut and cumulative ordered history, deterministic first-occurrence filtering and the prior consumed-ID history select the same transactions at every honest node. Each ID contributes at most one application attempt, including a failed attempt and its fee effects. A common canonical parent and identical runtime then determine one correct sequential result. Worker schedules and retry counts may differ, but state, statuses, events, and fees must agree. Validating input filtering and parallel execution remains P1/P2.
+
+The initial placement profile assumes one authenticated map, permutation, and applicability context frozen for the experiment. Its producer-assignment predicate is part of block admission, not a local routing preference. For an admitted exact cut, execution correctness does not depend on whether the grouping heuristic predicted contention well. This does not make map validation optional or prove that online map changes preserve valid admission; those transition obligations remain D4.
+
+The \(f+1\) result certificate relies on an honest witness for a unique canonical result. Under the configured eligibility policy \(\mathcal A_e(F)\), any \(f+1\) distinct authenticated epoch signers include an honest direct executor when at most f identities are faulty. If honest signers validate the full exact-context result, a false certificate cannot form. This argument is independent of native ordering-quorum size and does not replace ordering finality. PBFT supplies the matching-result precedent, not the unresolved Multimmit eligibility or checkpoint policy (M2). \citep{pbft}
+
+Installing a certified canonical delta on its verified parent must yield the same final state as direct execution. Commitments bind the complete transferred data and outputs, not only a state root. Duplicate installation of the same cut is an idempotent no-op, while stale completion is rejected. An inductive installation rule checks parent continuity from genesis or a verified checkpoint through each cut. Different speculative roots alone are not evidence of Byzantine behavior.
+
+\subsection{Byzantine Behavior}
+\label{sec:byzantine}
+
+We count at most f faulty validator identities globally, even when one identity is a producer, leader, voter, executor, and collector. Clients and relays gain no voting authority. Under authenticated membership, unforgeable signatures, collision-resistant commitments, and correct honest execution, Table~\ref{tab:byzantine} summarizes the rejection and recovery boundaries. These are conditional arguments, not completed adversarial tests.
+
+\begin{table*}[t]
+\centering
+\small
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}X@{}}
+\toprule
+Attack surface & Rejection rule and residual risk \\
+\midrule
+Inputs and placement &
+Check integrity and authorized-map assignment before native DA acknowledgements and any ordering endorsement of uncertified data. A certificate with more than f checked endorsements contains an honest checker; coverage of every Multimmit admission path remains D1/M3. Runtime containment rejects undeclared accesses with deterministic failure and fee effects. DA does not prove application success or exclude forks. Valid declaration padding and poisoned co-access history can still degrade a valid map. \citep[Sections 4--5]{autobahn} \\
+\midrule
+Candidate and map changes &
+Full cut finality selects branch-specific inputs; changed observations trigger revalidation, and losing effects or stale completions cannot be reused. Sidecar signers reproduce and retain a candidate; cut signatures, locks, and recovery bind the map/KEEP decision and activation schedule. KEEP cannot cancel it. Cross-map copies share one ID; canonical first-occurrence filtering prevents repeated effects, not duplicate traffic. Stale-map authority remains D4/P3. \citep[Appendix A.4]{autobahn} \\
+\midrule
+Result certification &
+Check domain, epoch, exact input, parent history, runtime, and complete output commitments; count distinct direct-execution signers under \(\mathcal A_e(F)\). At most f faulty identities cannot produce the required \(f+1\) false endorsements under the honest-executor assumptions above. Neither DA nor cut votes replace execution signatures. Different speculative roots need not indicate dishonesty; common runtime bugs remain outside the fault model. \\
+\midrule
+Withholding and readiness &
+Recover retained map/result data from authenticated custodians and enforce commitment, parent, post-root, and atomic-install checks. Enough honest eligible members must execute and their endorsements must be discoverable independently of one collector (D2/P3). Missing data delays readiness. Stopped producers may strand assigned transactions: forwarding, leader replacement, and repeated KEEP provide neither reassignment authority nor adaptation fairness. A state certificate does not authenticate arbitrary RPC replies or freshness; permanent isolation prevents recovery. \\
+\bottomrule
+\end{tabularx}
+\caption{Four Byzantine attack classes. Protection is conditional on the stated checks; availability, transaction inclusion, and low adversarial latency are separate obligations.}
+\label{tab:byzantine}
+\end{table*}
+
+Execution safety does not imply inclusion liveness or low adversarial latency. An old certified block revealed after reassignment may repeat a transaction already ordered elsewhere. Canonical deduplication excludes the later attempt, regardless of application success, but does not bound wasted bandwidth or speculation. Nor does it authorize arbitrary stale-map production.
+
+\reviewnote{VALIDATION NEEDED P1 / P2 / P3, D1 / D2 / D3 / D4}{Implement and validate admission, canonical ID filtering and failure/fee rules, reuse, installation, independent endorsement collection, and recovery. Map-decision binding, activation, authenticated old-map applicability, deduplication-history retention, and failed-producer reassignment remain integration obligations. Neither DA nor deterministic grouping certifies application success, non-equivocation, transaction inclusion, fairness, or low adversarial latency. Silence alone is not cryptographic evidence of Byzantine behavior.}
+
+\subsection{Conditional Liveness}
+
+Result progress requires at least \(f+1\) honest eligible executors to receive the exact ordered range and parent, finish, and publish matching signatures. The eligibility policy must provide this despite withholding; an arbitrary fixed set of only \(f+1\) potential executors does not. If the entire epoch is eligible, native \(n-f\geq f+1\) supplies enough honest identities, but not execution or matching endpoint progress. A restricted policy needs its own argument. Checkpoint alignment and independent collection remain M2/D2; voting alone does not establish readiness.
+
+Ordering does not wait for execution, but the pipeline needs bounded speculation and reserved capacity for finalized work to prevent backlog or candidate churn from starving certification. Progress additionally requires eventual synchrony, fair execution and data service, retention, and sufficient resources. For ingress-to-inclusion progress, the authorized producer must serve fairly or a safe authority-transfer protocol must be supplied; the frozen-map profile does not solve Byzantine-owner censorship. Optional sidecar preparation need not block cuts, but certificate checks and recovery consume resources. Activation after cut \(c+1\) guarantees neither all-node map delivery nor automatic recovery from a faulty producer.
+
+\reviewnote{DESIGN TO SPECIFY D3}{Budgets, fallback, and resource isolation are requirements, not yet a concrete scheduler or cancellation policy. Candidate churn must not cancel finalized work. Implement fair scheduling of execution and serving, then prove and test liveness under the stated conditions.}

@@ -1,0 +1,27 @@
+\section{Certified Installation Details}
+\label{app:transfer-details}
+
+Execution signers durably retain canonically encoded, materialized deltas and transaction
+outputs before signing and serve them by digest. The delta includes writes,
+deletions, statuses, events, fees, and authenticated consumed-ID and processing metadata, not private worker IDs
+or physical database layout. A receiver can fetch one complete authenticated copy
+from a signer or another peer; it need not download \(f+1\) copies.
+
+The receiver checks full ordering finality, signer eligibility, commitments, and
+the exact parent history and processing boundary. It applies verified data to
+staging state and checks the post-state root before crash-safe atomic publication
+of state, outputs, consumed-ID history, and progress. A checkpoint must preserve
+equivalent replay protection before earlier deduplication history is discarded.
+Duplicate installation is a no-op. Partial transfers and stale
+worker completions must not overwrite published state; caches for later cuts are
+revalidated against the installed parent. These are required properties, not an
+implemented crash-recovery protocol.
+
+If the parent is unavailable, the receiver must recover a certified chain of
+updates or an authenticated checkpoint; equal roots at different processing
+positions are insufficient. Retention, checkpoint availability, garbage
+collection, and independent endorsement discovery remain obligation D2 in the
+main paper. Recovery requires eventual synchrony, fair service, and sufficient
+capacity. When certified updates cannot be retrieved, re-executing authenticated
+inputs from a verified parent is a possible fallback, not a guarantee of bounded
+catch-up time.

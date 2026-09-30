@@ -1,0 +1,59 @@
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\footnotesize,
+  box/.style={draw=Ink!65,rounded corners=2pt,align=center,
+    minimum height=0.95cm,inner sep=3pt},
+  flow/.style={-{Latex[length=1.8mm]},draw=Ink!75,thick}]
+  \node[anchor=west,font=\sffamily\small\bfseries] at (0,7.0)
+    {(a) Prepare off the cut-voting path; the leader proposes a certified candidate};
+  \draw[rounded corners=4pt,dashed,Ink!50] (2.85,5.18) rectangle (11.8,6.55);
+  \node[fill=white,inner sep=2pt,text=Ink!75] at (7.32,6.55)
+    {Placement sidecar (validator-local background work)};
+  \node[box,fill=gray!10,text width=2.35cm] (history) at (1.27,5.85)
+    {Finalized history\\Fixed config.};
+  \node[box,fill=ExecutionGreen,text width=2.25cm] (compute) at (4.22,5.85)
+    {Compute\\candidate map};
+  \node[box,fill=ExecutionGreen,text width=2.25cm] (verify) at (7.15,5.85)
+    {Verify + store\\map and inputs};
+  \node[box,fill=RecoveryAmber,text width=2.65cm] (cert) at (10.23,5.85)
+    {$q_{\mathrm{map}}$ validation\\and custody votes};
+  \node[box,fill=ConsensusBlue,text width=2.6cm] (leader) at (13.65,5.85)
+    {Leader proposes\\map + certificate};
+  \foreach \from/\to in {history/compute,compute/verify,verify/cert,cert/leader}
+    \draw[flow] (\from.east)--(\to.west);
+  \node[anchor=west,align=left,text width=15.2cm,text=Ink!80] at (0,4.45)
+    {No eligible ready candidate: propose \texttt{KEEP}, without waiting for the sidecar.\\
+     The background certificate is not cut finality and cannot activate a map.};
+
+  \node[anchor=west,font=\sffamily\small\bfseries] at (0,3.65)
+    {(b) An adopted update: selection and activation are different events};
+  \draw[flow] (0.1,1.0)--(15.3,1.0);
+  \foreach \x/\cut in {2.45/c,12.1/{c+1}} {
+    \fill[Ink] (\x,1.0) circle (2pt);
+    \node[font=\sffamily\small\bfseries,anchor=south] at (\x,1.25)
+      {Finalized cut $\cut$};
+  }
+  \node[anchor=north,align=center,text width=4.1cm] at (2.45,3.17)
+    {Full cut consensus\\selects map + schedule};
+  \node[anchor=north,align=center,text width=4.0cm] at (7.25,3.17)
+    {Fetch and prepare map\\Old map stays active};
+  \node[anchor=north,align=center,text width=4.3cm] at (12.1,3.17)
+    {Verify finality + fetch map:\\use it for new blocks};
+  \node[box,fill=gray!10,minimum height=0.65cm,text width=11.8cm]
+    at (6.03,0.32) {Old map: production continues while the new map is prepared};
+  \node[box,fill=ExecutionGreen,minimum height=0.65cm,text width=2.7cm]
+    at (13.65,0.32) {New map};
+  \node[anchor=north west,align=left,text width=15.2cm,text=Ink!80] at (0,-0.25)
+    {No global stop/drain: old blocks remain intact and may be ordered alongside new-map blocks.\\
+     Repeated tx IDs: keep the first canonical occurrence; skip later copies before execution.};
+\end{tikzpicture}
+\caption{Placement preparation is a logical sidecar, not a separate transaction
+coordinator or an independent finality protocol. Background signers validate
+and retain the candidate; native finality must select its adoption. The Multimmit
+threshold and metadata binding remain M3. Selection occurs at cut $c$ and
+activation follows finality of cut $c+1$, not a count of local L-QC arrivals.
+Nodes observe finality asynchronously; this is not a simultaneous wall-clock
+switch. Duplicate block inclusion is allowed, but duplicate application effects
+are not. Old-map applicability and retirement remain D4.}
+\label{fig:placement-sidecar}
+\end{figure*}

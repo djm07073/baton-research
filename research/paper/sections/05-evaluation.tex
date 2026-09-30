@@ -1,0 +1,54 @@
+\section{Evaluation}
+\label{sec:evaluation}
+
+\subsection{Questions}
+
+The evaluation will ask whether the pipeline lowers ingress-to-state-finalization latency, whether placement improves that result after its own overheads, and when historical grouping fails under contention or workload change. The Overpass adapter on the Commonware Multimmit fork remains unimplemented; the following is a plan, not measured results. All primary configurations retain the same native Multimmit consensus, emission rules, and validator profile.
+
+\subsection{Setup and Baselines}
+
+All configurations will use the same application semantics and Block-STM with Aggregators V2, a benchmark backend rather than a protocol requirement. The adapter must satisfy Section~\ref{sec:design}'s exact-context reuse and materialization requirements. Compare its final state, statuses, events, and fees against sequential execution of identical selected inputs and parent. \citep{blockstm,aip47}
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.27\linewidth}>{\raggedright\arraybackslash}p{0.67\linewidth}@{}}
+\toprule
+Configuration & Execution and placement \\
+\midrule
+Original & Multimmit; execution after canonical prefix emission. \\
+Pipeline & Same Multimmit order; pre-finality execution and exact-prefix certification. \\
+Pipeline + Placement & Pipeline plus operation-aware grouping and enforced producer placement. \\
+\bottomrule
+\end{tabular}
+\caption{Planned Multimmit configurations with a shared application and execution backend.}
+\label{tab:baselines}
+\end{table}
+
+The comparisons in Table~\ref{tab:baselines} target system-level effects on Multimmit, not measured improvements on Autobahn. The first artifact preserves native serialization. Replay identical blocks, arrival schedules, ordered inputs, and parents to isolate execution timing; placement may change block composition and order in E2E runs and those changes must be reported. Match certification endpoints and separately report native membership-finality and ordered-delivery latency. Do not equate the source paper's consensus-only completion metric with application state finality.
+
+\reviewnote{ATTRIBUTION CHECK N2}{Beating a post-cut baseline does not establish that every pipeline component is novel or independently beneficial. Use the same-order and same-completion controls to isolate timing, serialization, and certification effects. The core evaluation remains Original / Pipeline / Pipeline + Placement.}
+
+Routing controls compare transaction-ID assignment, ungrouped affinity, small-move/merge greedy search, and multilevel search. Hold declarations, containment, admission, workers, waiting, and packing fixed; both searches share \(M_0\), history, routing, objective, and feasibility bounds. Treat hard versus soft admission, waiting, packing, deferred updates, and speculation budgets as separate ablations. Report any changes to selected cuts, order, or application success rates.
+
+Each initial run freezes an authorized map fitted only to the preceding finalized-history window and tests the next unseen window. Publish identical training boundaries and all coefficients, search/work budgets, group/load/movement bounds, and residence settings. Map changes between runs do not demonstrate safe online activation; dynamic experiments remain conditional on D4. If enabled, include transition-induced duplicate traffic and speculative recovery in end-to-end latency; duplicate copies are not additional completed transactions, and rerouting never resets ingress time.
+
+Bank-like transfers and atomic multi-account updates will span validator RTT \(\times\) logical application-state updates per transaction, excluding physical writes and retries from the operation count. Independently vary contention, skew, overlapping accesses, deferred-update share, exact reads, late predecessors, load bounds, and workload shifts. Match offered load and CPU, worker, memory, and bandwidth budgets.
+
+\subsection{Planned Result Panels and Interpretation}
+
+\paragraph{End-to-end latency.}
+Report p50/p95/p99 from ingress before routing and admission, retaining the original timestamp across retries, to Equation~\ref{eq:finality}: full cut finality, the canonical parent, and \(f+1\) matching signatures under the pinned eligibility and checkpoint policy (M2). Conditional pre-cut signatures are not finality. Report client-submission latency when its boundary differs, and cut-to-execution/certification as diagnostics. Use one observer's clock per interval.
+
+\paragraph{Work and queues.}
+Break down execution, retry CPU, cache reuse, ingress/producer queues, ordering latency and throughput, finalized-transaction completion, state-ready goodput, traffic, and memory. Include backlog growth and unfinished or censored requests. A smaller post-cut gap or fewer retries with worse end-to-end tails is not an improvement.
+
+\paragraph{Placement quality and overhead.}
+Compare training and held-out proxy scores with invalidations, queueing, and latency. Report deterministic work and CPU for greedy and multilevel, including cases where multilevel loses. Separate map construction/reproduction, custody certification, cut-path verification, recovery, and assignment checks; record candidate readiness and delivery before scheduled activation. Lower historical cost does not establish future benefit.
+
+\paragraph{Result transfer.}
+Separate certification from durable read readiness for direct certifiers and fetch-and-apply nodes, including data generation/retention, transfer, verification, and storage costs. Safety and unresolved transition obligations remain in Section~\ref{sec:correctness}.
+
+\reviewnote{EXPERIMENT NEEDED E3}{The Multimmit fork and paper versions, adapter/backend commits, native \(n\geq5f+1\) configuration, eligibility/checkpoint policy, hardware, workers, bandwidth, block size, offered load, repetitions, seeds, and saturation conditions are not yet fixed. Use open-loop load and account for queue growth and unfinished requests; do not summarize overload latency using completed requests alone. This section is an evaluation plan, not experimental results.}
+
+\reviewnote{TEST PLAN, NOT RESULTS}{The detailed fault-injection procedures and algorithm unit-test checklist have been removed from the evaluation scope. This does not discharge correctness or integration obligations: resource isolation remains D3; collector independence remains D2/P3; proposal binding, activation, and reassignment remain D4. No completed fault testing, bounded adversarial latency, or exhaustive Byzantine coverage is claimed.}

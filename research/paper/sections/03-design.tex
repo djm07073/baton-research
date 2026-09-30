@@ -1,0 +1,57 @@
+\section{Pipelined Ordering and State Finalization}
+\label{sec:design}
+
+\subsection{Common Ordering and the Execution Pipeline}
+
+The family model assumes fixed authenticated membership, at most f Byzantine validators, and deterministic application semantics. Each instantiation supplies its native resilience condition and finality verifier: Autobahn uses \(n\geq3f+1\), while our planned Multimmit artifact uses \(n\geq5f+1\). State remains shared; placement assigns whole transactions to producers. Eventual synchrony, fair scheduling, and sufficient execution and transfer capacity are liveness assumptions.
+
+\paragraph{Consensus-to-execution contract.}
+The adapter authenticates blocks for speculation, constructs candidate orders using the native common rule, and verifies finality evidence plus its anchor history to derive an append-only canonical ordered prefix. It exposes newly ordered transaction occurrences under native deduplication. Candidate inputs, anchors, and order may change; emitted canonical history may not. Evidence can reveal different amounts of a compatible prefix, so a proposal or view number alone is not an execution-context identifier. Shared-state results are adopted only for an exact emitted range and canonical parent.
+
+For Multimmit, the adapter retains proposal-relative voting, extensions, L-QC extraction, and the native horizontal sweep and stopping rule. A finalized chain contribution outside the emitted prefix remains speculative for shared-state execution. Background fetches and execution must not become new prerequisites for ordering votes. This contract is an implementation obligation, not a claim that the existing fork implements the adapter. \citep{multimmit}
+
+Figure~\ref{fig:uneven-lane-order} illustrates relative-height interleaving once all depicted endpoints are settled. The Multimmit artifact uses its pinned native chain order and anchor, not the previous draft's rotating lane order. An unresolved position cannot be skipped as an empty settled cell. Missing selected bodies must be fetched; transaction dependencies require authenticated access information, not just tip references.
+
+\input{figures/uneven-lane-order}
+
+\reviewnote{PROOF OBLIGATION P1 / MULTIMMIT ADAPTER M1}{Pin paper and fork versions and prove prefix-compatible emitted ranges, stable occurrences, and native deduplication across different L-QCs for one proposal, deferred sweep positions, extensions, and later emissions. Neither chain-local finality nor a proposal identifier determines an exact shared-state execution input. The adapter is not implemented or validated.}
+
+Execution can start as authenticated blocks arrive, before a leader proposal. After a proposal arrives, a node refines its candidate while fetching and executing available inputs alongside consensus. Autobahn's fixed candidate cut and Multimmit's vote-derived emission are distinct realizations; no common pre-vote data set or completed dependency DAG is assumed. Missing predecessors, changed anchors, and selected-occurrence changes require validation and sometimes re-execution. Adoption waits for the actual emitted prefix and canonical parent, not every node's execution.
+
+\paragraph{Exact-context result certification.}
+After directly executing and validating a complete range, a node signs a domain-separated message binding chain and epoch, emitted range and ordered-input digest, cumulative boundaries, canonical parent history and state, runtime and ordering versions, and state, output, and delta commitments. Deferred outputs must be concrete. Pre-finality signatures are usable only if their exact context becomes canonical; they do not replace consensus votes.
+
+Let \(F\) include native finality evidence and the authenticated history establishing context \(C\). Let \(\mathcal V_e\) be the epoch validators and \(\mathcal A_e(F)\subseteq\mathcal V_e\) the eligibility set selected by a fixed, verifiable policy. Let \(E(C)\) contain distinct matching direct-execution signers. Then
+\begin{equation}
+\begin{aligned}
+ \operatorname{StateFinal}(C,F)\iff{}&
+ \operatorname{ValidOrderedPrefix}(C,F)\\
+ &\land\operatorname{CanonicalParentMatches}(C)\\
+ &\land|E(C)\cap\mathcal A_e(F)|\geq f+1.
+\end{aligned}
+\label{eq:finality}
+\end{equation}
+The honest-witness argument requires validated epoch identities and exact-context execution, not \(n=3f+1\) or an Autobahn-specific voter subset. Signatures bind the canonical context rather than the serialization of its witness. Different candidates or emitted ranges cannot pool signatures merely because their proposal matches.
+
+\reviewnote{DESIGN UNRESOLVED M2: SIGNERS AND CHECKPOINTS}{Pin Multimmit eligibility: all epoch validators or an explicitly defined evidence-derived subset. The former Autobahn \(Q(F)\) construction is not the new default. Define common execution-range endpoints over the emitted log so honest executors can sign identical subjects despite unequal notification progress. Establish at least \(f+1\) eventually available honest eligible executors and measure endpoint-alignment and eligibility costs. Neither choice is silently made here.}
+
+\subsection{Declared Accesses and Safe Reuse}
+
+Transactions carry signed conservative state-access scopes and supported operation types. A fixed schema adds implicit nonce and fee accesses. The runtime rejects access before it exceeds the declared scope or mode. Declarations support dependency analysis and placement without an access-discovery execution pass; they do not prove authorization, success, or actual observations.
+
+The schema distinguishes exact reads, writes, and supported deferred updates. Deferred declarations describe specified semantics, not arbitrary functions presumed to commute. Exact reads, bounds, conditional outcomes, and output positions remain part of correctness. Certified outputs must be concrete. The concurrency-control implementation is separate from these requirements.
+
+Blocks are ordering units; cached execution is per transaction occurrence, identified by block digest and transaction position. This differs from the stable transaction ID shared by rerouted copies. Canonical input filtering retains that ID's first occurrence and excludes previously consumed IDs (Section~\ref{sec:placement-sidecar}). Reuse requires validity for those selected inputs, canonical parent, order, and runtime. A changed surviving occurrence or observation requires dependent results to be checked; excluded effects and stale completions cannot enter the new context. If validity cannot be established, re-execute the affected work in canonical order. Independent valid results need not be discarded.
+
+\reviewnote{PROOF OBLIGATION P2}{These are backend-neutral correctness requirements, not a claim that any existing engine automatically satisfies them. The concrete candidate-reuse adapter has not been proved or differentially tested against sequential execution of the exact same inputs. Tests must cover excluded writers, changed predicates, moved output positions, failure effects, and stale completions, comparing status, events, and fees as well as roots.}
+
+\reviewnote{DESIGN TO SPECIFY D1}{Pin admission predicates, signed access and operation schema, deterministic failure/fee and replay rules, and canonical output encoding. Distinguish speculation checks from checks before DA votes and proposal-relative endorsements, including uncertified blocks. Neither certifies successful execution. Record the actual Multimmit fork commit, native \(n\geq5f+1\) profile, and backend; the current fork does not implement this design.}
+
+\subsection{Transferring and Applying Certified Results}
+\label{sec:transfer}
+
+A lagging node verifies ordered-prefix finality, \(f+1\) matching direct-execution signatures under the configured eligibility policy, and the exact canonical parent history and boundary. Signers retain materialized deltas and outputs before signing and serve them on request. The receiver checks complete commitments, applies data to staging state, verifies the post-state root, and atomically publishes state, outputs, and progress. Duplicate installation is a no-op. The certificate covers one exact execution range, not \(f+1\) unrelated block results. Fetch-only nodes may relay certificates but cannot issue direct-execution endorsements. Supplementary Appendix~B records recovery details.
+
+\reviewnote{DESIGN TO SPECIFY D2}{Custody is required, but endorsement discovery independent of one collector, retention periods, availability checks for replacement checkpoints, and exact garbage-collection conditions remain to be implemented. A collector's silence must not suppress endorsements that honest peers could otherwise assemble. Test recovery with only one honest provider, at retention boundaries, and across crashes during application. Input DA alone does not guarantee availability of post-execution deltas.}
+
+Safe recovery does not make repeated execution inexpensive. Section~\ref{sec:placement} addresses that subsequent performance problem through input placement.

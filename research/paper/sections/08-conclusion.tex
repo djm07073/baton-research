@@ -1,0 +1,6 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+Overpass proposes pipelined execution and operation-aware producer placement for Autobahn-family consensus, targeting implementation and evaluation on Multimmit. Adoption requires an exact canonical ordered prefix; native voting, extraction, and emission remain intact. Multilevel grouping aims to preserve early-execution gains by reducing late-predecessor invalidation. Cut-selected maps activate without draining old blocks; deterministic input filtering prevents repeated application of duplicate transactions. Success requires lower ingress-to-certified-state latency after counting queueing, validation, and residual execution, not merely fewer retries. Native integration, certification context, map applicability, and failed-producer reassignment remain obligations M1--M3 and D4. No implementation or measured speedup is claimed.
+
+\reviewnote{EXPERIMENTS NEEDED E1--E3}{Write empirical conclusions after implementation and evaluation. Report where gains appear, where they disappear, and the resource costs under the three main configurations and controlled ablations. Do not imply that the proposed design has already demonstrated a speedup.}

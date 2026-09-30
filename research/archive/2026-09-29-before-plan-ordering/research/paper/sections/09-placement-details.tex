@@ -1,0 +1,27 @@
+\section{Deterministic Placement Details}
+\label{app:placement-details}
+
+\subsection{Hierarchy Construction}
+
+For each historical transaction, form a hyperedge \(E_t=\{s:a_t(s)=1\}\); edges with fewer than two scopes do not guide coarsening. Let \(\pi_\ell(E_t)\) be the distinct search groups touched by that edge at level \(\ell\). One fixed affinity rule for distinct groups \(G,H\) is
+\begin{equation}
+ A_\ell(G,H)=
+ \sum_{\substack{t\in\mathcal H\\G,H\in\pi_\ell(E_t)}}
+ \frac{1}{|\pi_\ell(E_t)|-1}.
+\label{eq:coarsening-affinity}
+\end{equation}
+At each level, visit groups in canonical membership order and match an unmatched group with its highest-positive-affinity unmatched neighbor, subject to the bundle-size bound; break ties by canonical membership. Contract disjoint matched pairs in the search representation, carry unmatched groups forward, and record the hierarchy. Stop at the configured coarse-size target, level limit, or absence of an eligible match. Exact rational comparisons use bounded checked arithmetic; exceeding a construction bound makes the update ineligible, not machine-dependent.
+
+\subsection{Canonical Output and Work Bounds}
+
+To encode the incumbent, traverse hierarchy roots in canonical order. Emit each maximal node whose original scopes have one incumbent destination and satisfy the group-size bound; otherwise recurse into its children. This yields disjoint output groups without changing original-scope positions or routing weights.
+
+The configuration bounds history size, declarations, retained scopes, hyperedge incidences, expanded metadata, hierarchy depth, refinement steps, candidate scans, and output bytes. Work accounting includes every affected transaction route, producer-load term, and dependency pair. Exhaustion cannot authorize a partially evaluated candidate; final improvement and feasibility checks still apply.
+
+\subsection{Placement Readiness Subject}
+
+The validation-and-custody subject binds the message domain, chain and validator epoch, update opportunity, old and new map digests and versions, finalized-history anchor, algorithm/schema configuration, and allowed activation rule. Signatures on different subjects cannot be combined. Retention and garbage collection preserve recovery for every still-applicable map and outstanding old-map block.
+
+\subsection{Connectivity Does Not Determine Routing Cost}
+
+For \(T_1=\{a,b\}\) and \(T_2=\{a,c\}\), with unit access weights and lowest-position tie-breaking, assignments \((a,b,c)=(1,2,3)\) and \((3,1,2)\) give the same hypergraph connectivity cost. Yet their transaction routes are respectively \((1,1)\) and \((1,2)\). If the operations on \(a\) are sensitive, their separated-dependency costs differ. A standard hypergraph connectivity score therefore cannot replace the routing-aware objective in the main paper.

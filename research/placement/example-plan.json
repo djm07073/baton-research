@@ -1,0 +1,50 @@
+{
+  "kind": "design-fixture-not-network-message",
+  "note": "Symbolic tx IDs and byte sizes; not signed transactions, a certificate, or a canonical encoding test vector.",
+  "domain": "state-affinity-placement-v1",
+  "chain": "example-chain",
+  "producer_epoch": 1,
+  "config_anchor": "example-finalized-config",
+  "policy": {
+    "strong_affinity": 4,
+    "conditional_defer_affinity": 1,
+    "pure_defer_affinity": 0,
+    "cost": "1 + ceil(encoded_bytes / 256) + unique_key_count",
+    "tie_break": "sha256(JSON.stringify([domain,chain,producer_epoch,tx_id,lane_id])) ascending; illustrative encoding only"
+  },
+  "lanes": [
+    { "id": "L0", "batch_capacity": 10 },
+    { "id": "L1", "batch_capacity": 10 }
+  ],
+  "transactions": [
+    {
+      "id": "tx1",
+      "encoded_bytes": 128,
+      "accesses": [
+        { "key": "A", "modes": ["defer"], "defer_profile": "unobserved_add" },
+        { "key": "B", "modes": ["defer"], "defer_profile": "unobserved_add" },
+        { "key": "C", "modes": ["write"] }
+      ]
+    },
+    {
+      "id": "tx2",
+      "encoded_bytes": 128,
+      "accesses": [
+        { "key": "A", "modes": ["defer"], "defer_profile": "unobserved_add" },
+        { "key": "C", "modes": ["read"] },
+        { "key": "E", "modes": ["read", "write"] }
+      ]
+    }
+  ],
+  "expected": {
+    "per_tx_cost": { "tx1": 5, "tx2": 5 },
+    "pair_affinity": { "A": 0, "C": 4, "total": 4 },
+    "same_lane": true,
+    "selected_lane": "L1",
+    "assignments": { "tx1": "L1", "tx2": "L1" },
+    "suggested_order_on_selected_lane": ["tx1", "tx2"],
+    "selected_lane_load": 10,
+    "packing_preference": "same block if ordinary admission, nonce order and block limits permit",
+    "overflow": []
+  }
+}

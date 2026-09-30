@@ -1,0 +1,41 @@
+\section{Background and Motivation}
+\label{sec:background}
+
+\subsection{Ordering Finality and State Finalization}
+
+A producer lane is a chain that produces blocks; a validator is a node that participates in consensus and execution verification. One node may perform both roles, but a producer chain is not inherently a state shard. Transactions from different producers may update the same balance or nonce, so their effects depend on the complete selected input set and its common order.
+
+Autobahn's ordinary path finalizes cuts through Prepare and Confirm; its native fast path has separate conditions. Selected data and preceding slots are then processed, and deterministic zipping expands the newly ordered inputs. The original paper's ready-to-execute metric differs from latency including application execution, result certification, and durable state application. We explicitly evaluate this latter path. \citep{autobahn}
+
+Autobahn permits voting for a certified-tip proposal before fetching every referenced body. Correct voters share candidate prefix references, not necessarily data or completed execution. With the same cumulative context they can plan block-level order while synchronizing; transaction dependencies require bodies or authenticated access metadata. \citep[Section 5.2]{autobahn}
+
+Multimmit permits uncertified references and proposal-relative per-chain reports, including extensions. For \(n\geq5f+1\), its native L-QC aggregates \(n-f\) votes; chain-specific extraction and emission determine the ordered prefix. A finalized chain contribution need not yet have a settled cross-chain position. Identical local views or the leader's tips alone therefore do not identify the execution input. Our artifact preserves these rules rather than substituting Autobahn's quorums. \citep{multimmit}
+
+In the family model, a \emph{finalized cut} is an authenticated boundary of the canonical global ordered prefix, not every chain-local membership-final block or L-QC notification. Multimmit's unresolved sweep positions can defer emission. Adoption of affected shared state waits, while speculation and native ordering may continue.
+
+\input{figures/pipeline}
+
+\subsection{Latency and the Opportunity for Early Execution}
+
+The primary outcome is transaction-ingress-to-state-finalization latency. The ingress timestamp is taken before producer selection or queue admission and is not reset by forwarding, regrouping, or retries. The completion event is the observer's verification of full cut finality, the canonical parent, and the matching \(f+1\) result certificate covering the transaction's canonical outcome. Client-observed response time and durable read readiness are reported separately. A certificate prepared early cannot move state finality before the cut.
+
+For observer \(v\), transaction \(t\), and its selected cut \(C(t)\),
+\begin{equation}
+\begin{aligned}
+  \Delta_{\mathrm{E2E},v}(t)
+  & = T_{\mathrm{state\text{-}final},v}(C(t))-T_{\mathrm{ingress},v}(t) \\
+  & = \bigl(T_{\mathrm{cut\text{-}final},v}(C(t))-T_{\mathrm{ingress},v}(t)\bigr)
+      +\Delta_{\mathrm{state},v}(C(t)).
+\end{aligned}
+\label{eq:e2e-latency}
+\end{equation}
+The main diagnostic interval is
+\begin{equation}
+  \Delta_{\mathrm{state},v}(C)
+  = T_{\mathrm{state\text{-}final},v}(C)
+    - T_{\mathrm{cut\text{-}final},v}(C) \geq 0.
+  \label{eq:latency}
+\end{equation}
+All timestamps in each difference use one observer's clock. This event-time decomposition does not add overlapping stage runtimes. Placement and grouping may reduce residual execution while increasing ingress waiting; both effects count toward the primary outcome. Expired, rejected, and unfinished requests are accounted for separately rather than disappearing from the sample.
+
+The interval between block reception and cut finality is an execution opportunity, not a source of free resources. Speculation competes with consensus for CPU, memory, and network capacity, and may process inputs that are never selected. A smaller post-cut gap is not an improvement if it is obtained by delaying the cut itself. The pipeline must be evaluated by useful work retained, not merely by how early execution starts.

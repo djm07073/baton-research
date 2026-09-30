@@ -1,0 +1,38 @@
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\sffamily\footnotesize,
+  box/.style={draw=Ink!65,rounded corners=2pt,align=center,minimum height=0.85cm,inner sep=3pt},
+  flow/.style={-{Latex[length=1.7mm]},draw=Ink!75}]
+  \node[anchor=west,font=\sffamily\small\bfseries] at (0,4.7) {Post-cut execution};
+  \node[box,fill=ConsensusBlue,minimum width=4.8cm,text width=4.4cm] (bda) at (2.4,3.95) {Block dissemination\\+ cut consensus};
+  \node[box,fill=ExecutionGreen,minimum width=2.9cm,text width=2.5cm] (be) at (6.65,3.95) {Application\\execution};
+  \node[box,fill=RecoveryAmber,minimum width=2.2cm,text width=1.8cm] (bc) at (9.6,3.95) {Result\\certification};
+  \node[box,fill=gray!10,minimum width=2.2cm,text width=1.8cm] (ba) at (12.2,3.95) {Durable\\apply};
+  \draw[flow] (bda)--(be);
+  \draw[flow] (be)--(bc);
+  \draw[flow] (bc)--(ba);
+  \draw[dashed,Ink] (5,3.2)--(5,4.45);
+  \node[anchor=north] at (5,3.18) {Cut finality};
+  \node[anchor=north,align=center] at (10.9,3.18) {Certified result};
+  \node[anchor=west,font=\sffamily\small\bfseries] at (0,2.55) {Proposed same-cut pipeline};
+  \node[box,fill=ConsensusBlue,minimum width=4.8cm,text width=4.4cm] (pda) at (2.4,1.8) {Block dissemination\\+ cut consensus};
+  \node[box,fill=ExecutionGreen,minimum width=3.7cm,text width=3.3cm] (pe) at (2.95,0.45) {Order updates +\\speculative execution};
+  \draw[flow] (0.55,1.35)--(0.55,0.45)--(pe.west);
+  \node[box,fill=RecoveryAmber,minimum width=2.9cm,text width=2.5cm] (pr) at (6.65,0.45) {Validate / repair\\+ residual signatures};
+  \node[box,fill=gray!10,minimum width=2.2cm,text width=1.8cm] (pa) at (9.6,0.45) {Fetch and\\durable apply};
+  \draw[flow] (pe)--(pr);
+  \draw[flow] (pda.east)--(6.65,1.8)--(pr.north);
+  \draw[flow] (pr)--(pa);
+  \draw[dashed,Ink] (5,-0.18)--(5,2.3);
+  \node[anchor=north] at (5,-0.2) {Cut finality};
+  \node[anchor=north,align=center] at (8.3,-0.2) {Certified result};
+  \draw[flow] (0,-0.85)--(13.3,-0.85) node[anchor=west]{time};
+\end{tikzpicture}
+\caption{Serial and pipelined processing of the same cut. Execution preparation
+overlaps dissemination and consensus; exact-cut validation, residual work, and
+durable application still have costs. A result is final only with full ordering
+finality for the emitted ordered prefix, the matching parent, and $f+1$
+matching eligible direct-execution signatures. Eligibility is unresolved (M2). Bar lengths are
+conceptual, not measured or guaranteed speedups.}
+\label{fig:pipeline}
+\end{figure*}

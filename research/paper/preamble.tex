@@ -1,0 +1,69 @@
+\usepackage[T1]{fontenc}
+\usepackage{iftex}
+\ifPDFTeX\usepackage[utf8]{inputenc}\fi
+\ifdefined\conferenceedition
+  \usepackage{hyperref}
+  \usepackage{usenix2019_v3}
+  \ifPDFTeX\else\microtypesetup{spacing=false,kerning=false}\fi
+  \let\citep\cite
+\else
+  \usepackage{lmodern}
+  \usepackage[letterpaper,margin=1in]{geometry}
+  \usepackage{microtype}
+  \usepackage[numbers,sort&compress]{natbib}
+\fi
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs,tabularx,longtable}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{needspace}
+\definecolor{ReviewRed}{HTML}{A62323}
+\definecolor{Ink}{HTML}{182B3A}
+\definecolor{ConsensusBlue}{HTML}{DDEBF5}
+\definecolor{ExecutionGreen}{HTML}{DFEEE5}
+\definecolor{RecoveryAmber}{HTML}{F9E8C7}
+\definecolor{LinkBlue}{HTML}{235B80}
+\ifdefined\conferenceedition\else
+  \usepackage{hyperref}
+\fi
+\hypersetup{colorlinks=true,linkcolor=LinkBlue,citecolor=LinkBlue,urlcolor=LinkBlue}
+\urlstyle{same}
+\hypersetup{pdfauthor={},pdftitle={Overpass: Pipelined Execution and Producer Placement for Low-Latency State Finalization in Autobahn-Family Consensus}}
+\setlength{\emergencystretch}{2em}
+\clubpenalty=10000
+\widowpenalty=10000
+\setlist{itemsep=0.15em,topsep=0.25em,leftmargin=*}
+\ifdefined\conferenceedition
+  \pagestyle{plain}
+  \raggedbottom
+\else
+  \setlength{\parindent}{0pt}
+  \setlength{\parskip}{0.5em}
+  \pagestyle{fancy}
+  \fancyhf{}
+  \fancyhead[L]{\small\textsf{Overpass: Ordering and Execution}}
+  \fancyhead[R]{\small\textsf{Working draft}}
+  \fancyfoot[C]{\thepage}
+  \setlength{\headheight}{14pt}
+  \renewcommand{\headrulewidth}{0.3pt}
+\fi
+\newcommand{\reviewnote}[2]{%
+  \ifdefined\conferenceedition
+    \par\begingroup\color{ReviewRed}\small\noindent
+    \textbf{[#1]} #2\par\endgroup
+  \else
+    \par\noindent\begin{minipage}{\linewidth}\color{ReviewRed}\small
+    \textbf{[#1]} #2\end{minipage}\par
+  \fi}
+\newcommand{\draftnotice}{%
+  \begingroup\small\color{Ink}
+  \textbf{Draft status.} This manuscript describes a proposed design, not a completed
+  experimental evaluation. Red notes identify missing evidence, proof obligations,
+  and unresolved implementation details. They are review annotations, not claims
+  that the design is known to be incorrect.\par\endgroup}
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}

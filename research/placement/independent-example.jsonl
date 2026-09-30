@@ -1,0 +1,9 @@
+{"id":"a","reads":["x"],"writes":["x"],"cost":1}
+{"id":"b","reads":["x"],"writes":["y"],"cost":1}
+{"id":"c","reads":["y"],"writes":["z"],"cost":1}
+{"id":"d","reads":["p"],"writes":["p"],"cost":1}
+{"id":"e","reads":["p"],"writes":["q"],"cost":1}
+{"id":"f","reads":["q"],"writes":["r"],"cost":1}
+{"id":"g","reads":["u"],"writes":["u"],"cost":1}
+{"id":"h","reads":["u"],"writes":["v"],"cost":1}
+{"id":"i","reads":["v"],"writes":["w"],"cost":1}

@@ -1,0 +1,19 @@
+\section{Discussion and Limitations}
+\label{sec:discussion}
+
+\paragraph{Workload and search limits.}
+Early execution can lack predecessors, and changed candidates, anchors, or extension placement can increase retries. The first artifact preserves native Multimmit order rather than introducing rotation. Long dependencies, hot scopes, conflicting multistate affinities, and changed inclusion slots limit placement benefits. Group-size caps cannot divide a hot scope, and whole-transaction routing need not colocate all accesses to it. The historical objective can improve while queueing makes end-to-end latency worse.
+
+Determinism does not prevent clients from manipulating valid history or routes through declarations and transaction variants, or leaders from repeatedly choosing \texttt{KEEP}. One hierarchy can miss overlapping bundles; tight load bounds can reject every move despite a feasible coordinated swap. Movement/residence limits, retained-scope growth without eviction, and bounded search delay adaptation. Multilevel is not a general rebalancer or universally better than greedy search.
+
+\paragraph{Incomplete handoff.}
+Fixed-map admission rejects unauthorized producers, not omission or certified forks. Selection at cut \(c\) and activation after cut \(c+1\) permit continuous production and cross-map duplicate inclusion. Canonical first-occurrence filtering prevents repeated effects, not duplicate traffic, wasted speculation, or censorship. A faulty assigned producer can still strand transactions; authenticating old-map applicability and retirement and authorizing fallback remain D4. \texttt{KEEP} skips optional preparation, not recovery of an adopted map. Background computation, custody, verification, and admission still consume resources.
+
+\paragraph{Trust and recovery.}
+Result certification assumes the Byzantine bound and correct honest execution; common runtime bugs remain outside its guarantee. Certification latency depends on the unresolved signer eligibility and common execution endpoints (M2); a restricted set may exclude fast executors, while unaligned ranges can fragment signatures even with epoch-wide eligibility. Durable readiness additionally requires retained data, serving capacity, and an honest custodian. Independent endorsement discovery and applicable-map recovery remain integration obligations; thresholds alone do not provide them. Certificates authenticate neither arbitrary RPC replies nor freshness. Input DA also leaves censorship, expensive valid inputs, and retry amplification possible; the safety analysis is not an adversarial latency bound or experimental result.
+
+\paragraph{Family generality versus artifact evidence.}
+The ordered-prefix contract abstracts Autobahn and Multimmit, not their thresholds or vote meanings. Multimmit's earlier consensus completion can leave a shorter execution-overlap window; extensions, halted sweeps, and data recovery can offset gains. Portability is a contract to prove per adapter, not an experimental result. The artifact must pin the specification and implementation versions and retain native emission; M1--M3 mark unresolved integration.
+
+\paragraph{Application scope.}
+The design assumes conservative access declarations and fixed membership and schemas. Arbitrary runtime-discovered EVM accesses, membership reconfiguration, and deferred composition of arbitrary functions are excluded. Placement changes neither state ownership nor application dependencies; the benchmark backend does not define a new execution engine.

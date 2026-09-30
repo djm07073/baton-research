@@ -1,0 +1,100 @@
+\section{Reducing Re-execution through Producer Placement}
+\label{sec:placement}
+
+\subsection{When Re-execution Consumes the Latency Gain}
+
+If a reader executes before a predecessor's block arrives, the final reference order can invalidate its observations and require re-execution; unrelated results may remain reusable. Repeated invalidation consumes the pipeline's head start. Placement targets this arrival-order mismatch, not semantic dependencies. With a fixed parent and branch, if all result-affecting predecessors lie on one lane and its prefix is available, later descendants cannot insert new predecessors within that order. Missing prefixes, cross-lane dependencies, and changed cuts or parents remain sources of retries. Colocation seeks this restricted favorable case more often without guaranteeing it.
+
+\subsection{Deterministic Grouping and Whole-Transaction Assignment}
+
+We group related state scopes and route whole transactions using those groups. A group is placement metadata, not a state shard or an execution barrier. Multi-group transactions remain single transactions, and colocated transactions may still execute in parallel when their dependencies permit. Authorized producer placement is checked before a DA vote and before an ordering vote endorses uncertified data; the concrete Multimmit paths require audit.
+
+\paragraph{Common inputs and whole-transaction assignment.}
+A versioned map \(M\) contains disjoint groups of canonical state scopes and assigns each group a logical producer position. Unlisted scopes use a fixed hash-based position. The map binds the prior-map digest, a finalized-history anchor, schema and algorithm versions, parameters, and its authorized applicability context. Neither a leader's private mempool nor a node's latest locally observed cut determines block validity.
+
+For a transaction \(t\), normalize the signed declarations and protocol-derived nonce and fee accesses. Let \(a_t(s)=1\) for an exact read, write, or condition-sensitive operation on scope \(s\), and zero only for schema-approved purely compositional deferred-only accesses. Multiple modes on one scope contribute their maximum, not multiple votes. The logical assignment is
+\begin{equation}
+ r_M(t)=\operatorname*{arg\,max}_{j}
+          \sum_{s:\,M(s)=j} a_t(s),
+\label{eq:assignment}
+\end{equation}
+with ties resolved by the smaller logical position. An all-zero transaction uses a domain-separated hash of its transaction ID and the fixed configuration seed. A certified permutation maps the logical position to a physical producer, using the common lane-priority convention. The initial enforcement profile keeps that permutation fixed for the placement interval. Per-cut owner rotation is not inferred from a local target slot: producer authorization must be known before block construction, while the eventual inclusion cut may differ from the routing target. Changing an interval or permutation requires the transition conditions below. Execution still follows the actual finalized cut's reference order.
+
+\paragraph{Common history and the placement objective.}
+The history \(\mathcal H\) is a fixed, bounded window of finalized transactions, selected by canonical position and an agreed anchor; repeated transaction IDs count once for these statistics. The configured update opportunity determines the history anchor and window bounds; a leader cannot choose a favorable sample, seed, or parameter set for its proposal. All nodes use the same normalization, ordering, and sampling bounds. For two historical transactions, \(w(t,u)\) counts shared scopes with potentially order-sensitive operation pairs. The fixed schema assigns zero to read--read pairs and pairs proven unconditionally compatible, and one to other or unknown pairs. Conditional updates such as bounded try operations remain potentially sensitive. A read still has unit routing weight in Equation~\ref{eq:assignment}, because it can depend on a writer; zero read--read pair weight is not a reason to discard reads from routing.
+
+At every configured update opportunity, the search rebuilds a hierarchy from the new common finalized-history window rather than treating previously merged groups as indivisible. Let \(M_0\) be the currently authorized map. Initialize singleton search groups while preserving every scope's position \(M_0(s)\), including previously mapped scopes absent from the window; previously unmapped scopes start at their prescribed hash positions. This changes search metadata, not producer authority or state ownership. The multilevel search seeks to reduce the following historical proxy:
+\begin{equation}
+\begin{aligned}
+ J_{\mathcal H}(M)={}&
+ \sum_{\substack{t,u\in\mathcal H\\t<u}}w(t,u)\,\mathbf{1}[r_M(t)\ne r_M(u)]\\
+ &+\lambda\sum_j L_j(M)^2+\mu D(M,M_0).
+\end{aligned}
+\label{eq:placement-cost}
+\end{equation}
+Here \(L_j(M)\) counts historical transactions assigned to position \(j\), and \(D\) counts scopes whose position differs from the original \(M_0\), not from the immediately preceding search step. Nonnegative integer coefficients are fixed configuration parameters. Transaction counts are a load proxy, not execution-time measurements or a new gas model. The first term counts separated potential dependencies, not measured invalidations: blind overwrites and conservative declarations can overestimate retry cost.
+
+\paragraph{Why multilevel rather than only small greedy moves?}
+Moving one scope may leave a transaction's plurality winner unchanged, while a joint move changes it. Strict-improvement search over small moves can therefore reject useful intermediate steps. Multilevel search proposes coordinated changes by coarsening related scopes into bundles, evaluating bundle placement, then uncoarsening to refine individual choices. Coarsening changes the search neighborhood, not the assignment; refinement can split bundles when load, movement cost, or overlapping accesses make colocation undesirable.
+
+For a concrete threshold example, let W write five scopes \(a,\ldots,e\), all initially assigned to producer 1. Two other transactions each read those five scopes and the same ten additional scopes assigned to producer 2. With unit routing weights, both readers choose producer 2. Set \(\lambda=\mu=1\), allow load three, and permit the relevant moves. Initially \(J=10+5=15\): two separated writer--reader pairs contribute five each, and the loads are one and two. Any one- or two-scope reassignment leaves all routes unchanged and adds movement cost. Moving \(\{a,b,c\}\) jointly to producer 2 instead yields \(J=0+9+3=12\). This normalized toy example establishes a limitation of strictly improving small moves, not a measured latency gain or a guarantee that every multilevel hierarchy finds that bundle. An application's additional nonce and fee accesses must be included and can change the example.
+
+KaHyPar and deterministic parallel hypergraph partitioning motivate reproducible coarse-to-fine search; their connectivity-objective results do not establish optimality or latency improvement for our routing objective. \citep{kahypar,deterministicHypergraph} Schism motivates workload-derived affinities, but our groups route whole transactions over shared state rather than partitioning database ownership. \citep{schism}
+
+\paragraph{A deterministic hierarchy over original scopes.}
+Historical co-accesses guide bounded, canonical matching into nested bundles; Supplementary Appendix~A specifies the affinity rule. Affinity only generates candidates: read--read pairs still have zero dependency weight. The incumbent remains a map of \emph{original scopes}. A bundle may span incumbent producers; contraction alone changes no assignment. A candidate moves all its scopes to one position and is scored using actual transaction routes, loads, and changes from the fixed \(M_0\). Three accessed scopes in a bundle still contribute three votes, not one supernode vote. Algorithm~1 accepts only feasible strict improvements. Standard hypergraph connectivity cannot replace Equation~\ref{eq:placement-cost}; a counterexample appears in Supplementary Appendix~A.
+
+\begin{center}
+\begin{minipage}{0.96\linewidth}
+\small
+\textbf{Algorithm 1: Deterministic multilevel producer placement}
+\begin{enumerate}[label=\arabic*.,leftmargin=1.8em]
+\item Load the prescribed finalized history, original map \(M_0\), and configuration. Bound retained and new scopes, hyperedge incidences, and working metadata before construction.
+\item Initialize singleton search groups without changing incumbent positions. Build the bounded deterministic co-access hierarchy, preserving original-scope membership.
+\item At the coarsest level, enumerate bundle--destination candidates in canonical order. Evaluate their actual routes and full \(J_{\mathcal H}\), always charging changes relative to the original \(M_0\).
+\item Reject candidates violating bundle/group-size, historical producer-load, moved-scope, or residence bounds. From the evaluated candidate set, choose the largest strict score decrease; resolve ties canonically. Repeat within the configured per-level and total work budgets.
+\item Uncoarsen one level without changing the incumbent. Repeat refinement with the smaller bundles, down to singletons when the budget permits. A lack of coarse improvement does not skip finer levels.
+\item Canonically encode disjoint, size-bounded, single-destination groups without changing incumbent positions or original-scope routing weights; Supplementary Appendix~A gives the traversal rule.
+\item Emit a candidate only if the full placement improves on \(M_0\) and satisfies all bounds; otherwise emit \texttt{KEEP} with the original map. Proposal certification and activation follow Section~\ref{sec:placement-sidecar}.
+\end{enumerate}
+\end{minipage}
+\end{center}
+
+\paragraph{Bounded work, reproducibility, and limits.}
+Input, hierarchy, search, and output sizes are bounded. Budgets count deterministic operations, not elapsed time; partially evaluated candidates are never accepted. Exhaustion returns the best fully evaluated incumbent subject to the final checks, or \texttt{KEEP}. Parallel implementations preserve canonical evaluation and acceptance order, not merely a random seed. Bundle size alone does not bound work: evaluation must account for every affected route, load term, and dependency pair. Supplementary Appendix~A lists the bounds; no universal linear-time bound is claimed.
+
+Accepted moves improve the fixed-window proxy; contraction and expansion leave it unchanged. This implies neither global optimality nor lower future latency: a hierarchy can miss useful bundles and a budget can stop refinement before singleton local optimality. Retained-map growth may force \texttt{KEEP}, which is no load guarantee; scope eviction is unspecified. Group-size bounds do not bound a producer's total scopes. Residence is measured in finalized cuts since an authenticated assignment change; reconstruction resets neither residence nor \(M_0\)-relative movement cost.
+
+Whole-transaction enforcement does not imply one producer per scope: transactions accessing \(\{x\}\) and \(\{x,y,z\}\) can select different producers when \(y,z\) outvote \(x\). Colocation can remove cross-producer separation, but not the underlying dependencies or all re-execution.
+
+\subsection{Placement Sidecar and Cut-Controlled Activation}
+\label{sec:placement-sidecar}
+
+Producers select whole transactions using the same authorized map and Equation~\ref{eq:assignment}, without requiring identical mempools or per-transaction coordinator approval. No mandatory ingress coordinator is introduced. Propagation must deliver original signed transactions to their assigned producer. Figure~\ref{fig:placement-sidecar} separates three stages.
+
+\paragraph{1. Background preparation.}
+Any validator may propose a map. Readiness signers reproduce the prescribed calculation, check its bounds and improvement, and durably retain the map and inputs. A readiness certificate uses a configured threshold \(q_{\mathrm{map}}>f\) of matching signatures from the native validator set, ensuring at least one honest checker and custodian. Its exact threshold and progress requirements for Multimmit remain M3; the former \(2f+1\)-of-\(3f+1\) profile is not carried over automatically. Its subject binds the authorized history, configuration, old/new maps, and activation rule; Supplementary Appendix~A lists the fields. Signers serve retained data for applicable maps and outstanding old-map blocks. Certification proves checked computation and custody, not workload quality, immediate delivery, or activation. Shard Scheduler provides precedent for verifiable placement, but migrates accounts rather than routing whole transactions. \citep{shardscheduler}
+
+\paragraph{2. Canonical selection.}
+The leader proposes a ready certified candidate or explicit \texttt{KEEP} in cut \(c\), without waiting for preparation. Voters check its signatures, authorized context, prior-map link, and activation rule, without rerunning the optimizer or fetching historical inputs. The signed proposal, locks, view change, and recovery must bind the complete map/\texttt{KEEP} decision and schedule; tips-only signatures are insufficient. Full native finality must select the metadata decision independently of uncertainty in transaction-tip emission. Neither readiness signatures nor a leader announcement replace that evidence. Binding the map decision through Multimmit proposal, vote, and recovery paths remains M3. This is a proposed external-validity extension, not an implemented or independent finality engine; verification still consumes resources.
+
+\input{figures/placement-sidecar}
+
+\paragraph{3. Delayed activation.}
+A map selected by finalized cut \(c\) activates after cut \(c+1\) finalizes. A producer that verifies this event and obtains the map uses it for newly constructed blocks. This is a logical boundary, not a Unix timestamp or a simultaneous wall-clock switch. At most one update may be scheduled; later \texttt{KEEP} cannot cancel it. Preparation, block production, dissemination, and ordering continue without a global stop or drain barrier. Nodes missing the map recover it; the delay guarantees neither all-node receipt nor drainage of old work.
+
+Previously created blocks retain their original map tags and bytes; activation does not rewrite them or retroactively invalidate otherwise admissible old blocks. Old- and new-map blocks may therefore appear in the same later cut. Transactions not yet known to be canonically included may be rerouted under the new map, even if an old producer already included them in an outstanding block. We explicitly permit this cross-block duplication. Map activation concerns construction authority, not a block's eventual inclusion cut; authenticating that distinction remains D4.
+
+\reviewnote{DESIGN UNRESOLVED M3: PLACEMENT INTEGRATION}{Bind the agreed \(c\)-selection/\(c+1\)-activation rule to native consensus identifiers and authenticated metadata; do not count local L-QC arrivals or differently sized emissions as new cuts. Pin the readiness threshold and audit uncertified-block endorsements as well as DA acknowledgements. The schedule is selected, but its native integration is not implemented.}
+
+\paragraph{Admission and handoff.}
+Blocks bind their map digest and applicability context. Before DA acknowledgement, honest voters obtain the applicable map, validate its authorization and permutation, recompute every transaction's assigned producer, and reject mismatches and repeated IDs within one block. Cross-block duplication alone is not an admission failure. The predicate must also cover proposal-relative and extension endorsements, because Multimmit can order blocks before DA certification. A threshold exceeding f contains an honest checker only if every relevant path enforces the predicate. Coverage and native liveness remain D1/M3, not consequences of existing DA. \citep{autobahn,multimmit} Assignment checks prove neither inclusion, application success, nor fork exclusion.
+
+\paragraph{One canonical execution per transaction ID.}
+Rerouting preserves the transaction ID: a domain-separated digest of the canonically encoded signed transaction, excluding the routing envelope, map version, and producer. After native canonical block ordering, retain only the first admission-valid occurrence of each ID, excluding IDs already consumed in canonical history. Local arrival or speculative completion order never selects the winner. The first occurrence consumes the ID even if application execution fails; later copies neither retry it nor produce additional fees or events. Distinct signed transactions sharing a nonce remain subject to application replay rules. Raw ordered blocks are unchanged; deduplication selects application inputs. Its implementation must agree with native log deduplication (M1/P1).
+
+For example, \(X\) can occur in an old-map block from A and a new-map block from B. If A's occurrence is canonically first, B's copy is skipped; if B's is first, A's is skipped. A previously finalized \(X\) excludes both. If speculation used the losing occurrence, the adapter removes its effects and revalidates affected dependents before reuse or re-execution. This is not automatic support supplied by an unmodified STM engine.
+
+\reviewnote{DESIGN UNRESOLVED D4 / PROOF OBLIGATION P3}{Cross-block duplicate exclusion is no longer a goal: validate stable IDs, canonical first-occurrence filtering across cuts, failed-attempt handling, and durable deduplication history. Complete authenticated map applicability, old-map retirement and custody, and failed-producer reassignment. A map tag alone cannot distinguish an outstanding old block from a newly produced stale-map block; local receipt time cannot establish that fact either. The \(c+1\) boundary does not solve this authority problem. Evaluate a fixed authorized map first; dynamic activation remains incomplete until these obligations are discharged.}
+
+\reviewnote{EXPERIMENT NEEDED E2}{Multilevel is selected for coordinated candidate moves and reversible coarse-to-fine search, not because it has been shown to outperform greedy placement here. Fit only past finalized history and test the next unseen window. Compare ungrouped affinity, the previous small-move greedy search, and multilevel under the same routing objective, admission policy, and work-budget accounting; use bounded exhaustive search only as a small-instance quality oracle. Measure preparation/certification cost, held-out invalidations, queueing, and end-to-end tails. Neither cited partitioning results nor a lower training score proves our latency claim.}
