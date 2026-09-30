@@ -2,6 +2,8 @@
 
 ## 이 저장소의 범위
 
+**다른 에이전트가 이어받을 때:** [SESSION_HANDOFF.md](SESSION_HANDOFF.md)를 먼저 읽는다. 채택한 결정, 미완료 검증, 코드 위치, 세션 식별자와 작업 범위를 정리했다. 원본 대화 전체나 자동 동기화된 세션 파일은 아니다.
+
 2026-09-30의 연구 문서 snapshot이다. 최신 설계는 아래 source of truth를 따르며, **현재 Overpass의 구현·안전성 증명·E2E 성능 검증이 완료된 저장소는 아니다.**
 
 - 시작점: [논문 개요](overpass-plan-ordering-outline.md), [설계 정책](overpass-prefix-plan.md), [논리 전개](overpass-research-logic.md).

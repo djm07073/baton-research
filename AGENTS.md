@@ -2,6 +2,7 @@
 
 Before changing the protocol, paper, or Commonware fork, read:
 
+0. SESSION_HANDOFF.md for transferred session state and remaining authorization/validation boundaries.
 1. README.md
 2. overpass-plan-ordering-outline.md
 3. overpass-research-logic.md and overpass-prefix-plan.md
@@ -34,4 +35,4 @@ Current decisions:
 
 Archived originals are in research/archive/2026-09-30-before-scored-plan/INDEX.md and earlier archives linked by README.md. Historical “current/latest” claims do not override this direction.
 
-Commonware, toy models and LaTeX have not been updated. Read commonware/AGENTS.md before editing that subtree and preserve unrelated user work.
+Commonware, toy models and LaTeX have not been updated to the current design. This repository does not include the Commonware checkout. Locate or obtain the intended checkout, inspect its current state, and read its AGENTS.md before editing; preserve unrelated user work. SESSION_HANDOFF.md records the reviewed base and original local paths, not a complete copy of uncommitted source changes.
