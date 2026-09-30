@@ -1,3 +1,7 @@
+> **Historical snapshot — superseded by Baton (2026-09-30).**
+> Current research: [Baton paper](baton-paper.md), [implementation specification](baton-implementation-spec.md), and [current handoff](BATON_HANDOFF.md).
+> The body below is preserved as research/citation history. Its sum-only selection, plan/advisory descriptions, incumbent preferences and “current/latest/source of truth” claims do not override 2f+1-prefix-first selection or the adopted direction-preserving cut requirement. The four proposed implementation defaults remain unadopted; native integration and performance remain unproved.
+
 # Overpass: Execution-Aware Ordering for Autobahn-Family Consensus
 
 > 2026-09-30 최신 결정. [상세 plan 정책](overpass-prefix-plan.md) / [논리 전개](overpass-research-logic.md) / [이전 3f+1 모델 보관본](research/archive/2026-09-30-before-scored-plan/INDEX.md).

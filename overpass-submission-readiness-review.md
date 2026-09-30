@@ -1,3 +1,7 @@
+> **Historical snapshot — superseded by Baton (2026-09-30).**
+> Current research: [Baton paper](baton-paper.md), [implementation specification](baton-implementation-spec.md), and [current handoff](BATON_HANDOFF.md).
+> The body below is preserved as research/citation history. Its sum-only selection, plan/advisory descriptions, incumbent preferences and “current/latest/source of truth” claims do not override 2f+1-prefix-first selection or the adopted direction-preserving cut requirement. The four proposed implementation defaults remain unadopted; native integration and performance remain unproved.
+
 # Overpass: EuroSys / OSDI submission-readiness review
 
 검토일: 2026-09-30. 현재 score-guided intended-order 설계에 대한 검토 메모다. Protocol 변경이나 실험 성능 결과가 아니다. 전체 연구 goal은 진행 중이다.

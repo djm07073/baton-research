@@ -1,57 +1,42 @@
-# Overpass: Execution-Aware Ordering for Autobahn-Family Consensus
+# Baton: Execution-Aware Ordering for Autobahn
 
-## 이 저장소의 범위
+Baton은 Autobahn-family consensus에서 분산 intended order를 cut 구성에 반영해 speculative execution을 보존하고 state-finalization latency를 줄이려는 연구다. 저장소 이름 `overpass-research`와 과거 Overpass 자료의 이름·URL은 유지한다.
 
-**다른 에이전트가 이어받을 때:** [SESSION_HANDOFF.md](SESSION_HANDOFF.md)를 먼저 읽는다. 채택한 결정, 미완료 검증, 코드 위치, 세션 식별자와 작업 범위를 정리했다. 원본 대화 전체나 자동 동기화된 세션 파일은 아니다.
+## 현재 문서와 기준
 
-2026-09-30의 연구 문서 snapshot이다. 최신 설계는 아래 source of truth를 따르며, **현재 Overpass의 구현·안전성 증명·E2E 성능 검증이 완료된 저장소는 아니다.**
+2026-09-30 Google Docs의 최신 연구 내용을 수동 동기화했다. **구현, native 통합 증명, E2E 성능 결과는 없다.** 논문 설명과 상세 구현 계약을 분리하며 과학적으로 필수인 prefix 보존 조건은 논문에도 남긴다.
 
-- 시작점: [논문 개요](overpass-plan-ordering-outline.md), [설계 정책](overpass-prefix-plan.md), [논리 전개](overpass-research-logic.md).
-- 검토 결과: [요약 및 남은 과제](overpass-review-next-decisions.md), [상세 검토](overpass-submission-readiness-review.md).
-- `research/archive/`, 이전 설계 문서, `research/paper/`와 toy models는 연구 이력이다. 현재 설계의 구현이나 실험 결과로 해석하지 않는다.
-- Commonware 및 다른 외부 코드 checkout, build outputs, 임시 파일, 원본 저장소의 Git history는 포함하지 않는다. 기존 작업 저장소는 별도로 유지한다.
-- Commonware 검토 기준 commit: [`534af0ede48affd35b2111522527547b4cc9bf72`](https://github.com/commonwarexyz/monorepo/tree/534af0ede48affd35b2111522527547b4cc9bf72). 로컬 checkout에는 미커밋 변경도 있었으며, 그 변경은 이 문서 snapshot에 포함하지 않는다. 문서 속 로컬 경로나 미포함 코드 참조는 당시 작업 환경의 참조다.
-- Google Docs는 이 snapshot과 별개이며 자동 동기화되지 않는다.
+| 목적 | 저장소 문서 | 편집 원문 |
+|---|---|---|
+| 문제·메커니즘·조건부 논증·향후 평가·한계 | [Baton 논문 초안](baton-paper.md), 기존 8개 절 | [Google Doc](https://docs.google.com/document/d/1PtUpMGMNMkyo1UEY2bNciJD3oIiGLRf407PW_T3Er5I/edit) |
+| Context·snapshot·frontier·candidate completion·slot/recovery·서명·retention·미채택 선택 | [Baton 구현 스펙](baton-implementation-spec.md) | [Google Doc](https://docs.google.com/document/d/10x4RvqG8e07Tai0s20e-wpCfz8COgH0JGR5daKE1xO8/edit) |
+| 이어받기·미완성 증명·동기화와 검증 범위 | [BATON_HANDOFF.md](BATON_HANDOFF.md) | — |
 
-현재 기준은 [논문 개요](overpass-plan-ordering-outline.md), [논리 전개](overpass-research-logic.md), [plan 선택·수집 정책](overpass-prefix-plan.md)이다. 2026-09-30 최신 결정. Hermes는 참고 연구이며 채택한 합의 엔진이 아니다.
+최신 사용자 결정과 Google Docs가 개념상의 기준이다. Markdown은 이번 revision의 검증된 counterpart이며 자동 양방향 동기화하지 않는다. 새 편집 전 양쪽 변경을 확인한다. [AGENTS.md](AGENTS.md)는 현재 작업 지침이다. 과거 문서의 “current/latest/source of truth”는 아래 역사적 snapshot 내부의 표현이다.
 
-## 현재 방향
+## 채택한 요구와 미완성 연결
 
-**기반 경로 결정: Native Multimmit을 유지한다.** 기존 tip 추출·extension을 제거하지 않고 plan과의 결합을 검토한다. Historical fixed-cut 변형은 재채택하지 않는다. Native membership finality와 plan에 따른 exact execution order를 안전하게 연결하는 방법은 아직 검증 과제다. 이 결정은 로컬 문서에 기록했으며 Google Docs·코드는 이번에 변경하지 않았다.
+- 기반은 Native Multimmit, `n=5f+1`이다. Tip extraction·extension을 보존하며 direction-preserving cut에 연결하는 구체 adaptation은 미구현·미증명이다.
+- 같은 문맥의 bounded 유효 full candidates를 평가한 뒤, `2f+1` distinct original reports가 **전체를 연속으로 지지하는 최장 유효 nonempty prefix**를 우선한다. 없으면 sum-LCP, reports/준비된 유효 후보가 없으면 actual-parent의 유효 기본 policy를 사용한다. 모든 permutation에 대한 전역 최장을 주장하지 않는다.
+- Report snapshot은 첫 `4f+1` admission 또는 고정 deadline에서 한 번 닫는다. `m≤4f+1`이며 초과·후속 reports는 제외한다. Cut은 report·timer·optimizer 완료를 기다리지 않는다.
+- **Leader가 선택 유효 prefix를 포함하고 정확한 선두 실행 순서로 보존하는 cut proposal을 구성하고 validator가 검증해야 한다.** 같은 canonical input state·runtime과 불변 frontier 뒤에서 `p ⪯ O`가 요구된다. Membership만 일치하거나 중간에 다른 block이 끼는 것으로는 충분하지 않다.
+- 선택 prefix·policy는 실제 proposal parent와 인증 subject에 결속해 proposal 안에서 고정한다. Proposal 전 advisory direction 수정과 인증 뒤 재해석은 구분한다.
+- Report support는 intention이다. 실행 완료·native inclusion certificate가 아니며 실제 재사용은 같은 canonical 문맥의 실행·dependency 검증·checkpoint 조건에 의존한다.
+- Primary completion은 대상 구간의 irrevocable exact order와 동일 input/range·canonical input state·runtime·result에 대한 해당 epoch의 distinct validators `f+1` matching execution signatures를 모두 검증한 사건이다. Durable/read readiness는 별도다.
 
-**Overpass는 새로운 consensus safety protocol이 아니라 Autobahn-family consensus를 위한 execution-aware ordering extension이다.** Validator들의 intended order를 이용해 speculative execution을 보존하기 유리한 ordering 후보를 선택한다. 이 조율은 별도 plan 승인 단계를 요구하지 않고 기존 cut consensus를 기다리게 하지 않으면서 state-finalization latency를 줄이는 것을 목표로 한다.
+Prefix를 보장 대상으로 채택하는 availability/adoption 조건, exact cross-lane continuation, terminal-state 근거와 view recovery, no-wait와의 양립은 아직 닫히지 않았다. 이미 준비된 DA-certified anchors는 inclusion 연결 후보이며 완성된 해법이 아니다. **Per-block signing, incumbent-first tail, inline policy, finite-prefix permutation은 모두 권고/대안이며 미채택이다.**
 
-핵심은 분산된 intended order를 ordering 후보 선택에 반영하는 것이다. Dissemination·cut consensus와 speculative execution을 겹치고, leader는 **보고들과 공통 prefix 길이 합이 큰 유효 후보**를 전파한다. LCP score와 bounded collection은 이 확장을 구현하는 메커니즘이다. 최종 ordering은 기존 cut에서 확정하며, exact-order binding의 안전한 통합과 성능 이득은 검증 대상이다.
+## 소스와 검증 경계
 
-- 같은 기준 cut·canonical parent·view·수집 window의 보고만 사용하고 identity당 하나를 계수한다.
-- n=5f+1에서 **보고 4f+1개 또는 고정 local deadline 중 먼저 도달한 때** 계산·필요 시 전파한다.
-- 4f+1은 관측 수집 목표이지 동일 plan 지지나 safety/finality quorum이 아니다.
-- 새 보고로 deadline을 연장하지 않는다. Deadline에 보고가 적거나 없어도 진행한다.
-- Cut은 수집·timer·계산 완료를 기다리지 않고 준비된 최신 후보 또는 유효한 기본 ordering을 사용한다.
-- Score(P)=Σ|LCP(P,R_i)|. 중간 조각은 점수로 세지 않으며 현재 후보와 새 후보는 같은 snapshot에서 비교한다.
-- 동점이면 incumbent 유지, 의미 있는 개선에서만 재정렬, 무변화 전파 생략으로 churn을 억제한다.
-- 예정 순서는 실행 이력·완료 proof가 아니다. Score는 실제 재실행 비용의 proxy다.
-- 인증된 문맥과 공통 규칙에서 exact order를 도출하고, 그 input·parent·runtime에 실행을 검증한다. Native leader finality와 해당 입력의 global ordering 완료는 구분한다.
-- 선택한 ordering policy는 leader block의 인증 대상에 결속하고 같은 proposal에서 고정한다. 별도 plan 승인 round는 추가하지 않는다.
-- State finalization은 exact ordering finality와 동일 input·canonical parent·runtime·결과에 대한 해당 epoch validator f+1명의 유효한 일치 실행 서명이 모두 검증된 상태다. Durable/read readiness는 별도로 측정한다. [채택 조건](overpass-prefix-plan.md#72-policy-binding과-state-finalization의-채택-조건)
-- 이전 3f+1 공통 prefix 인증·조정 후 support 수집 경로는 보관한다. 계획에 영구 lock을 부여하지 않는다.
+Pinned Commonware: [`534af0ede48affd35b2111522527547b4cc9bf72`](https://github.com/commonwarexyz/monorepo/tree/534af0ede48affd35b2111522527547b4cc9bf72). Finalized proposal position은 `3f+1`번째로 **큰** position이다. Certified anchor의 ancestor는 낮은 position만으로 제외할 수 없다. 구체 조건·분석적 transcript·소스 링크는 [구현 스펙 §5](baton-implementation-spec.md#5-proposal-결속과-exact-prefix-보존)에 둔다.
 
-Report/window 형식·bounds·가용성·stale 계산 처리·leader 변경·exact-order 합의 통합과 E2E 이득은 검증 과제다. Producer placement, state-owner sharding, ZK/PAC와 repair lane은 복원하지 않는다.
+이번 동기화는 문서만 변경했다. Native source 실행, protocol 구현, toy 테스트 재실행, compilation, benchmark를 수행하지 않았다. 기존 toy/LaTeX 자료를 Baton의 검증 결과로 취급하지 않는다.
 
-## 자료 상태
+## 보존한 연구 이력
 
-| 자료 | 상태 |
-|---|---|
-| [연구 개요](overpass-plan-ordering-outline.md) | 현재 source of truth; 8개 논문 section |
-| [Plan 결정 기록](overpass-prefix-plan.md) | LCP score, 4f+1-or-deadline, no-wait cut 정책 |
-| [논리 전개](overpass-research-logic.md) | 문제 → pipeline → report/score → plan → cut/state |
-| [점수 기반 설계 전 보관본](research/archive/2026-09-30-before-scored-plan/INDEX.md) | 3f+1 discovery/adjustment support 모델 |
-| [Prefix 설계 전 보관본](research/archive/2026-09-30-before-prefix-convergence/INDEX.md) | 그 이전 개요 |
-| [Hermes-advisory 보관본](research/archive/2026-09-29-hermes-advisory/INDEX.md) | Hermes 채택으로 잘못 한정했던 개요 |
-| [실행 이력 기반 archive](research/archive/2026-09-29-execution-history-plan/INDEX.md) | 실행 보고 기반 이전 방향 |
-| [Binding-plan archive](research/archive/2026-09-29-binding-plan/INDEX.md) | 불변 plan·마지막 plan 대기 모델 |
-| [Placement archive](research/archive/2026-09-29-before-plan-ordering/README.md) | 과거 placement 자료 |
-| [이전 outline](paper-outline.md) / [영문 manuscript](research/paper/README.md) | 현재 설계 미반영 |
-| research/precut_order/ 및 commonware/ | 기존 toy models·fork; 새 설계의 구현·검증 결과 아님 |
-
-이전 positioning 갱신 대상에는 [Google Docs 한국어 리뷰 초안](https://docs.google.com/document/d/1PtUpMGMNMkyo1UEY2bNciJD3oIiGLRf407PW_T3Er5I/edit)이 포함됐다. 이후 Native 결합 검토와 지표·비교군 정리는 로컬 문서에만 반영했다. 현재 Google Docs 전체가 로컬 최신본과 같다고 주장하지 않는다. Commonware·영문 manuscript·LaTeX/PDF는 변경하지 않았다.
+- [과거 outline](overpass-plan-ordering-outline.md), [design memo](overpass-prefix-plan.md), [research logic](overpass-research-logic.md): sum-only/plan 시기의 snapshot. 현재 선택·보존 요구를 대신하지 않는다.
+- [Submission-readiness review](overpass-submission-readiness-review.md), [당시 next decisions](overpass-review-next-decisions.md): 조건부 논증·반례와 당시 미정 항목을 보존한 인용 자료다.
+- [Draft PR1: native 검증 명세와 E2E 계획](https://github.com/djm07073/overpass-research/pull/1): P/Q/P+ fixture, unresolved-slot negative mutation, endpoint/E2E gates는 유용한 검증 방향이다. 최신 selected-prefix 보존 gate와 연결해야 하며 이 동기화는 PR을 merge/close하지 않는다.
+- [점수 기반 설계 전 archive](research/archive/2026-09-30-before-scored-plan/INDEX.md), [prefix 설계 전 archive](research/archive/2026-09-30-before-prefix-convergence/INDEX.md), [Hermes-advisory archive](research/archive/2026-09-29-hermes-advisory/INDEX.md), [실행 이력 archive](research/archive/2026-09-29-execution-history-plan/INDEX.md), [binding-plan archive](research/archive/2026-09-29-binding-plan/INDEX.md), [placement archive](research/archive/2026-09-29-before-plan-ordering/README.md).
+- [이전 session handoff](SESSION_HANDOFF.md), [이전 paper outline](paper-outline.md), [영문 manuscript/LaTeX](research/paper/README.md), 기존 toy models와 외부 checkout 참조는 과거 작업의 이력이다. 외부 Commonware checkout은 이 저장소에 포함되지 않는다.
+- 동기화 전 README/AGENTS의 원본은 [기준 commit `80e09a82`](https://github.com/djm07073/overpass-research/tree/80e09a82d9c717d6c5eed47189b87bfe7ce81f19)에 보존된다.

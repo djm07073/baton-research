@@ -1,3 +1,7 @@
+> **Historical snapshot — superseded by Baton (2026-09-30).**
+> Current research: [Baton paper](baton-paper.md), [implementation specification](baton-implementation-spec.md), and [current handoff](BATON_HANDOFF.md).
+> The body below is preserved as research/citation history. Its sum-only selection, plan/advisory descriptions, incumbent preferences and “current/latest/source of truth” claims do not override 2f+1-prefix-first selection or the adopted direction-preserving cut requirement. The four proposed implementation defaults remain unadopted; native integration and performance remain unproved.
+
 # Overpass: 검토 결과를 논문과 다음 검증으로 연결하기
 
 이 문서는 [submission-readiness review](overpass-submission-readiness-review.md)의 25개 검토 항목을 압축한 의사결정 메모다. 새 protocol 명세, 구현 승인, 성능 결과 또는 제출 가능 판정이 아니다. 현재 source of truth는 기존 outline과 prefix-plan이며, 사용자가 마지막으로 정한 세 비교군은 Original / Pre-cut execution / Overpass다.

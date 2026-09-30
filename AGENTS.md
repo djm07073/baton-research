@@ -1,38 +1,35 @@
-# Project handoff
+# Baton project handoff
 
-Before changing the protocol, paper, or Commonware fork, read:
+Before changing the research, paper, specification, or any external Commonware checkout, read:
 
-0. SESSION_HANDOFF.md for transferred session state and remaining authorization/validation boundaries.
-1. README.md
-2. overpass-plan-ordering-outline.md
-3. overpass-research-logic.md and overpass-prefix-plan.md
-4. Relevant implementation files and local instructions.
+1. README.md and BATON_HANDOFF.md.
+2. baton-paper.md and baton-implementation-spec.md.
+3. Relevant cited historical reviews and applicable local instructions.
 
-Current source of truth: the outline and overpass-prefix-plan.md. Updated 2026-09-30 to score-guided planning with bounded collection. Research design only, not implemented/proved. Hermes is related work, NOT the adopted consensus engine.
+The latest user decisions and linked Google Docs are the conceptual authority. The Baton Markdown files are a manual 2026-09-30 snapshot of the verified native documents. Compare revisions before synchronizing; preserve concurrent edits. Old Overpass files and archived “current/latest” claims are historical sources, not current instructions. SESSION_HANDOFF.md preserves earlier session history.
 
-Current decisions:
+Current adopted requirements:
 
-- Autobahn-family dissemination and cut consensus overlap speculative execution.
-- Native Multimmit is selected: preserve tip extraction and extension. Exact-order integration remains unimplemented; do not revive the archived fixed-cut design.
-- Validators asynchronously report intended block order from a shared cut/parent context. No remote execution history, progress proof or completion claims.
-- Leader selects among bounded valid reported candidates and the incumbent using Score(P)=sum_i |LCP(P,R_i)|. This is a scheduling heuristic, not actual work minimization or a quorum proof.
-- No mandatory 3f+1 common prefix and no adjustment/support voting round. Prior discovery+adjustment design is archived.
-- With n=5f+1, collect 4f+1 distinct valid reports OR until a fixed local deadline, whichever comes first. Report coverage is not agreement on the selected plan.
-- Bind reports to epoch/view/cut/parent/rule/collection window; count one per validator identity. Do not mix contexts.
-- Start the initial window on first eligible unplanned block; use configurable duration tau. New arrivals never reset/extend the deadline.
-- Timeout with fewer reports is allowed; no-report fallback uses a valid incumbent or base ordering rule. Threshold and timeout trigger each window only once.
-- Cut must not wait for report count, timer or optimizer completion. Use an already prepared valid candidate/base fallback when cut is ready.
-- A late plan cannot change an already sent proposal/vote. Stale computation and parent changes require explicit context checks.
-- Compare incumbent/new candidate on the same snapshot and horizon. Prefer incumbent on ties; limit rearrangement and update frequency, suppress unchanged publications.
-- Plans guide execution without follow-up approval quorum or irreversible lock. Byzantine reports/leaders can degrade performance.
-- Full cut finality must bind chosen exact order; validate execution against exact input/parent/runtime.
-- User adopted policy binding: the selected ordering policy is authenticated with the leader block and fixed within that proposal. Advisory plans before proposal remain mutable; no extra plan-approval quorum. Encoding, extension continuation and recovery are not yet implemented/proved.
-- User adopted state finalization: full irrevocable ordering plus f+1 valid matching execution signatures from distinct epoch validators, bound to exact ordered input/range, canonical input state, runtime and result. Honest signers directly execute/validate, not echo certificates. Signers need not belong to a particular ordering QC. Durable/read readiness is auxiliary, not implied by result certification.
-- Window/encoding, input validity/availability, candidate bounds, churn tuning, stale computation, recovery and consensus integration remain proof/implementation obligations.
-- Primary comparisons: Original / Pre-cut execution (no separate leader plan broadcast) / Overpass. Collection and churn policies are ablations; frequent cuts are a separate sensitivity study. Do not restore early proposal as the pre-cut baseline.
-- Native leader finality is not automatically completion of global ordering for every referenced block. Primary completion is local verification of full ordering evidence and the matching f+1 execution signatures in the correct canonical context; apply/durability/read readiness are separate events.
-- No placement/grouping, state-owner shards, ZK/PAC, receipt bridges or repair lane revival.
+- Project name: Baton; paper title: “Baton: Execution-Aware Ordering for Autobahn”. Keep the repository name, source URLs, historical citations and archive filenames unchanged. Use direction in current prose.
+- Base: Native Multimmit, n=5f+1. Preserve tip extraction and extension; the concrete direction-preserving adaptation is unimplemented/unproved. Hermes is related work, not the adopted engine.
+- Reports are authenticated intended orders, not execution history, progress proofs, execution completion or approval votes. Bind exact epoch/view/history/canonical parent/rule/window/frontier; count one identity once and preserve raw support through completion.
+- Within a fixed admissible bounded full-candidate set whose evaluation has finished, maximize the length of a valid nonempty ENTIRE prefix supported by at least 2f+1 distinct same-context original reports. Otherwise use sum-LCP; without reports/prepared valid candidates use actual-parent valid base policy. Do not claim exhaustive longest selection from unfinished search.
+- Close the local report snapshot once at first 4f+1 valid distinct admissions or the fixed deadline, whichever event is processed first. Exclude excess/later reports; m<=4f+1. Arrivals do not extend the deadline.
+- Cut does not wait for reports, timer or optimizer. Separate report-window closure from the still-unspecified point where a prefix becomes protected. After authenticated adoption, dropping/reinterpreting that prefix as fallback is forbidden.
+- Leader must construct a cut proposal that includes the selected valid prefix AND preserves its exact leading execution sequence for the same canonical input state/runtime after the immutable frontier. Validators must verify preservation. Membership alone is insufficient. Adoption/availability, native sufficiency, cross-lane continuation and view recovery are open proof obligations, not implemented guarantees.
+- Freeze selected prefix/policy/rule in the authenticated proposal subject bound to its actual parent/frontier. Late reports, optimizer completion and growing native pools do not change that proposal's policy. Pre-proposal advisory direction remains mutable.
+- Primary state finalization requires irrevocable exact order plus f+1 valid matching signatures of distinct epoch validators over the same input/range, canonical input state, runtime and result. Honest signers directly execute/validate; they need not belong to a particular ordering QC. Durable/read readiness is separate.
+- Preserve emitted order and authenticated segment interpretation through recovery; unresolved slots stop emission, authenticated included slots emit and irrevocably-empty slots skip. Terminal states/identity cannot be reversed. Sparse native certificates do not implement external marshal recovery or dense delivery.
+- Per-block signing, incumbent-first tail, inline policy bytes, and finite-prefix permutation are UNADOPTED proposals. Do not make them defaults through editorial edits or implementation. The exact continuation and prefix-adoption bridge remain unresolved.
+- Keep Original / Pre-cut execution / Baton as the three primary comparisons with the same backend/resources/endpoint. Pre-cut has no separate direction broadcast; early proposal is not that baseline. Frequent cuts are a sensitivity study. Benefits remain hypotheses.
 
-Archived originals are in research/archive/2026-09-30-before-scored-plan/INDEX.md and earlier archives linked by README.md. Historical “current/latest” claims do not override this direction.
+Evidence and scope:
 
-Commonware, toy models and LaTeX have not been updated to the current design. This repository does not include the Commonware checkout. Locate or obtain the intended checkout, inspect its current state, and read its AGENTS.md before editing; preserve unrelated user work. SESSION_HANDOFF.md records the reviewed base and original local paths, not a complete copy of uncommitted source changes.
+- Reviewed native source is pinned to 534af0ede48affd35b2111522527547b4cc9bf72. Final position is the 3f+1-th GREATEST position. Distinguish ordinary payload positions, certified anchors, extension support and settlement facts.
+- The conditional [1,0,0,0,0] example is analytical source reasoning under stated availability/report-admissibility assumptions; it is not an executed trace, a permanent-exclusion result or a completed Baton counterexample.
+- 2f+1 support guarantees f+1 honest intentions under the shared fault budget. Execution reuse additionally requires preserved exact context/order and valid executed work/checkpoints. Reports do not prove this progress.
+- Existing archives, toy models, historical test counts, microbenchmarks and LaTeX do not validate Baton. Do not compile/run them merely to claim documentation validation.
+- Draft PR1 remains an older unmerged validation plan. Reuse useful fixtures/gates with explicit current assumptions; do not silently merge, close or promote its candidate encoding.
+- No protocol implementation, benchmarks, spending or external review-thread edits are authorized by a documentation synchronization request. Honor any subsequent explicit user authorization without asking again.
+- Preserve user changes and Git history. Do not force push or reconfigure credentials. Read an external checkout's AGENTS.md before changing it.
+- Do not revive historical fixed-cut extension removal, a 3f+1 direction plan-lock, execution-history reports, placement/grouping, state-owner sharding, ZK/PAC, receipt bridges or repair lanes.
