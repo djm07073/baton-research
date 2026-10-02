@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant L as Leader Baton
+    participant B as Non-leader Baton
+    participant S as Body store / Resolver
+    participant E as Execution / Branch owner
+    L-->>B: Direction(context, order, prefix)
+    B->>B: Check leader / epoch / view / parent / frontier / wire freshness
+    alt 오래되었거나 다른 context
+        B->>B: Discard advisory update
+    else 현재 context에 유효
+        B->>S: Resolve required bodies
+        alt 본문 또는 base state가 아직 없음
+            B->>B: Keep local work pending, native cut path continues
+        else 실행 입력 준비됨
+            B->>B: Assign current local job generation
+            B->>E: Reschedule(exact base, new order, generation)
+            E->>E: Find reusable exact prefix / cancel stale suffix jobs
+            E->>E: Fork retained checkpoint / execute new suffix
+            E-->>B: New branch outcome
+        end
+    end
+    Note over L,B: 실행 결과나 direction 승인 회신을 기다리는 round 없음

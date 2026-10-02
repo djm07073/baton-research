@@ -64,7 +64,7 @@ H1은 필요한 execution 조정을 finality 이전으로 옮겨 cut 이후의 �
 
 ### 3.1 System model과 intended-order report
 
-기반은 Native Multimmit이며 n=5f+1의 고정 validator committee와 최대 f Byzantine identities를 가정한다. 같은 exact input·canonical input state·runtime에서 application execution은 deterministic하다. Native tip extraction·extension을 기반으로 direction-preserving cut을 구성하려 하지만 그 adaptation은 미구현·미증명이다. 원본 Autobahn의 n=3f+1, native voting thresholds, report 수집 목표 4f+1, prefix support 2f+1, 결과 인증 f+1을 서로 대체하지 않는다. [\[6\]](https://github.com/djm07073/overpass-research/blob/main/overpass-prefix-plan.md)
+기반은 Native Multimmit이며 n=5f+1의 고정 validator committee와 최대 f Byzantine identities를 가정한다. 같은 exact input·canonical input state·runtime에서 application execution은 deterministic하다. Native tip extraction·extension을 기반으로 direction-preserving cut을 구성하려 하지만 그 adaptation은 미구현·미증명이다. 원본 Autobahn의 n=3f+1, native voting thresholds, report 수집 목표 4f+1, prefix support 2f+1, 결과 인증 f+1을 서로 대체하지 않는다. [\[6\]](https://github.com/djm07073/overpass-research/blob/b47cadba07dfa322e6b3da1671ed3ef748498b55/overpass-prefix-plan.md)
 
 Producer는 block 생성·전파를 계속하고 validator는 수신·sync한 입력에 대해 실행하려는 순서를 report한다. Leader는 bounded snapshot으로 direction을 선택하며, 그 prefix를 보존하도록 실제 cut proposal을 구성해야 한다. Validator는 prefix와 policy의 인증, 유효 입력·parent 및 native inclusion 연결을 검증해야 한다. 이 요구는 채택되었지만 해당 검증·ordered-delivery adapter는 아직 없다. Report 전송과 DA acknowledgement는 execution 완료를 요구하지 않는다.
 
@@ -124,13 +124,13 @@ Proposal 이전의 direction은 수정 가능한 실행 안내다. 실제 propos
 
 Parent나 ordering frontier가 달라지면 이전 direction을 그대로 재사용할 수 없다. 미완료 inherited segment도 원래 인증 policy로 해석하고 새 방향은 재정렬 가능한 새 segment에만 적용한다. Frontier가 unresolved인 상태에서 report 앞부분을 임의 제거해 유효 후보로 만들지 않는다. Ordering 경계와 canonical input state가 materialize된 시점도 구분한다.
 
-선택 prefix·policy·해석 rule·exact parent를 leader block의 인증 subject에 결속하고 validator가 보존 조건을 검증해야 한다. Authentication만으로 block/policy availability나 native inclusion이 따라오지는 않는다. 2f+1 intention reports는 ordinary payload에 필요한 3f+1 positive position votes 또는 extension carry의 n−f native support를 대신하지 못한다. 이미 준비된 DA-certified anchor로 prefix block을 포함시키는 native 경로는 검토할 연결 후보지만, cross-lane 선두 순서 보존과 recovery까지 증명된 해법은 아니다. [\[6\]](https://github.com/djm07073/overpass-research/blob/main/overpass-prefix-plan.md) [\[11\]](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md)
+선택 prefix·policy·해석 rule·exact parent를 leader block의 인증 subject에 결속하고 validator가 보존 조건을 검증해야 한다. Authentication만으로 block/policy availability나 native inclusion이 따라오지는 않는다. 2f+1 intention reports는 ordinary payload에 필요한 3f+1 positive position votes 또는 extension carry의 n−f native support를 대신하지 못한다. 이미 준비된 DA-certified anchor로 prefix block을 포함시키는 native 경로는 검토할 연결 후보지만, cross-lane 선두 순서 보존과 recovery까지 증명된 해법은 아니다. [\[6\]](https://github.com/djm07073/overpass-research/blob/b47cadba07dfa322e6b3da1671ed3ef748498b55/overpass-prefix-plan.md) [\[11\]](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md)
 
 Fallback은 proposal 인증 전의 선택 규칙이다. 인증 뒤 policy 내용이 누락되었다고 같은 proposal을 기본 policy로 재해석해서는 안 된다. 인증된 내용을 복구하거나 기반 recovery 경로를 따른다. 첫 L-QC 관측을 모든 extension의 최종 위치가 확정된 사건으로 간주하지 않으며, native ordered delivery가 이미 방출한 prefix는 이후 pool 증가로 바꾸지 않는다.
 
 Pinned Commonware에는 ordering policy field가 없고 tip-history commitment만으로 cross-lane order를 복구할 수 없다. Native certificates는 sparse agreement facts를 제공하며 dense ordered delivery, policy 내용·방출 근거와 cursor의 복구는 별도 marshal 의무다. 소스 경계 확인은 Baton의 구현·증명이 아니다. [\[11\]](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md)
 
-State finalization은 대상 구간의 irrevocable exact order와 canonical input state 연결, 그리고 동일 statement에 대한 서로 다른 해당 epoch validator f+1명의 유효 실행 서명을 모두 검증했을 때 수용한다. 이 endpoint는 채택된 설계다. Leader 서명·V-QC·높은 score만으로 수용하지 않는다. Speculation은 그전에 계속할 수 있지만 canonical 채택에는 두 조건이 모두 필요하다. 결과 인증과 local body fetch·apply·durable 저장 완료는 구분한다. [\[6\]](https://github.com/djm07073/overpass-research/blob/main/overpass-prefix-plan.md)
+State finalization은 대상 구간의 irrevocable exact order와 canonical input state 연결, 그리고 동일 statement에 대한 서로 다른 해당 epoch validator f+1명의 유효 실행 서명을 모두 검증했을 때 수용한다. 이 endpoint는 채택된 설계다. Leader 서명·V-QC·높은 score만으로 수용하지 않는다. Speculation은 그전에 계속할 수 있지만 canonical 채택에는 두 조건이 모두 필요하다. 결과 인증과 local body fetch·apply·durable 저장 완료는 구분한다. [\[6\]](https://github.com/djm07073/overpass-research/blob/b47cadba07dfa322e6b3da1671ed3ef748498b55/overpass-prefix-plan.md)
 
 실행 statement는 epoch, canonical 구간과 exact ordered input, 올바른 input state, runtime·환경, 전체 result를 모호함 없이 식별한다. 같은 의미의 실행이라면 QC transcript가 달라도 statement는 같을 수 있고, 범위·input state가 다르면 별개다. Wire encoding은 구현 스펙의 미결정 사항이다.
 
@@ -146,7 +146,7 @@ State finalization은 대상 구간의 irrevocable exact order와 canonical inpu
 
 Safety의 출발점은 report 수나 score가 아니라 인증된 해석과 irrevocable exact input이다. 다음은 검토 중인 policy 계열의 조건부 prefix 보조정리다. 한 segment에서 공통 이력 H·tip 원점 T·고정 sweep σ를 사용하고, σ가 ancestry를 지키며 모든 slot을 한 번씩 유한 순위에 열거한다고 하자. 추출 결과 F와 settledness S가 동일 block identity의 공통 completion G와 양립하고, settled chain은 G에서 더 늘지 않는다고 가정한다. σ를 따라 포함 block을 출력하고 settled-empty slot은 건너뛰되 unsettled-empty slot에서 멈추는 Emit(F,S)는 Ord(G)의 prefix다.
 
-이유는 출력 전에 방문한 각 slot이 G와 같은 block을 내거나 G에서도 빈 위치이기 때문이다. 미확정 빈 위치를 넘어가지 않으므로 G의 predecessor를 누락한 채 뒤의 block을 출력할 수 없다. 따라서 서로 다른 유효 pool의 출력도 같은 Ord(G)의 prefix로서 양립한다. 단, 공통 completion·settledness 가정은 native extraction/branch 규칙에서 독립적으로 도출해야 한다. 같은 tip 집합마다 결정론적으로 재정렬하는 것만으로 extension 간 prefix 보존이 따라오지는 않는다. [\[7\]](https://github.com/djm07073/overpass-research/blob/main/overpass-submission-readiness-review.md)
+이유는 출력 전에 방문한 각 slot이 G와 같은 block을 내거나 G에서도 빈 위치이기 때문이다. 미확정 빈 위치를 넘어가지 않으므로 G의 predecessor를 누락한 채 뒤의 block을 출력할 수 없다. 따라서 서로 다른 유효 pool의 출력도 같은 Ord(G)의 prefix로서 양립한다. 단, 공통 completion·settledness 가정은 native extraction/branch 규칙에서 독립적으로 도출해야 한다. 같은 tip 집합마다 결정론적으로 재정렬하는 것만으로 extension 간 prefix 보존이 따라오지는 않는다. [\[7\]](https://github.com/djm07073/overpass-research/blob/b47cadba07dfa322e6b3da1671ed3ef748498b55/overpass-submission-readiness-review.md)
 
 Emission에서 확인된 포함 block은 출력하고, 인증 근거로 해당 segment에서 영구히 빈 위치만 건너뛰며, unresolved 위치에서는 멈춰야 한다. Terminal 판단과 block identity를 extension·recovery가 번복하지 않아야 한다. Local 부재나 timeout은 skip 근거가 아니다. 이러한 조건을 실현할 slot·evidence 표현은 구현 스펙에 둔다.
 
@@ -168,7 +168,7 @@ Byzantine leader의 direction equivocation과 선택 편향. Leader가 서로 �
 
 침묵·지연·report flood. Report가 부족하면 고정 deadline에서 fallback하고 cut은 기다리지 않는다. 메시지 크기·window별 identity 수·계산량을 제한하여 무제한 report로 실행과 합의 자원을 소모하지 않도록 한다. 다만 논리적인 no-wait가 CPU·네트워크 간섭까지 없앤다는 의미는 아니다.
 
-새 leader·recovery node는 local arrival order나 마지막 hint 대신 인증된 exact anchor·segment policy를 복구해야 한다. 새 view의 canonical order는 이전 인증 이력에서 정상 node들이 합법적으로 방출한 모든 prefix를 확장하고, 보존 대상으로 채택한 direction prefix도 유지해야 한다. 자신의 마지막 prefix나 chain-local tips만 보존하는 것은 부족하다. 원문의 Ord 재귀에 각 segment policy와 복구 가능한 emission 근거를 연결하는 Baton 귀납 증명은 미완성이다. [\[10\]](https://arxiv.org/pdf/2607.21021v2) [\[7\]](https://github.com/djm07073/overpass-research/blob/main/overpass-submission-readiness-review.md)
+새 leader·recovery node는 local arrival order나 마지막 hint 대신 인증된 exact anchor·segment policy를 복구해야 한다. 새 view의 canonical order는 이전 인증 이력에서 정상 node들이 합법적으로 방출한 모든 prefix를 확장하고, 보존 대상으로 채택한 direction prefix도 유지해야 한다. 자신의 마지막 prefix나 chain-local tips만 보존하는 것은 부족하다. 원문의 Ord 재귀에 각 segment policy와 복구 가능한 emission 근거를 연결하는 Baton 귀납 증명은 미완성이다. [\[10\]](https://arxiv.org/pdf/2607.21021v2) [\[7\]](https://github.com/djm07073/overpass-research/blob/b47cadba07dfa322e6b3da1671ed3ef748498b55/overpass-submission-readiness-review.md)
 
 ### 4.3 Liveness와 non-blocking의 범위
 
@@ -176,7 +176,7 @@ Byzantine leader의 direction equivocation과 선택 편향. Leader가 서로 �
 
 둘째, 고정 sweep에서 포함 block의 slot 순위가 유한하고 앞선 모든 slot이 결국 동일 block 또는 정당한 settled-empty로 판명되면 Emit은 그 block까지 전진한다. 앞선 유한개 slot의 확인이 끝나기 때문이다. Finite rank만으로 unresolved slot이 풀리는 것은 아니므로 native 증거의 eventual resolution을 함께 요구한다. 이 논증은 native inclusion 자체나 고정 시간 상한을 보장하지 않는다.
 
-셋째, canonical order·input state·body/runtime 자료가 결국 준비되고, 같은 공통 실행 경계에 대해 적어도 f+1 정상 validator가 직접 실행한 statement를 제공하며, 서명이 재요청·전달·검증될 수 있다면 결과 인증도 결국 완료된다. 각 node가 자기 최신 prefix에만 서명하면 모두 정직해도 범위가 달라 certificate가 모이지 않을 수 있다. Catch-up이 중간 경계를 건너뛰어도 필요한 결과를 보관하거나 재실행해 제공할 수 있어야 하며 단일 collector가 유일한 서명 보관본이어서는 안 된다. 다른 signer의 certificate를 기다린 뒤에만 다음 speculation을 시작하는 새 barrier는 요구하지 않는다. [\[7\]](https://github.com/djm07073/overpass-research/blob/main/overpass-submission-readiness-review.md)
+셋째, canonical order·input state·body/runtime 자료가 결국 준비되고, 같은 공통 실행 경계에 대해 적어도 f+1 정상 validator가 직접 실행한 statement를 제공하며, 서명이 재요청·전달·검증될 수 있다면 결과 인증도 결국 완료된다. 각 node가 자기 최신 prefix에만 서명하면 모두 정직해도 범위가 달라 certificate가 모이지 않을 수 있다. Catch-up이 중간 경계를 건너뛰어도 필요한 결과를 보관하거나 재실행해 제공할 수 있어야 하며 단일 collector가 유일한 서명 보관본이어서는 안 된다. 다른 signer의 certificate를 기다린 뒤에만 다음 speculation을 시작하는 새 barrier는 요구하지 않는다. [\[7\]](https://github.com/djm07073/overpass-research/blob/b47cadba07dfa322e6b3da1671ed3ef748498b55/overpass-submission-readiness-review.md)
 
 서비스하기로 한 구간의 결과 인증이 결국 완료되려면 matching 서명 또는 직접 재실행·검증할 자료가 결국 접근 가능해야 한다. 현재 state root나 f+1 서명만으로 과거 중간 결과의 재제공·durability가 보장되지는 않는다. 미완료 요청의 의무를 보존할 retention·checkpoint 계약은 필요하지만 무기한 과거 서비스와 bounded storage를 동시에 무조건 약속하지 않는다. 구체 GC 계약과 반례는 구현 스펙에 둔다.
 
@@ -272,9 +272,9 @@ Baton은 분산 intended order에서 2f+1 전체-prefix를 우선 선택하고, 
 
 [\[5\]](https://www.cs.hku.hk/~heming/papers/sosp21-bidl.pdf) Bidl: A High-throughput, Low-latency Permissioned Blockchain Framework for Datacenter Networks. SOSP 2021, §§3.2, 4.2–4.4.
 
-[\[6\]](https://github.com/djm07073/overpass-research/blob/main/overpass-prefix-plan.md) Overpass design memo. Native Multimmit 및 policy·결과 인증 채택 조건, §§7.1–7.2.
+[\[6\]](https://github.com/djm07073/overpass-research/blob/b47cadba07dfa322e6b3da1671ed3ef748498b55/overpass-prefix-plan.md) Overpass design memo. Native Multimmit 및 policy·결과 인증 채택 조건, §§7.1–7.2.
 
-[\[7\]](https://github.com/djm07073/overpass-research/blob/main/overpass-submission-readiness-review.md) Overpass submission-readiness review. 조건부 ordering·recovery와 실행 서명 범위 검토, §§23–25.
+[\[7\]](https://github.com/djm07073/overpass-research/blob/b47cadba07dfa322e6b3da1671ed3ef748498b55/overpass-submission-readiness-review.md) Overpass submission-readiness review. 조건부 ordering·recovery와 실행 서명 범위 검토, §§23–25.
 
 [\[8\]](https://www.ndss-symposium.org/wp-content/uploads/2024-693-paper.pdf) SpeedyFair: Separation is Good: A Faster Order-Fairness Byzantine Consensus. NDSS 2024, §§I, IV.
 

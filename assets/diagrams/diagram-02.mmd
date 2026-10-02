@@ -18,6 +18,6 @@ sequenceDiagram
     E->>E: Reuse matching prefix / execute missing suffix
     E->>E: Durable canonical state + outputs + cursor
     E-->>B: CommitApplied(cursor, state root, outputs)
-    B-->>N: Delivery acknowledgement
+    B-->>N: Delivery adapter ACK after durability, not native vote
     B-->>T: CanonicalOutcome(tx IDs / outcomes)
     Note over B,E: 기존 state-finalization endpoint는 exact order + 동일 statement의 f+1 실행 서명

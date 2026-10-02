@@ -12,7 +12,7 @@
 |---|---|
 | 기존 example에 무엇을 끼워 넣는가 | [전체 구조](#1-전체-구조), [Consensus 구조](#4-consensus-레이어-commonware-multimmit) |
 | Tx가 어떻게 block과 state가 되는가 | [E2E lifecycle](#2-e2e-lifecycle과-sequence-diagram) |
-| 각 컴포넌트가 받는 것과 넘기는 것 | [Tx 레이어](#3-tx-router--tx-mempool-레이어), [Baton 레이어](#5-baton-레이어), [실행 레이어](#6-실행-레이어와-qmdb) |
+| 각 컴포넌트가 받는 것과 넘기는 것 | [Tx interface](#32-인터페이스-개요), [Consensus interface](#42-인터페이스-개요), [Baton interface](#52-인터페이스-개요), [Execution interface](#62-인터페이스-개요) |
 | 실제 어느 소스를 읽고 연결하는가 | [Integration anchors](#71-commonware-integration-anchors) |
 
 현재 구현한 코드와 앞으로 개발할 interface를 혼동하지 않도록 표에서 **기존 API**, **변경할 hook**, **제안 메시지**를 구분한다. Logical owner를 나누는 것은 같은 수의 actor·crate·server를 만들기로 결정한 것이 아니다.
@@ -108,6 +108,8 @@ Producer와 validator는 별개의 역할이며 한 노드가 둘 다 수행할 
 
 **Native producer-parent header ID와 application input state root는 다르다.** Producer lane의 parent만으로 여러 lane을 합친 실행 state를 결정하지 않는다. Producer block body digest, producer header ID, leader proposal ID, canonical ordered-input ID도 구분한다.
 
+Tx를 담는 것은 [producer payload/body](#23-block-lifecycle-mempool--propose--body-전파)다. 여러 lane의 순서 근거를 모으는 native leader proposal 자체는 transaction-free이며, Baton policy를 actual proposal context에 연결하는 경합은 [proposal freeze 흐름](#211-planner-completion과-proposal-freeze의-경합)에서 다룬다.
+
 ### 1.4 Data path, control path, canonical path
 
 | 경로 | 흐름 | 각 단계에서 만들어지는 사실 |
@@ -159,6 +161,7 @@ Planner·runtime worker는 결과를 계산한다. 결과를 현재 context에 �
 | Leader 선택·전파와 non-leader 재예약 | [Leader](#25-baton-lifecycle-leader-report-수집과-direction-전파), [Non-leader](#26-baton-lifecycle-non-leader의-direction재실행-요청) |
 | Cut 해석·gap / matching branch / flush 실패 | [Ordered range](#27-cut-commit--ordered-range--실행-commit), [QMDB commit](#28-execution-lifecycle-qmdb-분기-생성과-canonical-승격) |
 | 이미 적용한 range 재전달과 native startup | [Restart delivery](#29-재시작과-backfill), [Startup custody](#212-startup-custody를-준비한-뒤-native-recovery) |
+| Optional certificate + state material catch-up | [미채택 import 후보](#213-미채택-catch-up-후보-certificate--state-material) |
 | f+1 결과 인증과 late planner completion | [Result endpoint](#210-결과-endpoint-direct-execution과-f1-인증), [Proposal freeze](#211-planner-completion과-proposal-freeze의-경합) |
 
 ### 2.1 전체 E2E: tx 입력부터 canonical state까지
@@ -184,7 +187,7 @@ sequenceDiagram
     E->>E: Reuse matching prefix / execute missing suffix
     E->>E: Durable canonical state + outputs + cursor
     E-->>B: CommitApplied(cursor, state root, outputs)
-    B-->>N: Delivery acknowledgement
+    B-->>N: Delivery adapter ACK after durability, not native vote
     B-->>T: CanonicalOutcome(tx IDs / outcomes)
     Note over B,E: 기존 state-finalization endpoint는 exact order + 동일 statement의 f+1 실행 서명
 ```
@@ -281,6 +284,9 @@ sequenceDiagram
         S->>P: Fetch by exact reference
         P-->>S: Response bytes
         S->>S: Validate expected digest and context
+        opt Correct response for exact expected reference
+            S-->>A: Expected body / parent bytes
+        end
         Note over A,S: Missing / bad peer response는 요청의 pending 상태
     else 이미 보관됨
         S-->>A: Stored bytes
@@ -291,13 +297,17 @@ sequenceDiagram
     else Expected bytes are available
         alt 구조적으로 무효인 expected payload
             A-->>N: verify(false)
-        else 구조 검증과 durable custody 완료
+        else Structurally valid expected payload
             A->>S: Store / sync custody
-            S-->>A: Durable body reference
-            A-->>N: verify(true)
-            A-->>I: BodyReady(durable body, producer context)
-            I->>I: Match body with authenticated native header reference
-            I-->>B: BlockAvailable(block_ref, body, context)
+            alt Covering durable custody succeeds
+                S-->>A: Durable body reference
+                A-->>N: verify(true)
+                A-->>I: BodyReady(durable body, producer context)
+                I->>I: Match body with authenticated native header reference
+                I-->>B: BlockAvailable(block_ref, body, context)
+            else Local storage / sync failure
+                Note over N,S: Custody success를 보고하지 않음, peer-invalidity와 구분
+            end
         end
     end
 ```
@@ -389,7 +399,7 @@ sequenceDiagram
         M-->>B: OrderedRange(predecessor, inputs, evidence)
         B->>E: Commit(range, expected canonical predecessor)
         alt Matching completed speculative branch prefix 존재
-            E->>E: Reuse exact prefix, detach uncommitted suffix
+            E->>E: Select exact committed prefix, keep suffix pending
         else branch 누락 또는 순서 불일치
             E->>E: Execute from canonical base / repair suffix
         end
@@ -431,8 +441,10 @@ sequenceDiagram
     alt Durable barrier succeeds and metadata linkage completes
         Q-->>O: Durable flush completion
         O->>O: Complete recoverable state + outputs + cursor linkage
-        O->>O: Prune incompatible forks / retain compatible suffixes
         O-->>B: CommitApplied
+        opt Safe retention boundary permits cleanup
+            O->>O: Prune incompatible forks / retain compatible suffixes
+        end
     else Shutdown, flush failure, or incomplete metadata linkage
         Q-->>O: No successful durable completion
         Note over B,O: CommitApplied / delivery ACK를 발행하지 않고 recovery 경계에서 처리
@@ -441,7 +453,7 @@ sequenceDiagram
 
 [그림 크게 보기](assets/diagrams/diagram-09.svg)
 
-위의 branch 생성·pruning은 제안하는 execution owner의 논리적 동작이다. `DatabaseSet::finalize`와 `Barrier::durable`은 검토한 upstream API다. DB에 applied/readable인 상태와 disk flush가 완료된 durable 상태를 구분한다. 실제 finalize·durability를 연결할 adapter와 state/output/cursor commit 방식은 아직 확정하지 않았다. Upstream barrier는 shutdown 시 `false`를 반환할 수 있고 flush failure는 fatal 경계다. 실패 결과를 성공 ACK로 바꾸지 않는다. [Durability barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L469).
+이 그림은 completed branch가 exact canonical range와 일치하는 경로다. Work가 없거나 다르면 [cut commit 흐름](#27-cut-commit--ordered-range--실행-commit)의 canonical 실행/repair 경로를 따른다. Fork cleanup은 retention 안전 경계에서 수행하는 후속 작업이며 durable CommitApplied의 추가 prerequisite가 아니다. 위의 branch 생성·pruning은 제안하는 execution owner의 논리적 동작이다. `DatabaseSet::finalize`와 `Barrier::durable`은 검토한 upstream API다. DB에 applied/readable인 상태와 disk flush가 완료된 durable 상태를 구분한다. 실제 finalize·durability를 연결할 adapter와 state/output/cursor commit 방식은 아직 확정하지 않았다. Upstream barrier는 shutdown 시 `false`를 반환할 수 있고 flush failure는 fatal 경계다. 실패 결과를 성공 ACK로 바꾸지 않는다. [Durability barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L469).
 
 ### 2.9 재시작과 backfill
 
@@ -454,8 +466,7 @@ sequenceDiagram
     participant E as Execution
     S->>Q: Recover last durable applied commit
     Q-->>S: State / outputs / AppliedCursor
-    S->>S: Start body store / parent lookup / resolver service
-    Note over S,M: Body service는 Engine.start 호출 전에 준비되어야 함
+    Note over S,M: Startup / body custody 준비는 아래 별도 startup 흐름을 따름
     S->>M: Recover archive and delivery cursors
     M->>M: Fetch missing authenticated history / bodies
     S->>E: Open recovered canonical checkpoint
@@ -468,9 +479,16 @@ sequenceDiagram
 
 [그림 크게 보기](assets/diagrams/diagram-10.svg)
 
-ArchiveCursor, OrderedCursor, AppliedCursor는 각기 증거의 보관, dense order 방출, state 적용을 나타내며 합치지 않는다. 이미 ACK한 입력을 복구할 수 있도록 state와 commit metadata의 durability 순서를 맞춘다.
+| 진행 좌표 | 소유자와 진행 근거 | 다음 단계와의 연결 |
+|---|---|---|
+| Native journal cursor | Native owner가 durable domain-event prefix ACK로 진행 | Application evidence 보관이나 state 적용 완료를 뜻하지 않음 |
+| ArchiveCursor 후보 | Evidence/history owner가 exact source witness와 interpretation을 recoverable하게 보관 | 방출할 range의 evidence·policy/history를 복구할 수 있어야 함 |
+| OrderedCursor 후보 | Delivery owner가 terminal slots에서 exact 연속 입력을 append | Range identity·predecessor·interpretation을 applied commit과 연결 |
+| AppliedCursor 후보 | Canonical owner가 state·outputs·commit metadata의 durable 적용으로 진행 | 동일 range의 lost ACK를 idempotent하게 복구 |
 
-Native `Engine::start`는 저장소 replay 이후 recovered payload의 `Automaton::verify`를 actor 구성 전에 호출한다. Body fetch를 `Running::ready` 이후에만 시작하면 그 verify가 필요한 bytes를 얻지 못할 수 있다. Body service·parent lookup·필요한 network 서비스는 recovery verify를 처리할 수 있는 상태로 먼저 준비한다. [Recovery fence](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L688).
+이들은 서로 다른 좌표계이므로 숫자 크기로 비교하지 않는다. Witness coverage와 exact identity로 archive → ordered input → applied commit을 연결한다. Delivery ACK만으로 source 삭제나 영구 serve availability가 정당화되지 않는다. Retention handoff·export lag·bounded buffering의 구체 정책은 미결정이며, 별도 archive quorum을 native cut의 대기 조건으로 추가하지 않는다.
+
+이 그림의 recovered state·outputs·cursor는 선택할 application recovery adapter의 계약이며 QMDB 단독의 자동 atomicity 보장이 아니다. Recovered execution state와 history에서 lost ACK / unacknowledged range를 다시 처리하는 흐름이다. Native startup 자체의 body custody·readiness fence는 [별도 startup 그림](#212-startup-custody를-준비한-뒤-native-recovery)을 따른다. Idempotent 처리도 단순히 state root가 같다는 검사 대신 exact commit identity와 recoverable outputs/cursor를 확인한다.
 
 ### 2.10 결과 endpoint: direct execution과 f+1 인증
 
@@ -546,31 +564,80 @@ sequenceDiagram
     participant B as Baton / Ordered delivery
     S->>W: Register native and application logical channels
     S->>A: Open body storage / parent lookup, start service
-    S->>E: Recover canonical DB and applied metadata
     S->>W: Start authenticated network service
-    S->>N: Engine::start(native planes)
-    N->>N: Replay native durable journal / signing history
-    loop Required recovered payload contexts
-        N->>A: Automaton::verify(recovered Context, payload)
-        A->>A: Lookup / fetch exact body and required parent, sync custody
-        A-->>N: Valid durable custody
+    par Native startup / context intake
+        S->>N: Engine::start(native planes)
+        N->>N: Replay native durable journal / signing history
+        loop Required recovered payload contexts
+            N->>A: Automaton::verify(recovered Context, payload)
+            A->>A: Lookup / fetch exact body and required parent, sync custody
+            A-->>N: Valid durable custody
+        end
+        N->>N: Construct actors and resume native obligations
+        N-->>S: Running handle, readiness initially pending
+        S->>N: Await Running::ready()
+        N-->>S: Native readiness true or false
+        opt Context / evidence intake service ready
+            S->>B: Start authenticated intake / retention / history backfill
+        end
+    and Execution recovery
+        S->>E: Recover canonical DB and applied metadata
+        E-->>S: Execution state readiness / recovery status
     end
-    N->>N: Construct actors and resume native obligations
-    N-->>S: Running handle
-    S->>S: Track body / native / delivery / execution readiness separately
-    S->>B: Resume context intake / evidence backfill / execution delivery
+    alt Execution state and exact input ready
+        S->>B: Resume state-dependent Execute / Commit delivery
+    else Input state unresolved or required execution service failed
+        Note over S,B: Execution delivery를 pending / recovery로 두고 evidence 보관은 별도 진행
+    end
+    Note over N,E: Native startup은 application QMDB recovery의 완료를 새 prerequisite로 요구하지 않음
     Note over S,B: Recovered canonical state와 authenticated history에서 재개, transient direction은 재구성
 ```
 
 [그림 크게 보기](assets/diagrams/diagram-13.svg)
 
-Engine이 반환하는 running handle 자체를 모든 서비스의 readiness 증명으로 쓰지 않는다. Body service readiness, native engine readiness, ordered delivery readiness, execution state readiness를 하나의 ready flag로 합치지 않는다. Recovery에 필요한 verify가 true로 해소되기 전 native 시작을 성공으로 보고하지 않는다. Startup dependency 때문에 새 report나 direction 승인 round를 기다리는 구조를 만들지 않는다.
+`Engine::start`는 readiness가 pending인 `Running` handle을 반환한다. `Running::ready().await`의 `true`는 startup / recovery의 durable 처리와 initial producer wake 제출을 확인한 native 경계이며, readiness 전에 engine이 실패하면 `false`다. [Running readiness](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L549). Engine이 반환하는 running handle 자체를 모든 서비스의 readiness 증명으로 쓰지 않는다. Body service readiness, native engine readiness, ordered delivery readiness, execution state readiness를 하나의 ready flag로 합치지 않는다. Recovery에 필요한 verify가 true로 해소되기 전 native 시작을 성공으로 보고하지 않는다. Startup dependency 때문에 새 report나 direction 승인 round를 기다리는 구조를 만들지 않는다.
+
+### 2.13 미채택 catch-up 후보: certificate + state material
+
+이 그림은 §6.7의 optional import 후보를 설명하며 [canonical apply](#65-commit-요청을-받으면-branch를-canonical로-만들기)의 single owner·access fence·durability 계약 안에서 처리한다. Message / coordinator 이름은 제안 계약이며 기본 `Commit`을 대체하는 채택 구현이 아니다.
+
+```mermaid
+sequenceDiagram
+    participant P as Material / Certificate source
+    participant C as Proposed catch-up owner
+    participant Q as QMDB / Logical commit adapter
+    participant V as Certified query consumer
+    P-->>C: Existing execution certificate + state material
+    C->>C: Verify exact native range, predecessor, runtime, eligible f+1 signatures
+    C->>C: Check local base and material / output commitments
+    alt Context or material mismatch
+        Note over C,Q: Target를 canonical 결과로 채택하지 않음
+    else Exact target and material verified
+        C->>Q: Apply verified material at matching base
+        Q-->>C: Applied state + durability observation
+        C->>Q: Await durable state / outputs / cursor linkage
+        alt Durable import completes
+            Q-->>C: Recoverable target checkpoint
+            C->>C: Record ImportedVerified provenance
+            C-->>V: Locally ready result + original certificate
+        else Durable completion unconfirmed or failed
+            Note over C,V: Local ready / CommitApplied를 발행하지 않고 recovery에서 재검증
+        end
+    end
+    Note over P,C: Imported range를 own DirectExecuted signature로 바꾸지 않음
+```
+
+[그림 크게 보기](assets/diagrams/diagram-14.svg)
+
+원래 certificate의 전달과 local state의 durable readiness는 다른 사건이다. Material format·root 검증·import commit 방식은 미결정이고, 올바른 canonical base에서 다음 range를 직접 실행하는 경로는 기존 execution interface를 사용한다.
 
 ## 3. Tx-router / tx mempool 레이어
 
 ### 3.1 역할과 책임
 
 Client·peer의 tx를 받아 producer가 body를 만들 때 사용할 후보를 보관한다. 정적 분석은 tx payload에서 얻을 수 있는 특징을 추출한다. Routing이나 packing 정책은 이 특징을 입력으로 삼을 수 있으며, live balance·nonce·현재 부하를 정적 분석 결과라고 부르지 않는다.
+
+재사용 후보로 별도 Commonware Constantinople의 `TransactionSource`와 pool 구현이 있다. 이는 `log-multimmit` 내부의 내장 pool이 아니며, single-chain parent / marshal feedback와 다른 Commonware dependency pin을 사용하므로 native producer Context와 canonical outcome에 맞는 adapter가 필요하다. Queue 순서·cleanup 정책까지 자동 채택하지 않는다. [TransactionSource](https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/lib.rs#L9), [Dependency pin](https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/Cargo.toml#L50).
 
 Body builder가 `SelectBatch`를 요청하면 context와 limits에 맞는 후보를 반환한다. Proposal 생성과 취소는 mempool admission을 canonical outcome으로 바꾸지 않는다. Canonical 실행 결과가 도착한 뒤 해당 tx lifecycle을 정리한다.
 
@@ -634,13 +701,29 @@ Pinned `log-multimmit`은 body-free·delivery-free example이다. `Application::
 
 ### 4.3 Mempool에서 가져와 블록 생성
 
-`propose(Context)`를 받으면 native가 지정한 producer-chain parent를 보존하고 pool에서 tx batch를 가져온다. Body codec·commitment·limits를 적용한 뒤 body와 필요한 parent custody를 durable 확보하고 digest를 반환한다. Build generation/token으로 취소된 요청의 늦은 결과를 새 proposal에 붙이지 않는다.
+`propose(Context)`를 받으면 native가 지정한 producer-chain parent를 보존하고 pool에서 tx batch를 가져온다. Body codec·commitment·limits를 적용한 뒤 body와 필요한 parent custody를 durable 확보하고 digest를 반환한다. Native executor가 build job의 ID·generation·parent를 보존하고 completion을 원래 요청과 대조한다. Automaton Context에는 이 token이 포함되지 않으므로 attachment가 별도 job token API를 이미 받는다고 가정하지 않는다. [Build correlation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/executor.rs#L683).
 
 Producer body를 만들면서 임의의 lane-local application state를 global canonical state로 가정하지 않는다. Stateful tx 성공·실패는 실제 ordered execution에서 판정하도록 runtime 경계를 분리한다.
+
+Tx byte budget과 full encoded body size는 다르다. Tx 목록뿐 아니라 codec framing·metadata를 포함한 최종 본문을 bounded하게 구성해야 한다. 다른 application builder의 parent-state filtering을 가져와 producer lane의 state를 global canonical state로 취급하지 않는다.
 
 ### 4.4 블록 전파·조회·custody
 
 Commonware storage/archive, `broadcast::buffered`, `resolver::p2p`를 우선 활용한다. Broadcast의 bounded cache는 durable custody 저장소를 대신하지 않는다. Archive 저장 뒤 sync 완료, expected digest 검증, parent 복구와 startup 순서를 attachment에서 연결한다. [Broadcast](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/mod.rs), [Resolver](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs).
+
+| 기존 primitive / API | 실제로 제공하는 것 | 새 body adapter가 책임질 것 |
+|---|---|---|
+| Archive `put`, `get`, `sync` / `start_sync` | Buffered write, key/index lookup, covering durable completion | Header ID→body commitment/context 대응, body/parent custody와 sync 완료 확인 |
+| `broadcast::buffered` cache lookup | 최근 digest에 대한 bytes가 있으면 반환 | Expected body 검증, durable archive lookup / promotion |
+| Buffered broadcast subscription | Cache hit 또는 앞으로 들어올 body를 기다리는 local waiter | Subscription과 active peer fetch를 구분 |
+| Generic resolver `fetch` / shared subscribers | Key request·peer retry·subscriber sharing | Exact-key Consumer 검증, context correlation, pending wants / bytes / validation capacity |
+| 기존 `resolver::p2p::Producer` trait | Key 요청을 application의 async bytes lookup으로 전달 | Archive-backed 구현 연결, body retention·request limits·storage error 처리 |
+
+Archive `put` 성공만으로 custody를 인정하지 않는다. `sync` 또는 returned sync handle의 완료가 covering accepted writes의 durability 경계다. Existing `marshal::store::Blocks`는 finalized block을 global height와 digest로 저장하는 계약이므로, producer lane의 height만을 그대로 global archive index로 사용하면 lane·fork가 충돌할 수 있다. Native header ID와 body digest의 mapping 및 store layout은 선택할 adapter 책임이다. [Blocks storage contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/store.rs#L118), [Archive uniqueness](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/immutable/mod.rs#L6).
+
+Generic resolver의 `Consumer`가 returned bytes의 key validity를 판단한다. Wrong digest / invalid peer response, 올바른 bytes를 기다리던 subscriber의 취소, local archive sync failure는 다른 사건이다. Local storage failure나 stale generation을 peer-invalid 응답으로 처벌하지 않는다. Missing body는 fetch / dependency pending이며 expected payload의 permanent invalidity나 empty canonical slot의 증거가 아니다. [Resolver delivery contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs#L149).
+
+Targeted fetch는 지정한 targets 밖으로 자동 fallback하지 않는다. Generic resolver가 여러 concurrent fetch를 허용한다는 사실만으로 application의 pending key·subscriber·bytes·validation work가 bounded라고 주장하지 않는다. Native custody obligation과 취소 가능한 speculative subscriber를 owner가 따로 관리하고, 구체 admission bounds·retry/target policy는 빈칸에 남긴다.
 
 `Relay::broadcast`의 `Feedback`은 local adapter가 publication 요청을 수용했는지를 나타내는 연결 경계다. Remote body receipt나 custody quorum의 ACK가 아니다. Native publication은 `Feedback::Closed`이면 retryable obligation을 남길 수 있으며, 이를 report / direction 승인 대기로 바꾸지 않는다. [Native relay boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/actor.rs#L2220).
 
@@ -651,6 +734,17 @@ Example의 native channels `0=data`, `1=consensus`, `2=certificates`, `3=resolve
 Native votes와 finality는 기존 core가 담당한다. Baton direction의 별도 승인 quorum을 추가하지 않는다. 실제 proposal을 인증할 때 selected prefix·policy를 actual parent/history/frontier에 결속하고 고정하는 연결은 개발·검증해야 한다. 선택 prefix의 membership뿐 아니라 정확한 leading order가 유지되어야 한다.
 
 Core의 authenticated activity를 durable evidence/history와 연결하고 ordered delivery adapter가 exact 연속 입력을 계산한다. `Reporter` 알림만을 lossless archive라고 가정하지 않으며, native sparse tip certificate가 body stream·past policy·dense cursor를 이미 제공한다고 가정하지 않는다. Simplex marshal 전체가 Multimmit에 그대로 호환된다고 주장하지 않는다. [Native application boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md).
+
+| Existing attachment / query | 제공하는 자료 | 새 adapter가 보완할 책임 |
+|---|---|---|
+| Native `Reporter::report(Activity)` | Accepted artifact 등 activity 알림 | Durable witness handoff·cursor·retention 계약. Baton intended-order report와 별도 domain |
+| `Running::inspect` / `Inspection::finality` | 현재 normalized finality projection | Same-tip evidence·settledness revision까지 필요한 원자료의 보존 |
+| `Running::serve(view)` | Retained useful native ViewProof | Exact historical interpretation. Higher covering L-QC가 반환될 수 있고 old proof는 prune될 수 있음 |
+| Proposed exact owner export | Selected source와 immutable context를 넘기는 신규 연결 | Original witness 검증·보관 → terminal slot 해석 → contiguous OrderedRange 방출 |
+
+이 단계는 한 consensus application attachment의 논리적 책임으로 구현할 수 있다. 별도 ProofArchive 서버나 네 개 actor를 만들기로 결정한 것은 아니다. [Reporter trait](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/lib.rs#L246), [Inspection / serving](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L530), [Retained proof selection](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/resolver/actor.rs#L245).
+
+Ordered delivery는 같은 epoch/committee와 actual parent·history·frozen policy, selected pool source, producer header/ancestry, native tips·positions·extensions·settledness를 함께 검증한다. 그 근거에서 included / irrevocably-empty / unresolved slots를 구분하고 첫 unresolved slot에서 방출을 멈춘다. Included body를 못 받았다는 사실은 empty의 증거가 아니다. Native extraction의 private `pub(crate)` API를 application이 이미 호출할 수 있다고 가정하지 않으며, 제한된 facade 또는 검증된 동등 연결은 개발 선택으로 남긴다. [Native extraction](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/algebra/tips.rs#L336), [History opening](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/history.rs#L10).
 
 ### 4.6 실제 native actor와 파일 구조
 
@@ -676,9 +770,9 @@ flowchart TB
     class P,D,E fresh;
 ```
 
-[그림 크게 보기](assets/diagrams/diagram-14.svg)
+[그림 크게 보기](assets/diagrams/diagram-15.svg)
 
-Native core 색은 owner 구조와 기본 알고리즘의 재사용이다. 점선 bridge에는 실제 fork hook·schema·validity/recovery 수정이 필요하다. Producer는 별도의 native Producer actor가 아니라 이 owner 내부의 producer state와 capability로 진행된다. [Owner / capability model](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/mod.rs).
+그림의 두 Batcher 박스는 같은 actor의 ingress와 verification 경로다. Native runtime actor는 Batcher, Resolver, Voter 세 개다. Native core 색은 owner 구조와 기본 알고리즘의 재사용이다. 점선 bridge에는 실제 fork hook·schema·validity/recovery 수정이 필요하다. Producer는 별도의 native Producer actor가 아니라 이 owner 내부의 producer state와 capability로 진행된다. [Owner / capability model](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/mod.rs).
 
 | 실제 위치 / 컴포넌트 | 무엇을 받는가 | 소유하는 처리 | 무엇을 내보내는가 |
 |---|---|---|---|
@@ -702,6 +796,8 @@ Producer의 `Automaton::propose` path와 여러 lane을 모으는 leader proposa
 
 `FinalityFact`는 leader/tips/positions/settledness와 evidence identity의 normalized projection이다. 원래 exact pool rows, source certificate bytes, historical policy와 body를 모두 보관하는 archive가 아니다. Inspector는 diagnostic query이며 lossless delivery feed가 아니다. Application archive/export는 필요한 원본 witness를 retirement 전에 recoverable하게 넘기는 별도 연결 계약이다.
 
+Evidence hash는 witness의 식별 commitment이며 서명 검증 자료 자체가 아니다. Aggregate V-QC에서 재구성한 selected row에는 standalone raw vote artifact가 없을 수 있으므로 **selected row → authenticating signed vote 또는 source certificate → 재현 가능한 extraction/opening**을 보존해야 한다. Native가 선택한 identity별 exact body를 다른 conflicting body나 임의 quorum subset으로 바꾸지 않는다. Tips가 같아도 source/evidence·settledness가 달라질 수 있어, 필요한 immutable export는 owner의 exact source-selection 전환에 연결해야 한다. [Evidence commitment](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L2082), [Aggregate row provenance](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L1681), [Pool revision](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L1865).
+
 Native private signing 계산은 durability 처리와 겹칠 수 있다. 보존할 safety 경계는 fresh local signature가 외부 publication으로 노출되기 전에 해당 signing reservation / domain change를 covering하는 durable acknowledgement를 확보하는 것이다. 문서의 build·sign 흐름을 signature 계산 자체가 반드시 모든 fsync 이후에 시작하는 것으로 읽지 않는다. Baton prepared completion은 signing authority가 아니며 native durability/publication gate를 건너뛰지 않는다.
 
 Direct proposal validation과 V-QC 기반 rescue / view recovery 경로는 같은 callback를 그대로 반복하는 구조가 아니다. Baton policy를 direct proposal hook에서만 검사하는 것으로 인증 상속까지 완료했다고 볼 수 없다. 어떤 predicate를 direct vote 전에 검증하고 어떤 authenticated policy/evidence를 rescue와 ordered delivery가 상속할지 별도 연결 과제로 둔다. [View recovery](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/view.rs#L1380).
@@ -712,6 +808,7 @@ Direct proposal validation과 V-QC 기반 rescue / view recovery 경로는 같�
 |---|---|
 | Body format / size limit / archive layout | |
 | Body transport adapter / fetch protocol | |
+| Targeted retry / fallback / pending want·subscriber·byte budgets | |
 | Evidence export schema / retention handoff | |
 | Ordering policy codec / availability | |
 | Protected-prefix adoption 조건 | |
@@ -762,6 +859,16 @@ Report는 **실행 의도**이며 execution progress·state root·완료 증명�
 
 같은 최장 supported prefix 이후 tail의 선택과 score trimming은 확정하지 않는다. Cut은 report·timer·planner를 기다리지 않는다. 준비 전 valid base fallback과, 이미 인증된 protected prefix를 보존할 의무를 구분한다. Prefix-adoption / exact continuation의 native 통합 증명은 아직 없다.
 
+예를 들어 같은 immutable frontier 이후 유효 prefix `p=[A1,B1]`을 선택했다면 아래처럼 구분한다. 동일 canonical input state/runtime과 predecessor closure가 성립한다는 전제의 설명이며 실행 trace나 완성된 보존 증명이 아니다.
+
+| 방출 순서 O | p의 모든 입력 포함 | p가 정확한 leading prefix |
+|---|---|---|
+| `[A1,B1,A2]` | 예 | 예 |
+| `[A1,X,B1]` | 예 | 아니오 |
+| `[B1,A1]` | 예 | 아니오 |
+
+X가 B1의 필수 predecessor라면 애초에 `[A1,B1]`은 이 context의 유효 후보가 될 수 없다. 후보 validity와 채택 후 leading order 보존을 모두 확인해야 한다.
+
 ### 5.5 Leader: producer들에게 Baton 전파
 
 전파 대상은 producer의 Baton endpoint와 실제 실행을 하는 validator의 Baton endpoint다. Same-node 역할이 겹치면 한 번 처리하도록 연결할 수 있으나, committee 전체가 producer라는 가정은 하지 않는다. Direction 전파로 이미 만든 body나 signed producer ancestry를 임의로 바꾸지 않는다.
@@ -791,6 +898,7 @@ Execution의 durable `CommitApplied` 뒤에 delivery ACK와 mempool canonical ou
 | 같은 window의 conflicting reports 처리 | |
 | 같은 supported prefix의 tail 선택 / hysteresis | |
 | Deadline와 cycle 재개 조건의 구체 설정 | |
+| Wire direction version / freshness / update ordering | |
 | Producer / validator 전파 대상 선정 | |
 | Native proposal adoption과 policy binding 구현 | |
 | Execution 결과 서명 범위 / common boundary | |
@@ -837,7 +945,7 @@ flowchart TB
     U -->|merkleize| K[Merkleized checkpoint / root and ancestry]
     K -->|valid canonical range only| D[DatabaseSet / ManagedDb adapter]
     subgraph Q[Any keyed DB: illustration]
-        I[Current key index: key to latest op location]
+        I[Key to latest operation location index]
         L[Authenticated operations journal]
         M[Merkle-family structure / ops root]
         A[Active-operation bitmap / floor metadata]
@@ -861,13 +969,11 @@ flowchart TB
     class B,O,R,J fresh;
 ```
 
-[그림 크게 보기](assets/diagrams/diagram-15.svg)
+[그림 크게 보기](assets/diagrams/diagram-16.svg)
 
-그림의 QMDB 내부는 Any/Current 설명 예이며 variant 채택이 아니다. Keyless·Immutable·compact에서는 state access와 보관 구조가 달라 아래 variant별 capability 차이를 같이 읽어야 한다. `Generic Runtime`과 `Execution owner`는 새 application/Baton 책임이고 QMDB index·journal·Merkle 알고리즘은 existing Commonware 책임이다.
+그림의 QMDB 내부는 Any/Current 설명 예이며 variant 채택이 아니다. Keyless·Immutable·compact에서는 state access와 보관 구조가 다르므로 variant별 concrete API를 확인해 재사용 범위를 정한다. 어느 variant를 사용할지는 아직 선택하지 않았다. `Generic Runtime`과 `Execution owner`는 새 application/Baton 책임이고 QMDB index·journal·Merkle 알고리즘은 existing Commonware 책임이다.
 
 QMDB database, unmerkleized/merkleized batches와 commit lifecycle을 활용한다. `commonware_glue::stateful`은 parent state fork, pending-tip 보관, finalization 적용·pruning·lazy replay의 참고 구현이다. 다만 기존 block-DAG / marshal 계약이 Multimmit의 cross-producer dense execution order와 같지는 않다. **Batch/storage 계층을 우선 재사용하고, Stateful actor 전체의 호환 여부는 별도 연결 과제**로 남긴다. [Stateful source](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs).
-
-QMDB root가 어떤 구조·operation history를 인증하는지 명시해야 한다. 동일 logical application state라는 사실만으로 다른 operation sequence의 storage root가 같다고 가정하지 않는다. Root 종류·version·execution ordering을 statement에서 구분한다. 여러 DB를 `DatabaseSet`으로 묶은 것만으로 state·outputs·cursor의 crash atomicity가 생기지 않는다.
 
 | 실행의 논리적 동작 | 실제 upstream API | Baton adapter가 추가로 확인할 것 |
 |---|---|---|
@@ -905,13 +1011,17 @@ flowchart LR
     class ABC,ABD,X,XA pending;
 ```
 
-[그림 크게 보기](assets/diagrams/diagram-16.svg)
+[그림 크게 보기](assets/diagrams/diagram-17.svg)
 
 `A→B→C`에서 `A→B→D`로 바뀌면 같은 `S0`·runtime에서 완료된 `A→B` checkpoint를 유지하고 `D` suffix를 실행한다. `X→A`의 `A` 결과는 input state가 다르므로 `A`라는 block 이름만으로 재사용하지 않는다.
 
 Branch owner가 base/context를 확인하고 reusable prefix를 찾는다. Stale jobs의 generation을 무효화하며, 새 branch에 필요한 parent/checkpoint를 보존한다. Pruning은 작업자가 참조 중인 state와 향후 commit·recovery에 필요한 checkpoint를 지우지 않는 규칙으로 연결한다. Budget·GC의 수치는 빈칸이다.
 
-QMDB batch는 독립적인 immutable snapshot이 아니라 **ancestor overlay와 applied DB를 함께 읽는 branch-scoped view**다. Canonical DB가 그 batch의 실제 ancestor commitment로 전진하는 경우는 유효할 수 있지만 다른 sibling으로 전진하면 기존 branch의 read·child 생성·apply를 계속할 수 없다. Generation으로 late outcome을 버리는 것과 invalid batch를 worker가 읽지 못하게 만드는 것은 별개의 책임이다. Canonical apply 전에 incompatible 또는 ancestry가 확인되지 않은 작업을 quiesce/fence하는 계약이 필요하다. 구체 cancellation·join·read-access 방식은 빈칸으로 둔다. [Batch applicability](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L188), [Stateful quiescence](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/verifications.rs#L158).
+QMDB batch는 독립적인 immutable snapshot이 아니라 **ancestor overlay와 applied DB를 함께 읽는 branch-scoped view**다. Canonical DB가 그 batch의 실제 ancestor commitment로 전진하는 경우는 유효할 수 있지만 다른 sibling으로 전진하면 기존 branch의 read·child 생성·apply를 계속할 수 없다. Canonical apply 전에 incompatible 또는 ancestry가 확인되지 않은 작업의 invalid state 접근을 quiesce/fence해야 한다. 아래에서 outcome generation과 access fencing을 구분하며, 구체 cancellation·join·read-access 방식은 빈칸으로 둔다. [Batch applicability](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L188), [Stateful quiescence](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/verifications.rs#L158).
+
+Generation을 무효화하면 **결과 채택 권한**을 취소한다. Worker access를 fence하면 **유효하지 않은 부모 state의 read / fork / apply 권한**을 차단한다. Base를 확인한 뒤 lock을 기다리는 동안 다른 canonical writer가 DB를 바꿀 수 있으므로 actual ownership / access 아래 check-and-use가 이어져야 한다. 어떤 cancellation / join / access protocol을 선택할지는 아직 비어 있다.
+
+이미 immutable Merkle snapshot만 갖고 수행하는 CPU hashing은 caller future 취소 뒤에도 끝까지 실행되고 결과가 버려질 수 있다. Canonical apply의 safety fence를 모든 background CPU 작업이 반드시 종료될 때까지 기다리는 조건과 동일시하지 않는다. Invalid live-DB access와 stale result admission을 막는 경계, snapshot reference·resource lifetime을 관리하는 경계를 나눈다. [Snapshot hashing cancellation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/authenticated.rs#L325).
 
 ### 6.5 Commit 요청을 받으면 branch를 canonical로 만들기
 
@@ -926,11 +1036,23 @@ QMDB batch는 독립적인 immutable snapshot이 아니라 **ancestor overlay와
 
 예를 들어 `A→B→C`를 사전 실행했고 canonical range가 `A→B`이면 `A→B`만 QMDB canonical에 적용한다. `C`는 다음 pending suffix다. Canonical range가 `A→D`라면 `A` 뒤의 `B→C` 결과는 해당 commit에 사용할 수 없다.
 
-“Canonical로 만든다”는 branch pointer만 바꾸는 동작이 아니다. QMDB에 writes를 적용·sync하고 outputs·commit metadata·AppliedCursor를 crash 후에도 일관되게 복구할 수 있어야 한다. Commit 직후 branch pruning과 delivery ACK의 순서를 이 계약에 맞춘다.
+“Canonical로 만든다”는 branch pointer만 바꾸는 동작이 아니다. QMDB에 writes를 적용·sync하고 outputs·commit metadata·AppliedCursor를 crash 후에도 일관되게 복구할 수 있어야 한다. Branch cleanup은 retention 안전 경계에 맞춰 진행하며, durable 완료 뒤의 delivery ACK를 GC 완료까지 기다리게 하는 기본 정책은 두지 않는다.
 
 `ABC`만 하나의 sealed batch로 있고 `AB` checkpoint가 없다면 `ABC`를 apply한 뒤 `C`를 숨기는 방식으로 partial-prefix commit을 처리할 수 없다. `AB` boundary의 valid batch를 만들거나 `AB`만 다시 실행·merkleize해야 한다. 반대로 actual batch ancestry에 `AB`가 있고 canonical DB의 operation size와 authenticated ops root가 그 ancestor commitment와 일치하면 `ABC` descendant를 계속 사용할 수 있다. 같은 logical state처럼 보이는 sibling batch는 이 조건을 대신하지 않는다. Compatible descendant의 읽기에는 applied-ancestor validity가 필요하고, 외부 durable CommitApplied / ACK에는 해당 commit의 flush와 metadata 계약까지 완료되어야 한다.
 
 Existing `Application::finalized` hook은 DB readable 시점에 호출될 수 있고 flush는 진행 중일 수 있다. 이를 durable 완료 callback처럼 직접 연결하지 않는다. `DatabaseSet::finalize`가 반환한 `Barrier::durable` 결과를 확인하고 선택한 state/output/cursor commit 계약을 만족한 뒤 완료를 발급한다. [DatabaseSet / Barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L558), [Stateful delivery ACK](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/processing.rs#L307).
+
+| 실행 / 저장 단계 | 취소·실패의 의미 | Adapter가 유지할 경계 |
+|---|---|---|
+| Branch work / Shared lock 대기 | 아직 canonical DB를 by-value로 꺼낸 mutation은 아님 | Stale 결과를 버리고 invalid state 접근을 정리 |
+| `Shared::write`의 DB take→`WriteSlot::put` 사이 | Future drop / 실패 시 DB를 cell에 돌려주지 못할 수 있음 | Canonical mutation lifecycle을 advisory generation 취소와 분리, lost handle을 ordinary retry로 재사용하지 않음 |
+| Applied DB + flush pending | 읽을 수 있지만 durable completion은 미확인 | Barrier와 state/output/cursor linkage가 끝나기 전 ACK 미발급 |
+| Barrier handle `Closed` / `Aborted` | Upstream은 shutdown 경계로 문서화한 handle 종료에 `false` | Completion 증거 없음, 실제 disk writes가 0이라고 가정하지 않고 recovery에서 재검증 |
+| 다른 deferred flush error | 이미 applied DB가 전진한 뒤 fatal / panic 경계 | 실패를 성공 ACK로 바꾸거나 DB set 전체의 자동 rollback을 주장하지 않음 |
+
+`Shared`는 writer를 우선하는 lock이다. Outer read guard를 잡은 채 같은 Shared cell을 다시 acquire하는 `batch.get` 등을 await하면 queued writer와 deadlock할 수 있다. Multi-DB member의 lock 순서도 `DatabaseSet`의 기존 ownership discipline에 맞춰 연결한다. 이 lock safety와 state/output/cursor의 crash atomicity는 다른 요구다. [Shared ownership / locks](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L139).
+
+Flush completion handle의 abort가 underlying disk work를 전부 취소한다는 뜻은 아니다. Task handle과 completion handle의 중단 의미를 구분하며, completion을 잃었다면 authoritative durable state와 cursor를 복구 때 다시 확인한다. [Runtime handle kinds](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L26).
 
 ### 6.6 미결정 사항
 
@@ -946,6 +1068,19 @@ Existing `Application::finalized` hook은 DB readable 시점에 호출될 수 �
 | Branch pruning / memory / disk budget | |
 | Replay / checkpoint / state sync | |
 | Query interface / certified result 연결 | |
+
+### 6.7 미채택 후보: certificate + state material로 catch-up
+
+이전 논의의 “합의된 state root와 change set을 받아 따라오기”는 **optional certified state sync** 후보로 다룬다. 기본 `Commit` 경로를 이 방식으로 바꾸기로 결정한 것은 아니다. Import를 채택하더라도 §6.5의 single canonical apply owner·mutation ownership·durability 계약을 우회하지 않는다. Peer가 보낸 root / delta만 신뢰하는 대신, 기존 exact execution certificate와 irrevocable native range / canonical predecessor / runtime을 검증하고, state material이 그 commitment와 local base에 대응하는지 확인한 뒤 적용한다. QMDB sync target 검증은 native order와 execution certificate의 출처까지 자동 검증하는 API가 아니다.
+
+| 단계 | 검증할 연결 | 다음 단계에 주는 것 |
+|---|---|---|
+| Certificate 확인 | Distinct eligible epoch validators의 동일 statement `f+1`, exact native range / input state / runtime / result | 검증한 target statement |
+| Material 검증 | Exact local base와 delta / checkpoint / outputs가 target commitment에 대응 | Import 가능한 state material |
+| 적용·복구 연결 | State / outputs / cursor의 선택한 durable commit 계약 | Imported verified canonical checkpoint |
+| 이후 실행 | Imported checkpoint에서 다음 exact range를 직접 실행 / 검증 | 다음 range의 direct execution 결과와 서명 후보 |
+
+Imported material을 검증·적용한 행위를 해당 range의 own `DirectExecuted` signature로 바꾸지 않는다. Receiver는 원래 signers의 certificate를 전파하거나 인증 조회에 쓸 수 있고, 채택한 canonical base에서 **다음 range**를 직접 실행한 경우 그 다음 statement에 서명할 수 있다. Correctness certificate는 material의 보관·전파·조회 availability를 보장하지 않으므로 serve / retention 조건은 따로 정해야 한다. Delta / checkpoint format, root 종류, signer boundary, import codec과 crash recovery 방식은 §6.6의 빈칸에 남긴다.
 
 ## 7. 실제 example에 연결할 지점과 개발 순서
 

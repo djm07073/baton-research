@@ -1,0 +1,32 @@
+sequenceDiagram
+    participant N as Native engine
+    participant A as Automaton / Custody adapter
+    participant S as Body store / Resolver
+    participant P as Body peer
+    participant I as Authenticated block intake
+    participant B as Baton intake
+    N->>A: Automaton::verify(Context from native header, payload)
+    A->>S: Lookup body and required parent
+    alt 필요한 body / parent가 없음
+        S->>P: Fetch by exact reference
+        P-->>S: Response bytes
+        S->>S: Validate expected digest and context
+        Note over A,S: Missing / bad peer response는 요청의 pending 상태
+    else 이미 보관됨
+        S-->>A: Stored bytes
+    end
+    alt Required bytes remain unresolved
+        A->>A: Keep pending request, retry / await correct bytes
+        Note over N,A: 이 요청의 true / false 결과를 아직 반환하지 않음
+    else Expected bytes are available
+        alt 구조적으로 무효인 expected payload
+            A-->>N: verify(false)
+        else 구조 검증과 durable custody 완료
+            A->>S: Store / sync custody
+            S-->>A: Durable body reference
+            A-->>N: verify(true)
+            A-->>I: BodyReady(durable body, producer context)
+            I->>I: Match body with authenticated native header reference
+            I-->>B: BlockAvailable(block_ref, body, context)
+        end
+    end

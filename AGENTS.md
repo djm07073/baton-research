@@ -3,10 +3,10 @@
 Before changing the research, paper, specification, or any external Commonware checkout, read:
 
 1. README.md and BATON_HANDOFF.md.
-2. baton-paper.md and IMPLEMENTATION_SPEC.md. The earlier implementation snapshot is preserved under research/archive/2026-10-03-implementation-outline/.
+2. baton-paper.md and IMPLEMENTATION_SPEC.md. The earlier implementation snapshot is preserved under archive/2026-10-03-root-history/repository/research/archive/2026-10-03-implementation-outline/.
 3. Relevant cited historical reviews and applicable local instructions.
 
-The latest user decisions are authoritative. IMPLEMENTATION_SPEC.md is the single current implementation document as of 2026-10-03. Its four-layer architecture excludes Bank semantics for now and keeps undecided policy cells empty. Source-grounded existing APIs and proposed integration contracts must stay distinct. Linked Google Docs remain research/source references; do not overwrite the latest user architecture with an older snapshot. The research paper and archived earlier implementation file derive from manual 2026-09-30 snapshots of the verified native documents; the current implementation architecture was rewritten from the latest user outline. Compare revisions before synchronizing; preserve concurrent edits. Old Overpass files and archived “current/latest” claims are historical sources, not current instructions. SESSION_HANDOFF.md preserves earlier session history.
+The latest user decisions are authoritative. IMPLEMENTATION_SPEC.md is the single current implementation document as of 2026-10-03. Its four-layer architecture excludes Bank semantics for now and keeps undecided policy cells empty. Source-grounded existing APIs and proposed integration contracts must stay distinct. Linked Google Docs remain research/source references; do not overwrite the latest user architecture with an older snapshot. The research paper and archived earlier implementation file derive from manual 2026-09-30 snapshots of the verified native documents; the current implementation architecture was rewritten from the latest user outline. Compare revisions before synchronizing; preserve concurrent edits. Old Overpass files and archived “current/latest” claims are historical sources, not current instructions. The archived SESSION_HANDOFF.md preserves earlier session history.
 
 Current adopted requirements:
 

@@ -1,19 +1,23 @@
-flowchart TB
-    W[Authenticated native P2P peer] --> B[Batcher: decode / identify]
-    B -->|untrusted Observed cohort| V[Voter runtime shell]
-    V <-->|Verify job / completed verdict| K[Batcher crypto worker]
-    R[Native view-proof resolver] <-->|proof transport / retry| W
-    R <-->|correlated resolution| V
-    V <-->|events / typed capabilities| C[CoreState / private semantic owner]
-    V <-->|append / sync / covering ACK| J[Native journal / checkpoints]
-    V <-->|producer propose / payload verify| A[Automaton / custody attachment]
-    C -. new planning / policy bridge .-> P[Baton planner]
-    P -. prepared matching candidate .-> C
-    C -. new exact evidence export .-> D[Ordered delivery / history adapter]
-    D --> E[Baton execution controller]
-    classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
-    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
-    classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
-    class W,B,K,V,R,C,J reuse;
-    class A adapt;
-    class P,D,E fresh;
+sequenceDiagram
+    participant P as Material / Certificate source
+    participant C as Proposed catch-up owner
+    participant Q as QMDB / Logical commit adapter
+    participant V as Certified query consumer
+    P-->>C: Existing execution certificate + state material
+    C->>C: Verify exact native range, predecessor, runtime, eligible f+1 signatures
+    C->>C: Check local base and material / output commitments
+    alt Context or material mismatch
+        Note over C,Q: Target를 canonical 결과로 채택하지 않음
+    else Exact target and material verified
+        C->>Q: Apply verified material at matching base
+        Q-->>C: Applied state + durability observation
+        C->>Q: Await durable state / outputs / cursor linkage
+        alt Durable import completes
+            Q-->>C: Recoverable target checkpoint
+            C->>C: Record ImportedVerified provenance
+            C-->>V: Locally ready result + original certificate
+        else Durable completion unconfirmed or failed
+            Note over C,V: Local ready / CommitApplied를 발행하지 않고 recovery에서 재검증
+        end
+    end
+    Note over P,C: Imported range를 own DirectExecuted signature로 바꾸지 않음

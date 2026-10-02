@@ -23,8 +23,10 @@ sequenceDiagram
     alt Durable barrier succeeds and metadata linkage completes
         Q-->>O: Durable flush completion
         O->>O: Complete recoverable state + outputs + cursor linkage
-        O->>O: Prune incompatible forks / retain compatible suffixes
         O-->>B: CommitApplied
+        opt Safe retention boundary permits cleanup
+            O->>O: Prune incompatible forks / retain compatible suffixes
+        end
     else Shutdown, flush failure, or incomplete metadata linkage
         Q-->>O: No successful durable completion
         Note over B,O: CommitApplied / delivery ACK를 발행하지 않고 recovery 경계에서 처리

@@ -1,0 +1,29 @@
+flowchart TB
+    B[Baton Execute / Commit commands] --> O[Proposed Execution owner / prefix tree]
+    O --> R[Generic Application Runtime]
+    R -->|reads and pending mutations| U[Unmerkleized batch / parent overlays]
+    U -->|merkleize| K[Merkleized checkpoint / root and ancestry]
+    K -->|valid canonical range only| D[DatabaseSet / ManagedDb adapter]
+    subgraph Q[Any keyed DB: illustration]
+        I[Current key index: key to latest op location]
+        L[Authenticated operations journal]
+        M[Merkle-family structure / ops root]
+        A[Active-operation bitmap / floor metadata]
+        I -->|resolve actual op| L
+        L --- M
+        A --- L
+    end
+    D -->|apply_batch| I
+    D -->|apply_batch| L
+    U -. valid read-through .-> I
+    U -. valid read-through .-> L
+    Q -. optional Current layer .-> C[Bitmap grafted structure / Current canonical root]
+    D -->|start_sync handles| F[Barrier / durability observation]
+    F --> J[Proposed durable state-output-cursor coordinator]
+    J -->|CommitApplied| B
+    classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
+    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
+    classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
+    class U,K,I,L,M,A,C,F reuse;
+    class D adapt;
+    class B,O,R,J fresh;

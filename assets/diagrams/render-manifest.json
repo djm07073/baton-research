@@ -1,6 +1,6 @@
 {
   "specification": "IMPLEMENTATION_SPEC.md",
-  "specification_sha256": "eb8044384796365074a2069328b5050c17067aded6a384dac79f16839629a6da",
+  "specification_sha256": "81ebf5221e2a5a084d116e49c7bc0bbd22e8c02b17f5e32475363927678f982c",
   "renderer": "mermaid 11.12.0",
   "diagrams": [
     {
@@ -14,8 +14,8 @@
       "name": "diagram-02",
       "title": "2.1 전체 E2E: tx 입력부터 canonical state까지",
       "width": 1132,
-      "height": 1324,
-      "source_sha256": "c97428653024d05097243a3cd4010f2d74489b6f434d5fec3741fcd015051449"
+      "height": 1341,
+      "source_sha256": "bb9e7438db1c525d9d413bdd389c8adce7b11b4ba739f9b35cb8c3123def0a81"
     },
     {
       "name": "diagram-03",
@@ -35,8 +35,8 @@
       "name": "diagram-05",
       "title": "2.4 Block lifecycle: verify·본문 누락·검증 실패",
       "width": 1335,
-      "height": 1544,
-      "source_sha256": "3798122446c2f4ec214baaa77ce014d477e7bf45c96a3b55f889ebc41136f45f"
+      "height": 1831,
+      "source_sha256": "b0787e90b36a3d116206b26bfe3c49f31b809f795e8cf6a0368633c6ac97e210"
     },
     {
       "name": "diagram-06",
@@ -57,21 +57,21 @@
       "title": "2.7 Cut commit → ordered range → 실행 commit",
       "width": 926,
       "height": 1447,
-      "source_sha256": "8d4219f489d3ab53df5a6ec09d983eeb89141f2c300ae374e2dfc566e408aad5"
+      "source_sha256": "b727445d856a37b533243c39b7dd6d3e3c7cc520dd82640a5c2981e00dc2d5e6"
     },
     {
       "name": "diagram-09",
       "title": "2.8 Execution lifecycle: QMDB 분기 생성과 canonical 승격",
       "width": 906,
-      "height": 1881,
-      "source_sha256": "870d4e4c0972d443960a66ac010f9dc3830ed97a2a37ad91a7c3ac035f09c197"
+      "height": 2014,
+      "source_sha256": "a60e1af93686f79f468620dcc2dcf7de62dd3b1bc20bcdbef499a12757b3cfa6"
     },
     {
       "name": "diagram-10",
       "title": "2.9 재시작과 backfill",
-      "width": 1109,
-      "height": 1003,
-      "source_sha256": "da01b4dc77d00a46dce0aaefab4fe2f3772a800ead8dad4dd8156c76846676bc"
+      "width": 1108,
+      "height": 912,
+      "source_sha256": "cb461d188ede556b8cb6347f42b9b7d86cb74b4c06275884ed44d3ce1206df71"
     },
     {
       "name": "diagram-11",
@@ -91,25 +91,32 @@
       "name": "diagram-13",
       "title": "2.12 Startup: custody를 준비한 뒤 native recovery",
       "width": 1325,
-      "height": 1241,
-      "source_sha256": "6dc026ad367e3eae61269984483414d99469b9e895e54a9352bf90feaf8beb68"
+      "height": 1713,
+      "source_sha256": "f623c1d14ab0d3b524f48ba5138be233ab5583461fa1e88da75a7791a75eb516"
     },
     {
       "name": "diagram-14",
+      "title": "2.13 미채택 catch-up 후보: certificate + state material",
+      "width": 899,
+      "height": 1349,
+      "source_sha256": "18f86bac9102c48bc53d612c703f8090820e799afbfd102ad7fee7af0ed8c0f0"
+    },
+    {
+      "name": "diagram-15",
       "title": "4.6 실제 native actor와 파일 구조",
       "width": 1161,
       "height": 986,
       "source_sha256": "3fd66a7dff3fe1be439fe7971579001979ca92e8b58e6508acaf77d2058bb0c0"
     },
     {
-      "name": "diagram-15",
+      "name": "diagram-16",
       "title": "6.3 QMDB state 관리와 재사용 경계",
       "width": 1557,
       "height": 1364,
-      "source_sha256": "db53e11ea6d3a79840cc9745a03152d8adb4501c6b7221c9f741b26a61d08100"
+      "source_sha256": "4f87af2d1844578a57ea6b973b8713eb7be38e55c2bbab2bdedc1644956261a2"
     },
     {
-      "name": "diagram-16",
+      "name": "diagram-17",
       "title": "6.4 실행 요청을 받으면 분기 tree 정리",
       "width": 1113,
       "height": 262,

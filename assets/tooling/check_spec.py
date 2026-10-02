@@ -39,25 +39,37 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("spec", type=Path)
     parser.add_argument("--source-cache", action="append", type=Path, default=[])
+    parser.add_argument("--source-repo-cache", action="append", default=[],
+                        metavar="REPOSITORY=DIRECTORY",
+                        help="Additional pinned Commonware application source cache")
     args = parser.parse_args()
+    repo_caches = {"monorepo": args.source_cache}
+    for item in args.source_repo_cache:
+        repository, separator, directory = item.partition("=")
+        if not separator or not directory:
+            parser.error("--source-repo-cache expects REPOSITORY=DIRECTORY")
+        repo_caches.setdefault(repository, []).append(Path(directory))
+    pins = {"monorepo": "534af0ede48affd35b2111522527547b4cc9bf72",
+            "constantinople": "3b6c92e76bf582855615844a4175b8304808f6a9"}
     spec = args.spec.resolve()
     markdown = spec.read_text()
     failures = []
     if len(re.findall(r"^```", markdown, re.M)) % 2:
         failures.append("Unclosed code fence")
     local_count = source_count = source_checked = blank_decisions = 0
-    for _, target in re.findall(r"!?\[([^\]]*)\]\(([^\s)]+)\)", markdown):
+    for target in re.findall(r"\]\(([^\s)]+)\)", markdown):
         parsed = urlparse(target)
         if parsed.scheme:
-            prefix = "https://github.com/commonwarexyz/monorepo/blob/"
-            if not target.startswith(prefix):
+            if parsed.netloc != "github.com" or not parsed.path.startswith("/commonwarexyz/") or "/blob/" not in parsed.path:
                 continue
             source_count += 1
+            repository = parsed.path.split("/")[2]
             revision, source_path = parsed.path.split("/blob/", 1)[1].split("/", 1)
-            if revision != "534af0ede48affd35b2111522527547b4cc9bf72":
+            if revision != pins.get(repository):
                 failures.append(f"Unexpected Commonware revision: {target}")
-            if args.source_cache:
-                candidates = [cache / source_path for cache in args.source_cache]
+            caches = repo_caches.get(repository, [])
+            if caches:
+                candidates = [cache / source_path for cache in caches]
                 source = next((p for p in candidates if p.is_file()), None)
                 if source is None:
                     failures.append(f"Source not cached: {source_path}")

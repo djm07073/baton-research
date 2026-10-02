@@ -1,6 +1,6 @@
 # Baton — current research handoff
 
-Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF.md](SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
+Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
 
 ## 2026-10-03 구현 문서 재구성
 
@@ -9,7 +9,7 @@ Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF
 ## Research source priority and historical document synchronization
 
 1. Latest explicit user decisions and current Google Docs.
-2. [Baton paper](baton-paper.md) and [implementation specification](research/archive/2026-10-03-implementation-outline/baton-implementation-spec.md), manually synchronized from the revisions below.
+2. [Baton paper](baton-paper.md) and [implementation specification](archive/2026-10-03-root-history/repository/research/archive/2026-10-03-implementation-outline/baton-implementation-spec.md), manually synchronized from the revisions below.
 3. Historical Overpass outline/design/reviews, earlier handoffs, draft PR1, toy and archive material as cited context.
 
 | Document | Native Google Doc | Verified revision |

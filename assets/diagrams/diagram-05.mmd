@@ -11,6 +11,9 @@ sequenceDiagram
         S->>P: Fetch by exact reference
         P-->>S: Response bytes
         S->>S: Validate expected digest and context
+        opt Correct response for exact expected reference
+            S-->>A: Expected body / parent bytes
+        end
         Note over A,S: Missing / bad peer response는 요청의 pending 상태
     else 이미 보관됨
         S-->>A: Stored bytes
@@ -21,12 +24,16 @@ sequenceDiagram
     else Expected bytes are available
         alt 구조적으로 무효인 expected payload
             A-->>N: verify(false)
-        else 구조 검증과 durable custody 완료
+        else Structurally valid expected payload
             A->>S: Store / sync custody
-            S-->>A: Durable body reference
-            A-->>N: verify(true)
-            A-->>I: BodyReady(durable body, producer context)
-            I->>I: Match body with authenticated native header reference
-            I-->>B: BlockAvailable(block_ref, body, context)
+            alt Covering durable custody succeeds
+                S-->>A: Durable body reference
+                A-->>N: verify(true)
+                A-->>I: BodyReady(durable body, producer context)
+                I->>I: Match body with authenticated native header reference
+                I-->>B: BlockAvailable(block_ref, body, context)
+            else Local storage / sync failure
+                Note over N,S: Custody success를 보고하지 않음, peer-invalidity와 구분
+            end
         end
     end

@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant E as Direct executor / QMDB
+    participant S as Execution signer
+    participant C as Result collector
+    participant V as Other eligible executors
+    participant R as Certified result consumer
+    E-->>S: Exact input / predecessor / runtime / executed result
+    S->>S: Verify direct execution and canonical context
+    S->>S: Persist own statement / signature obligation
+    S-->>C: Signed ExecutionStatement
+    V-->>C: Same exact statement signatures
+    C->>C: Verify distinct epoch identities and exact statement match
+    alt f+1 matching eligible signatures verified
+        C-->>R: Result certificate + input range identity
+        R->>R: Verify irrevocable exact order and input-state chain
+        Note over R: Certificate acceptance와 local fetched / applied / durable readiness 구분
+    else 아직 부족함
+        C->>C: Retain / reprovide / collect
+    end
+    Note over E,C: Collector 대기는 다음 local execution / native cut의 direction barrier가 아님

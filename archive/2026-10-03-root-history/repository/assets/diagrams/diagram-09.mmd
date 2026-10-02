@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant B as Baton controller
+    participant O as Execution / Branch owner
+    participant Q as QMDB batches
+    participant A as Application runtime
+    B->>O: Execute(base checkpoint, exact order, runtime, generation)
+    O->>O: Locate valid base / retain reusable prefix
+    O->>Q: Fork parent batch / create branch
+    Q-->>O: Mutable batch
+    loop Ordered input blocks
+        O->>A: Execute(block body, branch state)
+        A-->>O: State writes + outputs
+        O->>Q: Apply pending writes to branch
+    end
+    O->>Q: Merkleize at requested checkpoint boundary, granularity undecided
+    O-->>B: BranchReady(branch handle, context, results)
+    B->>O: Commit(irrevocable range, canonical predecessor)
+    O->>O: Verify branch exactly matches committed input
+    O->>O: Fence incompatible / unknown active branch workers
+    O->>Q: DatabaseSet::finalize(matching batches)
+    Q-->>O: Applied / readable state + Barrier
+    O->>Q: Barrier::durable()
+    alt Durable barrier succeeds and metadata linkage completes
+        Q-->>O: Durable flush completion
+        O->>O: Complete recoverable state + outputs + cursor linkage
+        O->>O: Prune incompatible forks / retain compatible suffixes
+        O-->>B: CommitApplied
+    else Shutdown, flush failure, or incomplete metadata linkage
+        Q-->>O: No successful durable completion
+        Note over B,O: CommitApplied / delivery ACK를 발행하지 않고 recovery 경계에서 처리
+    end

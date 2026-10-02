@@ -1,0 +1,1623 @@
+{
+  "snapshot_commit": "b47cadba07dfa322e6b3da1671ed3ef748498b55",
+  "snapshot_date": "2026-10-03",
+  "scope": "Frozen repository topology; historical claims are not current implementation results",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 150,
+      "sha256": "9cbd64c7209d82764a8763e31e9be68d01ef8b0b24c9b2f2abb4353e5b3f96a2"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 6247,
+      "sha256": "b405363bf877193746ab6fd6cd39601f973c7fb78d2d20c61f7aa10d8c75483f"
+    },
+    {
+      "path": "BATON_HANDOFF.md",
+      "bytes": 11765,
+      "sha256": "18f13bf049b2ea8b04514964f0f501bce442e48e0526e6c7f0c41b608f8d97a7"
+    },
+    {
+      "path": "IMPLEMENTATION_SPEC.md",
+      "bytes": 82585,
+      "sha256": "eb8044384796365074a2069328b5050c17067aded6a384dac79f16839629a6da"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1871,
+      "sha256": "01e01f9130781f5e772cea09472ba1f9e5f4dc5291f816d78c91ef1ef1919439"
+    },
+    {
+      "path": "SESSION_HANDOFF.md",
+      "bytes": 17276,
+      "sha256": "ec6043ce4b2191128e8cbc96944beeab551c96f808b677370b644ba73aec80bb"
+    },
+    {
+      "path": "assets/diagrams/diagram-01.mmd",
+      "bytes": 1787,
+      "sha256": "a372fcd1b7994905cb1e756eac08fc8be018e1216b5a157658c41748c67cccfc"
+    },
+    {
+      "path": "assets/diagrams/diagram-01.png",
+      "bytes": 157676,
+      "sha256": "fbe1f843bb7683930b4ceb82f39d22140c041227c14d01def3654f9aeb4796c0"
+    },
+    {
+      "path": "assets/diagrams/diagram-01.svg",
+      "bytes": 46372,
+      "sha256": "2f576410f02128ac6afb2130d85fc63316e35ffe718f0a1236600ecf1d54544b"
+    },
+    {
+      "path": "assets/diagrams/diagram-02.mmd",
+      "bytes": 1077,
+      "sha256": "cb2314ee78073a933d534bd93b5d66d3baf5c0cfe7e46816e709cc14002562eb"
+    },
+    {
+      "path": "assets/diagrams/diagram-02.png",
+      "bytes": 117367,
+      "sha256": "5575f5bae66ceb3d5b9ff57c35177b13c6bbb9c4be9ae27e59ef9c41186a119c"
+    },
+    {
+      "path": "assets/diagrams/diagram-02.svg",
+      "bytes": 33766,
+      "sha256": "a3b88ab0fe6c0ff420b46747e74886cbaf72f657d5bd7ef823fd8e5240a393be"
+    },
+    {
+      "path": "assets/diagrams/diagram-03.mmd",
+      "bytes": 1244,
+      "sha256": "73ece8ef8ca1a70f24f7959d9b11c97c680c754d431dd4dd347ac516ebae9250"
+    },
+    {
+      "path": "assets/diagrams/diagram-03.png",
+      "bytes": 124557,
+      "sha256": "ea6d1c76e5f7a399a814454926e78a3eb18ba2e05e24723ba29ea34ae2574f92"
+    },
+    {
+      "path": "assets/diagrams/diagram-03.svg",
+      "bytes": 37862,
+      "sha256": "31dfdef8e8b23ae5716e29c77803a36888e9c97a5bb26068a9bbf008333c9d7e"
+    },
+    {
+      "path": "assets/diagrams/diagram-04.mmd",
+      "bytes": 701,
+      "sha256": "4430b976408ce9dfb8180fa8673eba1ac7be9b0fd0c165c3c8131b9278fee330"
+    },
+    {
+      "path": "assets/diagrams/diagram-04.png",
+      "bytes": 74108,
+      "sha256": "a75368ce065e04ef5a2fcd17d1bfc2838c612183bd28205a8b075bad88774af3"
+    },
+    {
+      "path": "assets/diagrams/diagram-04.svg",
+      "bytes": 29692,
+      "sha256": "091d9f2d1d00478d79eb106632d50112194dbbc0fefbd2b3bcbf961eefd8b999"
+    },
+    {
+      "path": "assets/diagrams/diagram-05.mmd",
+      "bytes": 1377,
+      "sha256": "fc49ae0620444e22d2d9a4ba3f51d8812313db12a81b9640ebb80e6cbbaaf920"
+    },
+    {
+      "path": "assets/diagrams/diagram-05.png",
+      "bytes": 144635,
+      "sha256": "8b5361136ce07433b84383067493892101f7b8ca2d33b12a42cf02249f6f208d"
+    },
+    {
+      "path": "assets/diagrams/diagram-05.svg",
+      "bytes": 37760,
+      "sha256": "e94faab6603b50f246ebf974d6c96c80d37fbbe5ce76cb077bd4e5eb5f8f8605"
+    },
+    {
+      "path": "assets/diagrams/diagram-06.mmd",
+      "bytes": 1208,
+      "sha256": "89e4afa80ffc7db0d97d0e49491c09fa6a75be55d7075d119ce5d1a4d2c00085"
+    },
+    {
+      "path": "assets/diagrams/diagram-06.png",
+      "bytes": 129745,
+      "sha256": "e58b032f37a65b04810929e828a42cc9b1be54d51a2e810fa903187f05f9d0ec"
+    },
+    {
+      "path": "assets/diagrams/diagram-06.svg",
+      "bytes": 35397,
+      "sha256": "012d2ead6ee412d0f44e2a08969372a04e948e0cc57106b97a0d16843d3b947d"
+    },
+    {
+      "path": "assets/diagrams/diagram-07.mmd",
+      "bytes": 1020,
+      "sha256": "43b82fdfaef6480c3176199f444e3b9b7aac604804498ac13c32484d41c46d79"
+    },
+    {
+      "path": "assets/diagrams/diagram-07.png",
+      "bytes": 102677,
+      "sha256": "153322b9d27b1ba7d8868b80e5b26958a186b5c2a8b87b77d250903d43772570"
+    },
+    {
+      "path": "assets/diagrams/diagram-07.svg",
+      "bytes": 31908,
+      "sha256": "f3a1f86887c4675eec30155f84d6586f1cdeb09b634d04a28a52d5bd31aeef79"
+    },
+    {
+      "path": "assets/diagrams/diagram-08.mmd",
+      "bytes": 1089,
+      "sha256": "3dc33181665e4d4792819dce546a4c32eb536b83f10d516e95e3d5f0af5d4923"
+    },
+    {
+      "path": "assets/diagrams/diagram-08.png",
+      "bytes": 121405,
+      "sha256": "a788b2048b86c9af78d7221a02efd3377892d62258434ae92ee433e4eb18a1b4"
+    },
+    {
+      "path": "assets/diagrams/diagram-08.svg",
+      "bytes": 33893,
+      "sha256": "d0234398c0dfd02e9c69e2f86d801c9085f2183a08cf1cae15865c9b0083005a"
+    },
+    {
+      "path": "assets/diagrams/diagram-09.mmd",
+      "bytes": 1482,
+      "sha256": "112c06c5f5fec7a8a7b6c737bfbad7bcdb017ea1a8b1cac251eaae74e2c19cee"
+    },
+    {
+      "path": "assets/diagrams/diagram-09.png",
+      "bytes": 164548,
+      "sha256": "90cc43735ca9a83348978d80ea6c2c45370a8c31e0b73fbd318dc5b1c3f1ab67"
+    },
+    {
+      "path": "assets/diagrams/diagram-09.svg",
+      "bytes": 39029,
+      "sha256": "c6d41957a2cd385e50e72a706b833b5f9316f17438c5994deab4d1c3d6b181cf"
+    },
+    {
+      "path": "assets/diagrams/diagram-10.mmd",
+      "bytes": 865,
+      "sha256": "422ec2bd90d288110ccf7f6801678d37627ae26a0abfe7d8ffef3bd0f1abb792"
+    },
+    {
+      "path": "assets/diagrams/diagram-10.png",
+      "bytes": 94327,
+      "sha256": "e58fd38e0b88e344a943320ef4e409b23f6f985e29c356792a8a2c74a3670eba"
+    },
+    {
+      "path": "assets/diagrams/diagram-10.svg",
+      "bytes": 31117,
+      "sha256": "fdc870659493ffc220f931a92c4c57cdd035de385b6ee29519e92cecbbe38763"
+    },
+    {
+      "path": "assets/diagrams/diagram-11.mmd",
+      "bytes": 1018,
+      "sha256": "005f3d92b2298e0a486db0fb6c3871ba86bbe051ce504e7986c9331cb0074569"
+    },
+    {
+      "path": "assets/diagrams/diagram-11.png",
+      "bytes": 108540,
+      "sha256": "4126936575e9d13c9dc99be892bd24d7ab563108f2cecf5149af09a3d2786c80"
+    },
+    {
+      "path": "assets/diagrams/diagram-11.svg",
+      "bytes": 34024,
+      "sha256": "aab32788d6c334ef84550f53030b697be91f9c7e9f7baac87f14e30b06ac7d1c"
+    },
+    {
+      "path": "assets/diagrams/diagram-12.mmd",
+      "bytes": 1160,
+      "sha256": "3c4436e5a379312c0e3e06bea45cb54ff967a02314a89db0a1109da7a4a67c5d"
+    },
+    {
+      "path": "assets/diagrams/diagram-12.png",
+      "bytes": 133063,
+      "sha256": "757493d596094d5b306346a7c85eb6fb50caae0758e258f0b15b6b1eda1602c8"
+    },
+    {
+      "path": "assets/diagrams/diagram-12.svg",
+      "bytes": 36425,
+      "sha256": "d69d4981c2d360deed464ce4c9f62d05e49fc861698b6a4dabb79a598f722a64"
+    },
+    {
+      "path": "assets/diagrams/diagram-13.mmd",
+      "bytes": 1163,
+      "sha256": "829569ac07dc2868fb5e91ee7e67379006596963b77401980f8af8ae0f7aeef0"
+    },
+    {
+      "path": "assets/diagrams/diagram-13.png",
+      "bytes": 130267,
+      "sha256": "46023138764eb7306b86c90f87af651bfa470381b0ec6f702abda8918e4ba981"
+    },
+    {
+      "path": "assets/diagrams/diagram-13.svg",
+      "bytes": 35119,
+      "sha256": "a82296cabc8f0bf31a843911b37fea18169af1d7d29f5e99e5aff81943c2d712"
+    },
+    {
+      "path": "assets/diagrams/diagram-14.mmd",
+      "bytes": 1023,
+      "sha256": "204f7054b5dad7dfd49990efa25340cc606c552eaae7adf4de39b38e0b652ee6"
+    },
+    {
+      "path": "assets/diagrams/diagram-14.png",
+      "bytes": 83876,
+      "sha256": "08b82689adc92aa277340b638dc735ab2c29b2e53d266c73c3437b1e16389db6"
+    },
+    {
+      "path": "assets/diagrams/diagram-14.svg",
+      "bytes": 26419,
+      "sha256": "f1f0c4df1305279a5cc69cfd89bbb8039a64bec755c8a12a0a73034edb71eb1b"
+    },
+    {
+      "path": "assets/diagrams/diagram-15.mmd",
+      "bytes": 1298,
+      "sha256": "7811469196af67cb6efdd6d4068862aca436d152c1bdde5e7fbf1336f46a1b51"
+    },
+    {
+      "path": "assets/diagrams/diagram-15.png",
+      "bytes": 117497,
+      "sha256": "ae1b27f13f947590554b0835da3a4cdc90d1b6eb093722a117199545f3bc265c"
+    },
+    {
+      "path": "assets/diagrams/diagram-15.svg",
+      "bytes": 33718,
+      "sha256": "88a160b88c78dabecbfc3083387bf4460d1f871e666827fde17d8b1673576857"
+    },
+    {
+      "path": "assets/diagrams/diagram-16.mmd",
+      "bytes": 554,
+      "sha256": "5f762274549a12397829db7b026d4dd741b9039c75c6ea99d605d209068f11b5"
+    },
+    {
+      "path": "assets/diagrams/diagram-16.png",
+      "bytes": 23768,
+      "sha256": "4c644bd7a26e792db013af9624383e1ca021ea9a1044eef282c446430c77f889"
+    },
+    {
+      "path": "assets/diagrams/diagram-16.svg",
+      "bytes": 16918,
+      "sha256": "44297452930ff486231c6198656cb3415c41e44bce6c720212d6a735fa112ca8"
+    },
+    {
+      "path": "assets/diagrams/render-manifest.json",
+      "bytes": 4054,
+      "sha256": "b7327f749ca8d3e841b48e3d58baf221b2d500e0b4924b0b0bc4567a62136695"
+    },
+    {
+      "path": "assets/tooling/check_spec.py",
+      "bytes": 6091,
+      "sha256": "f4e40f2f9e1703af586b89f2e80356b9a2483cc0957da67b90b849826e67f10a"
+    },
+    {
+      "path": "assets/tooling/render_spec_diagrams.cjs",
+      "bytes": 5069,
+      "sha256": "b8c5ec473c92702e638c36a37d9532eb0cb9f319d0e95d9fcba2c4357a5e4cf8"
+    },
+    {
+      "path": "asymmetric-validity-custody.md",
+      "bytes": 10783,
+      "sha256": "e1bbd64efc07f6746f44b1ff1f4db9d9e1196fdc570288d616f6560bc120e875"
+    },
+    {
+      "path": "baton-paper.md",
+      "bytes": 56100,
+      "sha256": "168228fc479383cecc22e46fc1c3a9cb67a10fe3ae5c6eaf41b10198476b279f"
+    },
+    {
+      "path": "block-selected-view-protocol.md",
+      "bytes": 45468,
+      "sha256": "7ba87a775a7727b34208d930d764557f218d3f7fc59a2354f6ad2a056702726e"
+    },
+    {
+      "path": "block-view-experiment-results.md",
+      "bytes": 9176,
+      "sha256": "2cfe26b1c278a7fdc57034d5fc2242f50309a37eab914e83c0d5b6ff80f208fb"
+    },
+    {
+      "path": "blockstm-execution-model.md",
+      "bytes": 26409,
+      "sha256": "03b592a07b78df09d8dc31fc7e806f7f2906f42aaef6c4ff12f908de754c9c89"
+    },
+    {
+      "path": "commonware-proof-sdk.md",
+      "bytes": 12891,
+      "sha256": "c478a96870667b6250c63c76a823009af41d35ffde2fbd426702da26ea27eb97"
+    },
+    {
+      "path": "conflict-affinity-quorum-propagation.md",
+      "bytes": 23280,
+      "sha256": "85d3f2bf645cbd8bd221251ebfb8f91ca5fe67bb42c6dd56939f304c3e19c1ec"
+    },
+    {
+      "path": "cut-aware-proof-swarm.md",
+      "bytes": 10566,
+      "sha256": "ddb04e7b755830712d1b7f6375d2485176d2a6f9044cbd9125c0bfbb5d192ff1"
+    },
+    {
+      "path": "cut-vote-execution-view-note.md",
+      "bytes": 8170,
+      "sha256": "03371c7940158321190aebe16c9819381a11056cadbb2ff16e063a5a2d209ef5"
+    },
+    {
+      "path": "cutbasis-vote-window-execution.md",
+      "bytes": 14143,
+      "sha256": "22837dbb912efbf10d46323834a1c8c3934d0002db74b420244c1c68b6be763d"
+    },
+    {
+      "path": "evidence-refined-state-lattice.md",
+      "bytes": 21013,
+      "sha256": "98f5b10a9a09e66accb098d9051b0c234792ad9741d1ca7c284a8b54a5964b6b"
+    },
+    {
+      "path": "local-dag-selection-algorithm.md",
+      "bytes": 36282,
+      "sha256": "8a813b6cc9bbe70d9cc81620945c4c0ad0f696e44be0a57371a5671df46fe526"
+    },
+    {
+      "path": "non-ec-finality-design-space.md",
+      "bytes": 13578,
+      "sha256": "f977482196f50f11ba55f4ff31cc1ac78de7545dfa74bcab136c92eee1b573e3"
+    },
+    {
+      "path": "non-ec-novelty-synthesis.md",
+      "bytes": 29062,
+      "sha256": "b5a0175c001e65b5f8eef3a596e1a5de37586a6024c581ea0d0b25adbc942cc4"
+    },
+    {
+      "path": "overpass-family-multimmit-review.md",
+      "bytes": 8366,
+      "sha256": "1e147b1ab230af5662fd6245bf612a21c754133c67a10d43c075df283bb92504"
+    },
+    {
+      "path": "overpass-fixed-cut-implementation-plan.md",
+      "bytes": 30741,
+      "sha256": "38d9422774a07d2e1dcad80047f5e092e59827112b5628aecc7874c65d42521c"
+    },
+    {
+      "path": "overpass-plan-ordering-outline.md",
+      "bytes": 23298,
+      "sha256": "bb5d2c2f43fc5669234f1cd709afa3385cb23f42ad9e430aef29ee7af0068d47"
+    },
+    {
+      "path": "overpass-precut-order-research.md",
+      "bytes": 35254,
+      "sha256": "364eeb8ad3ddf630ec203ab27cc45e03e57b52107bbc084ba695cf561e09be46"
+    },
+    {
+      "path": "overpass-prefix-plan.md",
+      "bytes": 20008,
+      "sha256": "1060d2231d0b27042d01bd6aecd9ccfacc3bb1004e83a01ba54d9c3bac728795"
+    },
+    {
+      "path": "overpass-progressive-ordering.md",
+      "bytes": 20221,
+      "sha256": "cb5ec7272130ab0f41c6dc08be6e96e3a3d3ed631549e5f49d2cfbe447ba9ff1"
+    },
+    {
+      "path": "overpass-research-logic.md",
+      "bytes": 7848,
+      "sha256": "49af8117e9aa6498e03ee1382e1097eccb920d9719585dbf2da4d05534279dbd"
+    },
+    {
+      "path": "overpass-review-next-decisions.md",
+      "bytes": 15225,
+      "sha256": "d2cdbcd370dfb56635c9f0fa3d07023f9c84578d09f871dc1b2960e9b05c3986"
+    },
+    {
+      "path": "overpass-submission-readiness-review.md",
+      "bytes": 139922,
+      "sha256": "8c430386217975427f6e3732ae655605bf063c16fff47e4cdce7c81d27923ba0"
+    },
+    {
+      "path": "paper-outline-research.md",
+      "bytes": 40698,
+      "sha256": "70ced1192e5c149c9514dd1492a00e37cea6237e6492db458da0b8c9f56c84bd"
+    },
+    {
+      "path": "paper-outline-v12-cut-tail.md",
+      "bytes": 34398,
+      "sha256": "de40da7af6a085404c2474c3bff91f1ad6d629a929bddb3ea613d861be24f1a1"
+    },
+    {
+      "path": "paper-outline.md",
+      "bytes": 96624,
+      "sha256": "5ec20e41eddea11a618cd32f0a74b1b6d133b91cc681ca7da56342eca000fdfd"
+    },
+    {
+      "path": "paper-venue-targets.md",
+      "bytes": 14205,
+      "sha256": "596ba8d6a7e49b857c956f8382a9be025e235c782171d068f8aff5e945db7c18"
+    },
+    {
+      "path": "perp-liquidation-cascading-spec.md",
+      "bytes": 52692,
+      "sha256": "7becd6c952b64327e12fe49876c6a57be6117a462ddfffb3a428ad07ca08d80c"
+    },
+    {
+      "path": "proof-aware-multimmit-paper.md",
+      "bytes": 40548,
+      "sha256": "c8293ecf764d06dee41529853fe8191562232db21c7f44846f583f0105a1390f"
+    },
+    {
+      "path": "proof-hedged-state-finality.md",
+      "bytes": 12992,
+      "sha256": "06b3b544f6fdb96a0f04b9995f2e272017ece8580f8459d734fa2c6d2618a023"
+    },
+    {
+      "path": "proof-relative-dual-frontier.md",
+      "bytes": 22011,
+      "sha256": "02f9b1b18f1ad16d1aa5313a6cc3b930e3d125eed74217e7b2e967dc27a01c1d"
+    },
+    {
+      "path": "quorum-supported-speculative-state-dag.md",
+      "bytes": 21231,
+      "sha256": "968edf575f86218c379d297f8a50626d7108e665e7a6b02b11d0d959562ae41d"
+    },
+    {
+      "path": "reexecution-reduction-literature.md",
+      "bytes": 21868,
+      "sha256": "0a7a3145efccb2eba50c419324a2ee0d27a4acabb9b84d0a753d9d9ee1387efb"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/AGENTS.md",
+      "bytes": 2202,
+      "sha256": "cd0b65a31cb0f39bc10d6a0098e46d12d3a3b8543127b7e08632763d8af06cce"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/README.md",
+      "bytes": 1937,
+      "sha256": "b01d09baff356c61b6a1badd1d57b3101ce5d80293574bdf9fb4302caea48fe2"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/overpass-fixed-cut-implementation-plan.md",
+      "bytes": 30496,
+      "sha256": "85d286f9f0ed48465e035493ee6e970972279822bf5855b2371b999835d9141f"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/paper-outline.md",
+      "bytes": 96319,
+      "sha256": "c7ba05df8a225311bc47533f185d8fc2be3ffe7e521beac1e0bd0d327f4ec05c"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/paper/figures/placement-sidecar.tex",
+      "bytes": 3457,
+      "sha256": "48e6b8a6d18a121c34ef92ed895f61b64c7a61cb1bbe147aa68ef3429f23ffbf"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/paper/placement-supplement.tex",
+      "bytes": 691,
+      "sha256": "d80352f4bbcb49612fbe312a942132362eb056efcf20e09a276e0349aeb7a0e8"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/paper/sections/04-placement.tex",
+      "bytes": 18682,
+      "sha256": "c297dd3b8492dd2139eff673cee1042cf274df130904f92ced6f7d4a872bd1f9"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/paper/sections/09-placement-details.tex",
+      "bytes": 2834,
+      "sha256": "ae108756087063e892a1a5bfa7cb05cd58ee9da7f1eab94ec783b2e0d68da8ac"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/README.md",
+      "bytes": 4579,
+      "sha256": "c293d29daef24aed3b5698682f2e9fe722769a1325e81fbdb9a5d9d06d1a1225"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/analyze-independent-groups.mjs",
+      "bytes": 5489,
+      "sha256": "f4be58effdcfd5af4fa014f4f8b17fba4ef57eb37946145cc314c0d798c0af6b"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/analyze-independent-groups.test.mjs",
+      "bytes": 5229,
+      "sha256": "141b1ae035a449ddd797cd3b1edd8c79259ca9b45c9fea9836ceada2a153e722"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/cut-routing.mjs",
+      "bytes": 3658,
+      "sha256": "d396a1a2bad173a509185f83945675b07f937a67cbae63a113a458e50899c55c"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/cut-routing.test.mjs",
+      "bytes": 7954,
+      "sha256": "23f0da41191ec8a3d7c10a7e07f2e638d53a0bc9f9a538a8fd836a1e15ea8cfb"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/example-plan.json",
+      "bytes": 1710,
+      "sha256": "42580e530b44a1c31534c13294cddad3f7fd4f4cd5fc1d1119387b57da074992"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/independent-example.jsonl",
+      "bytes": 441,
+      "sha256": "ac707f52fa8aa02f5e7d1fba14ef1d80edcb6fd115cdd94e7ed3efabebb6a1a4"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/independent-groups.mjs",
+      "bytes": 7773,
+      "sha256": "8be1f9271f5724e28c3f8e236a8fb5f9c4c66cc466da42717267c5b50ff9355c"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/independent-groups.test.mjs",
+      "bytes": 9436,
+      "sha256": "5fdeb09e0d5933ef394822297a408751f60a33ef1d86b9a5d597b6556241250f"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/independent-placement-spec.md",
+      "bytes": 23416,
+      "sha256": "61b3fcbcf28df564596d02823ed7dbdfe8c35e566b2d8b9885ada10729bf9e12"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/load-aware-grouping-research.md",
+      "bytes": 10592,
+      "sha256": "9b2a8d35d98ddc55a7b68d29f628130ce3bcd5edb18c4c8f3d141d3928971d06"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/research/placement/load-constrained-placement-proposal.md",
+      "bytes": 17461,
+      "sha256": "03fc1eec8bdb4c06942eb3f2ac130f3cfea6d1b49ddadeebfb8b637909a69cc6"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement-v1.md",
+      "bytes": 22201,
+      "sha256": "bd2596a7626781076877869f5e997c62f60339dd1ac2979ec145089fa4645103"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement-v2.md",
+      "bytes": 15259,
+      "sha256": "d7ebf01b06b264fc510d0abf723f636469889f73bb55179eee1f163a9bd92c76"
+    },
+    {
+      "path": "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement.md",
+      "bytes": 30408,
+      "sha256": "dec59cd380afbc79fc0b58081225503e9a309f4b1347836dcf34f9ca8a08fa91"
+    },
+    {
+      "path": "research/archive/2026-09-29-binding-plan/AGENTS.md",
+      "bytes": 1945,
+      "sha256": "b420830b954066b5e9d033228c3265b04339aefa71e6ee15ab5055e16a740ce9"
+    },
+    {
+      "path": "research/archive/2026-09-29-binding-plan/INDEX.md",
+      "bytes": 911,
+      "sha256": "aa1d6a12dcfc9140a38863afbeca03298ed21c00576dc9e75398dd3b38a6df3c"
+    },
+    {
+      "path": "research/archive/2026-09-29-binding-plan/README.md",
+      "bytes": 2229,
+      "sha256": "e2845de6262d712cdaacaba3ce8cfe4038a06556b29e667db95e4db7de90605e"
+    },
+    {
+      "path": "research/archive/2026-09-29-binding-plan/overpass-plan-ordering-outline.md",
+      "bytes": 23969,
+      "sha256": "931091f21846e96edad591bd34ff82409b742df1d76273f9eec8b419c89e9ede"
+    },
+    {
+      "path": "research/archive/2026-09-29-execution-history-plan/AGENTS.md",
+      "bytes": 2349,
+      "sha256": "1a2fc41d850f4aec115871e1eb0e9931fe6eeffc3c8101139fe83a834a7fcb4c"
+    },
+    {
+      "path": "research/archive/2026-09-29-execution-history-plan/INDEX.md",
+      "bytes": 847,
+      "sha256": "09d25cfeca876f984817a56c5a4a195c4dcb05bd2cd7a1312cb6a5214c5d6a42"
+    },
+    {
+      "path": "research/archive/2026-09-29-execution-history-plan/README.md",
+      "bytes": 2568,
+      "sha256": "cbc30d0ce5c3a8f9e746a3ccae636974829f98ff4d8f9200f029be9987bc1f8c"
+    },
+    {
+      "path": "research/archive/2026-09-29-execution-history-plan/overpass-plan-ordering-outline.md",
+      "bytes": 20071,
+      "sha256": "fe2a5c2a21a242501455737af106bb95bcbc3587e5739a3b98d8ea8528acd8b7"
+    },
+    {
+      "path": "research/archive/2026-09-29-execution-history-plan/overpass-research-logic.md",
+      "bytes": 4635,
+      "sha256": "24788cb8e6796a0f3a0e84a897147c99808479a79b84bd815d09575f37009b1d"
+    },
+    {
+      "path": "research/archive/2026-09-29-hermes-advisory/AGENTS.md",
+      "bytes": 2796,
+      "sha256": "ebe270a9bb88c48a0e05cbcc5f440f7c3deed645bb6b8ce4d98b0d500a920401"
+    },
+    {
+      "path": "research/archive/2026-09-29-hermes-advisory/INDEX.md",
+      "bytes": 806,
+      "sha256": "f4c1d077db9cba33842caae933bc776bbd54ce871bb3af11513c40e44a6132e0"
+    },
+    {
+      "path": "research/archive/2026-09-29-hermes-advisory/README.md",
+      "bytes": 3022,
+      "sha256": "ce537c2b47a3c9ad4cda482987d00d80eeced71307fe1c933a5d7260155ddc31"
+    },
+    {
+      "path": "research/archive/2026-09-29-hermes-advisory/overpass-plan-ordering-outline.md",
+      "bytes": 22873,
+      "sha256": "2517955a2e85a6f0edec6a9e77d02fd2058fa39c8f6975046f659dbf2cd6319f"
+    },
+    {
+      "path": "research/archive/2026-09-29-hermes-advisory/overpass-research-logic.md",
+      "bytes": 5245,
+      "sha256": "4477e1286e83d8f4b4bd8eaaadb0f0012a385bf0d8a9b8d902ac5ee901246592"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-prefix-convergence/AGENTS.md",
+      "bytes": 2679,
+      "sha256": "57483ff33ebcca4ca449fca2d5829d5b207d33795c6e820f37f077b65abf543b"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-prefix-convergence/INDEX.md",
+      "bytes": 510,
+      "sha256": "afbdff16f9c23ecbdc35a4932443138afe0471488024b0b0e39424b44e93ef80"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-prefix-convergence/README.md",
+      "bytes": 3012,
+      "sha256": "80b1e4547c1abcd1910da95f712ed5c4a95a7553c4b41a665ced0ad17d411c63"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-prefix-convergence/overpass-plan-ordering-outline.md",
+      "bytes": 18384,
+      "sha256": "0f0972c079d825ccea34f1da4d16218be4d04a9ea05992c5ff2fb758b6840419"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-prefix-convergence/overpass-research-logic.md",
+      "bytes": 5771,
+      "sha256": "226eb5e9d90e5424bc8c7924f2145873960b49feceb055895753853674cfd4b0"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-scored-plan/AGENTS.md",
+      "bytes": 3322,
+      "sha256": "63f356c5ce44cef8a634b2dc7e25e8d4231ff87a7f374ce1dd8ea151a9b60816"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-scored-plan/INDEX.md",
+      "bytes": 812,
+      "sha256": "71680063d19ef7d9ee8e4b4b56a789bb9dc2cd1036fb04672b3dbb563408915a"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-scored-plan/README.md",
+      "bytes": 3391,
+      "sha256": "2f323bffce5b1a9f01a8cec694e121592d4bad7c27dcab4506ec3575a1d0bb49"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-scored-plan/overpass-plan-ordering-outline.md",
+      "bytes": 16612,
+      "sha256": "d60f0438db12d40243473e9b17e29be8599a53a524e91fcf17263d0d85832b35"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-scored-plan/overpass-prefix-plan.md",
+      "bytes": 9105,
+      "sha256": "3f5feec94825a1cf8499d9627f0a8b6982b1750514b5f8192d3766ec8ae757ac"
+    },
+    {
+      "path": "research/archive/2026-09-30-before-scored-plan/overpass-research-logic.md",
+      "bytes": 4993,
+      "sha256": "58e3c13d0b2da03f155f716e4fec5994995fdd4cfaa6cc645cecd39207a23a9d"
+    },
+    {
+      "path": "research/archive/2026-10-03-implementation-outline/README.md",
+      "bytes": 875,
+      "sha256": "097399ffbb1a3ec0cd00d9d87bf7595613bf7827132c352758d6cda6af333a51"
+    },
+    {
+      "path": "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "bytes": 6837,
+      "sha256": "db616d5ba966d1366ccb6262cb7024aca8853d0489e6772ee94b7b7a2f538c44"
+    },
+    {
+      "path": "research/archive/2026-10-03-implementation-outline/baton-implementation-spec.md",
+      "bytes": 42656,
+      "sha256": "f433a35e18f58629f39d9679ead1232b513afa779513f5d2bc8dfa2cf7d9a9ea"
+    },
+    {
+      "path": "research/archive/2026-10-03-implementation-outline/baton-paper.md",
+      "bytes": 56106,
+      "sha256": "317df8e10f13300dce114a82df178299ba738cd51ef099b8b6951e0a736f6928"
+    },
+    {
+      "path": "research/block_views/experiment.py",
+      "bytes": 7005,
+      "sha256": "8dd3384bde242bc094c20a2728f514e70fad4303c7f3fd17ffcfb04063ae66a4"
+    },
+    {
+      "path": "research/block_views/selection.py",
+      "bytes": 20948,
+      "sha256": "b7e8654d51cb7ff297c46fb6f50b36b31157ae49f049867c674c3c2ec88cf0f8"
+    },
+    {
+      "path": "research/block_views/test_experiment.py",
+      "bytes": 1327,
+      "sha256": "37c8fb31c07f847f13be06a3fafcf8853294aef1353b2538992f862ec91fafef"
+    },
+    {
+      "path": "research/block_views/test_properties.py",
+      "bytes": 9652,
+      "sha256": "d2fd4fc39c3b0efe1ffdfa04a30ffc61575fe60ce3f313f884dae69e5226d415"
+    },
+    {
+      "path": "research/block_views/test_selection.py",
+      "bytes": 21947,
+      "sha256": "f2583e48680e5c2954ea1d63d40e73290f5a0329b94e74d880d10458ac2e93e2"
+    },
+    {
+      "path": "research/paper/.gitignore",
+      "bytes": 71,
+      "sha256": "29e25af9bcd6524ca36fe61c0b5cbde8ff9e0b6c2826d44fe3d7939e152d2dbc"
+    },
+    {
+      "path": "research/paper/Makefile",
+      "bytes": 1341,
+      "sha256": "a4184d497fa86ebcb0fed7d0d5e961b806fedd9baf4c6574743f9da0f2d276a6"
+    },
+    {
+      "path": "research/paper/README.md",
+      "bytes": 17452,
+      "sha256": "75e3613e840ad3a73cde8094f89c2893362d55266599adaeeaf6b4e3d88bac6d"
+    },
+    {
+      "path": "research/paper/figures/pipeline.tex",
+      "bytes": 2501,
+      "sha256": "7f77634693cbb444aedc44a53fd03848410811e9d1d405640918300341f0c8d4"
+    },
+    {
+      "path": "research/paper/figures/placement-sidecar.tex",
+      "bytes": 3457,
+      "sha256": "48e6b8a6d18a121c34ef92ed895f61b64c7a61cb1bbe147aa68ef3429f23ffbf"
+    },
+    {
+      "path": "research/paper/figures/uneven-lane-order.tex",
+      "bytes": 3288,
+      "sha256": "e7ecbc20185fd1506e0fb5aab9f84df4f661246822f48efa95e3d5b62e491fd9"
+    },
+    {
+      "path": "research/paper/main.tex",
+      "bytes": 785,
+      "sha256": "b2f4537d226ad5e32e006f3e74656236a22cdb1f00921fab6d41a35f1512cbee"
+    },
+    {
+      "path": "research/paper/placement-supplement.tex",
+      "bytes": 691,
+      "sha256": "d80352f4bbcb49612fbe312a942132362eb056efcf20e09a276e0349aeb7a0e8"
+    },
+    {
+      "path": "research/paper/preamble.tex",
+      "bytes": 2413,
+      "sha256": "85c0bfa1de6e27298a6e9346c2ee509d7e93a50561ea0bc80b3d516b83ab59fc"
+    },
+    {
+      "path": "research/paper/references.bib",
+      "bytes": 5261,
+      "sha256": "c38f51baa28395490d456f55167522b11ab02ee972384c648e5cc84af1588882"
+    },
+    {
+      "path": "research/paper/review-notes.tex",
+      "bytes": 32494,
+      "sha256": "548923baf324f8895e276528e0ed5b720bf6807a899c4f3f5ef63385c7825803"
+    },
+    {
+      "path": "research/paper/sections/00-abstract.tex",
+      "bytes": 1790,
+      "sha256": "14cb804828dce6d3186b1cb9f713b365f53f401554c6a7fbe04b42333eeb3d8e"
+    },
+    {
+      "path": "research/paper/sections/01-introduction.tex",
+      "bytes": 5168,
+      "sha256": "a36b978f8de51cd686560de0bade28c7597b047b8ee18e39fc3928df5d2b3a3e"
+    },
+    {
+      "path": "research/paper/sections/02-background.tex",
+      "bytes": 4180,
+      "sha256": "34022d588371cc93f69ffe5a239ef542771b1c1d0c5f2da5eec19daebbb08b63"
+    },
+    {
+      "path": "research/paper/sections/03-design.tex",
+      "bytes": 9053,
+      "sha256": "005a5070d01dd69dcb3f3feb3dbc78ca0a5be42236e35ee8054e9616a5567b61"
+    },
+    {
+      "path": "research/paper/sections/04-correctness.tex",
+      "bytes": 8060,
+      "sha256": "a7ad79891c00264fb08b1d65b02d30d567341a6f5b21a8082cb49fdc6ef9387a"
+    },
+    {
+      "path": "research/paper/sections/04-placement.tex",
+      "bytes": 18682,
+      "sha256": "c297dd3b8492dd2139eff673cee1042cf274df130904f92ced6f7d4a872bd1f9"
+    },
+    {
+      "path": "research/paper/sections/05-evaluation.tex",
+      "bytes": 6650,
+      "sha256": "7e349b0b5fa05cb5894447c3c1ff6b56dfaba36d82cdae271923eeb949813f50"
+    },
+    {
+      "path": "research/paper/sections/06-related.tex",
+      "bytes": 3073,
+      "sha256": "f893c03598011e72d736f08fce12b74470b4bbf777cdc49fa7e6c6694d65b9d0"
+    },
+    {
+      "path": "research/paper/sections/07-discussion.tex",
+      "bytes": 3534,
+      "sha256": "c13c127ae37fa12e80418a452b52a4a1924144e122d8c78a6b727f0f148b2a39"
+    },
+    {
+      "path": "research/paper/sections/08-conclusion.tex",
+      "bytes": 1198,
+      "sha256": "394a4628e5badde30db141ccc7c956c046fa704b5bc9d8ccd50c527d822551e6"
+    },
+    {
+      "path": "research/paper/sections/09-placement-details.tex",
+      "bytes": 2834,
+      "sha256": "ae108756087063e892a1a5bfa7cb05cd58ee9da7f1eab94ec783b2e0d68da8ac"
+    },
+    {
+      "path": "research/paper/sections/10-transfer-details.tex",
+      "bytes": 1724,
+      "sha256": "5e877a322d79b939375c797d94a44397c166dd59f1a0fdc5a1bfdfd252608924"
+    },
+    {
+      "path": "research/paper/usenix2019_v3.sty",
+      "bytes": 3654,
+      "sha256": "322b3c489b254445dd625ed91d2110b920bef20e8678ebb482009cdc26ebe04d"
+    },
+    {
+      "path": "research/placement/README.md",
+      "bytes": 4883,
+      "sha256": "1a25c72775d6f445c9803cea2af4d577210ae1d775639fda76c163d1262b80f5"
+    },
+    {
+      "path": "research/placement/analyze-independent-groups.mjs",
+      "bytes": 5489,
+      "sha256": "f4be58effdcfd5af4fa014f4f8b17fba4ef57eb37946145cc314c0d798c0af6b"
+    },
+    {
+      "path": "research/placement/analyze-independent-groups.test.mjs",
+      "bytes": 5229,
+      "sha256": "141b1ae035a449ddd797cd3b1edd8c79259ca9b45c9fea9836ceada2a153e722"
+    },
+    {
+      "path": "research/placement/cut-routing.mjs",
+      "bytes": 3658,
+      "sha256": "d396a1a2bad173a509185f83945675b07f937a67cbae63a113a458e50899c55c"
+    },
+    {
+      "path": "research/placement/cut-routing.test.mjs",
+      "bytes": 7954,
+      "sha256": "23f0da41191ec8a3d7c10a7e07f2e638d53a0bc9f9a538a8fd836a1e15ea8cfb"
+    },
+    {
+      "path": "research/placement/example-plan.json",
+      "bytes": 1710,
+      "sha256": "42580e530b44a1c31534c13294cddad3f7fd4f4cd5fc1d1119387b57da074992"
+    },
+    {
+      "path": "research/placement/independent-example.jsonl",
+      "bytes": 441,
+      "sha256": "ac707f52fa8aa02f5e7d1fba14ef1d80edcb6fd115cdd94e7ed3efabebb6a1a4"
+    },
+    {
+      "path": "research/placement/independent-groups.mjs",
+      "bytes": 7773,
+      "sha256": "8be1f9271f5724e28c3f8e236a8fb5f9c4c66cc466da42717267c5b50ff9355c"
+    },
+    {
+      "path": "research/placement/independent-groups.test.mjs",
+      "bytes": 9436,
+      "sha256": "5fdeb09e0d5933ef394822297a408751f60a33ef1d86b9a5d597b6556241250f"
+    },
+    {
+      "path": "research/placement/independent-placement-spec.md",
+      "bytes": 23416,
+      "sha256": "61b3fcbcf28df564596d02823ed7dbdfe8c35e566b2d8b9885ada10729bf9e12"
+    },
+    {
+      "path": "research/placement/load-aware-grouping-research.md",
+      "bytes": 10592,
+      "sha256": "9b2a8d35d98ddc55a7b68d29f628130ce3bcd5edb18c4c8f3d141d3928971d06"
+    },
+    {
+      "path": "research/placement/load-constrained-placement-proposal.md",
+      "bytes": 17461,
+      "sha256": "03fc1eec8bdb4c06942eb3f2ac130f3cfea6d1b49ddadeebfb8b637909a69cc6"
+    },
+    {
+      "path": "research/precut_order/model.py",
+      "bytes": 2716,
+      "sha256": "522b00ad092546606c97b9b330ebb432974dbcbe3f07eb7673ccadcabeba5bde"
+    },
+    {
+      "path": "research/precut_order/progressive.py",
+      "bytes": 2611,
+      "sha256": "6f1fe9181cc4f3849cb96047e045961019b2014df7b1c7fa076bf3be409d41a9"
+    },
+    {
+      "path": "research/precut_order/recovery.py",
+      "bytes": 2308,
+      "sha256": "0c48421a6fe2036e70eb642f829a6f340d1cd04ff2f2c4e5004603f53ae0597e"
+    },
+    {
+      "path": "research/precut_order/test_model.py",
+      "bytes": 10430,
+      "sha256": "796eb3e08e44c692fcd34d174d1a99bf914a09524999fc6d0fb4590a35537811"
+    },
+    {
+      "path": "research/precut_order/test_progressive.py",
+      "bytes": 6134,
+      "sha256": "e7b7bdad2fc66f14771c042ef8fa1e9ce513b5688e98951632e319abe41f8df2"
+    },
+    {
+      "path": "research/precut_order/test_recovery.py",
+      "bytes": 3935,
+      "sha256": "83e3e28d1430786da85a66cde97331e44edb03ed7fe304fe3235377ed349eb52"
+    },
+    {
+      "path": "rotating-round-robin-dag.md",
+      "bytes": 25513,
+      "sha256": "8e7233a18b3e019d5b59a7b7e8ded82938a9df988e9eea5f47e634f97cfa1475"
+    },
+    {
+      "path": "state-affinity-placement-v1.md",
+      "bytes": 22201,
+      "sha256": "bd2596a7626781076877869f5e997c62f60339dd1ac2979ec145089fa4645103"
+    },
+    {
+      "path": "state-affinity-placement-v2.md",
+      "bytes": 15259,
+      "sha256": "d7ebf01b06b264fc510d0abf723f636469889f73bb55179eee1f163a9bd92c76"
+    },
+    {
+      "path": "state-affinity-placement.md",
+      "bytes": 30606,
+      "sha256": "dc0f28db48baab700636684fc26dd4a252d261f4e23c03ea33df74c6d794ef87"
+    },
+    {
+      "path": "verifiable-computing-problem-map.md",
+      "bytes": 28808,
+      "sha256": "ace731d865ac1f637755d355d6903dcf61d11882d1d18a0065d94052c9bfbf41"
+    },
+    {
+      "path": "verifiable-computing-research-map.md",
+      "bytes": 29504,
+      "sha256": "b90bff4aecbc43bf89fc3a0d93292020bc1688df7dd82a7509431b7fa6d58652"
+    }
+  ],
+  "moved_original_paths": [
+    "SESSION_HANDOFF.md",
+    "asymmetric-validity-custody.md",
+    "block-selected-view-protocol.md",
+    "block-view-experiment-results.md",
+    "blockstm-execution-model.md",
+    "commonware-proof-sdk.md",
+    "conflict-affinity-quorum-propagation.md",
+    "cut-aware-proof-swarm.md",
+    "cut-vote-execution-view-note.md",
+    "cutbasis-vote-window-execution.md",
+    "evidence-refined-state-lattice.md",
+    "local-dag-selection-algorithm.md",
+    "non-ec-finality-design-space.md",
+    "non-ec-novelty-synthesis.md",
+    "overpass-family-multimmit-review.md",
+    "overpass-fixed-cut-implementation-plan.md",
+    "overpass-plan-ordering-outline.md",
+    "overpass-precut-order-research.md",
+    "overpass-prefix-plan.md",
+    "overpass-progressive-ordering.md",
+    "overpass-research-logic.md",
+    "overpass-review-next-decisions.md",
+    "overpass-submission-readiness-review.md",
+    "paper-outline-research.md",
+    "paper-outline-v12-cut-tail.md",
+    "paper-outline.md",
+    "paper-venue-targets.md",
+    "perp-liquidation-cascading-spec.md",
+    "proof-aware-multimmit-paper.md",
+    "proof-hedged-state-finality.md",
+    "proof-relative-dual-frontier.md",
+    "quorum-supported-speculative-state-dag.md",
+    "reexecution-reduction-literature.md",
+    "research/archive/2026-09-29-before-plan-ordering/AGENTS.md",
+    "research/archive/2026-09-29-before-plan-ordering/README.md",
+    "research/archive/2026-09-29-before-plan-ordering/overpass-fixed-cut-implementation-plan.md",
+    "research/archive/2026-09-29-before-plan-ordering/paper-outline.md",
+    "research/archive/2026-09-29-before-plan-ordering/research/paper/figures/placement-sidecar.tex",
+    "research/archive/2026-09-29-before-plan-ordering/research/paper/placement-supplement.tex",
+    "research/archive/2026-09-29-before-plan-ordering/research/paper/sections/04-placement.tex",
+    "research/archive/2026-09-29-before-plan-ordering/research/paper/sections/09-placement-details.tex",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/README.md",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/analyze-independent-groups.mjs",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/analyze-independent-groups.test.mjs",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/cut-routing.mjs",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/cut-routing.test.mjs",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/example-plan.json",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/independent-example.jsonl",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/independent-groups.mjs",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/independent-groups.test.mjs",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/independent-placement-spec.md",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/load-aware-grouping-research.md",
+    "research/archive/2026-09-29-before-plan-ordering/research/placement/load-constrained-placement-proposal.md",
+    "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement-v1.md",
+    "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement-v2.md",
+    "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement.md",
+    "research/archive/2026-09-29-binding-plan/AGENTS.md",
+    "research/archive/2026-09-29-binding-plan/INDEX.md",
+    "research/archive/2026-09-29-binding-plan/README.md",
+    "research/archive/2026-09-29-binding-plan/overpass-plan-ordering-outline.md",
+    "research/archive/2026-09-29-execution-history-plan/AGENTS.md",
+    "research/archive/2026-09-29-execution-history-plan/INDEX.md",
+    "research/archive/2026-09-29-execution-history-plan/README.md",
+    "research/archive/2026-09-29-execution-history-plan/overpass-plan-ordering-outline.md",
+    "research/archive/2026-09-29-execution-history-plan/overpass-research-logic.md",
+    "research/archive/2026-09-29-hermes-advisory/AGENTS.md",
+    "research/archive/2026-09-29-hermes-advisory/INDEX.md",
+    "research/archive/2026-09-29-hermes-advisory/README.md",
+    "research/archive/2026-09-29-hermes-advisory/overpass-plan-ordering-outline.md",
+    "research/archive/2026-09-29-hermes-advisory/overpass-research-logic.md",
+    "research/archive/2026-09-30-before-prefix-convergence/AGENTS.md",
+    "research/archive/2026-09-30-before-prefix-convergence/INDEX.md",
+    "research/archive/2026-09-30-before-prefix-convergence/README.md",
+    "research/archive/2026-09-30-before-prefix-convergence/overpass-plan-ordering-outline.md",
+    "research/archive/2026-09-30-before-prefix-convergence/overpass-research-logic.md",
+    "research/archive/2026-09-30-before-scored-plan/AGENTS.md",
+    "research/archive/2026-09-30-before-scored-plan/INDEX.md",
+    "research/archive/2026-09-30-before-scored-plan/README.md",
+    "research/archive/2026-09-30-before-scored-plan/overpass-plan-ordering-outline.md",
+    "research/archive/2026-09-30-before-scored-plan/overpass-prefix-plan.md",
+    "research/archive/2026-09-30-before-scored-plan/overpass-research-logic.md",
+    "research/archive/2026-10-03-implementation-outline/README.md",
+    "research/archive/2026-10-03-implementation-outline/README.previous.md",
+    "research/archive/2026-10-03-implementation-outline/baton-implementation-spec.md",
+    "research/archive/2026-10-03-implementation-outline/baton-paper.md",
+    "research/block_views/experiment.py",
+    "research/block_views/selection.py",
+    "research/block_views/test_experiment.py",
+    "research/block_views/test_properties.py",
+    "research/block_views/test_selection.py",
+    "research/paper/.gitignore",
+    "research/paper/Makefile",
+    "research/paper/README.md",
+    "research/paper/figures/pipeline.tex",
+    "research/paper/figures/placement-sidecar.tex",
+    "research/paper/figures/uneven-lane-order.tex",
+    "research/paper/main.tex",
+    "research/paper/placement-supplement.tex",
+    "research/paper/preamble.tex",
+    "research/paper/references.bib",
+    "research/paper/review-notes.tex",
+    "research/paper/sections/00-abstract.tex",
+    "research/paper/sections/01-introduction.tex",
+    "research/paper/sections/02-background.tex",
+    "research/paper/sections/03-design.tex",
+    "research/paper/sections/04-correctness.tex",
+    "research/paper/sections/04-placement.tex",
+    "research/paper/sections/05-evaluation.tex",
+    "research/paper/sections/06-related.tex",
+    "research/paper/sections/07-discussion.tex",
+    "research/paper/sections/08-conclusion.tex",
+    "research/paper/sections/09-placement-details.tex",
+    "research/paper/sections/10-transfer-details.tex",
+    "research/paper/usenix2019_v3.sty",
+    "research/placement/README.md",
+    "research/placement/analyze-independent-groups.mjs",
+    "research/placement/analyze-independent-groups.test.mjs",
+    "research/placement/cut-routing.mjs",
+    "research/placement/cut-routing.test.mjs",
+    "research/placement/example-plan.json",
+    "research/placement/independent-example.jsonl",
+    "research/placement/independent-groups.mjs",
+    "research/placement/independent-groups.test.mjs",
+    "research/placement/independent-placement-spec.md",
+    "research/placement/load-aware-grouping-research.md",
+    "research/placement/load-constrained-placement-proposal.md",
+    "research/precut_order/model.py",
+    "research/precut_order/progressive.py",
+    "research/precut_order/recovery.py",
+    "research/precut_order/test_model.py",
+    "research/precut_order/test_progressive.py",
+    "research/precut_order/test_recovery.py",
+    "rotating-round-robin-dag.md",
+    "state-affinity-placement-v1.md",
+    "state-affinity-placement-v2.md",
+    "state-affinity-placement.md",
+    "verifiable-computing-problem-map.md",
+    "verifiable-computing-research-map.md"
+  ],
+  "preserved_existing_relative_links": 263,
+  "new_relative_link_regressions": [],
+  "pre_existing_missing_relative_links": [
+    [
+      "block-selected-view-protocol.md",
+      "./commonware/consensus/src/lib.rs"
+    ],
+    [
+      "block-selected-view-protocol.md",
+      "./commonware/consensus/src/multimmit/machine/finality.rs"
+    ],
+    [
+      "block-selected-view-protocol.md",
+      "./commonware/consensus/src/multimmit/docs/PROPERTIES.md"
+    ],
+    [
+      "block-selected-view-protocol.md",
+      "./commonware/consensus/src/multimmit/types/activity.rs"
+    ],
+    [
+      "block-selected-view-protocol.md",
+      "./commonware/examples/log-multimmit/src/application/actor.rs"
+    ],
+    [
+      "overpass-fixed-cut-implementation-plan.md",
+      "commonware/actor/src/lib.rs"
+    ],
+    [
+      "overpass-fixed-cut-implementation-plan.md",
+      "commonware/consensus/src/lib.rs"
+    ],
+    [
+      "overpass-fixed-cut-implementation-plan.md",
+      "commonware/consensus/src/multimmit/actors/voter/actor.rs"
+    ],
+    [
+      "overpass-fixed-cut-implementation-plan.md",
+      "commonware/consensus/src/multimmit/types/activity.rs"
+    ],
+    [
+      "overpass-plan-ordering-outline.md",
+      "commonware/consensus/src/multimmit/docs/STATE_MACHINE.md"
+    ],
+    [
+      "overpass-prefix-plan.md",
+      "commonware/consensus/src/multimmit/docs/STATE_MACHINE.md"
+    ],
+    [
+      "overpass-prefix-plan.md",
+      "commonware/consensus/src/multimmit/machine/algebra/tips.rs"
+    ],
+    [
+      "overpass-prefix-plan.md",
+      "commonware/consensus/src/multimmit/types/block.rs"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/docs/STATE_MACHINE.md:56"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/mod.rs:210"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/types/activity.rs:1"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/machine/algebra/tips.rs:143"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/docs/STATE_MACHINE.md:383"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/machine/tests/machine.rs:1609"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/docs/PROPERTIES.md:146"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/types/block.rs:561"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/types/vote.rs:88"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/machine/durability.rs:446"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/machine/durability.rs:1276"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/glue/src/multimmit.rs:201"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/glue/src/multimmit.rs:421"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/glue/benches/multimmit_state_finality.rs:44"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/glue/benches/multimmit_state_finality.rs:60"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/glue/benches/multimmit_state_finality.rs:74"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/examples/log-multimmit/README.md:28"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/examples/log-multimmit/src/application/actor.rs:65"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/examples/log-multimmit/src/application/actor.rs:82"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "research/block_views/selection.py:62"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "research/block_views/selection.py:392"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "research/block_views/test_properties.py:10"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "research/block_views/test_selection.py:220"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "research/block_views/experiment.py:38"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/types/block.rs:119"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/types/block.rs:563"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/glue/src/multimmit.rs:65"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/glue/src/multimmit.rs:78"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/config.rs:112"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/types/certificate.rs:420"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/types/vote.rs:120"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/types/block.rs:645"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/docs/STATE_MACHINE.md"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/machine/view.rs:2734"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/machine/view.rs:1293"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/machine/durability.rs:448"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/types/certificate.rs:327"
+    ],
+    [
+      "overpass-submission-readiness-review.md",
+      "commonware/consensus/src/multimmit/docs/STATE_MACHINE.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/overpass-fixed-cut-implementation-plan.md",
+      "commonware/actor/src/lib.rs"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/overpass-fixed-cut-implementation-plan.md",
+      "commonware/consensus/src/lib.rs"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/overpass-fixed-cut-implementation-plan.md",
+      "commonware/consensus/src/multimmit/actors/voter/actor.rs"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/overpass-fixed-cut-implementation-plan.md",
+      "commonware/consensus/src/multimmit/types/activity.rs"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/paper-outline.md",
+      "./research/paper/sections/03-design.tex"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/paper-outline.md",
+      "./blockstm-execution-model.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/paper-outline.md",
+      "./paper-outline-v12-cut-tail.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/paper-outline.md",
+      "./overpass-family-multimmit-review.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/paper-outline.md",
+      "./cut-vote-execution-view-note.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/paper-outline.md",
+      "./research/paper/main.tex"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/paper-outline.md",
+      "./research/paper/figures/uneven-lane-order.tex"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement-v1.md",
+      "./blockstm-execution-model.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement-v1.md",
+      "./rotating-round-robin-dag.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement-v1.md",
+      "./conflict-affinity-quorum-propagation.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement-v2.md",
+      "./blockstm-execution-model.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement.md",
+      "./blockstm-execution-model.md"
+    ],
+    [
+      "research/archive/2026-09-29-before-plan-ordering/state-affinity-placement.md",
+      "./rotating-round-robin-dag.md"
+    ],
+    [
+      "research/archive/2026-09-29-binding-plan/README.md",
+      "research/archive/2026-09-29-before-plan-ordering/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-binding-plan/README.md",
+      "overpass-progressive-ordering.md"
+    ],
+    [
+      "research/archive/2026-09-29-binding-plan/README.md",
+      "paper-outline.md"
+    ],
+    [
+      "research/archive/2026-09-29-binding-plan/README.md",
+      "research/paper/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-binding-plan/README.md",
+      "research/placement/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-binding-plan/overpass-plan-ordering-outline.md",
+      "research/archive/2026-09-29-before-plan-ordering/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-execution-history-plan/README.md",
+      "research/archive/2026-09-29-binding-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-29-execution-history-plan/README.md",
+      "research/archive/2026-09-29-before-plan-ordering/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-execution-history-plan/README.md",
+      "overpass-progressive-ordering.md"
+    ],
+    [
+      "research/archive/2026-09-29-execution-history-plan/README.md",
+      "paper-outline.md"
+    ],
+    [
+      "research/archive/2026-09-29-execution-history-plan/README.md",
+      "research/paper/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-execution-history-plan/README.md",
+      "research/placement/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-execution-history-plan/overpass-plan-ordering-outline.md",
+      "research/archive/2026-09-29-binding-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-29-execution-history-plan/overpass-plan-ordering-outline.md",
+      "research/archive/2026-09-29-before-plan-ordering/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/README.md",
+      "research/archive/2026-09-29-execution-history-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/README.md",
+      "research/archive/2026-09-29-binding-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/README.md",
+      "research/archive/2026-09-29-before-plan-ordering/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/README.md",
+      "overpass-progressive-ordering.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/README.md",
+      "paper-outline.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/README.md",
+      "research/paper/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/README.md",
+      "research/placement/README.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/overpass-plan-ordering-outline.md",
+      "research/archive/2026-09-29-execution-history-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/overpass-plan-ordering-outline.md",
+      "research/archive/2026-09-29-binding-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-29-hermes-advisory/overpass-plan-ordering-outline.md",
+      "research/archive/2026-09-29-before-plan-ordering/README.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-prefix-convergence/README.md",
+      "research/archive/2026-09-29-hermes-advisory/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-prefix-convergence/README.md",
+      "research/archive/2026-09-29-execution-history-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-prefix-convergence/README.md",
+      "research/archive/2026-09-29-binding-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-prefix-convergence/README.md",
+      "research/archive/2026-09-29-before-plan-ordering/README.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-prefix-convergence/README.md",
+      "paper-outline.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-prefix-convergence/README.md",
+      "research/paper/README.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-prefix-convergence/overpass-plan-ordering-outline.md",
+      "research/archive/2026-09-29-hermes-advisory/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-scored-plan/README.md",
+      "research/archive/2026-09-30-before-prefix-convergence/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-scored-plan/README.md",
+      "research/archive/2026-09-29-hermes-advisory/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-scored-plan/README.md",
+      "research/archive/2026-09-29-execution-history-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-scored-plan/README.md",
+      "research/archive/2026-09-29-binding-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-scored-plan/README.md",
+      "research/archive/2026-09-29-before-plan-ordering/README.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-scored-plan/README.md",
+      "paper-outline.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-scored-plan/README.md",
+      "research/paper/README.md"
+    ],
+    [
+      "research/archive/2026-09-30-before-scored-plan/overpass-plan-ordering-outline.md",
+      "research/archive/2026-09-30-before-prefix-convergence/INDEX.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "BATON_HANDOFF.md#targeted-paper-clarification-direction-replies"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "BATON_HANDOFF.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "AGENTS.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "overpass-plan-ordering-outline.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "overpass-prefix-plan.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "overpass-research-logic.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "overpass-submission-readiness-review.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "overpass-review-next-decisions.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "research/archive/2026-09-30-before-scored-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "research/archive/2026-09-30-before-prefix-convergence/INDEX.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "research/archive/2026-09-29-hermes-advisory/INDEX.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "research/archive/2026-09-29-execution-history-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "research/archive/2026-09-29-binding-plan/INDEX.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "research/archive/2026-09-29-before-plan-ordering/README.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "SESSION_HANDOFF.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "paper-outline.md"
+    ],
+    [
+      "research/archive/2026-10-03-implementation-outline/README.previous.md",
+      "research/paper/README.md"
+    ]
+  ],
+  "link_parser_scope": "Inline link destinations including escaped bracket labels; original commit tree targets and directory topology"
+}

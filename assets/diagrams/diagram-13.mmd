@@ -7,17 +7,30 @@ sequenceDiagram
     participant B as Baton / Ordered delivery
     S->>W: Register native and application logical channels
     S->>A: Open body storage / parent lookup, start service
-    S->>E: Recover canonical DB and applied metadata
     S->>W: Start authenticated network service
-    S->>N: Engine::start(native planes)
-    N->>N: Replay native durable journal / signing history
-    loop Required recovered payload contexts
-        N->>A: Automaton::verify(recovered Context, payload)
-        A->>A: Lookup / fetch exact body and required parent, sync custody
-        A-->>N: Valid durable custody
+    par Native startup / context intake
+        S->>N: Engine::start(native planes)
+        N->>N: Replay native durable journal / signing history
+        loop Required recovered payload contexts
+            N->>A: Automaton::verify(recovered Context, payload)
+            A->>A: Lookup / fetch exact body and required parent, sync custody
+            A-->>N: Valid durable custody
+        end
+        N->>N: Construct actors and resume native obligations
+        N-->>S: Running handle, readiness initially pending
+        S->>N: Await Running::ready()
+        N-->>S: Native readiness true or false
+        opt Context / evidence intake service ready
+            S->>B: Start authenticated intake / retention / history backfill
+        end
+    and Execution recovery
+        S->>E: Recover canonical DB and applied metadata
+        E-->>S: Execution state readiness / recovery status
     end
-    N->>N: Construct actors and resume native obligations
-    N-->>S: Running handle
-    S->>S: Track body / native / delivery / execution readiness separately
-    S->>B: Resume context intake / evidence backfill / execution delivery
+    alt Execution state and exact input ready
+        S->>B: Resume state-dependent Execute / Commit delivery
+    else Input state unresolved or required execution service failed
+        Note over S,B: Execution delivery를 pending / recovery로 두고 evidence 보관은 별도 진행
+    end
+    Note over N,E: Native startup은 application QMDB recovery의 완료를 새 prerequisite로 요구하지 않음
     Note over S,B: Recovered canonical state와 authenticated history에서 재개, transient direction은 재구성
