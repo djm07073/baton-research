@@ -1,6 +1,6 @@
 # Baton: Execution-Aware Ordering for Autobahn
 
-> [Google Doc 원문](https://docs.google.com/document/d/1PtUpMGMNMkyo1UEY2bNciJD3oIiGLRf407PW_T3Er5I/edit) · [동반 문서](IMPLEMENTATION_SPEC.md) · 2026-09-30 수동 동기화. 이후 사용자 결정과 Google Doc의 최신 revision이 이 snapshot에 우선한다.
+> [Google Doc 원문](https://docs.google.com/document/d/1PtUpMGMNMkyo1UEY2bNciJD3oIiGLRf407PW_T3Er5I/edit) · [동반 문서](baton-implementation-spec.md) · 2026-09-30 수동 동기화. 이후 사용자 결정과 Google Doc의 최신 revision이 이 snapshot에 우선한다.
 
 한국어 리뷰 초안 · 연구 설계 및 평가 계획
 

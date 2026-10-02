@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant C as Client
+    participant T as Tx / Mempool
+    participant N as Consensus attachment
+    participant B as Baton
+    participant E as Execution / QMDB
+    C->>T: Submit(tx)
+    T-->>C: Admitted(tx_id)
+    N->>T: SelectBatch(producer context, limits)
+    T-->>N: Candidate tx batch
+    N->>N: Build body, store + sync, native header / DA
+    N-->>B: BlockAvailable(block_ref, verified body, context)
+    B->>E: Execute(exact base, intended order, generation)
+    E-->>B: Speculative outcome / branch handle
+    Note over N,B: Native consensus와 report / direction 경로는 병렬 진행
+    N-->>B: OrderedRange(exact order, predecessor, evidence)
+    B->>E: Commit(ordered range)
+    E->>E: Reuse matching prefix / execute missing suffix
+    E->>E: Durable canonical state + outputs + cursor
+    E-->>B: CommitApplied(cursor, state root, outputs)
+    B-->>N: Delivery acknowledgement
+    B-->>T: CanonicalOutcome(tx IDs / outcomes)
+    Note over B,E: 기존 state-finalization endpoint는 exact order + 동일 statement의 f+1 실행 서명

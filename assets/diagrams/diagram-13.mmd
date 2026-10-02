@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant S as Node startup
+    participant W as Commonware network
+    participant A as Body archive / Resolver / Automaton
+    participant N as Native Engine
+    participant E as Execution / QMDB
+    participant B as Baton / Ordered delivery
+    S->>W: Register native and application logical channels
+    S->>A: Open body storage / parent lookup, start service
+    S->>E: Recover canonical DB and applied metadata
+    S->>W: Start authenticated network service
+    S->>N: Engine::start(native planes)
+    N->>N: Replay native durable journal / signing history
+    loop Required recovered payload contexts
+        N->>A: Automaton::verify(recovered Context, payload)
+        A->>A: Lookup / fetch exact body and required parent, sync custody
+        A-->>N: Valid durable custody
+    end
+    N->>N: Construct actors and resume native obligations
+    N-->>S: Running handle
+    S->>S: Track body / native / delivery / execution readiness separately
+    S->>B: Resume context intake / evidence backfill / execution delivery
+    Note over S,B: Recovered canonical state와 authenticated history에서 재개, transient direction은 재구성

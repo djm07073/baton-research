@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant S as Startup owner
+    participant Q as QMDB / Commit metadata
+    participant M as Ordered delivery / History recovery
+    participant B as Baton
+    participant E as Execution
+    S->>Q: Recover last durable applied commit
+    Q-->>S: State / outputs / AppliedCursor
+    S->>S: Start body store / parent lookup / resolver service
+    Note over S,M: Body service는 Engine.start 호출 전에 준비되어야 함
+    S->>M: Recover archive and delivery cursors
+    M->>M: Fetch missing authenticated history / bodies
+    S->>E: Open recovered canonical checkpoint
+    Note over B,E: Speculative branch tree는 durable canonical state에서 다시 구성 가능
+    M-->>B: Redeliver unacknowledged exact range
+    B->>E: Idempotent Commit(range)
+    E-->>B: Existing matching commit or newly durable result
+    B-->>M: Delivery ACK

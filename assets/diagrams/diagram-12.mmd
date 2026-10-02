@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant L as Leader Baton
+    participant P as Bounded planner worker
+    participant N as Actual native proposal owner
+    participant V as Native validators
+    L->>P: Frozen reports / exact planning context
+    alt Evaluated candidate reaches owner before proposal freeze
+        P-->>N: PreparedPolicy(context, validity material)
+        N->>N: Recheck actual parent / history / frontier / request correlation
+        alt Recheck admits candidate for this actual proposal
+            N->>N: Freeze selected prefix and policy before signing
+        else Context or admissibility recheck fails
+            N->>N: Use actual-parent valid NativeBase before adoption
+        end
+    else Candidate is stale, unavailable, or unfinished
+        N->>N: Use actual-parent valid NativeBase before adoption
+    end
+    N-->>V: Authenticated native proposal with fixed interpretation
+    V-->>N: Native proposal votes
+    opt Late planner result / new report / larger native pool
+        P-->>N: Late prepared result
+        N->>N: Do not mutate this proposal policy
+    end
+    Note over L,V: Native votes는 direction 회신 quorum이 아님

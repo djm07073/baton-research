@@ -1,19 +1,23 @@
 # Baton — current research handoff
 
-Updated 2026-09-30. This supersedes the current-state claims in [SESSION_HANDOFF.md](SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
+Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF.md](SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
 
-## Source priority and synchronized documents
+## 2026-10-03 구현 문서 재구성
+
+현재 구현 스펙은 [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) 한 파일이다. 사용자 지정 네 레이어(Tx-router / mempool, Native Multimmit, Baton, generic execution / QMDB)와 lifecycle sequence를 중심으로 새 개요를 작성하고 있으며 Bank는 현재 개발 범위에서 제외한다. 미결정 정책은 빈 결정 칸으로 보존한다. 아래 Google Docs revision 표와 상세 구현 계약은 이전 snapshot의 출처이며 새 개요와 자동 동기화하지 않는다. 문서 개선 작업 중이고 protocol 구현·E2E·benchmark 결과는 없다.
+
+## Research source priority and historical document synchronization
 
 1. Latest explicit user decisions and current Google Docs.
-2. [Baton paper](baton-paper.md) and [implementation specification](baton-implementation-spec.md), manually synchronized from the revisions below.
+2. [Baton paper](baton-paper.md) and [implementation specification](research/archive/2026-10-03-implementation-outline/baton-implementation-spec.md), manually synchronized from the revisions below.
 3. Historical Overpass outline/design/reviews, earlier handoffs, draft PR1, toy and archive material as cited context.
 
 | Document | Native Google Doc | Verified revision |
 |---|---|---|
-| Paper: problem, mechanism, indispensable assumptions and conditional arguments, evaluation and limitations; eight sections | [Baton: Execution-Aware Ordering for Autobahn](https://docs.google.com/document/d/1PtUpMGMNMkyo1UEY2bNciJD3oIiGLRf407PW_T3Er5I/edit) | `ANLCKQkG0bHiwlyzmrsvy0ssYwUXBdYIZvrpOvfxOLFeGvcK8xGB0DbgU98dIpGftngtMnZ54s8SIFlx7ZtTGE39xSerkGJGnQ1AkrW1qK4` |
+| Paper: problem, mechanism, indispensable assumptions and conditional arguments, evaluation and limitations; eight sections | [Baton: Execution-Aware Ordering for Autobahn](https://docs.google.com/document/d/1PtUpMGMNMkyo1UEY2bNciJD3oIiGLRf407PW_T3Er5I/edit) | `ANLCKQmRJs9iN4rM0jd-sH8a8PE8D5cH8yKKe09aXUrk1TDg_eTC_hlTvuhi55xsE1tMpqBAhdXm9Fx3q9fP50wosMdRhe8BeNyUOj22FLg` |
 | Specification: identity/context, admission, frontier, bounds/completion, proposal/slot/recovery, signing, retention and alternatives | [Baton — 구현 스펙](https://docs.google.com/document/d/10x4RvqG8e07Tai0s20e-wpCfz8COgH0JGR5daKE1xO8/edit) | `ANLCKQldFScCUBScmgJIyaYLPQlgBG0-jI0rlb5_U3v2gX0Xu8MAXhBxHcyjHNY82H-xP142eGYXdLIhDp3KqCjj-Q226UsQGutIAR_eHK0` |
 
-The repository name remains `overpass-research`. Historical citation titles and source URLs remain intact. These are manual counterparts, not automatic two-way synchronization. A later native revision or user decision requires deliberate reconciliation rather than overwriting either side.
+The current GitHub repository is `djm07073/baton-research`; the existing local checkout name and origin remain unchanged. Historical citation titles and source URLs remain intact. These are manual counterparts, not automatic two-way synchronization. A later native revision or user decision requires deliberate reconciliation rather than overwriting either side.
 
 ## What changed from the earlier repository snapshot
 
@@ -69,3 +73,7 @@ Before treating that plan as current implementation work, add the protected-pref
 - Markdown paragraph/citation preservation, local links, references and Git diff/whitespace are checked separately before commit. Git publication/CI status belongs in the delivery report; it is not native protocol validation.
 
 No protocol implementation, native/toy tests, protocol compilation, benchmarks, spending, credential reconfiguration or draft-PR management was performed. Future implementation requires explicit scope; do not ask again for decisions already adopted.
+
+## Targeted paper clarification: direction replies
+
+On 2026-10-02, the user chose to omit a separate direction vote/ACK/Ready quorum. Paper §§3.3, 3.4 and 4.3 now explain the no-reply flow, repeated leader-local control cycle and why approval replies introduce a barrier without certifying canonical order or execution. The native paper revision above and local baton-paper.md were checked after this targeted insertion; the specification was not edited. Native proposal votes, irrevocable order/input-state gates and f+1 execution-result signatures remain. Prefix adoption/continuation/recovery proof obligations remain open. Discussion and connector readback are recorded in /Users/leojin/dev/baton/research/multimmit_fork/DIRECTION_NO_REPLY_DECISION.md and its companion update record. No commit/push, protocol implementation or runtime tests were performed by this clarification.
