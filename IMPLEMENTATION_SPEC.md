@@ -820,7 +820,7 @@ Targeted fetch는 지정한 targets 밖으로 자동 fallback하지 않는다. O
 
 `Relay::broadcast`는 synchronous callback이다. 느린 archive lookup·fetch·sync는 callback에서 기다리지 않고 body publication owner에게 전달한다. Native는 `Feedback::Closed`이면 해당 sender attempt를 미루고 그 외에는 전송을 시도한다. Remote body receipt나 custody quorum의 ACK를 받은 것은 아니다.
 
-Native sender의 local acceptance 뒤에도 동일 effect와 encoded bytes를 retry하며 persisted semantic successor에 따른 native Retire가 publication을 제거한다. 이 native retry를 report/direction 승인 대기로 바꾸지 않는다. [Relay dispatch](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/actor.rs#L2286), [Native retry ownership](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/egress.rs#L1).
+Native 송신기는 local sender가 전송 요청을 받아들인 뒤에도 같은 effect와 encoded bytes로 재시도한다. Core가 영속화된 후속 상태에 따라 Retire를 발급하면 해당 publication을 제거한다. 이 native retry를 report/direction 승인 대기로 바꾸지 않는다. [Relay dispatch](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/actor.rs#L2286), [Native retry ownership](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/egress.rs#L1).
 
 Resolver `retain`은 pending fetch subscribers를 정한다. Fetch Complete/cancel, native publication Retire, body archive의 보관 해제는 서로 다른 lifecycle이다. Speculative subscriber를 취소하거나 cache에서 bytes를 지워도 live native custody·recovery·serving 의무가 끝났다고 가정하지 않는다. Body/history references와 durable handoff에 맞춘 retention·release 조건은 아래 빈칸에 남긴다. [Fetch subscriber retention](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs#L216).
 
@@ -861,7 +861,7 @@ Ordered delivery adapter는 native owner가 선택한 exact witness와 original 
 
 `FinalityFact`는 leader/tips/positions/settledness와 evidence identity의 normalized projection이며 actual witness archive가 아니다.
 
-Evidence hash는 witness의 식별 commitment이며 서명 검증 자료 자체가 아니다. Aggregate V-QC에서 재구성한 selected row에는 standalone raw vote artifact가 없을 수 있으므로 **selected row → authenticating signed vote 또는 source certificate → 재현 가능한 extraction/opening**을 보존해야 한다. Native가 선택한 identity별 exact body를 다른 conflicting body나 임의 quorum subset으로 바꾸지 않는다.
+Evidence hash는 witness의 식별 commitment이며 서명 검증 자료 자체가 아니다. Aggregate V-QC에서 재구성한 selected row에는 standalone raw vote artifact가 없을 수 있다. Ordered delivery adapter는 selected row와 함께 이를 인증하는 signed vote 또는 source certificate, extraction/opening을 재현할 자료를 보존해야 한다. Native가 선택한 identity별 exact body를 다른 conflicting body나 임의 quorum subset으로 바꾸지 않는다.
 
 Tips가 같아도 source/evidence·settledness가 달라질 수 있어, 필요한 immutable export는 owner의 exact source-selection 전환에 연결해야 한다. [Evidence commitment](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L2082), [Aggregate row provenance](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L1681), [Pool revision](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L1865).
 
@@ -1184,7 +1184,7 @@ Generation을 무효화하면 **결과 채택 권한**을 취소한다. Worker a
 
 “Canonical로 만든다”는 branch pointer만 바꾸는 동작이 아니다. QMDB에 writes를 적용·sync하고 outputs·commit metadata·AppliedCursor를 crash 후에도 일관되게 복구할 수 있어야 한다. Branch cleanup의 GC scheduling은 미결정이며 state/output/cursor의 durable 완료와 별도로 정한다. Active access fencing과 required retention은 항상 유지해야 한다.
 
-`ABC`만 하나의 sealed batch로 있고 `AB` checkpoint가 없다면 `ABC`를 apply한 뒤 `C`를 숨기는 방식으로 partial-prefix commit을 처리할 수 없다. 요청의 exact predecessor와 맞는 유효한 base에서 `AB` boundary를 materialize/replay해야 한다. `new_batches`는 현재 applied DB에서 시작하며 이미 전진한 DB의 과거 prefix를 자동 복원하지 않는다. [Actual base capture](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2704).
+`ABC`만 하나의 sealed batch로 있고 `AB` checkpoint가 없다면 `ABC`를 apply한 뒤 `C`를 숨기는 방식으로 partial-prefix commit을 처리할 수 없다. Canonical owner는 요청의 정확한 predecessor와 일치하는 유효한 base에서 `AB` 끝의 별도 batch 경계를 만들거나, `AB`까지 재실행해 그 경계를 준비해야 한다. `new_batches`는 현재 applied DB에서 시작하며 이미 전진한 DB의 과거 prefix를 자동 복원하지 않는다. [Actual base capture](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2704).
 
 새 `AB`의 실제 commitment가 old `ABC` ancestry와 다르면 old sealed `ABC` batch를 자동 재사용할 수 없다. 기존 `ABC` batch의 실제 조상에 `AB`가 있다면, owner는 현재 canonical DB의 operation 수와 authenticated ops root가 그 조상의 commitment와 일치하는지 확인한다. Batch가 유효하고 정확한 입력·runtime·완료 결과의 context도 맞을 때만 기존 `ABC` batch를 계속 사용할 수 있다. Storage applicability는 floors도 검사하며 application input/runtime/outputs binding은 owner가 확인한다. [Storage bounds validation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L98).
 
