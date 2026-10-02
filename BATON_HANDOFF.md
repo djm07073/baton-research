@@ -6,11 +6,12 @@ Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF
 
 현재 구현 스펙은 [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) 한 파일이다. 사용자 지정 네 레이어(Tx-router / mempool, Native Multimmit, Baton, generic execution / QMDB)와 lifecycle sequence를 중심으로 새 개요를 작성하고 있으며 Bank는 현재 개발 범위에서 제외한다. 미결정 정책은 빈 결정 칸으로 보존한다. 아래 Google Docs revision 표와 상세 구현 계약은 이전 snapshot의 출처이며 새 개요와 자동 동기화하지 않는다. 문서 개선 작업 중이고 protocol 구현·E2E·benchmark 결과는 없다.
 
-## Research source priority and historical document synchronization
+## Current document priority and historical document synchronization
 
-1. Latest explicit user decisions and current Google Docs.
-2. [Baton paper](baton-paper.md) and [implementation specification](archive/2026-10-03-root-history/repository/research/archive/2026-10-03-implementation-outline/baton-implementation-spec.md), manually synchronized from the revisions below.
-3. Historical Overpass outline/design/reviews, earlier handoffs, draft PR1, toy and archive material as cited context.
+1. Latest explicit user decisions.
+2. [Current implementation architecture](IMPLEMENTATION_SPEC.md) and [Baton research paper](baton-paper.md), each for its stated scope.
+3. Google Docs revisions below and the [archived detailed implementation specification](archive/2026-10-03-root-history/repository/research/archive/2026-10-03-implementation-outline/baton-implementation-spec.md) as provenance of the previous manual synchronization. Reconcile later revisions deliberately with current user decisions and Markdown; these snapshots do not replace the current architecture.
+4. Historical Overpass outline/design/reviews, earlier handoffs, draft PR1, toy and archive material as cited context.
 
 | Document | Native Google Doc | Verified revision |
 |---|---|---|
