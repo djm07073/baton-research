@@ -965,6 +965,8 @@ Speculative state와 canonical state를 분리한다. Execute는 branch 결과�
 
 Recover는 startup/recovery 연결부가, ReadAt은 query caller가 요청한다. Branch handle은 context의 검증을 대신하지 않는다. 최소한 base state identity, runtime/version, exact input prefix, branch generation과 canonical cursor 연결을 확인한다.
 
+BranchOwner는 exact ordered input의 tx/body·runtime identity와 유효한 branch-scoped state access를 Application runtime에 전달한다. Runtime은 pending mutations·outputs·실행 결과를 돌려주며, checkpoint의 context 결속과 canonical 적용 권한은 execution owner가 관리한다. 이는 새 runtime 연결의 책임을 설명하는 계약이며 기존 `stateful::Application` trait와 바로 호환된다는 뜻은 아니다.
+
 ReadAt의 local 조회 readiness와 `f+1` 결과 인증은 별도다. Signer·collector·consumer의 연결은 [§2.10](#210-결과-endpoint-direct-execution과-f1-인증), optional certified import는 [§6.7](#67-미채택-후보-certificate--state-material로-catch-up)에서 설명한다.
 
 ### 6.3 QMDB state 관리와 재사용 경계
@@ -1184,6 +1186,8 @@ Tx 저장·선택은 [§3.1의 pool 재사용 후보](#31-역할과-책임), bod
 | 7 | Native proposal policy / continuation / recovery 연결 | Selected prefix inclusion + exact leading order + no-wait 검증 |
 
 단계 7의 native adoption·continuation 증명이 없으면 advisory scheduling 연결과 protected-prefix Baton 통합을 같은 완료 상태로 부르지 않는다. 테스트 workload는 application semantics 결정 후 정하며 Bank를 먼저 개발하는 단계는 두지 않는다.
+
+단계 4에서는 [§5.2의 `OnOrderedRange`→`Commit` 연결](#52-인터페이스-개요)로 단계 3의 canonical 입력을 execution에 먼저 전달하고, 단계 5에서 candidate intake·speculation·reschedule을 더한다. [§2.10의 direct-result signer / collector / query 연결](#210-결과-endpoint-direct-execution과-f1-인증)도 이 execution 경로에 붙일 개발 항목이다. 구체 signature boundary·root construction·codec·key 연결은 빈 결정 칸을 정한 뒤 구현한다.
 
 ### 7.3 컴포넌트별 검증 케이스
 
