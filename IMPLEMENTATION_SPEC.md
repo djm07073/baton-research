@@ -720,7 +720,7 @@ Pinned `log-multimmit`은 body-free·delivery-free example이다. `Application::
 | Payload 검증 | 기존 `Automaton::verify(Context, payload)` | Payload reference → body·parent lookup / 구조 검증 / durable custody → validity result |
 | Body 전파 | 기존 `Relay::broadcast` + adapter | Digest → adapter owner의 body publication 요청 → Commonware broadcast / body P2P |
 | Body 준비 | 제안 `BodyReady` | Exact context의 body·parent custody 완료 → local attachment readiness |
-| Candidate header 관측 | 기존 `Reporter::report(Activity)` + adapter | Accepted signed transaction artifact → exact header reference와 body join 입력 |
+| Candidate header 관측 | 기존 `Reporter::report(Activity)` + adapter | Accepted native `TransactionBlock` artifact → exact header reference와 body join 입력 |
 | 후보 실행 전달 | 제안 `BlockAvailable` | Authenticated native header와 exact body 대응 확인 → Baton block intake |
 | Planning context | 신규 native owner hook | Leader view / V-QC parent / history / frontier → Baton planner read-only context |
 | Policy adoption | 신규 native policy hook | Prepared matching candidate → proposal-bound frozen policy |
@@ -728,7 +728,9 @@ Pinned `log-multimmit`은 body-free·delivery-free example이다. `Application::
 
 `BlockAvailable`에는 body digest뿐 아니라 producer header와의 인증된 대응이 필요하다. Local build 직후 아직 header가 서명되지 않았다면 그 body는 local speculative candidate로 구분한다. Authenticated header를 아는 것과 final cut 포함도 별개다. 순서를 바꿀 수 있는 global frontier는 노드의 AppliedCursor로 대신하지 않는다.
 
-기존 `Activity::ProtocolAccepted`는 contextually ready set에 들어간 exact authenticated artifact의 `Arc`를 제공한다. 여기서 Ready는 native artifact의 crypto/context admission이며 body 검증 완료나 native Retained completion이 아니다. Signed transaction artifact에서 header를 얻어 BodyReady와 join하는 shared attachment를 재사용 경로로 검토한다. 두 사건의 도착 순서를 가정하지 않고 exact context·commitment·header identity로 대조한다. ArtifactId는 전체 signed artifact의 식별자이므로 producer `header.block_ref`와 구분한다. [Accepted activity](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/activity.rs#L1).
+기존 `Activity::ProtocolAccepted`는 contextually ready set에 들어간 exact authenticated artifact의 `Arc`를 제공한다. 여기서 Ready는 native artifact의 crypto/context admission이며 body 검증 완료나 native Retained completion이 아니다. Native `TransactionBlock` artifact에서 header를 얻어 BodyReady와 join하는 shared attachment를 재사용 경로로 검토한다. 두 사건의 도착 순서를 가정하지 않고 exact context·commitment·header identity로 대조한다. [Accepted activity](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/activity.rs#L1).
+
+`ArtifactId`는 artifact 종류와 exact canonical artifact encoding 전체를 domain-separated hash로 식별한다. Native `TransactionBlock` artifact에는 `SignedTransactionBlock`의 encoding이 들어가므로 producer `header.block_ref`와 구분한다. [Artifact identity 계산](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/admission.rs#L145).
 
 Reporter는 synchronous callback이고 native가 Feedback을 무시한다. Callback 안에서 느린 저장·본문 fetch·무제한 retry를 기다리지 않고 adapter owner에게 작업을 전달해야 한다. 구체 queue/budget은 미결정이며 알림의 acknowledged retention이나 lossless delivery를 가정하지 않는다. 관측 누락은 opportunistic candidate intake의 pending/retry 문제이지 native 진행을 멈추는 새 ACK 조건이 아니다. Canonical 순서에 필요한 exact witness export·retention 계약은 [§4.5](#45-합의와-baton-연결)의 별도 연결이다. [Reporter dispatch](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/actor.rs#L1655).
 
@@ -775,6 +777,8 @@ Native/application planes와 example 채널 번호는 [P2P message-plane 표](#1
 ### 4.5 합의와 Baton 연결
 
 Native votes와 finality는 기존 core가 담당한다. 각 producer는 독립 lane의 application commitment를 담은 signed header를 전파하고, 여러 producer chains의 순서 근거는 별도 leader chain에 모인다. 각 view의 leader는 earlier V-QC parent와 lane별 anchored path를 transaction-free `LeaderBlock`에 넣는다. 모든 descendant의 DA certificate를 기다리는 구조는 아니며, native 조건을 만족하는 locally DA-voted 연속 suffix도 proposal에 포함할 수 있다. [Producer / leader chain 구조](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L9), [Proposal / direct vote](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md#L309).
+
+Native owner가 구성한 `LeaderBlock`의 canonical digest가 leader proposal 식별자이며, `VoteBody`는 이 digest를 round·position·extension과 함께 참조한다. [LeaderBlock digest](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L643), [VoteBody 구성](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/vote.rs#L119).
 
 Producer별 anchor는 해당 lane의 제안 경로가 시작하는 기준 block reference다. Parent V-QC에서 물려받은 safe-tip reference 또는 proposal에 함께 실은 더 높은 DA certificate로 표현하며, leader proposal이 참조하는 parent V-QC와 별도의 좌표다. [Anchor 표현](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L399).
 
