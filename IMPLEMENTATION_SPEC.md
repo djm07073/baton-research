@@ -380,7 +380,7 @@ sequenceDiagram
         else 실행 입력 준비됨
             B->>B: Assign current local job generation
             B->>E: Reschedule(exact base, new order, generation)
-            E->>E: Find reusable exact prefix / cancel stale suffix jobs
+            E->>E: Find reusable exact prefix / supersede stale suffix work
             E->>E: Fork retained checkpoint / execute new suffix
             E-->>B: New branch outcome
         end
@@ -409,7 +409,7 @@ sequenceDiagram
         M-->>B: OrderedRange(predecessor, inputs, evidence)
         B->>E: Commit(range, expected canonical predecessor)
         alt Matching completed speculative branch prefix 존재
-            E->>E: Select exact committed prefix, keep suffix pending
+            E->>E: Select exact committed prefix, keep compatible suffix pending
         else branch 누락 또는 순서 불일치
             E->>E: Execute from canonical base / repair suffix
         end
@@ -527,7 +527,7 @@ sequenceDiagram
 
 [그림 크게 보기](assets/diagrams/diagram-11.svg)
 
-State root 값 하나만 같은 서명을 합치지 않는다. Exact input range·canonical predecessor·runtime·전체 결과가 같은 statement여야 한다. Imported certificate / state sync 결과를 자신이 직접 실행한 signature로 바꾸지 않는다. Common signing boundary와 wire schema는 미결정이다.
+State root 값 하나만 같은 서명을 합치지 않는다. Exact input range·canonical predecessor·runtime·전체 결과가 같은 statement여야 한다. Imported certificate / state sync 결과를 자신이 직접 실행한 signature로 바꾸지 않는다. Common signing boundary와 wire schema는 미결정이다. [§6.3의 root kind/version·operation/batch-boundary 계약](#63-qmdb-state-관리와-재사용-경계)과 같은 결과 해석에 결속된 full statement를 비교한다.
 
 ### 2.11 Planner completion과 proposal freeze의 경합
 
@@ -742,9 +742,13 @@ Archive `put` 성공만으로 custody를 인정하지 않는다. `sync` 또는 r
 
 Generic resolver의 `Consumer`가 returned bytes의 key validity를 판단한다. Wrong digest / invalid peer response, 올바른 bytes를 기다리던 subscriber의 취소, local archive sync failure는 다른 사건이다. Local storage failure나 stale generation을 peer-invalid 응답으로 처벌하지 않는다. Missing body는 fetch / dependency pending이며 expected payload의 permanent invalidity나 empty canonical slot의 증거가 아니다. [Resolver delivery contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs#L149).
 
-Targeted fetch는 지정한 targets 밖으로 자동 fallback하지 않는다. Generic resolver가 여러 concurrent fetch를 허용한다는 사실만으로 application의 pending key·subscriber·bytes·validation work가 bounded라고 주장하지 않는다. Native custody obligation과 취소 가능한 speculative subscriber를 owner가 따로 관리하고, 구체 admission bounds·retry/target policy는 빈칸에 남긴다.
+Fetch 취소로 validation 결과를 버릴 수 있어도 application의 custody writes가 rollback되었다는 뜻은 아니다. 선택할 storage의 mutation/completion lifetime을 subscriber 취소와 따로 연결한다. 예를 들어 `marshal::store::Blocks`의 mutating calls는 store를 소비하므로 dropped future/error가 handle을 잃게 하고 failed sync handle 뒤에는 store를 계속 사용할 수 없다. 이 store를 그대로 채택한 것은 아니며 [cancellation/storage 계약](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/store.rs#L115)을 확인해 adapter를 연결한다.
 
-`Relay::broadcast`는 synchronous callback이다. 느린 archive lookup·fetch·sync는 callback에서 기다리지 않고 body publication owner에게 전달한다. `Feedback`은 local adapter가 publication 요청을 수용했는지를 나타내는 연결 경계다. Remote body receipt나 custody quorum의 ACK가 아니다. Native publication은 `Feedback::Closed`이면 retryable obligation을 남길 수 있으며, 이를 report / direction 승인 대기로 바꾸지 않는다. [Native relay boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/actor.rs#L2220).
+Targeted fetch는 지정한 targets 밖으로 자동 fallback하지 않는다. Outbound 요청은 `latest.primary` 안에서만 peers를 고르고 targets도 이 filter를 우회하지 않으므로, peer set 변경 후 serving 가능 여부를 adapter에서 연결해야 한다. [Resolver peer selection](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs#L64). Generic resolver가 여러 concurrent fetch를 허용한다는 사실만으로 application의 pending key·subscriber·bytes·validation work가 bounded라고 주장하지 않는다. Native custody obligation과 취소 가능한 speculative subscriber를 owner가 따로 관리하고, 구체 admission bounds·retry/target policy는 빈칸에 남긴다.
+
+`Relay::broadcast`는 synchronous callback이다. 느린 archive lookup·fetch·sync는 callback에서 기다리지 않고 body publication owner에게 전달한다. Native는 `Feedback::Closed`이면 해당 sender attempt를 미루고 그 외에는 전송을 시도한다. Remote body receipt나 custody quorum의 ACK를 받은 것은 아니다. Native sender의 local acceptance 뒤에도 동일 effect와 encoded bytes를 retry하며 persisted semantic successor에 따른 native Retire가 publication을 제거한다. 이 native retry를 report/direction 승인 대기로 바꾸지 않는다. [Relay dispatch](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/actor.rs#L2286), [Native retry ownership](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/egress.rs#L1).
+
+Resolver `retain`은 pending fetch subscribers를 정한다. Fetch Complete/cancel, native publication Retire, body archive의 보관 해제는 서로 다른 lifecycle이다. Speculative subscriber를 취소하거나 cache에서 bytes를 지워도 live native custody·recovery·serving 의무가 끝났다고 가정하지 않는다. Body/history references와 durable handoff에 맞춘 retention·release 조건은 아래 빈칸에 남긴다. [Fetch subscriber retention](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs#L216).
 
 Example의 native channels `0=data`, `1=consensus`, `2=certificates`, `3=resolver`는 유지하는 출발점이다. Tx·body·report·direction channel의 실제 번호는 미결정이다. Native data plane은 application body 전파 자체가 아니다. [Channel wiring](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs#L358).
 
@@ -917,7 +921,7 @@ Direction 수신 vote·ACK·Ready quorum은 없다. Leader-local 수집·선택�
 
 Consensus attachment의 ordered delivery에서 받은 `OrderedRange`를 기준으로 실행 commit을 요청한다. Native cut notification 자체와 그 cut/extension에서 안전하게 emit할 exact range를 구분한다. Local branch가 더 길어도 확정된 range 끝까지만 commit한다.
 
-Execution의 durable `CommitApplied` 뒤에 delivery ACK와 mempool canonical outcome을 보낸다. `f+1` 결과 인증은 동일 input/range/predecessor/runtime/result의 direct execution signatures를 모으는 별도 endpoint이며 direction 회신과 혼동하지 않는다. 서명 범위와 공통 boundary는 빈칸으로 둔다.
+Execution의 durable `CommitApplied` 뒤에 delivery ACK와 mempool canonical outcome을 보낸다. [`f+1` 결과 endpoint](#210-결과-endpoint-direct-execution과-f1-인증)는 동일 input/range/predecessor/runtime/result의 direct execution signatures를 모으며 direction 회신과 혼동하지 않는다. 서명 범위와 공통 boundary는 빈칸으로 둔다.
 
 ### 5.8 미결정 사항
 
@@ -1074,7 +1078,9 @@ Generation을 무효화하면 **결과 채택 권한**을 취소한다. Worker a
 
 “Canonical로 만든다”는 branch pointer만 바꾸는 동작이 아니다. QMDB에 writes를 적용·sync하고 outputs·commit metadata·AppliedCursor를 crash 후에도 일관되게 복구할 수 있어야 한다. Branch cleanup의 GC scheduling은 미결정이며 state/output/cursor의 durable 완료와 별도로 정한다. Active access fencing과 required retention은 항상 유지해야 한다.
 
-`ABC`만 하나의 sealed batch로 있고 `AB` checkpoint가 없다면 `ABC`를 apply한 뒤 `C`를 숨기는 방식으로 partial-prefix commit을 처리할 수 없다. `AB` boundary의 valid batch를 만들거나 `AB`만 다시 실행·merkleize해야 한다. 새 `AB`의 실제 commitment가 old `ABC` ancestry와 다르면 old sealed `ABC` batch를 자동 재사용할 수 없다. 반대로 actual batch ancestry에 `AB`가 있고 canonical DB의 operation size와 authenticated ops root가 그 ancestor commitment와 일치하면 `ABC` descendant를 계속 사용할 수 있다. 같은 logical state처럼 보이는 sibling batch는 이 조건을 대신하지 않는다. Descendant access는 [§6.4의 branch validity](#64-실행-요청을-받으면-분기-tree-정리)를 따르며, durable 완료는 아래 finalized/barrier 경계와 구분한다.
+`ABC`만 하나의 sealed batch로 있고 `AB` checkpoint가 없다면 `ABC`를 apply한 뒤 `C`를 숨기는 방식으로 partial-prefix commit을 처리할 수 없다. 요청의 exact predecessor와 맞는 유효한 base에서 `AB` boundary를 materialize/replay해야 한다. `new_batches`는 현재 applied DB에서 시작하며 이미 전진한 DB의 과거 prefix를 자동 복원하지 않는다. [Actual base capture](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2704).
+
+새 `AB`의 실제 commitment가 old `ABC` ancestry와 다르면 old sealed `ABC` batch를 자동 재사용할 수 없다. 반대로 actual batch ancestry에 `AB`가 있고 canonical DB의 operation size·authenticated ops root가 그 ancestor commitment와 일치하며 batch validity와 exact input/runtime/completed result context도 맞으면 `ABC` descendant를 계속 사용할 수 있다. Storage applicability는 floors도 검사하며 application input/runtime/outputs binding은 owner가 확인한다. [Storage bounds validation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L98). 같은 logical state처럼 보이는 sibling batch는 이 조건을 대신하지 않는다. Descendant access는 [§6.4의 branch validity](#64-실행-요청을-받으면-분기-tree-정리)를 따르며, durable 완료는 아래 finalized/barrier 경계와 구분한다.
 
 Existing `Application::finalized` hook은 DB readable 시점에 호출될 수 있고 flush는 진행 중일 수 있다. [Finalized callback contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs#L308). 이를 durable 완료 callback처럼 직접 연결하지 않는다. `DatabaseSet::finalize`가 반환한 `Barrier::durable` 결과를 확인하고 선택한 state/output/cursor commit 계약을 만족한 뒤 완료를 발급한다. [DatabaseSet / Barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L558), [Stateful delivery ACK](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/processing.rs#L307).
 
@@ -1143,6 +1149,8 @@ ImportedVerified provenance와 canonical checkpoint의 recovery 연결도 import
 소스 탐색과 아래 개발 단계는 다르다. 먼저 upstream이 소유하는 흐름을 확인한 뒤 application / Baton 연결부를 개발한다.
 
 Tx 저장·선택은 [§3.1의 pool 재사용 후보](#31-역할과-책임), body 보관·전파·fetch는 [§4.4의 primitive 표](#44-블록-전파조회custody)를 먼저 읽고, 아래 순서에서 native callback과 연결한다.
+
+같은 pin의 [reshare validator 조립](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/reshare/src/validator.rs#L122)은 resolver·buffer·archives·Marshal·Stateful·application wrapper에 어떤 handles를 넘기는지 한 파일에서 읽는 참고다. 이 Simplex example의 [Deferred wrapper](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/standard/deferred.rs#L488)는 digest를 durability 전에 반환하고 별도 certify gate에서 기다린다. Native Multimmit의 producer Context·custody/signing·recovery 계약을 그대로 제공하는 adapter로 취급하지 않는다.
 
 | 순서 | 소스 진입점 | 읽을 때 확인할 질문 |
 |---|---|---|

@@ -14,7 +14,7 @@ sequenceDiagram
         else 실행 입력 준비됨
             B->>B: Assign current local job generation
             B->>E: Reschedule(exact base, new order, generation)
-            E->>E: Find reusable exact prefix / cancel stale suffix jobs
+            E->>E: Find reusable exact prefix / supersede stale suffix work
             E->>E: Fork retained checkpoint / execute new suffix
             E-->>B: New branch outcome
         end

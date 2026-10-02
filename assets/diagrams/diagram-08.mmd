@@ -12,7 +12,7 @@ sequenceDiagram
         M-->>B: OrderedRange(predecessor, inputs, evidence)
         B->>E: Commit(range, expected canonical predecessor)
         alt Matching completed speculative branch prefix 존재
-            E->>E: Select exact committed prefix, keep suffix pending
+            E->>E: Select exact committed prefix, keep compatible suffix pending
         else branch 누락 또는 순서 불일치
             E->>E: Execute from canonical base / repair suffix
         end

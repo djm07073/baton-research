@@ -1,6 +1,6 @@
 {
   "specification": "IMPLEMENTATION_SPEC.md",
-  "specification_sha256": "6901667c08009cc737713c567170e60ab2b7737cfb452f878aefafa46dfe9b5b",
+  "specification_sha256": "1f18c872c8a4468de0dbde62809fa75b8241bf5b313c3ad2cb96504595d9cd27",
   "renderer": "mermaid 11.12.0",
   "diagrams": [
     {
@@ -50,14 +50,14 @@
       "title": "2.6 Baton lifecycle: non-leader의 direction·재실행 요청",
       "width": 919,
       "height": 1300,
-      "source_sha256": "bdf44cb127bad55726f9ac0f4ccee1b41634965c0ccfe194f8aa6886af094b94"
+      "source_sha256": "07088786f2d89c7715da81f299cc0b04fc817787306c479a724598203d40c6de"
     },
     {
       "name": "diagram-08",
       "title": "2.7 Cut commit → ordered range → 실행 commit",
       "width": 926,
       "height": 1447,
-      "source_sha256": "b727445d856a37b533243c39b7dd6d3e3c7cc520dd82640a5c2981e00dc2d5e6"
+      "source_sha256": "ad765ed093cca53b925cfc0324af4d125de6ed765d9b4e5b597b71eebe16b05b"
     },
     {
       "name": "diagram-09",
