@@ -1,6 +1,6 @@
 {
   "specification": "IMPLEMENTATION_SPEC.md",
-  "specification_sha256": "525e742d3e568bcd1751c56fca568e760c1470eea8e86dd399307741a2f2e6c4",
+  "specification_sha256": "e3426cfd10ff40adaa9e55f989a6ea4f4cff510d04751439a31492e6894621d4",
   "renderer": "mermaid 11.12.0",
   "diagrams": [
     {
@@ -103,20 +103,27 @@
     },
     {
       "name": "diagram-15",
+      "title": "2.14 Native 합의 정상 경로: producer DA → leader proposal → finality",
+      "width": 1149,
+      "height": 2081,
+      "source_sha256": "bbbfac7d863051d0402a3d640da97913d57486f70b3d0b9ec7989a46c8d94a2f"
+    },
+    {
+      "name": "diagram-16",
       "title": "4.6 실제 native actor와 파일 구조",
       "width": 1161,
       "height": 986,
       "source_sha256": "76ccdefc11226aec91bcf5e4c834c54e7b0ef255dcdf81a370e0a2fcfa59c5af"
     },
     {
-      "name": "diagram-16",
+      "name": "diagram-17",
       "title": "6.3 QMDB state 관리와 재사용 경계",
       "width": 1557,
       "height": 1412,
       "source_sha256": "9120fe020b6501853428c1f58a4be1bbb5fb82e1e0e902ad42427f738d4caa53"
     },
     {
-      "name": "diagram-17",
+      "name": "diagram-18",
       "title": "6.4 실행 요청을 받으면 분기 tree 정리",
       "width": 1113,
       "height": 262,

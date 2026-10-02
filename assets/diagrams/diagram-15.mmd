@@ -1,19 +1,36 @@
-flowchart TB
-    W[Authenticated native P2P peer] --> B[Batcher: decode / identify]
-    B -->|untrusted Observed cohort| V[Voter runtime shell]
-    V <-->|Verify job / completed verdict| K[Batcher crypto worker]
-    R[Native view-proof resolver] <-->|proof transport / retry| W
-    R <-->|correlated resolution| V
-    V <-->|events / typed capabilities| C[CoreState / private semantic owner]
-    V <-->|append / sync / covering ACK| J[Native journal / checkpoints]
-    V <-->|payload callbacks / accepted-artifact notices| A[Application / custody attachment]
-    C -. new planning / policy bridge .-> P[Baton planner]
-    P -. prepared matching candidate .-> C
-    C -. new exact evidence export .-> D[Ordered delivery / history adapter]
-    D --> E[Baton execution controller]
-    classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
-    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
-    classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
-    class W,B,K,V,R,C,J reuse;
-    class A adapt;
-    class P,D,E fresh;
+sequenceDiagram
+    participant P as Producer의 native owner
+    participant A as Validator의 Automaton adapter
+    participant V as Validator의 native owner
+    participant L as 현재 view의 leader owner
+    participant F as 수신 node의 view / finality owner
+    P-->>V: Signed producer header를 native peers에 전파
+    V->>A: verify(producer Context, commitment)
+    A-->>V: true: valid + durable custody
+    V->>V: Contiguous DA choice / durable publication gate
+    V-->>P: DA share: 해당 producer에게만 전송
+    par Producer certification 업무
+        opt 같은 header의 valid shares n−2f개 확보
+            P->>P: Exact DA certificate 복구 / durable admission
+            P-->>V: DA certificate 전파
+        end
+    and Leader proposal / direct voting 업무
+        L->>L: Earlier V-QC parent + lane anchors / local DA-voted paths
+        L-->>V: Signed LeaderBlock + 필요한 exact parent V-QC
+        V->>V: Native proposal 검증 / position·extension vote 예약
+        V-->>F: Complete signed vote를 native peers에 broadcast
+    end
+    F->>F: 검증된 distinct attributed votes / view messages 보관
+    par Local sticky pool
+        opt n−f votes for one LeaderBlock
+            F->>F: Local leader / tip finality
+        end
+    and Portable L-QC
+        opt n−f exact votes for one LeaderBlock
+            F->>F: L-QC aggregate / admission
+        end
+    and V-QC / view exit
+        opt n−f..n messages / ≥2f+1 designated votes
+            F->>F: V-QC aggregate / safe tips / view exit
+        end
+    end
