@@ -758,7 +758,9 @@ Tx 전달 wire protocol, inventory/body 방식, producer 대상 선정, 재전�
 
 ### 4.1 역할과 책임
 
-기반은 `commonware_consensus::multimmit`, `n=5f+1`이다. Native producer lanes, header signing, DA, view votes, finality·tip extraction·extensions와 recovery를 최대한 재사용한다. Tx selection·body 생성은 engine 내부의 내장 mempool 기능이 아니라 **engine이 호출하는 application adapter의 책임**이다.
+기반은 `commonware_consensus::multimmit`이며, `n`은 validator committee의 identity 수, `f`는 가정하는 최대 Byzantine identity 수다. 이 설계는 `n=5f+1`을 기준으로 한다(native 일반 조건은 `n≥5f+1`). [Native fault model](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L58).
+
+Native producer lanes, header signing, DA, view votes, finality·tip extraction·extensions와 recovery를 최대한 재사용한다. Tx selection·body 생성은 engine 내부의 내장 mempool 기능이 아니라 **engine이 호출하는 application adapter의 책임**이다.
 
 Pinned `log-multimmit`은 body-free·delivery-free example이다. `Application::propose`는 deterministic commitment를 생성하고 `verify`는 true를 반환하며 `Relay`는 no-op이다. 실제 tx/body와 dense delivery를 붙이기 위해 이 application attachment를 확장한다. [Example README](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/README.md), [Application](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/application/actor.rs).
 
