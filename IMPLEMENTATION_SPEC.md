@@ -760,7 +760,17 @@ Native/application planes와 example 채널 번호는 [P2P message-plane 표](#1
 
 ### 4.5 합의와 Baton 연결
 
-Native votes와 finality는 기존 core가 담당한다. Baton direction의 별도 승인 quorum을 추가하지 않는다. 실제 proposal을 인증할 때 selected prefix·policy를 actual parent/history/frontier에 결속하고 고정하는 연결은 개발·검증해야 한다. 선택 prefix의 membership뿐 아니라 정확한 leading order가 유지되어야 한다.
+Native votes와 finality는 기존 core가 담당한다. 각 producer는 독립 lane의 application commitment를 담은 signed header를 전파하고, 여러 producer chains의 순서 근거는 별도 leader chain에 모인다. 각 view의 leader는 earlier V-QC parent와 lane별 anchored path를 transaction-free `LeaderBlock`에 넣는다. 모든 descendant의 DA certificate를 기다리는 구조는 아니며, native 조건을 만족하는 locally DA-voted 연속 suffix도 proposal에 포함할 수 있다. Validator는 자신의 연속 DA-vote history에서 proposal-relative position과 bounded extension vector를 담은 complete vote를 서명한다. [Producer / leader chain 구조](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L9), [Proposal / direct vote](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md#L309).
+
+| 주요 native 증거 | 묶는 자료 | 제공하는 근거 |
+|---|---|---|
+| DA certificate | 같은 producer header의 distinct valid DA shares `n−2f`개 | 해당 producer position의 availability / uniqueness와 certified anchor |
+| V-QC | Distinct identities의 attributed votes / novotes `n−f..n`개, 그중 designated leader proposal에 대한 votes 최소 `2f+1`개 | 다음 leader가 이어갈 safe tips와 view exit |
+| L-QC | 같은 leader proposal에 대한 complete votes `n−f`개 | Leader와 producer별 tips의 portable finality 증거 |
+
+DA certificate는 threshold certificate이고 V-QC / L-QC는 complete attributed transcript의 ordinary signatures를 묶는다. Local sticky vote pool은 `n−f`에서 L-QC 생성과 독립적으로 finality에 도달한다. Producer별 prefix가 고정된 길이보다 cross-lane exact 실행 순서가 더 짧을 수 있으므로, sparse finality 뒤에 [§2.7의 ordered delivery](#27-cut-commit--ordered-range--실행-commit)를 연결한다. [DA / certificates](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L147), [View / local finality](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md#L350), [Chain-local finality와 exact placement](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L210).
+
+이 native DA/view votes는 [Baton intended-order reports](#54-leader-report로-baton-생성), [direct execution 결과 서명](#210-결과-endpoint-direct-execution과-f1-인증)과 구분한다. Baton direction의 별도 승인 quorum은 추가하지 않는다. 실제 proposal을 인증할 때 selected prefix·policy를 actual parent/history/frontier에 결속하고 고정하는 연결은 개발·검증해야 한다. 선택 prefix의 membership뿐 아니라 정확한 leading order가 유지되어야 한다.
 
 Ordered delivery adapter는 native owner가 선택한 exact witness와 original policy/history를 검증·보관하고 연속 입력을 계산한다. 이를 넘기는 resumable owner export는 신규 연결이다. Native sparse tip certificate는 body stream·past policy·dense cursor를 제공하지 않는다. Simplex marshal의 Multimmit 호환성도 별도 검토한다. [Native application boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md).
 
