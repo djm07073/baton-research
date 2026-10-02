@@ -6,7 +6,7 @@ flowchart TB
     R <-->|correlated resolution| V
     V <-->|events / typed capabilities| C[CoreState / private semantic owner]
     V <-->|append / sync / covering ACK| J[Native journal / checkpoints]
-    V <-->|producer propose / payload verify| A[Automaton / custody attachment]
+    V <-->|payload callbacks / accepted-artifact notices| A[Application / custody attachment]
     C -. new planning / policy bridge .-> P[Baton planner]
     P -. prepared matching candidate .-> C
     C -. new exact evidence export .-> D[Ordered delivery / history adapter]

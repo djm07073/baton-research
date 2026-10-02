@@ -24,7 +24,8 @@ flowchart TB
         O --> R
         R --> Q
     end
-    D -->|검증된 body / context| O
+    D -->|BodyReady: body / context| O
+    N -. existing Reporter accepted-artifact notice .-> O
     M -->|irrevocable exact ordered range| O
     R -. prepared policy .-> H
     H -. native proposal binding .-> N

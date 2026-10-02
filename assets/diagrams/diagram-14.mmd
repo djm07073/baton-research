@@ -14,7 +14,7 @@ sequenceDiagram
         C->>Q: Await durable state / outputs / cursor linkage
         alt Durable import completes
             Q-->>C: Recoverable target checkpoint
-            C->>C: Record ImportedVerified provenance
+            C->>C: Confirm recoverable ImportedVerified provenance
             C-->>V: Locally ready result + original certificate
         else Durable completion unconfirmed or failed
             Note over C,V: Local ready / CommitApplied를 발행하지 않고 recovery에서 재검증

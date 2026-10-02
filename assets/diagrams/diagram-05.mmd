@@ -30,8 +30,12 @@ sequenceDiagram
                 S-->>A: Durable body reference
                 A-->>N: verify(true)
                 A-->>I: BodyReady(durable body, producer context)
-                I->>I: Match body with authenticated native header reference
-                I-->>B: BlockAvailable(block_ref, body, context)
+                alt Matching authenticated header observation is available
+                    I->>I: Match exact body / header identity and source provenance
+                    I-->>B: BlockAvailable(block_ref, body, context)
+                else Header observation or matching context remains unresolved
+                    Note over I,B: Candidate join stays pending, native verify completion above is independent
+                end
             else Local storage / sync failure
                 Note over N,S: Custody success를 보고하지 않음, peer-invalidity와 구분
             end

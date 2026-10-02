@@ -1,15 +1,17 @@
 sequenceDiagram
-    participant N as Native owner / Context bridge
+    participant N as Native owner / proposed planning bridge
     participant L as Leader Baton
     participant V as Validator Baton
     participant P as Planner
     participant X as Producer / Executor Baton peers
-    N-->>L: Actual planning context
-    L-->>V: Authenticated window context
-    V->>V: Build intended order from known inputs
-    V-->>L: Signed IntendedOrderReport
-    L->>L: Same-context validation / distinct identity admission
     par Report window / planner
+        N-->>L: Read-only leader planning context
+        L-->>V: Authenticated window context
+        loop Valid reports arriving before closure, possibly none
+            V->>V: Build intended order from known inputs
+            V-->>L: Signed IntendedOrderReport
+            L->>L: Same-context validation / distinct identity admission
+        end
         L->>L: Close once at first 4f+1 OR fixed deadline
         L->>P: Frozen snapshot + bounded admissible candidates
         P-->>L: Evaluated selection or incomplete
@@ -18,9 +20,9 @@ sequenceDiagram
             X->>X: Local speculative reschedule
         end
         Note over L,X: Direction vote / ACK / Ready quorum 없음
+        L->>L: Local cycle closes, fresh work / context starts next cycle
     and Native cut path
         N->>N: Prepared matching policy or valid NativeBase
         Note over N,L: Cut은 report 수 / deadline / planner 완료를 기다리지 않음
         N->>N: Freeze authenticated proposal policy, native votes
     end
-    L->>L: Local cycle closed, fresh work / context starts next cycle

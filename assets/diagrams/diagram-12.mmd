@@ -1,7 +1,7 @@
 sequenceDiagram
     participant L as Leader Baton
     participant P as Bounded planner worker
-    participant N as Actual native proposal owner
+    participant N as Native leader proposal owner
     participant V as Native validators
     L->>P: Frozen reports / exact planning context
     alt Evaluated candidate reaches owner before proposal freeze
