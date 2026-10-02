@@ -13,6 +13,8 @@
 | 기존 example에 무엇을 끼워 넣는가 | [전체 구조](#1-전체-구조), [Consensus 구조](#4-consensus-레이어-commonware-multimmit) |
 | Tx가 어떻게 block과 state가 되는가 | [E2E lifecycle](#2-e2e-lifecycle과-sequence-diagram) |
 | 각 컴포넌트가 받는 것과 넘기는 것 | [Tx interface](#32-인터페이스-개요), [Consensus interface](#42-인터페이스-개요), [Baton interface](#52-인터페이스-개요), [Execution interface](#62-인터페이스-개요) |
+| 실행 순서가 바뀌면 누가 재실행을 요청하는가 | [Baton controller](#51-역할과-책임), [Reschedule 흐름](#26-baton-lifecycle-non-leader의-direction재실행-요청) |
+| Local state 완료와 f+1 결과 인증은 언제인가 | [Durable CommitApplied](#28-execution-lifecycle-qmdb-분기-생성과-canonical-승격), [결과 인증](#210-결과-endpoint-direct-execution과-f1-인증) |
 | 실제 어느 소스를 읽고 연결하는가 | [Integration anchors](#71-commonware-integration-anchors) |
 
 현재 구현한 코드와 앞으로 개발할 interface를 혼동하지 않도록 표에서 **기존 API**, **변경할 hook**, **제안 메시지**를 구분한다. Logical owner를 나누는 것은 같은 수의 actor·crate·server를 만들기로 결정한 것이 아니다.
@@ -22,6 +24,8 @@
 ### 1.1 네 레이어
 
 Tx 레이어는 실행할 후보를 모으고, consensus는 producer별 payload commitment와 순서에 관한 native 증거를 만든다. Baton은 아직 확정되지 않은 block의 실행 순서를 예상해 작업을 예약하고, 확정 이력에서 얻은 exact ordered range가 도착하면 실행 레이어에 commit을 요청한다. 실행 레이어는 application runtime으로 state를 계산하고 QMDB에 저장한다. 따라서 body를 가지고 있다는 사실, 실행 방향을 받았다는 사실, 순서가 확정되었다는 사실, local state가 durable하다는 사실을 각각 구분한다.
+
+이 문서에서 custody는 요청된 producer context의 본문과 필요한 부모 자료를 재시작 뒤에도 복원할 수 있게 영속 보관하는 책임이다. 구체 저장·조회·복구 연결은 [§4.4](#44-블록-전파조회custody)에 설명한다.
 
 ```mermaid
 flowchart TB
@@ -110,6 +114,8 @@ Ordered delivery와 history recovery는 consensus attachment의 내부 역할이
 Producer와 validator는 별개의 역할이며 한 노드가 둘 다 수행할 수 있다. Leader의 direction은 producer들에게 전파하고, 해당 실행을 담당하는 validator의 Baton에도 전달되어야 한다. Producer에게만 보내고 모든 executor가 받았다고 가정하지 않는다.
 
 **Native producer-parent header ID와 application input state root는 다르다.** Producer lane의 parent만으로 여러 lane을 합친 실행 state를 결정하지 않는다. Producer block body digest, producer header ID, leader proposal ID, canonical ordered-input ID도 구분한다.
+
+Producer별 prefix가 고정되었어도 여러 lane을 합친 exact 실행 순서는 별도로 확인해야 한다. 그 확인을 마친 연속 입력 구간이 `OrderedRange`이며, 이력의 빈 구간과 순서 settledness를 처리하는 과정은 [§2.7](#27-cut-commit--ordered-range--실행-commit)에 설명한다.
 
 Tx를 담는 것은 [producer payload/body](#23-block-lifecycle-mempool--propose--body-전파)다. 여러 lane의 순서 근거를 모으는 native leader proposal 자체는 transaction-free이며, Baton policy를 actual proposal context에 연결하는 경합은 [proposal freeze 흐름](#211-planner-completion과-proposal-freeze의-경합)에서 다룬다.
 
@@ -463,7 +469,7 @@ sequenceDiagram
 
 [그림 크게 보기](assets/diagrams/diagram-09.svg)
 
-이 그림은 completed branch가 exact canonical range와 일치하는 경로다. Work가 없거나 다르면 [cut commit 흐름](#27-cut-commit--ordered-range--실행-commit)의 canonical 실행/repair 경로를 따른다. 그림의 fork cleanup은 optional 후속 작업이다. 구체 GC scheduling은 미결정이며 durable 완료와 retention 안전 조건을 구분해 정한다. 위의 branch 생성·pruning은 제안하는 execution owner의 논리적 동작이다. `DatabaseSet::finalize`와 `Barrier::durable`은 검토한 upstream API다. DB에 applied/readable인 상태와 disk flush가 완료된 durable 상태를 구분한다. 실제 finalize·durability를 연결할 adapter와 state/output/cursor commit 방식은 아직 확정하지 않았다. Upstream barrier는 shutdown 시 `false`를 반환할 수 있고 flush failure는 fatal 경계다. 실패 결과를 성공 ACK로 바꾸지 않는다. [Durability barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L469).
+이 그림은 completed branch가 exact canonical range와 일치하는 경로다. Work가 없거나 다르면 [cut commit 흐름](#27-cut-commit--ordered-range--실행-commit)의 canonical 실행/repair를 따른다. Branch 생성·pruning은 제안하는 owner 동작이고 cleanup은 optional이며 구체 GC scheduling은 미결정이다. `DatabaseSet::finalize`와 `Barrier::durable`은 upstream API지만 applied/readable 상태는 durable 완료가 아니다. State/output/cursor linkage와 실패 처리·ACK 경계는 [canonical apply](#65-commit-요청을-받으면-branch를-canonical로-만들기)에서 설명한다. [Durability barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L469).
 
 ### 2.9 재시작과 backfill
 
@@ -750,7 +756,7 @@ Targeted fetch는 지정한 targets 밖으로 자동 fallback하지 않는다. O
 
 Resolver `retain`은 pending fetch subscribers를 정한다. Fetch Complete/cancel, native publication Retire, body archive의 보관 해제는 서로 다른 lifecycle이다. Speculative subscriber를 취소하거나 cache에서 bytes를 지워도 live native custody·recovery·serving 의무가 끝났다고 가정하지 않는다. Body/history references와 durable handoff에 맞춘 retention·release 조건은 아래 빈칸에 남긴다. [Fetch subscriber retention](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs#L216).
 
-Example의 native channels `0=data`, `1=consensus`, `2=certificates`, `3=resolver`는 유지하는 출발점이다. Tx·body·report·direction channel의 실제 번호는 미결정이다. Native data plane은 application body 전파 자체가 아니다. [Channel wiring](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs#L358).
+Native/application planes와 example 채널 번호는 [P2P message-plane 표](#16-p2p-연결과-message-planes)에 정리했다. Native data plane은 application body 전파 자체가 아니며, tx/body/report/direction의 실제 channel IDs는 미결정이다. [Channel wiring](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs#L358).
 
 ### 4.5 합의와 Baton 연결
 
@@ -1029,7 +1035,9 @@ QMDB database, unmerkleized/merkleized batches와 commit lifecycle을 활용한�
 
 Generic `Unmerkleized` trait가 모든 variant에 동일한 state `get/write/delete` API를 제공하는 것은 아니다. Application runtime의 state access는 선택할 database의 concrete methods에 맞춘 adapter를 거쳐야 한다. `ReadAt(cursor/root)` 역시 제안한 query 계약이며 `DatabaseSet::readers`가 임의 과거 cursor의 immutable snapshot을 제공한다는 뜻은 아니다. 실제 retained checkpoint/version에서 읽을 수 있는 범위를 query와 pruning 계약으로 정한다.
 
-같은 tx order와 최종 logical values라도 checkpoint batching이나 repeated-key write normalization이 달라지면 operations history/root가 같다고 자동으로 보장할 수 없다. Canonical operations / batch boundary를 결정적으로 유도할지, logical root와 storage root를 분리할지는 미결정이다. 이 경계를 해결하지 않고 node별 speculative batching의 storage root를 그대로 `f+1` matching result로 사용하지 않는다. Any batch의 repeated-key writes는 batch 안에서 coalesce되고 sealed operations에는 CommitFloor가 포함된다. [Write normalization](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L1306), [Commit boundary operation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L1228).
+같은 tx order와 최종 logical values라도 checkpoint batching이나 repeated-key write normalization이 달라지면 operations history/root가 같다고 자동으로 보장할 수 없다. 예를 들어 Any의 한 batch 안에서 `k=1` 다음 `k=2`를 write하면 마지막 mutation만 남지만, 두 writes 사이에 batch를 seal하면 각 seal이 CommitFloor를 추가하므로 storage operation sequence가 달라진다. 최종 값이 모두 `k=2`여도 actual ancestor commitment 일치를 보장하지 못하며, [§6.5의 새 AB와 old ABC 재사용](#65-commit-요청을-받으면-branch를-canonical로-만들기)은 최종 값 대신 실제 ancestry/context를 확인한다. 이는 storage 계약을 설명하는 예시이며 root를 계산한 실행 결과가 아니다. [Write normalization](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L1306), [Commit boundary operation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L1228).
+
+Canonical operations / batch boundary를 결정적으로 유도할지, logical root와 storage root를 분리할지는 미결정이다. 이 경계를 해결하지 않고 node별 speculative batching의 storage root를 그대로 `f+1` matching result로 사용하지 않는다.
 
 ### 6.4 실행 요청을 받으면 분기 tree 정리
 
