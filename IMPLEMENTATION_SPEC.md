@@ -108,6 +108,7 @@ Ordered delivery와 history recovery는 consensus attachment의 내부 역할이
 | Non-leader | Direction을 받아 local 실행 계획을 조정하는 노드의 Baton 역할 |
 | Baton / direction | Leader가 선택한 예정 실행 순서와 prefix를 전달하는 advisory 메시지 |
 | Cut / native finality | Producer tips에 대한 native 인증·finality 사건 |
+| Immutable ordering frontier | 해당 ordering context에서 새 direction이 다시 배열할 수 없는 기존 ordered-input prefix의 경계. Local state의 durable 적용 위치인 AppliedCursor와 다름 |
 | Canonical ordered range | 인증 이력과 settledness를 검증해 순서가 뒤집히지 않음을 확인한 연속 실행 입력 |
 | Commit | 위 ordered range를 실행한 결과를 local QMDB canonical state로 durable 적용하는 요청 |
 
@@ -328,7 +329,7 @@ sequenceDiagram
 
 [그림 크게 보기](assets/diagrams/diagram-05.svg)
 
-Bad peer가 다른 digest의 bytes를 보내는 것과 expected payload 자체의 permanent invalidity는 구분한다. 임시 미가용·본문 fetch 지연을 invalid 판정이나 empty slot 판정으로 바꾸지 않는다. Native DA 검증은 speculative execution 완료를 기다리는 계약으로 만들지 않는다. `BodyReady`는 application validity / custody 사건이다. Intake adapter는 기존 Reporter의 authenticated artifact 관측과 exact header/body 대응을 확인해 `BlockAvailable` 후보를 만든다. 이 그림은 body 준비 흐름만 보여주며, Reporter 알림은 BodyReady보다 먼저 또는 나중에 올 수 있다. 둘 다 ordering inclusion / finality 증거는 아니다.
+Bad peer가 다른 digest의 bytes를 보내는 것과 expected payload 자체의 permanent invalidity는 구분한다. 임시 미가용·본문 fetch 지연을 invalid 판정이나 empty slot 판정으로 바꾸지 않는다. Native DA 검증은 speculative execution 완료를 기다리는 계약으로 만들지 않는다. `BodyReady`는 application validity / custody 사건이다. Intake adapter는 Reporter의 accepted-artifact 알림에서 인증된 header를 찾는다. 보관한 body와 producer context가 이 header에 정확히 대응하면 `BlockAvailable` 후보를 만든다. 이 그림은 body 준비 흐름만 보여주며, Reporter 알림은 BodyReady보다 먼저 또는 나중에 올 수 있다. 둘 다 ordering inclusion / finality 증거는 아니다.
 
 ### 2.5 Baton lifecycle: leader report 수집과 direction 전파
 
@@ -396,7 +397,7 @@ sequenceDiagram
 
 [그림 크게 보기](assets/diagrams/diagram-07.svg)
 
-Direction이 바뀌었다고 모든 block을 재실행하지 않는다. 같은 input state·runtime·order prefix에서 실제로 완료된 checkpoint만 재사용한다. Already canonical state는 advisory 요청으로 rollback하지 않는다.
+Direction이 바뀌었다고 모든 block을 재실행하지 않는다. BranchOwner는 같은 입력 state와 runtime에서 같은 순서로 실행을 끝낸 prefix checkpoint만 재사용한다. 이미 canonical에 적용한 state는 advisory 요청으로 되돌리지 않는다.
 
 ### 2.7 Cut commit → ordered range → 실행 commit
 
@@ -760,7 +761,9 @@ Native/application planes와 example 채널 번호는 [P2P message-plane 표](#1
 
 ### 4.5 합의와 Baton 연결
 
-Native votes와 finality는 기존 core가 담당한다. 각 producer는 독립 lane의 application commitment를 담은 signed header를 전파하고, 여러 producer chains의 순서 근거는 별도 leader chain에 모인다. 각 view의 leader는 earlier V-QC parent와 lane별 anchored path를 transaction-free `LeaderBlock`에 넣는다. 모든 descendant의 DA certificate를 기다리는 구조는 아니며, native 조건을 만족하는 locally DA-voted 연속 suffix도 proposal에 포함할 수 있다. Validator는 자신의 연속 DA-vote history에서 proposal-relative position과 bounded extension vector를 담은 complete vote를 서명한다. [Producer / leader chain 구조](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L9), [Proposal / direct vote](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md#L309).
+Native votes와 finality는 기존 core가 담당한다. 각 producer는 독립 lane의 application commitment를 담은 signed header를 전파하고, 여러 producer chains의 순서 근거는 별도 leader chain에 모인다. 각 view의 leader는 earlier V-QC parent와 lane별 anchored path를 transaction-free `LeaderBlock`에 넣는다. 모든 descendant의 DA certificate를 기다리는 구조는 아니며, native 조건을 만족하는 locally DA-voted 연속 suffix도 proposal에 포함할 수 있다. [Producer / leader chain 구조](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L9), [Proposal / direct vote](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md#L309).
+
+Validator는 producer별 제안의 anchor 다음에서 자신이 DA vote한 경로와 연속으로 일치하는 블록 수를 position에 기록한다. 일치한 prefix의 끝(0이면 anchor)에서 이어지는 DA-voted 경로의 body commitments를 길이 제한 안에서 extension에 담고, 모든 producer의 position과 extension을 묶은 complete vote에 서명한다. [Position / extension 구성](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/chain.rs#L1978).
 
 | 주요 native 증거 | 묶는 자료 | 제공하는 근거 |
 |---|---|---|
@@ -1079,7 +1082,7 @@ Branch owner가 base/context를 확인하고 reusable prefix를 찾는다. Stale
 
 Any/Current mutable keyed batch의 read-through는 독립적인 immutable snapshot이 아니라 **ancestor overlay와 applied DB를 함께 읽는 branch-scoped view**다. Compact처럼 keyed `get`을 제공하지 않는 variant에 이 access 설명을 적용하지 않는다. Canonical DB가 그 batch의 실제 ancestor commitment로 전진하는 경우는 유효할 수 있지만 다른 sibling으로 전진하면 기존 branch의 read·child 생성·apply를 계속할 수 없다. Canonical apply 전에 incompatible 또는 ancestry가 확인되지 않은 작업의 invalid state 접근을 quiesce/fence해야 한다. [Batch applicability](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L188), [Stateful quiescence](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/verifications.rs#L158).
 
-Generation을 무효화하면 **결과 채택 권한**을 취소한다. Worker access를 fence하면 **유효하지 않은 부모 state의 read / fork / apply 권한**을 차단한다. Base를 확인한 뒤 lock을 기다리는 동안 다른 canonical writer가 DB를 바꿀 수 있으므로 actual ownership / access 아래 check-and-use가 이어져야 한다. 구체 protocol은 [§6.6의 미결정 항목](#66-미결정-사항)이다.
+Generation을 무효화하면 **결과 채택 권한**을 취소한다. Worker access를 fence하면 **유효하지 않은 부모 state의 read / fork / apply 권한**을 차단한다. Owner가 base를 확인한 뒤 DB 접근 권한을 기다리는 사이 canonical 적용이 DB를 바꿀 수 있다. 따라서 실제 DB 접근 권한을 확보한 상태에서 검사와 사용을 이어가야 한다. 구체 protocol은 [§6.6의 미결정 항목](#66-미결정-사항)이다.
 
 이미 immutable Merkle snapshot만 갖고 수행하는 CPU hashing은 caller future 취소 뒤에도 끝까지 실행되고 결과가 버려질 수 있다. Canonical apply의 safety fence를 모든 background CPU 작업이 반드시 종료될 때까지 기다리는 조건과 동일시하지 않는다. Invalid live-DB access와 stale result admission을 막는 경계, snapshot reference·resource lifetime을 관리하는 경계를 나눈다. [Snapshot hashing cancellation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/authenticated.rs#L325).
 
@@ -1100,7 +1103,7 @@ Generation을 무효화하면 **결과 채택 권한**을 취소한다. Worker a
 
 `ABC`만 하나의 sealed batch로 있고 `AB` checkpoint가 없다면 `ABC`를 apply한 뒤 `C`를 숨기는 방식으로 partial-prefix commit을 처리할 수 없다. 요청의 exact predecessor와 맞는 유효한 base에서 `AB` boundary를 materialize/replay해야 한다. `new_batches`는 현재 applied DB에서 시작하며 이미 전진한 DB의 과거 prefix를 자동 복원하지 않는다. [Actual base capture](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2704).
 
-새 `AB`의 실제 commitment가 old `ABC` ancestry와 다르면 old sealed `ABC` batch를 자동 재사용할 수 없다. 반대로 actual batch ancestry에 `AB`가 있고 canonical DB의 operation size·authenticated ops root가 그 ancestor commitment와 일치하며 batch validity와 exact input/runtime/completed result context도 맞으면 `ABC` descendant를 계속 사용할 수 있다. Storage applicability는 floors도 검사하며 application input/runtime/outputs binding은 owner가 확인한다. [Storage bounds validation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L98). 같은 logical state처럼 보이는 sibling batch는 이 조건을 대신하지 않는다. Descendant access는 [§6.4의 branch validity](#64-실행-요청을-받으면-분기-tree-정리)를 따르며, durable 완료는 아래 finalized/barrier 경계와 구분한다.
+새 `AB`의 실제 commitment가 old `ABC` ancestry와 다르면 old sealed `ABC` batch를 자동 재사용할 수 없다. 기존 `ABC` batch의 실제 조상에 `AB`가 있다면, owner는 현재 canonical DB의 operation 수와 authenticated ops root가 그 조상의 commitment와 일치하는지 확인한다. Batch가 유효하고 정확한 입력·runtime·완료 결과의 context도 맞을 때만 기존 `ABC` batch를 계속 사용할 수 있다. Storage applicability는 floors도 검사하며 application input/runtime/outputs binding은 owner가 확인한다. [Storage bounds validation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L98). 같은 logical state처럼 보이는 sibling batch는 이 조건을 대신하지 않는다. Descendant access는 [§6.4의 branch validity](#64-실행-요청을-받으면-분기-tree-정리)를 따르며, durable 완료는 아래 finalized/barrier 경계와 구분한다.
 
 Existing `Application::finalized` hook은 DB readable 시점에 호출될 수 있고 flush는 진행 중일 수 있다. [Finalized callback contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs#L308). 이를 durable 완료 callback처럼 직접 연결하지 않는다. `DatabaseSet::finalize`가 반환한 `Barrier::durable` 결과를 확인하고 선택한 state/output/cursor commit 계약을 만족한 뒤 완료를 발급한다. [DatabaseSet / Barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L558), [Stateful delivery ACK](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/processing.rs#L307).
 
