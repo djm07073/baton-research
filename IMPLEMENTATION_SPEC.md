@@ -682,7 +682,7 @@ Tx ID는 tx, external body commitment는 외부 body, native header ID는 epoch/
 
 ### 3.3 Tx P2P connection
 
-기존 Commonware authenticated P2P 연결을 사용하고 tx 메시지는 native consensus 메시지와 구분된 logical channel로 연결한다. 물리 connection을 tx 전용으로 새로 만든다고 가정하지 않는다. Report·body·native planes와 quota를 분리해 tx flood가 합의 자원을 잠식하는 경계를 제어한다.
+기존 Commonware authenticated P2P 연결을 사용하고 tx 메시지는 native consensus 메시지와 구분된 logical channel로 연결한다. 물리 connection을 tx 전용으로 새로 만든다고 가정하지 않는다. Tx flood에 따른 report·body·native 처리의 자원 경쟁은 설계에서 다루며, quota·queue·runtime 배치의 구체 방식은 [§1.6](#16-p2p-연결과-message-planes)처럼 미결정이다.
 
 Tx 전달 wire protocol, inventory/body 방식, producer 대상 선정, 재전송·중복 억제 방법은 비워 둔다. 실제 tx peer 수신이 `AdmitTx`로 들어오는 연결만 인터페이스에 표시한다.
 

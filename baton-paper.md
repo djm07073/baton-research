@@ -4,7 +4,7 @@
 
 한국어 리뷰 초안 · 연구 설계 및 평가 계획
 
-이 초안은 구현 전 연구 문서다. Direction 기반 cut이 선택 prefix를 보존해야 한다는 요구와 조건부 논증을 정리하며, native 통합 증명이나 성능 평가가 완료되었다고 주장하지 않는다. 빨간 메모는 미완성 연구 과제를 표시한다. 상세 계약과 미채택 선택은 구현 스펙 문서에 둔다: [Baton — 구현 스펙](https://docs.google.com/document/d/10x4RvqG8e07Tai0s20e-wpCfz8COgH0JGR5daKE1xO8/edit)
+이 초안은 구현 전 연구 문서다. Direction 기반 cut이 선택 prefix를 보존해야 한다는 요구와 조건부 논증을 정리하며, native 통합 증명이나 성능 평가가 완료되었다고 주장하지 않는다. 빨간 메모는 미완성 연구 과제를 표시한다. 현재 구현 구조와 미결정 정책은 [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) 한 파일에서 읽는다. [예전 Google 구현 스펙](https://docs.google.com/document/d/10x4RvqG8e07Tai0s20e-wpCfz8COgH0JGR5daKE1xO8/edit)은 이전 상세 계약의 참고자료이며 현재 Markdown과 자동 동기화하지 않는다.
 
 ## 초록
 
