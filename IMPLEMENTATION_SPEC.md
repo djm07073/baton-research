@@ -538,7 +538,9 @@ sequenceDiagram
 
 State root 값 하나만 같은 서명을 합치지 않는다. Exact input range·canonical predecessor·runtime·전체 결과가 같은 statement여야 한다. Imported certificate / state sync 결과를 자신이 직접 실행한 signature로 바꾸지 않는다. Common signing boundary와 wire schema는 미결정이다. [§6.3의 root kind/version·operation/batch-boundary 계약](#63-qmdb-state-관리와-재사용-경계)과 같은 결과 해석에 결속된 full statement를 비교한다.
 
-서명·검증 계산은 Commonware cryptography primitive를 재사용하는 방향으로 연결한다. `ExecutionStatement` 구성과 실행에 참여할 수 있는 epoch identity 확인, 서로 다른 identity가 같은 전체 statement에 서명했는지 확인하는 책임은 새 `ExecutionSigner` / `ResultCollector` adapter에 둔다. Native scheme의 [message signing](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1143)과 [verification](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1189)은 primitive 호출의 참고 예다. 결과 서명의 scheme·key·domain·codec·aggregation 선택은 미결정이며, 이 예의 BLS scheme을 기본값으로 채택하지 않는다.
+서명·검증 계산은 Commonware cryptography primitive를 재사용하는 방향으로 연결한다. 공통 단일 서명 API의 진입점은 [`Signer::sign(namespace, msg)`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs#L93)와 [`Verifier::verify(namespace, msg, sig)`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs#L130)다.
+
+`ExecutionStatement` 구성과 실행에 참여할 수 있는 epoch identity 확인, 서로 다른 identity가 같은 전체 statement에 서명했는지 확인하는 책임은 새 `ExecutionSigner` / `ResultCollector` adapter에 둔다. Native scheme의 [message signing](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1143)과 [verification](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1189)은 primitive 호출의 참고 예다. 결과 서명의 scheme·key·domain·codec·aggregation 선택은 미결정이며, 이 예의 BLS scheme을 기본값으로 채택하지 않는다.
 
 ### 2.11 Planner completion과 proposal freeze의 경합
 
@@ -1251,6 +1253,7 @@ ImportedVerified provenance와 canonical checkpoint의 recovery 연결도 import
 | [Finality owner](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs) | Exact native facts와 인증 근거의 provenance | Resumable evidence export / retention handoff / history backfill |
 | [Native tip algebra](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/algebra/tips.rs#L143) | Native extraction / settledness 규칙 | Verified shared extraction facade와 dense ordered delivery; private algebra 접근 문제 해결 |
 | [QMDB Stateful](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs) | Batch fork / merkleize / apply, pending-state 관리 | Multimmit exact execution order에 맞는 branch / canonical adapter |
+| [Cryptography interfaces](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs) | Namespace와 message를 받는 서명·검증 primitive | ExecutionStatement encoding·epoch key 연결과 signer / result collector 구성 |
 
 #### 실제 소스를 따라 읽는 순서
 
