@@ -736,6 +736,8 @@ Reporter는 synchronous callback이고 native가 Feedback을 무시한다. Callb
 
 `Automaton` callback는 future를 거쳐 `oneshot::Receiver<Digest>` 또는 `oneshot::Receiver<bool>`를 반환한다. 미가용 dependency는 그 receiver를 pending으로 유지하고, receiver 해소 뒤 native owner가 요청 correlation과 completion을 대조한다.
 
+Live propose의 receiver가 닫히면 native executor는 commitment 없는 build completion을 전달한다. 현재 요청과 일치하는 build는 새 header를 만들지 않는 build decline으로 처리한다. Live verify의 receiver closure는 현재 유효한 task completion에서 `Fatal::Automaton`이며, `verify(false)`의 무효 payload 판정과 다르다. [Build completion 소비](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/executor.rs#L811), [현재 build의 decline](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/chain.rs#L1187), [Live validation completion](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/voter/executor.rs#L848).
+
 `Automaton`의 producer Context는 epoch·chain·height·producer parent header ID를 제공하며 leader V-QC / policy history를 제공하는 API가 아니다. Context와 commitment로 public header constructor/digest를 통해 exact reference를 재구성할 수 있다. 다만 propose·live verify·recovery에 같은 Context 타입이 쓰이고 callback에 mode tag가 없으므로, metadata 재구성만으로 signed artifact의 accepted/current 상태를 인정하지 않는다. [Header reconstruction](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L126).
 
 ### 4.3 Mempool에서 가져와 블록 생성
@@ -1002,6 +1004,8 @@ Speculative state와 canonical state를 분리한다. Execute는 branch 결과�
 Recover는 startup/recovery 연결부가, ReadAt은 query caller가 요청한다. Branch handle은 context의 검증을 대신하지 않는다. 최소한 base state identity, runtime/version, exact input prefix, branch generation과 canonical cursor 연결을 확인한다.
 
 BranchOwner는 exact ordered input의 tx/body·runtime identity와 유효한 branch-scoped state access를 Application runtime에 전달한다. Runtime은 pending mutations·outputs·실행 결과를 돌려주며, checkpoint의 context 결속과 canonical 적용 권한은 execution owner가 관리한다. 이는 새 runtime 연결의 책임을 설명하는 계약이며 기존 `stateful::Application` trait와 바로 호환된다는 뜻은 아니다.
+
+Runtime이 계산한 tx 결과와 worker가 요청 범위의 실행 시도를 끝내지 못한 사건은 구분한다. Execution owner는 해당 미완료 범위를 completed branch outcome으로 채택하지 않는다. Tx 실패의 state/output 의미와 미완료 시도를 BranchOwner에서 Controller로 알리는 계약·재시도 방식은 미결정이다.
 
 ReadAt의 local 조회 readiness와 `f+1` 결과 인증은 별도다. Signer·collector·consumer의 연결은 [§2.10](#210-결과-endpoint-direct-execution과-f1-인증), optional certified import는 [§6.7](#67-미채택-후보-certificate--state-material로-catch-up)에서 설명한다.
 
