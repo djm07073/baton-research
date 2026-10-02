@@ -800,6 +800,8 @@ Producer lane의 parent-state filtering을 global canonical state로 취급하�
 
 Tx byte budget과 full encoded body size는 다르다. Tx 목록뿐 아니라 codec framing·metadata를 포함한 최종 본문을 bounded하게 구성해야 한다.
 
+Commonware codec의 [`EncodeSize::encode_size`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs#L26)는 선택한 body 타입의 전체 encoded size를 계산하는 연결 지점이다. 읽는 쪽에는 [`Read::Cfg`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs#L197)로 타입별 decoding 제약을 전달할 수 있다. Body 필드·version·크기 제한과 구체 codec 구현은 미결정이며 application adapter에서 연결한다.
+
 ### 4.4 블록 전파·조회·custody
 
 Commonware storage/archive, `broadcast::buffered`, `resolver::p2p`를 우선 활용한다. Broadcast의 bounded cache는 durable custody 저장소를 대신하지 않는다. Archive 저장 뒤 sync 완료, expected digest 검증, parent 복구와 startup 순서를 attachment에서 연결한다. [Broadcast](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/mod.rs), [Resolver](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs).
@@ -1254,6 +1256,7 @@ ImportedVerified provenance와 canonical checkpoint의 recovery 연결도 import
 | [Native tip algebra](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/algebra/tips.rs#L143) | Native extraction / settledness 규칙 | Verified shared extraction facade와 dense ordered delivery; private algebra 접근 문제 해결 |
 | [QMDB Stateful](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs) | Batch fork / merkleize / apply, pending-state 관리 | Multimmit exact execution order에 맞는 branch / canonical adapter |
 | [Cryptography interfaces](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs) | Namespace와 message를 받는 서명·검증 primitive | ExecutionStatement encoding·epoch key 연결과 signer / result collector 구성 |
+| [Codec interfaces](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/lib.rs) | Write / Read / EncodeSize와 encoding·decoding 기본 API | Tx / body / report / direction / result의 schema·version·limits 연결 |
 
 #### 실제 소스를 따라 읽는 순서
 
