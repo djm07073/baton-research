@@ -110,6 +110,7 @@ Ordered delivery와 history recovery는 consensus attachment의 내부 역할이
 | Cut / native finality | Producer tips에 대한 native 인증·finality 사건 |
 | Immutable ordering frontier | 해당 ordering context에서 새 direction이 다시 배열할 수 없는 기존 ordered-input prefix의 경계. Local state의 durable 적용 위치인 AppliedCursor와 다름 |
 | Canonical ordered range | 인증 이력과 settledness를 검증해 순서가 뒤집히지 않음을 확인한 연속 실행 입력 |
+| Branch checkpoint | 특정 입력 state·runtime에서 순서 prefix의 실행을 끝낸 결과와 context를 묶은 재사용 지점. QMDB batch와의 관계는 [§6.3](#63-qmdb-state-관리와-재사용-경계)에서 설명 |
 | Commit | 위 ordered range를 실행한 결과를 local QMDB canonical state로 durable 적용하는 요청 |
 
 Producer와 validator는 별개의 역할이며 한 노드가 둘 다 수행할 수 있다. Leader의 direction은 producer들에게 전파하고, 해당 실행을 담당하는 validator의 Baton에도 전달되어야 한다. Producer에게만 보내고 모든 executor가 받았다고 가정하지 않는다.
@@ -775,6 +776,8 @@ Native/application planes와 example 채널 번호는 [P2P message-plane 표](#1
 
 Native votes와 finality는 기존 core가 담당한다. 각 producer는 독립 lane의 application commitment를 담은 signed header를 전파하고, 여러 producer chains의 순서 근거는 별도 leader chain에 모인다. 각 view의 leader는 earlier V-QC parent와 lane별 anchored path를 transaction-free `LeaderBlock`에 넣는다. 모든 descendant의 DA certificate를 기다리는 구조는 아니며, native 조건을 만족하는 locally DA-voted 연속 suffix도 proposal에 포함할 수 있다. [Producer / leader chain 구조](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L9), [Proposal / direct vote](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md#L309).
 
+Producer별 anchor는 해당 lane의 제안 경로가 시작하는 기준 block reference다. Parent V-QC에서 물려받은 safe-tip reference 또는 proposal에 함께 실은 더 높은 DA certificate로 표현하며, leader proposal이 참조하는 parent V-QC와 별도의 좌표다. [Anchor 표현](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L399).
+
 Validator는 producer별 제안의 anchor 다음에서 자신이 DA vote한 경로와 연속으로 일치하는 블록 수를 position에 기록한다. 일치한 prefix의 끝(0이면 anchor)에서 이어지는 DA-voted 경로의 body commitments를 길이 제한 안에서 extension에 담고, 모든 producer의 position과 extension을 묶은 complete vote에 서명한다. [Position / extension 구성](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/chain.rs#L1978).
 
 | 주요 native 증거 | 묶는 자료 | 제공하는 근거 |
@@ -928,7 +931,7 @@ Report는 **실행 의도**이며 execution progress·state root·완료 증명�
 
 일차 선택은 **P1**이다. P2의 sum이 더 커도 supported prefix 길이가 먼저다. 다른 deadline snapshot에 `R1=[A,B,C,D]`, `R2=[A,C,D,B]` 두 개만 있다면 3-report 지지가 불가능하므로 fallback이다. 같은 두 후보의 raw sum은 P1이 `4+1=5`, P2가 `1+2=3`이어서 P1을 고른다. 큰 f개의 LCP를 빼지 않는다. 이 계산은 후보 집합 밖의 global optimum·native inclusion·완료된 execution work를 증명하지 않는다.
 
-같은 최장 supported prefix 이후 tail의 선택과 score trimming은 확정하지 않는다. Cut은 report·timer·planner를 기다리지 않는다. 준비 전 valid base fallback과, 이미 인증된 protected prefix를 보존할 의무를 구분한다. Prefix-adoption / exact continuation의 native 통합 증명은 아직 없다.
+같은 최장 supported prefix 이후 tail의 선택과 그 선택에 사용할 보조 점수 정책은 미결정이다. Cut은 report·timer·planner를 기다리지 않는다. 준비 전 valid base fallback과, 이미 인증된 protected prefix를 보존할 의무를 구분한다. Prefix-adoption / exact continuation의 native 통합 증명은 아직 없다.
 
 예를 들어 같은 immutable frontier 이후 유효 prefix `p=[A1,B1]`을 선택했다면 아래처럼 구분한다. 동일 canonical input state/runtime과 predecessor closure가 성립한다는 전제의 설명이며 실행 trace나 완성된 보존 증명이 아니다.
 
