@@ -202,7 +202,7 @@ sequenceDiagram
     E-->>B: CommitApplied(cursor, state root, outputs)
     B-->>N: Delivery adapter ACK after durability, not native vote
     B-->>T: CanonicalOutcome(exact range / tx outcomes)
-    Note over B,E: 기존 state-finalization endpoint는 exact order + 동일 statement의 f+1 실행 서명
+    Note over B,E: 설계의 state-finalization endpoint는 exact order + 동일 statement의 f+1 실행 서명
 ```
 
 [그림 크게 보기](assets/diagrams/diagram-02.svg)
