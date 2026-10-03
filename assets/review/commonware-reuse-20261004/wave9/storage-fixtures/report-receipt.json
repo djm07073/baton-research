@@ -1,0 +1,371 @@
+{
+  "reviewer": "/root/reuse_storage_types_v3",
+  "scope": "source/API only; no compilation or test execution",
+  "utc": "2026-10-03T23:32:50.608834+00:00",
+  "base_head": "f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea",
+  "source_count": 40,
+  "all_blob_verified": true,
+  "citation_anchors_checked": 39,
+  "document_sha256": {
+    "REPORT.md": "ca96c73745e96d3c59b885a8bb4c30ed29c7a0afb0d6805b77471ffe92b45ebc",
+    "READER_DELTA.md": "599a8ae39bf6da335b785ee2d44c5ad0570a28a228df159284c1945c956e4c87"
+  },
+  "tree_sha256": {
+    "native-tree.json": "02f4df922a37f9c8642649ada181294c53b59266a8f32d8e280c8103cd88add6",
+    "release-tree.json": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91",
+    "constantinople-tree.json": "fbacce140362086b0f417a67e9859fd045313076514d87995ba3c7a47d99647a"
+  },
+  "anchors": [
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 504,
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line_text": "}"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 622,
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line_text": "    }"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 749,
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line_text": "impl PendingSyncs {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 45,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "pub use crate::storage::faulty::Config as FaultConfig;"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 331,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "    pub const fn with_storage_fault_config(mut self, faults: FaultConfig) -> Self {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 493,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "/// An artifact that can be used to recover the state of the runtime."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 567,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "    /// Like [crate::Runner::start], but also returns a [Checkpoint] that can be used"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 333,
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line_text": "pub struct DeferredSync {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 662,
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line_text": "                Some(started) => started.await?,"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 839,
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line_text": "/// Controls a [WriteFaultContext]: while armed, every `write_at` fails with an"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/lib.rs",
+      "line": 120,
+      "source_sha256": "df267590ab90c98c2ee8e5d1f5787ae92284860c7b8880b4b15efe637d50b781",
+      "line_text": "    /// A runtime context providing storage, timing, and metrics capabilities."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/unordered/variable.rs",
+      "line": 39,
+      "source_sha256": "72a13ea81a9245ba8f9237cf6e80f1456d1a5e7164fb6720780cbbb048537ae8",
+      "line_text": ""
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 686,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "                executor.metrics.iterations.inc();"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 1005,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "    /// Recover the inner state (deadline, metrics, auditor, rng, synced storage, etc.) from the"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 1094,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "    /// Access the storage fault configuration."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "line": 29,
+      "source_sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+      "line_text": "mod network;"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/memory.rs",
+      "line": 19,
+      "source_sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6",
+      "line_text": "#[derive(Clone)]"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/memory.rs",
+      "line": 169,
+      "source_sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6",
+      "line_text": "        // Update partition content"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/faulty.rs",
+      "line": 27,
+      "source_sha256": "12a680064dacfb152c957703e9c219dbc8d1294f54faabbdefafd75f0246a128",
+      "line_text": "/// Configuration for deterministic storage fault injection."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/faulty.rs",
+      "line": 321,
+      "source_sha256": "12a680064dacfb152c957703e9c219dbc8d1294f54faabbdefafd75f0246a128",
+      "line_text": "        let (should_fail, partial_rate) = self.ctx.check_write_fault();"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2727,
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582",
+      "line_text": "{"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "line": 819,
+      "source_sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d",
+      "line_text": "    /// Sync all database state to disk."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 113,
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "line_text": "///"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 449,
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "line_text": "pub struct Barrier {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/mod.rs",
+      "line": 96,
+      "source_sha256": "69e109648309ff7f7c68801f3d62b740bed2f1230c083f6d0ca75cc73ec3fbf9",
+      "line_text": "#[cfg(any(test, feature = \"test-traits\"))]"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/mod.rs",
+      "line": 571,
+      "source_sha256": "69e109648309ff7f7c68801f3d62b740bed2f1230c083f6d0ca75cc73ec3fbf9",
+      "line_text": "    /// Test that a commit after an older sync boundary is recovered without another sync."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/mod.rs",
+      "line": 485,
+      "source_sha256": "83fc416ba29d5d7eef86fd440b37c6d37eef2c789537148aa68c1257a784b83e",
+      "line_text": "/// Extension trait for Current QMDB types that exposes bitmap information for testing."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/tests/common.rs",
+      "line": 42,
+      "source_sha256": "5a5d6ffe7060c1b15875488967c7aa836d161a742faa151afb3a3b3fe4be01c8",
+      "line_text": "#[derive(Clone, Default)]"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/tests/properties.rs",
+      "line": 132,
+      "source_sha256": "9c05f3537c5f8256e14b7956d71e0a53ec5a12e1d5b783b7e12a690cbd9683b8",
+      "line_text": "#[derive(Clone)]"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/lib.rs",
+      "line": 30,
+      "source_sha256": "b04796eadf4a3bf491fd185636075ecaf232d85094b604fbaa3a935581dc6c97",
+      "line_text": "#[cfg(all(test, feature = \"test-utils\"))]"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "Cargo.toml",
+      "line": 51,
+      "source_sha256": "1fa310723fb50d7b8b7c565fcde53e5da02b8b8b9dbb74651c750b7d4e5639ce",
+      "line_text": "commonware-actor = { git = \"https://github.com/commonwarexyz/monorepo\", rev = \"92036f4beefedc9817f0954d98fb99e0b52431cb\" }"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/tests/mod.rs",
+      "line": 30,
+      "source_sha256": "f707b17baf9863296642c02b16bb1faa0ec4871a09a7a1a8775113f5ec1c2f47",
+      "line_text": "use commonware_glue::{"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/lib.rs",
+      "line": 11,
+      "source_sha256": "0f26fb9a05a1f6cd8597deec783c5fb742b365ad785e24942a4af019264d8e8f",
+      "line_text": "    #[cfg(any(test, feature = \"test-utils\"))]"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/simulate/engine.rs",
+      "line": 36,
+      "source_sha256": "8c6557cca944a1d14e13586e4cd0e17cdbb31c83b63e0231873ef1577089d572",
+      "line_text": "/// Defines how to construct and start one validator's service stack."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/simulate/action.rs",
+      "line": 9,
+      "source_sha256": "f2ed9af7cec584a7f9d8d95ccf1e56776b6297c65bddc71214287b7c8921c7c3",
+      "line_text": "/// Crash strategy for a simulation run."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "runtime/src/mocks.rs",
+      "line": 925,
+      "source_sha256": "2727bdc7a47282f2cbd290ed1ceddde32bdd5e6b333041c1608beda280f662fe",
+      "line_text": "impl PendingSyncs {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "runtime/src/storage/faulty.rs",
+      "line": 35,
+      "source_sha256": "442452899bc68d5b99e311d9464f2aaae7794c54f93e0fac821647ada3a5b7b4",
+      "line_text": "/// Selects how submitted bytes are retained from a write."
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 567,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "    /// Like [crate::Runner::start], but also returns a [Checkpoint] that can be used"
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 749,
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line_text": "impl PendingSyncs {"
+    }
+  ]
+}

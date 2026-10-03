@@ -1,0 +1,698 @@
+[
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 541,
+    "line_text": "impl Runner {"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/network.rs",
+    "line": 211,
+    "line_text": "impl<E: RNetwork + Spawner + Rng + Clock + Metrics, P: PublicKey> Network<E, P> {"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 421,
+    "line_text": "impl<P: PublicKey, E: Clock> Control<P, E> {"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 169,
+    "line_text": "    pub fn control(&self, me: P) -> Control<P, E> {"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 322,
+    "line_text": "impl<P: PublicKey, E: Clock> crate::Provider for Manager<P, E> {"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 223,
+    "line_text": "    /// Create a unidirectional link between two peers."
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/network.rs",
+    "line": 892,
+    "line_text": "    pub fn start(mut self) -> Handle<()> {"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 688,
+    "line_text": "    /// Starts the engine over its four registered planes."
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/mod.rs",
+    "line": 177,
+    "line_text": "pub use ingress::{Control, Link, Manager, Oracle, SocketManager};"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 302,
+    "line_text": "/// Useful for mocking [crate::authenticated::discovery]."
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mod.rs",
+    "line": 229,
+    "line_text": "#[cfg(any(test, feature = \"mocks\"))]"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/mod.rs",
+    "line": 7,
+    "line_text": "#[cfg(not(target_arch = \"wasm32\"))]"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 1164,
+    "line_text": "/// Starts a simulated network over `identities` and returns its oracle."
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 65,
+    "line_text": "type MockEngineConfig<V> = EngineConfig<"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 240,
+    "line_text": "impl<V: Variant> Cluster<V> {"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 458,
+    "line_text": "    pub async fn launch(&mut self, index: usize) {"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 302,
+    "line_text": "    fn verify("
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/tests.rs",
+    "line": 53,
+    "line_text": "    let executor = DeterministicRunner::timed(Duration::from_secs(300));"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 679,
+    "line_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact."
+  },
+  {
+    "report": "simulated-network",
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/src/lib.rs",
+    "line": 247,
+    "line_text": "pub async fn setup_validators("
+  },
+  {
+    "report": "simulated-network",
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/src/testing_node.rs",
+    "line": 352,
+    "line_text": "        let votes = self"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "Cargo.toml",
+    "line": 258,
+    "line_text": "commonware-consensus = \"2026.9.0\""
+  },
+  {
+    "report": "simulated-network",
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/src/lib.rs",
+    "line": 345,
+    "line_text": "/// Runs a test configured by [`Setup`]."
+  },
+  {
+    "report": "simulated-network",
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/src/execution_runtime.rs",
+    "line": 322,
+    "line_text": "/// An execution runtime wrapping a thread running a [`tokio::runtime::Runtime`]."
+  },
+  {
+    "report": "simulated-network",
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/Cargo.toml",
+    "line": 36,
+    "line_text": "commonware-runtime = { workspace = true, features = [\"external\"] }"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/executor/actor/tests/harness.rs",
+    "line": 1113,
+    "line_text": "    pub(super) fn start<TContext>(self, context: &TContext) -> Harness<TContext>"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 493,
+    "line_text": "/// An artifact that can be used to recover the state of the runtime."
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1005,
+    "line_text": "    /// Recover the inner state (deadline, metrics, auditor, rng, synced storage, etc.) from the"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1233,
+    "line_text": "/// executor thread registers itself as its sole member and all work executes inline."
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 7,
+    "line_text": "//! # External Processes"
+  },
+  {
+    "report": "simulated-network",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/lib.rs",
+    "line": 815,
+    "line_text": "stability_scope!(BETA, cfg(feature = \"external\") {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/lib.rs",
+    "line": 33,
+    "line_text": "stability_scope!(ALPHA {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/lib.rs",
+    "line": 14,
+    "line_text": "stability_mod!(ALPHA, pub mod simulated);"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mod.rs",
+    "line": 225,
+    "line_text": "pub mod config;"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/Cargo.toml",
+    "line": 71,
+    "line_text": "[features]"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/test_utils/mod.rs",
+    "line": 1,
+    "line_text": "//! Opaque entry points for out-of-crate fuzz and benchmark targets."
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/mod.rs",
+    "line": 26,
+    "line_text": "#[cfg(not(target_arch = \"wasm32\"))]"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 340,
+    "line_text": "#[cfg(test)]"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 307,
+    "line_text": ""
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/machine/mod.rs",
+    "line": 162,
+    "line_text": "#[cfg(any(test, feature = \"test-utils\"))]"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/machine/tests/test_utils.rs",
+    "line": 18,
+    "line_text": "pub(in crate::multimmit::machine) fn cohort<H: Hasher, V: Variant>("
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 65,
+    "line_text": "type MockEngineConfig<V> = EngineConfig<"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 510,
+    "line_text": "    pub async fn launch_with<Sd, Sg, Rc, Sc, Sr, Rr>("
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 543,
+    "line_text": "        }"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 241,
+    "line_text": "    /// Builds the committee, simulated network, and fully connected links."
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 390,
+    "line_text": "    ///"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 458,
+    "line_text": "    pub async fn launch(&mut self, index: usize) {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 318,
+    "line_text": "    /// Delays started durability syncs by releasing them at a fixed interval."
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 679,
+    "line_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact."
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 723,
+    "line_text": "    pub async fn heal(&mut self) {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 139,
+    "line_text": "    pub(crate) fn block_digest(context: Context<Sha256Digest>, payload: &[u8]) -> Sha256Digest {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 197,
+    "line_text": "    pub fn with_gated_build() -> (Self, MockBuildGate) {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 302,
+    "line_text": "    fn verify("
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 209,
+    "line_text": "            finality_floor: View::zero(),"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 1040,
+    "line_text": "    pub async fn wait_finalized("
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 568,
+    "line_text": ""
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/tests.rs",
+    "line": 52,
+    "line_text": "fn producer_subset_progresses_with_validator_only_nodes() {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/tests.rs",
+    "line": 416,
+    "line_text": "fn n7_f1_cluster_survives_crash_and_recovery() {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/tests.rs",
+    "line": 572,
+    "line_text": "fn n11_f2_finalizes_under_partition_and_heal() {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/machine/tests/world.rs",
+    "line": 10,
+    "line_text": "#[cfg(test)]"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/machine/tests/test_utils.rs",
+    "line": 29,
+    "line_text": "/// Exercises a bounded three-replica production-machine schedule derived from arbitrary bytes."
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 469,
+    "line_text": "pub struct Config<H, P, V, A, R, F, T, B>"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 635,
+    "line_text": "    pub fn new(context: E, config: Config<H, P, V, A, R, F, T, B>) -> Self {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 700,
+    "line_text": "    pub async fn start("
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 550,
+    "line_text": "    /// Resolves once startup or recovery is durable and the initial producer wake is submitted."
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/network.rs",
+    "line": 261,
+    "line_text": "    pub async fn new_with_peers<I>(context: E, cfg: Config, peers: I) -> (Self, Oracle<P, E>)"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 428,
+    "line_text": "    pub async fn register("
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 207,
+    "line_text": "    pub async fn limit_bandwidth("
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/mod.rs",
+    "line": 1,
+    "line_text": "//! Simulate networking between peers with configurable link behavior (i.e. drops, latency, corruption, etc.)."
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 542,
+    "line_text": "    /// Initialize a new `deterministic` runtime with the given seed and cycle duration."
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 533,
+    "line_text": "impl From<Checkpoint> for Runner {"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1005,
+    "line_text": "    /// Recover the inner state (deadline, metrics, auditor, rng, synced storage, etc.) from the"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 45,
+    "line_text": "pub use crate::storage::faulty::Config as FaultConfig;"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 324,
+    "line_text": "    }"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1094,
+    "line_text": "    /// Access the storage fault configuration."
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "examples/log-multimmit/src/main.rs",
+    "line": 293,
+    "line_text": "    let buffer_pool_parallelism = NZUsize!(config.worker_threads);"
+  },
+  {
+    "report": "native-fixtures",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "examples/log-multimmit/src/application/actor.rs",
+    "line": 65,
+    "line_text": "    fn verify("
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 493,
+    "line_text": "/// An artifact that can be used to recover the state of the runtime."
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 575,
+    "line_text": "        let (context, executor, panicked) = match self.state {"
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 690,
+    "line_text": "        // Clear remaining tasks from the executor."
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 174,
+    "line_text": "/// Track the state of the runtime for determinism auditing."
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 7,
+    "line_text": "//! # External Processes"
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "chain/src/lib.rs",
+    "line": 198,
+    "line_text": "#[cfg(test)]"
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "chain/src/lib.rs",
+    "line": 1317,
+    "line_text": "    fn test_drainer_replays_inflight_uploads_after_restart() {"
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "chain/src/lib.rs",
+    "line": 1487,
+    "line_text": "            // uploads in this run must therefore come from replaying the"
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "follower/src/main.rs",
+    "line": 35,
+    "line_text": "#[cfg(test)]"
+  },
+  {
+    "report": "fixture-boundaries",
+    "repo": "commonwarexyz/alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "follower/src/test_utils.rs",
+    "line": 94,
+    "line_text": "    pub fn new() -> Self {"
+  }
+]

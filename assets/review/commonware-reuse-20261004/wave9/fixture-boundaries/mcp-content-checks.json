@@ -1,0 +1,10 @@
+{
+  "version": "v2026.9.0",
+  "path": "runtime/src/deterministic.rs",
+  "numbered_lines": 38,
+  "mcp_labels_zero_based": true,
+  "matches_fresh_release": true,
+  "native_release_file_equal": false,
+  "complete_public_auditor_state_included": true,
+  "failures": []
+}

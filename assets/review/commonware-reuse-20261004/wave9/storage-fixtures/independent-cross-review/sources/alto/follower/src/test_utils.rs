@@ -1,0 +1,171 @@
+//! Shared test utilities for the follower crate (mock source and fixture helpers).
+
+use crate::Source;
+use alto_client::consensus::{Message, Payload};
+use alto_client::{IndexQuery, Query};
+use alto_types::{Block, Context, Finalized, Notarized, VrfScheme, EPOCH, NAMESPACE};
+use bytes::Bytes;
+use commonware_consensus::{
+    simplex::{
+        scheme::bls12381_threshold::vrf as bls12381_threshold,
+        types::{Finalize, Notarize, Proposal},
+    },
+    types::{Height, Round, View},
+};
+use commonware_cryptography::{
+    bls12381::primitives::variant::MinSig, certificate::mocks::Fixture, ed25519, sha256, Digest,
+    Digestible, Hasher, Sha256, Signer,
+};
+use commonware_parallel::Sequential;
+use commonware_utils::{non_empty, sync::Mutex};
+use rand::{rngs::StdRng, SeedableRng};
+use std::{future::Future, sync::Arc};
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+#[error("{0}")]
+pub struct MockError(pub String);
+
+pub type BlockHandler =
+    Arc<Mutex<Option<Box<dyn Fn(Query) -> Option<Payload<VrfScheme>> + Send + Sync>>>>;
+pub type NotarizedHandler =
+    Arc<Mutex<Option<Box<dyn Fn(IndexQuery) -> Option<Notarized<VrfScheme>> + Send + Sync>>>>;
+
+#[derive(Clone)]
+pub struct MockSource {
+    pub block_handler: BlockHandler,
+    pub notarized_handler: NotarizedHandler,
+    pub messages: Arc<Mutex<Vec<Message<VrfScheme>>>>,
+}
+
+impl MockSource {
+    pub fn new() -> Self {
+        Self {
+            block_handler: Arc::new(Mutex::new(None)),
+            notarized_handler: Arc::new(Mutex::new(None)),
+            messages: Arc::new(Mutex::new(Vec::new())),
+        }
+    }
+}
+
+impl Source for MockSource {
+    type Scheme = VrfScheme;
+    type Error = MockError;
+
+    async fn block(&self, query: Query) -> Result<Payload<VrfScheme>, Self::Error> {
+        let handler = self.block_handler.clone();
+        let guard = handler.lock();
+        match guard.as_ref().and_then(|f| f(query)) {
+            Some(payload) => Ok(payload),
+            None => Err(MockError("block not found".to_string())),
+        }
+    }
+
+    async fn notarized(&self, query: IndexQuery) -> Result<Notarized<VrfScheme>, Self::Error> {
+        let handler = self.notarized_handler.clone();
+        let guard = handler.lock();
+        match guard.as_ref().and_then(|f| f(query)) {
+            Some(notarized) => Ok(notarized),
+            None => Err(MockError("notarized not found".to_string())),
+        }
+    }
+
+    fn listen(
+        &self,
+    ) -> impl Future<
+        Output = Result<
+            impl futures::Stream<Item = Result<Message<VrfScheme>, Self::Error>> + Send + Unpin,
+            Self::Error,
+        >,
+    > + Send {
+        let messages = self.messages.clone();
+        async move {
+            let msgs = messages.lock().drain(..).collect::<Vec<_>>();
+            Ok(futures::stream::iter(msgs.into_iter().map(Ok)))
+        }
+    }
+}
+
+pub struct TestFixture {
+    pub schemes: Vec<VrfScheme>,
+}
+
+impl TestFixture {
+    pub fn new() -> Self {
+        let mut rng = StdRng::seed_from_u64(0);
+        let Fixture { schemes, .. } =
+            bls12381_threshold::fixture::<MinSig, _>(&mut rng, NAMESPACE, 4);
+        Self { schemes }
+    }
+
+    pub fn create_block(&self, height: u64, view: u64) -> Block {
+        let context = Context {
+            round: Round::new(EPOCH, View::new(view)),
+            leader: ed25519::PrivateKey::from_seed(0).public_key(),
+            parent: (View::new(view.saturating_sub(1)), sha256::Digest::EMPTY),
+        };
+        let parent_digest = Sha256::hash(&[format!("parent-{height}").as_bytes()]);
+        Block::new(
+            context,
+            parent_digest,
+            Height::new(height),
+            height * 100,
+            Bytes::new(),
+        )
+    }
+
+    pub fn create_finalized(&self, height: u64, view: u64) -> Finalized<VrfScheme> {
+        let block = self.create_block(height, view);
+        let proposal = Proposal::new(
+            Round::new(EPOCH, View::new(view)),
+            View::new(view.saturating_sub(1)),
+            block.digest(),
+        );
+        let finalizes: Vec<_> = self
+            .schemes
+            .iter()
+            .map(|scheme| Finalize::sign(scheme, proposal.clone()).unwrap())
+            .collect();
+        let finalization = alto_types::Finalization::from_finalizes(
+            &self.schemes[0],
+            non_empty![@&finalizes],
+            &Sequential,
+        )
+        .unwrap();
+        Finalized::new(finalization, block)
+    }
+
+    pub fn create_notarized(&self, height: u64, view: u64) -> Notarized<VrfScheme> {
+        let block = self.create_block(height, view);
+        let proposal = Proposal::new(
+            Round::new(EPOCH, View::new(view)),
+            View::new(view.saturating_sub(1)),
+            block.digest(),
+        );
+        let notarizes: Vec<_> = self
+            .schemes
+            .iter()
+            .map(|scheme| Notarize::sign(scheme, proposal.clone()).unwrap())
+            .collect();
+        let notarization = alto_types::Notarization::from_notarizes(
+            &self.schemes[0],
+            non_empty![@&notarizes],
+            &Sequential,
+        )
+        .unwrap();
+        Notarized::new(notarization, block)
+    }
+
+    pub fn verifier_scheme(&self) -> VrfScheme {
+        let identity = *self.schemes[0].identity();
+        VrfScheme::certificate_verifier(NAMESPACE, identity)
+    }
+
+    pub fn wrong_verifier_scheme(&self) -> VrfScheme {
+        let mut rng = StdRng::seed_from_u64(42);
+        let Fixture { schemes, .. } =
+            bls12381_threshold::fixture::<MinSig, _>(&mut rng, NAMESPACE, 4);
+        let wrong_identity = *schemes[0].polynomial().public();
+        VrfScheme::certificate_verifier(NAMESPACE, wrong_identity)
+    }
+}

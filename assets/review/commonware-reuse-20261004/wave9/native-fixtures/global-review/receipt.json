@@ -1,0 +1,418 @@
+{
+  "checked_at_utc": "2026-10-03T23:41:58.322315+00:00",
+  "baseline": "f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea",
+  "page_hashes": {
+    "docs/reference/verification.md": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b"
+  },
+  "changed_docs": [
+    "docs/reference/verification.md"
+  ],
+  "markdown_pages_preserved": 32,
+  "unchanged_headings": true,
+  "old_external_url_occurrences_preserved": true,
+  "rust_mermaid_blocks_preserved": true,
+  "explicit_anchors_preserved": true,
+  "public_traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "method_count": 30,
+  "blank_policy_cells": 39,
+  "non_md_docs_assets_unchanged": [
+    {
+      "path": "docs/assets/diagrams/diagram-01.mmd",
+      "sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.png",
+      "sha256": "2f54aae5f2633cbeea568251cf6c7409ef80f585f26183108ea804037363079e"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.svg",
+      "sha256": "1cc2f73798aebe66e0df5340e9b8c08089b0584ee7548f2945260905acac8559"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.mmd",
+      "sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.png",
+      "sha256": "bc2ce63537f9600d30ea186adefe20e4e58d435fd2b46bdbcf40c665a2ab1926"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.svg",
+      "sha256": "471643b14f453a36226a53e4f2bd585aefc29c3d7ec88f0f6b75fa6a392aefec"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.mmd",
+      "sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.png",
+      "sha256": "faff8a15ba7700cc4bb2ab29f3956f11161a6551631da10e18ed4be56b3dc0c1"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.svg",
+      "sha256": "43236514d36d4a482938ab1b5c07cceb56fd46d573cf74f0865aee5f936815b9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.mmd",
+      "sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.png",
+      "sha256": "053067d50300713115c622a7222560e65aaf84621e2aba39271ab3075d9bacd3"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.svg",
+      "sha256": "f434320b7787129fd370cc6dbe4313470c3eaac18a60d806c8893b13e9510f97"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.mmd",
+      "sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.png",
+      "sha256": "6617b91dfa54c021e017ac74a7de277df4b8b4ce3705f17926295fdf9c323855"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.svg",
+      "sha256": "e62e69a588c1bf8ab6826c148f5460a70c6bd78cd6482dfd54907620107f28ef"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.mmd",
+      "sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.png",
+      "sha256": "bbc69603dfa192de7416752205e0d6187fd57e8a490013511074bb0a24dfb303"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.svg",
+      "sha256": "9be4f7d669f013df97b47eef920b99100dcf7c4b2b9daa704c3f61b817c8a3a6"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.mmd",
+      "sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.png",
+      "sha256": "b06a4a47f6163bd164e1d3ba02972fe700f88d6b7a29db9442f9f47f561d80f0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.svg",
+      "sha256": "a4197537a07c462855a651bc55ebaec28dfc09ce2d09d71c8d36e37e1b8529cb"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.mmd",
+      "sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.png",
+      "sha256": "d04375ec071ed99d39728347c835151ccfd6ac5f694e0a6f4e03f8dfa6de5868"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.svg",
+      "sha256": "184c85b990f2fbfb2f977c01b16399acdfa2a184970a6ccb0848743b93bdc93a"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.mmd",
+      "sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.png",
+      "sha256": "7d3e5e98749bc3a1128c724ca9c270724d5b398e84649d3d5b9ef6ca373ae796"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.svg",
+      "sha256": "61745836f1fa617c1beec94554690bf7e6cbc23e60944bf09845aab846e4cd75"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.mmd",
+      "sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.png",
+      "sha256": "8e351bbf8bbd0e7fbfd6db806357b074cde971da89b3933b4e33d7b8b8dbc3c5"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.svg",
+      "sha256": "0ac9ed66c95d13fdded7fa061856d320dc86cc4fc9125445bc5f7953dfb3308d"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.mmd",
+      "sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.png",
+      "sha256": "a039b18312ca983b6b4492e4cfb5eaa6bb63874689b01feaf8b9c30c643dbb9c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.svg",
+      "sha256": "e0859f3d552cb117790ba65b3c61c5b0735b8e5a4ea22e8ec7713e14650e58f3"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.mmd",
+      "sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.png",
+      "sha256": "cc90ab29bf71ea3d5e457d1650080be4730b8bf67226b1e603281e195524af47"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.svg",
+      "sha256": "8ffeb31d72c057e91004e0674e74ed964afbbba170c4cb31673e18ce9a6b4fb9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.mmd",
+      "sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.png",
+      "sha256": "e977f58945e3715ae68b7e945a9b2f0af26e2822c5097c433ff38752a1680df2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.svg",
+      "sha256": "0ca441e6c0202ccd6b8d71a4b38fa386a11ad391b4043724744484f65568849a"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.mmd",
+      "sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.png",
+      "sha256": "313eb544752267cf05e50913175c48848914146e5948b19feeeb439ec9fed67b"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.svg",
+      "sha256": "109065a5b3be43bcb661809e1754cc05cf721759a74c09c655f7a99202ff2948"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.mmd",
+      "sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.png",
+      "sha256": "0f0b547b25e59a3f7f4014cca8ea36325bd0ebc29383c8b13b7a4822dbd711b9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.svg",
+      "sha256": "957cbfc54b6c53c341eba4619f31838811f3681f2813a1ee56560dde412583f0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.mmd",
+      "sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.png",
+      "sha256": "cb0eddc63d110e5afb6e29a54bbbf3a0e909d01e7f10ef69bf742274511ec9ce"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.svg",
+      "sha256": "2f77191f2bfef52bec24c217353e1f2b3bc88841d0c3c6003c9667b1b1a1ebaa"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.mmd",
+      "sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.png",
+      "sha256": "057dcf929dd9f1f838ddc956014a4f2fdf31250fa858942a00a72763b87a9cd2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.svg",
+      "sha256": "6db0e1fd7e04031a2b66c42891e289ae85ac981e28f13ab1df3f1508b618fbcd"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.mmd",
+      "sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.png",
+      "sha256": "4e01e4fa9e2c5360bca37b4679f4b08e767c3d55d7d3c0301f8fbfc9f4b2bfc9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.svg",
+      "sha256": "6dce7bb98004ab0f970b4d66e24ce3ace964b645222f2b010e1f9c0c754a69c9"
+    },
+    {
+      "path": "docs/assets/diagrams/render-manifest.json",
+      "sha256": "ccbcfa2d198d721e6dbda01ed1a923b4e9cd27cdbb10def0c74c296a982980c7"
+    },
+    {
+      "path": "docs/assets/interfaces/baton.rs",
+      "sha256": "cf43886aff0008c7a8d646f44899f8ab6ab3d0c5a6e59f0745bd6df276ee09a9"
+    }
+  ],
+  "new_source_citation_occurrences": [
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs#L428",
+      "line_text": "    pub async fn register("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L65",
+      "line_text": "type MockEngineConfig<V> = EngineConfig<"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs#L302",
+      "line_text": "    fn verify("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L679",
+      "line_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L635",
+      "line_text": "    pub fn new(context: E, config: Config<H, P, V, A, R, F, T, B>) -> Self {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs#L633",
+      "line_text": "    async fn start_sync(&self) -> Handle<()> {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs#L749",
+      "line_text": "impl PendingSyncs {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L567",
+      "line_text": "    /// Like [crate::Runner::start], but also returns a [Checkpoint] that can be used"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs#L247",
+      "line_text": "pub async fn setup_validators("
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs#L352",
+      "line_text": "        let votes = self"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1317",
+      "line_text": "    fn test_drainer_replays_inflight_uploads_after_restart() {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1487",
+      "line_text": "            // uploads in this run must therefore come from replaying the"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L174",
+      "line_text": "/// Track the state of the runtime for determinism auditing."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L7",
+      "line_text": "//! # External Processes"
+    }
+  ],
+  "fresh_matched_source_files_for_new_citations": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/ingress.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs",
+      "sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+      "git_blob": "e8ceb47c30547352256bcca5b8b3e0d5d310cd60",
+      "tree_blob": "e8ceb47c30547352256bcca5b8b3e0d5d310cd60",
+      "bytes": 13607
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/cluster.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs",
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+      "git_blob": "937be21ef976b3da26c728f29d97cc473ce73aef",
+      "tree_blob": "937be21ef976b3da26c728f29d97cc473ce73aef",
+      "bytes": 42931
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/attached.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs",
+      "sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579",
+      "git_blob": "40812dc411ca249b56bb15707386d0af27379983",
+      "tree_blob": "40812dc411ca249b56bb15707386d0af27379983",
+      "bytes": 15301
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs",
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+      "git_blob": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6",
+      "tree_blob": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6",
+      "bytes": 64562
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs",
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "git_blob": "6938c9ce6cd594f1f7c15e31d634281e19419550",
+      "tree_blob": "6938c9ce6cd594f1f7c15e31d634281e19419550",
+      "bytes": 43803
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs",
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "tree_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "bytes": 84235
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs",
+      "sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90",
+      "git_blob": "acd263c70c1f55c623855191f0e847cf449c7e21",
+      "tree_blob": "acd263c70c1f55c623855191f0e847cf449c7e21",
+      "bytes": 14104
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/testing_node.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs",
+      "sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834",
+      "git_blob": "27e08f8bd00d9dfb55d768c577708f5247d9af33",
+      "tree_blob": "27e08f8bd00d9dfb55d768c577708f5247d9af33",
+      "bytes": 22962
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs",
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6",
+      "git_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "tree_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "bytes": 60064
+    }
+  ],
+  "additional_fetched_files": [],
+  "docs_check": {
+    "content_pages": 31,
+    "local_links_checked": 257,
+    "rendered_diagrams": 18,
+    "blank_policy_cells": 39,
+    "migration_checked": true,
+    "failures": []
+  }
+}

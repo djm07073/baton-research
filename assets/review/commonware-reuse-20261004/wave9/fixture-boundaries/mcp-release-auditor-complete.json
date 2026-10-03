@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# runtime/src/deterministic.rs (v2026.9.0) [lines 180-217]\n\n```rust\n180: }\n181: \n182: impl Default for Auditor {\n183:     fn default() -> Self {\n184:         Self {\n185:             digest: Digest::default().into(),\n186:         }\n187:     }\n188: }\n189: \n190: impl Auditor {\n191:     /// Record that an event happened.\n192:     /// This auditor's hash will be updated with the event's `label` and\n193:     /// whatever other data is passed in the `payload` closure.\n194:     pub(crate) fn event<F>(&self, label: &'static [u8], payload: F)\n195:     where\n196:         F: FnOnce(&mut AuditHasher),\n197:     {\n198:         let mut digest = self.digest.lock();\n199: \n200:         let mut hasher = AuditHasher::new();\n201:         hasher.update(digest.as_ref());\n202:         hasher.update(label);\n203:         payload(&mut hasher);\n204: \n205:         *digest = hasher.finalize();\n206:     }\n207: \n208:     /// Generate a representation of the current state of the runtime.\n209:     ///\n210:     /// This can be used to ensure that logic running on top\n211:     /// of the runtime is interacting deterministically.\n212:     pub fn state(&self) -> String {\n213:         let hash = self.digest.lock();\n214:         hex(hash.as_ref())\n215:     }\n216: }\n217: \n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

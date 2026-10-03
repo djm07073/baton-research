@@ -1,0 +1,14 @@
+[
+  {
+    "response_path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/release-mocks-mcp.json",
+    "response_sha256": "bd197d99135316c87437de9e58c2b0fbabd94a52c8ba58ee9445b8e7d345ad71",
+    "fresh_source_sha256": "2727bdc7a47282f2cbd290ed1ceddde32bdd5e6b333041c1608beda280f662fe",
+    "matched_zero_based_source_lines": 86
+  },
+  {
+    "response_path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/release-pending-mcp.json",
+    "response_sha256": "eebf835934fe4d4a631204678828057bc9976cc20d7520972afb338751b14a15",
+    "fresh_source_sha256": "2727bdc7a47282f2cbd290ed1ceddde32bdd5e6b333041c1608beda280f662fe",
+    "matched_zero_based_source_lines": 83
+  }
+]

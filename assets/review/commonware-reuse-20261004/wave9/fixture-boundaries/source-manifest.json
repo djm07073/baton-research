@@ -1,0 +1,109 @@
+{
+  "retrieved_at_utc": "2026-10-03T23:25:51.356751+00:00",
+  "fresh_files": 10,
+  "complete_trees": 3,
+  "sources": [
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "local": "sources/native/runtime/src/deterministic.rs",
+      "bytes": 84235,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "tree_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "local": "sources/native/runtime/src/lib.rs",
+      "bytes": 125207,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+      "git_blob": "139a63a62b07caaadb799d3f4b1cfa4a8cd37fca",
+      "tree_blob": "139a63a62b07caaadb799d3f4b1cfa4a8cd37fca"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/telemetry/metrics/mod.rs",
+      "local": "sources/native/runtime/src/telemetry/metrics/mod.rs",
+      "bytes": 43516,
+      "sha256": "e5bd1c6c09695a19d0ee7f43825bdcb98d8070e3186796c39a853c462896c963",
+      "git_blob": "5d2dec0dcb564d4f0d776927aab9f9114c58d45a",
+      "tree_blob": "5d2dec0dcb564d4f0d776927aab9f9114c58d45a"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/network.rs",
+      "local": "sources/native/p2p/src/simulated/network.rs",
+      "bytes": 102479,
+      "sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590",
+      "git_blob": "0893f8a1c0e48f35757c94a24f49106a0ce12f52",
+      "tree_blob": "0893f8a1c0e48f35757c94a24f49106a0ce12f52"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "parallel/src/lib.rs",
+      "local": "sources/native/parallel/src/lib.rs",
+      "bytes": 60893,
+      "sha256": "52a45191faa76acaf0cf724eb04804390fd57b9743435c7de6e82898447c213b",
+      "git_blob": "9780db47130f3814e28e632cbb00d7d530e6a91d",
+      "tree_blob": "9780db47130f3814e28e632cbb00d7d530e6a91d"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "runtime/src/deterministic.rs",
+      "local": "sources/release/runtime/src/deterministic.rs",
+      "bytes": 89848,
+      "sha256": "e768bd8fcf5fe1d53e1732e252668cb8e81f1de75f97f5edbb1934c46a635ade",
+      "git_blob": "a79449c46ccb6c01d841d81fa41446151adeccfb",
+      "tree_blob": "a79449c46ccb6c01d841d81fa41446151adeccfb"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "local": "sources/alto/chain/src/engine.rs",
+      "bytes": 19385,
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18",
+      "git_blob": "dbc2f2309f2804c6be48fe1f45399f36c2b465fa",
+      "tree_blob": "dbc2f2309f2804c6be48fe1f45399f36c2b465fa"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "local": "sources/alto/chain/src/lib.rs",
+      "bytes": 60064,
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6",
+      "git_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "tree_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/test_utils.rs",
+      "local": "sources/alto/follower/src/test_utils.rs",
+      "bytes": 5701,
+      "sha256": "aa66aa4a6b602fb3b53acedc11a8289f9967731b2d40c70f20a350986817cc54",
+      "git_blob": "1048b1f904daf6d51846028a7c3e02363045133d",
+      "tree_blob": "1048b1f904daf6d51846028a7c3e02363045133d"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/main.rs",
+      "local": "sources/alto/follower/src/main.rs",
+      "bytes": 8432,
+      "sha256": "be68f0150794d07866b3aabce7d8addf09a93e4491c53fc81d206225d2946049",
+      "git_blob": "953f68a1dbeb8f34f6ca1eb14ea969bf8ca7d568",
+      "tree_blob": "953f68a1dbeb8f34f6ca1eb14ea969bf8ca7d568"
+    }
+  ],
+  "locator_correction": "follower/src/lib.rs was guessed; fresh complete Alto tree identifies main.rs",
+  "failures": []
+}

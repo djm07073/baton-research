@@ -1,0 +1,227 @@
+{
+  "checked_at_utc": "2026-10-03T23:40:18.995172+00:00",
+  "baseline": "f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea",
+  "report_sha256": "29eb5f5dbd2abb10da77270cc034f310443cb8de73cec11900186c63618362ae",
+  "reader_delta_sha256": "507f653d7ee8ed10f6fa7ac0a1a0a7f70630d523c54b1983272003d8b6b82001",
+  "source_manifest_sha256": "db9bee376d8d174b9382da70e01c1906387acb3f7ec6f03973c6723ac6c65e19",
+  "fresh_source_files": 26,
+  "fresh_complete_trees": 2,
+  "anchors": [
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs#L33",
+      "line_text": "stability_scope!(ALPHA {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/lib.rs#L14",
+      "line_text": "stability_mod!(ALPHA, pub mod simulated);"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L225",
+      "line_text": "pub mod config;"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/Cargo.toml#L71",
+      "line_text": "[features]"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/test_utils/mod.rs#L1",
+      "line_text": "//! Opaque entry points for out-of-crate fuzz and benchmark targets."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/mod.rs#L26",
+      "line_text": "#[cfg(not(target_arch = \"wasm32\"))]"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs#L340",
+      "line_text": "#[cfg(test)]"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L307",
+      "line_text": ""
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/mod.rs#L162",
+      "line_text": "#[cfg(any(test, feature = \"test-utils\"))]"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/tests/test_utils.rs#L18",
+      "line_text": "pub(in crate::multimmit::machine) fn cohort<H: Hasher, V: Variant>("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L65",
+      "line_text": "type MockEngineConfig<V> = EngineConfig<"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L510",
+      "line_text": "    pub async fn launch_with<Sd, Sg, Rc, Sc, Sr, Rr>("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L543",
+      "line_text": "        }"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L241",
+      "line_text": "    /// Builds the committee, simulated network, and fully connected links."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L390",
+      "line_text": "    ///"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L458",
+      "line_text": "    pub async fn launch(&mut self, index: usize) {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L318",
+      "line_text": "    /// Delays started durability syncs by releasing them at a fixed interval."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L679",
+      "line_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L723",
+      "line_text": "    pub async fn heal(&mut self) {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs#L139",
+      "line_text": "    pub(crate) fn block_digest(context: Context<Sha256Digest>, payload: &[u8]) -> Sha256Digest {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs#L197",
+      "line_text": "    pub fn with_gated_build() -> (Self, MockBuildGate) {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs#L302",
+      "line_text": "    fn verify("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L209",
+      "line_text": "            finality_floor: View::zero(),"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L1040",
+      "line_text": "    pub async fn wait_finalized("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L568",
+      "line_text": ""
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/tests.rs#L52",
+      "line_text": "fn producer_subset_progresses_with_validator_only_nodes() {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/tests.rs#L416",
+      "line_text": "fn n7_f1_cluster_survives_crash_and_recovery() {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/tests.rs#L572",
+      "line_text": "fn n11_f2_finalizes_under_partition_and_heal() {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/tests/world.rs#L10",
+      "line_text": "#[cfg(test)]"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/tests/test_utils.rs#L29",
+      "line_text": "/// Exercises a bounded three-replica production-machine schedule derived from arbitrary bytes."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L469",
+      "line_text": "pub struct Config<H, P, V, A, R, F, T, B>"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L635",
+      "line_text": "    pub fn new(context: E, config: Config<H, P, V, A, R, F, T, B>) -> Self {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L700",
+      "line_text": "    pub async fn start("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L550",
+      "line_text": "    /// Resolves once startup or recovery is durable and the initial producer wake is submitted."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/network.rs#L261",
+      "line_text": "    pub async fn new_with_peers<I>(context: E, cfg: Config, peers: I) -> (Self, Oracle<P, E>)"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs#L428",
+      "line_text": "    pub async fn register("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs#L207",
+      "line_text": "    pub async fn limit_bandwidth("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/mod.rs#L1",
+      "line_text": "//! Simulate networking between peers with configurable link behavior (i.e. drops, latency, corruption, etc.)."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L542",
+      "line_text": "    /// Initialize a new `deterministic` runtime with the given seed and cycle duration."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L533",
+      "line_text": "impl From<Checkpoint> for Runner {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L1005",
+      "line_text": "    /// Recover the inner state (deadline, metrics, auditor, rng, synced storage, etc.) from the"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L45",
+      "line_text": "pub use crate::storage::faulty::Config as FaultConfig;"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L324",
+      "line_text": "    }"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L1094",
+      "line_text": "    /// Access the storage fault configuration."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs#L293",
+      "line_text": "    let buffer_pool_parallelism = NZUsize!(config.worker_threads);"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/application/actor.rs#L65",
+      "line_text": "    fn verify("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L225",
+      "line_text": "pub mod config;"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L65",
+      "line_text": "type MockEngineConfig<V> = EngineConfig<"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs#L302",
+      "line_text": "    fn verify("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L469",
+      "line_text": "pub struct Config<H, P, V, A, R, F, T, B>"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L569",
+      "line_text": "    pub fn start_and_recover<F, Fut>(self, f: F) -> (Fut::Output, Checkpoint)"
+    }
+  ],
+  "mcp_content_check_sha256": "d48e07581c4edd4e2aa1cb583f8314995b3c8eb0f42093e2b4b3b363184d7da5",
+  "reader_pages": {
+    "docs/reference/verification.md": "d0a671a81de5c544db0df8673133a208c5a3175001cd6d49bba38246641ccb57",
+    "docs/reference/integration.md": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+    "docs/e2e/native-consensus.md": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba",
+    "docs/e2e/block-body.md": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+    "docs/e2e/canonical.md": "000c1e19afa1403a5e0717e2ebc266fe6df4febd5d31498a113b5461f1b934c8"
+  },
+  "canonical_edits": false,
+  "implementation_compile_test_benchmark": false,
+  "policy_selection": false,
+  "six_hour_completion_claim": false
+}

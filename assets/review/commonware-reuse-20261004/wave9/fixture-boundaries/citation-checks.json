@@ -1,0 +1,95 @@
+{
+  "anchors": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 493,
+      "line_text": "/// An artifact that can be used to recover the state of the runtime.",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 575,
+      "line_text": "        let (context, executor, panicked) = match self.state {",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 690,
+      "line_text": "        // Clear remaining tasks from the executor.",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 174,
+      "line_text": "/// Track the state of the runtime for determinism auditing.",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 7,
+      "line_text": "//! # External Processes",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "line": 198,
+      "line_text": "#[cfg(test)]",
+      "git_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "line": 1317,
+      "line_text": "    fn test_drainer_replays_inflight_uploads_after_restart() {",
+      "git_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "line": 1487,
+      "line_text": "            // uploads in this run must therefore come from replaying the",
+      "git_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/main.rs",
+      "line": 35,
+      "line_text": "#[cfg(test)]",
+      "git_blob": "953f68a1dbeb8f34f6ca1eb14ea969bf8ca7d568",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/test_utils.rs",
+      "line": 94,
+      "line_text": "    pub fn new() -> Self {",
+      "git_blob": "1048b1f904daf6d51846028a7c3e02363045133d",
+      "blob_verified": true
+    }
+  ],
+  "failures": []
+}

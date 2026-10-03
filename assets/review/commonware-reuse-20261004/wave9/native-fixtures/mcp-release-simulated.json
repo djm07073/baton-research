@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# p2p/src/simulated/ingress.rs (v2026.9.0) [lines 400-449]\n\n```rust\n400: \n401:     async fn peer_set(&mut self, id: u64) -> Option<TrackedPeers<Self::PublicKey>> {\n402:         self.oracle.peer_set(id).await\n403:     }\n404: \n405:     async fn subscribe(&mut self) -> PeerSetSubscription<P> {\n406:         self.oracle.subscribe().await\n407:     }\n408: }\n409: \n410: impl<P: PublicKey, E: Clock> crate::AddressableManager for SocketManager<P, E> {\n411:     fn track<R>(&mut self, id: u64, peers: R) -> Feedback\n412:     where\n413:         R: Into<AddressableTrackedPeers<Self::PublicKey>> + Send,\n414:     {\n415:         // Ignore all addresses (simulated network doesn't use them)\n416:         let peers = peers.into();\n417:         self.oracle.track(\n418:             id,\n419:             TrackedPeers::new(peers.primary.into_keys(), peers.secondary.into_keys()),\n420:         )\n421:     }\n422: \n423:     fn overwrite(&mut self, _peers: Map<Self::PublicKey, Address>) -> Feedback {\n424:         // We consider all addresses to be valid, so this is a no-op\n425:         Feedback::Ok\n426:     }\n427: }\n428: \n429: /// Individual control interface for a peer in the simulated network.\n430: #[derive(Debug)]\n431: pub struct Control<P: PublicKey, E: Clock> {\n432:     /// The public key of the peer this control interface is for.\n433:     me: P,\n434: \n435:     /// Sender for messages to the oracle.\n436:     sender: mpsc::UnboundedSender<Message<P, E>>,\n437: }\n438: \n439: impl<P: PublicKey, E: Clock> Clone for Control<P, E> {\n440:     fn clone(&self) -> Self {\n441:         Self {\n442:             me: self.me.clone(),\n443:             sender: self.sender.clone(),\n444:         }\n445:     }\n446: }\n447: \n448: impl<P: PublicKey, E: Clock> Control<P, E> {\n449:     /// Register the communication interfaces for the peer over a given [Channel].\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 3
+}

@@ -1,0 +1,250 @@
+[
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 541,
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+    "line_text": "impl Runner {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/network.rs",
+    "line": 211,
+    "source_sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590",
+    "line_text": "impl<E: RNetwork + Spawner + Rng + Clock + Metrics, P: PublicKey> Network<E, P> {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 421,
+    "source_sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+    "line_text": "impl<P: PublicKey, E: Clock> Control<P, E> {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 169,
+    "source_sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+    "line_text": "    pub fn control(&self, me: P) -> Control<P, E> {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 322,
+    "source_sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+    "line_text": "impl<P: PublicKey, E: Clock> crate::Provider for Manager<P, E> {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 223,
+    "source_sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+    "line_text": "    /// Create a unidirectional link between two peers."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/network.rs",
+    "line": 892,
+    "source_sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590",
+    "line_text": "    pub fn start(mut self) -> Handle<()> {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 688,
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+    "line_text": "    /// Starts the engine over its four registered planes."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/mod.rs",
+    "line": 177,
+    "source_sha256": "7ba714406921d41af257467848b432c1f93e1f82773b8ae3344e3deb115c3650",
+    "line_text": "pub use ingress::{Control, Link, Manager, Oracle, SocketManager};"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 302,
+    "source_sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+    "line_text": "/// Useful for mocking [crate::authenticated::discovery]."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mod.rs",
+    "line": 229,
+    "source_sha256": "9f58a1e30af574043372672e6419199e22ba34a2ff1d357181fde3253465ba21",
+    "line_text": "#[cfg(any(test, feature = \"mocks\"))]"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/mod.rs",
+    "line": 7,
+    "source_sha256": "fd82e4bcb290de1101d1016b16ef2a83cfe14a0bb47f0f358c71bca5740672c0",
+    "line_text": "#[cfg(not(target_arch = \"wasm32\"))]"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 1164,
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+    "line_text": "/// Starts a simulated network over `identities` and returns its oracle."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 65,
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+    "line_text": "type MockEngineConfig<V> = EngineConfig<"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 240,
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+    "line_text": "impl<V: Variant> Cluster<V> {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 458,
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+    "line_text": "    pub async fn launch(&mut self, index: usize) {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 302,
+    "source_sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579",
+    "line_text": "    fn verify("
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/tests.rs",
+    "line": 53,
+    "source_sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9",
+    "line_text": "    let executor = DeterministicRunner::timed(Duration::from_secs(300));"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 679,
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+    "line_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact."
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/src/lib.rs",
+    "line": 247,
+    "source_sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90",
+    "line_text": "pub async fn setup_validators("
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/src/testing_node.rs",
+    "line": 352,
+    "source_sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834",
+    "line_text": "        let votes = self"
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "Cargo.toml",
+    "line": 258,
+    "source_sha256": "73668e748382221bc2cac04ce66fdb1e0dc97067bac5d25348623e44abdf1920",
+    "line_text": "commonware-consensus = \"2026.9.0\""
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/src/lib.rs",
+    "line": 345,
+    "source_sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90",
+    "line_text": "/// Runs a test configured by [`Setup`]."
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/src/execution_runtime.rs",
+    "line": 322,
+    "source_sha256": "7881ec5d400467950a9652cdcaa59ba022f2ef44a433a7f01cb54eca8c9dd2a5",
+    "line_text": "/// An execution runtime wrapping a thread running a [`tokio::runtime::Runtime`]."
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/e2e/Cargo.toml",
+    "line": 36,
+    "source_sha256": "c9131b52f744ae8459570f8fd38368679fdf1417ad72e1de1a6477a6f1fdd7bf",
+    "line_text": "commonware-runtime = { workspace = true, features = [\"external\"] }"
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/executor/actor/tests/harness.rs",
+    "line": 1113,
+    "source_sha256": "7fcdf5b85035738f390d01b598ab82fd5b676b7e59ca328edcd8589459af157d",
+    "line_text": "    pub(super) fn start<TContext>(self, context: &TContext) -> Harness<TContext>"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 493,
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+    "line_text": "/// An artifact that can be used to recover the state of the runtime."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1005,
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+    "line_text": "    /// Recover the inner state (deadline, metrics, auditor, rng, synced storage, etc.) from the"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1233,
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+    "line_text": "/// executor thread registers itself as its sole member and all work executes inline."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 7,
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+    "line_text": "//! # External Processes"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/lib.rs",
+    "line": 815,
+    "source_sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+    "line_text": "stability_scope!(BETA, cfg(feature = \"external\") {"
+  }
+]

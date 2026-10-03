@@ -1,0 +1,749 @@
+[
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/mocks.rs",
+    "line": 504,
+    "line_text": "}",
+    "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/mocks.rs",
+    "line": 622,
+    "line_text": "    }",
+    "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/mocks.rs",
+    "line": 749,
+    "line_text": "impl PendingSyncs {",
+    "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 45,
+    "line_text": "pub use crate::storage::faulty::Config as FaultConfig;",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 331,
+    "line_text": "    pub const fn with_storage_fault_config(mut self, faults: FaultConfig) -> Self {",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 493,
+    "line_text": "/// An artifact that can be used to recover the state of the runtime.",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 567,
+    "line_text": "    /// Like [crate::Runner::start], but also returns a [Checkpoint] that can be used",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/mocks.rs",
+    "line": 333,
+    "line_text": "pub struct DeferredSync {",
+    "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/mocks.rs",
+    "line": 662,
+    "line_text": "                Some(started) => started.await?,",
+    "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/mocks.rs",
+    "line": 839,
+    "line_text": "/// Controls a [WriteFaultContext]: while armed, every `write_at` fails with an",
+    "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/lib.rs",
+    "line": 120,
+    "line_text": "    /// A runtime context providing storage, timing, and metrics capabilities.",
+    "source_sha256": "df267590ab90c98c2ee8e5d1f5787ae92284860c7b8880b4b15efe637d50b781"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/unordered/variable.rs",
+    "line": 39,
+    "line_text": "",
+    "source_sha256": "72a13ea81a9245ba8f9237cf6e80f1456d1a5e7164fb6720780cbbb048537ae8"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 686,
+    "line_text": "                executor.metrics.iterations.inc();",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1005,
+    "line_text": "    /// Recover the inner state (deadline, metrics, auditor, rng, synced storage, etc.) from the",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1094,
+    "line_text": "    /// Access the storage fault configuration.",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/lib.rs",
+    "line": 29,
+    "line_text": "mod network;",
+    "source_sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/storage/memory.rs",
+    "line": 19,
+    "line_text": "#[derive(Clone)]",
+    "source_sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/storage/memory.rs",
+    "line": 169,
+    "line_text": "        // Update partition content",
+    "source_sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/storage/faulty.rs",
+    "line": 27,
+    "line_text": "/// Configuration for deterministic storage fault injection.",
+    "source_sha256": "12a680064dacfb152c957703e9c219dbc8d1294f54faabbdefafd75f0246a128"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/storage/faulty.rs",
+    "line": 321,
+    "line_text": "        let (should_fail, partial_rate) = self.ctx.check_write_fault();",
+    "source_sha256": "12a680064dacfb152c957703e9c219dbc8d1294f54faabbdefafd75f0246a128"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/batch.rs",
+    "line": 2727,
+    "line_text": "{",
+    "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/db.rs",
+    "line": 819,
+    "line_text": "    /// Sync all database state to disk.",
+    "source_sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/mod.rs",
+    "line": 113,
+    "line_text": "///",
+    "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/mod.rs",
+    "line": 449,
+    "line_text": "pub struct Barrier {",
+    "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/mod.rs",
+    "line": 96,
+    "line_text": "#[cfg(any(test, feature = \"test-traits\"))]",
+    "source_sha256": "69e109648309ff7f7c68801f3d62b740bed2f1230c083f6d0ca75cc73ec3fbf9"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/mod.rs",
+    "line": 571,
+    "line_text": "    /// Test that a commit after an older sync boundary is recovered without another sync.",
+    "source_sha256": "69e109648309ff7f7c68801f3d62b740bed2f1230c083f6d0ca75cc73ec3fbf9"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/current/mod.rs",
+    "line": 485,
+    "line_text": "/// Extension trait for Current QMDB types that exposes bitmap information for testing.",
+    "source_sha256": "83fc416ba29d5d7eef86fd440b37c6d37eef2c789537148aa68c1257a784b83e"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/constantinople",
+    "revision": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/engine/src/tests/common.rs",
+    "line": 42,
+    "line_text": "#[derive(Clone, Default)]",
+    "source_sha256": "5a5d6ffe7060c1b15875488967c7aa836d161a742faa151afb3a3b3fe4be01c8"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/constantinople",
+    "revision": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/engine/src/tests/properties.rs",
+    "line": 132,
+    "line_text": "#[derive(Clone)]",
+    "source_sha256": "9c05f3537c5f8256e14b7956d71e0a53ec5a12e1d5b783b7e12a690cbd9683b8"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/constantinople",
+    "revision": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/engine/src/lib.rs",
+    "line": 30,
+    "line_text": "#[cfg(all(test, feature = \"test-utils\"))]",
+    "source_sha256": "b04796eadf4a3bf491fd185636075ecaf232d85094b604fbaa3a935581dc6c97"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/constantinople",
+    "revision": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "Cargo.toml",
+    "line": 51,
+    "line_text": "commonware-actor = { git = \"https://github.com/commonwarexyz/monorepo\", rev = \"92036f4beefedc9817f0954d98fb99e0b52431cb\" }",
+    "source_sha256": "1fa310723fb50d7b8b7c565fcde53e5da02b8b8b9dbb74651c750b7d4e5639ce"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/constantinople",
+    "revision": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/engine/src/tests/mod.rs",
+    "line": 30,
+    "line_text": "use commonware_glue::{",
+    "source_sha256": "f707b17baf9863296642c02b16bb1faa0ec4871a09a7a1a8775113f5ec1c2f47"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/lib.rs",
+    "line": 11,
+    "line_text": "    #[cfg(any(test, feature = \"test-utils\"))]",
+    "source_sha256": "0f26fb9a05a1f6cd8597deec783c5fb742b365ad785e24942a4af019264d8e8f"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/simulate/engine.rs",
+    "line": 36,
+    "line_text": "/// Defines how to construct and start one validator's service stack.",
+    "source_sha256": "8c6557cca944a1d14e13586e4cd0e17cdbb31c83b63e0231873ef1577089d572"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/simulate/action.rs",
+    "line": 9,
+    "line_text": "/// Crash strategy for a simulation run.",
+    "source_sha256": "f2ed9af7cec584a7f9d8d95ccf1e56776b6297c65bddc71214287b7c8921c7c3"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "path": "runtime/src/mocks.rs",
+    "line": 925,
+    "line_text": "impl PendingSyncs {",
+    "source_sha256": "2727bdc7a47282f2cbd290ed1ceddde32bdd5e6b333041c1608beda280f662fe"
+  },
+  {
+    "report": "storage-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "path": "runtime/src/storage/faulty.rs",
+    "line": 35,
+    "line_text": "/// Selects how submitted bytes are retained from a write.",
+    "source_sha256": "442452899bc68d5b99e311d9464f2aaae7794c54f93e0fac821647ada3a5b7b4"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/lib.rs",
+    "line": 33,
+    "line_text": "stability_scope!(ALPHA {",
+    "source_sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/lib.rs",
+    "line": 14,
+    "line_text": "stability_mod!(ALPHA, pub mod simulated);",
+    "source_sha256": "d1f2bfd100849dc730385b459dbf14cabb434909494d83677c7e6666ef163272"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mod.rs",
+    "line": 225,
+    "line_text": "pub mod config;",
+    "source_sha256": "9f58a1e30af574043372672e6419199e22ba34a2ff1d357181fde3253465ba21"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/Cargo.toml",
+    "line": 71,
+    "line_text": "[features]",
+    "source_sha256": "724b35af725bafcf5124f86d80681ef2ecb3d254deb44f3aa853ea5ff04006c0"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/test_utils/mod.rs",
+    "line": 1,
+    "line_text": "//! Opaque entry points for out-of-crate fuzz and benchmark targets.",
+    "source_sha256": "85674b6a2158ee191f993f8ed80a90558ac16601bb5720a63d9fa95c736cd768"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/mod.rs",
+    "line": 26,
+    "line_text": "#[cfg(not(target_arch = \"wasm32\"))]",
+    "source_sha256": "fd82e4bcb290de1101d1016b16ef2a83cfe14a0bb47f0f358c71bca5740672c0"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 340,
+    "line_text": "#[cfg(test)]",
+    "source_sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 307,
+    "line_text": "",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/machine/mod.rs",
+    "line": 162,
+    "line_text": "#[cfg(any(test, feature = \"test-utils\"))]",
+    "source_sha256": "8fbe2de3b006f514eb1caebb5d1483d868a28728cbb4b456afd9dbdd99161fdb"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/machine/tests/test_utils.rs",
+    "line": 18,
+    "line_text": "pub(in crate::multimmit::machine) fn cohort<H: Hasher, V: Variant>(",
+    "source_sha256": "3fae6eb26e7964255d8ac8952d0685a817a611526ce07a177e6e6cb36f1192c8"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 65,
+    "line_text": "type MockEngineConfig<V> = EngineConfig<",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 510,
+    "line_text": "    pub async fn launch_with<Sd, Sg, Rc, Sc, Sr, Rr>(",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 543,
+    "line_text": "        }",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 241,
+    "line_text": "    /// Builds the committee, simulated network, and fully connected links.",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 390,
+    "line_text": "    ///",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 458,
+    "line_text": "    pub async fn launch(&mut self, index: usize) {",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 318,
+    "line_text": "    /// Delays started durability syncs by releasing them at a fixed interval.",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 679,
+    "line_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact.",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 723,
+    "line_text": "    pub async fn heal(&mut self) {",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 139,
+    "line_text": "    pub(crate) fn block_digest(context: Context<Sha256Digest>, payload: &[u8]) -> Sha256Digest {",
+    "source_sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 197,
+    "line_text": "    pub fn with_gated_build() -> (Self, MockBuildGate) {",
+    "source_sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/attached.rs",
+    "line": 302,
+    "line_text": "    fn verify(",
+    "source_sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 209,
+    "line_text": "            finality_floor: View::zero(),",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/mocks/cluster.rs",
+    "line": 1040,
+    "line_text": "    pub async fn wait_finalized(",
+    "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 568,
+    "line_text": "",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/tests.rs",
+    "line": 52,
+    "line_text": "fn producer_subset_progresses_with_validator_only_nodes() {",
+    "source_sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/tests.rs",
+    "line": 416,
+    "line_text": "fn n7_f1_cluster_survives_crash_and_recovery() {",
+    "source_sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/tests.rs",
+    "line": 572,
+    "line_text": "fn n11_f2_finalizes_under_partition_and_heal() {",
+    "source_sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/machine/tests/world.rs",
+    "line": 10,
+    "line_text": "#[cfg(test)]",
+    "source_sha256": "c37ef8b672eeb275b86c9ab096657ad622dcfd4488f2b635ac785d6362643859"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/machine/tests/test_utils.rs",
+    "line": 29,
+    "line_text": "/// Exercises a bounded three-replica production-machine schedule derived from arbitrary bytes.",
+    "source_sha256": "3fae6eb26e7964255d8ac8952d0685a817a611526ce07a177e6e6cb36f1192c8"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 469,
+    "line_text": "pub struct Config<H, P, V, A, R, F, T, B>",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 635,
+    "line_text": "    pub fn new(context: E, config: Config<H, P, V, A, R, F, T, B>) -> Self {",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 700,
+    "line_text": "    pub async fn start(",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 550,
+    "line_text": "    /// Resolves once startup or recovery is durable and the initial producer wake is submitted.",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/network.rs",
+    "line": 261,
+    "line_text": "    pub async fn new_with_peers<I>(context: E, cfg: Config, peers: I) -> (Self, Oracle<P, E>)",
+    "source_sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 428,
+    "line_text": "    pub async fn register(",
+    "source_sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/ingress.rs",
+    "line": 207,
+    "line_text": "    pub async fn limit_bandwidth(",
+    "source_sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/simulated/mod.rs",
+    "line": 1,
+    "line_text": "//! Simulate networking between peers with configurable link behavior (i.e. drops, latency, corruption, etc.).",
+    "source_sha256": "7ba714406921d41af257467848b432c1f93e1f82773b8ae3344e3deb115c3650"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 542,
+    "line_text": "    /// Initialize a new `deterministic` runtime with the given seed and cycle duration.",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 533,
+    "line_text": "impl From<Checkpoint> for Runner {",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1005,
+    "line_text": "    /// Recover the inner state (deadline, metrics, auditor, rng, synced storage, etc.) from the",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 45,
+    "line_text": "pub use crate::storage::faulty::Config as FaultConfig;",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 324,
+    "line_text": "    }",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/deterministic.rs",
+    "line": 1094,
+    "line_text": "    /// Access the storage fault configuration.",
+    "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "examples/log-multimmit/src/main.rs",
+    "line": 293,
+    "line_text": "    let buffer_pool_parallelism = NZUsize!(config.worker_threads);",
+    "source_sha256": "c769b095b252d70cf2ae320ba5bc6284449670f6162b6638246754844a730d92"
+  },
+  {
+    "report": "native-fixtures",
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "examples/log-multimmit/src/application/actor.rs",
+    "line": 65,
+    "line_text": "    fn verify(",
+    "source_sha256": "e606f6f078a21c1df334dd6536082e237194c93e7598d66eb125c11efb65af60"
+  }
+]

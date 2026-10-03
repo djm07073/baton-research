@@ -1,0 +1,37 @@
+{
+  "reviewer": "/root/reuse_orderer_v3",
+  "checked_at_utc": "2026-10-03T23:43:44.410917+00:00",
+  "baseline": "f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea",
+  "result": "pass_no_remaining_actionable_corrections",
+  "page_hashes": {
+    "docs/reference/verification.md": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b"
+  },
+  "markdown_pages_preserved": 32,
+  "non_md_docs_assets_unchanged": 56,
+  "traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "methods": 30,
+  "blank_choices": 39,
+  "verification_status_rows_unrun": 9,
+  "new_citation_occurrences": 14,
+  "fresh_blob_matched_sources_for_new_citations": 9,
+  "additional_raw_fetches": 0,
+  "docs_check": {
+    "content_pages": 31,
+    "local_links_checked": 257,
+    "rendered_diagrams": 18,
+    "blank_policy_cells": 39,
+    "migration_checked": true,
+    "failures": []
+  },
+  "detailed_receipt_sha256": "e1255da91f76b4afc33395b6dcfc6af97745f9e83492717a2d995567b78a22e2",
+  "report_sha256": "edc9fec5427761eb7748f125a206f1dcbdcbf338d490f3d35a745381861baf86",
+  "canonical_edits": false,
+  "implementation_compile_tests": false,
+  "publication_or_six_hour_completion_claim": false
+}

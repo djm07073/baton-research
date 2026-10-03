@@ -1,0 +1,1853 @@
+{
+  "baseline": "f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea",
+  "mirror": "/Users/leojin/dev/baton",
+  "selected_files": 369,
+  "conflicts": [],
+  "checks": [
+    {
+      "path": "BATON_HANDOFF.md",
+      "mirror_exists": true,
+      "sha256": "f20f03634a1be8ada149d4f392ffde3f0bb675f9c1942e570e066bfaa1c88420"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/README.md",
+      "mirror_exists": true,
+      "sha256": "f4e2d197f7ca6502a31bb23d42fc45ba60c123729a524d8412e59afe8efff11b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/run.json",
+      "mirror_exists": true,
+      "sha256": "1c7b1da8cf89d92907dcb051da7d7f995815423d0b42e251301447abae6730d8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/DOCS_RESOLUTION.md",
+      "mirror_exists": false,
+      "sha256": "e7a084d093bcca4cf3039d8c6cb8641bd8033db798313440d04fbc6038489a89"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/browser/architecture-desktop.png",
+      "mirror_exists": false,
+      "sha256": "ca1a14810b45093e2dcdb7af4606d61358bcdc8ee6d2b17b2cca2c8f20cb6bac"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/browser/browser-verification.json",
+      "mirror_exists": false,
+      "sha256": "56340ec821936771b7dc98a978eef20f88a4cba56cca66b237c2d8e8bbc5cb5a"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/browser/execution-interfaces-mobile.png",
+      "mirror_exists": false,
+      "sha256": "4bd57a4acd35b5039fabc032851752d2aa95400142b668db4a82fe43d1b34f09"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/browser/rust-interfaces-desktop.png",
+      "mirror_exists": false,
+      "sha256": "1e3194cbb1077f3f0c205eb4c80325d3da08a049cc3d5526b76c08195d6cff86"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/browser/verification-desktop.png",
+      "mirror_exists": false,
+      "sha256": "234e1426527468414c566c502ae4b3f165ad9c960bfb7d2f941ea757980a105d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-alto/1d87569348b5560699465a72d691d90f18affb9c/tree.json",
+      "mirror_exists": false,
+      "sha256": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs",
+      "mirror_exists": false,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs",
+      "mirror_exists": false,
+      "sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs",
+      "mirror_exists": false,
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs",
+      "mirror_exists": false,
+      "sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/tree.json",
+      "mirror_exists": false,
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/tempoxyz-tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/tempoxyz-tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs",
+      "mirror_exists": false,
+      "sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/citation-sources/tempoxyz-tempo/61c979a524f9af5de9c540a0088c429a44741e4c/tree.json",
+      "mirror_exists": false,
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fetch_new_citations.py",
+      "mirror_exists": false,
+      "sha256": "bd17f2836d9d4ea8a8a5b9ab7db97624b79d08a0bfbaf1d053a704d26dd3d59d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/final-page-hashes.json",
+      "mirror_exists": false,
+      "sha256": "31a38be2618167e9a33296003c6fb8243d237e2602fb9c6ab09275c5de453b44"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/READER_DELTA.md",
+      "mirror_exists": false,
+      "sha256": "cc13d4a50ec112ae327dad7e6203e32404fab9136ad7b4754d90ef7d6175f05b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/REPORT.md",
+      "mirror_exists": false,
+      "sha256": "241415f69039956b7a8e552b98f9127d94eeb05092023de1faceffcde70c9a5f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/alto-tree.json",
+      "mirror_exists": false,
+      "sha256": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/citation-checks.json",
+      "mirror_exists": false,
+      "sha256": "31a730082250585576d851987e8686e952a05bd990a8627b20ac56df44896188"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/mcp-content-checks.json",
+      "mirror_exists": false,
+      "sha256": "2b47264463b9dfa68d687c4fa9634eb07c4fa4d44b2496aaed7ee7295a110654"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/mcp-release-auditor-complete.json",
+      "mirror_exists": false,
+      "sha256": "8681513b3acc8005860ff6e43eade5e7ad493b1569a4e10f69db9380664a18b9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/mcp-release-auditor.json",
+      "mirror_exists": false,
+      "sha256": "c7ce85b8b0173211686e0042fe8200c96f785db3d58b3e871bc81310219a69e7"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/native-tree.json",
+      "mirror_exists": false,
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/release-tree.json",
+      "mirror_exists": false,
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/source-manifest.json",
+      "mirror_exists": false,
+      "sha256": "48908634ef5a840d6b267752ce0565cb14931b8be97e956093204039cba78b98"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/alto/chain/src/engine.rs",
+      "mirror_exists": false,
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/alto/chain/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/alto/follower/src/main.rs",
+      "mirror_exists": false,
+      "sha256": "be68f0150794d07866b3aabce7d8addf09a93e4491c53fc81d206225d2946049"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/alto/follower/src/test_utils.rs",
+      "mirror_exists": false,
+      "sha256": "aa66aa4a6b602fb3b53acedc11a8289f9967731b2d40c70f20a350986817cc54"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/native/p2p/src/simulated/network.rs",
+      "mirror_exists": false,
+      "sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/native/parallel/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "52a45191faa76acaf0cf724eb04804390fd57b9743435c7de6e82898447c213b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/native/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/native/runtime/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/native/runtime/src/telemetry/metrics/mod.rs",
+      "mirror_exists": false,
+      "sha256": "e5bd1c6c09695a19d0ee7f43825bdcb98d8070e3186796c39a853c462896c963"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/fixture-boundaries/sources/release/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "e768bd8fcf5fe1d53e1732e252668cb8e81f1de75f97f5edbb1934c46a635ade"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/DOCS_GLOBAL_REVIEW.md",
+      "mirror_exists": false,
+      "sha256": "edc9fec5427761eb7748f125a206f1dcbdcbf338d490f3d35a745381861baf86"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/DOCS_GLOBAL_REVIEW_RECEIPT.json",
+      "mirror_exists": false,
+      "sha256": "94ac4bf3658d2389c6c9333dd0df59b3a796276c975a66eaa4d4ca359735290b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/NETWORK_STORAGE_ROOT_CROSS_REVIEW.md",
+      "mirror_exists": false,
+      "sha256": "70618010c62105a3b07df842499fa5dce33bb168ccca93ba62850f3bb082da2e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/NETWORK_STORAGE_ROOT_CROSS_REVIEW_RECEIPT.json",
+      "mirror_exists": false,
+      "sha256": "ad11611f01432ee7db68f7903515821ae64329d713cace800ace9d3fa995ed2a"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/READER_DELTA.md",
+      "mirror_exists": false,
+      "sha256": "507f653d7ee8ed10f6fa7ac0a1a0a7f70630d523c54b1983272003d8b6b82001"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/REPORT.md",
+      "mirror_exists": false,
+      "sha256": "29eb5f5dbd2abb10da77270cc034f310443cb8de73cec11900186c63618362ae"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/check_global.py",
+      "mirror_exists": false,
+      "sha256": "230572c72a9be0d0547b084ed8bc46ee9b5d9838d5267d94d72ce96aa2d50e53"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/fetch_cross_reviews.py",
+      "mirror_exists": false,
+      "sha256": "66ac221131e3fc6802dea393f83ab8ae70671937114c35adfc3acbb6f58de990"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/fetch_sources.py",
+      "mirror_exists": false,
+      "sha256": "f3fcf4ef6c9cae281d682b582a3500f769674bb5833eead6025dfb52356b189e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/global-review/docs-check.json",
+      "mirror_exists": false,
+      "sha256": "5f6ab9711cc0917e1d4d759a068417541e3baef8ae5ef911a4944b5050102667"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/global-review/receipt.json",
+      "mirror_exists": false,
+      "sha256": "e1255da91f76b4afc33395b6dcfc6af97745f9e83492717a2d995567b78a22e2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/commonwarexyz__alto__1d87569348b5560699465a72d691d90f18affb9c-tree.json",
+      "mirror_exists": false,
+      "sha256": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/commonwarexyz__constantinople__3b6c92e76bf582855615844a4175b8304808f6a9-tree.json",
+      "mirror_exists": false,
+      "sha256": "8dae791561997d9f158765d659da528f260ed9016dffd3cfb09d199be57f232e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/commonwarexyz__monorepo__534af0ede48affd35b2111522527547b4cc9bf72-tree.json",
+      "mirror_exists": false,
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/commonwarexyz__monorepo__d476a2361ce6840d2b9d0aa6fb30a924429046d4-tree.json",
+      "mirror_exists": false,
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/reviewed-reports/fixture-boundaries-REPORT.md",
+      "mirror_exists": false,
+      "sha256": "241415f69039956b7a8e552b98f9127d94eeb05092023de1faceffcde70c9a5f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/reviewed-reports/simulated-network-REPORT.md",
+      "mirror_exists": false,
+      "sha256": "11af5383234d8d031c5e5cdb6e41da9a8fe9a63027e15f18fcba8611e6361aaf"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/reviewed-reports/storage-fixtures-REPORT.md",
+      "mirror_exists": false,
+      "sha256": "ca96c73745e96d3c59b885a8bb4c30ed29c7a0afb0d6805b77471ffe92b45ebc"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/source-manifest.json",
+      "mirror_exists": false,
+      "sha256": "e85d3d60c300bf9e9cffd4545fbcd7224c756c1f9129802979a9fbac06237de4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/follower/src/main.rs",
+      "mirror_exists": false,
+      "sha256": "be68f0150794d07866b3aabce7d8addf09a93e4491c53fc81d206225d2946049"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/follower/src/test_utils.rs",
+      "mirror_exists": false,
+      "sha256": "aa66aa4a6b602fb3b53acedc11a8289f9967731b2d40c70f20a350986817cc54"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "1fa310723fb50d7b8b7c565fcde53e5da02b8b8b9dbb74651c750b7d4e5639ce"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "b04796eadf4a3bf491fd185636075ecaf232d85094b604fbaa3a935581dc6c97"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/tests/common.rs",
+      "mirror_exists": false,
+      "sha256": "5a5d6ffe7060c1b15875488967c7aa836d161a742faa151afb3a3b3fe4be01c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/tests/mod.rs",
+      "mirror_exists": false,
+      "sha256": "f707b17baf9863296642c02b16bb1faa0ec4871a09a7a1a8775113f5ec1c2f47"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/tests/properties.rs",
+      "mirror_exists": false,
+      "sha256": "9c05f3537c5f8256e14b7956d71e0a53ec5a12e1d5b783b7e12a690cbd9683b8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs",
+      "mirror_exists": false,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs",
+      "mirror_exists": false,
+      "sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs",
+      "mirror_exists": false,
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/mod.rs",
+      "mirror_exists": false,
+      "sha256": "fd82e4bcb290de1101d1016b16ef2a83cfe14a0bb47f0f358c71bca5740672c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs",
+      "mirror_exists": false,
+      "sha256": "9f58a1e30af574043372672e6419199e22ba34a2ff1d357181fde3253465ba21"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/tests.rs",
+      "mirror_exists": false,
+      "sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "0f26fb9a05a1f6cd8597deec783c5fb742b365ad785e24942a4af019264d8e8f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/simulate/action.rs",
+      "mirror_exists": false,
+      "sha256": "f2ed9af7cec584a7f9d8d95ccf1e56776b6297c65bddc71214287b7c8921c7c3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/simulate/engine.rs",
+      "mirror_exists": false,
+      "sha256": "8c6557cca944a1d14e13586e4cd0e17cdbb31c83b63e0231873ef1577089d572"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs",
+      "mirror_exists": false,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs",
+      "mirror_exists": false,
+      "sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/mod.rs",
+      "mirror_exists": false,
+      "sha256": "7ba714406921d41af257467848b432c1f93e1f82773b8ae3344e3deb115c3650"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/network.rs",
+      "mirror_exists": false,
+      "sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/storage/faulty.rs",
+      "mirror_exists": false,
+      "sha256": "12a680064dacfb152c957703e9c219dbc8d1294f54faabbdefafd75f0246a128"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/storage/memory.rs",
+      "mirror_exists": false,
+      "sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "df267590ab90c98c2ee8e5d1f5787ae92284860c7b8880b4b15efe637d50b781"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs",
+      "mirror_exists": false,
+      "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs",
+      "mirror_exists": false,
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/mod.rs",
+      "mirror_exists": false,
+      "sha256": "69e109648309ff7f7c68801f3d62b740bed2f1230c083f6d0ca75cc73ec3fbf9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/unordered/variable.rs",
+      "mirror_exists": false,
+      "sha256": "72a13ea81a9245ba8f9237cf6e80f1456d1a5e7164fb6720780cbbb048537ae8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/mod.rs",
+      "mirror_exists": false,
+      "sha256": "83fc416ba29d5d7eef86fd440b37c6d37eef2c789537148aa68c1257a784b83e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "2727bdc7a47282f2cbd290ed1ceddde32bdd5e6b333041c1608beda280f662fe"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/runtime/src/storage/faulty.rs",
+      "mirror_exists": false,
+      "sha256": "442452899bc68d5b99e311d9464f2aaae7794c54f93e0fac821647ada3a5b7b4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "73668e748382221bc2cac04ce66fdb1e0dc97067bac5d25348623e44abdf1920"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor/tests/harness.rs",
+      "mirror_exists": false,
+      "sha256": "7fcdf5b85035738f390d01b598ab82fd5b676b7e59ca328edcd8589459af157d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "c9131b52f744ae8459570f8fd38368679fdf1417ad72e1de1a6477a6f1fdd7bf"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/execution_runtime.rs",
+      "mirror_exists": false,
+      "sha256": "7881ec5d400467950a9652cdcaa59ba022f2ef44a433a7f01cb54eca8c9dd2a5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs",
+      "mirror_exists": false,
+      "sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/tempoxyz__tempo__61c979a524f9af5de9c540a0088c429a44741e4c-tree.json",
+      "mirror_exists": false,
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/mcp-content-check.json",
+      "mirror_exists": false,
+      "sha256": "d48e07581c4edd4e2aa1cb583f8314995b3c8eb0f42093e2b4b3b363184d7da5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/mcp-initialize.json",
+      "mirror_exists": false,
+      "sha256": "34cf7e689a430137e80528235306ab5854afc64d9853c495b93caa2a7f4d60ec"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/mcp-initialize.sse",
+      "mirror_exists": false,
+      "sha256": "ae505aef0bf86d166d25493b4a88597f4d051b3748adf40a7eda583235948053"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/mcp-release-simulated.json",
+      "mirror_exists": false,
+      "sha256": "471629a8f1ddd6475c59094520df1580d7ef2b3b2e99091ded8181443d7748c9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/mcp-release-simulated.sse",
+      "mirror_exists": false,
+      "sha256": "04cc667a12d5182dcff1e8081d5a73580ad8d1cbbe4cacaf5848826fb8e21b03"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/mcp-tools.json",
+      "mirror_exists": false,
+      "sha256": "f0c56d9af14fca941e7b8d2ce957c39bdf34972b3683a9c748bf806c4527bba3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/mcp-tools.sse",
+      "mirror_exists": false,
+      "sha256": "6a3d6a485929116a54947cf02e6fd8f7f25631b028878cb106450092be6fce27"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/mcp_corroborate.py",
+      "mirror_exists": false,
+      "sha256": "93791eb7fcef836617758b30bb1677a7bc0064efb99c580755eb1fe1d6674637"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/native-tree.json",
+      "mirror_exists": false,
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/release-tree.json",
+      "mirror_exists": false,
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/review-receipt.json",
+      "mirror_exists": false,
+      "sha256": "c0eefc9e3be92f1703ffb7025ca5518ab4879bb31fd8729d3bd3c52b4e674086"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/source-manifest.json",
+      "mirror_exists": false,
+      "sha256": "db9bee376d8d174b9382da70e01c1906387acb3f7ec6f03973c6723ac6c65e19"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "724b35af725bafcf5124f86d80681ef2ecb3d254deb44f3aa853ea5ff04006c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/engine.rs",
+      "mirror_exists": false,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/machine/mod.rs",
+      "mirror_exists": false,
+      "sha256": "8fbe2de3b006f514eb1caebb5d1483d868a28728cbb4b456afd9dbdd99161fdb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/machine/tests/mod.rs",
+      "mirror_exists": false,
+      "sha256": "1f4d1a1635f9f2524b246af2bc7e63f0fa8dcfdbd234737a3f7560ff8b9a45c7"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/machine/tests/test_utils.rs",
+      "mirror_exists": false,
+      "sha256": "3fae6eb26e7964255d8ac8952d0685a817a611526ce07a177e6e6cb36f1192c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/machine/tests/test_utils/world.rs",
+      "mirror_exists": false,
+      "sha256": "9f975700e3bc7046a98abda19e641eac360f5c776157af053c538d4862e60b2d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/machine/tests/world.rs",
+      "mirror_exists": false,
+      "sha256": "c37ef8b672eeb275b86c9ab096657ad622dcfd4488f2b635ac785d6362643859"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/mocks/attached.rs",
+      "mirror_exists": false,
+      "sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/mocks/cluster.rs",
+      "mirror_exists": false,
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/mocks/mod.rs",
+      "mirror_exists": false,
+      "sha256": "fd82e4bcb290de1101d1016b16ef2a83cfe14a0bb47f0f358c71bca5740672c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/mod.rs",
+      "mirror_exists": false,
+      "sha256": "9f58a1e30af574043372672e6419199e22ba34a2ff1d357181fde3253465ba21"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/test_utils/mod.rs",
+      "mirror_exists": false,
+      "sha256": "85674b6a2158ee191f993f8ed80a90558ac16601bb5720a63d9fa95c736cd768"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/consensus/src/multimmit/tests.rs",
+      "mirror_exists": false,
+      "sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/examples/log-multimmit/src/application/actor.rs",
+      "mirror_exists": false,
+      "sha256": "e606f6f078a21c1df334dd6536082e237194c93e7598d66eb125c11efb65af60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/examples/log-multimmit/src/application/mod.rs",
+      "mirror_exists": false,
+      "sha256": "ad2de806d6e9bce97687ff00891b58e7ccc6d3e104d67b4ca0d43ff86fb8b27a"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/examples/log-multimmit/src/main.rs",
+      "mirror_exists": false,
+      "sha256": "c769b095b252d70cf2ae320ba5bc6284449670f6162b6638246754844a730d92"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/p2p/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "d1f2bfd100849dc730385b459dbf14cabb434909494d83677c7e6666ef163272"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/p2p/src/simulated/ingress.rs",
+      "mirror_exists": false,
+      "sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/p2p/src/simulated/mod.rs",
+      "mirror_exists": false,
+      "sha256": "7ba714406921d41af257467848b432c1f93e1f82773b8ae3344e3deb115c3650"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/p2p/src/simulated/network.rs",
+      "mirror_exists": false,
+      "sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/native/runtime/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/release/p2p/src/simulated/ingress.rs",
+      "mirror_exists": false,
+      "sha256": "daa2a6747482ffb8a165546afa31a78371c7c4aad48cf808a918e42e403678aa"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/release/p2p/src/simulated/mod.rs",
+      "mirror_exists": false,
+      "sha256": "50a232b14a8dde2f6a30ed793d0db7171ab7e348337d9940fdf26992782fecf2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/sources/release/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "e768bd8fcf5fe1d53e1732e252668cb8e81f1de75f97f5edbb1934c46a635ade"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/write_cross_review.py",
+      "mirror_exists": false,
+      "sha256": "7d8fcb09258e195dd5892e1c7318d55c57cc4532eca222ec5787f01456f8d111"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/write_global_review.py",
+      "mirror_exists": false,
+      "sha256": "a358bc98964afef580546c393b9b5b1444cfda02ad294c552b4d0cc574fe6346"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/native-fixtures/write_report.py",
+      "mirror_exists": false,
+      "sha256": "837c08c7279a76a1d3594dd5b98dccec093c5de11679bd5abaf27846c2412d06"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/new-citation-checks.json",
+      "mirror_exists": false,
+      "sha256": "52455852828ed58fe514d3ecfc4ae4728e0fccd760cf79c20937864c7aae7c71"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/new-citation-inputs.json",
+      "mirror_exists": false,
+      "sha256": "3c2176e76d5bb6ae5bdb331e8ed5d413b8075dde0ad1ca5fad9a5da16a42b182"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/preservation-check.json",
+      "mirror_exists": false,
+      "sha256": "261807de34e856639e6113e8ce91ccbca290e57d20f619f6973f92da68fa1f42"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/publication/baseline-revision.json",
+      "mirror_exists": false,
+      "sha256": "855391911feab23cc8be687a2ed132d715eb46a50f9af549d8bbd4a8786826f8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/publication/draft-revision.json",
+      "mirror_exists": false,
+      "sha256": "ca998048c3f73edf63fa2bb1369a44d993cb617de176c442183ca7446fe73c44"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/publication/gitbook-anchor-checks.json",
+      "mirror_exists": false,
+      "sha256": "cbc1656fa9768596dd7afeaf1b24db08847829718fd6bd7126cfa8f84a53217c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/publication/gitbook-draft-delta.json",
+      "mirror_exists": false,
+      "sha256": "d60d9115278960a0ba724dcdff2542ced4737a9c45227c35ff6e32dd439fc52f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/publication/gitbook-files.json",
+      "mirror_exists": false,
+      "sha256": "6c5909bc8fd6d8349e739f24be07944f21271e9ab4b9bb19c7082b0c39ff26d3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/publication/gitbook-live-verification.json",
+      "mirror_exists": false,
+      "sha256": "c928c9cf63ab5c77264ac35b963bfb83965156eab82fe7e65f598ba75c217fb3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/publication/gitbook-map.json",
+      "mirror_exists": false,
+      "sha256": "18707147a29c053fcecdb9b4b00aa0dd2cb9987d918e95df070f8ba063eae8b1"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/publication/gitbook-verification.json",
+      "mirror_exists": false,
+      "sha256": "4b2950f08e61c5dae49e72c90d9ff4bee78060ff78696c827ce5581838f5023f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/publication/published-revision.json",
+      "mirror_exists": false,
+      "sha256": "8d104d2448ec0a02ebc387962a385df99cee746507d18a90dd5fdc9537b437d7"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/DOCS_NETWORK_ACK.md",
+      "mirror_exists": false,
+      "sha256": "ff137a04aa30ca9d1659286769195c907cbe5adf59b472f0cb816ac29714717f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/DOCS_NETWORK_ACK_RECEIPT.json",
+      "mirror_exists": false,
+      "sha256": "abf048cee1ab079a18385cbbb3f4f6ffe625726f91f2c4613c5f33819b482872"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/MCP_CONTENT_CHECK.json",
+      "mirror_exists": false,
+      "sha256": "2c3761e6c3db1761e622260a5e1e9528e9b715116e0caade3fdab3d098cba1c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/READER_DELTA.md",
+      "mirror_exists": false,
+      "sha256": "230c1bec1a3ccff9fe1b7381a2bb38ec2313a1e15aebda2dce39c5c79ec95a78"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/REPORT.md",
+      "mirror_exists": false,
+      "sha256": "11af5383234d8d031c5e5cdb6e41da9a8fe9a63027e15f18fcba8611e6361aaf"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/STORAGE_NATIVE_CROSS_REVIEW.md",
+      "mirror_exists": false,
+      "sha256": "32a534f40fcf05876cbe0ba0d01f0a4e17fc0e06c1e829ffc90f6fa660ae7f60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/STORAGE_NATIVE_CROSS_REVIEW_RECEIPT.json",
+      "mirror_exists": false,
+      "sha256": "12f966bbafecabee5e899530488e24de060134d0490e51cd17d14c0acca25503"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/alto-tree.json",
+      "mirror_exists": false,
+      "sha256": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/alto-tree.json",
+      "mirror_exists": false,
+      "sha256": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/constantinople-tree.json",
+      "mirror_exists": false,
+      "sha256": "8dae791561997d9f158765d659da528f260ed9016dffd3cfb09d199be57f232e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/independent-mcp-content-check.json",
+      "mirror_exists": false,
+      "sha256": "2e86e22ee693d139524dc06738844547e8ed038a60eb76d3238f1d1e965d9cb8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/native-tree.json",
+      "mirror_exists": false,
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/release-tree.json",
+      "mirror_exists": false,
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/report-anchor-receipts.json",
+      "mirror_exists": false,
+      "sha256": "4fe6cc09cc7847260b749fa17e67bbfc98ef5f3564e90190d30a079583d2bd90"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/source-manifest.json",
+      "mirror_exists": false,
+      "sha256": "b63b4db15f93c8dc7ba3bdafbe6252e284076ca947ef5d737f8e4c518a68198d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/alto/chain/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/constantinople/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "1fa310723fb50d7b8b7c565fcde53e5da02b8b8b9dbb74651c750b7d4e5639ce"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/constantinople/crates/engine/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "b04796eadf4a3bf491fd185636075ecaf232d85094b604fbaa3a935581dc6c97"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/constantinople/crates/engine/src/tests/common.rs",
+      "mirror_exists": false,
+      "sha256": "5a5d6ffe7060c1b15875488967c7aa836d161a742faa151afb3a3b3fe4be01c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/constantinople/crates/engine/src/tests/mod.rs",
+      "mirror_exists": false,
+      "sha256": "f707b17baf9863296642c02b16bb1faa0ec4871a09a7a1a8775113f5ec1c2f47"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/constantinople/crates/engine/src/tests/properties.rs",
+      "mirror_exists": false,
+      "sha256": "9c05f3537c5f8256e14b7956d71e0a53ec5a12e1d5b783b7e12a690cbd9683b8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "724b35af725bafcf5124f86d80681ef2ecb3d254deb44f3aa853ea5ff04006c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/engine.rs",
+      "mirror_exists": false,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/machine/mod.rs",
+      "mirror_exists": false,
+      "sha256": "8fbe2de3b006f514eb1caebb5d1483d868a28728cbb4b456afd9dbdd99161fdb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/machine/tests/test_utils.rs",
+      "mirror_exists": false,
+      "sha256": "3fae6eb26e7964255d8ac8952d0685a817a611526ce07a177e6e6cb36f1192c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/machine/tests/world.rs",
+      "mirror_exists": false,
+      "sha256": "c37ef8b672eeb275b86c9ab096657ad622dcfd4488f2b635ac785d6362643859"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/mocks/attached.rs",
+      "mirror_exists": false,
+      "sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/mocks/cluster.rs",
+      "mirror_exists": false,
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/mocks/mod.rs",
+      "mirror_exists": false,
+      "sha256": "fd82e4bcb290de1101d1016b16ef2a83cfe14a0bb47f0f358c71bca5740672c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/mod.rs",
+      "mirror_exists": false,
+      "sha256": "9f58a1e30af574043372672e6419199e22ba34a2ff1d357181fde3253465ba21"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/test_utils/mod.rs",
+      "mirror_exists": false,
+      "sha256": "85674b6a2158ee191f993f8ed80a90558ac16601bb5720a63d9fa95c736cd768"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/tests.rs",
+      "mirror_exists": false,
+      "sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/examples/log-multimmit/src/application/actor.rs",
+      "mirror_exists": false,
+      "sha256": "e606f6f078a21c1df334dd6536082e237194c93e7598d66eb125c11efb65af60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/examples/log-multimmit/src/main.rs",
+      "mirror_exists": false,
+      "sha256": "c769b095b252d70cf2ae320ba5bc6284449670f6162b6638246754844a730d92"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/glue/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "b308b011c8412c44e6cd5267434ddb0ba981897138dfed87f1013b05d086ebb7"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/glue/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "0f26fb9a05a1f6cd8597deec783c5fb742b365ad785e24942a4af019264d8e8f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/glue/src/simulate/action.rs",
+      "mirror_exists": false,
+      "sha256": "f2ed9af7cec584a7f9d8d95ccf1e56776b6297c65bddc71214287b7c8921c7c3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/glue/src/simulate/engine.rs",
+      "mirror_exists": false,
+      "sha256": "8c6557cca944a1d14e13586e4cd0e17cdbb31c83b63e0231873ef1577089d572"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/glue/src/simulate/mod.rs",
+      "mirror_exists": false,
+      "sha256": "b65e353216f620e0be4f7672048f1df1895f5209e11c57ea27a4945d076fe967"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/glue/src/simulate/plan.rs",
+      "mirror_exists": false,
+      "sha256": "dd60df66a8bc9acd4c88d7e7a29b84443afb55da9881e5258e34f19bff4e5b2a"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/glue/src/simulate/processed.rs",
+      "mirror_exists": false,
+      "sha256": "8ab26d57d53b0ea45b69a130c62d271126416cc7ac2c13dcd0c999f516574496"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/glue/src/stateful/db/mod.rs",
+      "mirror_exists": false,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/p2p/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "d1f2bfd100849dc730385b459dbf14cabb434909494d83677c7e6666ef163272"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/p2p/src/simulated/ingress.rs",
+      "mirror_exists": false,
+      "sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/p2p/src/simulated/mod.rs",
+      "mirror_exists": false,
+      "sha256": "7ba714406921d41af257467848b432c1f93e1f82773b8ae3344e3deb115c3650"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/p2p/src/simulated/network.rs",
+      "mirror_exists": false,
+      "sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/storage/faulty.rs",
+      "mirror_exists": false,
+      "sha256": "12a680064dacfb152c957703e9c219dbc8d1294f54faabbdefafd75f0246a128"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/storage/memory.rs",
+      "mirror_exists": false,
+      "sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/storage/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "df267590ab90c98c2ee8e5d1f5787ae92284860c7b8880b4b15efe637d50b781"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/storage/src/qmdb/any/batch.rs",
+      "mirror_exists": false,
+      "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/storage/src/qmdb/any/db.rs",
+      "mirror_exists": false,
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/storage/src/qmdb/any/mod.rs",
+      "mirror_exists": false,
+      "sha256": "69e109648309ff7f7c68801f3d62b740bed2f1230c083f6d0ca75cc73ec3fbf9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/storage/src/qmdb/any/unordered/variable.rs",
+      "mirror_exists": false,
+      "sha256": "72a13ea81a9245ba8f9237cf6e80f1456d1a5e7164fb6720780cbbb048537ae8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/storage/src/qmdb/current/mod.rs",
+      "mirror_exists": false,
+      "sha256": "83fc416ba29d5d7eef86fd440b37c6d37eef2c789537148aa68c1257a784b83e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/release/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "2727bdc7a47282f2cbd290ed1ceddde32bdd5e6b333041c1608beda280f662fe"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/release/runtime/src/storage/faulty.rs",
+      "mirror_exists": false,
+      "sha256": "442452899bc68d5b99e311d9464f2aaae7794c54f93e0fac821647ada3a5b7b4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/mcp-release-network-request.json",
+      "mirror_exists": false,
+      "sha256": "2b2f0451c40c79dfba649970b4864f67b9cb5081ad6307b5e605b598d6e8343a"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/mcp-release-network-response.json",
+      "mirror_exists": false,
+      "sha256": "cb0d88450a8f1ebddfcb5e8b98a534cad800dda5774b92cb18a0a61d809878d7"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/mcp-release-runtime-request.json",
+      "mirror_exists": false,
+      "sha256": "8ee7251216d7fbcf0261cfef481e16ca85cfb32403850ffdbb27f39b34e5c222"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/mcp-release-runtime-response.json",
+      "mirror_exists": false,
+      "sha256": "f7a3f31523211ada8d18f30f8e224b90d060e45e4e237e5406e8aa658e5774ff"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/native-tree.json",
+      "mirror_exists": false,
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/release-tree.json",
+      "mirror_exists": false,
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/source-anchor-receipts.json",
+      "mirror_exists": false,
+      "sha256": "eec8ce12e9a7271c9954d5d94e51b3d9eed3ae7993e3062378ae5e98f7b4fad8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/source-manifest.json",
+      "mirror_exists": false,
+      "sha256": "4fab3c9433c49067ca516e313b26855d68249f1fbdf46a35c2a5691ddb292726"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/alto/chain/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "0514dc00c6132b26b5409fa4519a28a0c23bb8c95792f1ec84d31522030ba71b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/alto/chain/src/application.rs",
+      "mirror_exists": false,
+      "sha256": "a35e1e8cc30ae7a6b6aa94196a3300f4a1362279fd5913b94493450737f03860"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/alto/chain/src/engine.rs",
+      "mirror_exists": false,
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/consensus/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "724b35af725bafcf5124f86d80681ef2ecb3d254deb44f3aa853ea5ff04006c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/consensus/src/multimmit/engine.rs",
+      "mirror_exists": false,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/consensus/src/multimmit/mocks/attached.rs",
+      "mirror_exists": false,
+      "sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/consensus/src/multimmit/mocks/cluster.rs",
+      "mirror_exists": false,
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/consensus/src/multimmit/mocks/mod.rs",
+      "mirror_exists": false,
+      "sha256": "fd82e4bcb290de1101d1016b16ef2a83cfe14a0bb47f0f358c71bca5740672c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/consensus/src/multimmit/mod.rs",
+      "mirror_exists": false,
+      "sha256": "9f58a1e30af574043372672e6419199e22ba34a2ff1d357181fde3253465ba21"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/consensus/src/multimmit/tests.rs",
+      "mirror_exists": false,
+      "sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/consensus/src/multimmit/twins.rs",
+      "mirror_exists": false,
+      "sha256": "8992daac51d1224d4da34764e95aa38734eb4d4dacebf68d0e763a01096cb6bc"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/examples/log-multimmit/src/main.rs",
+      "mirror_exists": false,
+      "sha256": "c769b095b252d70cf2ae320ba5bc6284449670f6162b6638246754844a730d92"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/p2p/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "d1f2bfd100849dc730385b459dbf14cabb434909494d83677c7e6666ef163272"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/p2p/src/simulated/ingress.rs",
+      "mirror_exists": false,
+      "sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/p2p/src/simulated/mod.rs",
+      "mirror_exists": false,
+      "sha256": "7ba714406921d41af257467848b432c1f93e1f82773b8ae3344e3deb115c3650"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/p2p/src/simulated/network.rs",
+      "mirror_exists": false,
+      "sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/runtime/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "7d278fdeb2853cfa997d68fea82c99fe346d6d6ba1864bed91815f4eee644ac3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/runtime/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/runtime/src/storage/faulty.rs",
+      "mirror_exists": false,
+      "sha256": "12a680064dacfb152c957703e9c219dbc8d1294f54faabbdefafd75f0246a128"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/runtime/src/storage/memory.rs",
+      "mirror_exists": false,
+      "sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/native/runtime/src/utils/handle.rs",
+      "mirror_exists": false,
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/release/p2p/src/simulated/ingress.rs",
+      "mirror_exists": false,
+      "sha256": "daa2a6747482ffb8a165546afa31a78371c7c4aad48cf808a918e42e403678aa"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/release/p2p/src/simulated/mod.rs",
+      "mirror_exists": false,
+      "sha256": "50a232b14a8dde2f6a30ed793d0db7171ab7e348337d9940fdf26992782fecf2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/release/p2p/src/simulated/network.rs",
+      "mirror_exists": false,
+      "sha256": "7ece3b66f3d7fd5e8c6d586bdbd32ff4723d1587579a5020f1bf7df0567fad44"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/release/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "e768bd8fcf5fe1d53e1732e252668cb8e81f1de75f97f5edbb1934c46a635ade"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "73668e748382221bc2cac04ce66fdb1e0dc97067bac5d25348623e44abdf1920"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/consensus/src/consensus/engine.rs",
+      "mirror_exists": false,
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/consensus/src/dkg/manager/actor/tests/harness.rs",
+      "mirror_exists": false,
+      "sha256": "4c7a933c3cf4fc32d87ae7d2b34a64e74c2b35edec9552b3d297ee9dfa4590c3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/consensus/src/executor/actor.rs",
+      "mirror_exists": false,
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/consensus/src/executor/actor/tests/harness.rs",
+      "mirror_exists": false,
+      "sha256": "7fcdf5b85035738f390d01b598ab82fd5b676b7e59ca328edcd8589459af157d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/consensus/src/executor/actor/tests/mod.rs",
+      "mirror_exists": false,
+      "sha256": "caaafd8c40fc28476af1a6404d0332a2ab6ff8942c70d493fe617915648385e1"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/consensus/src/executor/actor/tests/scheduling.rs",
+      "mirror_exists": false,
+      "sha256": "81f1a03e286371bec8762c5f351228ccc8acdaf5392944ca291117010d1e7ff9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/consensus/src/gossip/test.rs",
+      "mirror_exists": false,
+      "sha256": "0d8cac20e189800d7598e57495c162579183cc94d347f515c8897b3101817195"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/consensus/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "d09cb17ecedce40656a4d752748204fcba8077f61fabebfc6a0e981697b7fabc"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/consensus/src/test_utils.rs",
+      "mirror_exists": false,
+      "sha256": "3c42c39eaf1ba656ff472cb9f26aa4e45148bdb1271a98fdfd172d55e5ce4e75"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/e2e/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "c9131b52f744ae8459570f8fd38368679fdf1417ad72e1de1a6477a6f1fdd7bf"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/e2e/src/execution_runtime.rs",
+      "mirror_exists": false,
+      "sha256": "7881ec5d400467950a9652cdcaa59ba022f2ef44a433a7f01cb54eca8c9dd2a5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/e2e/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/e2e/src/testing_node.rs",
+      "mirror_exists": false,
+      "sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/e2e/tests/suite/simple.rs",
+      "mirror_exists": false,
+      "sha256": "b24fff123700fcec0090fac032fa5808d2407bbf59d3bbd2c752787fe23555fb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/tempo-tree.json",
+      "mirror_exists": false,
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/simulated-network/verification.json",
+      "mirror_exists": false,
+      "sha256": "015b1fde370793af81088ef0888f0ace3146850810eeaa3fbbfc3853f0b40d81"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/DOCS_STORAGE_ACK.md",
+      "mirror_exists": false,
+      "sha256": "05094f9b68142dcf3ef760b9fdbdc4fa23ac1fc8b44bbd1d28e9436b3cb807c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/NETWORK_ROOT_CROSS_REVIEW.md",
+      "mirror_exists": false,
+      "sha256": "1837f16a1eab1f1f0aa64cb0c1f17e9f8f68798996cbd6adf7008eb8b2872b02"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/READER_DELTA.md",
+      "mirror_exists": false,
+      "sha256": "599a8ae39bf6da335b785ee2d44c5ad0570a28a228df159284c1945c956e4c87"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/REPORT.md",
+      "mirror_exists": false,
+      "sha256": "ca96c73745e96d3c59b885a8bb4c30ed29c7a0afb0d6805b77471ffe92b45ebc"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/constantinople-tree.json",
+      "mirror_exists": false,
+      "sha256": "fbacce140362086b0f417a67e9859fd045313076514d87995ba3c7a47d99647a"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/fetch_sources.py",
+      "mirror_exists": false,
+      "sha256": "cdf3a7aaa0b5fe8093514a40a19935087de7fba91a907ae1c18e8d202d1e5713"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/alto-tree.json",
+      "mirror_exists": false,
+      "sha256": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/anchor-receipts.json",
+      "mirror_exists": false,
+      "sha256": "eca13d40ec4e3f004fbf17bbcab6b5f96ba8be46d233a523a901b813d9f34505"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/cross-review-receipt.json",
+      "mirror_exists": false,
+      "sha256": "91fe3348ff505672cd987571685104eace815c2273843ad5337d0f5ab87e46ec"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/docs-storage-ack-receipt.json",
+      "mirror_exists": false,
+      "sha256": "08e679e3108ff362d5a6deaa2dc529e4a5d92a226074942cc3003bf834da9314"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/fetch.py",
+      "mirror_exists": false,
+      "sha256": "7476e294a93175c1640dffaa1658ef3022d3657c142bc2d4c964ea2d7f668969"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/fixture-boundaries-REPORT.md",
+      "mirror_exists": false,
+      "sha256": "241415f69039956b7a8e552b98f9127d94eeb05092023de1faceffcde70c9a5f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/native-fixtures-REPORT.md",
+      "mirror_exists": false,
+      "sha256": "29eb5f5dbd2abb10da77270cc034f310443cb8de73cec11900186c63618362ae"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/native-tree.json",
+      "mirror_exists": false,
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/release-tree.json",
+      "mirror_exists": false,
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/report-hashes.json",
+      "mirror_exists": false,
+      "sha256": "fb2db7895e0e4ef1096993985117d55837b9baf9a6f45dd8b98f7780b837f49c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/simulated-network-REPORT.md",
+      "mirror_exists": false,
+      "sha256": "11af5383234d8d031c5e5cdb6e41da9a8fe9a63027e15f18fcba8611e6361aaf"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/source-manifest.json",
+      "mirror_exists": false,
+      "sha256": "47029bd0f7c4bb9fb8abe335ecabe4225a5152036d30500710e31774a460f22c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/alto/chain/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/alto/follower/src/main.rs",
+      "mirror_exists": false,
+      "sha256": "be68f0150794d07866b3aabce7d8addf09a93e4491c53fc81d206225d2946049"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/alto/follower/src/test_utils.rs",
+      "mirror_exists": false,
+      "sha256": "aa66aa4a6b602fb3b53acedc11a8289f9967731b2d40c70f20a350986817cc54"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "724b35af725bafcf5124f86d80681ef2ecb3d254deb44f3aa853ea5ff04006c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/engine.rs",
+      "mirror_exists": false,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/machine/mod.rs",
+      "mirror_exists": false,
+      "sha256": "8fbe2de3b006f514eb1caebb5d1483d868a28728cbb4b456afd9dbdd99161fdb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/machine/tests/test_utils.rs",
+      "mirror_exists": false,
+      "sha256": "3fae6eb26e7964255d8ac8952d0685a817a611526ce07a177e6e6cb36f1192c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/machine/tests/world.rs",
+      "mirror_exists": false,
+      "sha256": "c37ef8b672eeb275b86c9ab096657ad622dcfd4488f2b635ac785d6362643859"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/mocks/attached.rs",
+      "mirror_exists": false,
+      "sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/mocks/cluster.rs",
+      "mirror_exists": false,
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/mocks/mod.rs",
+      "mirror_exists": false,
+      "sha256": "fd82e4bcb290de1101d1016b16ef2a83cfe14a0bb47f0f358c71bca5740672c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/mod.rs",
+      "mirror_exists": false,
+      "sha256": "9f58a1e30af574043372672e6419199e22ba34a2ff1d357181fde3253465ba21"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/test_utils/mod.rs",
+      "mirror_exists": false,
+      "sha256": "85674b6a2158ee191f993f8ed80a90558ac16601bb5720a63d9fa95c736cd768"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/consensus/src/multimmit/tests.rs",
+      "mirror_exists": false,
+      "sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/examples/log-multimmit/src/application/actor.rs",
+      "mirror_exists": false,
+      "sha256": "e606f6f078a21c1df334dd6536082e237194c93e7598d66eb125c11efb65af60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/examples/log-multimmit/src/main.rs",
+      "mirror_exists": false,
+      "sha256": "c769b095b252d70cf2ae320ba5bc6284449670f6162b6638246754844a730d92"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/p2p/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "d1f2bfd100849dc730385b459dbf14cabb434909494d83677c7e6666ef163272"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/p2p/src/simulated/ingress.rs",
+      "mirror_exists": false,
+      "sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/p2p/src/simulated/mod.rs",
+      "mirror_exists": false,
+      "sha256": "7ba714406921d41af257467848b432c1f93e1f82773b8ae3344e3deb115c3650"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/p2p/src/simulated/network.rs",
+      "mirror_exists": false,
+      "sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/runtime/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/native/runtime/src/storage/memory.rs",
+      "mirror_exists": false,
+      "sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/release/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "e768bd8fcf5fe1d53e1732e252668cb8e81f1de75f97f5edbb1934c46a635ade"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/release/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "2727bdc7a47282f2cbd290ed1ceddde32bdd5e6b333041c1608beda280f662fe"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/tempo/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "73668e748382221bc2cac04ce66fdb1e0dc97067bac5d25348623e44abdf1920"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/tempo/crates/consensus/src/executor/actor/tests/harness.rs",
+      "mirror_exists": false,
+      "sha256": "7fcdf5b85035738f390d01b598ab82fd5b676b7e59ca328edcd8589459af157d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/tempo/crates/e2e/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "c9131b52f744ae8459570f8fd38368679fdf1417ad72e1de1a6477a6f1fdd7bf"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/tempo/crates/e2e/src/execution_runtime.rs",
+      "mirror_exists": false,
+      "sha256": "7881ec5d400467950a9652cdcaa59ba022f2ef44a433a7f01cb54eca8c9dd2a5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/tempo/crates/e2e/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/sources/tempo/crates/e2e/src/testing_node.rs",
+      "mirror_exists": false,
+      "sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/tempo-tree.json",
+      "mirror_exists": false,
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/independent-cross-review/verification-final.md",
+      "mirror_exists": false,
+      "sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/mcp-source-check.json",
+      "mirror_exists": false,
+      "sha256": "7e99a10b313786db81210cb7e19ca1d9ce52be7c9ed22e419f5f49bdd98f30c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/native-tree.json",
+      "mirror_exists": false,
+      "sha256": "02f4df922a37f9c8642649ada181294c53b59266a8f32d8e280c8103cd88add6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/release-mocks-mcp-command.json",
+      "mirror_exists": false,
+      "sha256": "ff2ea065e0cb65638999f2c2dbd9b05cef75e10e35b29e633a98f38bdb2dee29"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/release-mocks-mcp.json",
+      "mirror_exists": false,
+      "sha256": "bd197d99135316c87437de9e58c2b0fbabd94a52c8ba58ee9445b8e7d345ad71"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/release-pending-mcp-command.json",
+      "mirror_exists": false,
+      "sha256": "1a5f59c1f7e342f93c7b5841150b56324998a1596d6ec66aaccf8f009b4d4654"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/release-pending-mcp.json",
+      "mirror_exists": false,
+      "sha256": "eebf835934fe4d4a631204678828057bc9976cc20d7520972afb338751b14a15"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/release-tree.json",
+      "mirror_exists": false,
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/report-receipt.json",
+      "mirror_exists": false,
+      "sha256": "9aa9ff87cb162756d88829b99056b936c332a4b340fa94c22f74ef270c4cb98e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/source-manifest.json",
+      "mirror_exists": false,
+      "sha256": "7d7493b63702cb419dfcc8fb71de7f9463d1c5beeb0d6667741ddc22b08e4c13"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/constantinople/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "1fa310723fb50d7b8b7c565fcde53e5da02b8b8b9dbb74651c750b7d4e5639ce"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/constantinople/crates/application/src/consensus/db.rs",
+      "mirror_exists": false,
+      "sha256": "275c1d3c10b3d325fe65d5b2db14a205448505023b11f914635da6d69ffab998"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/constantinople/crates/application/src/consensus/tests.rs",
+      "mirror_exists": false,
+      "sha256": "5492b2a9f154a44a6bc396ba6a7fdb27a07249889571e22150ce8143d53b7df6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/constantinople/crates/engine/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "b04796eadf4a3bf491fd185636075ecaf232d85094b604fbaa3a935581dc6c97"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/constantinople/crates/engine/src/tests/common.rs",
+      "mirror_exists": false,
+      "sha256": "5a5d6ffe7060c1b15875488967c7aa836d161a742faa151afb3a3b3fe4be01c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/constantinople/crates/engine/src/tests/mod.rs",
+      "mirror_exists": false,
+      "sha256": "f707b17baf9863296642c02b16bb1faa0ec4871a09a7a1a8775113f5ec1c2f47"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/constantinople/crates/engine/src/tests/properties.rs",
+      "mirror_exists": false,
+      "sha256": "9c05f3537c5f8256e14b7956d71e0a53ec5a12e1d5b783b7e12a690cbd9683b8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "b308b011c8412c44e6cd5267434ddb0ba981897138dfed87f1013b05d086ebb7"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "0f26fb9a05a1f6cd8597deec783c5fb742b365ad785e24942a4af019264d8e8f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/src/simulate/action.rs",
+      "mirror_exists": false,
+      "sha256": "f2ed9af7cec584a7f9d8d95ccf1e56776b6297c65bddc71214287b7c8921c7c3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/src/simulate/engine.rs",
+      "mirror_exists": false,
+      "sha256": "8c6557cca944a1d14e13586e4cd0e17cdbb31c83b63e0231873ef1577089d572"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/src/simulate/mod.rs",
+      "mirror_exists": false,
+      "sha256": "b65e353216f620e0be4f7672048f1df1895f5209e11c57ea27a4945d076fe967"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/src/simulate/plan.rs",
+      "mirror_exists": false,
+      "sha256": "dd60df66a8bc9acd4c88d7e7a29b84443afb55da9881e5258e34f19bff4e5b2a"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/src/stateful/actor/core/processing.rs",
+      "mirror_exists": false,
+      "sha256": "67bab87db4b0d92d0000c7bddb67e4e15e05d943dd5b644f67d04d7eb69ee1eb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/src/stateful/actor/processor/mod.rs",
+      "mirror_exists": false,
+      "sha256": "0591c898cea77efef7fb57fbfe93f906613578d6296cf99f7399c9fae3f175e3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/src/stateful/db/mod.rs",
+      "mirror_exists": false,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/glue/src/stateful/mod.rs",
+      "mirror_exists": false,
+      "sha256": "b04821f6978cda1f4943cdb7cec2d30b38ca96bae9f1e14dc2856d4fd273bfec"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/runtime/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "7d278fdeb2853cfa997d68fea82c99fe346d6d6ba1864bed91815f4eee644ac3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/runtime/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/runtime/src/storage/audited.rs",
+      "mirror_exists": false,
+      "sha256": "fa38c2547e301d5b05174a683052912d8975ddb833ecbac19eee1a19dba476ab"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/runtime/src/storage/faulty.rs",
+      "mirror_exists": false,
+      "sha256": "12a680064dacfb152c957703e9c219dbc8d1294f54faabbdefafd75f0246a128"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/runtime/src/storage/memory.rs",
+      "mirror_exists": false,
+      "sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/runtime/src/storage/mod.rs",
+      "mirror_exists": false,
+      "sha256": "fb5088cd75ce1c9a404dde9872835f7bc4ae2c4e5cf59500f4d21e65e914d91f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/storage/Cargo.toml",
+      "mirror_exists": false,
+      "sha256": "c1b004ab4737a4a45a2d19c646860bb415624df9557fb8b029bc4ce7524b1d18"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/storage/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "df267590ab90c98c2ee8e5d1f5787ae92284860c7b8880b4b15efe637d50b781"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/storage/src/qmdb/any/batch.rs",
+      "mirror_exists": false,
+      "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/storage/src/qmdb/any/db.rs",
+      "mirror_exists": false,
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/storage/src/qmdb/any/mod.rs",
+      "mirror_exists": false,
+      "sha256": "69e109648309ff7f7c68801f3d62b740bed2f1230c083f6d0ca75cc73ec3fbf9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/storage/src/qmdb/any/unordered/variable.rs",
+      "mirror_exists": false,
+      "sha256": "72a13ea81a9245ba8f9237cf6e80f1456d1a5e7164fb6720780cbbb048537ae8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/storage/src/qmdb/current/db.rs",
+      "mirror_exists": false,
+      "sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/native/storage/src/qmdb/current/mod.rs",
+      "mirror_exists": false,
+      "sha256": "83fc416ba29d5d7eef86fd440b37c6d37eef2c789537148aa68c1257a784b83e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/release/glue/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "0f26fb9a05a1f6cd8597deec783c5fb742b365ad785e24942a4af019264d8e8f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/release/glue/src/simulate/engine.rs",
+      "mirror_exists": false,
+      "sha256": "8c6557cca944a1d14e13586e4cd0e17cdbb31c83b63e0231873ef1577089d572"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/release/runtime/src/deterministic.rs",
+      "mirror_exists": false,
+      "sha256": "e768bd8fcf5fe1d53e1732e252668cb8e81f1de75f97f5edbb1934c46a635ade"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/release/runtime/src/lib.rs",
+      "mirror_exists": false,
+      "sha256": "4744b08a8a66f8515db111e305c86e21f5c0f514f013440c24f8ac29512d858f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/release/runtime/src/mocks.rs",
+      "mirror_exists": false,
+      "sha256": "2727bdc7a47282f2cbd290ed1ceddde32bdd5e6b333041c1608beda280f662fe"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/release/runtime/src/storage/faulty.rs",
+      "mirror_exists": false,
+      "sha256": "442452899bc68d5b99e311d9464f2aaae7794c54f93e0fac821647ada3a5b7b4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/sources/release/storage/src/qmdb/any/db.rs",
+      "mirror_exists": false,
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "path": "docs/reference/verification.md",
+      "mirror_exists": true,
+      "sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b"
+    }
+  ]
+}

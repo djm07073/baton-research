@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# runtime/src/deterministic.rs (v2026.9.0) [lines 535-585]\n\n```rust\n535:     }\n536: }\n537: \n538: impl From<Checkpoint> for Runner {\n539:     fn from(checkpoint: Checkpoint) -> Self {\n540:         Self {\n541:             state: State::Checkpoint(checkpoint),\n542:         }\n543:     }\n544: }\n545: \n546: impl Runner {\n547:     /// Initialize a new `deterministic` runtime with the given seed and cycle duration.\n548:     pub fn new(cfg: Config) -> Self {\n549:         // Ensure config is valid\n550:         cfg.assert();\n551:         Self {\n552:             state: State::Config(cfg),\n553:         }\n554:     }\n555: \n556:     /// Initialize a new `deterministic` runtime with the default configuration\n557:     /// and the provided seed.\n558:     pub fn seeded(seed: u64) -> Self {\n559:         Self::new(Config::default().with_seed(seed))\n560:     }\n561: \n562:     /// Initialize a new `deterministic` runtime with the default configuration\n563:     /// but exit after the given timeout.\n564:     pub fn timed(timeout: Duration) -> Self {\n565:         let cfg = Config {\n566:             timeout: Some(timeout),\n567:             ..Config::default()\n568:         };\n569:         Self::new(cfg)\n570:     }\n571: \n572:     /// Like [crate::Runner::start], but also returns a [Checkpoint] that can be used\n573:     /// to recover the state of the runtime in a subsequent run.\n574:     pub fn start_and_recover<F, Fut>(self, f: F) -> (Fut::Output, Checkpoint)\n575:     where\n576:         F: FnOnce(Context) -> Fut,\n577:         Fut: Future,\n578:     {\n579:         // Setup context and return strong reference to executor\n580:         let (context, executor, panicked) = match self.state {\n581:             State::Config(config) => Context::new(config),\n582:             State::Checkpoint(checkpoint) => Context::recover(checkpoint),\n583:         };\n584: \n585:         // Pin root task to the heap\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

@@ -1,0 +1,20 @@
+{
+  "reviewer": "/root/reuse_storage_types_v3",
+  "utc": "2026-10-03T23:43:10.890762+00:00",
+  "source_fit": "pass; not compiled integration or proof",
+  "report_sha256": {
+    "simulated-network": "11af5383234d8d031c5e5cdb6e41da9a8fe9a63027e15f18fcba8611e6361aaf",
+    "native-fixtures": "29eb5f5dbd2abb10da77270cc034f310443cb8de73cec11900186c63618362ae",
+    "fixture-boundaries": "241415f69039956b7a8e552b98f9127d94eeb05092023de1faceffcde70c9a5f"
+  },
+  "review_sha256": "1837f16a1eab1f1f0aa64cb0c1f17e9f8f68798996cbd6adf7008eb8b2872b02",
+  "fresh_sources": 30,
+  "report_anchors": 87,
+  "all_tree_blobs_verified": true,
+  "tree_sha256": {
+    "native-tree.json": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca",
+    "release-tree.json": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91",
+    "tempo-tree.json": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e",
+    "alto-tree.json": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439"
+  }
+}

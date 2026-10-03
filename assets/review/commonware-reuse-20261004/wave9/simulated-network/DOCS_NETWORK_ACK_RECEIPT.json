@@ -1,0 +1,127 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "reviewed_at_utc": "2026-10-03T23:46:04.154656+00:00",
+  "page": "docs/reference/verification.md",
+  "page_sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b",
+  "baseline_head": "f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea",
+  "baseline_page_sha256": "876d2105c0ec760206e5c50f3f48f617baa5bfdf74fa1dd4f43a9cd9812b15b3",
+  "headings_preserved": true,
+  "all_baseline_lines_preserved": true,
+  "existing_case_section_byte_identical": true,
+  "not_run_case_rows": 9,
+  "new_citations": [
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs#L428",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/p2p/src/simulated/ingress.rs",
+      "source_sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+      "line": 428,
+      "anchor_text": "    pub async fn register("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L65",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/mocks/cluster.rs",
+      "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+      "line": 65,
+      "anchor_text": "type MockEngineConfig<V> = EngineConfig<"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs#L302",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/mocks/attached.rs",
+      "source_sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579",
+      "line": 302,
+      "anchor_text": "    fn verify("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L679",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/mocks/cluster.rs",
+      "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+      "line": 679,
+      "anchor_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L635",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/consensus/src/multimmit/engine.rs",
+      "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+      "line": 635,
+      "anchor_text": "    pub fn new(context: E, config: Config<H, P, V, A, R, F, T, B>) -> Self {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs#L633",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/mocks.rs",
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line": 633,
+      "anchor_text": "    async fn start_sync(&self) -> Handle<()> {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs#L749",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/mocks.rs",
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line": 749,
+      "anchor_text": "impl PendingSyncs {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L567",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/deterministic.rs",
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line": 567,
+      "anchor_text": "    /// Like [crate::Runner::start], but also returns a [Checkpoint] that can be used"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs#L247",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/e2e/src/lib.rs",
+      "source_sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90",
+      "line": 247,
+      "anchor_text": "pub async fn setup_validators("
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs#L352",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/sources/tempo/crates/e2e/src/testing_node.rs",
+      "source_sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834",
+      "line": 352,
+      "anchor_text": "        let votes = self"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1317",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/alto/chain/src/lib.rs",
+      "source_sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6",
+      "line": 1317,
+      "anchor_text": "    fn test_drainer_replays_inflight_uploads_after_restart() {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1487",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/alto/chain/src/lib.rs",
+      "source_sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6",
+      "line": 1487,
+      "anchor_text": "            // uploads in this run must therefore come from replaying the"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L174",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/deterministic.rs",
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line": 174,
+      "anchor_text": "/// Track the state of the runtime for determinism auditing."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L7",
+      "source": "assets/review/commonware-reuse-20261004/wave9/simulated-network/independent-cross-review/sources/native/runtime/src/deterministic.rs",
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line": 7,
+      "anchor_text": "//! # External Processes"
+    }
+  ],
+  "new_citation_count": 14,
+  "canonical_application_traits_byte_identical": true,
+  "trait_names": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "reader_pages": 31,
+  "mermaid_diagrams": 18,
+  "blank_decisions": 39,
+  "remaining_material_issues": [],
+  "canonical_edits": false,
+  "native_build_or_protocol_tests": false
+}

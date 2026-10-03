@@ -1,0 +1,18 @@
+[
+  {
+    "file": "release-mocks-mcp.json",
+    "sha256": "bd197d99135316c87437de9e58c2b0fbabd94a52c8ba58ee9445b8e7d345ad71",
+    "version": "v2026.9.0",
+    "source_pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "numbered_lines_checked": 86,
+    "zero_based": true
+  },
+  {
+    "file": "release-pending-mcp.json",
+    "sha256": "eebf835934fe4d4a631204678828057bc9976cc20d7520972afb338751b14a15",
+    "version": "v2026.9.0",
+    "source_pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "numbered_lines_checked": 83,
+    "zero_based": true
+  }
+]

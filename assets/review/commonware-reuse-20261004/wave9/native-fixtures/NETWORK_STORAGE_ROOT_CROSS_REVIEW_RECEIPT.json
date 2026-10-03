@@ -1,0 +1,21 @@
+{
+  "checked_at_utc": "2026-10-03T23:41:42.614003+00:00",
+  "result": "pass_no_remaining_report_corrections",
+  "report_hashes": {
+    "simulated-network": "11af5383234d8d031c5e5cdb6e41da9a8fe9a63027e15f18fcba8611e6361aaf",
+    "storage-fixtures": "ca96c73745e96d3c59b885a8bb4c30ed29c7a0afb0d6805b77471ffe92b45ebc",
+    "fixture-boundaries": "241415f69039956b7a8e552b98f9127d94eeb05092023de1faceffcde70c9a5f"
+  },
+  "reader_delta_hashes": {
+    "simulated-network": "230c1bec1a3ccff9fe1b7381a2bb38ec2313a1e15aebda2dce39c5c79ec95a78",
+    "storage-fixtures": "599a8ae39bf6da335b785ee2d44c5ad0570a28a228df159284c1945c956e4c87",
+    "fixture-boundaries": "cc13d4a50ec112ae327dad7e6203e32404fab9136ad7b4754d90ef7d6175f05b"
+  },
+  "source_manifest_sha256": "e85d3d60c300bf9e9cffd4545fbcd7224c756c1f9129802979a9fbac06237de4",
+  "fresh_files": 40,
+  "complete_trees": 5,
+  "anchors": 78,
+  "cross_review_sha256": "70618010c62105a3b07df842499fa5dce33bb168ccca93ba62850f3bb082da2e",
+  "canonical_edits": false,
+  "compile_test_implementation": false
+}

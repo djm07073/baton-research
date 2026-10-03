@@ -1,0 +1,11 @@
+from pathlib import Path
+import json,urllib.request,hashlib,datetime,concurrent.futures
+p=Path(__file__).parent
+spec={'native':('commonwarexyz/monorepo','534af0ede48affd35b2111522527547b4cc9bf72',['runtime/src/lib.rs','runtime/src/deterministic.rs','runtime/src/storage/mod.rs','runtime/src/storage/memory.rs','runtime/src/storage/faulty.rs','runtime/src/storage/audited.rs','runtime/src/mocks.rs','runtime/Cargo.toml','storage/Cargo.toml','glue/Cargo.toml','storage/src/qmdb/any/mod.rs','storage/src/qmdb/any/db.rs','storage/src/qmdb/any/batch.rs','storage/src/qmdb/current/mod.rs','storage/src/qmdb/current/db.rs','glue/src/stateful/db/mod.rs','glue/src/stateful/actor/core/processing.rs','glue/src/stateful/actor/processor/mod.rs','glue/src/stateful/mod.rs']), 'constantinople':('commonwarexyz/constantinople','3b6c92e76bf582855615844a4175b8304808f6a9',['crates/engine/src/tests/common.rs','crates/engine/src/tests/mod.rs','crates/engine/src/tests/properties.rs','crates/engine/src/lib.rs','crates/application/src/consensus/tests.rs','crates/application/src/consensus/db.rs','Cargo.toml'])}
+trees={tag:{x['path']:x['sha'] for x in json.loads((p/(tag+'-tree.json')).read_text())['tree'] if x['type']=='blob'} for tag in spec}
+def fetch(x):
+ tag,path=x;repo,pin,_=spec[tag];u=f'https://raw.githubusercontent.com/{repo}/{pin}/{path}'
+ if path not in trees[tag]:return {'tag':tag,'repo':repo,'pin':pin,'path':path,'tree_path_present':False}
+ b=urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'Baton-storage-fixture-review'}),timeout=60).read();f=p/'sources'/tag/path;f.parent.mkdir(parents=True,exist_ok=True);f.write_bytes(b);blob=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest();assert blob==trees[tag][path];return {'tag':tag,'repo':repo,'pin':pin,'path':path,'url':u,'local':str(f.relative_to(p)),'sha256':hashlib.sha256(b).hexdigest(),'git_blob':blob,'tree_blob':trees[tag][path],'blob_verified':True,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:rows=list(ex.map(fetch,[(tag,path) for tag,(_,_,paths) in spec.items() for path in paths]))
+(p/'source-manifest.json').write_text(json.dumps(rows,indent=2));print({'files':len(rows),'missing':[r for r in rows if not r.get('blob_verified')]})

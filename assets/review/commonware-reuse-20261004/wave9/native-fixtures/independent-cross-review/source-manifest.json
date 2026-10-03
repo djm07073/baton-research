@@ -1,0 +1,1083 @@
+{
+  "checked_at_utc": "2026-10-03T23:38:14.674904+00:00",
+  "trees": 5,
+  "sources": [
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs",
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6",
+      "git_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "tree_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "bytes": 60064
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/main.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/follower/src/main.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/follower/src/main.rs",
+      "sha256": "be68f0150794d07866b3aabce7d8addf09a93e4491c53fc81d206225d2946049",
+      "git_blob": "953f68a1dbeb8f34f6ca1eb14ea969bf8ca7d568",
+      "tree_blob": "953f68a1dbeb8f34f6ca1eb14ea969bf8ca7d568",
+      "bytes": 8432
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/test_utils.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/follower/src/test_utils.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/follower/src/test_utils.rs",
+      "sha256": "aa66aa4a6b602fb3b53acedc11a8289f9967731b2d40c70f20a350986817cc54",
+      "git_blob": "1048b1f904daf6d51846028a7c3e02363045133d",
+      "tree_blob": "1048b1f904daf6d51846028a7c3e02363045133d",
+      "bytes": 5701
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "Cargo.toml",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/Cargo.toml",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/Cargo.toml",
+      "sha256": "1fa310723fb50d7b8b7c565fcde53e5da02b8b8b9dbb74651c750b7d4e5639ce",
+      "git_blob": "19a5dd7de88be758ea9e09113351f55d2d4313d8",
+      "tree_blob": "19a5dd7de88be758ea9e09113351f55d2d4313d8",
+      "bytes": 5255
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/lib.rs",
+      "sha256": "b04796eadf4a3bf491fd185636075ecaf232d85094b604fbaa3a935581dc6c97",
+      "git_blob": "d79f53e8d4c41f313d9608807c823197cd7b0381",
+      "tree_blob": "d79f53e8d4c41f313d9608807c823197cd7b0381",
+      "bytes": 986
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/tests/common.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/tests/common.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/tests/common.rs",
+      "sha256": "5a5d6ffe7060c1b15875488967c7aa836d161a742faa151afb3a3b3fe4be01c8",
+      "git_blob": "a2a54b860c3353daefe9cd2a0a4ca3a3ddd41ac0",
+      "tree_blob": "a2a54b860c3353daefe9cd2a0a4ca3a3ddd41ac0",
+      "bytes": 6851
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/tests/mod.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/tests/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/tests/mod.rs",
+      "sha256": "f707b17baf9863296642c02b16bb1faa0ec4871a09a7a1a8775113f5ec1c2f47",
+      "git_blob": "4b35a05222eba2dd7a8b79f518b79a287dd615a4",
+      "tree_blob": "4b35a05222eba2dd7a8b79f518b79a287dd615a4",
+      "bytes": 31234
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/tests/properties.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/tests/properties.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/tests/properties.rs",
+      "sha256": "9c05f3537c5f8256e14b7956d71e0a53ec5a12e1d5b783b7e12a690cbd9683b8",
+      "git_blob": "646de307f050761a72635357ae7694f2b1e25c18",
+      "tree_blob": "646de307f050761a72635357ae7694f2b1e25c18",
+      "bytes": 8328
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs",
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+      "git_blob": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6",
+      "tree_blob": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6",
+      "bytes": 64562
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/attached.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs",
+      "sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579",
+      "git_blob": "40812dc411ca249b56bb15707386d0af27379983",
+      "tree_blob": "40812dc411ca249b56bb15707386d0af27379983",
+      "bytes": 15301
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/cluster.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs",
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+      "git_blob": "937be21ef976b3da26c728f29d97cc473ce73aef",
+      "tree_blob": "937be21ef976b3da26c728f29d97cc473ce73aef",
+      "bytes": 42931
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/mod.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/mod.rs",
+      "sha256": "fd82e4bcb290de1101d1016b16ef2a83cfe14a0bb47f0f358c71bca5740672c0",
+      "git_blob": "3bb4466e0741517bac836fbbc9d9a71847dd1443",
+      "tree_blob": "3bb4466e0741517bac836fbbc9d9a71847dd1443",
+      "bytes": 23642
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mod.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs",
+      "sha256": "9f58a1e30af574043372672e6419199e22ba34a2ff1d357181fde3253465ba21",
+      "git_blob": "031e6317432cd7935a4390a8e4b35e9ca55701cc",
+      "tree_blob": "031e6317432cd7935a4390a8e4b35e9ca55701cc",
+      "bytes": 15222
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/tests.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/tests.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/tests.rs",
+      "sha256": "42f12d57012fa6cac4a93a5618c71d957d67b531ed955378bc9047d0fc3864d9",
+      "git_blob": "b0b7ca8477f6ec8f62524c789c9bd5dca2aefa29",
+      "tree_blob": "b0b7ca8477f6ec8f62524c789c9bd5dca2aefa29",
+      "bytes": 64682
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/lib.rs",
+      "sha256": "0f26fb9a05a1f6cd8597deec783c5fb742b365ad785e24942a4af019264d8e8f",
+      "git_blob": "6a342ea327ae83e7880d5f6ef856f5c3f9aef4fc",
+      "tree_blob": "6a342ea327ae83e7880d5f6ef856f5c3f9aef4fc",
+      "bytes": 335
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/simulate/action.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/simulate/action.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/simulate/action.rs",
+      "sha256": "f2ed9af7cec584a7f9d8d95ccf1e56776b6297c65bddc71214287b7c8921c7c3",
+      "git_blob": "531b5875ea1778d4fbf8849648eb322354463b45",
+      "tree_blob": "531b5875ea1778d4fbf8849648eb322354463b45",
+      "bytes": 3526
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/simulate/engine.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/simulate/engine.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/simulate/engine.rs",
+      "sha256": "8c6557cca944a1d14e13586e4cd0e17cdbb31c83b63e0231873ef1577089d572",
+      "git_blob": "53648c4e9e966eabb9e361e772642881426a178c",
+      "tree_blob": "53648c4e9e966eabb9e361e772642881426a178c",
+      "bytes": 3202
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs",
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "git_blob": "917f4783d7b2878cadfdbb61ad80a2dc1ee7a01a",
+      "tree_blob": "917f4783d7b2878cadfdbb61ad80a2dc1ee7a01a",
+      "bytes": 175612
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/ingress.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs",
+      "sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+      "git_blob": "e8ceb47c30547352256bcca5b8b3e0d5d310cd60",
+      "tree_blob": "e8ceb47c30547352256bcca5b8b3e0d5d310cd60",
+      "bytes": 13607
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/mod.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/mod.rs",
+      "sha256": "7ba714406921d41af257467848b432c1f93e1f82773b8ae3344e3deb115c3650",
+      "git_blob": "08e426594e91e384948fc9ef87a6fce691cbad35",
+      "tree_blob": "08e426594e91e384948fc9ef87a6fce691cbad35",
+      "bytes": 132360
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/network.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/network.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/network.rs",
+      "sha256": "c44416fb6d6fdb37c343110a3c6b6daa67dafacc7b3dc61e498f5539524f8590",
+      "git_blob": "0893f8a1c0e48f35757c94a24f49106a0ce12f52",
+      "tree_blob": "0893f8a1c0e48f35757c94a24f49106a0ce12f52",
+      "bytes": 102479
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs",
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "tree_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "bytes": 84235
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs",
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+      "git_blob": "139a63a62b07caaadb799d3f4b1cfa4a8cd37fca",
+      "tree_blob": "139a63a62b07caaadb799d3f4b1cfa4a8cd37fca",
+      "bytes": 125207
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs",
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "git_blob": "6938c9ce6cd594f1f7c15e31d634281e19419550",
+      "tree_blob": "6938c9ce6cd594f1f7c15e31d634281e19419550",
+      "bytes": 43803
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/faulty.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/storage/faulty.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/storage/faulty.rs",
+      "sha256": "12a680064dacfb152c957703e9c219dbc8d1294f54faabbdefafd75f0246a128",
+      "git_blob": "ecd76b00bcb87bdf3c70dea4f3b2a8abdebda2b0",
+      "tree_blob": "ecd76b00bcb87bdf3c70dea4f3b2a8abdebda2b0",
+      "bytes": 25903
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/memory.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/storage/memory.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/storage/memory.rs",
+      "sha256": "c438c9c6047afa2bad253b0e0e414381bdf060a4b6c2d6ee92cf02d5fe5546d6",
+      "git_blob": "ad818ed1dff48ce41f8d556a08e8253d1863a0d1",
+      "tree_blob": "ad818ed1dff48ce41f8d556a08e8253d1863a0d1",
+      "bytes": 18260
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/lib.rs",
+      "sha256": "df267590ab90c98c2ee8e5d1f5787ae92284860c7b8880b4b15efe637d50b781",
+      "git_blob": "4c730ef19f53856c3c96b675f4a1e996b7200a96",
+      "tree_blob": "4c730ef19f53856c3c96b675f4a1e996b7200a96",
+      "bytes": 4115
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs",
+      "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582",
+      "git_blob": "df9c35a43fda0f248135ff379e5c14ac13ec9981",
+      "tree_blob": "df9c35a43fda0f248135ff379e5c14ac13ec9981",
+      "bytes": 207316
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs",
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d",
+      "git_blob": "0e130462aec6c9537fb270129d826a703c67ec99",
+      "tree_blob": "0e130462aec6c9537fb270129d826a703c67ec99",
+      "bytes": 34959
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/mod.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/mod.rs",
+      "sha256": "69e109648309ff7f7c68801f3d62b740bed2f1230c083f6d0ca75cc73ec3fbf9",
+      "git_blob": "9ab9869ce17cc049163ea376129016d9cbab03b7",
+      "tree_blob": "9ab9869ce17cc049163ea376129016d9cbab03b7",
+      "bytes": 119054
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/unordered/variable.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/unordered/variable.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/unordered/variable.rs",
+      "sha256": "72a13ea81a9245ba8f9237cf6e80f1456d1a5e7164fb6720780cbbb048537ae8",
+      "git_blob": "9b3379346ffb4a7479fefe185f95d597e593b410",
+      "tree_blob": "9b3379346ffb4a7479fefe185f95d597e593b410",
+      "bytes": 61793
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/mod.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/mod.rs",
+      "sha256": "83fc416ba29d5d7eef86fd440b37c6d37eef2c789537148aa68c1257a784b83e",
+      "git_blob": "ea73487288edfe069d4e5cd98bf7a2fc233da01b",
+      "tree_blob": "ea73487288edfe069d4e5cd98bf7a2fc233da01b",
+      "bytes": 174518
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "runtime/src/mocks.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/runtime/src/mocks.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/runtime/src/mocks.rs",
+      "sha256": "2727bdc7a47282f2cbd290ed1ceddde32bdd5e6b333041c1608beda280f662fe",
+      "git_blob": "9749011444af3babb3db9bd94d0fe5cbce11666b",
+      "tree_blob": "9749011444af3babb3db9bd94d0fe5cbce11666b",
+      "bytes": 50989
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "runtime/src/storage/faulty.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/runtime/src/storage/faulty.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/runtime/src/storage/faulty.rs",
+      "sha256": "442452899bc68d5b99e311d9464f2aaae7794c54f93e0fac821647ada3a5b7b4",
+      "git_blob": "484937791ee263337b1b219f2399e0a43e71c523",
+      "tree_blob": "484937791ee263337b1b219f2399e0a43e71c523",
+      "bytes": 90786
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "Cargo.toml",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/Cargo.toml",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/Cargo.toml",
+      "sha256": "73668e748382221bc2cac04ce66fdb1e0dc97067bac5d25348623e44abdf1920",
+      "git_blob": "817c0e23212746a5c5b69598564ebbbbde9b9aca",
+      "tree_blob": "817c0e23212746a5c5b69598564ebbbbde9b9aca",
+      "bytes": 19928
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor/tests/harness.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor/tests/harness.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor/tests/harness.rs",
+      "sha256": "7fcdf5b85035738f390d01b598ab82fd5b676b7e59ca328edcd8589459af157d",
+      "git_blob": "c82987f832d93909ae39979da262f8d922a3519d",
+      "tree_blob": "c82987f832d93909ae39979da262f8d922a3519d",
+      "bytes": 47420
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/Cargo.toml",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/Cargo.toml",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/Cargo.toml",
+      "sha256": "c9131b52f744ae8459570f8fd38368679fdf1417ad72e1de1a6477a6f1fdd7bf",
+      "git_blob": "23446352abcedca8ecffda27c590c0147c0b2c10",
+      "tree_blob": "23446352abcedca8ecffda27c590c0147c0b2c10",
+      "bytes": 2213
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/execution_runtime.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/execution_runtime.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/execution_runtime.rs",
+      "sha256": "7881ec5d400467950a9652cdcaa59ba022f2ef44a433a7f01cb54eca8c9dd2a5",
+      "git_blob": "e8e959122e1eeafb1e9746517ae1f153d46ebbff",
+      "tree_blob": "e8e959122e1eeafb1e9746517ae1f153d46ebbff",
+      "bytes": 41898
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs",
+      "sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90",
+      "git_blob": "acd263c70c1f55c623855191f0e847cf449c7e21",
+      "tree_blob": "acd263c70c1f55c623855191f0e847cf449c7e21",
+      "bytes": 14104
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/testing_node.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/native-fixtures/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs",
+      "sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834",
+      "git_blob": "27e08f8bd00d9dfb55d768c577708f5247d9af33",
+      "tree_blob": "27e08f8bd00d9dfb55d768c577708f5247d9af33",
+      "bytes": 22962
+    }
+  ],
+  "anchors": [
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 541,
+      "line_text": "impl Runner {"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/network.rs",
+      "line": 211,
+      "line_text": "impl<E: RNetwork + Spawner + Rng + Clock + Metrics, P: PublicKey> Network<E, P> {"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/ingress.rs",
+      "line": 421,
+      "line_text": "impl<P: PublicKey, E: Clock> Control<P, E> {"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/ingress.rs",
+      "line": 169,
+      "line_text": "    pub fn control(&self, me: P) -> Control<P, E> {"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/ingress.rs",
+      "line": 322,
+      "line_text": "impl<P: PublicKey, E: Clock> crate::Provider for Manager<P, E> {"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/ingress.rs",
+      "line": 223,
+      "line_text": "    /// Create a unidirectional link between two peers."
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/network.rs",
+      "line": 892,
+      "line_text": "    pub fn start(mut self) -> Handle<()> {"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 688,
+      "line_text": "    /// Starts the engine over its four registered planes."
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/mod.rs",
+      "line": 177,
+      "line_text": "pub use ingress::{Control, Link, Manager, Oracle, SocketManager};"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/ingress.rs",
+      "line": 302,
+      "line_text": "/// Useful for mocking [crate::authenticated::discovery]."
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mod.rs",
+      "line": 229,
+      "line_text": "#[cfg(any(test, feature = \"mocks\"))]"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/mod.rs",
+      "line": 7,
+      "line_text": "#[cfg(not(target_arch = \"wasm32\"))]"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/cluster.rs",
+      "line": 1164,
+      "line_text": "/// Starts a simulated network over `identities` and returns its oracle."
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/cluster.rs",
+      "line": 65,
+      "line_text": "type MockEngineConfig<V> = EngineConfig<"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/cluster.rs",
+      "line": 240,
+      "line_text": "impl<V: Variant> Cluster<V> {"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/cluster.rs",
+      "line": 458,
+      "line_text": "    pub async fn launch(&mut self, index: usize) {"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/attached.rs",
+      "line": 302,
+      "line_text": "    fn verify("
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/tests.rs",
+      "line": 53,
+      "line_text": "    let executor = DeterministicRunner::timed(Duration::from_secs(300));"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/cluster.rs",
+      "line": 679,
+      "line_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact."
+    },
+    {
+      "report": "simulated-network",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/lib.rs",
+      "line": 247,
+      "line_text": "pub async fn setup_validators("
+    },
+    {
+      "report": "simulated-network",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/testing_node.rs",
+      "line": 352,
+      "line_text": "        let votes = self"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "Cargo.toml",
+      "line": 258,
+      "line_text": "commonware-consensus = \"2026.9.0\""
+    },
+    {
+      "report": "simulated-network",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/lib.rs",
+      "line": 345,
+      "line_text": "/// Runs a test configured by [`Setup`]."
+    },
+    {
+      "report": "simulated-network",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/execution_runtime.rs",
+      "line": 322,
+      "line_text": "/// An execution runtime wrapping a thread running a [`tokio::runtime::Runtime`]."
+    },
+    {
+      "report": "simulated-network",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/Cargo.toml",
+      "line": 36,
+      "line_text": "commonware-runtime = { workspace = true, features = [\"external\"] }"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor/tests/harness.rs",
+      "line": 1113,
+      "line_text": "    pub(super) fn start<TContext>(self, context: &TContext) -> Harness<TContext>"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 493,
+      "line_text": "/// An artifact that can be used to recover the state of the runtime."
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 1005,
+      "line_text": "    /// Recover the inner state (deadline, metrics, auditor, rng, synced storage, etc.) from the"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 1233,
+      "line_text": "/// executor thread registers itself as its sole member and all work executes inline."
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 7,
+      "line_text": "//! # External Processes"
+    },
+    {
+      "report": "simulated-network",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "line": 815,
+      "line_text": "stability_scope!(BETA, cfg(feature = \"external\") {"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 504,
+      "line_text": "}"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 622,
+      "line_text": "    }"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 749,
+      "line_text": "impl PendingSyncs {"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 45,
+      "line_text": "pub use crate::storage::faulty::Config as FaultConfig;"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 331,
+      "line_text": "    pub const fn with_storage_fault_config(mut self, faults: FaultConfig) -> Self {"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 493,
+      "line_text": "/// An artifact that can be used to recover the state of the runtime."
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 567,
+      "line_text": "    /// Like [crate::Runner::start], but also returns a [Checkpoint] that can be used"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 333,
+      "line_text": "pub struct DeferredSync {"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 662,
+      "line_text": "                Some(started) => started.await?,"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 839,
+      "line_text": "/// Controls a [WriteFaultContext]: while armed, every `write_at` fails with an"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/lib.rs",
+      "line": 120,
+      "line_text": "    /// A runtime context providing storage, timing, and metrics capabilities."
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/unordered/variable.rs",
+      "line": 39,
+      "line_text": ""
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 686,
+      "line_text": "                executor.metrics.iterations.inc();"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 1005,
+      "line_text": "    /// Recover the inner state (deadline, metrics, auditor, rng, synced storage, etc.) from the"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 1094,
+      "line_text": "    /// Access the storage fault configuration."
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "line": 29,
+      "line_text": "mod network;"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/memory.rs",
+      "line": 19,
+      "line_text": "#[derive(Clone)]"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/memory.rs",
+      "line": 169,
+      "line_text": "        // Update partition content"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/faulty.rs",
+      "line": 27,
+      "line_text": "/// Configuration for deterministic storage fault injection."
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/storage/faulty.rs",
+      "line": 321,
+      "line_text": "        let (should_fail, partial_rate) = self.ctx.check_write_fault();"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2727,
+      "line_text": "{"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "line": 819,
+      "line_text": "    /// Sync all database state to disk."
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 113,
+      "line_text": "///"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 449,
+      "line_text": "pub struct Barrier {"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/mod.rs",
+      "line": 96,
+      "line_text": "#[cfg(any(test, feature = \"test-traits\"))]"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/mod.rs",
+      "line": 571,
+      "line_text": "    /// Test that a commit after an older sync boundary is recovered without another sync."
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/mod.rs",
+      "line": 485,
+      "line_text": "/// Extension trait for Current QMDB types that exposes bitmap information for testing."
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/tests/common.rs",
+      "line": 42,
+      "line_text": "#[derive(Clone, Default)]"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/tests/properties.rs",
+      "line": 132,
+      "line_text": "#[derive(Clone)]"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/lib.rs",
+      "line": 30,
+      "line_text": "#[cfg(all(test, feature = \"test-utils\"))]"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "Cargo.toml",
+      "line": 51,
+      "line_text": "commonware-actor = { git = \"https://github.com/commonwarexyz/monorepo\", rev = \"92036f4beefedc9817f0954d98fb99e0b52431cb\" }"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/tests/mod.rs",
+      "line": 30,
+      "line_text": "use commonware_glue::{"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/lib.rs",
+      "line": 11,
+      "line_text": "    #[cfg(any(test, feature = \"test-utils\"))]"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/simulate/engine.rs",
+      "line": 36,
+      "line_text": "/// Defines how to construct and start one validator's service stack."
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/simulate/action.rs",
+      "line": 9,
+      "line_text": "/// Crash strategy for a simulation run."
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "runtime/src/mocks.rs",
+      "line": 925,
+      "line_text": "impl PendingSyncs {"
+    },
+    {
+      "report": "storage-fixtures",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "runtime/src/storage/faulty.rs",
+      "line": 35,
+      "line_text": "/// Selects how submitted bytes are retained from a write."
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 493,
+      "line_text": "/// An artifact that can be used to recover the state of the runtime."
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 575,
+      "line_text": "        let (context, executor, panicked) = match self.state {"
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 690,
+      "line_text": "        // Clear remaining tasks from the executor."
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 174,
+      "line_text": "/// Track the state of the runtime for determinism auditing."
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 7,
+      "line_text": "//! # External Processes"
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "line": 198,
+      "line_text": "#[cfg(test)]"
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "line": 1317,
+      "line_text": "    fn test_drainer_replays_inflight_uploads_after_restart() {"
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "line": 1487,
+      "line_text": "            // uploads in this run must therefore come from replaying the"
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/main.rs",
+      "line": 35,
+      "line_text": "#[cfg(test)]"
+    },
+    {
+      "report": "fixture-boundaries",
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/test_utils.rs",
+      "line": 94,
+      "line_text": "    pub fn new() -> Self {"
+    }
+  ],
+  "report_hashes": {
+    "simulated-network": "11af5383234d8d031c5e5cdb6e41da9a8fe9a63027e15f18fcba8611e6361aaf",
+    "storage-fixtures": "ca96c73745e96d3c59b885a8bb4c30ed29c7a0afb0d6805b77471ffe92b45ebc",
+    "fixture-boundaries": "241415f69039956b7a8e552b98f9127d94eeb05092023de1faceffcde70c9a5f"
+  },
+  "reader_delta_hashes": {
+    "simulated-network": "230c1bec1a3ccff9fe1b7381a2bb38ec2313a1e15aebda2dce39c5c79ec95a78",
+    "storage-fixtures": "599a8ae39bf6da335b785ee2d44c5ad0570a28a228df159284c1945c956e4c87",
+    "fixture-boundaries": "cc13d4a50ec112ae327dad7e6203e32404fab9136ad7b4754d90ef7d6175f05b"
+  },
+  "final_report_readback_utc": "2026-10-03T23:41:42.613113+00:00"
+}

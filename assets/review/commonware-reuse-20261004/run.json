@@ -434,6 +434,59 @@
         }
       ],
       "final_page_hashes": "wave8/final-page-hashes.json"
+    },
+    {
+      "wave": 9,
+      "status": "reviewed_and_published",
+      "reports": [
+        {
+          "path": "wave9/DOCS_RESOLUTION.md",
+          "sha256": "e7a084d093bcca4cf3039d8c6cb8641bd8033db798313440d04fbc6038489a89"
+        },
+        {
+          "path": "wave9/fixture-boundaries/REPORT.md",
+          "sha256": "241415f69039956b7a8e552b98f9127d94eeb05092023de1faceffcde70c9a5f"
+        },
+        {
+          "path": "wave9/native-fixtures/DOCS_GLOBAL_REVIEW.md",
+          "sha256": "edc9fec5427761eb7748f125a206f1dcbdcbf338d490f3d35a745381861baf86"
+        },
+        {
+          "path": "wave9/native-fixtures/NETWORK_STORAGE_ROOT_CROSS_REVIEW.md",
+          "sha256": "70618010c62105a3b07df842499fa5dce33bb168ccca93ba62850f3bb082da2e"
+        },
+        {
+          "path": "wave9/native-fixtures/REPORT.md",
+          "sha256": "29eb5f5dbd2abb10da77270cc034f310443cb8de73cec11900186c63618362ae"
+        },
+        {
+          "path": "wave9/simulated-network/DOCS_NETWORK_ACK.md",
+          "sha256": "ff137a04aa30ca9d1659286769195c907cbe5adf59b472f0cb816ac29714717f"
+        },
+        {
+          "path": "wave9/simulated-network/REPORT.md",
+          "sha256": "11af5383234d8d031c5e5cdb6e41da9a8fe9a63027e15f18fcba8611e6361aaf"
+        },
+        {
+          "path": "wave9/simulated-network/STORAGE_NATIVE_CROSS_REVIEW.md",
+          "sha256": "32a534f40fcf05876cbe0ba0d01f0a4e17fc0e06c1e829ffc90f6fa660ae7f60"
+        },
+        {
+          "path": "wave9/storage-fixtures/DOCS_STORAGE_ACK.md",
+          "sha256": "05094f9b68142dcf3ef760b9fdbdc4fa23ac1fc8b44bbd1d28e9436b3cb807c8"
+        },
+        {
+          "path": "wave9/storage-fixtures/NETWORK_ROOT_CROSS_REVIEW.md",
+          "sha256": "1837f16a1eab1f1f0aa64cb0c1f17e9f8f68798996cbd6adf7008eb8b2872b02"
+        },
+        {
+          "path": "wave9/storage-fixtures/REPORT.md",
+          "sha256": "ca96c73745e96d3c59b885a8bb4c30ed29c7a0afb0d6805b77471ffe92b45ebc"
+        }
+      ],
+      "final_page_hashes": {
+        "docs/reference/verification.md": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b"
+      }
     }
   ],
   "completion_audit": null,
@@ -448,29 +501,29 @@
       "Storage"
     ],
     "blank_policy_cells": 39,
-    "browser": "wave8/browser/browser-verification.json",
+    "browser": "wave9/browser/browser-verification.json",
     "protocol_implemented": false,
     "local_links": 257
   },
   "publication": {
-    "change_request_id": "3AhBcT7WpRoeqE3mFNgy",
-    "change_request_number": 11,
+    "change_request_id": "O83KZMexKQYIp2XEzHmj",
+    "change_request_number": 12,
     "status": "published",
-    "published_revision": "2KMSlL0AfmImuyvywE5i",
-    "reviewed_draft_revision": "872LOgybHSar6MpozY16",
+    "published_revision": "36O47tlujxrEW9C1xjfX",
+    "reviewed_draft_revision": "dcd53ylFybyBc9OzY7qb",
     "pages": 38,
-    "updated_pages": 4,
-    "unchanged_documents": 34,
-    "links": 566,
+    "updated_pages": 1,
+    "unchanged_documents": 37,
+    "links": 580,
     "preserved_heading_anchors": 98,
     "reused_diagrams": 18,
     "reused_rust_file": true,
     "new_uploads": 0,
     "raw_file_bytes_verified": false,
-    "verification": "wave8/publication/gitbook-verification.json",
-    "live_verification": "wave8/publication/gitbook-live-verification.json"
+    "verification": "wave9/publication/gitbook-verification.json",
+    "live_verification": "wave9/publication/gitbook-live-verification.json"
   },
-  "updated_at_utc": "2026-10-03T23:22:24.845677+00:00",
+  "updated_at_utc": "2026-10-03T23:48:19.480030+00:00",
   "publication_history": [
     {
       "change_request_id": "OTFc0W01ZQvv2f4uiiU8",
@@ -589,7 +642,25 @@
       "raw_file_bytes_verified": false,
       "verification": "wave8/publication/gitbook-verification.json",
       "live_verification": "wave8/publication/gitbook-live-verification.json"
+    },
+    {
+      "change_request_id": "O83KZMexKQYIp2XEzHmj",
+      "change_request_number": 12,
+      "status": "published",
+      "published_revision": "36O47tlujxrEW9C1xjfX",
+      "reviewed_draft_revision": "dcd53ylFybyBc9OzY7qb",
+      "pages": 38,
+      "updated_pages": 1,
+      "unchanged_documents": 37,
+      "links": 580,
+      "preserved_heading_anchors": 98,
+      "reused_diagrams": 18,
+      "reused_rust_file": true,
+      "new_uploads": 0,
+      "raw_file_bytes_verified": false,
+      "verification": "wave9/publication/gitbook-verification.json",
+      "live_verification": "wave9/publication/gitbook-live-verification.json"
     }
   ],
-  "github_baseline_verified_sha": "99dc2c456c4b318fefb368cb39a145298f7d86b7"
+  "github_baseline_verified_sha": "f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea"
 }

@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# p2p/src/simulated/network.rs (v2026.9.0) [lines 245-290]\n\n```rust\n245:                 peers: BTreeMap::new(),\n246:                 peer_sets: BTreeMap::new(),\n247:                 peer_ref_counts: BTreeMap::new(),\n248:                 blocks: BTreeSet::new(),\n249:                 transmitter: transmitter::State::new(),\n250:                 subscribers: Vec::new(),\n251:                 peer_subscribers: Vec::new(),\n252:                 blocked_subscribers: Vec::new(),\n253:                 received_messages,\n254:                 sent_messages,\n255:             },\n256:             Oracle::new(oracle_mailbox),\n257:         )\n258:     }\n259: \n260:     /// Create a new simulated network with an initial primary peer set.\n261:     ///\n262:     /// This is a convenience for test setups that would otherwise call\n263:     /// [`crate::Manager::track`] immediately after construction.\n264:     pub async fn new_with_peers<I>(context: E, cfg: Config, peers: I) -> (Self, Oracle<P, E>)\n265:     where\n266:         I: IntoIterator<Item = P>,\n267:     {\n268:         Self::new_with_split_peers(context, cfg, peers, std::iter::empty()).await\n269:     }\n270: \n271:     /// Create a new simulated network with primary and secondary peers split into two sets.\n272:     ///\n273:     /// Peers are tracked at peer set ID `0` as [`TrackedPeers`], matching the most common test\n274:     /// setup.\n275:     pub async fn new_with_split_peers<I, J>(\n276:         context: E,\n277:         cfg: Config,\n278:         primary: I,\n279:         secondary: J,\n280:     ) -> (Self, Oracle<P, E>)\n281:     where\n282:         I: IntoIterator<Item = P>,\n283:         J: IntoIterator<Item = P>,\n284:     {\n285:         let (mut network, oracle) = Self::new(context, cfg);\n286:         network\n287:             .register_tracked_peer_set(\n288:                 0,\n289:                 TrackedPeers::new(\n290:                     Set::from_iter_dedup(primary),\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

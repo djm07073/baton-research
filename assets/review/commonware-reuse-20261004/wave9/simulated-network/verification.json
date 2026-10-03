@@ -1,0 +1,14 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "verified_at_utc": "2026-10-03T23:33:01.283003+00:00",
+  "baseline_head": "f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea",
+  "report_sha256": "11af5383234d8d031c5e5cdb6e41da9a8fe9a63027e15f18fcba8611e6361aaf",
+  "reader_delta_sha256": "230c1bec1a3ccff9fe1b7381a2bb38ec2313a1e15aebda2dce39c5c79ec95a78",
+  "fresh_files": 42,
+  "complete_trees": 4,
+  "report_source_anchors": 31,
+  "mcp_actual_release_lines_matched": 97,
+  "test_execution": false,
+  "protocol_compilation": false,
+  "canonical_edits": false
+}

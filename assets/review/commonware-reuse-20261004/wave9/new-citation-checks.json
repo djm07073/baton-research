@@ -1,0 +1,162 @@
+{
+  "retrieved_at_utc": "2026-10-03T23:41:57.567196+00:00",
+  "unique_sources": 9,
+  "complete_trees": 3,
+  "citations": [
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs#L428",
+      "line": 428,
+      "line_text": "    pub async fn register(",
+      "bytes": 13607,
+      "sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+      "git_blob": "e8ceb47c30547352256bcca5b8b3e0d5d310cd60",
+      "tree_blob": "e8ceb47c30547352256bcca5b8b3e0d5d310cd60",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/simulated/ingress.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L65",
+      "line": 65,
+      "line_text": "type MockEngineConfig<V> = EngineConfig<",
+      "bytes": 42931,
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+      "git_blob": "937be21ef976b3da26c728f29d97cc473ce73aef",
+      "tree_blob": "937be21ef976b3da26c728f29d97cc473ce73aef",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs#L302",
+      "line": 302,
+      "line_text": "    fn verify(",
+      "bytes": 15301,
+      "sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579",
+      "git_blob": "40812dc411ca249b56bb15707386d0af27379983",
+      "tree_blob": "40812dc411ca249b56bb15707386d0af27379983",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/attached.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs#L679",
+      "line": 679,
+      "line_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact.",
+      "bytes": 42931,
+      "sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+      "git_blob": "937be21ef976b3da26c728f29d97cc473ce73aef",
+      "tree_blob": "937be21ef976b3da26c728f29d97cc473ce73aef",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mocks/cluster.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L635",
+      "line": 635,
+      "line_text": "    pub fn new(context: E, config: Config<H, P, V, A, R, F, T, B>) -> Self {",
+      "bytes": 64562,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+      "git_blob": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6",
+      "tree_blob": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs#L633",
+      "line": 633,
+      "line_text": "    async fn start_sync(&self) -> Handle<()> {",
+      "bytes": 43803,
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "git_blob": "6938c9ce6cd594f1f7c15e31d634281e19419550",
+      "tree_blob": "6938c9ce6cd594f1f7c15e31d634281e19419550",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs#L749",
+      "line": 749,
+      "line_text": "impl PendingSyncs {",
+      "bytes": 43803,
+      "sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "git_blob": "6938c9ce6cd594f1f7c15e31d634281e19419550",
+      "tree_blob": "6938c9ce6cd594f1f7c15e31d634281e19419550",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L567",
+      "line": 567,
+      "line_text": "    /// Like [crate::Runner::start], but also returns a [Checkpoint] that can be used",
+      "bytes": 84235,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "tree_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs#L247",
+      "line": 247,
+      "line_text": "pub async fn setup_validators(",
+      "bytes": 14104,
+      "sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90",
+      "git_blob": "acd263c70c1f55c623855191f0e847cf449c7e21",
+      "tree_blob": "acd263c70c1f55c623855191f0e847cf449c7e21",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/tempoxyz-tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs#L352",
+      "line": 352,
+      "line_text": "        let votes = self",
+      "bytes": 22962,
+      "sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834",
+      "git_blob": "27e08f8bd00d9dfb55d768c577708f5247d9af33",
+      "tree_blob": "27e08f8bd00d9dfb55d768c577708f5247d9af33",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/tempoxyz-tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1317",
+      "line": 1317,
+      "line_text": "    fn test_drainer_replays_inflight_uploads_after_restart() {",
+      "bytes": 60064,
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6",
+      "git_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "tree_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1487",
+      "line": 1487,
+      "line_text": "            // uploads in this run must therefore come from replaying the",
+      "bytes": 60064,
+      "sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6",
+      "git_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "tree_blob": "dab5d2fd2b5d6f9ab9440c52dfcc7b496c3d42e4",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L174",
+      "line": 174,
+      "line_text": "/// Track the state of the runtime for determinism auditing.",
+      "bytes": 84235,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "tree_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L7",
+      "line": 7,
+      "line_text": "//! # External Processes",
+      "bytes": 84235,
+      "sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "git_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "tree_blob": "4226f3d9de85eeb60357bb521c9b947bd864e634",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave9/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs"
+    }
+  ],
+  "failures": []
+}

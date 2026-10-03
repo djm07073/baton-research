@@ -1,0 +1,125 @@
+{
+  "reviewer": "/root/reuse_storage_types_v3",
+  "utc": "2026-10-03T23:44:02.779775+00:00",
+  "page": "docs/reference/verification.md",
+  "page_sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b",
+  "review_sha256": "05094f9b68142dcf3ef760b9fdbdc4fa23ac1fc8b44bbd1d28e9436b3cb807c8",
+  "verdict": "pass; source/API reader review only",
+  "case_rows_not_run": 9,
+  "source_count_cross_review": 32,
+  "citations_checked": 14,
+  "anchors": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/simulated/ingress.rs",
+      "line": 428,
+      "source_sha256": "d51f08ee8c6cc926a7daae02efd01a1024cc3285fdf0af10aa657cf90d0af8c6",
+      "line_text": "    pub async fn register("
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/cluster.rs",
+      "line": 65,
+      "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+      "line_text": "type MockEngineConfig<V> = EngineConfig<"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/attached.rs",
+      "line": 302,
+      "source_sha256": "0b6f092e02c2dc19ab55135812338838b7e099a6cf3a1037a3018f4948e0e579",
+      "line_text": "    fn verify("
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mocks/cluster.rs",
+      "line": 679,
+      "source_sha256": "3e27802c4ca3a8f4071ad0a0ef0c626b1167a2931f245e69a7eb8c3c482c2481",
+      "line_text": "    /// Crashes one engine uncleanly, leaving its durable partitions intact."
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 635,
+      "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+      "line_text": "    pub fn new(context: E, config: Config<H, P, V, A, R, F, T, B>) -> Self {"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 633,
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line_text": "    async fn start_sync(&self) -> Handle<()> {"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/mocks.rs",
+      "line": 749,
+      "source_sha256": "01638c6efe3fca136e6e7233abbfd07779513cab7a2c8bc71f85c5ea8150ee60",
+      "line_text": "impl PendingSyncs {"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 567,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "    /// Like [crate::Runner::start], but also returns a [Checkpoint] that can be used"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/lib.rs",
+      "line": 247,
+      "source_sha256": "820c6ef52269442050803fa0851f59107717c2277fde3822efa8eb77f8df3a90",
+      "line_text": "pub async fn setup_validators("
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/e2e/src/testing_node.rs",
+      "line": 352,
+      "source_sha256": "8a939308b22e3d5db99d322b2499b468d0ce96d9748a85eba12d66fecef77834",
+      "line_text": "        let votes = self"
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "line": 1317,
+      "source_sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6",
+      "line_text": "    fn test_drainer_replays_inflight_uploads_after_restart() {"
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/lib.rs",
+      "line": 1487,
+      "source_sha256": "cf1d9978be8eb7a556caad1f8ae08a15c83dae7d84a3c7ef523ff2f5ecf87cd6",
+      "line_text": "            // uploads in this run must therefore come from replaying the"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 174,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "/// Track the state of the runtime for determinism auditing."
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/deterministic.rs",
+      "line": 7,
+      "source_sha256": "c4d7adae40c495199937baabae97f26a6bc394e94b2b8231c9d5bb53e994b6d4",
+      "line_text": "//! # External Processes"
+    }
+  ]
+}

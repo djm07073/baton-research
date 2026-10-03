@@ -1,0 +1,16 @@
+{
+  "result": {
+    "protocolVersion": "2025-03-26",
+    "capabilities": {
+      "tools": {
+        "listChanged": true
+      }
+    },
+    "serverInfo": {
+      "name": "commonware-library",
+      "version": "0.0.5"
+    }
+  },
+  "jsonrpc": "2.0",
+  "id": 1
+}

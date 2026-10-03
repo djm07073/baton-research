@@ -1,0 +1,18 @@
+[
+  {
+    "label": "runtime",
+    "path": "runtime/src/deterministic.rs",
+    "version": "v2026.9.0",
+    "matched_numbered_zero_based_lines": 51,
+    "source_sha256": "e768bd8fcf5fe1d53e1732e252668cb8e81f1de75f97f5edbb1934c46a635ade",
+    "response_sha256": "f7a3f31523211ada8d18f30f8e224b90d060e45e4e237e5406e8aa658e5774ff"
+  },
+  {
+    "label": "network",
+    "path": "p2p/src/simulated/network.rs",
+    "version": "v2026.9.0",
+    "matched_numbered_zero_based_lines": 46,
+    "source_sha256": "7ece3b66f3d7fd5e8c6d586bdbd32ff4723d1587579a5020f1bf7df0567fad44",
+    "response_sha256": "cb0d88450a8f1ebddfcb5e8b98a534cad800dda5774b92cb18a0a61d809878d7"
+  }
+]

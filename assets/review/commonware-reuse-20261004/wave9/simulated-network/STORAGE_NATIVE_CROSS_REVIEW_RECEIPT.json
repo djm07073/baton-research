@@ -1,0 +1,18 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "reviewed_at_utc": "2026-10-03T23:44:45.306377+00:00",
+  "reports": {
+    "storage-fixtures": "ca96c73745e96d3c59b885a8bb4c30ed29c7a0afb0d6805b77471ffe92b45ebc",
+    "native-fixtures": "29eb5f5dbd2abb10da77270cc034f310443cb8de73cec11900186c63618362ae"
+  },
+  "review_sha256": "32a534f40fcf05876cbe0ba0d01f0a4e17fc0e06c1e829ffc90f6fa660ae7f60",
+  "fresh_raw_files": 44,
+  "complete_trees": 4,
+  "all_git_blob_matches": true,
+  "report_anchors": 83,
+  "independently_matched_mcp_lines": 169,
+  "resolved_exact_path_issue": "mocks::cluster::Cluster",
+  "remaining_material_issues": [],
+  "canonical_edits": false,
+  "native_build_or_tests": false
+}

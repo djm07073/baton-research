@@ -1,0 +1,9 @@
+{
+  "checked_at_utc": "2026-10-03T23:24:53.695128+00:00",
+  "server": "https://mcp.commonware.xyz",
+  "explicit_version": "v2026.9.0",
+  "numbering": "zero_based",
+  "numbered_lines_matched": 50,
+  "source_sha256": "daa2a6747482ffb8a165546afa31a78371c7c4aad48cf808a918e42e403678aa",
+  "mcp_response_sha256": "471629a8f1ddd6475c59094520df1580d7ef2b3b2e99091ded8181443d7748c9"
+}

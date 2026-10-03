@@ -1,0 +1,186 @@
+{
+  "result": {
+    "tools": [
+      {
+        "name": "get_file",
+        "description": "Retrieve a file from the Commonware repository by its path. Paths should be relative to the repository root (e.g., 'commonware-cryptography/src/lib.rs'). Optionally specify a version (e.g., 'v0.0.64'), defaults to latest. Optionally specify start_line and end_line to fetch a specific range (0-indexed, inclusive). Line numbers in output match those returned by search_code.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "File path relative to repository root, e.g., 'commonware-cryptography/src/lib.rs'"
+            },
+            "version": {
+              "type": "string",
+              "description": "Version tag (e.g., 'v0.0.64'). Defaults to latest."
+            },
+            "start_line": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Start line number (0-indexed, inclusive). Defaults to beginning of file."
+            },
+            "end_line": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "End line number (0-indexed, inclusive). Defaults to end of file."
+            }
+          },
+          "required": [
+            "path"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "search_code",
+        "description": "Search for a pattern across source code files in the Commonware repository. Returns matching files with relevant snippets. Useful for finding function definitions, usage patterns, or understanding how features are implemented.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Search query"
+            },
+            "mode": {
+              "type": "string",
+              "enum": [
+                "substring",
+                "word"
+              ],
+              "default": "substring",
+              "description": "Search mode: 'substring' for literal substring match (min 3 chars), 'word' for word-based search with prefix matching"
+            },
+            "crate": {
+              "type": "string",
+              "description": "Limit search to a specific crate (e.g., 'commonware-cryptography')"
+            },
+            "file_type": {
+              "type": "string",
+              "enum": [
+                "rs",
+                "md",
+                "toml",
+                "all"
+              ],
+              "default": "rs",
+              "description": "File type to search: 'rs' for Rust, 'md' for markdown, 'toml', or 'all'"
+            },
+            "version": {
+              "type": "string",
+              "description": "Version tag. Defaults to latest."
+            },
+            "max_results": {
+              "type": "number",
+              "default": 10,
+              "description": "Maximum number of results to return (default: 10, max: 50)"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "list_versions",
+        "description": "List all available versions of the Commonware Library source code.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "list_crates",
+        "description": "List all crates (primitives) in the Commonware workspace with their descriptions.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "Version tag. Defaults to latest."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_crate_readme",
+        "description": "Get the README documentation for a specific Commonware crate.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "crate": {
+              "type": "string",
+              "description": "Crate name (e.g., 'commonware-cryptography', 'commonware-consensus', 'commonware-p2p')"
+            },
+            "version": {
+              "type": "string",
+              "description": "Version tag. Defaults to latest."
+            }
+          },
+          "required": [
+            "crate"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "get_overview",
+        "description": "Get an overview of the Commonware Library, including its purpose, design principles, and structure.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "list_files",
+        "description": "List all files in a crate or directory. Useful for discovering the structure of a crate before fetching specific files.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "crate": {
+              "type": "string",
+              "description": "Crate name (e.g., 'commonware-cryptography') or directory path. If omitted, lists top-level directories."
+            },
+            "version": {
+              "type": "string",
+              "description": "Version tag. Defaults to latest."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}
