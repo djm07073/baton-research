@@ -1,0 +1,865 @@
+//! Codec wrapper for [Sender] and [Receiver].
+
+use crate::{Blocker, CheckedSender, Receiver, Recipients, Sender};
+use commonware_actor::{Feedback, Unreliable, mailbox};
+use commonware_codec::{Codec, Error};
+use commonware_cryptography::PublicKey;
+use commonware_macros::select_loop;
+use commonware_parallel::Strategy;
+use commonware_runtime::{
+    BufferPool, ContextCell, Handle, Metrics, Spawner, iobuf::EncodeExt, spawn_cell,
+};
+use commonware_utils::futures::Pool;
+use std::{collections::VecDeque, num::NonZeroUsize, time::SystemTime};
+
+/// Wrap a [Sender] and [Receiver] with some [Codec].
+pub const fn wrap<S: Sender, R: Receiver, V: Codec>(
+    config: V::Cfg,
+    pool: BufferPool,
+    sender: S,
+    receiver: R,
+) -> (WrappedSender<S, V>, WrappedReceiver<R, V>) {
+    (
+        WrappedSender::new(pool, sender),
+        WrappedReceiver::new(config, receiver),
+    )
+}
+
+/// Tuple representing a message received from a given public key.
+pub type WrappedMessage<P, V> = (P, Result<V, Error>);
+
+/// Wrapper around a [Sender] that encodes messages using a [Codec].
+#[derive(Clone)]
+pub struct WrappedSender<S: Sender, V: Codec> {
+    pool: BufferPool,
+    sender: S,
+    _phantom_v: std::marker::PhantomData<V>,
+}
+
+impl<S: Sender, V: Codec> WrappedSender<S, V> {
+    /// Create a new [WrappedSender] with the given [Sender] and [BufferPool] for encoding.
+    pub const fn new(pool: BufferPool, sender: S) -> Self {
+        Self {
+            pool,
+            sender,
+            _phantom_v: std::marker::PhantomData,
+        }
+    }
+
+    /// Send a message to a set of recipients.
+    pub fn send(
+        &mut self,
+        recipients: Recipients<S::PublicKey>,
+        message: V,
+        priority: bool,
+    ) -> Vec<S::PublicKey> {
+        self.send_ref(recipients, &message, priority)
+    }
+
+    /// Send a borrowed message to a set of recipients.
+    pub fn send_ref(
+        &mut self,
+        recipients: Recipients<S::PublicKey>,
+        message: &V,
+        priority: bool,
+    ) -> Vec<S::PublicKey> {
+        let encoded = message.encode_with_pool(&self.pool);
+        self.sender.send(recipients, encoded, priority)
+    }
+
+    /// Check if a message can be sent to a set of recipients, returning a [CheckedWrappedSender]
+    /// or the time at which the send can be retried.
+    pub fn check(
+        &mut self,
+        recipients: Recipients<S::PublicKey>,
+    ) -> Result<CheckedWrappedSender<'_, S, V>, SystemTime> {
+        self.sender
+            .check(recipients)
+            .map(|checked| CheckedWrappedSender {
+                pool: &self.pool,
+                sender: checked,
+                _phantom_v: std::marker::PhantomData,
+            })
+    }
+}
+
+/// Checked sender that wraps a [`crate::LimitedSender::Checked`] and encodes messages using a [Codec].
+#[derive(Debug)]
+pub struct CheckedWrappedSender<'a, S: Sender, V: Codec> {
+    pool: &'a BufferPool,
+    sender: S::Checked<'a>,
+    _phantom_v: std::marker::PhantomData<V>,
+}
+
+impl<'a, S: Sender, V: Codec> CheckedWrappedSender<'a, S, V> {
+    pub fn recipients(&self) -> Vec<S::PublicKey> {
+        self.sender.recipients()
+    }
+
+    pub fn send(self, message: V, priority: bool) -> Unreliable<Feedback> {
+        self.send_ref(&message, priority)
+    }
+
+    pub fn send_ref(self, message: &V, priority: bool) -> Unreliable<Feedback> {
+        let encoded = message.encode_with_pool(self.pool);
+        self.sender.send(encoded, priority)
+    }
+}
+
+/// Wrapper around a [Receiver] that decodes messages using a [Codec].
+pub struct WrappedReceiver<R: Receiver, V: Codec> {
+    config: V::Cfg,
+    receiver: R,
+}
+
+impl<R: Receiver, V: Codec> WrappedReceiver<R, V> {
+    /// Create a new [WrappedReceiver] with the given [Receiver].
+    pub const fn new(config: V::Cfg, receiver: R) -> Self {
+        Self { config, receiver }
+    }
+
+    /// Receive a message from an arbitrary recipient.
+    pub async fn recv(&mut self) -> Result<WrappedMessage<R::PublicKey, V>, R::Error> {
+        let (pk, bytes) = self.receiver.recv().await?;
+        let decoded = match V::decode_cfg(bytes.as_ref(), &self.config) {
+            Ok(decoded) => decoded,
+            Err(e) => {
+                return Ok((pk, Err(e)));
+            }
+        };
+        Ok((pk, Ok(decoded)))
+    }
+}
+
+/// A background receiver that receives raw bytes from a [`Receiver`] and spawns concurrent
+/// decode tasks using a [`Codec`].
+///
+/// Decode work is submitted to the provided [`Strategy`], so callers can offload expensive
+/// decodes from the receive loop by choosing a parallel strategy.
+///
+/// The receiver bounds in-flight decode jobs to the strategy's manual parallelism hint before
+/// reading more bytes. Successfully decoded messages are forwarded through a bounded mailbox; if
+/// the consumer falls behind and the mailbox fills, additional decoded messages are dropped (they
+/// would likely no longer be useful by the time we get back to them).
+struct Decoded<P: PublicKey, V>(P, V);
+
+impl<P: PublicKey, V> mailbox::UnreliablePolicy for Decoded<P, V> {
+    type Overflow = VecDeque<Self>;
+
+    fn handle(_overflow: &mut Self::Overflow, _message: Self) -> bool {
+        false
+    }
+}
+
+/// Receiver half for successfully decoded messages from a [`WrappedBackgroundReceiver`].
+pub struct BackgroundReceiver<P: PublicKey, V> {
+    receiver: mailbox::UnreliableReceiver<Decoded<P, V>>,
+}
+
+impl<P: PublicKey, V> BackgroundReceiver<P, V> {
+    /// Receive the next successfully decoded message.
+    pub async fn recv(&mut self) -> Option<(P, V)> {
+        self.receiver
+            .recv()
+            .await
+            .map(|Decoded(peer, value)| (peer, value))
+    }
+}
+
+pub struct WrappedBackgroundReceiver<E, P, B, R, V, T>
+where
+    E: Spawner,
+    P: PublicKey,
+    B: Blocker<PublicKey = P>,
+    R: Receiver<PublicKey = P>,
+    V: Codec + Send,
+    T: Strategy,
+{
+    context: ContextCell<E>,
+    receiver: R,
+    codec_config: V::Cfg,
+    blocker: B,
+    sender: mailbox::UnreliableSender<Decoded<P, V>>,
+    strategy: T,
+}
+
+impl<E, P, B, R, V, T> WrappedBackgroundReceiver<E, P, B, R, V, T>
+where
+    E: Spawner + Metrics,
+    P: PublicKey,
+    B: Blocker<PublicKey = P>,
+    R: Receiver<PublicKey = P>,
+    V: Codec + Send + 'static,
+    T: Strategy,
+{
+    /// Create a new [`WrappedBackgroundReceiver`].
+    ///
+    /// `channel_capacity` controls the size of the internal channel to the consumer.
+    pub fn new(
+        context: E,
+        receiver: R,
+        codec_config: V::Cfg,
+        blocker: B,
+        channel_capacity: NonZeroUsize,
+        strategy: T,
+    ) -> (Self, BackgroundReceiver<P, V>) {
+        let (tx, rx) = mailbox::new_unreliable(context.child("mailbox"), channel_capacity);
+        (
+            Self {
+                context: ContextCell::new(context),
+                receiver,
+                codec_config,
+                blocker,
+                sender: tx,
+                strategy,
+            },
+            BackgroundReceiver { receiver: rx },
+        )
+    }
+
+    /// Start the background receiver.
+    ///
+    /// Returns a [`Handle`] that must be kept alive for the background receiver to continue
+    /// running. Dropping the handle will abort the background receiver.
+    pub fn start(mut self) -> Handle<()> {
+        spawn_cell!(self.context, self.run())
+    }
+
+    /// Run the background receiver's event loop.
+    ///
+    /// Each incoming message is decoded via the provided strategy, up to the in-flight decode
+    /// limit. With a multi-worker strategy this lets the receive loop continue draining the network
+    /// buffer while decodes proceed on pool workers; inline strategies decode on the receive loop.
+    async fn run(mut self) {
+        let decode_queue_capacity = self.strategy.manual().parallelism();
+        let mut decode_pool = Pool::default();
+        let mut receiver_closed = false;
+
+        select_loop! {
+            self.context,
+            on_start => {
+                while decode_pool.len() >= decode_queue_capacity
+                    || (receiver_closed && !decode_pool.is_empty())
+                {
+                    let result = decode_pool.next_completed().await;
+                    Self::handle_decode_result(&mut self.blocker, &mut self.sender, result);
+                }
+                if receiver_closed && decode_pool.is_empty() {
+                    break;
+                }
+            },
+            on_stopped => {},
+            // Process decode completions as they arrive
+            result = decode_pool.next_completed() => {
+                Self::handle_decode_result(&mut self.blocker, &mut self.sender, result);
+            },
+            // Receive raw bytes and submit decode work to the strategy.
+            Ok((peer, bytes)) = self.receiver.recv() else {
+                receiver_closed = true;
+                continue;
+            } => {
+                let config = self.codec_config.clone();
+                let handle = self.strategy.spawn(move |_| {
+                    let result = V::decode_cfg(bytes.as_ref(), &config);
+                    (peer, result)
+                });
+                decode_pool.push(handle);
+            },
+        }
+    }
+
+    fn handle_decode_result(
+        blocker: &mut B,
+        sender: &mut mailbox::UnreliableSender<Decoded<P, V>>,
+        result: (P, Result<V, commonware_codec::Error>),
+    ) {
+        let (peer, decode_result) = result;
+        match decode_result {
+            Ok(value) => {
+                let _ = sender.enqueue(Decoded(peer, value));
+            }
+            Err(err) => {
+                crate::block!(blocker, peer, ?err, "received invalid message");
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{
+        Manager as _, Recipients,
+        simulated::{self, Link, Network, Oracle},
+    };
+    use commonware_actor::Feedback;
+    use commonware_codec::Encode;
+    use commonware_cryptography::{
+        Signer,
+        ed25519::{PrivateKey, PublicKey},
+    };
+    use commonware_macros::test_traced;
+    use commonware_parallel::{Manual, Sequential, Strategy};
+    use commonware_runtime::{Clock as _, IoBuf, Quota, Runner, Supervisor as _, deterministic};
+    use commonware_utils::{NZUsize, channel::mpsc, ordered::Set};
+    use std::{
+        io,
+        num::{NonZeroU32, NonZeroUsize},
+        sync::{
+            Arc,
+            atomic::{AtomicUsize, Ordering},
+        },
+        time::Duration,
+    };
+
+    const LINK: Link = Link {
+        latency: Duration::from_millis(0),
+        jitter: Duration::from_millis(0),
+        success_rate: 1.0,
+    };
+
+    const TEST_QUOTA: Quota = Quota::per_second(NonZeroU32::MAX);
+
+    fn start_network(context: deterministic::Context) -> Oracle<PublicKey, deterministic::Context> {
+        let (network, oracle) = Network::new(
+            context.child("network"),
+            simulated::Config {
+                max_size: 1024 * 1024,
+                max_peers_per_set: NZUsize!(3),
+                disconnect_on_block: true,
+                tracked_peer_sets: NZUsize!(1),
+            },
+        );
+        network.start();
+        oracle
+    }
+
+    fn pk(seed: u64) -> PublicKey {
+        PrivateKey::from_seed(seed).public_key()
+    }
+
+    fn track_peers<I>(oracle: &Oracle<PublicKey, deterministic::Context>, index: u64, peers: I)
+    where
+        I: IntoIterator<Item = PublicKey>,
+    {
+        oracle.manager().track(index, Set::from_iter_dedup(peers));
+    }
+
+    async fn link_bidirectional(
+        oracle: &mut Oracle<PublicKey, deterministic::Context>,
+        a: PublicKey,
+        b: PublicKey,
+    ) {
+        oracle.add_link(a.clone(), b.clone(), LINK).await.unwrap();
+        oracle.add_link(b, a, LINK).await.unwrap();
+    }
+
+    #[derive(Debug)]
+    struct MockReceiver<P: commonware_cryptography::PublicKey> {
+        receiver: mpsc::UnboundedReceiver<crate::Message<P>>,
+    }
+
+    impl<P: commonware_cryptography::PublicKey> crate::Receiver for MockReceiver<P> {
+        type Error = io::Error;
+        type PublicKey = P;
+
+        async fn recv(&mut self) -> Result<crate::Message<Self::PublicKey>, Self::Error> {
+            self.receiver
+                .recv()
+                .await
+                .ok_or_else(|| io::Error::from(io::ErrorKind::BrokenPipe))
+        }
+    }
+
+    #[derive(Debug)]
+    struct CountingReceiver<P: commonware_cryptography::PublicKey> {
+        receiver: mpsc::UnboundedReceiver<crate::Message<P>>,
+        received: Arc<AtomicUsize>,
+    }
+
+    impl<P: commonware_cryptography::PublicKey> crate::Receiver for CountingReceiver<P> {
+        type Error = io::Error;
+        type PublicKey = P;
+
+        async fn recv(&mut self) -> Result<crate::Message<Self::PublicKey>, Self::Error> {
+            self.received.fetch_add(1, Ordering::SeqCst);
+            self.receiver
+                .recv()
+                .await
+                .ok_or_else(|| io::Error::from(io::ErrorKind::BrokenPipe))
+        }
+    }
+
+    #[derive(Clone, Default)]
+    struct NoopBlocker;
+
+    impl crate::Blocker for NoopBlocker {
+        type PublicKey = PublicKey;
+
+        fn block(&mut self, _peer: Self::PublicKey) -> Feedback {
+            Feedback::Ok
+        }
+    }
+
+    #[derive(Clone, Debug)]
+    struct TestStrategy {
+        parallelism: NonZeroUsize,
+        pending: bool,
+    }
+
+    impl TestStrategy {
+        const fn complete(parallelism: NonZeroUsize) -> Self {
+            Self {
+                parallelism,
+                pending: false,
+            }
+        }
+
+        const fn pending(parallelism: NonZeroUsize) -> Self {
+            Self {
+                parallelism,
+                pending: true,
+            }
+        }
+    }
+
+    impl Strategy for TestStrategy {
+        fn manual(&self) -> Manual<Self> {
+            Manual::new(self.clone(), self.parallelism)
+        }
+
+        fn spawn<F, T>(&self, f: F) -> impl core::future::Future<Output = T> + Send + 'static
+        where
+            F: FnOnce(Self) -> T + Send + 'static,
+            T: Send + 'static,
+        {
+            let pending = self.pending;
+            let s = self.clone();
+            async move {
+                if pending {
+                    futures::future::pending::<()>().await;
+                }
+                f(s)
+            }
+        }
+
+        fn fold_init<I, INIT, T, R, ID, F, RD>(
+            &self,
+            iter: I,
+            init: INIT,
+            identity: ID,
+            fold_op: F,
+            reduce_op: RD,
+        ) -> R
+        where
+            I: IntoIterator<IntoIter: Send, Item: Send> + Send,
+            INIT: Fn() -> T + Send + Sync,
+            T: Send,
+            R: Send,
+            ID: Fn() -> R + Send + Sync,
+            F: Fn(R, &mut T, I::Item) -> R + Send + Sync,
+            RD: Fn(R, R) -> R + Send + Sync,
+        {
+            Sequential.fold_init(iter, init, identity, fold_op, reduce_op)
+        }
+
+        fn try_fold<I, R, E, ID, F, RD>(
+            &self,
+            iter: I,
+            identity: ID,
+            fold_op: F,
+            reduce_op: RD,
+        ) -> Result<R, E>
+        where
+            I: IntoIterator<IntoIter: Send, Item: Send> + Send,
+            R: Send,
+            E: Send,
+            ID: Fn() -> R + Send + Sync,
+            F: Fn(R, I::Item) -> Result<R, E> + Send + Sync,
+            RD: Fn(R, R) -> R + Send + Sync,
+        {
+            Sequential.try_fold(iter, identity, fold_op, reduce_op)
+        }
+
+        fn run<R, SEQ, PAR>(&self, len: usize, serial: SEQ, parallel: PAR) -> R
+        where
+            R: Send,
+            SEQ: FnOnce() -> R + Send,
+            PAR: FnOnce() -> R + Send,
+        {
+            Sequential.run(len, serial, parallel)
+        }
+
+        fn try_run<R, E, SEQ, PAR>(&self, len: usize, serial: SEQ, parallel: PAR) -> Result<R, E>
+        where
+            R: Send,
+            E: Send,
+            SEQ: FnOnce() -> Result<R, E> + Send,
+            PAR: FnOnce() -> Result<R, E> + Send,
+        {
+            Sequential.try_run(len, serial, parallel)
+        }
+
+        fn join<A, B, RA, RB>(&self, a: A, b: B) -> (RA, RB)
+        where
+            A: FnOnce() -> RA + Send,
+            B: FnOnce() -> RB + Send,
+            RA: Send,
+            RB: Send,
+        {
+            Sequential.join(a, b)
+        }
+
+        fn sort_by<T, C>(&self, items: &mut [T], compare: C)
+        where
+            T: Send,
+            C: Fn(&T, &T) -> std::cmp::Ordering + Send + Sync,
+        {
+            Sequential.sort_by(items, compare);
+        }
+    }
+
+    #[test_traced]
+    fn test_valid_messages_forwarded() {
+        let executor = deterministic::Runner::default();
+        executor.start(|context| async move {
+            let mut oracle = start_network(context.child("network"));
+
+            let pk1 = pk(0);
+            let pk2 = pk(1);
+            let control1 = oracle.control(pk1.clone());
+            let control2 = oracle.control(pk2.clone());
+            track_peers(&oracle, 0, [pk1.clone(), pk2.clone()]);
+            link_bidirectional(&mut oracle, pk1.clone(), pk2.clone()).await;
+
+            let (mut sender1, _) = control1.register(0, TEST_QUOTA).await.unwrap();
+            let (_, receiver2) = control2.register(0, TEST_QUOTA).await.unwrap();
+
+            let (bg, mut rx) = WrappedBackgroundReceiver::<_, _, _, _, u32, _>::new(
+                context.child("bg"),
+                receiver2,
+                (),
+                control2.clone(),
+                NZUsize!(16),
+                Sequential,
+            );
+            let _handle = bg.start();
+
+            let msg: u32 = 42;
+            let _ = sender1.send(Recipients::One(pk2.clone()), msg.encode(), true);
+
+            let (from, value) = rx.recv().await.unwrap();
+            assert_eq!(from, pk1);
+            assert_eq!(value, 42u32);
+        });
+    }
+
+    #[test_traced]
+    fn test_invalid_codec_blocks_peer() {
+        let executor = deterministic::Runner::default();
+        executor.start(|context| async move {
+            let mut oracle = start_network(context.child("network"));
+
+            let pk1 = pk(0);
+            let pk2 = pk(1);
+            let pk3 = pk(2);
+            let control1 = oracle.control(pk1.clone());
+            let control2 = oracle.control(pk2.clone());
+            track_peers(&oracle, 0, [pk1.clone(), pk2.clone(), pk3.clone()]);
+            link_bidirectional(&mut oracle, pk1.clone(), pk2.clone()).await;
+
+            let (mut sender1, _) = control1.register(0, TEST_QUOTA).await.unwrap();
+            let (_, receiver2) = control2.register(0, TEST_QUOTA).await.unwrap();
+
+            let (bg, mut rx) = WrappedBackgroundReceiver::<_, _, _, _, u32, _>::new(
+                context.child("bg"),
+                receiver2,
+                (),
+                control2.clone(),
+                NZUsize!(16),
+                Sequential,
+            );
+            let _handle = bg.start();
+
+            // Send a truncated payload (1 byte, but u32 needs 4).
+            let invalid = IoBuf::from(vec![0xFFu8]);
+            let _ = sender1.send(Recipients::One(pk2.clone()), invalid, true);
+
+            // Then send a valid message from a different peer to confirm
+            // the receiver is still running.
+            let control3 = oracle.control(pk3.clone());
+            link_bidirectional(&mut oracle, pk3.clone(), pk2.clone()).await;
+            let (mut sender3, _) = control3.register(0, TEST_QUOTA).await.unwrap();
+
+            let msg: u32 = 99;
+            let _ = sender3.send(Recipients::One(pk2.clone()), msg.encode(), true);
+
+            let (from, value) = rx.recv().await.unwrap();
+            assert_eq!(from, pk3);
+            assert_eq!(value, 99u32);
+
+            // Verify pk1 was blocked.
+            loop {
+                let blocked = oracle.blocked().await.unwrap();
+                if blocked.contains(&(pk2.clone(), pk1.clone())) {
+                    break;
+                }
+
+                context.sleep(Duration::from_millis(1)).await;
+            }
+        });
+    }
+
+    #[test_traced]
+    fn test_multiple_valid_messages() {
+        let executor = deterministic::Runner::default();
+        executor.start(|context| async move {
+            let mut oracle = start_network(context.child("network"));
+
+            let pk1 = pk(0);
+            let pk2 = pk(1);
+            let control1 = oracle.control(pk1.clone());
+            let control2 = oracle.control(pk2.clone());
+            track_peers(&oracle, 0, [pk1.clone(), pk2.clone()]);
+            link_bidirectional(&mut oracle, pk1.clone(), pk2.clone()).await;
+
+            let (mut sender1, _) = control1.register(0, TEST_QUOTA).await.unwrap();
+            let (_, receiver2) = control2.register(0, TEST_QUOTA).await.unwrap();
+
+            let count = 20;
+            let (bg, mut rx) = WrappedBackgroundReceiver::<_, _, _, _, u32, _>::new(
+                context.child("bg"),
+                receiver2,
+                (),
+                control2.clone(),
+                NZUsize!(20),
+                Sequential,
+            );
+            let _handle = bg.start();
+
+            for i in 0..count {
+                let msg: u32 = i;
+                let _ = sender1.send(Recipients::One(pk2.clone()), msg.encode(), true);
+            }
+
+            let mut received = Vec::new();
+            for _ in 0..count {
+                let (from, value) = rx.recv().await.unwrap();
+                assert_eq!(from, pk1);
+                received.push(value);
+            }
+            received.sort();
+            assert_eq!(received, (0..count).collect::<Vec<u32>>());
+        });
+    }
+
+    #[test_traced]
+    fn test_decode_with_strategy() {
+        let executor = deterministic::Runner::default();
+        executor.start(|context| async move {
+            let mut oracle = start_network(context.child("network"));
+
+            let pk1 = pk(0);
+            let pk2 = pk(1);
+            let control1 = oracle.control(pk1.clone());
+            let control2 = oracle.control(pk2.clone());
+            track_peers(&oracle, 0, [pk1.clone(), pk2.clone()]);
+            link_bidirectional(&mut oracle, pk1.clone(), pk2.clone()).await;
+
+            let (mut sender1, _) = control1.register(0, TEST_QUOTA).await.unwrap();
+            let (_, receiver2) = control2.register(0, TEST_QUOTA).await.unwrap();
+
+            // Give the decoded mailbox enough capacity for all messages so this test only
+            // exercises the decode concurrency bound.
+            let count = 50u32;
+            let (bg, mut rx) = WrappedBackgroundReceiver::<_, _, _, _, u32, _>::new(
+                context.child("bg"),
+                receiver2,
+                (),
+                control2.clone(),
+                NZUsize!(50),
+                TestStrategy::complete(NZUsize!(4)),
+            );
+            let _handle = bg.start();
+
+            for i in 0..count {
+                let _ = sender1.send(Recipients::One(pk2.clone()), i.encode(), true);
+            }
+
+            let mut received = Vec::new();
+            for _ in 0..count {
+                let (from, value) = rx.recv().await.unwrap();
+                assert_eq!(from, pk1);
+                received.push(value);
+            }
+            received.sort();
+            assert_eq!(received, (0..count).collect::<Vec<u32>>());
+        });
+    }
+
+    #[test_traced]
+    fn test_invalid_among_valid_only_blocks_offender() {
+        let executor = deterministic::Runner::default();
+        executor.start(|context| async move {
+            let mut oracle = start_network(context.child("network"));
+
+            let pk1 = pk(0);
+            let pk2 = pk(1);
+            let pk3 = pk(2);
+            let control1 = oracle.control(pk1.clone());
+            let control2 = oracle.control(pk2.clone());
+            let control3 = oracle.control(pk3.clone());
+            track_peers(&oracle, 0, [pk1.clone(), pk2.clone(), pk3.clone()]);
+            link_bidirectional(&mut oracle, pk1.clone(), pk2.clone()).await;
+            link_bidirectional(&mut oracle, pk3.clone(), pk2.clone()).await;
+
+            let (mut sender1, _) = control1.register(0, TEST_QUOTA).await.unwrap();
+            let (_, receiver2) = control2.register(0, TEST_QUOTA).await.unwrap();
+            let (mut sender3, _) = control3.register(0, TEST_QUOTA).await.unwrap();
+
+            let (bg, mut rx) = WrappedBackgroundReceiver::<_, _, _, _, u32, _>::new(
+                context.child("bg"),
+                receiver2,
+                (),
+                control2.clone(),
+                NZUsize!(16),
+                Sequential,
+            );
+            let _handle = bg.start();
+
+            // pk3 sends valid message.
+            let _ = sender3.send(Recipients::One(pk2.clone()), 10u32.encode(), true);
+
+            // pk1 sends invalid message.
+            let _ = sender1.send(Recipients::One(pk2.clone()), IoBuf::from(vec![0xFF]), true);
+
+            // pk3 sends another valid message.
+            let _ = sender3.send(Recipients::One(pk2.clone()), 20u32.encode(), true);
+
+            // Collect the two valid messages.
+            let mut values = Vec::new();
+            for _ in 0..2 {
+                let (from, value) = rx.recv().await.unwrap();
+                assert_eq!(from, pk3);
+                values.push(value);
+            }
+            values.sort();
+            assert_eq!(values, vec![10u32, 20]);
+
+            // Only pk1 should be blocked.
+            loop {
+                let blocked = oracle.blocked().await.unwrap();
+                assert!(!blocked.contains(&(pk2.clone(), pk3.clone())));
+                if blocked.contains(&(pk2.clone(), pk1.clone())) {
+                    break;
+                }
+
+                context.sleep(Duration::from_millis(1)).await;
+            }
+        });
+    }
+
+    #[test_traced]
+    fn test_decoded_messages_drop_when_receiver_full() {
+        let executor = deterministic::Runner::default();
+        executor.start(|context| async move {
+            let sender = pk(0);
+            let (tx, receiver) = mpsc::unbounded_channel();
+
+            for i in 0..2u32 {
+                tx.send((sender.clone(), IoBuf::from(i.encode())))
+                    .expect("mock receiver should be open");
+            }
+            drop(tx);
+
+            let (bg, mut rx) = WrappedBackgroundReceiver::<_, _, _, _, u32, _>::new(
+                context.child("bg"),
+                MockReceiver { receiver },
+                (),
+                NoopBlocker,
+                NZUsize!(1),
+                Sequential,
+            );
+            let handle = bg.start();
+            handle.await.expect("background receiver should complete");
+
+            let (from, value) = rx.recv().await.unwrap();
+            assert_eq!(from, sender);
+            assert_eq!(value, 0);
+            assert!(rx.recv().await.is_none());
+        });
+    }
+
+    #[test_traced]
+    fn test_decode_backpressure_limits_raw_receives() {
+        let executor = deterministic::Runner::default();
+        executor.start(|context| async move {
+            let sender = pk(0);
+            let (tx, receiver) = mpsc::unbounded_channel();
+            let received = Arc::new(AtomicUsize::new(0));
+
+            for i in 0..10u32 {
+                tx.send((sender.clone(), IoBuf::from(i.encode())))
+                    .expect("mock receiver should be open");
+            }
+
+            let (bg, _rx) = WrappedBackgroundReceiver::<_, _, _, _, u32, _>::new(
+                context.child("bg"),
+                CountingReceiver {
+                    receiver,
+                    received: received.clone(),
+                },
+                (),
+                NoopBlocker,
+                NZUsize!(16),
+                TestStrategy::pending(NZUsize!(2)),
+            );
+            let handle = bg.start();
+
+            while received.load(Ordering::SeqCst) < 2 {
+                context.sleep(Duration::from_millis(1)).await;
+            }
+            for _ in 0..10 {
+                context.sleep(Duration::from_millis(1)).await;
+                assert_eq!(received.load(Ordering::SeqCst), 2);
+            }
+
+            drop(handle);
+        });
+    }
+
+    #[test_traced]
+    fn test_drain_decode_pool_after_receiver_closure() {
+        let executor = deterministic::Runner::default();
+        executor.start(|context| async move {
+            let sender = pk(0);
+            let (tx, receiver) = mpsc::unbounded_channel();
+            let count = 64u32;
+
+            for i in 0..count {
+                tx.send((sender.clone(), IoBuf::from(i.encode())))
+                    .expect("mock receiver should be open");
+            }
+            drop(tx);
+
+            let (bg, mut rx) = WrappedBackgroundReceiver::<_, _, _, _, u32, _>::new(
+                context.child("bg"),
+                MockReceiver { receiver },
+                (),
+                NoopBlocker,
+                NZUsize!(64),
+                Sequential,
+            );
+            let _handle = bg.start();
+
+            let mut values = Vec::new();
+            while let Some((from, value)) = rx.recv().await {
+                assert_eq!(from, sender);
+                values.push(value);
+            }
+            values.sort_unstable();
+
+            assert_eq!(values, (0..count).collect::<Vec<u32>>());
+        });
+    }
+}

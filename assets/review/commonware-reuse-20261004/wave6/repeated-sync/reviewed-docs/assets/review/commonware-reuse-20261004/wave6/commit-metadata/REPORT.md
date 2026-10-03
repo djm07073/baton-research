@@ -1,0 +1,48 @@
+# Reuse commit storage mechanisms under the existing Storage owner
+
+Baseline `8b61492bbebdbf34dbc10e5d43c3117e19618377`; GitBook `jCIYtF1KMH1WI7GnVz2Y`. Previous goal turn made verified progress: wave5 source/reader review, CR8 publication, exact GitHub push and selective local synchronization. The requested six-hour window remains active. This report is source/API inspection, not a commit protocol or runtime implementation.
+
+**Use the existing QMDB flush barrier, Metadata atomic updates and journal replay where their chosen data fits. A separate generic transaction/cursor/WAL engine is not implied by state/output/cursor linkage.** Storage still supplies exact commit identity, retention and a selected recovery contract across those stores. The existing primitive cannot select that contract for us.
+
+## Fresh sources and exact API scope
+
+[Manifest](source-manifest.json) records 12 fresh source files and complete pinned native/Constantinople/Kora Git trees, with every file's Git blob verified. Native remains `534af0ede48affd35b2111522527547b4cc9bf72`; references retain their prior distinct dependency graphs. No external checkout, dependency, native build, protocol test, schema or policy was changed.
+
+| Need | Existing public mechanism | Fact it establishes, and remaining application scope |
+|---|---|---|
+| Apply matching sealed material | Native `DatabaseSet::finalize(batches)` | Each member applies its own batch under its Shared writer and returns a flush observer; no tuple-wide transaction/rollback. |
+| Observe covering DB persistence | `Barrier::durable` | Every retained flush succeeds; false only for Closed/Aborted handle shutdown, other deferred errors panic. Not an output/cursor transaction by itself. |
+| Atomically update a small metadata collection | `Metadata::{put,sync,put_sync}` | All current pending metadata changes share one atomic Metadata update. This is atomic within the store, not across QMDB/output journals. |
+| Pipeline a metadata flush | `Metadata::start_sync -> (Self, Handle<()>)` | Awaited handle supplies sync guarantee. Internal pending completion is retained; next sync observes it before writing. Dropping the observer does not cancel the disk sync or forget its failure. |
+| Retain selected records in a variable journal | `Journal::{append,start_sync,sync}`, `Contiguous::{read,replay}` | Existing storage/codec/replay algorithms; append alone is not durable application commit or authenticated provenance. Exact record schema and retention remain open. |
+| Share DB readers/writers safely | `Shared::read/write`, `WriteSlot::put`, read-only Reader | Existing ownership mechanics; interrupted consuming mutation loses the DB cell and requires recovery, not ordinary retry through another cloned handle. |
+
+Sources: [DatabaseSet tuple finalize](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L998), [Barrier contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L425), [Metadata public updates](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/storage.rs#L683), [Metadata sync ownership](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/storage.rs#L742), [variable journal append/sync](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/contiguous/variable.rs#L2267), [journal read/replay trait](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/contiguous/variable.rs#L2412), [Shared failure semantics](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L112).
+
+### Metadata already implements the atomic copy/recovery mechanism
+
+Metadata keeps versioned left/right blobs with CRC32 to detect incomplete writes and recovers a complete copy. Multiple puts then one sync commit the current map together; put_sync also commits all other pending metadata changes, not just its provided key. Reimplementing two-copy/checksum/delta-write logic would duplicate upstream code. CRC integrity is not authenticated native/execution evidence; the caller must decode/check exact linked identities and applicable durable state. [Metadata format/atomic scope](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/mod.rs#L1).
+
+The public value/config is generic Codec; key is Span. `init_bounded` bounds existing blob allocation and discards malformed/oversized atomic copies. It is not by itself an ongoing mutation/metadata-byte budget. Opening an empty/recovered metadata map cannot be interpreted as a proof that no application commit ever existed. Chosen storage/record retention and recovery consistency checks remain separate. No reset/fresh partition or bounded numeric config is selected here. [Initialization methods](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/storage.rs#L644).
+
+### Keep consuming storage work outside advisory cancellation
+
+The native DatabaseSet tuple joins individually locked member mutations rather than holding a partial tuple of writer slots, avoiding cross-database read deadlock. The wrapper deliberately panics on mutable finalize failure because other members may already be applied. Shared loses a taken DB permanently on mutation failure/panic/cancellation; clones point to the same lost cell. Metadata/Journal mutations similarly consume and return their handles only on success. Existing primitives preserve this ownership contract; no extra task framework can turn interruption into rollback. [Tuple lifecycle](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L998), [fatal finalize boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L1783), [Metadata consuming contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/storage.rs#L616), [Journal ownership](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/contiguous/variable.rs#L2160).
+
+## Actual application patterns
+
+Constantinople uses a tuple of Shared state and append-only transaction-history QMDBs. It demonstrates reuse of existing database-set batching/sealing/flush coordination instead of a separate receipt-history database engine, but transaction digests are not Baton's complete output/cursor/provenance schema. Its outer Stateful lifecycle is a reference only. [Concrete state/history tuple](https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/application/src/consensus/db.rs#L38).
+
+Kora's QmdbHandle documents an atomic commit call, while its store writes three partition mutation lists sequentially with commit-sequence sentinels. The markers detect inconsistent partial partition progress; that source does not supply crash-atomic rollback or Baton state/output/cursor recovery. Copy useful effect/storage responsibility boundaries, not the atomic wording or its workload-specific sentinel keys. [Handle comment](https://github.com/refcell/kora/blob/446b4c7aba80e8358486ddb43a276c5bfa183102/crates/storage/handlers/src/qmdb.rs#L138), [actual writes/markers](https://github.com/refcell/kora/blob/446b4c7aba80e8358486ddb43a276c5bfa183102/crates/storage/qmdb/src/store.rs#L334).
+
+Native glue processing puts a returned barrier onto its existing completion pool and acknowledges Marshal only after durability; false leaves delivery unacknowledged for restart. This is a concrete deferred-ACK ownership pattern, not a ready Multimmit delivery cursor or a dependency on Application. Reuse the pool/barrier/ack mechanisms under Orderer→Executor→Storage's exact linkage. [Native completion/ACK pattern](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/processing.rs#L307).
+
+## Reader proposal
+
+Add a compact existing-primitive table to execution/qmdb.md's commit section: QMDB Barrier for matching state, Metadata for atomic small metadata, optional existing journal/QMDB history for retained output records. Say one Storage owner connects these; no separate generic commit/cursor manager is mandatory. Keep the cross-store recovery/encoding/retention choice open; do not prescribe a record format, sync order or checkpoint rule. Existing failure table already accurately states fatal/shutdown boundaries and should remain.
+
+At the overview, a small reuse-versus-application table can make the actual six logical roles easier to understand without new components or changing color meaning. Existing diagrams are consistent with current boundaries: orange attachments do not imply modifying native algorithms; green roles mark semantics, not entirely new networking/storage/task implementations.
+
+## Limits
+
+No complete commit protocol, root normalization, crash-atomic application transaction, implementation, test or benchmark follows from these APIs. This audit does not choose Metadata versus journal versus authenticated history placement, their schema/budgets, recovery ordering, sealing boundary or a new public trait. State/output/cursor/provenance linkage and no successful delivery ACK before it remain required.

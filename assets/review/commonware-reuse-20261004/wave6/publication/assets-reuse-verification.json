@@ -1,0 +1,142 @@
+{
+  "checked_at_utc": "2026-10-03T22:30:19.346310+00:00",
+  "assets": [
+    {
+      "source": "docs/assets/diagrams/diagram-01.svg",
+      "id": "IMepYvG6OWV7za2cILOO",
+      "size": 33284,
+      "sha256": "1cc2f73798aebe66e0df5340e9b8c08089b0584ee7548f2945260905acac8559",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-02.svg",
+      "id": "qbQkhn0BQQgpeISVzfJs",
+      "size": 38689,
+      "sha256": "471643b14f453a36226a53e4f2bd585aefc29c3d7ec88f0f6b75fa6a392aefec",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-03.svg",
+      "id": "zvCQUzrKNabWicu40NTs",
+      "size": 36878,
+      "sha256": "43236514d36d4a482938ab1b5c07cceb56fd46d573cf74f0865aee5f936815b9",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-04.svg",
+      "id": "eaPOsOx1t2nbqGMj93FU",
+      "size": 33892,
+      "sha256": "f434320b7787129fd370cc6dbe4313470c3eaac18a60d806c8893b13e9510f97",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-05.svg",
+      "id": "YIKhFyYeRIgr6BiG0obA",
+      "size": 45522,
+      "sha256": "e62e69a588c1bf8ab6826c148f5460a70c6bd78cd6482dfd54907620107f28ef",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-06.svg",
+      "id": "w9Igrr4BB8or5Cn9xw0r",
+      "size": 37579,
+      "sha256": "9be4f7d669f013df97b47eef920b99100dcf7c4b2b9daa704c3f61b817c8a3a6",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-07.svg",
+      "id": "xvaGC7074dsnzbejMJ9T",
+      "size": 32418,
+      "sha256": "a4197537a07c462855a651bc55ebaec28dfc09ce2d09d71c8d36e37e1b8529cb",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-08.svg",
+      "id": "iJmESSGzJFFFu5mLdD0f",
+      "size": 35980,
+      "sha256": "184c85b990f2fbfb2f977c01b16399acdfa2a184970a6ccb0848743b93bdc93a",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-09.svg",
+      "id": "T4xyWmfF2biCWZuEouFU",
+      "size": 41337,
+      "sha256": "61745836f1fa617c1beec94554690bf7e6cbc23e60944bf09845aab846e4cd75",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-10.svg",
+      "id": "oG8obzAo5v1Zcqpm7t7B",
+      "size": 29183,
+      "sha256": "0ac9ed66c95d13fdded7fa061856d320dc86cc4fc9125445bc5f7953dfb3308d",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-11.svg",
+      "id": "xSdWevP0oz6ZQztGSkHE",
+      "size": 36171,
+      "sha256": "e0859f3d552cb117790ba65b3c61c5b0735b8e5a4ea22e8ec7713e14650e58f3",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-12.svg",
+      "id": "moDLRZuj5jgjhnNDMzU5",
+      "size": 35828,
+      "sha256": "8ffeb31d72c057e91004e0674e74ed964afbbba170c4cb31673e18ce9a6b4fb9",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-13.svg",
+      "id": "yN0x6NNORqZlPBKwwBG6",
+      "size": 40529,
+      "sha256": "0ca441e6c0202ccd6b8d71a4b38fa386a11ad391b4043724744484f65568849a",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-14.svg",
+      "id": "pFF9b5zgNR72bAGlOU1R",
+      "size": 42078,
+      "sha256": "109065a5b3be43bcb661809e1754cc05cf721759a74c09c655f7a99202ff2948",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-15.svg",
+      "id": "XnDwSxdk52uMqOIYgdEQ",
+      "size": 43526,
+      "sha256": "957cbfc54b6c53c341eba4619f31838811f3681f2813a1ee56560dde412583f0",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-16.svg",
+      "id": "fOekhY4WT7LqtMiWLq46",
+      "size": 26410,
+      "sha256": "2f77191f2bfef52bec24c217353e1f2b3bc88841d0c3c6003c9667b1b1a1ebaa",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-17.svg",
+      "id": "IcHsW8e35w2wRO0wjYV2",
+      "size": 40407,
+      "sha256": "6db0e1fd7e04031a2b66c42891e289ae85ac981e28f13ab1df3f1508b618fbcd",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/diagrams/diagram-18.svg",
+      "id": "pSGz4DUitmteipj3xyz5",
+      "size": 16979,
+      "sha256": "6dce7bb98004ab0f970b4d66e24ce3ace964b645222f2b010e1f9c0c754a69c9",
+      "unchanged_from_git_baseline": true
+    },
+    {
+      "source": "docs/assets/interfaces/baton.rs",
+      "id": "KJRa3LWtKiKJXWNWEo89",
+      "size": 11493,
+      "sha256": "cf43886aff0008c7a8d646f44899f8ab6ab3d0c5a6e59f0745bd6df276ee09a9",
+      "unchanged_from_git_baseline": true
+    }
+  ],
+  "all_95_file_metadata_unchanged": true,
+  "new_uploads": 0,
+  "raw_remote_bytes_verified": false,
+  "failures": []
+}

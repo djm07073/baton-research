@@ -1,0 +1,16 @@
+{
+  "excluded": [
+    {
+      "source": "native",
+      "path": "consensus/src/multimmit/actors/resolver/ingress.rs",
+      "status": 404,
+      "reason": "Exploratory guessed path absent from pinned tree; public mailbox is defined in resolver/mod.rs."
+    },
+    {
+      "source": "native",
+      "path": "consensus/src/multimmit/actors/resolver/mailbox.rs",
+      "status": 404,
+      "reason": "Exploratory guessed path absent from pinned tree; public mailbox is defined in resolver/mod.rs."
+    }
+  ]
+}

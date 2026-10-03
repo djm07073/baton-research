@@ -1,0 +1,11 @@
+{
+  "valid_content": true,
+  "explicit_release": "v2026.9.0",
+  "fresh_release_revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+  "git_blob_sha1": "ce4437f1d966d83ce45468a49798f5453918c4f7",
+  "sha256": "da939538c1c575178b5596ba10e657fe1cb993f921dffc39bf19ad841b5bb0dc",
+  "mcp_label_offset_to_github": 1,
+  "matched_lines": 66,
+  "native_byte_identical": true,
+  "checked_at_utc": "2026-10-03T22:12:28.686316+00:00"
+}

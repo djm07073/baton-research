@@ -47,6 +47,16 @@ Rust declaration: [Executor](../overview/rust-interfaces.md#executor). The Rust 
 
 ## Reuse certificate building blocks
 
+**Receive result messages through existing typed P2P; validate and collect them inside Executor.** `p2p::utils::codec::wrap` adapts the raw authenticated Sender/Receiver pair to typed messages. It supplies encoding/decoding and the transport peer identity; Executor checks the full execution subject and original eligible signers. Accepted sends do not prove remote receipt or result certification. [Typed wrapper](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L16).
+
+| Existing exchange component | Use | Application boundary |
+|---|---|---|
+| Typed P2P sender/receiver | Receive signatures and certificates in the existing Executor owner | Bounded codec, exact statement, eligible original signer and signature checks |
+| Optional buffered broadcast | Share/cache an identified certificate or material artifact; get/subscribe by known digest | One object per digest; individual signers' different responses cannot all use only their shared statement digest as the cache key |
+| Conditional collector | Solicit request-bound responses using Handler/Monitor and separate request/response channels | Counts requested transport peers before application validation; count is not f+1 verified signers, and cancellation/reissue is explicit |
+
+The buffered cache is transient and has no arbitrary incoming-signature stream. Collector does not supply the resolver's timeout/retry loop. Neither replaces Executor's full-subject signer accumulator. These are conditional existing-handle recipes; message codec, solicitation, topology and budgets remain open. [Buffer cache identity](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L327), [Collector response counting](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/collector/src/p2p/engine.rs#L207), [Collector cancellation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/collector/src/lib.rs#L35).
+
 **Commonware can verify and package the signatures; Executor decides what they certify.** Reuse `cryptography::certificate::{Subject, Attestation, Scheme, Signers}` when the selected signing scheme fits. These are existing crypto APIs, distinct from Multimmit's protocol-specific Scheme. They can avoid another implementation of signer encoding, batch signature verification and cryptographic aggregation. Result-signing keys and scheme remain undecided. [Certificate APIs](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L178).
 
 | Step | Existing API | Executor connection |

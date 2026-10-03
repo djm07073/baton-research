@@ -1,0 +1,338 @@
+[
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/mod.rs",
+    "line": 41,
+    "covered": true,
+    "text": "/// A [`Source`] of operations for the given database."
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/database.rs",
+    "line": 48,
+    "covered": true,
+    "text": "pub trait Database: Sized + Send {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/sync/mod.rs",
+    "line": 125,
+    "covered": true,
+    "text": "        where"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/current/sync/mod.rs",
+    "line": 234,
+    "covered": true,
+    "text": "     $key_bound:path, $value_bound:ident"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/engine.rs",
+    "line": 99,
+    "covered": true,
+    "text": "pub struct Config<DB, S>"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/mod.rs",
+    "line": 611,
+    "covered": true,
+    "text": "/// A [`ManagedDb`] with a state-sync entrypoint."
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/mod.rs",
+    "line": 1663,
+    "covered": true,
+    "text": "/// Sync a database that durably persists an operation log."
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/mod.rs",
+    "line": 699,
+    "covered": true,
+    "text": "/// A [`DatabaseSet`] that can run one-time state sync."
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/target.rs",
+    "line": 16,
+    "covered": true,
+    "text": "    /// The ops root the sync engine verifies streaming batches against."
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/source.rs",
+    "line": 226,
+    "covered": true,
+    "text": "/// In a [`Response::Boundary`], the proof, the operation, and the pinned nodes are verified as a"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/current/sync/mod.rs",
+    "line": 6,
+    "covered": true,
+    "text": "//! The canonical root of a `current` database combines the ops root, grafted root, and optional"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/current/proof/mod.rs",
+    "line": 57,
+    "covered": true,
+    "text": "pub struct OpsRootWitness<F: Graftable, D: Digest> {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/current/db.rs",
+    "line": 292,
+    "covered": true,
+    "text": "    pub async fn ops_root_witness(&self) -> Result<OpsRootWitness<F, H::Digest>, Error<F>> {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/target.rs",
+    "line": 29,
+    "covered": true,
+    "text": "    ///"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/current/db.rs",
+    "line": 431,
+    "covered": true,
+    "text": "    /// Returns the most recent location from which this database can safely be synced, and the"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/engine.rs",
+    "line": 522,
+    "covered": true,
+    "text": "    /// Check if sync is complete based on the current journal size and target"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/engine.rs",
+    "line": 724,
+    "covered": true,
+    "text": "    pub(crate) async fn step(mut self) -> Result<NextStep<Self, DB>, Error<DB, S>> {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/engine.rs",
+    "line": 777,
+    "covered": true,
+    "text": "    async fn complete(mut self) -> Result<DB, Error<DB, S>> {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/journal.rs",
+    "line": 23,
+    "covered": true,
+    "text": "    ///"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/journal.rs",
+    "line": 113,
+    "covered": true,
+    "text": "            return Ok(journal);"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/engine.rs",
+    "line": 383,
+    "covered": true,
+    "text": "    pub async fn reset_for_target_update("
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/engine.rs",
+    "line": 577,
+    "covered": true,
+    "text": "        // Removal aborts a request's future, so a result for an untracked ID should"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/engine.rs",
+    "line": 245,
+    "covered": true,
+    "text": "    pub async fn new(config: Config<DB, S>) -> Result<Self, Error<DB, S>> {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/current/sync/mod.rs",
+    "line": 225,
+    "covered": true,
+    "text": ""
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/mod.rs",
+    "line": 157,
+    "covered": true,
+    "text": "    /// Take the database out for a by-value mutation."
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/batch.rs",
+    "line": 2743,
+    "covered": true,
+    "text": "    ///"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/current/db.rs",
+    "line": 721,
+    "covered": true,
+    "text": ""
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/p2p/actor.rs",
+    "line": 112,
+    "covered": true,
+    "text": "impl<E, P, D, B, F, DB> Actor<E, P, D, B, F, DB>"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/p2p/actor.rs",
+    "line": 145,
+    "covered": true,
+    "text": "    pub fn start("
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/p2p/mailbox.rs",
+    "line": 129,
+    "covered": true,
+    "text": ""
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/p2p/actor.rs",
+    "line": 228,
+    "covered": true,
+    "text": "        match message {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "glue/src/stateful/db/p2p/mailbox.rs",
+    "line": 123,
+    "covered": true,
+    "text": ""
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/sync/source.rs",
+    "line": 27,
+    "covered": true,
+    "text": "        start: Location<F>,"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/db.rs",
+    "line": 501,
+    "covered": true,
+    "text": "    pub async fn historical_proof("
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/current/db.rs",
+    "line": 410,
+    "covered": true,
+    "text": "    /// Returns an ops-level historical proof for the specified range."
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/batch.rs",
+    "line": 338,
+    "covered": true,
+    "text": "pub struct MerkleizedBatch<F: Family, D: Digest, U: update::Update, S: Strategy> {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/batch.rs",
+    "line": 2733,
+    "covered": true,
+    "text": "    pub fn validate_batch("
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/qmdb/any/operation/mod.rs",
+    "line": 23,
+    "covered": true,
+    "text": "///"
+  },
+  {
+    "repo": "commonwarexyz/constantinople",
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/application/src/consensus/db.rs",
+    "line": 28,
+    "covered": true,
+    "text": "/// Shared QMDB handle for the application state database."
+  },
+  {
+    "repo": "commonwarexyz/constantinople",
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/application/src/consensus/glue.rs",
+    "line": 38,
+    "covered": true,
+    "text": "    fn sync_targets(block: &Self::Block) -> <Self::Databases as DatabaseSet<E>>::SyncTargets {"
+  },
+  {
+    "repo": "commonwarexyz/constantinople",
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "bin/validator/src/run.rs",
+    "line": 808,
+    "covered": true,
+    "text": "            resolver: network.register(RESOLVER_CHANNEL, quota),"
+  },
+  {
+    "repo": "commonwarexyz/constantinople",
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "bin/validator/src/run.rs",
+    "line": 886,
+    "covered": true,
+    "text": "        let startup = match startup {"
+  }
+]

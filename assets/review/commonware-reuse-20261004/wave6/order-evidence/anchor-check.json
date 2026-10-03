@@ -1,0 +1,246 @@
+{
+  "checked_at_utc": "2026-10-03T22:18:16.004065+00:00",
+  "report_sha256": "e482cd9fbbc99aacbc9e9b2b1cd69e2d8f30656c4e9494c66b52b5f6fda174b4",
+  "anchors": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/durability.rs",
+      "line": 1189,
+      "anchor_text": "pub enum Change<V: Variant, D: Digest> {",
+      "sha256": "e598ad620b40842c3198b2f748a4c1d8b07b4e56c5d1352e6eb1493c71a3e2d8"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/durability.rs",
+      "line": 1584,
+      "anchor_text": "pub(crate) struct DurableState<V: Variant, D: Digest> {",
+      "sha256": "e598ad620b40842c3198b2f748a4c1d8b07b4e56c5d1352e6eb1493c71a3e2d8"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/durability.rs",
+      "line": 1970,
+      "anchor_text": "fn ordering_snapshot_payload() -> ComponentPayload {",
+      "sha256": "e598ad620b40842c3198b2f748a4c1d8b07b4e56c5d1352e6eb1493c71a3e2d8"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/storage/checkpoint.rs",
+      "line": 1,
+      "anchor_text": "//! Durable machine checkpoints, stored outside the safety journal.",
+      "sha256": "83cb4bf07b4eb7665759ead3f6f817c2c88bfd535d5c098801dc4fd5d2b1ff29"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/finality.rs",
+      "line": 1,
+      "anchor_text": "//! Per-leader vote pools and local leader finality.",
+      "sha256": "00c1b5b4d7e114b6d3f7654b61ba3bfe9a228adb3bb94ceac1f1b71878eb81a0"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/state.rs",
+      "line": 680,
+      "anchor_text": "        let views = ViewState::new(&profile);",
+      "sha256": "1248cc868fe5b9bf30cc209037c57f468b94fe275ac329cb0b7e40e3817da8c3"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/reducer.rs",
+      "line": 1306,
+      "anchor_text": "    /// Replays one contiguous durable event without emitting live capabilities.",
+      "sha256": "f1a0876072f4f061bf6e889f3cff060855f87a4b07b0f386daf9c74b7076fc8f"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 175,
+      "anchor_text": "/// The recovered snapshot is synced before the journal is rolled, so a crash at any later point",
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/reducer.rs",
+      "line": 3840,
+      "anchor_text": "    /// Retires every view strictly below the retention floor.",
+      "sha256": "f1a0876072f4f061bf6e889f3cff060855f87a4b07b0f386daf9c74b7076fc8f"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 568,
+      "anchor_text": "",
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/resolver/actor.rs",
+      "line": 223,
+      "anchor_text": "            canonical: None,",
+      "sha256": "2671df7aedaa0474434ec3fbc91ba15b69206276a82cdb6d76d6d0e7253aebb1"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/emission.rs",
+      "line": 17,
+      "anchor_text": "pub enum ViewProof<V: Variant, D: Digest> {",
+      "sha256": "95fe010141c20d166fe4d82930fd0c090d235f35b814603bf915b908a66782c8"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/history.rs",
+      "line": 10,
+      "anchor_text": "/// One compact commitment link for safe-to-extend producer tips.",
+      "sha256": "c5c4410900877c0896f7ff27e874e6ab350b7c0fda62cf2d4c794696dc275ff7"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/scheme/bls12381_threshold.rs",
+      "line": 293,
+      "anchor_text": "    pub fn certificate_verifier<D: Digest>(",
+      "sha256": "d7b7ed50b389726a9f0c4c09f1330a8ac660200372a0e8ed339280b429123317"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/scheme/bls12381_threshold.rs",
+      "line": 889,
+      "anchor_text": "    pub fn verify_artifacts<R: CryptoRng, H: Hasher<Digest = D>, D: Digest>(",
+      "sha256": "d7b7ed50b389726a9f0c4c09f1330a8ac660200372a0e8ed339280b429123317"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 529,
+      "anchor_text": "#[derive(Clone)]",
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/mod.rs",
+      "line": 223,
+      "anchor_text": "#[cfg(not(target_arch = \"wasm32\"))]",
+      "sha256": "9f58a1e30af574043372672e6419199e22ba34a2ff1d357181fde3253465ba21"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/voter/journal.rs",
+      "line": 687,
+      "anchor_text": "enum Command<V, D>",
+      "sha256": "414c94255f6981fea6e676877889a0838d42a9c8e2669560965f82e65209e3f8"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/durability/codec.rs",
+      "line": 152,
+      "anchor_text": "impl<V: Variant, D: Digest> Write for DomainEvent<V, D> {",
+      "sha256": "e449b74f0eb4c444ae4b673857766dca2dcdc226ccb812f6b5ffc37456c01f12"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/voter/executor.rs",
+      "line": 602,
+      "anchor_text": "    fn persist(&mut self, directive: PersistDirective<V, H::Digest>) -> Result<(), Fatal> {",
+      "sha256": "780e2723d917711ef7800a20de1aadd79048d32904ce38bcf2463994115aacea"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/voter/executor.rs",
+      "line": 121,
+      "anchor_text": "",
+      "sha256": "780e2723d917711ef7800a20de1aadd79048d32904ce38bcf2463994115aacea"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/voter/actor.rs",
+      "line": 2358,
+      "anchor_text": "            .resolver",
+      "sha256": "7dc0b0fd04eb3706d6dc4a3873ae5615c2356d859a5102f998e7949c670036bc"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/mod.rs",
+      "line": 77,
+      "anchor_text": "        value: Self::Value,",
+      "sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/mod.rs",
+      "line": 163,
+      "anchor_text": "pub trait MultiArchive: Archive {",
+      "sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877"
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "line": 192,
+      "anchor_text": "        // Validators retain all finalized history, so both archives are immutable: they never",
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "line": 273,
+      "anchor_text": "        // Create marshal",
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/archive.rs",
+      "line": 1,
+      "anchor_text": "//! Archive storage for the follower.",
+      "sha256": "2c38f414d398369311d605669f9fe9db6a4bb03356c405bf8c24d5b2da473b31"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/alias.rs",
+      "line": 37,
+      "anchor_text": "    };",
+      "sha256": "3cab895e0f42a507f6a9e93c9edfbada3c95c8d05a9053916777e93ebe587aa0"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/storage/hybrid/mod.rs",
+      "line": 289,
+      "anchor_text": "/// Finalized blocks store backed by a prunable archive (a hot cache of",
+      "sha256": "988cca432e9cd10032642f31228435dfaf75241e71d61f9eca9f564a909c5b39"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/storage/hybrid/mod.rs",
+      "line": 360,
+      "anchor_text": "    /// Drops blocks below the execution layer's finalized watermark.",
+      "sha256": "988cca432e9cd10032642f31228435dfaf75241e71d61f9eca9f564a909c5b39"
+    }
+  ]
+}

@@ -1,0 +1,360 @@
+//! Archive storage for the follower.
+//!
+//! The follower stores two collections of finalized data:
+//!
+//!   - Certificates (finalizations keyed by height)
+//!   - Blocks (finalized blocks keyed by digest)
+//!
+//! When pruning is enabled (`pruning_depth` is `Some`), both collections use
+//! [prunable::Archive] so old sections can be reclaimed. When pruning is
+//! disabled, [immutable::Archive] is used instead (optimized for append-only
+//! workloads with freezer-backed storage).
+//!
+//! [Certificates] and [Blocks] are enum wrappers that implement the
+//! [marshal::store::Certificates] and [marshal::store::Blocks] traits,
+//! respectively, by delegating to whichever archive variant was initialized.
+
+use alto_types::{Block, Finalization, Scheme};
+use commonware_consensus::{marshal, types::Height};
+use commonware_cryptography::{sha256::Digest, Digestible};
+use commonware_runtime::{
+    buffer::paged::{page_size, CacheRef},
+    BufferPooler, Clock, Metrics, Storage,
+};
+use commonware_storage::{
+    archive::{self, immutable, prunable, Archive, Identifier},
+    translator::FourCap,
+};
+use commonware_utils::{NZUsize, NZU64};
+use std::num::NonZero;
+
+// Shared constants (also used by marshal config in engine.rs)
+pub(crate) const PRUNABLE_ITEMS_PER_SECTION: NonZero<u64> = NZU64!(4_096);
+pub(crate) const REPLAY_BUFFER: NonZero<usize> = NZUsize!(8 * 1024 * 1024); // 8MB
+pub(crate) const WRITE_BUFFER: NonZero<usize> = NZUsize!(8 * 1024 * 1024); // 8MB
+
+// Finalized archive constants.
+const FINALIZED_COMPRESSION: Option<u8> = Some(3);
+const PAGE_CACHE_PHYSICAL_PAGE_SIZE: u32 = 4_096;
+const PAGE_CACHE_PAGE_SIZE: NonZero<u16> = page_size(PAGE_CACHE_PHYSICAL_PAGE_SIZE);
+const PAGE_CACHE_CAPACITY: NonZero<usize> = NZUsize!(8_192); // 32MB
+
+// Prunable archive partitions.
+const PRUNABLE_FINALIZATIONS_BY_HEIGHT_METADATA_PARTITION: &str =
+    "follower-prunable-finalizations-by-height-metadata";
+const PRUNABLE_FINALIZATIONS_BY_HEIGHT_KEY_PARTITION: &str =
+    "follower-prunable-finalizations-by-height-key";
+const PRUNABLE_FINALIZATIONS_BY_HEIGHT_VALUE_PARTITION: &str =
+    "follower-prunable-finalizations-by-height-value";
+const PRUNABLE_FINALIZED_BLOCKS_METADATA_PARTITION: &str =
+    "follower-prunable-finalized-blocks-metadata";
+const PRUNABLE_FINALIZED_BLOCKS_KEY_PARTITION: &str = "follower-prunable-finalized-blocks-key";
+const PRUNABLE_FINALIZED_BLOCKS_VALUE_PARTITION: &str = "follower-prunable-finalized-blocks-value";
+
+// Immutable archive partitions.
+pub const IMMUTABLE_ITEMS_PER_SECTION: NonZero<u64> = NZU64!(262_144);
+const IMMUTABLE_FINALIZATIONS_BY_HEIGHT_METADATA_PARTITION: &str =
+    "follower-finalizations-by-height-metadata";
+const IMMUTABLE_FINALIZATIONS_BY_HEIGHT_FREEZER_TABLE_PARTITION: &str =
+    "follower-finalizations-by-height-freezer-table";
+const IMMUTABLE_FINALIZATIONS_BY_HEIGHT_KEY_PARTITION: &str =
+    "follower-immutable-finalizations-by-height-key";
+const IMMUTABLE_FINALIZATIONS_BY_HEIGHT_VALUE_PARTITION: &str =
+    "follower-immutable-finalizations-by-height-value";
+const IMMUTABLE_FINALIZATIONS_BY_HEIGHT_ORDINAL_PARTITION: &str =
+    "follower-finalizations-by-height-ordinal";
+const IMMUTABLE_FINALIZED_BLOCKS_METADATA_PARTITION: &str = "follower-finalized-blocks-metadata";
+const IMMUTABLE_FINALIZED_BLOCKS_FREEZER_TABLE_PARTITION: &str =
+    "follower-finalized-blocks-freezer-table";
+const IMMUTABLE_FINALIZED_BLOCKS_KEY_PARTITION: &str = "follower-immutable-finalized-blocks-key";
+const IMMUTABLE_FINALIZED_BLOCKS_VALUE_PARTITION: &str =
+    "follower-immutable-finalized-blocks-value";
+const IMMUTABLE_FINALIZED_BLOCKS_ORDINAL_PARTITION: &str = "follower-finalized-blocks-ordinal";
+
+// Immutable-only constants (freezer table sizing)
+const FREEZER_TABLE_INITIAL_SIZE: u32 = 2u32.pow(14); // 1MB
+const FREEZER_TABLE_RESIZE_FREQUENCY: u8 = 4;
+const FREEZER_TABLE_RESIZE_CHUNK_SIZE: u32 = 2u32.pow(16); // ~3MB
+const FREEZER_JOURNAL_TARGET_SIZE: u64 = 1_073_741_824; // 1GB
+
+/// Initialize the certificate and block archives based on the pruning config.
+///
+/// Returns the two archive wrappers plus the shared page cache (needed by
+/// marshal for its own prunable internal stores).
+pub(crate) async fn init<E, C>(
+    context: &mut E,
+    scheme: &C,
+    pruning_depth: Option<u64>,
+) -> (Certificates<E, C>, Blocks<E>, CacheRef)
+where
+    E: BufferPooler + Storage + Metrics + Clock,
+    C: Scheme,
+{
+    let page_cache = CacheRef::from_pooler(context, PAGE_CACHE_PAGE_SIZE, PAGE_CACHE_CAPACITY);
+
+    if pruning_depth.is_some() {
+        let fbh = prunable::Archive::init(
+            context.child("finalizations_by_height"),
+            prunable::Config {
+                translator: FourCap,
+                metadata_partition: PRUNABLE_FINALIZATIONS_BY_HEIGHT_METADATA_PARTITION.to_string(),
+                key_partition: PRUNABLE_FINALIZATIONS_BY_HEIGHT_KEY_PARTITION.to_string(),
+                key_page_cache: page_cache.clone(),
+                value_partition: PRUNABLE_FINALIZATIONS_BY_HEIGHT_VALUE_PARTITION.to_string(),
+                compression: FINALIZED_COMPRESSION,
+                codec_config: scheme.certificate_codec_config(),
+                items_per_section: PRUNABLE_ITEMS_PER_SECTION,
+                key_write_buffer: WRITE_BUFFER,
+                value_write_buffer: WRITE_BUFFER,
+                replay_buffer: REPLAY_BUFFER,
+            },
+        )
+        .await
+        .expect("failed to initialize finalizations by height archive");
+        let fb = prunable::Archive::init(
+            context.child("finalized_blocks"),
+            prunable::Config {
+                translator: FourCap,
+                metadata_partition: PRUNABLE_FINALIZED_BLOCKS_METADATA_PARTITION.to_string(),
+                key_partition: PRUNABLE_FINALIZED_BLOCKS_KEY_PARTITION.to_string(),
+                key_page_cache: page_cache.clone(),
+                value_partition: PRUNABLE_FINALIZED_BLOCKS_VALUE_PARTITION.to_string(),
+                compression: FINALIZED_COMPRESSION,
+                codec_config: Block::unbounded_codec_config(),
+                items_per_section: PRUNABLE_ITEMS_PER_SECTION,
+                key_write_buffer: WRITE_BUFFER,
+                value_write_buffer: WRITE_BUFFER,
+                replay_buffer: REPLAY_BUFFER,
+            },
+        )
+        .await
+        .expect("failed to initialize finalized blocks archive");
+        (
+            Certificates::Prunable(fbh),
+            Blocks::Prunable(fb),
+            page_cache,
+        )
+    } else {
+        let fbh = immutable::Archive::init(
+            context.child("finalizations_by_height"),
+            immutable::Config {
+                metadata_partition: IMMUTABLE_FINALIZATIONS_BY_HEIGHT_METADATA_PARTITION
+                    .to_string(),
+                freezer_table_partition: IMMUTABLE_FINALIZATIONS_BY_HEIGHT_FREEZER_TABLE_PARTITION
+                    .to_string(),
+                freezer_table_initial_size: FREEZER_TABLE_INITIAL_SIZE,
+                freezer_table_resize_frequency: FREEZER_TABLE_RESIZE_FREQUENCY,
+                freezer_table_resize_chunk_size: FREEZER_TABLE_RESIZE_CHUNK_SIZE,
+                freezer_key_partition: IMMUTABLE_FINALIZATIONS_BY_HEIGHT_KEY_PARTITION.to_string(),
+                freezer_key_page_cache: page_cache.clone(),
+                freezer_value_partition: IMMUTABLE_FINALIZATIONS_BY_HEIGHT_VALUE_PARTITION
+                    .to_string(),
+                freezer_value_target_size: FREEZER_JOURNAL_TARGET_SIZE,
+                freezer_value_compression: FINALIZED_COMPRESSION,
+                ordinal_partition: IMMUTABLE_FINALIZATIONS_BY_HEIGHT_ORDINAL_PARTITION.to_string(),
+                items_per_section: IMMUTABLE_ITEMS_PER_SECTION,
+                freezer_key_write_buffer: WRITE_BUFFER,
+                freezer_value_write_buffer: WRITE_BUFFER,
+                ordinal_write_buffer: WRITE_BUFFER,
+                replay_buffer: REPLAY_BUFFER,
+                codec_config: scheme.certificate_codec_config(),
+            },
+        )
+        .await
+        .expect("failed to initialize finalizations by height archive");
+        let fb = immutable::Archive::init(
+            context.child("finalized_blocks"),
+            immutable::Config {
+                metadata_partition: IMMUTABLE_FINALIZED_BLOCKS_METADATA_PARTITION.to_string(),
+                freezer_table_partition: IMMUTABLE_FINALIZED_BLOCKS_FREEZER_TABLE_PARTITION
+                    .to_string(),
+                freezer_table_initial_size: FREEZER_TABLE_INITIAL_SIZE,
+                freezer_table_resize_frequency: FREEZER_TABLE_RESIZE_FREQUENCY,
+                freezer_table_resize_chunk_size: FREEZER_TABLE_RESIZE_CHUNK_SIZE,
+                freezer_key_partition: IMMUTABLE_FINALIZED_BLOCKS_KEY_PARTITION.to_string(),
+                freezer_key_page_cache: page_cache.clone(),
+                freezer_value_partition: IMMUTABLE_FINALIZED_BLOCKS_VALUE_PARTITION.to_string(),
+                freezer_value_target_size: FREEZER_JOURNAL_TARGET_SIZE,
+                freezer_value_compression: FINALIZED_COMPRESSION,
+                ordinal_partition: IMMUTABLE_FINALIZED_BLOCKS_ORDINAL_PARTITION.to_string(),
+                items_per_section: IMMUTABLE_ITEMS_PER_SECTION,
+                freezer_key_write_buffer: WRITE_BUFFER,
+                freezer_value_write_buffer: WRITE_BUFFER,
+                ordinal_write_buffer: WRITE_BUFFER,
+                replay_buffer: REPLAY_BUFFER,
+                codec_config: Block::unbounded_codec_config(),
+            },
+        )
+        .await
+        .expect("failed to initialize finalized blocks archive");
+        (
+            Certificates::Immutable(fbh),
+            Blocks::Immutable(fb),
+            page_cache,
+        )
+    }
+}
+
+/// Wrapper over [immutable::Archive] and [prunable::Archive] for finalization
+/// certificates. Implements [marshal::store::Certificates].
+#[allow(clippy::large_enum_variant)]
+pub(crate) enum Certificates<E: BufferPooler + Storage + Metrics + Clock, C: Scheme> {
+    Immutable(immutable::Archive<E, Digest, Finalization<C>>),
+    Prunable(prunable::Archive<FourCap, E, Digest, Finalization<C>>),
+}
+
+impl<E, C> marshal::store::Certificates for Certificates<E, C>
+where
+    E: BufferPooler + Storage + Metrics + Clock,
+    C: Scheme,
+{
+    type BlockDigest = Digest;
+    type Commitment = Digest;
+    type Scheme = C;
+    type Error = archive::Error;
+
+    async fn put(
+        self,
+        height: Height,
+        commitment: Digest,
+        finalization: Finalization<C>,
+    ) -> Result<Self, Self::Error> {
+        match self {
+            Self::Immutable(a) => Archive::put(a, height.get(), commitment, finalization)
+                .await
+                .map(Self::Immutable),
+            Self::Prunable(a) => Archive::put(a, height.get(), commitment, finalization)
+                .await
+                .map(Self::Prunable),
+        }
+    }
+
+    async fn sync(self) -> Result<Self, Self::Error> {
+        match self {
+            Self::Immutable(a) => Archive::sync(a).await.map(Self::Immutable),
+            Self::Prunable(a) => Archive::sync(a).await.map(Self::Prunable),
+        }
+    }
+
+    async fn get(
+        &self,
+        id: Identifier<'_, Digest>,
+    ) -> Result<Option<Finalization<C>>, Self::Error> {
+        match self {
+            Self::Immutable(a) => Archive::get(a, id).await,
+            Self::Prunable(a) => Archive::get(a, id).await,
+        }
+    }
+
+    async fn has(&self, height: Height) -> Result<bool, Self::Error> {
+        match self {
+            Self::Immutable(a) => Archive::has(a, Identifier::Index(height.get())).await,
+            Self::Prunable(a) => Archive::has(a, Identifier::Index(height.get())).await,
+        }
+    }
+
+    async fn prune(self, min: Height) -> Result<Self, Self::Error> {
+        match self {
+            Self::Immutable(a) => Ok(Self::Immutable(a)),
+            Self::Prunable(a) => prunable::Archive::prune(a, min.get())
+                .await
+                .map(Self::Prunable),
+        }
+    }
+
+    fn last_index(&self) -> Option<Height> {
+        match self {
+            Self::Immutable(a) => Archive::last_index(a).map(Height::new),
+            Self::Prunable(a) => Archive::last_index(a).map(Height::new),
+        }
+    }
+
+    fn ranges_from(&self, from: Height) -> impl Iterator<Item = (Height, Height)> {
+        match self {
+            Self::Immutable(a) => Archive::ranges_from(a, from.get())
+                .map(|(start, end)| (Height::new(start), Height::new(end)))
+                .collect::<Vec<_>>(),
+            Self::Prunable(a) => Archive::ranges_from(a, from.get())
+                .map(|(start, end)| (Height::new(start), Height::new(end)))
+                .collect::<Vec<_>>(),
+        }
+        .into_iter()
+    }
+}
+
+/// Wrapper over [immutable::Archive] and [prunable::Archive] for finalized
+/// blocks. Implements [marshal::store::Blocks].
+#[allow(clippy::large_enum_variant)]
+pub(crate) enum Blocks<E: BufferPooler + Storage + Metrics + Clock> {
+    Immutable(immutable::Archive<E, Digest, Block>),
+    Prunable(prunable::Archive<FourCap, E, Digest, Block>),
+}
+
+impl<E: BufferPooler + Storage + Metrics + Clock> marshal::store::Blocks for Blocks<E> {
+    type Block = Block;
+    type Error = archive::Error;
+
+    async fn put(self, block: Block) -> Result<Self, Self::Error> {
+        let height = block.height.get();
+        let digest = block.digest();
+        match self {
+            Self::Immutable(a) => Archive::put(a, height, digest, block)
+                .await
+                .map(Self::Immutable),
+            Self::Prunable(a) => Archive::put(a, height, digest, block)
+                .await
+                .map(Self::Prunable),
+        }
+    }
+
+    async fn sync(self) -> Result<Self, Self::Error> {
+        match self {
+            Self::Immutable(a) => Archive::sync(a).await.map(Self::Immutable),
+            Self::Prunable(a) => Archive::sync(a).await.map(Self::Prunable),
+        }
+    }
+
+    async fn get(&self, id: Identifier<'_, Digest>) -> Result<Option<Block>, Self::Error> {
+        match self {
+            Self::Immutable(a) => Archive::get(a, id).await,
+            Self::Prunable(a) => Archive::get(a, id).await,
+        }
+    }
+
+    async fn prune(self, min: Height) -> Result<Self, Self::Error> {
+        match self {
+            Self::Immutable(a) => Ok(Self::Immutable(a)),
+            Self::Prunable(a) => prunable::Archive::prune(a, min.get())
+                .await
+                .map(Self::Prunable),
+        }
+    }
+
+    fn missing_items(&self, start: Height, max: usize) -> Vec<Height> {
+        match self {
+            Self::Immutable(a) => Archive::missing_items(a, start.get(), max)
+                .into_iter()
+                .map(Height::new)
+                .collect(),
+            Self::Prunable(a) => Archive::missing_items(a, start.get(), max)
+                .into_iter()
+                .map(Height::new)
+                .collect(),
+        }
+    }
+
+    fn next_gap(&self, value: Height) -> (Option<Height>, Option<Height>) {
+        let (a, b) = match self {
+            Self::Immutable(a) => Archive::next_gap(a, value.get()),
+            Self::Prunable(a) => Archive::next_gap(a, value.get()),
+        };
+        (a.map(Height::new), b.map(Height::new))
+    }
+
+    fn last_index(&self) -> Option<Height> {
+        match self {
+            Self::Immutable(a) => Archive::last_index(a).map(Height::new),
+            Self::Prunable(a) => Archive::last_index(a).map(Height::new),
+        }
+    }
+}

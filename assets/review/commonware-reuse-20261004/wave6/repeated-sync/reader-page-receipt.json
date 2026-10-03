@@ -1,0 +1,92 @@
+{
+  "baseline": "8b61492bbebdbf34dbc10e5d43c3117e19618377",
+  "pages": [
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "f760f5b05aae5f3000babdcf1e63a0d988bc72b454169b4434aec315544942d9",
+      "bytes": 14803
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "bytes": 11711
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "bytes": 28127
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "1e9a61fc4830cef9ff5e70710416bfd9cc7c5411411e8548d443ba0bbbee41db",
+      "bytes": 10798
+    }
+  ],
+  "new_source_anchors": [
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/durability.rs",
+      "line": 1584,
+      "covered": true,
+      "text": "pub(crate) struct DurableState<V: Variant, D: Digest> {"
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/durability.rs",
+      "line": 1970,
+      "covered": true,
+      "text": "fn ordering_snapshot_payload() -> ComponentPayload {"
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/reducer.rs",
+      "line": 1306,
+      "covered": true,
+      "text": "    /// Replays one contiguous durable event without emitting live capabilities."
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 568,
+      "covered": true,
+      "text": ""
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 175,
+      "covered": true,
+      "text": "/// The recovered snapshot is synced before the journal is rolled, so a crash at any later point"
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/reducer.rs",
+      "line": 3840,
+      "covered": true,
+      "text": "    /// Retires every view strictly below the retention floor."
+    }
+  ],
+  "new_anchor_count": 6,
+  "uncovered": [],
+  "rust_blocks_unchanged": true,
+  "traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "rust_export_byte_identical": true
+}

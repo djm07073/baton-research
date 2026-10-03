@@ -1,0 +1,39 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "checked_at_utc": "2026-10-03T22:23:37.379676+00:00",
+  "receipts": [
+    {
+      "receipt": "assets/review/commonware-reuse-20261004/wave6/repeated-sync/sync-config-mcp-result.json",
+      "receipt_sha256": "a60e6d9b025762600b1a7f90be5a3cd2c5cb3e844133534ead6fd9d44cf5bb0a",
+      "explicit_release": "v2026.9.0",
+      "path": "storage/src/qmdb/sync/engine.rs",
+      "matched_numbered_lines": 1219,
+      "mcp_line_offset_to_github": 1,
+      "trailing_empty_split_line": true,
+      "fresh_release_git_blob": "7c6f602408b522ecd636e4ac640bdd809593eb54",
+      "status": "actual-source-content-matched"
+    },
+    {
+      "receipt": "assets/review/commonware-reuse-20261004/wave6/repeated-sync/current-sync-mcp-result.json",
+      "receipt_sha256": "8d5d0a96b5893e6eb63bc74a338f73dbca2c179624d3c18237bcaee20725e4f8",
+      "explicit_release": "v2026.9.0",
+      "path": "storage/src/qmdb/current/sync/mod.rs",
+      "matched_numbered_lines": 379,
+      "mcp_line_offset_to_github": 1,
+      "trailing_empty_split_line": true,
+      "fresh_release_git_blob": "c698579e3f831abca73fe940812bc740d0ca30ee",
+      "status": "actual-source-content-matched"
+    },
+    {
+      "receipt": "assets/review/commonware-reuse-20261004/wave6/repeated-sync/p2p-source-mcp-result.json",
+      "receipt_sha256": "9c8b426357a1a2f74717c9d3072432e2e4198f3c5fc71e4b04dc85223cd779d0",
+      "explicit_release": "v2026.9.0",
+      "path": "glue/src/stateful/db/p2p/mod.rs",
+      "matched_numbered_lines": 25,
+      "mcp_line_offset_to_github": 1,
+      "trailing_empty_split_line": true,
+      "fresh_release_git_blob": "9bec5cadd63040ab01f341883bd4ee97d4af9cef",
+      "status": "actual-source-content-matched"
+    }
+  ]
+}

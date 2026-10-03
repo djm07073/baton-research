@@ -1,0 +1,57 @@
+[
+  {
+    "repository": "commonwarexyz/alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "fetched_utc": "2026-10-03T22:26:01.408556+00:00",
+    "method": "Authenticated gh api GET complete tree; no credential modification",
+    "exit_code": 0,
+    "local": "cross-sources/commonwarexyz--alto-authenticated-tree.json",
+    "sha256": "0e589066e2193fab5becdcfb7d8c801cd3b37766cf9b3fefa482391d7ba658a5",
+    "truncated": false,
+    "mismatches": []
+  },
+  {
+    "repository": "commonwarexyz/constantinople",
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "fetched_utc": "2026-10-03T22:26:01.371536+00:00",
+    "method": "Authenticated gh api GET complete tree; no credential modification",
+    "exit_code": 0,
+    "local": "cross-sources/commonwarexyz--constantinople-authenticated-tree.json",
+    "sha256": "fbacce140362086b0f417a67e9859fd045313076514d87995ba3c7a47d99647a",
+    "truncated": false,
+    "mismatches": []
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "fetched_utc": "2026-10-03T22:26:01.679356+00:00",
+    "method": "Authenticated gh api GET complete tree; no credential modification",
+    "exit_code": 0,
+    "local": "cross-sources/commonwarexyz--monorepo-authenticated-tree.json",
+    "sha256": "02f4df922a37f9c8642649ada181294c53b59266a8f32d8e280c8103cd88add6",
+    "truncated": false,
+    "mismatches": []
+  },
+  {
+    "repository": "refcell/kora",
+    "pin": "446b4c7aba80e8358486ddb43a276c5bfa183102",
+    "fetched_utc": "2026-10-03T22:26:01.349065+00:00",
+    "method": "Authenticated gh api GET complete tree; no credential modification",
+    "exit_code": 0,
+    "local": "cross-sources/refcell--kora-authenticated-tree.json",
+    "sha256": "2a21a3b34475859bc8d36fc451b521f710e897268ff6fd472ec100c86146e221",
+    "truncated": false,
+    "mismatches": []
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "fetched_utc": "2026-10-03T22:26:01.704982+00:00",
+    "method": "Authenticated gh api GET complete tree; no credential modification",
+    "exit_code": 0,
+    "local": "cross-sources/tempoxyz--tempo-authenticated-tree.json",
+    "sha256": "52b92568d0b493a0d12febbd935a1ca7282a711f97eb92c67402883e4ebab91b",
+    "truncated": false,
+    "mismatches": []
+  }
+]

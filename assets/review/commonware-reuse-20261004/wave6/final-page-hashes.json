@@ -1,0 +1,50 @@
+[
+  {
+    "path": "docs/consensus/block-body.md",
+    "sha256": "58e684e650355918c1e601ef9ee43a2ffe14600a50f8559d54ced5dfa8956491",
+    "old_headings_preserved": 5,
+    "old_external_citations_preserved": 41
+  },
+  {
+    "path": "docs/consensus/ordered-input.md",
+    "sha256": "f760f5b05aae5f3000babdcf1e63a0d988bc72b454169b4434aec315544942d9",
+    "old_headings_preserved": 3,
+    "old_external_citations_preserved": 25
+  },
+  {
+    "path": "docs/e2e/recovery.md",
+    "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+    "old_headings_preserved": 4,
+    "old_external_citations_preserved": 15
+  },
+  {
+    "path": "docs/execution/interfaces.md",
+    "sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+    "old_headings_preserved": 4,
+    "old_external_citations_preserved": 6
+  },
+  {
+    "path": "docs/execution/qmdb.md",
+    "sha256": "54e5c420980de25a2304a6208e8fd8302f251000e8d8972ce16edfc2b9e71435",
+    "old_headings_preserved": 7,
+    "old_external_citations_preserved": 38
+  },
+  {
+    "path": "docs/execution/state-sync.md",
+    "sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+    "old_headings_preserved": 3,
+    "old_external_citations_preserved": 7
+  },
+  {
+    "path": "docs/overview/architecture.md",
+    "sha256": "1e9a61fc4830cef9ff5e70710416bfd9cc7c5411411e8548d443ba0bbbee41db",
+    "old_headings_preserved": 5,
+    "old_external_citations_preserved": 0
+  },
+  {
+    "path": "docs/reference/integration.md",
+    "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+    "old_headings_preserved": 12,
+    "old_external_citations_preserved": 57
+  }
+]

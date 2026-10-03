@@ -249,6 +249,65 @@
           "sha256": "880481a271e4f4077d760d6e1378b68eae99d767ee89782eb5922d5346018ab6"
         }
       ]
+    },
+    {
+      "wave": 6,
+      "status": "reviewed_and_published",
+      "reports": [
+        {
+          "path": "wave6/DOCS_RESOLUTION.md",
+          "sha256": "73670a2ae7278edaaf657cc5b2fc2ce755e9e8cff0e77eba381a0bf30c800171"
+        },
+        {
+          "path": "wave6/commit-metadata/REPORT.md",
+          "sha256": "9ea6eb545de885145784a937b9d9d7c53d37d635a7f8b0bf0bc06249d5175740"
+        },
+        {
+          "path": "wave6/order-evidence/DOCS_GLOBAL_REVIEW.md",
+          "sha256": "3e85d01b0ed2a504f3c8d8648df7ab92f13cee6ca5e6161d7ecf4a481f44bceb"
+        },
+        {
+          "path": "wave6/order-evidence/REPORT.md",
+          "sha256": "e482cd9fbbc99aacbc9e9b2b1cd69e2d8f30656c4e9494c66b52b5f6fda174b4"
+        },
+        {
+          "path": "wave6/order-evidence/RESULT_TRANSPORT_CROSS_REVIEW.md",
+          "sha256": "665924dfe3835a7332054fbf7f42e5256b9513c4683bb0e8b4be4c9f185552ed"
+        },
+        {
+          "path": "wave6/repeated-sync/COMMIT_METADATA_CROSS_REVIEW.md",
+          "sha256": "b2d2cd9208e7a943c36cd597b198930cafe7069225ca3b1c2eb9b99c04018ed4"
+        },
+        {
+          "path": "wave6/repeated-sync/DOCS_ORDER_RECOVERY_REVIEW.md",
+          "sha256": "a4c7044ba359e01b1493381d19ade651f194e268cad8bfeb6057c30b4d028980"
+        },
+        {
+          "path": "wave6/repeated-sync/ORDER_EVIDENCE_CROSS_REVIEW.md",
+          "sha256": "2f3a0a576964ca2b055d1f1c703ca109f76203e46e9720020391e031427123fe"
+        },
+        {
+          "path": "wave6/repeated-sync/REPORT.md",
+          "sha256": "0aeb60ce1d1d502e06b281899cd1d68112de2d6147cf90fa3a3180d96bbb588f"
+        },
+        {
+          "path": "wave6/result-transport/COMMIT_METADATA_CROSS_REVIEW.md",
+          "sha256": "ccc6f07502633ce0b0b8596c1720bc4f0fd47419297e266f7754349cd0ebfda4"
+        },
+        {
+          "path": "wave6/result-transport/DOCS_REVIEW.md",
+          "sha256": "9fe068474a168136ddbec2bd5ed1b9d3cb869ceeeea8157db420d6aad1271aeb"
+        },
+        {
+          "path": "wave6/result-transport/REPEATED_SYNC_CROSS_REVIEW.md",
+          "sha256": "8691acaafdf0d2b09fe69d63835c56b1c49126ab8e1118e52e87004fdd96fd2c"
+        },
+        {
+          "path": "wave6/result-transport/REPORT.md",
+          "sha256": "f534d220401cc8f05d4cc4c96e574c2861e1a9760753e53d83bdc457a3efbed3"
+        }
+      ],
+      "final_page_hashes": "wave6/final-page-hashes.json"
     }
   ],
   "completion_audit": null,
@@ -263,29 +322,29 @@
       "Storage"
     ],
     "blank_policy_cells": 39,
-    "browser": "wave5/browser/browser-verification.json",
+    "browser": "wave6/browser/browser-verification.json",
     "protocol_implemented": false,
-    "local_links": 251
+    "local_links": 257
   },
   "publication": {
-    "change_request_id": "8Ld7JaQmvqlD1ahhTU6c",
-    "change_request_number": 8,
+    "change_request_id": "lXj54cWzKiMbpHh5ZXR1",
+    "change_request_number": 9,
     "status": "published",
-    "published_revision": "jCIYtF1KMH1WI7GnVz2Y",
-    "reviewed_draft_revision": "P1byoUYZRywUDnDXtGvd",
+    "published_revision": "NFuXtAIdglYgcndKT0Ly",
+    "reviewed_draft_revision": "Efg31r4XUxsPlmNBjpRZ",
     "pages": 38,
     "updated_pages": 8,
     "unchanged_documents": 30,
-    "links": 498,
+    "links": 532,
     "preserved_heading_anchors": 98,
     "reused_diagrams": 18,
     "reused_rust_file": true,
     "new_uploads": 0,
     "raw_file_bytes_verified": false,
-    "verification": "wave5/publication/gitbook-verification.json",
-    "live_verification": "wave5/publication/gitbook-live-verification.json"
+    "verification": "wave6/publication/gitbook-verification.json",
+    "live_verification": "wave6/publication/gitbook-live-verification.json"
   },
-  "updated_at_utc": "2026-10-03T22:04:00.543607+00:00",
+  "updated_at_utc": "2026-10-03T22:34:36.855301+00:00",
   "publication_history": [
     {
       "change_request_id": "OTFc0W01ZQvv2f4uiiU8",
@@ -350,7 +409,25 @@
       "raw_file_bytes_verified": false,
       "verification": "wave5/publication/gitbook-verification.json",
       "live_verification": "wave5/publication/gitbook-live-verification.json"
+    },
+    {
+      "change_request_id": "lXj54cWzKiMbpHh5ZXR1",
+      "change_request_number": 9,
+      "status": "published",
+      "published_revision": "NFuXtAIdglYgcndKT0Ly",
+      "reviewed_draft_revision": "Efg31r4XUxsPlmNBjpRZ",
+      "pages": 38,
+      "updated_pages": 8,
+      "unchanged_documents": 30,
+      "links": 532,
+      "preserved_heading_anchors": 98,
+      "reused_diagrams": 18,
+      "reused_rust_file": true,
+      "new_uploads": 0,
+      "raw_file_bytes_verified": false,
+      "verification": "wave6/publication/gitbook-verification.json",
+      "live_verification": "wave6/publication/gitbook-live-verification.json"
     }
   ],
-  "github_baseline_verified_sha": "b5747f6a28527a4507901f2e46b426b5ff2a4b7c"
+  "github_baseline_verified_sha": "8b61492bbebdbf34dbc10e5d43c3117e19618377"
 }

@@ -1,0 +1,22 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "checked_at_utc": "2026-10-03T22:18:43.462871+00:00",
+  "baseline": "8b61492bbebdbf34dbc10e5d43c3117e19618377",
+  "source_count": 38,
+  "verified_links": 41,
+  "report_sha256": "f534d220401cc8f05d4cc4c96e574c2861e1a9760753e53d83bdc457a3efbed3",
+  "delta_sha256": "1c7af3f034e01a091ebcae908179b898baff37775a25fb4d4614f44208582089",
+  "read_page_hashes": {
+    "AGENTS.md": "27b8bd42e75f3020e3dfd53302774bdb808fa579827c259bf2dc712617ad947a",
+    "README.md": "861d73faee57e85a98d1eecfa0c278ccde66801c37b856d09a1d088505bad0b9",
+    "BATON_HANDOFF.md": "90a9955be0ac76986571a2ae6cd4eff60b2f339ac36f00e02a62d24251208945",
+    "docs/execution/README.md": "0827e8c86b8b04788cced1062efea579eb46298aeb2792cdb67ae30294c7c5f2",
+    "docs/execution/interfaces.md": "eae0d3a439353ed7d463ae0850e99d0ca3b234b0d92c7a827b64576c6c93b088",
+    "docs/execution/state-sync.md": "eb25f9581673d6f96da8787ae8d126aba52f7006ccf010a1a64b763e1318292b",
+    "docs/e2e/results.md": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+    "docs/e2e/state-sync.md": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+    "docs/overview/networking.md": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+    "docs/overview/rust-interfaces.md": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36"
+  },
+  "scope": "Source/API audit; no compilation or protocol test; independent review pending"
+}

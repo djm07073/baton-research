@@ -1,0 +1,142 @@
+{
+  "report_sha256": "9ea6eb545de885145784a937b9d9d7c53d37d635a7f8b0bf0bc06249d5175740",
+  "sources": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 998,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 425,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/metadata/storage.rs",
+      "line": 683,
+      "sha256": "fc8c17ff7bbd07b65c30f94d4e1b3f0d2670b8948cfbcf67c6dfec8adfe54044",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/metadata/storage.rs",
+      "line": 742,
+      "sha256": "fc8c17ff7bbd07b65c30f94d4e1b3f0d2670b8948cfbcf67c6dfec8adfe54044",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/journal/contiguous/variable.rs",
+      "line": 2267,
+      "sha256": "2431c581b17ffa59d704dfc411cc6bf62c8cc9f04fb4b5585d417c9ca93aaa03",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/journal/contiguous/variable.rs",
+      "line": 2412,
+      "sha256": "2431c581b17ffa59d704dfc411cc6bf62c8cc9f04fb4b5585d417c9ca93aaa03",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 112,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/metadata/mod.rs",
+      "line": 1,
+      "sha256": "56b911e21f468537b4dbda911dbde3af8e2a7a107fbd7f3e4b7020df666ac98d",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/metadata/storage.rs",
+      "line": 644,
+      "sha256": "fc8c17ff7bbd07b65c30f94d4e1b3f0d2670b8948cfbcf67c6dfec8adfe54044",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 998,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 1783,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/metadata/storage.rs",
+      "line": 616,
+      "sha256": "fc8c17ff7bbd07b65c30f94d4e1b3f0d2670b8948cfbcf67c6dfec8adfe54044",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/journal/contiguous/variable.rs",
+      "line": 2160,
+      "sha256": "2431c581b17ffa59d704dfc411cc6bf62c8cc9f04fb4b5585d417c9ca93aaa03",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/application/src/consensus/db.rs",
+      "line": 38,
+      "sha256": "275c1d3c10b3d325fe65d5b2db14a205448505023b11f914635da6d69ffab998",
+      "anchor_exists": true
+    },
+    {
+      "repo": "refcell/kora",
+      "pin": "446b4c7aba80e8358486ddb43a276c5bfa183102",
+      "path": "crates/storage/handlers/src/qmdb.rs",
+      "line": 138,
+      "sha256": "cdf85a4718731fb1bce325b0b017ea43b2ce2c9c9e05916b8c4c783030d801e2",
+      "anchor_exists": true
+    },
+    {
+      "repo": "refcell/kora",
+      "pin": "446b4c7aba80e8358486ddb43a276c5bfa183102",
+      "path": "crates/storage/qmdb/src/store.rs",
+      "line": 334,
+      "sha256": "41f005d3917864184aee145c9cc0f29f378df2e1058abea5f98beece054bbf0c",
+      "anchor_exists": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/actor/core/processing.rs",
+      "line": 307,
+      "sha256": "67bab87db4b0d92d0000c7bddb67e4e15e05d943dd5b644f67d04d7eb69ee1eb",
+      "anchor_exists": true
+    }
+  ],
+  "failures": []
+}

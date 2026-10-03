@@ -1,0 +1,257 @@
+{
+  "baseline": "8b61492bbebdbf34dbc10e5d43c3117e19618377",
+  "pages": [
+    {
+      "path": "docs/README.md",
+      "sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4",
+      "old_headings_preserved": 5,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/SUMMARY.md",
+      "sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8",
+      "old_headings_preserved": 8,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/baton/README.md",
+      "sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd",
+      "old_headings_preserved": 4,
+      "old_external_citations_preserved": 5
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97",
+      "old_headings_preserved": 5,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/baton/interfaces.md",
+      "sha256": "c383302c0acc6817d136a7829a8dccc3962d94669af5223f8776bc168d31986b",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/consensus/README.md",
+      "sha256": "4f1044c2d71bee357ff800604565e737dfae97003a87299c93533560aa021f65",
+      "old_headings_preserved": 4,
+      "old_external_citations_preserved": 14
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "58e684e650355918c1e601ef9ee43a2ffe14600a50f8559d54ced5dfa8956491",
+      "old_headings_preserved": 5,
+      "old_external_citations_preserved": 41
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "sha256": "5cd5d25894a485829ba0fb65ded031b15589cd4312ba15931dfcb8e5577c0adf",
+      "old_headings_preserved": 2,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "f760f5b05aae5f3000babdcf1e63a0d988bc72b454169b4434aec315544942d9",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 25
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/e2e/canonical.md",
+      "sha256": "000c1e19afa1403a5e0717e2ebc266fe6df4febd5d31498a113b5461f1b934c8",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 1
+    },
+    {
+      "path": "docs/e2e/leader.md",
+      "sha256": "2d54bce6f941631004ee2244c1a872c045a8651ae26b8a0d0686d1899096608e",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/e2e/native-consensus.md",
+      "sha256": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba",
+      "old_headings_preserved": 2,
+      "old_external_citations_preserved": 3
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "6040a0f865462b96deec8f79d2c7b3541d44769991972ef602df490556542d5d",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "old_headings_preserved": 4,
+      "old_external_citations_preserved": 15
+    },
+    {
+      "path": "docs/e2e/reschedule.md",
+      "sha256": "f1916ed2e4ed591587e14a2148bf675d6be0d3835b1becc1665b895f1822e4eb",
+      "old_headings_preserved": 2,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/e2e/results.md",
+      "sha256": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+      "old_headings_preserved": 2,
+      "old_external_citations_preserved": 4
+    },
+    {
+      "path": "docs/e2e/state-sync.md",
+      "sha256": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+      "old_headings_preserved": 2,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "0827e8c86b8b04788cced1062efea579eb46298aeb2792cdb67ae30294c7c5f2",
+      "old_headings_preserved": 4,
+      "old_external_citations_preserved": 1
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+      "old_headings_preserved": 4,
+      "old_external_citations_preserved": 6
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "54e5c420980de25a2304a6208e8fd8302f251000e8d8972ce16edfc2b9e71435",
+      "old_headings_preserved": 7,
+      "old_external_citations_preserved": 38
+    },
+    {
+      "path": "docs/execution/state-sync.md",
+      "sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 7
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "1e9a61fc4830cef9ff5e70710416bfd9cc7c5411411e8548d443ba0bbbee41db",
+      "old_headings_preserved": 5,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/overview/glossary.md",
+      "sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+      "old_headings_preserved": 2,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "sha256": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/overview/networking.md",
+      "sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 5
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+      "old_headings_preserved": 9,
+      "old_external_citations_preserved": 3
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "old_headings_preserved": 12,
+      "old_external_citations_preserved": 57
+    },
+    {
+      "path": "docs/reference/sources.md",
+      "sha256": "716b76900efc341dc8ef49601e2c8c4e64159b22a720d66a49654d87e46d67b8",
+      "old_headings_preserved": 2,
+      "old_external_citations_preserved": 4
+    },
+    {
+      "path": "docs/reference/verification.md",
+      "sha256": "876d2105c0ec760206e5c50f3f48f617baa5bfdf74fa1dd4f43a9cd9812b15b3",
+      "old_headings_preserved": 2,
+      "old_external_citations_preserved": 0
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "7d1b4d26320b1c487b03437b8123923040b6c0f8713eee43f27f11f52cf555ff",
+      "old_headings_preserved": 7,
+      "old_external_citations_preserved": 38
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "64c74f0663712717cb12947addd329949b2d3636a7e19f87c5a99016c1a79a52",
+      "old_headings_preserved": 3,
+      "old_external_citations_preserved": 6
+    }
+  ],
+  "rust_export_unchanged": true,
+  "unchanged_assets": [
+    "docs/assets/diagrams/diagram-01.mmd",
+    "docs/assets/diagrams/diagram-01.png",
+    "docs/assets/diagrams/diagram-01.svg",
+    "docs/assets/diagrams/diagram-02.mmd",
+    "docs/assets/diagrams/diagram-02.png",
+    "docs/assets/diagrams/diagram-02.svg",
+    "docs/assets/diagrams/diagram-03.mmd",
+    "docs/assets/diagrams/diagram-03.png",
+    "docs/assets/diagrams/diagram-03.svg",
+    "docs/assets/diagrams/diagram-04.mmd",
+    "docs/assets/diagrams/diagram-04.png",
+    "docs/assets/diagrams/diagram-04.svg",
+    "docs/assets/diagrams/diagram-05.mmd",
+    "docs/assets/diagrams/diagram-05.png",
+    "docs/assets/diagrams/diagram-05.svg",
+    "docs/assets/diagrams/diagram-06.mmd",
+    "docs/assets/diagrams/diagram-06.png",
+    "docs/assets/diagrams/diagram-06.svg",
+    "docs/assets/diagrams/diagram-07.mmd",
+    "docs/assets/diagrams/diagram-07.png",
+    "docs/assets/diagrams/diagram-07.svg",
+    "docs/assets/diagrams/diagram-08.mmd",
+    "docs/assets/diagrams/diagram-08.png",
+    "docs/assets/diagrams/diagram-08.svg",
+    "docs/assets/diagrams/diagram-09.mmd",
+    "docs/assets/diagrams/diagram-09.png",
+    "docs/assets/diagrams/diagram-09.svg",
+    "docs/assets/diagrams/diagram-10.mmd",
+    "docs/assets/diagrams/diagram-10.png",
+    "docs/assets/diagrams/diagram-10.svg",
+    "docs/assets/diagrams/diagram-11.mmd",
+    "docs/assets/diagrams/diagram-11.png",
+    "docs/assets/diagrams/diagram-11.svg",
+    "docs/assets/diagrams/diagram-12.mmd",
+    "docs/assets/diagrams/diagram-12.png",
+    "docs/assets/diagrams/diagram-12.svg",
+    "docs/assets/diagrams/diagram-13.mmd",
+    "docs/assets/diagrams/diagram-13.png",
+    "docs/assets/diagrams/diagram-13.svg",
+    "docs/assets/diagrams/diagram-14.mmd",
+    "docs/assets/diagrams/diagram-14.png",
+    "docs/assets/diagrams/diagram-14.svg",
+    "docs/assets/diagrams/diagram-15.mmd",
+    "docs/assets/diagrams/diagram-15.png",
+    "docs/assets/diagrams/diagram-15.svg",
+    "docs/assets/diagrams/diagram-16.mmd",
+    "docs/assets/diagrams/diagram-16.png",
+    "docs/assets/diagrams/diagram-16.svg",
+    "docs/assets/diagrams/diagram-17.mmd",
+    "docs/assets/diagrams/diagram-17.png",
+    "docs/assets/diagrams/diagram-17.svg",
+    "docs/assets/diagrams/diagram-18.mmd",
+    "docs/assets/diagrams/diagram-18.png",
+    "docs/assets/diagrams/diagram-18.svg",
+    "docs/assets/diagrams/render-manifest.json",
+    "docs/assets/interfaces/baton.rs"
+  ],
+  "failures": []
+}

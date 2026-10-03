@@ -1,0 +1,12 @@
+{
+  "fresh_source_files": 35,
+  "source_errors": [],
+  "citation_count": 42,
+  "uncovered": [],
+  "report_sha256": "0aeb60ce1d1d502e06b281899cd1d68112de2d6147cf90fa3a3180d96bbb588f",
+  "mcp_sha256": {
+    "current-sync-mcp-result.json": "8d5d0a96b5893e6eb63bc74a338f73dbca2c179624d3c18237bcaee20725e4f8",
+    "p2p-source-mcp-result.json": "9c8b426357a1a2f74717c9d3072432e2e4198f3c5fc71e4b04dc85223cd779d0",
+    "sync-config-mcp-result.json": "a60e6d9b025762600b1a7f90be5a3cd2c5cb3e844133534ead6fd9d44cf5bb0a"
+  }
+}

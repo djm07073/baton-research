@@ -1,0 +1,29 @@
+{
+  "git_head": "8b61492bbebdbf34dbc10e5d43c3117e19618377",
+  "pages": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "27b8bd42e75f3020e3dfd53302774bdb808fa579827c259bf2dc712617ad947a"
+    },
+    {
+      "path": "README.md",
+      "sha256": "861d73faee57e85a98d1eecfa0c278ccde66801c37b856d09a1d088505bad0b9"
+    },
+    {
+      "path": "BATON_HANDOFF.md",
+      "sha256": "90a9955be0ac76986571a2ae6cd4eff60b2f339ac36f00e02a62d24251208945"
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "fd68183770be07817f76cca676e0d5db5d31ecbd0412472949ca29967724655e"
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "6977d87f2b6e49e46f8bef81e36d7edfe3ef6bd25a94923fac19e09ebecf0ceb"
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "754d6c0b411de8549eefc6a8242eca843a9deb981cdd4fb9f5269734c0ad6295"
+    }
+  ]
+}

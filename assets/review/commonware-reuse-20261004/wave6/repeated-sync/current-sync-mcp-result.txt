@@ -1,0 +1,383 @@
+# storage/src/qmdb/current/sync/mod.rs (v2026.9.0)
+
+```rust
+0: //! Shared synchronization logic for [crate::qmdb::current] databases.
+1: //!
+2: //! Contains implementation of [crate::qmdb::sync::Database] for all
+3: //! [Db](crate::qmdb::current::db::Db) variants (ordered/unordered, fixed/variable).
+4: //!
+5: //! The canonical root of a `current` database combines the ops root, grafted root, and optional
+6: //! pending and partial chunk digests into a single hash (see the [Root structure](super) section in
+7: //! the module documentation). The sync engine operates on the **ops root**, not the canonical root:
+8: //! it downloads operations and verifies each batch against the ops root using ops-tree range proofs
+9: //! (identical to `any` sync). Callers that verify current ops proofs directly should use
+10: //! [crate::qmdb::verify_proof]. [crate::qmdb::current::proof::OpsRootWitness] can be used by
+11: //! callers that need to authenticate the synced ops root against a trusted canonical root; the sync
+12: //! engine does not perform this check itself.
+13: //!
+14: //! After all operations are synced, the bitmap and grafted tree are reconstructed deterministically
+15: //! from the operations. The canonical root is then computed from the ops root, the reconstructed
+16: //! grafted root, and any pending or partial chunk digests.
+17: //!
+18: //! The [Database]`::`[root()](crate::qmdb::sync::Database::root) implementation returns the **ops
+19: //! root** (not the canonical root) because that is what the sync engine verifies against.
+20: //!
+21: //! For pruned databases (`range.start > 0`), grafted pinned nodes for the pruned region are read
+22: //! directly from the ops tree after it is built. This works because of the zero-chunk identity: for
+23: //! all-zero bitmap chunks (which all pruned chunks are), the grafted leaf equals the ops subtree
+24: //! root, making the grafted tree structurally identical to the ops tree at and above the grafting
+25: //! height.
+26: 
+27: use crate::{
+28:     Context,
+29:     index::{Factory as IndexFactory, Unordered as UnorderedIndex},
+30:     journal::{
+31:         authenticated,
+32:         contiguous::{Contiguous, Mutable, fixed, variable},
+33:     },
+34:     merkle::{
+35:         Graftable, Location,
+36:         full::{self, Merkle},
+37:     },
+38:     qmdb::{
+39:         self,
+40:         any::{
+41:             FixedValue, VariableValue,
+42:             db::Db as AnyDb,
+43:             operation::{Operation, update::Update},
+44:             ordered::{
+45:                 fixed::{Operation as OrderedFixedOp, Update as OrderedFixedUpdate},
+46:                 variable::{Operation as OrderedVariableOp, Update as OrderedVariableUpdate},
+47:             },
+48:             unordered::{
+49:                 fixed::{Operation as UnorderedFixedOp, Update as UnorderedFixedUpdate},
+50:                 variable::{Operation as UnorderedVariableOp, Update as UnorderedVariableUpdate},
+51:             },
+52:         },
+53:         bitmap::Shared,
+54:         current::{
+55:             FixedConfig, VariableConfig, db, grafting,
+56:             ordered::{
+57:                 fixed::Db as CurrentOrderedFixedDb, variable::Db as CurrentOrderedVariableDb,
+58:             },
+59:             unordered::{
+60:                 fixed::Db as CurrentUnorderedFixedDb, variable::Db as CurrentUnorderedVariableDb,
+61:             },
+62:         },
+63:         metrics::Metrics as AnyMetrics,
+64:         operation::Key,
+65:         sync::{Database, DatabaseConfig as Config, FeedbackTx, Request, Response},
+66:     },
+67:     translator::Translator,
+68: };
+69: use commonware_codec::{Codec, CodecShared, Read as CodecRead};
+70: use commonware_cryptography::{DigestOf, Hasher};
+71: use commonware_parallel::Strategy;
+72: use commonware_runtime::Spawner;
+73: use commonware_utils::{Array, bitmap::Prunable as BitMap, range::NonEmptyRange};
+74: use core::num::NonZeroUsize;
+75: use std::{num::NonZeroU64, sync::Arc};
+76: 
+77: #[cfg(test)]
+78: pub(crate) mod tests;
+79: 
+80: impl<T: Translator, J: Clone, S: Strategy> Config for super::Config<T, J, S> {
+81:     type JournalConfig = J;
+82: 
+83:     fn journal_config(&self) -> Self::JournalConfig {
+84:         self.journal_config.clone()
+85:     }
+86: }
+87: 
+88: /// Shared helper to build a `current::db::Db` from sync components.
+89: ///
+90: /// This follows the same pattern as `any/sync/mod.rs::build_db` but additionally:
+91: /// * Builds the activity bitmap by replaying the operations log.
+92: /// * Extracts grafted pinned nodes from the ops tree (zero-chunk identity).
+93: /// * Builds the grafted tree from the bitmap and ops tree.
+94: /// * Computes and caches the canonical root.
+95: #[allow(clippy::too_many_arguments)]
+96: async fn build_db<F, E, U, I, H, J, const N: usize, S>(
+97:     context: E,
+98:     merkle_config: full::Config<S>,
+99:     log: J,
+100:     translator: I::Translator,
+101:     pinned_nodes: Option<Vec<H::Digest>>,
+102:     range: NonEmptyRange<Location<F>>,
+103:     apply_batch_size: NonZeroU64,
+104:     init_concurrency: <I as crate::qmdb::SnapshotBuild<F>>::Concurrency,
+105:     init_buffer: NonZeroUsize,
+106:     cache_size: Option<NonZeroUsize>,
+107:     metadata_partition: String,
+108:     strategy: S,
+109: ) -> Result<db::Db<F, E, J, I, H, U, N, S>, qmdb::Error<F>>
+110: where
+111:     F: Graftable,
+112:     E: Context + Spawner,
+113:     U: Update,
+114:     I: IndexFactory + crate::qmdb::SnapshotBuild<F>,
+115:     H: Hasher,
+116:     J: Mutable<Item = Operation<F, U>> + 'static,
+117:     S: Strategy,
+118:     Operation<F, U>: Codec,
+119: {
+120:     // Build authenticated log.
+121:     let merkle = Merkle::<F, _, _, S>::init_sync(
+122:         context.child("merkle"),
+123:         full::SyncConfig {
+124:             config: merkle_config,
+125:             range: range.clone(),
+126:             pinned_nodes,
+127:         },
+128:     )
+129:     .await?;
+130:     let index = I::new(context.child("index"), translator);
+131:     let log = authenticated::Journal::<F, _, _, _, S>::from_components(
+132:         merkle,
+133:         log,
+134:         qmdb::hasher::<H>(),
+135:         apply_batch_size.get(),
+136:     )
+137:     .await?;
+138: 
+139:     // Initialize bitmap with pruned chunks.
+140:     //
+141:     // Floor division is intentional: chunks entirely below range.start are pruned.
+142:     // If range.start is not chunk-aligned, the partial leading chunk is reconstructed by
+143:     // init_from_log, which pads the gap between `pruned_chunks * CHUNK_SIZE_BITS` and the
+144:     // journal's inactivity floor with inactive (false) bits.
+145:     let pruned_chunks = (*range.start() / BitMap::<N>::CHUNK_SIZE_BITS) as usize;
+146:     let bitmap = BitMap::<N>::new_with_pruned_chunks(pruned_chunks)
+147:         .map_err(|_| qmdb::Error::<F>::DataCorrupted("pruned chunks overflow"))?;
+148:     let bitmap = Arc::new(Shared::<N>::new(bitmap));
+149: 
+150:     // Build any::Db, handing it the pre-allocated bitmap. `init_from_log` populates the bitmap
+151:     // during replay.
+152:     let snapshot_context = context.child("any_snapshot");
+153:     let any_metrics = AnyMetrics::new(context.child("any"));
+154:     let any: AnyDb<F, E, J, I, H, U, N, S> = AnyDb::init_from_log(
+155:         snapshot_context,
+156:         index,
+157:         log,
+158:         Some(bitmap),
+159:         init_concurrency,
+160:         init_buffer,
+161:         cache_size,
+162:         any_metrics,
+163:     )
+164:     .await?;
+165: 
+166:     // Fetch grafted pinned nodes from the ops tree. For each position the grafted family
+167:     // needs at its pruning boundary, source the digest from the ops tree via the zero-chunk
+168:     // identity: when the covered chunks are all zero (which pruned chunks always are), the
+169:     // ops-family digest at the mapped position equals the grafted digest.
+170:     //
+171:     // Requires `range.start <=` target's [`Db::sync_boundary`](db::Db::sync_boundary): that
+172:     // bound guarantees every required ops-tree node is born at `range.end`.
+173:     let grafted_pinned_nodes = {
+174:         let grafted_boundary = Location::<F>::new(pruned_chunks as u64);
+175:         let grafting_height = grafting::height::<N>();
+176:         let mut pinned_nodes = Vec::new();
+177:         for grafted_pos in F::nodes_to_pin(grafted_boundary) {
+178:             let ops_pos = grafting::grafted_to_ops_pos::<F>(grafted_pos, grafting_height);
+179:             let digest = any
+180:                 .log
+181:                 .merkle
+182:                 .get_node(ops_pos)
+183:                 .await?
+184:                 .ok_or(qmdb::Error::<F>::DataCorrupted("missing ops pinned node"))?;
+185:             pinned_nodes.push(digest);
+186:         }
+187:         pinned_nodes
+188:     };
+189: 
+190:     // Rebuild the grafted tree and canonical root from the synced `any` state.
+191:     // The canonical root is deterministic because the engine authenticates the ops and the
+192:     // bitmap is derived from them.
+193:     let (grafted_tree, root) = db::rebuild_grafted_tree::<F, H, S, N>(
+194:         any.bitmap.as_ref(),
+195:         &grafted_pinned_nodes,
+196:         &any.log.merkle,
+197:         any.inactivity_floor_loc,
+198:         any.root(),
+199:         &strategy,
+200:     )
+201:     .await?;
+202: 
+203:     // Initialize metadata store and construct the Db.
+204:     let (metadata, _, _) =
+205:         db::init_metadata::<F, E, DigestOf<H>>(context.child("metadata"), &metadata_partition)
+206:             .await?;
+207: 
+208:     let metrics = db::Metrics::new(context);
+209:     let current_db = db::Db {
+210:         any,
+211:         grafted_tree: Arc::new(grafted_tree),
+212:         metadata,
+213:         strategy,
+214:         root,
+215:         metrics,
+216:         #[cfg(test)]
+217:         halt_before_prune_log: false,
+218:     };
+219:     current_db.update_metrics();
+220: 
+221:     // Persist metadata so the db can be reopened with init_fixed/init_variable.
+222:     let current_db = current_db.sync_metadata().await?;
+223: 
+224:     Ok(current_db)
+225: }
+226: 
+227: // --- Database trait implementations ---
+228: 
+229: macro_rules! impl_current_sync_database {
+230:     ($db:ident, $op:ident, $update:ident,
+231:      $journal:ty, $config:ty,
+232:      $key_bound:path, $value_bound:ident
+233:      $(; $($where_extra:tt)+)?) => {
+234:         impl<F, E, K, V, H, T, const N: usize, S> Database for $db<F, E, K, V, H, T, N, S>
+235:         where
+236:             F: Graftable,
+237:             E: Context + Spawner,
+238:             K: $key_bound,
+239:             V: $value_bound + 'static,
+240:             H: Hasher,
+241:             T: Translator,
+242:             S: Strategy,
+243:             $($($where_extra)+)?
+244:         {
+245:             type Family = F;
+246:             type Context = E;
+247:             type Op = $op<F, K, V>;
+248:             type Journal = $journal;
+249:             type Hasher = H;
+250:             type Config = $config;
+251:             type Digest = H::Digest;
+252: 
+253:             async fn from_sync_result(
+254:                 context: Self::Context,
+255:                 config: Self::Config,
+256:                 log: Self::Journal,
+257:                 pinned_nodes: Option<Vec<Self::Digest>>,
+258:                 range: NonEmptyRange<Location<F>>,
+259:                 apply_batch_size: NonZeroU64,
+260:             ) -> Result<Self, qmdb::Error<F>> {
+261:                 let merkle_config = config.merkle_config.clone();
+262:                 let metadata_partition = config.grafted_metadata_partition.clone();
+263:                 let strategy = config.merkle_config.strategy.clone();
+264:                 let translator = config.translator.clone();
+265:                 let cache_size = config.init_cache_size;
+266:                 let init_buffer = config.init_buffer;
+267:                 let init_concurrency = config.init_concurrency;
+268:                 build_db::<F, _, $update<K, V>, _, H, _, N, _>(
+269:                     context,
+270:                     merkle_config,
+271:                     log,
+272:                     translator,
+273:                     pinned_nodes,
+274:                     range,
+275:                     apply_batch_size,
+276:                     init_concurrency,
+277:                     init_buffer,
+278:                     cache_size,
+279:                     metadata_partition,
+280:                     strategy,
+281:                 )
+282:                 .await
+283:             }
+284: 
+285:             async fn persist_sync_result(self) -> Result<Self, qmdb::Error<F>> {
+286:                 Ok(self)
+287:             }
+288: 
+289:             async fn local_pinned_nodes(
+290:                 context: Self::Context,
+291:                 config: &Self::Config,
+292:                 target: &qmdb::sync::Target<Self::Family, Self::Digest>,
+293:                 journal: &Self::Journal,
+294:             ) -> Result<Option<Vec<Self::Digest>>, qmdb::Error<F>> {
+295:                 if target.range.start() == Location::new(0)
+296:                     || !qmdb::sync::journal_covers_range(journal.bounds(), &target.range)
+297:                 {
+298:                     return Ok(None);
+299:                 }
+300: 
+301:                 // The inactivity floor is carried by the last commit operation rather than
+302:                 // being the target range's start.
+303:                 let inactivity_floor =
+304:                     qmdb::find_inactivity_floor_at::<F, _>(journal, target.range.end()).await?;
+305: 
+306:                 qmdb::sync::local_pinned_nodes::<F, _, H, S>(
+307:                     context,
+308:                     config.merkle_config.clone(),
+309:                     target,
+310:                     inactivity_floor,
+311:                 )
+312:                 .await
+313:             }
+314: 
+315:             /// Returns the ops root (not the canonical root), since the sync engine verifies
+316:             /// batches against the ops tree.
+317:             fn root(&self) -> Self::Digest {
+318:                 self.any.root()
+319:             }
+320:         }
+321:     };
+322: }
+323: 
+324: impl_current_sync_database!(
+325:     CurrentUnorderedFixedDb, UnorderedFixedOp, UnorderedFixedUpdate,
+326:     fixed::Journal<E, Self::Op>, FixedConfig<T, S>,
+327:     Array, FixedValue
+328: );
+329: 
+330: impl_current_sync_database!(
+331:     CurrentUnorderedVariableDb, UnorderedVariableOp, UnorderedVariableUpdate,
+332:     variable::Journal<E, Self::Op>,
+333:     VariableConfig<T, <UnorderedVariableOp<F, K, V> as CodecRead>::Cfg, S>,
+334:     Key, VariableValue;
+335:     UnorderedVariableOp<F, K, V>: CodecShared
+336: );
+337: 
+338: impl_current_sync_database!(
+339:     CurrentOrderedFixedDb, OrderedFixedOp, OrderedFixedUpdate,
+340:     fixed::Journal<E, Self::Op>, FixedConfig<T, S>,
+341:     Array, FixedValue
+342: );
+343: 
+344: impl_current_sync_database!(
+345:     CurrentOrderedVariableDb, OrderedVariableOp, OrderedVariableUpdate,
+346:     variable::Journal<E, Self::Op>,
+347:     VariableConfig<T, <OrderedVariableOp<F, K, V> as CodecRead>::Cfg, S>,
+348:     Key, VariableValue;
+349:     OrderedVariableOp<F, K, V>: CodecShared
+350: );
+351: 
+352: /// A `current` database serves proofs from the `any` database it wraps. The sync engine
+353: /// operates on the ops root, which is `any`'s root.
+354: impl<F, E, C, I, H, U, const N: usize, S> crate::qmdb::sync::Source
+355:     for db::Db<F, E, C, I, H, U, N, S>
+356: where
+357:     F: Graftable,
+358:     E: Context,
+359:     C: Mutable<Item = Operation<F, U>>,
+360:     I: UnorderedIndex<Value = Location<F>>,
+361:     H: Hasher,
+362:     U: Update,
+363:     S: Strategy,
+364:     Operation<F, U>: Codec,
+365: {
+366:     type Family = F;
+367:     type Digest = H::Digest;
+368:     type Op = Operation<F, U>;
+369:     type Error = qmdb::Error<F>;
+370: 
+371:     async fn serve(
+372:         &self,
+373:         request: Request<F>,
+374:     ) -> Result<(Response<F, Self::Op, H::Digest>, FeedbackTx), qmdb::Error<F>> {
+375:         self.any.serve(request).await
+376:     }
+377: }
+378: 
+```

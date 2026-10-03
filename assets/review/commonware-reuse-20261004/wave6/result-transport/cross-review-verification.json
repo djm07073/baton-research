@@ -1,0 +1,15 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "checked_at_utc": "2026-10-03T22:28:28.659290+00:00",
+  "reviewed_hashes": {
+    "assets/review/commonware-reuse-20261004/wave6/repeated-sync/REPORT.md": "0aeb60ce1d1d502e06b281899cd1d68112de2d6147cf90fa3a3180d96bbb588f",
+    "assets/review/commonware-reuse-20261004/wave6/commit-metadata/REPORT.md": "9ea6eb545de885145784a937b9d9d7c53d37d635a7f8b0bf0bc06249d5175740",
+    "docs/execution/qmdb.md": "54e5c420980de25a2304a6208e8fd8302f251000e8d8972ce16edfc2b9e71435"
+  },
+  "scope": "Independent source/API review; no canonical writes, implementation, builds or protocol tests",
+  "review_hashes": {
+    "REPEATED_SYNC_CROSS_REVIEW.md": "8691acaafdf0d2b09fe69d63835c56b1c49126ab8e1118e52e87004fdd96fd2c",
+    "COMMIT_METADATA_CROSS_REVIEW.md": "ccc6f07502633ce0b0b8596c1720bc4f0fd47419297e266f7754349cd0ebfda4",
+    "DOCS_REVIEW.md": "9fe068474a168136ddbec2bd5ed1b9d3cb869ceeeea8157db420d6aad1271aeb"
+  }
+}

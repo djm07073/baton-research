@@ -1,0 +1,372 @@
+{
+  "checked_at_utc": "2026-10-03T22:22:08.949799+00:00",
+  "git_head": "8b61492bbebdbf34dbc10e5d43c3117e19618377",
+  "report_sha256": "f534d220401cc8f05d4cc4c96e574c2861e1a9760753e53d83bdc457a3efbed3",
+  "report_manifest_sha256": "93e14438b957dcb30540a72b23eae7345d81a405f1d5dcfef43b12e089eaa901",
+  "own_source_manifest_sha256": "fa6dd8501faebbbad7fb7af1b29ec30499fa508da4d9fb13eb0ed7bbd85c1b82",
+  "pages": [
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "1e9a61fc4830cef9ff5e70710416bfd9cc7c5411411e8548d443ba0bbbee41db"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "0827e8c86b8b04788cced1062efea579eb46298aeb2792cdb67ae30294c7c5f2"
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "sha256": "eae0d3a439353ed7d463ae0850e99d0ca3b234b0d92c7a827b64576c6c93b088"
+    },
+    {
+      "path": "docs/execution/state-sync.md",
+      "sha256": "eb25f9581673d6f96da8787ae8d126aba52f7006ccf010a1a64b763e1318292b"
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36"
+    }
+  ],
+  "mcp_saved_receipt_comparison": {
+    "request_sha256": "e3c8538738d6f901674e0e9001043364294a6db30d1b9166c275c2dd48b6d0cf",
+    "response_sha256": "cc6a3f9cd5781ed29062e4ecdea478f6df2b8ab7f06ad520241d3d67e7c5afc6",
+    "matched_lines": 66,
+    "label_offset_to_github": 1,
+    "native_release_byte_identical": true,
+    "new_mcp_invocation_by_this_reviewer": false,
+    "lines": [
+      {
+        "mcp_zero_based_line": 120,
+        "github_line": 121,
+        "text": "    }"
+      },
+      {
+        "mcp_zero_based_line": 121,
+        "github_line": 122,
+        "text": "}"
+      },
+      {
+        "mcp_zero_based_line": 122,
+        "github_line": 123,
+        "text": ""
+      },
+      {
+        "mcp_zero_based_line": 123,
+        "github_line": 124,
+        "text": "impl<DB: Send + Sync, F: Family, Op: Send, D: Digest> Mailbox<DB, F, Op, D> {"
+      },
+      {
+        "mcp_zero_based_line": 124,
+        "github_line": 125,
+        "text": "    pub fn attach_database(&self, db: Shared<DB>) {"
+      },
+      {
+        "mcp_zero_based_line": 125,
+        "github_line": 126,
+        "text": "        let _ = self.sender.enqueue(Message::AttachDatabase(db));"
+      },
+      {
+        "mcp_zero_based_line": 126,
+        "github_line": 127,
+        "text": "    }"
+      },
+      {
+        "mcp_zero_based_line": 127,
+        "github_line": 128,
+        "text": "}"
+      },
+      {
+        "mcp_zero_based_line": 128,
+        "github_line": 129,
+        "text": ""
+      },
+      {
+        "mcp_zero_based_line": 129,
+        "github_line": 130,
+        "text": "impl<DB, F, Op, D> Source for Mailbox<DB, F, Op, D>"
+      },
+      {
+        "mcp_zero_based_line": 130,
+        "github_line": 131,
+        "text": "where"
+      },
+      {
+        "mcp_zero_based_line": 131,
+        "github_line": 132,
+        "text": "    F: Family,"
+      },
+      {
+        "mcp_zero_based_line": 132,
+        "github_line": 133,
+        "text": "    Op: Read<Cfg = ()> + Send + Sync + Clone + 'static,"
+      },
+      {
+        "mcp_zero_based_line": 133,
+        "github_line": 134,
+        "text": "    D: Digest,"
+      },
+      {
+        "mcp_zero_based_line": 134,
+        "github_line": 135,
+        "text": "    DB: Send + Sync + 'static,"
+      },
+      {
+        "mcp_zero_based_line": 135,
+        "github_line": 136,
+        "text": "{"
+      },
+      {
+        "mcp_zero_based_line": 136,
+        "github_line": 137,
+        "text": "    type Family = F;"
+      },
+      {
+        "mcp_zero_based_line": 137,
+        "github_line": 138,
+        "text": "    type Digest = D;"
+      },
+      {
+        "mcp_zero_based_line": 138,
+        "github_line": 139,
+        "text": "    type Op = Op;"
+      },
+      {
+        "mcp_zero_based_line": 139,
+        "github_line": 140,
+        "text": "    type Error = ResponseDropped;"
+      },
+      {
+        "mcp_zero_based_line": 140,
+        "github_line": 141,
+        "text": ""
+      },
+      {
+        "mcp_zero_based_line": 141,
+        "github_line": 142,
+        "text": "    async fn serve("
+      },
+      {
+        "mcp_zero_based_line": 142,
+        "github_line": 143,
+        "text": "        &self,"
+      },
+      {
+        "mcp_zero_based_line": 143,
+        "github_line": 144,
+        "text": "        request: Request<F>,"
+      },
+      {
+        "mcp_zero_based_line": 144,
+        "github_line": 145,
+        "text": "    ) -> Result<(Response<Self::Family, Self::Op, Self::Digest>, FeedbackTx), Self::Error> {"
+      },
+      {
+        "mcp_zero_based_line": 145,
+        "github_line": 146,
+        "text": "        let (response_tx, response_rx) = oneshot::channel();"
+      },
+      {
+        "mcp_zero_based_line": 146,
+        "github_line": 147,
+        "text": "        let _ = self.sender.enqueue(Message::GetOperations {"
+      },
+      {
+        "mcp_zero_based_line": 147,
+        "github_line": 148,
+        "text": "            request,"
+      },
+      {
+        "mcp_zero_based_line": 148,
+        "github_line": 149,
+        "text": "            response: response_tx,"
+      },
+      {
+        "mcp_zero_based_line": 149,
+        "github_line": 150,
+        "text": "        });"
+      },
+      {
+        "mcp_zero_based_line": 150,
+        "github_line": 151,
+        "text": ""
+      },
+      {
+        "mcp_zero_based_line": 151,
+        "github_line": 152,
+        "text": "        let mut guard ="
+      },
+      {
+        "mcp_zero_based_line": 152,
+        "github_line": 153,
+        "text": "            cancel::Guard::new(self.sender.clone(), Message::CancelOperations { request });"
+      },
+      {
+        "mcp_zero_based_line": 153,
+        "github_line": 154,
+        "text": "        let result = response_rx.await;"
+      },
+      {
+        "mcp_zero_based_line": 154,
+        "github_line": 155,
+        "text": "        guard.disarm();"
+      },
+      {
+        "mcp_zero_based_line": 155,
+        "github_line": 156,
+        "text": "        result.map_err(|_| ResponseDropped)"
+      },
+      {
+        "mcp_zero_based_line": 156,
+        "github_line": 157,
+        "text": "    }"
+      },
+      {
+        "mcp_zero_based_line": 157,
+        "github_line": 158,
+        "text": "}"
+      },
+      {
+        "mcp_zero_based_line": 158,
+        "github_line": 159,
+        "text": ""
+      },
+      {
+        "mcp_zero_based_line": 159,
+        "github_line": 160,
+        "text": "impl<DB, F, Op, D> AttachableResolver<DB> for Mailbox<DB, F, Op, D>"
+      },
+      {
+        "mcp_zero_based_line": 160,
+        "github_line": 161,
+        "text": "where"
+      },
+      {
+        "mcp_zero_based_line": 161,
+        "github_line": 162,
+        "text": "    F: Family,"
+      },
+      {
+        "mcp_zero_based_line": 162,
+        "github_line": 163,
+        "text": "    Op: Read<Cfg = ()> + Send + Sync + Clone + 'static,"
+      },
+      {
+        "mcp_zero_based_line": 163,
+        "github_line": 164,
+        "text": "    D: Digest,"
+      },
+      {
+        "mcp_zero_based_line": 164,
+        "github_line": 165,
+        "text": "    DB: Send + Sync + 'static,"
+      },
+      {
+        "mcp_zero_based_line": 165,
+        "github_line": 166,
+        "text": "{"
+      },
+      {
+        "mcp_zero_based_line": 166,
+        "github_line": 167,
+        "text": "    fn attach_database(&self, db: Shared<DB>) -> impl Future<Output = ()> + Send {"
+      },
+      {
+        "mcp_zero_based_line": 167,
+        "github_line": 168,
+        "text": "        Self::attach_database(self, db);"
+      },
+      {
+        "mcp_zero_based_line": 168,
+        "github_line": 169,
+        "text": "        std::future::ready(())"
+      },
+      {
+        "mcp_zero_based_line": 169,
+        "github_line": 170,
+        "text": "    }"
+      },
+      {
+        "mcp_zero_based_line": 170,
+        "github_line": 171,
+        "text": "}"
+      },
+      {
+        "mcp_zero_based_line": 171,
+        "github_line": 172,
+        "text": ""
+      },
+      {
+        "mcp_zero_based_line": 172,
+        "github_line": 173,
+        "text": "#[cfg(test)]"
+      },
+      {
+        "mcp_zero_based_line": 173,
+        "github_line": 174,
+        "text": "mod tests {"
+      },
+      {
+        "mcp_zero_based_line": 174,
+        "github_line": 175,
+        "text": "    use super::*;"
+      },
+      {
+        "mcp_zero_based_line": 175,
+        "github_line": 176,
+        "text": "    use commonware_cryptography::sha256;"
+      },
+      {
+        "mcp_zero_based_line": 176,
+        "github_line": 177,
+        "text": "    use commonware_runtime::{Runner as _, deterministic};"
+      },
+      {
+        "mcp_zero_based_line": 177,
+        "github_line": 178,
+        "text": "    use commonware_storage::mmr;"
+      },
+      {
+        "mcp_zero_based_line": 178,
+        "github_line": 179,
+        "text": "    use commonware_utils::{NZU64, NZUsize};"
+      },
+      {
+        "mcp_zero_based_line": 179,
+        "github_line": 180,
+        "text": ""
+      },
+      {
+        "mcp_zero_based_line": 180,
+        "github_line": 181,
+        "text": "    /// A caller that abandons its fetch drops the future, which retracts the request from the"
+      },
+      {
+        "mcp_zero_based_line": 181,
+        "github_line": 182,
+        "text": "    /// actor."
+      },
+      {
+        "mcp_zero_based_line": 182,
+        "github_line": 183,
+        "text": "    #[test]"
+      },
+      {
+        "mcp_zero_based_line": 183,
+        "github_line": 184,
+        "text": "    fn dropping_get_operations_sends_cancel_message() {"
+      },
+      {
+        "mcp_zero_based_line": 184,
+        "github_line": 185,
+        "text": "        deterministic::Runner::default().start(|context| async move {"
+      },
+      {
+        "mcp_zero_based_line": 185,
+        "github_line": 186,
+        "text": "            let (sender, mut receiver) = commonware_actor::mailbox::new(context, NZUsize!(4));"
+      }
+    ]
+  },
+  "review_sha256": "665924dfe3835a7332054fbf7f42e5256b9513c4683bb0e8b4be4c9f185552ed",
+  "fresh_file_count": 41,
+  "review_completed_at_utc": "2026-10-03T22:24:40.101985+00:00"
+}
