@@ -1,9 +1,9 @@
 sequenceDiagram
     participant N as Native producer owner
-    participant A as BlockService: Automaton 연결
+    participant A as BlockService: Automaton adapter
     participant P as BlockService: body build
     participant S as BlockService: storage / fetch
-    participant R as BlockService: Relay 연결
+    participant R as BlockService: Relay adapter
     participant V as Peer BlockService
     N->>A: Automaton::propose(Context)
     A->>P: Select / build bounded body
@@ -16,4 +16,4 @@ sequenceDiagram
     R->>S: Resolve body bytes
     S-->>R: Body
     R-->>V: Publish body
-    Note over N,V: Native headers / DA messages는 별도 native data plane
+    Note over N,V: Native headers / DA messages use a separate native data plane

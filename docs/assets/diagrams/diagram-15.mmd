@@ -1,26 +1,26 @@
 sequenceDiagram
-    participant P as Producer의 native owner
-    participant A as Validator의 BlockService
-    participant V as Validator의 native owner
-    participant L as 현재 view의 leader owner
-    participant F as 수신 node의 view / finality owner
-    P-->>V: Signed producer header를 native peers에 전파
+    participant P as Producer native owner
+    participant A as Validator BlockService
+    participant V as Validator native owner
+    participant L as Current view's leader owner
+    participant F as Receiving node's view / finality owner
+    P-->>V: Disseminate signed producer header to native peers
     V->>A: verify(producer Context, commitment)
     A-->>V: true: valid + durable custody
     V->>V: Contiguous DA choice / durable publication gate
-    V-->>P: DA share: 해당 producer에게만 전송
-    par Producer certification 업무
-        opt 같은 header의 valid shares n−2f개 확보
-            P->>P: Exact DA certificate 복구 / durable admission
-            P-->>V: DA certificate 전파
+    V-->>P: DA share sent only to that producer
+    par Producer certification
+        opt n−2f valid shares for the same header available
+            P->>P: Recover exact DA certificate / durable admission
+            P-->>V: Disseminate DA certificate
         end
-    and Leader proposal / direct voting 업무
+    and Leader proposal / direct voting
         L->>L: Earlier V-QC parent + lane anchors / local DA-voted paths
-        L-->>V: Signed LeaderBlock + 필요한 exact parent V-QC
-        V->>V: Native proposal 검증 / position·extension vote 예약
-        V-->>F: Complete signed vote를 native peers에 broadcast
+        L-->>V: Signed LeaderBlock + required exact parent V-QC
+        V->>V: Validate native proposal / reserve position and extension vote
+        V-->>F: Broadcast complete signed vote to native peers
     end
-    F->>F: 검증된 distinct attributed votes / view messages 보관
+    F->>F: Retain verified distinct attributed votes / view messages
     par Local sticky pool
         opt n−f votes for one LeaderBlock
             F->>F: Local leader / tip finality

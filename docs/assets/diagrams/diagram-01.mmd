@@ -1,6 +1,6 @@
 flowchart TB
     C[Client / Tx API] --> T[TxPool]
-    T -. 분석 위치 미결정 .-> X[TxPolicy]
+    T -. analysis placement undecided .-> X[TxPolicy]
     T -->|candidate batch| B[BlockService]
     B -->|payload / custody| N[commonware_consensus::multimmit]
     N -->|exact evidence / history| M[Orderer]
@@ -16,7 +16,7 @@ flowchart TB
     E -->|valid batches / durability| S[Commonware QMDB]
     E <-->|signatures / certificates / change sets| V[Peer Executor]
     E -->|CommitResult| T
-    NET[Commonware P2P: 모든 plane 공유] --- N
+    NET[Commonware P2P: shared by all planes] --- N
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef new fill:#dcfce7,stroke:#16a34a,color:#14532d;

@@ -1,24 +1,26 @@
 # Baton
 
-구현 문서는 **[Baton Docs](docs/README.md)**에서 읽고 수정한다. [전체 목차](docs/SUMMARY.md)에서 레이어별·E2E 케이스별 페이지를 하나씩 검토한다. `.gitbook.yaml`과 `SUMMARY.md`를 포함한 GitBook 호환 Markdown 구조다.
+Read and edit the implementation design in **[Baton Docs](docs/README.md)**. The [table of contents](docs/SUMMARY.md) organizes 31 pages by layer and E2E case. Each module starts with its responsibility, then explains its Rust inputs/outputs, flow, and detailed contracts.
 
-| 읽을 문서 | 내용 |
+| Start here | Covers |
 |---|---|
-| [구현 문서](docs/README.md) · [목차](docs/SUMMARY.md) | 네 레이어, 모듈 책임·Rust trait 초안·source map, E2E sequence, 빈 미결정 정책 표 |
-| [Rust 인터페이스](docs/overview/rust-interfaces.md) · [단일 Rust 파일](docs/assets/interfaces/baton.rs) | 핵심 모듈 6개와 보조 역할 3개의 trait 선언·메서드·레이어 연결 |
-| [연구·논문 초안](baton-paper.md) | 알고리즘, 조건부 안전성·재사용 논증, native prefix 통합 의무, 평가 계획 |
+| [Implementation docs](docs/README.md) · [Contents](docs/SUMMARY.md) | Four layers, module responsibilities, Commonware source mapping, E2E sequences, open decisions |
+| [Rust interfaces](docs/overview/rust-interfaces.md) · [Single Rust file](docs/assets/interfaces/baton.rs) | Six core traits, three supporting traits, arguments, return types, completion conditions |
+| [Research paper draft](baton-paper.md) | Algorithm, conditional safety/reuse arguments, native integration obligations, evaluation plan |
 
-2026-10-03 사용자 구조를 기준으로 구현 개요와 컴포넌트 연결 설명을 정리했다. Bank는 현재 범위에서 제외한다. **Protocol 구현, native 통합 증명, E2E 실행, benchmark 결과는 없다.** 문서의 새 message / owner 이름은 제안 계약이며 existing upstream API와 구분한다.
+The [GitBook Baton space](https://app.gitbook.com/o/Z5g7kwPjokG0jEOyXNu6/s/pvyFEde12m2tVRjI8TRw/) is private within Beaker. [Rust interfaces](https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces) is a direct entry point. Markdown in docs/ remains canonical. Git Sync and automatic Google Docs synchronization are not configured.
 
-이전 문서 39개와 관련 연구 자료는 [보관 진입점](archive/2026-10-03-root-history/README.md)에 원래 폴더 구조로 정리했다. 이전 구현 문서는 [archive](archive/2026-10-03-root-history/repository/research/archive/2026-10-03-implementation-outline/README.md)로 옮겨 보존했다. 다른 과거 Overpass 문서와 기존 research/archive도 연구 이력이며 새 구현 문서의 대체물이 아니다. 자세한 출처와 예전 Google Docs revision은 [handoff](BATON_HANDOFF.md)에 남겼다. [AGENTS.md](AGENTS.md)는 이어서 작업할 때의 지침이다.
+This is design work. Protocol implementation, native integration proofs, E2E execution, and benchmarks are not complete. Existing Commonware APIs and proposed application contracts stay distinct. Open policy cells remain blank. The Bank application model is outside the current scope.
 
-Source pin: [Commonware 534af0ede48affd35b2111522527547b4cc9bf72](https://github.com/commonwarexyz/monorepo/tree/534af0ede48affd35b2111522527547b4cc9bf72). [Tempo Technical Overview](https://app.notion.com/p/2dfc1352439b801db5b6cf6fe21fc315?pvs=204)와 [Tempo DeepWiki](https://deepwiki.com/tempoxyz/tempo)는 구조 설명 방식의 참고이며 Tempo의 Simplex / Reth / REVM을 채택한 것은 아니다.
+Older documents and research material are preserved through the [archive index](archive/2026-10-03-root-history/README.md). Earlier implementation contracts are [archived](archive/2026-10-03-root-history/repository/research/archive/2026-10-03-implementation-outline/README.md). Historical Overpass documents are provenance, not replacements for the current design. [BATON_HANDOFF.md](BATON_HANDOFF.md) records sources and prior Google Doc revisions; [AGENTS.md](AGENTS.md) gives continuation instructions.
 
-Canonical GitHub repository는 [djm07073/baton-research](https://github.com/djm07073/baton-research)다. 기존 local checkout 이름과 origin을 변경하지 않았다. Google Docs와 Markdown은 자동 양방향 동기화하지 않는다.
+Source pin: [Commonware 534af0ede48affd35b2111522527547b4cc9bf72](https://github.com/commonwarexyz/monorepo/tree/534af0ede48affd35b2111522527547b4cc9bf72). [Tempo Technical Overview](https://app.notion.com/p/2dfc1352439b801db5b6cf6fe21fc315?pvs=204) and [Tempo DeepWiki](https://deepwiki.com/tempoxyz/tempo) are references for presentation structure. Their Simplex / Reth / REVM implementation is not adopted.
 
-## 문서 미리보기
+The canonical repository is [djm07073/baton-research](https://github.com/djm07073/baton-research). Existing checkout names and origin remain unchanged.
 
-Node.js 20 이상과 Python 3을 사용한다. 아래 명령은 이 저장소 루트에서 실행한다.
+## Local preview
+
+Use Node.js 20+ and Python 3 from the repository root:
 
 ```sh
 npm ci
@@ -27,8 +29,6 @@ npm run docs:build
 npm run docs:serve
 ```
 
-[로컬 미리보기](http://127.0.0.1:8765)는 왼쪽 목차·검색·페이지 내 목차·이전/다음 이동을 제공한다. `site/`는 생성된 미리보기이며 Git에 넣지 않는다. 수정할 원본은 `docs/`다. Diagram source와 렌더된 그림은 `docs/assets/diagrams/`에 함께 보관하며, Markdown의 Mermaid source를 바꾸면 그림과 manifest도 다시 렌더해야 한다.
+The [local preview](http://127.0.0.1:8765) provides navigation, search, an in-page outline, and previous/next links. site/ is generated and excluded from Git. Edit docs/. Mermaid source and rendered assets live in docs/assets/diagrams/; diagram changes require refreshed renders and manifest.
 
-2026-10-03 [GitBook — Beaker / Baton](https://app.gitbook.com/o/Z5g7kwPjokG0jEOyXNu6/s/pvyFEde12m2tVRjI8TRw/) 비공개 공간에 구현 문서 31개와 섹션 안내 7개를 업로드했다. [Rust 인터페이스](https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces)를 바로 읽을 수 있다. 원본은 `docs/`이며 Git Sync는 연결하지 않았다. 추후 연결할 때 `.gitbook.yaml`이 지정한 `docs/`를 문서 루트로 사용한다. [업로드 검증 기록](assets/review/gitbook-upload-20261003/README.md)을 함께 남겼다.
-
-[IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md)는 이전 섹션 링크를 보존하는 진입점이다. 분리 직전 본문과 그림은 [보관 스냅샷](archive/2026-10-03-before-gitbook/README.md)에 보존했다. 현재 문서와 스냅샷을 동시에 수정하지 않는다.
+[IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) preserves older section links. The [pre-partition snapshot](archive/2026-10-03-before-gitbook/README.md) retains original prose and diagrams. Archived snapshots are historical and stay unchanged. [GitBook publication verification](assets/review/gitbook-upload-20261003/README.md) records the initial upload; the [English revision checks](assets/review/english-docs-20261003/README.md) record the translated update.

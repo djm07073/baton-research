@@ -1,17 +1,17 @@
-# 시작·재시작과 이력 복구
+# Startup, restart, and history recovery
 
-Body custody와 native readiness를 준비하고, 재시작 뒤 durable 상태·이력·미확인 delivery를 복구한다.
+**Recovery reconnects stored bodies, authenticated history, and durable application state.** Startup prepares custody and native readiness. Restart restores state and cursors and redelivers exact ranges whose acknowledgements were lost.
 
-## Startup: custody를 준비한 뒤 native recovery
+## Startup: prepare custody before native recovery
 
 ```mermaid
 sequenceDiagram
     participant S as Node startup
     participant W as Commonware network
-    participant A as BlockService: Automaton 연결
+    participant A as BlockService: Automaton adapter
     participant N as Native Engine
     participant E as Executor
-    participant B as Orderer / Executor 연결
+    participant B as Orderer / Executor integration
     S->>W: Register native and application logical channels
     S->>A: Open body storage / parent lookup, start service
     S->>W: Start authenticated network service
@@ -37,21 +37,21 @@ sequenceDiagram
     alt Execution state and exact input ready
         S->>B: Resume state-dependent Execute / Commit delivery
     else Input state unresolved or required execution service failed
-        Note over S,B: Execution delivery를 pending / recovery로 두고 evidence 보관은 별도 진행
+        Note over S,B: Execution delivery pending / recovering, evidence retention proceeds separately
     end
-    Note over N,E: Native startup은 application QMDB recovery의 완료를 새 prerequisite로 요구하지 않음
-    Note over S,B: Recovered canonical state와 authenticated history에서 재개, transient direction은 재구성
+    Note over N,E: Native startup adds no application QMDB recovery prerequisite
+    Note over S,B: Resume from recovered canonical state and authenticated history, rebuild transient direction
 ```
 
-[그림 크게 보기](../assets/diagrams/diagram-13.svg)
+[Open full-size diagram](../assets/diagrams/diagram-13.svg)
 
-이 그림은 recovered payload verify가 성공한 startup 경로다. Verify가 false이거나 receiver가 닫히면 `Engine::start` 자체가 `OpenError::RecoveredPayloadUnverified`로 실패하며 Running 생성 이후의 `ready=false`와 구분한다. [Pre-running custody fence](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L272).
+This sequence assumes recovered-payload verification succeeds. A false verification result or closed receiver makes `Engine::start` fail with `OpenError::RecoveredPayloadUnverified`. That differs from `ready=false` after a Running handle exists. [Pre-running custody fence](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L272).
 
-`Engine::start`는 readiness가 pending인 `Running` handle을 반환한다. `Running::ready().await`의 `true`는 startup / recovery의 durable 처리와 initial producer wake 제출을 확인한 native 경계이며, readiness 전에 engine이 실패하면 `false`다. [Running readiness](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L549).
+`Engine::start` returns a Running handle with readiness initially pending. `Running::ready().await` returns true after native startup/recovery durability work and initial producer-wake submission; engine failure before readiness returns false. [Running readiness](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L549).
 
-Engine이 반환하는 running handle 자체를 모든 서비스의 readiness 증명으로 쓰지 않는다. Body service readiness, native engine readiness, ordered delivery readiness, execution state readiness를 하나의 ready flag로 합치지 않는다. Recovery에 필요한 verify가 true로 해소되기 전 native 시작을 성공으로 보고하지 않는다. Startup dependency 때문에 새 report나 direction 승인 round를 기다리는 구조를 만들지 않는다.
+A Running handle does not prove every service is ready. Body-service, native-engine, ordered-delivery, and execution-state readiness are separate. Native startup cannot be reported successful before required recovered-payload verification resolves true. Startup dependencies do not add a report or direction approval round.
 
-## 재시작과 backfill
+## Restart and backfill
 
 ```mermaid
 sequenceDiagram
@@ -61,25 +61,25 @@ sequenceDiagram
     participant E as Executor
     S->>Q: Recover last durable applied commit
     Q-->>S: State / outputs / AppliedCursor
-    Note over S,M: Startup / body custody 준비는 아래 별도 startup 흐름을 따름
+    Note over S,M: Body custody follows the separate startup sequence
     S->>M: Recover archive and delivery cursors
     M->>M: Fetch missing authenticated history / bodies
     S->>E: Open recovered canonical checkpoint
-    Note over E: Speculative branch tree는 durable canonical state에서 다시 구성 가능
+    Note over E: Reconstruct speculative branches from durable canonical state
     M-->>E: Redeliver unacknowledged exact range
     E->>E: Idempotent commit(range)
     E-->>M: Existing matching durable CommitResult / delivery ACK
 ```
 
-[그림 크게 보기](../assets/diagrams/diagram-10.svg)
+[Open full-size diagram](../assets/diagrams/diagram-10.svg)
 
-| 진행 좌표 | 소유자와 진행 근거 | 다음 단계와의 연결 |
+| Progress coordinate | Owner and advancement condition | Relationship to the next stage |
 |---|---|---|
-| Native journal cursor | Native owner가 durable domain-event prefix ACK로 진행 | Application evidence 보관이나 state 적용 완료를 뜻하지 않음 |
-| ArchiveCursor 후보 | Orderer가 exact source witness와 interpretation을 recoverable하게 보관 | 방출할 range의 evidence·policy/history를 복구할 수 있어야 함 |
-| OrderedCursor 후보 | Orderer가 terminal slots에서 exact 연속 입력을 append | Range identity·predecessor·interpretation을 applied commit과 연결 |
-| AppliedCursor 후보 | Executor가 state·outputs·commit metadata의 durable 적용으로 진행 | 동일 range의 lost ACK를 idempotent하게 복구 |
+| Native journal cursor | Native owner receives a durable domain-event prefix acknowledgement | Does not establish application evidence retention or state application |
+| Proposed ArchiveCursor | Orderer recoverably stores exact source witnesses and interpretation | Evidence, policy, and history for emitted ranges must remain recoverable |
+| Proposed OrderedCursor | Orderer appends exact continuous input from terminal slots | Range identity, predecessor, and interpretation bind to applied commit |
+| Proposed AppliedCursor | Executor durably applies state, outputs, and commit metadata | Lost acknowledgement for the same range can be recovered idempotently |
 
-이들은 서로 다른 좌표계이므로 숫자 크기로 비교하지 않는다. Witness coverage와 exact identity로 archive → ordered input → applied commit을 연결한다. Delivery ACK만으로 source 삭제나 영구 serve availability가 정당화되지 않는다. Retention handoff·export lag·bounded buffering의 구체 정책은 미결정이며, 별도 archive quorum을 native cut의 대기 조건으로 추가하지 않는다.
+These coordinates cannot be compared by numeric magnitude. Witness coverage and exact identity connect archive, ordered input, and applied commit. Delivery acknowledgement alone does not justify deleting source material or guarantee permanent serving availability. Retention handoff, export lag, and bounded-buffering policy remain open. No separate archive quorum is added to native cut waits.
 
-이 그림의 recovered state·outputs·cursor는 선택할 application recovery adapter의 계약이며 QMDB 단독의 자동 atomicity 보장이 아니다. Recovered execution state와 history에서 lost ACK / unacknowledged range를 다시 처리하는 흐름이다. Native startup 자체의 body custody·readiness fence는 [별도 startup 그림](recovery.md#startup-custody를-준비한-뒤-native-recovery)을 따른다. Idempotent 처리도 단순히 state root가 같다는 검사 대신 exact commit identity와 recoverable outputs/cursor를 확인한다.
+Recovered state, outputs, and cursor follow the chosen application recovery-adapter contract; QMDB alone does not guarantee automatic atomicity across them. The sequence handles lost acknowledgements and unacknowledged ranges using recovered execution state and history. Native custody and readiness follow the [separate startup sequence](recovery.md#startup-prepare-custody-before-native-recovery). Idempotence verifies exact commit identity and recoverable outputs/cursor, not merely equality of state roots.

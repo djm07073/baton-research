@@ -12,7 +12,7 @@ sequenceDiagram
     N-->>B: CandidateBlock(block_ref, verified body, context)
     B->>E: execute(exact base, intended order, generation)
     E-->>B: ExecutionResult / branch handle
-    Note over N,B: Native consensus와 report / direction 경로는 병렬 진행
+    Note over N,B: Native consensus and reports / directions proceed in parallel
     N-->>E: Orderer delivers OrderedRange(exact order, predecessor, evidence)
     E->>E: commit(ordered range)
     E->>E: Reuse matching work / execute or verify peer state material
@@ -22,4 +22,4 @@ sequenceDiagram
     opt Local scheduling notification
         E-->>B: Applied progress notification, no approval / ACK required
     end
-    Note over E: State finalization / state sync는 Executor peer 경로, exact order + 동일 statement의 f+1 서명
+    Note over E: Executor peer finalization / sync: exact order + f+1 signatures on one statement

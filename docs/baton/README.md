@@ -1,15 +1,15 @@
-# Baton: 역할과 report 경로
+# Baton: roles and reports
 
-Baton은 사전 실행·재실행과 intended-order report·direction을 조율한다. State finalization과 state sync의 승인자나 중계자가 아니다.
+**Baton decides what speculative work to start or change.** It manages intended-order reports and advisory directions so Executors can begin useful work before order is final. Executor owns state finalization and state sync.
 
-## 역할과 책임
+## Roles and responsibilities
 
-Consensus에서 받은 후보 block을 execution에 넘겨 사전 실행을 예약한다. Local known inputs에서 intended order를 만들고 peer report를 교환한다. Leader는 이를 받아 direction을 선택·전파하며, non-leader는 direction을 받아 실행 계획을 바꾼다. 확정 순서의 전달·canonical 적용·state finalization·state sync는 Orderer / Executor가 직접 처리한다. Baton은 이 경로의 승인자나 대기 조건이 아니다.
+Baton receives candidate blocks from the consensus attachment and schedules speculative execution. It forms an intended order from locally known inputs and exchanges reports. The leader uses reports to choose and disseminate a direction. Non-leaders use a valid direction to adjust their execution plans. Orderer and Executor directly handle finalized input delivery, canonical application, state finalization, and state sync. These paths require no Baton approval or acknowledgement.
 
-**Baton**이 scheduling과 재실행 요청을 맡고, **Executor**가 speculative branch 관리와 canonical state 적용을 맡는다. **Runtime**은 tx 계산만 수행한다. Executor 내부에서도 canonical 적용은 single writer로 직렬화한다. Native signing·vote·finality authority는 consensus에 남는다.
+**Baton** owns scheduling and rescheduling requests. **Executor** owns speculative branches and canonical state application. **Runtime** computes transaction effects. Executor serializes canonical application through a single writer. Native signing, voting, and finality authority remain with consensus.
 
 ## Report connection
 
-Commonware P2P 위에서 authenticated window context, intended-order reports, advisory directions를 전달한다. 각 메시지는 epoch/view/history/actual parent/rule/window/frontier를 식별한다. Leader-local timer만으로 remote node가 window를 안다고 가정하지 않는다.
+Use Commonware P2P to carry authenticated window context, intended-order reports, and advisory directions. Messages bind epoch, view, history, actual parent, rule, window, and immutable frontier. A leader-local timer does not establish that remote nodes know the window.
 
-Report는 **실행 의도**이며 execution progress·state root·완료 증명이나 direction vote가 아니다. 같은 window에서 identity당 유효 원본 report 하나만 계수한다. Worker의 검증 완료와 leader owner의 snapshot admission은 다른 사건이다. 닫힌 snapshot에 늦은 report를 삽입하지 않는다.
+A report expresses **execution intent**. It is not execution progress, a state root, a completion proof, or a direction vote. Count one valid original report per identity in the same window. Worker verification and admission into the leader-owned snapshot are separate events. Reports that arrive after closure cannot enter that snapshot.

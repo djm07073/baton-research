@@ -1,0 +1,164 @@
+{
+  "README.md": {
+    "baton-docs": "baton-docs",
+    "먼저-읽을-페이지": "read-these-pages-first",
+    "문서-구성": "documentation-structure",
+    "현재-정한-책임": "adopted-responsibilities",
+    "문서-상태": "document-status"
+  },
+  "consensus/README.md": {
+    "consensus-역할과-native-구조": "consensus-roles-and-native-structure",
+    "역할과-책임": "roles-and-responsibilities",
+    "실제-native-actor와-파일-구조": "native-actors-and-source-layout"
+  },
+  "consensus/ordered-input.md": {
+    "확정-실행-순서-전달": "delivering-finalized-execution-order",
+    "합의와-baton-연결": "consensus-and-baton-integration"
+  },
+  "consensus/block-body.md": {
+    "블록-생성과-block-body-송수신": "block-construction-and-body-exchange",
+    "인터페이스-개요": "interface-overview",
+    "mempool에서-가져와-블록-생성": "select-transactions-and-build-a-block",
+    "블록-전파조회custody": "body-dissemination-lookup-and-custody"
+  },
+  "consensus/decisions.md": {
+    "consensus-미결정-사항": "consensus-open-decisions",
+    "미결정-사항": "open-decisions"
+  },
+  "baton/README.md": {
+    "baton-역할과-report-경로": "baton-roles-and-reports",
+    "역할과-책임": "roles-and-responsibilities",
+    "report-connection": "report-connection"
+  },
+  "baton/direction.md": {
+    "direction-선택과-재실행": "choosing-direction-and-rescheduling",
+    "leader-report로-baton-생성": "leader-choose-direction-from-reports",
+    "leader-producer들에게-baton-전파": "leader-disseminate-direction",
+    "non-leader-실행재실행-요청": "non-leader-request-execution-and-rescheduling",
+    "미결정-사항": "open-decisions"
+  },
+  "baton/interfaces.md": {
+    "baton-인터페이스와-로컬-진행-알림": "baton-interfaces-and-local-progress-notifications",
+    "인터페이스-개요": "interface-overview",
+    "확정-상태-진행-알림": "finalized-state-progress-notifications"
+  },
+  "tx/README.md": {
+    "tx-레이어-역할과-동작": "tx-layer-roles-and-flow",
+    "역할과-책임": "roles-and-responsibilities",
+    "tx-p2p-connection": "tx-p2p-connection",
+    "미결정-사항": "open-decisions"
+  },
+  "tx/interfaces.md": {
+    "tx-인터페이스": "tx-interfaces",
+    "인터페이스-개요": "interface-overview"
+  },
+  "execution/state-sync.md": {
+    "state-sync-인증된-실행-결과로-상태-동기": "state-sync-from-certified-execution-results",
+    "state-sync-인증된-실행-결과로-상태-동기-1": "state-sync-from-certified-execution-results-1"
+  },
+  "execution/qmdb.md": {
+    "qmdb-분기재사용상태-적용": "qmdb-branches-reuse-and-state-application",
+    "qmdb-state-관리와-재사용-경계": "qmdb-state-and-reuse-boundaries",
+    "실행-요청을-받으면-분기-tree-정리": "manage-the-branch-tree-for-execution-requests",
+    "commit-요청을-받으면-branch를-canonical로-만들기": "commit-a-branch-to-canonical-state"
+  },
+  "execution/README.md": {
+    "execution-역할과-책임": "execution-roles-and-responsibilities",
+    "역할과-책임": "roles-and-responsibilities",
+    "미결정-사항": "open-decisions"
+  },
+  "execution/interfaces.md": {
+    "executorruntime결과-인증-인터페이스": "executor-runtime-and-result-certification-interfaces",
+    "인터페이스-개요": "interface-overview",
+    "결과-인증-trait": "result-certification-trait"
+  },
+  "overview/rust-interfaces.md": {
+    "rust-인터페이스": "rust-interfaces",
+    "모듈과-호출-흐름": "modules-and-call-flow",
+    "txpool": "txpool",
+    "txpolicy": "txpolicy",
+    "blockservice": "blockservice",
+    "orderer": "orderer",
+    "baton": "baton",
+    "planner": "planner",
+    "executor": "executor",
+    "runtime": "runtime",
+    "resultservice": "resultservice",
+    "state-finalization--state-sync의-인터페이스-경계": "interface-boundary-for-state-finalization-and-state-sync"
+  },
+  "overview/architecture.md": {
+    "전체-아키텍처": "architecture",
+    "네-레이어": "four-layers",
+    "레이어-사이의-입력과-출력": "inputs-and-outputs-between-layers",
+    "data-path-control-path-canonical-path": "data-control-and-canonical-paths",
+    "작업자와-authority": "workers-and-decision-authority"
+  },
+  "overview/networking.md": {
+    "p2p와-메시지-경로": "p2p-and-message-paths",
+    "p2p-연결과-message-planes": "p2p-connections-and-message-planes"
+  },
+  "overview/glossary.md": {
+    "역할과-공통-용어": "roles-and-terminology",
+    "역할과-용어": "roles-and-terms"
+  },
+  "overview/interfaces.md": {
+    "인터페이스-읽는-방법": "reading-the-interfaces",
+    "rust-trait를-읽는-방법": "how-to-read-the-rust-traits",
+    "e2e-흐름에서-호출-찾기": "finding-calls-in-e2e-cases"
+  },
+  "e2e/canonical.md": {
+    "확정-순서와-canonical-상태-적용": "finalized-order-and-canonical-state-application",
+    "cut-commit--ordered-range--실행-commit": "cut-commit--ordered-range--execution-commit",
+    "execution-lifecycle-qmdb-분기-생성과-canonical-승격": "execution-lifecycle-qmdb-branches-and-canonical-promotion"
+  },
+  "e2e/state-sync.md": {
+    "state-sync-인증된-실행-결과로-상태-동기": "state-sync-from-certified-execution-results",
+    "state-sync-인증된-실행-결과로-상태-동기-1": "state-sync-from-certified-execution-results-1"
+  },
+  "e2e/leader.md": {
+    "leader-reportdirection과-proposal-경합": "leader-reports-direction-and-proposal-races",
+    "baton-lifecycle-leader-report-수집과-direction-전파": "leader-lifecycle-collect-reports-and-disseminate-direction",
+    "planner-completion과-proposal-freeze의-경합": "planner-completion-versus-proposal-freeze"
+  },
+  "e2e/recovery.md": {
+    "시작재시작과-이력-복구": "startup-restart-and-history-recovery",
+    "startup-custody를-준비한-뒤-native-recovery": "startup-prepare-custody-before-native-recovery",
+    "재시작과-backfill": "restart-and-backfill"
+  },
+  "e2e/results.md": {
+    "executor-간-결과-인증과-조회": "executor-result-certification-and-queries",
+    "결과-endpoint-direct-execution과-f1-인증": "result-endpoint-direct-execution-and-f1-certification"
+  },
+  "e2e/native-consensus.md": {
+    "블록-제안dacut-확정": "block-proposal-da-and-cut-finality",
+    "native-합의-정상-경로-producer-da--leader-proposal--finality": "normal-native-consensus-producer-da--leader-proposal--finality"
+  },
+  "e2e/normal.md": {
+    "정상-흐름-tx-접수부터-상태-적용까지": "normal-flow-transaction-to-applied-state",
+    "전체-e2e-tx-입력부터-canonical-state까지": "full-e2e-transaction-input-to-canonical-state",
+    "tx-lifecycle-신규중복잘못된-tx": "tx-lifecycle-new-duplicate-and-invalid-transactions"
+  },
+  "e2e/reschedule.md": {
+    "direction-수신과-재실행": "receiving-direction-and-reexecuting",
+    "baton-lifecycle-non-leader의-direction재실행-요청": "non-leader-lifecycle-direction-and-rescheduling"
+  },
+  "e2e/block-body.md": {
+    "block-body-송수신": "block-body-send-fetch-and-receive",
+    "block-lifecycle-mempool--propose--body-전파": "block-lifecycle-mempool--propose--body-dissemination",
+    "block-body-송수신-조회검증누락-처리": "body-lookup-verification-and-missing-content-handling"
+  },
+  "reference/integration.md": {
+    "commonware-연결-지점과-개발-순서": "commonware-integration-and-development-order",
+    "commonware-integration-anchors": "commonware-integration-anchors",
+    "실제-소스를-따라-읽는-순서": "source-reading-order",
+    "개발-단계와-확인할-흐름": "development-stages-and-validation-flows"
+  },
+  "reference/sources.md": {
+    "참고자료와-문서-상태": "sources-and-document-status",
+    "참고자료와-문서-상태-1": "sources-and-document-status-1"
+  },
+  "reference/verification.md": {
+    "검증할-케이스": "cases-to-verify",
+    "컴포넌트별-검증-케이스": "verification-cases-by-component"
+  }
+}

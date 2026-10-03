@@ -34,5 +34,5 @@ sequenceDiagram
         end
     else Shutdown, flush failure, or incomplete metadata linkage
         Q-->>O: No successful durable completion
-        Note over M,O: CommitResult / delivery ACK를 발행하지 않고 recovery 경계에서 처리
+        Note over M,O: No CommitResult / delivery ACK, handle at recovery boundary
     end

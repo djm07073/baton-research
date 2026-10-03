@@ -39,8 +39,8 @@ input.addEventListener('input', async () => {
       link.append(group);
       results.append(link);
     }
-    if (!matches.length) results.textContent = '검색 결과가 없어요.';
+    if (!matches.length) results.textContent = 'No results found.';
   } catch {
-    if (revision === current) results.textContent = '검색을 불러오지 못했어요. 목차를 이용해 주세요.';
+    if (revision === current) results.textContent = 'Search is unavailable. Use the table of contents.';
   }
 });

@@ -28,8 +28,8 @@ sequenceDiagram
                 end
                 E->>E: Execute next range from synced canonical state
             else Durable completion unconfirmed or failed
-                Note over E,B: Local ready / CommitResult를 발행하지 않고 recovery에서 재확인
+                Note over E,B: No local ready / CommitResult, recheck during recovery
             end
         end
     end
-    Note over P,E: Imported range에 own direct-execution signature를 추가하지 않음
+    Note over P,E: No own direct-execution signature for imported range

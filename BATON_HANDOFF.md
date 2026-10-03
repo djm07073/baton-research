@@ -2,6 +2,10 @@
 
 Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
 
+## English documentation revision
+
+The 31 active docs pages now use English, including navigation and diagram labels. Each module begins with a plain-language responsibility, then describes Rust trait inputs/outputs, call flow, and detailed completion conditions. All nine Rust declarations, pinned external source occurrences, and 39 blank policy decisions are preserved. Two stale diagram endpoints now match the already-adopted Executor responsibility: canonical outcomes originate in Executor, and Orderer delivers directly to Executor. This is documentation work, not protocol implementation or validation. GitBook updates preserve existing page identities; Markdown remains canonical without Git Sync. The English revision `QZTpgxjih7GpPhLNrfyh` is published and verified; see [publication checks](assets/review/english-docs-20261003/README.md).
+
 ## 2026-10-03 GitBook 업로드 완료
 
 [Beaker / Baton](https://app.gitbook.com/o/Z5g7kwPjokG0jEOyXNu6/s/pvyFEde12m2tVRjI8TRw/) 비공개 공간에 문서 31개·섹션 안내 7개를 업로드했다. [Rust 인터페이스](https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces)와 단일 Rust 파일, 18개 SVG를 함께 연결했다. 저장된 38개 페이지의 텍스트·code fence·315개 링크를 확인하고 change request를 merge했으며 published revision `9wT9dqT7E4YdDK44oElB`의 document IDs·파일 목록도 확인했다. 한글 자동 절 주소 대신 cloud 전용 명시적 절 주소를 사용한다. 원본 Markdown은 `docs/`이며 Git Sync는 연결하지 않았다. [검증 기록](assets/review/gitbook-upload-20261003/README.md)을 읽는다. 아래 미발행 설명은 각 시점의 작업 이력이다.

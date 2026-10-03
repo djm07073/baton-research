@@ -14,7 +14,7 @@ const slug = text => text.toLowerCase().replace(/[`*]/g, '').replace(/[^\p{L}\p{
 const htmlPath = file => file === 'README.md' ? 'index.html' : file.replace(/\.md$/, '.html');
 const summary = await readFile(path.join(source, 'SUMMARY.md'), 'utf8');
 const pages = [];
-let group = '시작하기';
+let group = 'Start here';
 for (const line of summary.split('\n')) {
   if (line.startsWith('## ')) group = line.slice(3);
   const link = line.match(/^\* \[(.+)\]\((.+\.md)\)$/);
@@ -46,7 +46,7 @@ for (let i = 0; i < pages.length; i++) {
       const diagram = diagrams.get(sha(token.text));
       if (!diagram) throw new Error(`Unrendered diagram in ${page.file}`);
       const href = relative(destination, `assets/diagrams/${diagram.name}.svg`);
-      return `<figure><a href="${href}" target="_blank" rel="noopener"><img src="${href}" alt="${escape(diagram.title)}" loading="lazy"></a><figcaption>그림을 누르면 크게 볼 수 있어요.</figcaption></figure>`;
+      return `<figure><a href="${href}" target="_blank" rel="noopener"><img src="${href}" alt="${escape(diagram.title)}" loading="lazy"></a><figcaption>Click the diagram to open it full size.</figcaption></figure>`;
     }
     return `<pre><code class="language-${escape(token.lang || 'text')}">${escape(token.text)}</code></pre>\n`;
   };
@@ -69,10 +69,10 @@ for (let i = 0; i < pages.length; i++) {
   const toc = headings.map(h => `<a class="depth-${h.depth}" href="#${escape(h.id)}">${escape(h.text)}</a>`).join('');
   const adjacent = (p, label) => p ? `<a href="${linkTo(p)}"><small>${label}</small>${escape(p.title)}</a>` : '<span></span>';
   const base = relative(destination, 'index.html').replace(/index\.html$/, '');
-  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(page.title)} · Baton</title><link rel="stylesheet" href="${base}style.css"></head><body>
-<header><button id="menu" aria-label="목차 열기" aria-expanded="false">☰</button><a class="brand" href="${base}index.html">Baton <span>구현 문서</span></a><a href="https://github.com/djm07073/baton-research/tree/main/docs" class="github">GitHub</a></header>
-<aside id="sidebar"><label for="search">문서 검색</label><input id="search" type="search" placeholder="검색어 입력" autocomplete="off"><div id="results" aria-live="polite"></div><nav id="navigation" aria-label="문서 목차">${navigation}</nav></aside>
-<main><div class="breadcrumb">${escape(page.group)}</div><article>${content}</article><div class="page-nav">${adjacent(pages[i - 1], '이전')}${adjacent(pages[i + 1], '다음')}</div></main><aside class="toc"><div>이 페이지에서</div>${toc}</aside>
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(page.title)} · Baton</title><link rel="stylesheet" href="${base}style.css"></head><body>
+<header><button id="menu" aria-label="Open table of contents" aria-expanded="false">☰</button><a class="brand" href="${base}index.html">Baton <span>Implementation docs</span></a><a href="https://github.com/djm07073/baton-research/tree/main/docs" class="github">GitHub</a></header>
+<aside id="sidebar"><label for="search">Search docs</label><input id="search" type="search" placeholder="Search terms" autocomplete="off"><div id="results" aria-live="polite"></div><nav id="navigation" aria-label="Documentation navigation">${navigation}</nav></aside>
+<main><div class="breadcrumb">${escape(page.group)}</div><article>${content}</article><div class="page-nav">${adjacent(pages[i - 1], 'Previous')}${adjacent(pages[i + 1], 'Next')}</div></main><aside class="toc"><div>On this page</div>${toc}</aside>
 <script>window.DOCS_BASE=${JSON.stringify(base)};</script><script src="${base}app.js" defer></script></body></html>`;
   await mkdir(path.dirname(path.join(output, destination)), { recursive: true });
   await writeFile(path.join(output, destination), html);

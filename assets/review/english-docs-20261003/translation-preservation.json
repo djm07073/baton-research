@@ -1,0 +1,194 @@
+{
+  "source_base_commit": "cf2b70dc2a45d64af971bea694ca49f74b6c7433",
+  "rust_sha256": "a585a0049ea018ca8e1dbca1ef509433c87790616328f6e02a82df8a8e607e94",
+  "rust_trait_declarations": 9,
+  "blank_decision_cells": 39,
+  "checks": [
+    {
+      "source": "README.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "overview/architecture.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "overview/glossary.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "overview/rust-interfaces.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "overview/networking.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "overview/interfaces.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "tx/README.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "tx/interfaces.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "consensus/README.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "consensus/block-body.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "consensus/ordered-input.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "consensus/decisions.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "baton/README.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "baton/direction.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "baton/interfaces.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "execution/README.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "execution/interfaces.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "execution/qmdb.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "execution/state-sync.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "e2e/normal.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "e2e/block-body.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "e2e/native-consensus.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "e2e/leader.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "e2e/reschedule.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "e2e/canonical.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "e2e/recovery.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "e2e/results.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "e2e/state-sync.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "reference/integration.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "reference/verification.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    },
+    {
+      "source": "reference/sources.md",
+      "external_source_occurrences_preserved": true,
+      "rust_blocks_preserved": true,
+      "english": true
+    }
+  ]
+}

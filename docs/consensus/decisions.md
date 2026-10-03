@@ -1,16 +1,16 @@
-# Consensus 미결정 사항
+# Consensus open decisions
 
-기능 책임을 정한 것과 wire·policy·recovery 계약을 구현한 것은 다르다. 아래 결정 칸은 검토 후 채운다.
+**The responsibilities are defined; the integration contracts still need decisions.** Wire formats, policy adoption, and recovery details below remain blank until reviewed.
 
-## 미결정 사항
+## Open decisions
 
-| 항목 | 결정 |
+| Item | Decision |
 |---|---|
 | Body format / size limit / archive layout | |
 | Body transport adapter / fetch protocol | |
-| Targeted retry / fallback / pending want·subscriber·byte budgets | |
+| Targeted retry / fallback / pending want, subscriber, and byte budgets | |
 | Evidence export schema / retention handoff | |
 | Ordering policy codec / availability | |
-| Protected-prefix adoption 조건 | |
-| Exact continuation / extension / view recovery 연결 | |
+| Protected-prefix adoption conditions | |
+| Exact continuation / extension / view recovery integration | |
 | Backfill / checkpoint / GC | |

@@ -1,46 +1,46 @@
-# 인터페이스 읽는 방법
+# Reading the interfaces
 
-전체 선언은 [Rust 인터페이스](rust-interfaces.md)에서 읽는다. Rust trait는 앞으로 연결할 application API의 초안이다. 실제 Commonware API와 구현할 계약을 구분해서 읽는다.
+**The traits show who calls whom and what each call establishes.** Read the complete declarations in [Rust interfaces](rust-interfaces.md). These are proposed application contracts; distinguish them from APIs that already exist in Commonware.
 
-## Rust trait를 읽는 방법
+## How to read the Rust traits
 
-아래 trait는 **새 application 연결부의 Rust 설계 초안**이다. Native Commonware trait를 복제한 API나 구현된 crate가 아니다. `type`으로 남긴 입력·결과·오류의 concrete fields, codec, IDs, limits와 runtime 배치는 각 장의 빈 결정 칸에서 정한다. 타입 이름을 붙인 것은 wire schema나 정책을 채택한 것이 아니다.
+The traits are **Rust design drafts for new application integration**. They are neither copies of native Commonware traits nor implemented crates. Associated `type` declarations leave concrete fields, codecs, identities, limits, and runtime placement to the open-decision tables. Naming a type does not adopt a wire schema or policy.
 
-| 호출 흐름 | Trait method |
+| Call flow | Trait method |
 |---|---|
 | Client / tx peer → pool | `TxPool::admit` |
-| Producer 요청 → tx 선택 → 본문 준비 | `BlockService::build` → `TxPool::select` |
+| Producer request → tx selection → body preparation | `BlockService::build` → `TxPool::select` |
 | Peer body → custody / lookup | `BlockService::verify` / `fetch` |
-| 인증된 후보 → 사전 실행 | `Baton::on_block` → `Executor::execute` → `Runtime::execute` |
-| Reports → direction → 실행 계획 변경 | `Baton::on_report` → `Planner::plan` → `Baton::on_direction` → `Executor::reschedule` |
-| Native 증거 → 확정 순서 → local state 적용 | `Orderer::record` / `next_range` → `Executor::commit`; Baton 경유 없음 |
-| Durable 완료 → 전달 확인·pool 갱신 | Executor → `Orderer::acknowledge` + `TxPool::on_commit`; Baton 알림은 선택적 |
-| Executor 내부 직접 실행 결과 → 서명·인증 조회 | 내부 `ResultService::sign` / `collect` / `certificate`; peer 전송은 Executor ↔ Executor |
+| Authenticated candidate → speculative execution | `Baton::on_block` → `Executor::execute` → `Runtime::execute` |
+| Reports → direction → execution plan change | `Baton::on_report` → `Planner::plan` → `Baton::on_direction` → `Executor::reschedule` |
+| Native evidence → finalized order → local state application | `Orderer::record` / `next_range` → `Executor::commit` directly |
+| Durable completion → delivery acknowledgement and pool update | Executor → `Orderer::acknowledge` + `TxPool::on_commit`; Baton notification is optional |
+| Executor's directly executed result → signature and certified query | Internal `ResultService::sign` / `collect` / `certificate`; peer transport is Executor ↔ Executor |
 
-조립할 때 아래 associated types는 같은 concrete 타입으로 연결한다. Trait 이름이 같다고 Rust가 자동으로 연결해 주는 것은 아니며, 각 receiver의 context·identity·evidence 검증도 계속 필요하다.
+Connect the associated types below to the same concrete types during assembly. Matching trait names do not connect them automatically in Rust. Receivers must still validate context, identity, and evidence.
 
-| 연결할 타입 | 흐름 |
+| Type connection | Meaning |
 |---|---|
-| `Baton::Context = Planner::Context` | 동일 planning context; native producer Context와는 구분 |
-| `Planner::PreparedPolicy = Baton::PreparedPolicy` | 완료된 선택 결과 → native actual-context 재검증 hook |
-| `Orderer::OrderedRange = Executor::OrderedRange` | 확정 순서 → 직접 commit 요청 |
-| `Executor::ExecutionResult = Baton::ExecutionResult = ResultService::ExecutionResult` | 완료한 실행 → generation/context 확인 또는 canonical 결과 서명 검증 |
-| `Executor::CommitResult = Baton::CommitResult = Orderer::CommitResult = TxPool::CommitResult` | Executor의 durable 완료 → delivery 확인·tx lifecycle 반영; Baton::CommitResult는 선택적 알림 |
+| `Baton::Context = Planner::Context` | Shared planning context, distinct from native producer Context |
+| `Planner::PreparedPolicy = Baton::PreparedPolicy` | Completed selection → native actual-context recheck hook |
+| `Orderer::OrderedRange = Executor::OrderedRange` | Finalized order → direct commit request |
+| `Executor::ExecutionResult = Baton::ExecutionResult = ResultService::ExecutionResult` | Completed work → generation/context validation or canonical result-signing checks |
+| `Executor::CommitResult = Baton::CommitResult = Orderer::CommitResult = TxPool::CommitResult` | Durable completion → delivery acknowledgement and tx lifecycle; Baton receives only an optional notification |
 
-메서드의 `&mut self`는 호출 handle의 Rust ownership 표기이며, 모든 branch 계산을 한 작업자로 실행하거나 DB의 single writer가 자동 보장된다는 뜻이 아니다. 공유 handle / worker concurrency·canonical writer / fencing은 implementation에서 연결한다. `impl Future + Send`는 Commonware callback과 비슷한 선언 방식이며 async runtime·dyn dispatch·boxing 정책은 선택하지 않았다.
+`&mut self` describes Rust ownership of the call handle. It does not serialize all branch computations or automatically enforce a database single writer. Shared handles, worker concurrency, canonical writer authority, and fencing need implementation. `impl Future + Send` follows a declaration style similar to Commonware callbacks; async runtime, dynamic dispatch, and boxing remain undecided.
 
-`Baton::on_*`과 `BlockService::publish`는 local admission / 작업 예약 경계다. Native `Reporter`·`Relay`의 synchronous callback에서 느린 I/O를 기다리는 호출로 쓰지 않는다. Future를 반환하는 메서드의 기다림은 application 작업에 한정되며, native cut이 report·planner·direction 회신을 기다리는 조건을 추가하지 않는다. `Executor::commit`은 canonical mutation lifecycle을 소유하므로 advisory job 취소와 같이 취소하지 않는다.
+`Baton::on_*` and `BlockService::publish` establish local admission or scheduling boundaries. Native Reporter and Relay synchronous callbacks must not wait for slow I/O through these methods. Futures describe application work, without adding native cut waits for reports, planning, or direction replies. `Executor::commit` owns canonical mutation and must not be canceled like an advisory job.
 
-## E2E 흐름에서 호출 찾기
+## Finding calls in E2E cases
 
-| 확인할 케이스 | Sequence |
+| Case | Sequence |
 |---|---|
-| Client admission부터 durable canonical 적용까지 | [전체 E2E](../e2e/normal.md#전체-e2e-tx-입력부터-canonical-state까지) |
-| 신규·중복·구조적 invalid tx | [Tx lifecycle](../e2e/normal.md#tx-lifecycle-신규중복잘못된-tx) |
-| Producer DA부터 leader proposal·vote·local finality까지 | [Native 합의 정상 경로](../e2e/native-consensus.md#native-합의-정상-경로-producer-da--leader-proposal--finality) |
-| Body build / peer custody / 누락·invalid body | [Propose](../e2e/block-body.md#block-lifecycle-mempool--propose--body-전파), [Verify](../e2e/block-body.md#block-body-송수신-조회검증누락-처리) |
-| Leader 선택·전파와 non-leader 재예약 | [Leader](../e2e/leader.md#baton-lifecycle-leader-report-수집과-direction-전파), [Non-leader](../e2e/reschedule.md#baton-lifecycle-non-leader의-direction재실행-요청) |
-| Cut 해석·gap / matching branch / flush 실패 | [Ordered range](../e2e/canonical.md#cut-commit--ordered-range--실행-commit), [QMDB commit](../e2e/canonical.md#execution-lifecycle-qmdb-분기-생성과-canonical-승격) |
-| 이미 적용한 range 재전달과 native startup | [Restart delivery](../e2e/recovery.md#재시작과-backfill), [Startup custody](../e2e/recovery.md#startup-custody를-준비한-뒤-native-recovery) |
-| Validator의 인증 결과 수신·남은 실행 중단·상태 적용 | [State sync](../e2e/state-sync.md#state-sync-인증된-실행-결과로-상태-동기) |
-| f+1 결과 인증과 late planner completion | [Result endpoint](../e2e/results.md#결과-endpoint-direct-execution과-f1-인증), [Proposal freeze](../e2e/leader.md#planner-completion과-proposal-freeze의-경합) |
+| Client admission through durable canonical application | [Normal E2E](../e2e/normal.md#full-e2e-transaction-input-to-canonical-state) |
+| New, duplicate, and structurally invalid transactions | [Tx lifecycle](../e2e/normal.md#tx-lifecycle-new-duplicate-and-invalid-transactions) |
+| Producer DA, leader proposal, voting, and local finality | [Native consensus](../e2e/native-consensus.md#normal-native-consensus-producer-da--leader-proposal--finality) |
+| Body build, peer custody, missing or invalid body | [Propose](../e2e/block-body.md#block-lifecycle-mempool--propose--body-dissemination), [Verify](../e2e/block-body.md#body-lookup-verification-and-missing-content-handling) |
+| Leader selection / dissemination and non-leader rescheduling | [Leader](../e2e/leader.md#leader-lifecycle-collect-reports-and-disseminate-direction), [Non-leader](../e2e/reschedule.md#non-leader-lifecycle-direction-and-rescheduling) |
+| Cut interpretation, gaps, matching branches, flush failures | [Ordered range](../e2e/canonical.md#cut-commit--ordered-range--execution-commit), [QMDB commit](../e2e/canonical.md#execution-lifecycle-qmdb-branches-and-canonical-promotion) |
+| Redelivery of applied ranges and native startup | [Restart delivery](../e2e/recovery.md#restart-and-backfill), [Startup custody](../e2e/recovery.md#startup-prepare-custody-before-native-recovery) |
+| Validator imports a certified result and stops remaining execution | [State sync](../e2e/state-sync.md#state-sync-from-certified-execution-results) |
+| f+1 result certification and late planner completion | [Result endpoint](../e2e/results.md#result-endpoint-direct-execution-and-f1-certification), [Proposal freeze](../e2e/leader.md#planner-completion-versus-proposal-freeze) |

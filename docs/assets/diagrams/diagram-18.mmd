@@ -1,10 +1,10 @@
 flowchart LR
-    S[S0: canonical state] --> A[A 실행 후 checkpoint]
+    S[S0: canonical state] --> A[Checkpoint after A]
     A --> AB[A → B checkpoint]
-    AB --> ABC[A → B → C: 기존 branch]
-    AB --> ABD[A → B → D: 새 direction branch]
-    S --> X[X 실행 후 checkpoint]
-    X --> XA[X → A: 다른 base의 A 실행]
+    AB --> ABC[A → B → C: existing branch]
+    AB --> ABD[A → B → D: new direction branch]
+    S --> X[Checkpoint after X]
+    X --> XA[X → A: execute A from another base]
     classDef canonical fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef reuse fill:#dcfce7,stroke:#16a34a,color:#14532d;
     classDef pending fill:#ffedd5,stroke:#ea580c,color:#431407;

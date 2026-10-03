@@ -1,22 +1,22 @@
-# Tx 인터페이스
+# Tx interfaces
 
-접수·후보 선택·proposal 결과·canonical 결과 반영의 경계를 정의한다. 정적 분석에 live balance나 nonce 판단을 섞지 않는다.
+**TxPool owns candidate lifecycle; TxPolicy owns payload-based classification.** Admission makes a transaction available for selection. A canonical result determines its eventual lifecycle update. The detailed contract keeps these events separate.
 
-## 인터페이스 개요
+## Interface overview
 
-Rust 선언: [TxPool](../overview/rust-interfaces.md#txpool) · [TxPolicy](../overview/rust-interfaces.md#txpolicy) — 전체 원형은 「Rust 인터페이스」에서 관리한다.
+Rust declarations: [TxPool](../overview/rust-interfaces.md#txpool) and [TxPolicy](../overview/rust-interfaces.md#txpolicy). The Rust interfaces page is the single source for these declarations. Arguments use the associated types shown below. Async methods return a Future whose output is `Result<SuccessType, Self::Error>`; synchronous policy methods return Result directly. The output column names SuccessType.
 
-`Selection`은 native producer context와 bounded selection limits를 식별한다. `Batch`는 후보이며 block 포함이나 tx 성공의 증거가 아니다. `on_proposal`은 local build 취소·재선택을, `on_commit`은 durable canonical 결과에 따른 lifecycle 갱신을 다룬다. 서로 같은 삭제 조건으로 취급하지 않는다.
+`Selection` identifies the native producer context and bounded selection limits. `Batch` is a set of candidates, not evidence of block inclusion or successful execution. `on_proposal` handles local build cancellation and reselection; `on_commit` handles lifecycle updates from durable canonical results. They do not share a deletion condition.
 
-`TxPolicy`의 입력은 tx payload에서 얻은 정적 특징이다. `Decision`을 producer routing이나 packing filtering에 연결하는 위치·규칙은 미결정이다. Live balance·nonce·부하 조회를 정적 분석에 섞지 않는다. 순수 계산을 수행하는 두 메서드의 CPU budget / worker 배치는 별도로 정한다.
+TxPolicy consumes static features extracted from payloads. Where and how `Decision` controls producer routing or packing filters remains undecided. Balance, nonce, and load lookups do not belong in static analysis. CPU budgets and worker placement for the two pure computations are separate decisions.
 
-| 제안 인터페이스 | 호출자 → 수신자 | 입력 | 출력 / 다음 처리 |
+| Proposed interface | Caller → receiver | Input | Output / next action |
 |---|---|---|---|
-| `TxPool::admit` | Tx API / peer → tx layer | Canonical tx bytes, tx ID, source | Admission result와 후보 보관 |
-| `TxPolicy::analyze` | TxPool admission / packing 위치 | Tx payload, 선택한 analysis version | Static features |
-| `TxPolicy::classify` | TxPool / inclusion 연결부 | Static features | Routing / filtering decision; 위치·정책은 미결정 |
-| `TxPool::select` | Producer adapter → pool | Native producer context, bounded limits | Candidate tx batch |
-| `TxPool::on_proposal` | Producer adapter → pool | Attachment의 local request correlation, cancellation / local outcome | 후보 lifecycle 갱신; permanent deletion 여부는 canonical 근거와 구분 |
-| `TxPool::on_commit` | Executor → pool | Durable ordered range의 tx 결과 | Canonical lifecycle 반영 |
+| `TxPool::admit` | Tx API / peer → tx layer | `Self::Tx`, `Self::Source` | `Self::Admission`; retained candidate |
+| `TxPolicy::analyze` | TxPool admission / packing integration | `&Self::Tx`; configured analysis version | `Self::Features` |
+| `TxPolicy::classify` | TxPool / inclusion integration | `&Self::Features` | `Self::Decision`; placement and policy undecided |
+| `TxPool::select` | Producer adapter → pool | `Self::Selection`: producer context and limits | `Self::Batch`; candidate transactions |
+| `TxPool::on_proposal` | Producer adapter → pool | `Self::ProposalOutcome`: local correlation and outcome | `()`; local lifecycle update, separate from canonical deletion |
+| `TxPool::on_commit` | Executor → pool | `Self::CommitResult`: durable range and tx outcomes | `()`; canonical lifecycle update |
 
-Tx ID는 tx, external body commitment는 외부 body, native header ID는 epoch/chain/height/parent/commitment를 포함한 전체 producer header를 식별한다. 선택한 tx bytes와 body, authenticated header, canonical tx outcome의 대응은 adapter가 유지한다. Local request correlation도 native private build ID가 Context로 전달된다는 뜻은 아니다. API codec·ID 규칙·중복 의미는 아래 빈칸에서 정한다. [Producer header identity](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L113).
+A tx ID identifies a transaction; an external body commitment identifies body content; the native header ID identifies the complete producer header, including epoch, chain, height, parent, and commitment. Adapters maintain the correspondence between selected bytes, body, authenticated header, and canonical outcomes. Attachment-local request correlation does not imply that a native private build ID is exposed in Context. Codec, identity, and duplicate semantics remain undecided. [Producer header identity](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L113).

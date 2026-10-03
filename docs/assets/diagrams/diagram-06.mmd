@@ -15,14 +15,14 @@ sequenceDiagram
         L->>L: Close once at first 4f+1 OR fixed deadline
         L->>P: Frozen snapshot + bounded admissible candidates
         P-->>L: Evaluated selection or incomplete
-        opt 유효한 direction이 준비됨
+        opt Valid direction prepared
             L-->>X: Direction(context, order, selected prefix)
             X->>X: Local speculative reschedule
         end
-        Note over L,X: Direction vote / ACK / Ready quorum 없음
+        Note over L,X: No direction vote / ACK / Ready quorum
         L->>L: Local cycle closes, fresh work / context starts next cycle
     and Native cut path
         N->>N: Prepared matching policy or valid NativeBase
-        Note over N,L: Cut은 report 수 / deadline / planner 완료를 기다리지 않음
+        Note over N,L: Cut does not wait for report count / deadline / Planner completion
         N->>N: Freeze authenticated proposal policy, native votes
     end

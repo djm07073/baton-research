@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-03",
+  "source_base_commit": "cf2b70dc2a45d64af971bea694ca49f74b6c7433",
+  "repository": "https://github.com/djm07073/baton-research",
+  "organization": "Beaker",
+  "space": "Baton",
+  "space_id": "pvyFEde12m2tVRjI8TRw",
+  "visibility": "private",
+  "language": "en",
+  "url": "https://app.gitbook.com/o/Z5g7kwPjokG0jEOyXNu6/s/pvyFEde12m2tVRjI8TRw/",
+  "change_request": "PAImpzUcI7M7tPbvOPOm",
+  "verified_change_revision": "6PqM8xJoSvRtPlBNazOn",
+  "published_revision": "QZTpgxjih7GpPhLNrfyh",
+  "page_document_ids_match": true,
+  "files_match": true,
+  "live_rust_page_verified": true,
+  "content_pages": 31,
+  "section_index_pages": 7,
+  "mermaid_diagrams": 18,
+  "rust_traits": [
+    "TxPool",
+    "TxPolicy",
+    "BlockService",
+    "Orderer",
+    "Baton",
+    "Planner",
+    "Executor",
+    "Runtime",
+    "ResultService"
+  ],
+  "links_verified": 315,
+  "files": [
+    {
+      "source": "assets/diagrams/diagram-01.svg",
+      "id": "DG3chYIj329hO9ZlxJYi",
+      "name": "diagram-01.svg",
+      "size": 34855
+    },
+    {
+      "source": "assets/diagrams/diagram-02.svg",
+      "id": "qBY8Bp4T4rCstOkv2KIX",
+      "name": "diagram-02.svg",
+      "size": 36196
+    },
+    {
+      "source": "assets/diagrams/diagram-03.svg",
+      "id": "S70jMd5kYCKKQibQ16JE",
+      "name": "diagram-03.svg",
+      "size": 36756
+    },
+    {
+      "source": "assets/diagrams/diagram-04.svg",
+      "id": "70JlGNSzNTOWIvWFbXMM",
+      "name": "diagram-04.svg",
+      "size": 31973
+    },
+    {
+      "source": "assets/diagrams/diagram-05.svg",
+      "id": "1cMdDdxPUnagFcZsWbM5",
+      "name": "diagram-05.svg",
+      "size": 43538
+    },
+    {
+      "source": "assets/diagrams/diagram-06.svg",
+      "id": "fJupFpZJqhp1f95nsES2",
+      "name": "diagram-06.svg",
+      "size": 37522
+    },
+    {
+      "source": "assets/diagrams/diagram-07.svg",
+      "id": "01z6d0JESYCcLN6Ev8Zf",
+      "name": "diagram-07.svg",
+      "size": 31898
+    },
+    {
+      "source": "assets/diagrams/diagram-08.svg",
+      "id": "jCJUDaEngyw5hzaneDQc",
+      "name": "diagram-08.svg",
+      "size": 33894
+    },
+    {
+      "source": "assets/diagrams/diagram-09.svg",
+      "id": "LemKDYs6oSI4D6CzeMsg",
+      "name": "diagram-09.svg",
+      "size": 41690
+    },
+    {
+      "source": "assets/diagrams/diagram-10.svg",
+      "id": "xThDnJbqUHjzwsnzqaZf",
+      "name": "diagram-10.svg",
+      "size": 28909
+    },
+    {
+      "source": "assets/diagrams/diagram-11.svg",
+      "id": "Y0k5tWxrPmscYwfsVb2G",
+      "name": "diagram-11.svg",
+      "size": 34354
+    },
+    {
+      "source": "assets/diagrams/diagram-12.svg",
+      "id": "1btElU71NvQIZAgwlxA7",
+      "name": "diagram-12.svg",
+      "size": 35849
+    },
+    {
+      "source": "assets/diagrams/diagram-13.svg",
+      "id": "haoaD08witENw2JAVuuY",
+      "name": "diagram-13.svg",
+      "size": 40498
+    },
+    {
+      "source": "assets/diagrams/diagram-14.svg",
+      "id": "aLj7ePyKrLFfsZaHdETr",
+      "name": "diagram-14.svg",
+      "size": 41846
+    },
+    {
+      "source": "assets/diagrams/diagram-15.svg",
+      "id": "41dFb3JpaJUb1IxGCdc7",
+      "name": "diagram-15.svg",
+      "size": 43526
+    },
+    {
+      "source": "assets/diagrams/diagram-16.svg",
+      "id": "ZbyjRy0odcG0xoHsJ0u4",
+      "name": "diagram-16.svg",
+      "size": 26411
+    },
+    {
+      "source": "assets/diagrams/diagram-17.svg",
+      "id": "sq1RVppfMoFJiqLV33lc",
+      "name": "diagram-17.svg",
+      "size": 37529
+    },
+    {
+      "source": "assets/diagrams/diagram-18.svg",
+      "id": "TvaHpXfmeL3BZMFKId0I",
+      "name": "diagram-18.svg",
+      "size": 16946
+    },
+    {
+      "source": "assets/interfaces/baton.rs",
+      "id": "7jy0p9ccTLflugY4lYjT",
+      "name": "baton.rs",
+      "size": 6314
+    }
+  ],
+  "git_sync_configured": false,
+  "protocol_validation": false
+}

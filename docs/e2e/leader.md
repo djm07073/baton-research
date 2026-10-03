@@ -1,8 +1,8 @@
-# Leader report·direction과 proposal 경합
+# Leader reports, direction, and proposal races
 
-Report window 종료와 direction 선택·전파를 설명한다. Planner 완료와 native proposal freeze가 경합해도 cut은 기다리지 않는다.
+**Leader Baton prepares an execution suggestion while native consensus keeps moving.** It closes a report window, asks Planner to choose a valid direction, and disseminates the result. Native Core may freeze a proposal before Planner finishes.
 
-## Baton lifecycle: leader report 수집과 direction 전파
+## Leader lifecycle: collect reports and disseminate direction
 
 ```mermaid
 sequenceDiagram
@@ -22,24 +22,24 @@ sequenceDiagram
         L->>L: Close once at first 4f+1 OR fixed deadline
         L->>P: Frozen snapshot + bounded admissible candidates
         P-->>L: Evaluated selection or incomplete
-        opt 유효한 direction이 준비됨
+        opt Valid direction prepared
             L-->>X: Direction(context, order, selected prefix)
             X->>X: Local speculative reschedule
         end
-        Note over L,X: Direction vote / ACK / Ready quorum 없음
+        Note over L,X: No direction vote / ACK / Ready quorum
         L->>L: Local cycle closes, fresh work / context starts next cycle
     and Native cut path
         N->>N: Prepared matching policy or valid NativeBase
-        Note over N,L: Cut은 report 수 / deadline / planner 완료를 기다리지 않음
+        Note over N,L: Cut does not wait for report count / deadline / Planner completion
         N->>N: Freeze authenticated proposal policy, native votes
     end
 ```
 
-[그림 크게 보기](../assets/diagrams/diagram-06.svg)
+[Open full-size diagram](../assets/diagrams/diagram-06.svg)
 
-Window 안내와 prepared policy를 실제 proposal에 결속하는 hook은 구현할 adapter다. 그림이 그 API가 이미 존재하거나 prefix-adoption 증명이 완료되었음을 뜻하지 않는다. Local cycle 종료는 모든 노드의 실행 완료나 native cut branch 종료를 기다리는 barrier가 아니다.
+Window announcement and binding prepared policy to an actual proposal require integration adapters. The diagram does not imply those APIs already exist or prefix adoption has been proved. Closing a local cycle does not wait for all nodes' execution or the native cut branch to finish.
 
-## Planner completion과 proposal freeze의 경합
+## Planner completion versus proposal freeze
 
 ```mermaid
 sequenceDiagram
@@ -65,11 +65,11 @@ sequenceDiagram
         P-->>N: Late prepared result
         N->>N: Do not mutate this proposal policy
     end
-    Note over L,V: Native votes는 direction 회신 quorum이 아님
+    Note over L,V: Native votes are not a direction-reply quorum
 ```
 
-[그림 크게 보기](../assets/diagrams/diagram-12.svg)
+[Open full-size diagram](../assets/diagrams/diagram-12.svg)
 
-Planner job 자체가 없는 경우에도 native proposal은 유효한 actual-parent base 경로로 진행한다. 이 그림은 job이 시작된 경우의 completion 경합을 설명한다.
+Native proposal can use the valid actual-parent base path even when no Planner job exists. The diagram describes the completion race when a job has been started.
 
-Prepared result를 채택할 availability와 exact-prefix 보존 조건은 아직 닫히지 않았다. 이 그림은 구현할 freeze 경계를 설명하며 특정 ready-only policy variant를 채택하지 않는다. View가 바뀌면 old reports·advisory work는 새 context에 넣지 않고, 이미 인증·방출·적용된 history는 원래 해석을 보존한다.
+Availability for adopting a prepared result and exact-prefix preservation remain unresolved. This diagram identifies the required freeze boundary without adopting a particular ready-only policy variant. On view change, old reports and advisory work cannot enter the new context. Already authenticated, emitted, or applied history keeps its original interpretation.

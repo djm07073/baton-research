@@ -1,133 +1,154 @@
 {
-  "specification": "IMPLEMENTATION_SPEC.md",
-  "specification_sha256": "79d5a7109a685d8b8c968bcc92b135fad290a70dc62a8c95f064128c919ff74b",
+  "specification": "baton-english-diagrams.md",
+  "specification_sha256": "0df1df5aa0227cef24ebaf3bbd80942f2f9e04a7a2b32faff7405314d828fb6a",
   "renderer": "mermaid 11.12.0",
   "diagrams": [
     {
       "name": "diagram-01",
-      "title": "1.1 네 레이어",
+      "title": "Four layers",
       "width": 1046,
-      "height": 914,
-      "source_sha256": "eef36ac93ab9c68d6d5363554207b4ceb46693de3a437e4d12c19880f935d733"
+      "height": 938,
+      "source_sha256": "99ab6caf2da7d984b28eae6e5ebb52c5543501ee9f3965ef833941053a7c8f50"
     },
     {
       "name": "diagram-02",
-      "title": "2.1 전체 E2E: tx 입력부터 canonical state까지",
+      "title": "Full E2E: transaction input to canonical state",
       "width": 1129,
       "height": 1472,
-      "source_sha256": "40cd5d17844ba22fb472253328a28f29e7dbaeaaded8733af8dfb86d4dda646f"
+      "source_sha256": "c8bf82be91df4cc39f745f93572eb63c65365f16d0244d2a04db764123977f35"
     },
     {
       "name": "diagram-03",
-      "title": "2.2 Tx lifecycle: 신규·중복·잘못된 tx",
+      "title": "Tx lifecycle: new, duplicate, and invalid transactions",
       "width": 1326,
-      "height": 1483,
-      "source_sha256": "fc6fefba88cfd1a4eebe0d3c1e3449eb165308d3d6e8c597ad3dd1fcea994cd8"
+      "height": 1484,
+      "source_sha256": "d601e6c5441f4897777ecac56166f644bbd8b61c1052a264b7d53d6148415e00"
     },
     {
       "name": "diagram-04",
-      "title": "2.3 Block lifecycle: mempool → propose → body 전파",
+      "title": "Block lifecycle: mempool \u2192 propose \u2192 body dissemination",
       "width": 1334,
       "height": 841,
-      "source_sha256": "c4f4c318085c6309a087afc41bcb216376fa73714dccc1347cf62478256bf78b"
+      "source_sha256": "27bfdefc7bcb4cc6e348183daf6249e74c4bdd5396cc1b0bd768e24d7e2a7c2e"
     },
     {
       "name": "diagram-05",
-      "title": "2.4 Block lifecycle: verify·본문 누락·검증 실패",
+      "title": "Body lookup, verification, and missing-content handling",
       "width": 1334,
       "height": 2051,
-      "source_sha256": "01ba81d1452e0f041df7b4300e8b4e2f1419078a449f32bec063639448bcaf48"
+      "source_sha256": "1ce4b2ec8d69ff2e8020902c89f1e7bfccfdba7be6469b2c7f561bf983708a53"
     },
     {
       "name": "diagram-06",
-      "title": "2.5 Baton lifecycle: leader report 수집과 direction 전파",
+      "title": "Leader lifecycle: collect reports and disseminate direction",
       "width": 1139,
-      "height": 1684,
-      "source_sha256": "df5a14cba7dd10677119845e95868b912e32f74901cf0f271d47494621b0f42f"
+      "height": 1701,
+      "source_sha256": "1b46d743dd130202ee16de7b618d49a79019af77017fcd53135f3382c18c8b67"
     },
     {
       "name": "diagram-07",
-      "title": "2.6 Baton lifecycle: non-leader의 direction·재실행 요청",
+      "title": "Non-leader lifecycle: direction and rescheduling",
       "width": 919,
-      "height": 1300,
-      "source_sha256": "e0499d9c9e1f955f0686c2834320be191225fe06b1d13483e3037654a4e443fd"
+      "height": 1301,
+      "source_sha256": "99150dcd9b964fab7ba0b90ba2c20ac7f1b883fa9bde1f92c1fa475181850ffb"
     },
     {
       "name": "diagram-08",
-      "title": "2.7 Cut commit → ordered range → 실행 commit",
+      "title": "Cut commit \u2192 ordered range \u2192 execution commit",
       "width": 717,
-      "height": 1685,
-      "source_sha256": "5686aea41684755347155b036855b09e5797eb19a43ab6518d99770d0a2ded4d"
+      "height": 1651,
+      "source_sha256": "7bccd64be33990afce666d62173e8bc3ae1dc41e70cd2e4e664b9db986a06c7f"
     },
     {
       "name": "diagram-09",
-      "title": "2.8 Execution lifecycle: QMDB 분기 생성과 canonical 승격",
+      "title": "Execution lifecycle: QMDB branches and canonical promotion",
       "width": 1122,
-      "height": 2136,
-      "source_sha256": "528b89080801e9e9b3bd459a13f6056e0025450ddb091dcc5323ef35ed58dcf6"
+      "height": 2119,
+      "source_sha256": "2a15e4a1dfe448274628ff1d55fa6e458888de6fc5b42563a95d05e769f592b8"
     },
     {
       "name": "diagram-10",
-      "title": "2.9 재시작과 backfill",
+      "title": "Restart and backfill",
       "width": 899,
       "height": 932,
-      "source_sha256": "2b3bbe1752eafca1d7b944fd031b0bc525f62e8b18e28f464dd09b348ac0e7d1"
+      "source_sha256": "55833ab1f7714c9a7edac9716b583b8eac2cd9f20fba3b1bbea5d5c04ff1683c"
     },
     {
       "name": "diagram-11",
-      "title": "2.10 결과 endpoint: direct execution과 f+1 인증",
+      "title": "Result endpoint: direct execution and f+1 certification",
       "width": 919,
       "height": 1387,
-      "source_sha256": "a2818613c08f3da63ec5ed6658b55f350c17dbdd519b447ab9e7cf3ca121e067"
+      "source_sha256": "578ea56c049e97a576bd2217b3b09a0ab605517b9b7910855721224e623cc26e"
     },
     {
       "name": "diagram-12",
-      "title": "2.11 Planner completion과 proposal freeze의 경합",
+      "title": "Planner completion versus proposal freeze",
       "width": 910,
       "height": 1655,
-      "source_sha256": "53c501451a8ebf599b5342304030118f0538ead2d4456f38015e0ebda087960e"
+      "source_sha256": "e62f248f6f4c12377421a94dc3c0d47de0127aa2ca4267a1162a837a04d20333"
     },
     {
       "name": "diagram-13",
-      "title": "2.12 Startup: custody를 준비한 뒤 native recovery",
+      "title": "Startup: prepare custody before native recovery",
       "width": 1325,
       "height": 1713,
-      "source_sha256": "19751c57910b19c56d6d109bfc9628a5635970c064dc6a91c3340c4b02705e0d"
+      "source_sha256": "e940b309520a1989ec0106144222f9cebf53a4fa4dcac328d10c8e378c67a7d5"
     },
     {
       "name": "diagram-14",
-      "title": "2.13 State sync: 인증된 실행 결과로 상태 동기",
+      "title": "State sync from certified execution results",
       "width": 899,
-      "height": 2149,
-      "source_sha256": "02d917fe07a216c25e3e7c7fa8a04b0d1f855bef906740e5b11e3a7bc393d2bb"
+      "height": 2131,
+      "source_sha256": "9c07614578531f8a85af9ebfed23e9e5a7de44a5168f127ff1db200af41e9b78"
     },
     {
       "name": "diagram-15",
-      "title": "2.14 Native 합의 정상 경로: producer DA → leader proposal → finality",
-      "width": 1149,
-      "height": 2081,
-      "source_sha256": "48cee25916142893eb8f544791e1b051da27bf5c50d99684f48922d6f14f6e68"
+      "title": "Normal native consensus: producer DA \u2192 leader proposal \u2192 finality",
+      "width": 1148,
+      "height": 2098,
+      "source_sha256": "b40391445e9174c8a0399165c4c027850b783f4521566cbcae4eccb8bf4ba908"
     },
     {
       "name": "diagram-16",
-      "title": "4.6 실제 native actor와 파일 구조",
+      "title": "Native actors and source layout",
       "width": 1143,
       "height": 962,
-      "source_sha256": "1d8e98ca27b2ec52fcb5ef6dc54fc945bfe78cb29d6e6805a1c51cb01cb5af45"
+      "source_sha256": "2fcf5deef0c6a1ee035d04c2f08a1dfc787f4ad46fa92860d00d5809e0777ddc"
     },
     {
       "name": "diagram-17",
-      "title": "6.3 QMDB state 관리와 재사용 경계",
+      "title": "QMDB state and reuse boundaries",
       "width": 1656,
       "height": 1436,
       "source_sha256": "74880d021a873e497ee64c68d891c0a77e22cdf1b588328ef15e53ab2725b390"
     },
     {
       "name": "diagram-18",
-      "title": "6.4 실행 요청을 받으면 분기 tree 정리",
-      "width": 1113,
-      "height": 262,
-      "source_sha256": "9658ea27bdb39e8a80d9824bc6fc4671736fd5107f7a96fa7c0380872fb028d4"
+      "title": "Manage the branch tree for execution requests",
+      "width": 1121,
+      "height": 286,
+      "source_sha256": "0edca166c575b431c05c8f948a4ad130a0c7621259239ba9173b9eb81c7470be"
     }
+  ],
+  "origin_snapshot_sha256": "79d5a7109a685d8b8c968bcc92b135fad290a70dc62a8c95f064128c919ff74b",
+  "source_pages": [
+    "overview/architecture.md",
+    "e2e/normal.md",
+    "e2e/normal.md",
+    "e2e/block-body.md",
+    "e2e/block-body.md",
+    "e2e/leader.md",
+    "e2e/reschedule.md",
+    "e2e/canonical.md",
+    "e2e/canonical.md",
+    "e2e/recovery.md",
+    "e2e/results.md",
+    "e2e/leader.md",
+    "e2e/recovery.md",
+    "e2e/state-sync.md",
+    "e2e/native-consensus.md",
+    "consensus/README.md",
+    "execution/qmdb.md",
+    "execution/qmdb.md"
   ]
 }

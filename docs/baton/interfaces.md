@@ -1,29 +1,29 @@
-# Baton 인터페이스와 로컬 진행 알림
+# Baton interfaces and local progress notifications
 
-Baton은 Executor에 execute / reschedule을 요청한다. 확정 적용 진행은 선택적 로컬 알림이며 Baton의 응답이 실행 레이어를 막지 않는다.
+**Baton requests execution; Executor owns completion.** Baton handlers admit blocks and scheduling messages and request execute or reschedule work. Applied progress is an optional local notification and does not require a reply before execution can proceed.
 
-## 인터페이스 개요
+## Interface overview
 
-Rust 선언: [Baton](../overview/rust-interfaces.md#baton) — 전체 원형은 「Rust 인터페이스」에서 관리한다.
+Rust declaration: [Baton](../overview/rust-interfaces.md#baton). The Rust interfaces page owns the complete declaration.
 
-`Context`는 leader view·history·actual parent·rule·window·불변 순서 경계를 결속한 planning context다. `BlockService::ProducerContext`와 같은 타입으로 가정하지 않는다. `on_block`은 body와 authenticated header가 join된 CandidateBlock 수신 경계이며, 단순 StoredBody 알림을 이 입력으로 바꾸지 않는다. Join과 실제 handler 호출은 Baton의 수신 부분 / Commonware 연결부에서 처리한다.
+`Context` binds the leader view, history, actual parent, rule, window, and immutable ordering frontier. It is not assumed to be the same type as `BlockService::ProducerContext`. `on_block` admits a CandidateBlock whose body and authenticated header have been joined. A StoredBody notice alone is insufficient. Baton reception and the Commonware attachment perform the join and handler call.
 
-`on_*`은 context 확인·local admission·작업 예약을 처리한다. Executor 작업과 Planner 계산은 runtime driver가 진행하고 완료 결과를 handler로 돌려준다. Driver/queue/task 배치는 미결정이며 새 actor 개수는 정하지 않는다. Planner 완료는 `on_planned(context, policy)`로 돌려주고 원래 요청의 window/context를 확인한 뒤 준비 상태를 갱신한다. Late/stale 완료가 새 context의 결과를 덮어쓰지 않는다. `on_execution`에는 완료한 유효 checkpoint만 전달하고, 미완료 / 실패 job의 notification·retry 계약은 §6.6에 남긴다. `prepared_policy()`는 완료된 유효 후보가 현재 준비된 경우만 반환하는 즉시 조회다. Native owner가 다시 actual context를 검사하고 freeze하며, cut은 `Some`을 기다리지 않는다.
+The `on_*` handlers check context, admit local inputs, and schedule work. A runtime driver runs Executor and Planner jobs and returns completion to handlers. Driver, queue, and task placement remain open; this contract adds no mandatory actor count. Planner returns `on_planned(context, policy)`, which checks the original window and context before updating prepared state. Late or stale completion cannot overwrite a new context. `on_execution` receives only completed valid checkpoints; failure, incomplete-job notification, and retry contracts remain open in the Execution decisions. `prepared_policy()` is an immediate query that returns only a completed valid candidate currently available. Native Core rechecks actual context and freezes policy; the cut does not wait for `Some`.
 
-| 제안 인터페이스 | 어디서 받는가 | 처리와 다음 출력 |
+| Proposed interface | Source | Responsibility and next output |
 |---|---|---|
-| `Baton::on_block` | Consensus body attachment | Reference/context 검증 → local intended order → Executor::execute |
-| `Baton::on_context` | Native owner hook | Exact context / immutable frontier 관리 → window / planner 입력 |
-| `Baton::on_report` | Report connection | 서명·context·identity·limits 검증 → leader snapshot admission |
-| `Baton::on_direction` | 현재 leader | Auth/context 확인 → Executor::reschedule |
-| `Baton::on_planned` / `prepared_policy` | Planner 완료 → Baton → native owner | 원래 요청 context 확인·준비 상태 보관 → 즉시 조회 → actual proposal context 재검증 |
-| `Baton::on_execution` | Executor | ExecutionResult의 generation·context 확인 → branch handle와 local 준비 상태 관리 |
-| `Baton::on_commit` | Executor의 선택적 로컬 적용 알림 | Applied progress를 scheduling에 반영; delivery ACK / pool cleanup / 결과 인증을 승인하지 않음 |
+| `Baton::on_block` | Consensus body attachment | Validate reference/context → local intended order → Executor::execute |
+| `Baton::on_context` | Native owner hook | Manage exact context / immutable frontier → window / Planner input |
+| `Baton::on_report` | Report connection | Verify signature, context, identity, limits → leader snapshot admission |
+| `Baton::on_direction` | Current leader | Authenticate and check context → Executor::reschedule |
+| `Baton::on_planned` / `prepared_policy` | Planner completion → Baton → native owner | Check original request; retain prepared state → immediate query → actual proposal-context recheck |
+| `Baton::on_execution` | Executor | Check result generation/context → maintain branch handle and local readiness |
+| `Baton::on_commit` | Optional local applied notification from Executor | Update scheduling progress; no approval of delivery ACK, pool cleanup, or result certification |
 
-`on_commit` 알림을 보내거나 처리하는 것이 Executor의 적용·인증·state sync·delivery ACK 완료 조건은 아니다. Executor는 Baton의 응답 없이 이 경로를 진행한다. `Baton::on_*`은 local handler이며 별도 wire message가 아니다. 성공 반환은 local 처리·작업 예약의 결과이고 direction 승인이나 remote ACK가 아니다. ExecutionResult는 완료된 speculative 실행 결과이며, codec·필드 선택은 미결정이다.
+Sending or handling `on_commit` does not condition Executor application, certification, state sync, or delivery acknowledgement. Executor proceeds without a Baton reply. `Baton::on_*` are local handlers, not separate wire messages. Successful return reports local handling or scheduling, not direction approval or a remote ACK. ExecutionResult represents completed speculative execution; its codec and concrete fields remain open.
 
-## 확정 상태 진행 알림
+## Finalized-state progress notifications
 
-확정 입력은 Orderer가 Executor에 직접 전달한다. Executor는 직접 실행 결과 또는 검증된 peer state material을 적용하고, durable CommitResult 이후 Orderer에 delivery ACK와 TxPool에 canonical tx 결과를 전달한다. Baton이 commit을 승인하거나 이 전달을 중계하지 않는다.
+Orderer delivers finalized input directly to Executor. Executor applies its direct result or verified peer state material. After a durable CommitResult, it acknowledges delivery to Orderer and provides canonical transaction outcomes to TxPool. Baton does not approve commit or relay this delivery.
 
-Baton은 필요한 경우 Executor의 로컬 적용 진행 알림을 받아 이미 확정된 입력을 다시 예약하지 않도록 scheduling에 반영한다. 알림 전송·처리·회신은 Executor의 state finalization·state sync·canonical 적용 완료 조건이 아니다. f+1 결과 인증과 change set 교환은 Executor끼리 진행한다.
+Baton may consume a local applied-progress notification to avoid scheduling inputs that have already become canonical. Sending, handling, or replying to that notification is not a condition for state finalization, sync, or canonical application. Executors exchange f+1 result certification and change sets directly.

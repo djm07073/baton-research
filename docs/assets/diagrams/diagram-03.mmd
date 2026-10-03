@@ -2,32 +2,32 @@ sequenceDiagram
     participant C as Client / Tx peer
     participant A as TxPool: admission
     participant S as TxPolicy
-    participant P as TxPool: 후보 보관
+    participant P as TxPool: candidate storage
     participant B as BlockService
-    participant O as Baton
+    participant O as Executor
     C->>A: Tx bytes
     A->>A: Decode / domain / signature / size checks
-    alt 구조적으로 잘못된 tx
+    alt Structurally invalid transaction
         A-->>C: Rejected
-    else 유효한 tx
-        opt Admission 위치를 선택한 경우
+    else Valid transaction
+        opt Static analysis placed at admission
             A->>S: TxPolicy::analyze(tx payload, version)
             S-->>A: Static features / policy input
         end
         A->>P: Admit(tx_id, tx, optional metadata)
-        alt 동일 tx_id가 이미 보관됨
+        alt Same tx_id already retained
             P-->>A: Existing admission
-        else 신규 tx
+        else New transaction
             P-->>A: New admission
         end
         A-->>C: Admission result
         B->>P: TxPool::select(context, limits)
-        opt Packing 위치를 선택한 경우
+        opt Static analysis placed at packing
             P->>S: Analyze / filter candidate txs
             S-->>P: Static features / policy selection
         end
         P-->>B: Candidate batch
-        Note over P,B: 선택 / proposal 취소 / 재선택의 정책은 미결정
+        Note over P,B: Selection / proposal cancellation / reselection policy is open
         O-->>P: Durable canonical outcome
         P->>P: Reconcile lifecycle using canonical outcome
     end

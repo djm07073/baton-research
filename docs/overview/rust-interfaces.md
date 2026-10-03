@@ -1,32 +1,32 @@
-# Rust 인터페이스
+# Rust interfaces
 
-핵심 모듈 6개와 보조 역할 3개의 **Rust trait 선언을 여기서 함께 검토한다.** 각 레이어의 동작·입출력 설명은 아래 상세 계약 링크에서 읽는다.
+**Each trait defines a module's inputs, outputs, and responsibility.** Start with its plain-language role, then read the method arguments and return types in the code. The six core modules and three supporting roles are collected here; layer pages explain their detailed completion conditions.
 
-이 선언은 새 application 연결부의 설계 초안이다. 기존 Commonware API와 구현된 crate로 취급하지 않는다. Associated type의 concrete fields·codec·채널·오류·작업 배치는 미결정이며 이 페이지가 새 wire schema나 정책을 채택하지 않는다.
+These declarations propose new application integration. They are not implemented crates or existing Commonware APIs. Concrete associated-type fields, codecs, channels, errors, and worker placement remain undecided. The declarations adopt no new wire schema or policy.
 
-**원본은 이 페이지의 Rust 코드다.** [단일 Rust 파일](../assets/interfaces/baton.rs)은 이 선언에서 생성한다. 선언의 문법 확인은 service 구현·프로토콜 검증과 구분한다. `Future`를 쓰는 선언에는 `use std::future::Future;`가 필요하다.
+**The Rust blocks on this page are the source of truth.** The [single Rust file](../assets/interfaces/baton.rs) is generated from them. Syntax checking is separate from service implementation or protocol verification. Future-returning declarations need `use std::future::Future;`.
 
-## 모듈과 호출 흐름
+## Modules and call flow
 
-| 모듈 / 보조 역할 | 주요 메서드 | 상세 계약 |
+| Module / supporting role | Methods | Detailed contract |
 |---|---|---|
-| [TxPool](#txpool) | `admit`, `select`, `on_proposal`, `on_commit` | [입력·출력과 완료 조건](../tx/interfaces.md) |
-| [TxPolicy](#txpolicy) | `analyze`, `classify` | [입력·출력과 완료 조건](../tx/interfaces.md) |
-| [BlockService](#blockservice) | `build`, `verify`, `fetch`, `commitment`, `publish`, `on_retire` | [입력·출력과 완료 조건](../consensus/block-body.md) |
-| [Orderer](#orderer) | `record`, `next_range`, `acknowledge`, `recover` | [입력·출력과 완료 조건](../consensus/ordered-input.md) |
-| [Baton](#baton) | `on_block`, `on_context`, `on_report`, `on_direction`, `on_execution`, `on_planned`, `on_commit`, `prepared_policy` | [입력·출력과 완료 조건](../baton/interfaces.md) |
-| [Planner](#planner) | `plan` | [입력·출력과 완료 조건](../baton/direction.md) |
-| [Executor](#executor) | `execute`, `reschedule`, `commit`, `recover`, `read` | [입력·출력과 완료 조건](../execution/interfaces.md) |
-| [Runtime](#runtime) | `execute` | [입력·출력과 완료 조건](../execution/interfaces.md) |
-| [ResultService](#resultservice) | `sign`, `collect`, `verify`, `certificate` | [입력·출력과 완료 조건](../execution/interfaces.md) |
+| [TxPool](#txpool) | `admit`, `select`, `on_proposal`, `on_commit` | [Inputs, outputs, completion](../tx/interfaces.md) |
+| [TxPolicy](#txpolicy) | `analyze`, `classify` | [Inputs, outputs, completion](../tx/interfaces.md) |
+| [BlockService](#blockservice) | `build`, `verify`, `fetch`, `commitment`, `publish`, `on_retire` | [Inputs, outputs, completion](../consensus/block-body.md) |
+| [Orderer](#orderer) | `record`, `next_range`, `acknowledge`, `recover` | [Inputs, outputs, completion](../consensus/ordered-input.md) |
+| [Baton](#baton) | `on_block`, `on_context`, `on_report`, `on_direction`, `on_execution`, `on_planned`, `on_commit`, `prepared_policy` | [Inputs, outputs, completion](../baton/interfaces.md) |
+| [Planner](#planner) | `plan` | [Inputs, outputs, completion](../baton/direction.md) |
+| [Executor](#executor) | `execute`, `reschedule`, `commit`, `recover`, `read` | [Inputs, outputs, completion](../execution/interfaces.md) |
+| [Runtime](#runtime) | `execute` | [Inputs, outputs, completion](../execution/interfaces.md) |
+| [ResultService](#resultservice) | `sign`, `collect`, `verify`, `certificate` | [Inputs, outputs, completion](../execution/interfaces.md) |
 
-**연결 순서:** Client → `TxPool::admit` → `BlockService::build` → native consensus → `Orderer::next_range` → `Executor::commit` → `Orderer::acknowledge` / `TxPool::on_commit`. Baton은 미확정 입력의 `Executor::execute` / `reschedule`을 요청한다. ResultService와 state sync는 Executor 내부·Executor ↔ Executor 경로에 있다.
+**Canonical call order:** Client → `TxPool::admit` → `BlockService::build` → native consensus → `Orderer::next_range` → `Executor::commit` → `Orderer::acknowledge` / `TxPool::on_commit`. Baton requests `Executor::execute` / `reschedule` for undecided inputs. ResultService and state sync belong inside Executor and on the Executor ↔ Executor path.
 
-기존 Commonware의 `Automaton`, `Relay`, `Reporter`를 재사용하므로 별도 Consensus trait를 추가하지 않는다. 실제 upstream API와 application bridge의 연결 지점은 [블록 생성과 body 계약](../consensus/block-body.md)에서 확인한다. 타입 간 동일성과 호출 의미는 [인터페이스 읽는 방법](interfaces.md)에 설명한다.
+Reuse Commonware Automaton, Relay, and Reporter rather than adding a separate Consensus trait. [Block construction and body contracts](../consensus/block-body.md) identify upstream attachment points. [Reading the interfaces](interfaces.md) explains type equality and call semantics.
 
 ## TxPool
 
-Tx 접수·후보 선택·proposal 결과와 durable tx 결과를 반영한다. [상세 계약](../tx/interfaces.md).
+**TxPool manages transaction candidates.** `admit` receives Tx and Source and returns Admission. `select` receives Selection and returns a candidate Batch. `on_proposal` tracks local proposal outcomes; `on_commit` updates lifecycle from a durable CommitResult. [Detailed contract](../tx/interfaces.md).
 
 ```rust
 use std::future::Future;
@@ -63,7 +63,7 @@ pub trait TxPool: Send {
 
 ## TxPolicy
 
-Tx payload만 정적으로 분석하고 routing / filtering 판단을 만든다. 적용 위치·정책은 미결정이다. [상세 계약](../tx/interfaces.md).
+**TxPolicy classifies transactions from their payloads.** `analyze` takes a borrowed Tx and returns Features; `classify` takes borrowed Features and returns Decision. Placement and routing/filtering rules remain undecided. [Detailed contract](../tx/interfaces.md).
 
 ```rust
 pub trait TxPolicy: Send {
@@ -79,7 +79,7 @@ pub trait TxPolicy: Send {
 
 ## BlockService
 
-Native Automaton / Relay callback에 body 생성·검증·조회·custody를 연결한다. [상세 계약](../consensus/block-body.md).
+**BlockService makes producer bodies available and recoverable.** `build` takes ProducerContext and returns an optional StoredBody; `verify` takes ProducerContext and Digest and returns a validity verdict; true requires durable custody; `fetch` takes BlockRef and returns StoredBody. `commitment` extracts Digest, while publish and retire handle local scheduling and retention. [Detailed contract](../consensus/block-body.md).
 
 ```rust
 use std::future::Future;
@@ -113,7 +113,7 @@ pub trait BlockService: Send {
 
 ## Orderer
 
-인증된 native 증거와 이력을 연속 확정 입력으로 해석하고 Executor의 durable 전달 확인을 기록한다. [상세 계약](../consensus/ordered-input.md).
+**Orderer delivers the exact finalized execution sequence.** `record` receives Evidence; `next_range` returns OrderedRange. `acknowledge` receives Executor's durable CommitResult, and `recover` restores the delivery/history state described by Recovery. [Detailed contract](../consensus/ordered-input.md).
 
 ```rust
 use std::future::Future;
@@ -145,7 +145,7 @@ pub trait Orderer: Send {
 
 ## Baton
 
-Report·direction과 사전 실행·재실행을 조율한다. State finalization / state sync의 승인·중계 역할이 아니다. [상세 계약](../baton/interfaces.md).
+**Baton schedules speculative work.** Its handlers receive CandidateBlock, Context, Report, Direction, and local completion results. They return local admission/scheduling success or Error. `prepared_policy` immediately returns an optional completed PreparedPolicy. These returns are not state-finalization approval or remote direction ACKs. [Detailed contract](../baton/interfaces.md).
 
 ```rust
 pub trait Baton: Send {
@@ -175,7 +175,7 @@ pub trait Baton: Send {
 
 ## Planner
 
-고정된 report snapshot과 planning context에서 완료된 유효 candidate를 계산한다. Native cut은 이 계산을 기다리지 않는다. [상세 계약](../baton/direction.md).
+**Planner selects a valid direction candidate.** `plan` receives Context, frozen ReportSnapshot, and bounded Candidates. It returns an optional PreparedPolicy after completed evaluation. Native cut does not await it. [Detailed contract](../baton/direction.md).
 
 ```rust
 use std::future::Future;
@@ -198,7 +198,7 @@ pub trait Planner: Send {
 
 ## Executor
 
-실행 branch·canonical 적용·durability·복구·조회와 Executor 간 결과 인증·state sync를 소유한다. [상세 계약](../execution/interfaces.md).
+**Executor manages execution and durable state.** `execute` / `reschedule` take their request types and return completed ExecutionResult. `commit` takes OrderedRange and returns durable CommitResult. `recover` returns a restored Checkpoint, and `read` returns ReadResult for Query. Executor also owns peer certification and state sync. [Detailed contract](../execution/interfaces.md).
 
 ```rust
 use std::future::Future;
@@ -240,7 +240,7 @@ pub trait Executor: Send {
 
 ## Runtime
 
-Executor가 제공한 branch-scoped state에서 application 입력을 계산한다. Canonical 적용 권한은 Executor에 있다. [상세 계약](../execution/interfaces.md).
+**Runtime computes transaction effects on a supplied branch.** `execute` receives mutable State and Input and returns Output. Executor supplies the valid branch and retains canonical application authority. [Detailed contract](../execution/interfaces.md).
 
 ```rust
 use std::future::Future;
@@ -261,7 +261,7 @@ pub trait Runtime: Send {
 
 ## ResultService
 
-Executor 내부에서 직접 실행 결과를 서명하고 f+1 동일 결과 인증서를 수집·검증·조회한다. [상세 계약](../execution/interfaces.md).
+**ResultService certifies execution results inside Executor.** `sign` takes completed ExecutionResult and returns SignedStatement. `collect` takes a signed statement and returns an optional ResultCertificate; `verify` returns the verified ExecutionStatement. `certificate` queries an optional existing certificate. Each future carries Error separately. [Detailed contract](../execution/interfaces.md).
 
 ```rust
 use std::future::Future;
@@ -293,8 +293,8 @@ pub trait ResultService: Send {
 }
 ```
 
-## State finalization / state sync의 인터페이스 경계
+## Interface boundary for state finalization and state sync
 
-`ResultService`는 Executor 내부 역할이다. Executor가 peer 실행 서명·인증서·change set을 교환하고 인증 결과를 검증한 뒤 자신의 canonical writer·fencing·durability 계약으로 적용한다. Imported 결과를 자신의 DirectExecuted 서명으로 바꾸지 않는다.
+ResultService is internal to Executor. Executor exchanges peer signatures, certificates, and change sets, verifies results, and applies usable material through its canonical writer, fencing, and durability contract. Imported results cannot become own DirectExecuted signatures.
 
-현재 `Executor::commit`은 durable canonical 적용의 경계를 나타낸다. Peer message codec·state material 요청·검증·전환을 위한 구체 method / struct는 아직 정하지 않았다. 이 선언만으로 state sync API가 완성되었다고 주장하지 않는다. 요구사항과 미결정 연결은 [State sync](../execution/state-sync.md)와 [Execution 책임](../execution/README.md)에서 검토한다.
+`Executor::commit` currently identifies the durable canonical application boundary. Concrete methods and structs for peer codec, material requests, verification, and switching remain undecided. These declarations do not claim a complete state-sync API. See [State sync](../execution/state-sync.md) and [Execution responsibilities](../execution/README.md).

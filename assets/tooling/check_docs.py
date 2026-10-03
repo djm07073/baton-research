@@ -52,7 +52,7 @@ def main():
                     failures.append(f'Missing anchor from {page.relative_to(repo)}: {target}')
         in_decisions = False
         for line in text.splitlines():
-            if line.startswith('| 항목 | 결정 |'):
+            if line.startswith(('| 항목 | 결정 |', '| Item | Decision |')):
                 in_decisions = True
                 continue
             if not line.startswith('|'):
@@ -112,7 +112,7 @@ def main():
         anchors = set(re.findall(r'<a id="([^"]+)"', texts[repo / 'IMPLEMENTATION_SPEC.md']))
         if not required.issubset(anchors):
             failures.append(f'Missing legacy anchors: {sorted(required - anchors)}')
-        if manifest['specification_sha256'] != record['original_spec_sha256']:
+        if manifest.get('origin_snapshot_sha256', manifest['specification_sha256']) != record['original_spec_sha256']:
             failures.append('Diagram provenance does not match the original snapshot')
     print(json.dumps({'content_pages': len(listed), 'local_links_checked': local_links,
                       'rendered_diagrams': len(blocks), 'blank_policy_cells': decisions,

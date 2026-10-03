@@ -1,10 +1,10 @@
-# State sync: 인증된 실행 결과로 상태 동기
+# State sync from certified execution results
 
-실행 중인 validator가 peer의 인증서와 적용 가능한 상태 자료를 검증한 뒤 남은 계산을 멈추고 상태를 동기화한다.
+**A validator can import a verified peer result while still executing.** Its Executor checks the certificate and applicable state material, fences unfinished work, and applies the result at the correct canonical base.
 
-## State sync: 인증된 실행 결과로 상태 동기
+## State sync from certified execution results
 
-이 그림은 §6.7의 **validator 정상 경로로 정한 state sync**를 설명한다. Peer Executor가 보낸 인증 결과와 state material을 수신 Executor가 검증·적용한다. Baton 간 통신이나 별도 catch-up coordinator를 추가하지 않는다. [Canonical apply](../execution/qmdb.md#commit-요청을-받으면-branch를-canonical로-만들기)의 single writer·access fence·durability 계약을 공유한다. 책임과 경로는 정했지만 wire format·전환·저장 계약은 아직 구현·검증되지 않았다.
+This sequence illustrates state sync as an option on the **normal validator path**. The receiving Executor verifies and applies certified results and material from a peer Executor. No Baton-to-Baton exchange or separate catch-up coordinator is added. It shares the single writer, access fencing, and durability contract of [canonical application](../execution/qmdb.md#commit-a-branch-to-canonical-state). Responsibility and path are adopted, while wire format, switching, storage, and validation remain unimplemented.
 
 ```mermaid
 sequenceDiagram
@@ -37,13 +37,13 @@ sequenceDiagram
                 end
                 E->>E: Execute next range from synced canonical state
             else Durable completion unconfirmed or failed
-                Note over E,B: Local ready / CommitResult를 발행하지 않고 recovery에서 재확인
+                Note over E,B: No local ready / CommitResult, recheck during recovery
             end
         end
     end
-    Note over P,E: Imported range에 own direct-execution signature를 추가하지 않음
+    Note over P,E: No own direct-execution signature for imported range
 ```
 
-[그림 크게 보기](../assets/diagrams/diagram-14.svg)
+[Open full-size diagram](../assets/diagrams/diagram-14.svg)
 
-원래 certificate의 전달·state finalization 확인과 local state의 durable readiness는 다른 사건이다. 남은 실행은 인증서만 도착했다고 중단하지 않는다. 검증·적용 가능한 material이 확보되어야 하며, 부분 실행 state에 canonical-base delta를 덧붙이지 않는다. 구체 material format·checkpoint 전환·root 검증·import commit 방식은 미결정이고, 올바른 canonical base에서 다음 range를 직접 실행하는 경로는 기존 execution interface를 사용한다.
+Relaying the original certificate, establishing state finalization, and achieving durable local readiness are different events. A certificate alone does not stop remaining execution; verified applicable material must also be available. Do not append a canonical-base delta to partially executed state. Material format, checkpoint switching, root verification, and import commit remain undecided. The next range can use the existing execution interface for direct execution from the correct canonical base.
