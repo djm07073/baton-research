@@ -2,11 +2,15 @@
 
 Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
 
+## 2026-10-03 GitBook 업로드 완료
+
+[Beaker / Baton](https://app.gitbook.com/o/Z5g7kwPjokG0jEOyXNu6/s/pvyFEde12m2tVRjI8TRw/) 비공개 공간에 문서 31개·섹션 안내 7개를 업로드했다. [Rust 인터페이스](https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces)와 단일 Rust 파일, 18개 SVG를 함께 연결했다. 저장된 38개 페이지의 텍스트·code fence·315개 링크를 확인하고 change request를 merge했으며 published revision `9wT9dqT7E4YdDK44oElB`의 document IDs·파일 목록도 확인했다. 한글 자동 절 주소 대신 cloud 전용 명시적 절 주소를 사용한다. 원본 Markdown은 `docs/`이며 Git Sync는 연결하지 않았다. [검증 기록](assets/review/gitbook-upload-20261003/README.md)을 읽는다. 아래 미발행 설명은 각 시점의 작업 이력이다.
+
 ## Rust 인터페이스 진입점
 
 사용자가 Rust 인터페이스를 찾기 어렵다고 지적하여 [Rust 인터페이스](docs/overview/rust-interfaces.md)를 목차 상단과 시작 페이지에 배치했다. 기존 9개 trait 선언은 이 페이지를 원본으로 모으고 레이어별 상세 계약은 선언의 해당 anchor를 연결한다. 선언 본문은 그대로 유지했다. [단일 Rust 파일](docs/assets/interfaces/baton.rs)은 이 페이지에서 생성하며 문법을 확인했다. 실제 서비스 구현·프로토콜 검증을 수행한 것은 아니다.
 
-문서는 이제 31개 페이지다. GitBook 업로드 대상 워크스페이스는 사용자가 지정한 Baton이며, 현재 GitBook 로그인 세션 확보가 필요한 상태다. GitHub 반영과 GitBook 서비스 업로드는 별개로 확인해야 한다.
+문서는 현재 31개 본문 페이지다. GitHub 반영과 GitBook 업로드를 각각 확인했으며, GitBook에는 목차용 섹션 안내 7개도 둔다.
 
 ## 2026-10-03 GitBook 형태의 페이지별 문서
 

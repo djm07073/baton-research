@@ -1,0 +1,119 @@
+{
+  "checks": [
+    {
+      "source": "assets/diagrams/diagram-01.svg",
+      "fileId": "xYJn49F19lZ0rA7WtPJz",
+      "bytes": 34835,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-02.svg",
+      "fileId": "jdCTY5F6KKyXDY7Mx6fG",
+      "bytes": 36218,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-03.svg",
+      "fileId": "OGtItdWu85vUeEoe9W4X",
+      "bytes": 36189,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-04.svg",
+      "fileId": "hdfSqFUG3Xs39nZou9vP",
+      "bytes": 31964,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-05.svg",
+      "fileId": "q6pvomVlQRCSIy22Bz8O",
+      "bytes": 43576,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-06.svg",
+      "fileId": "LVbQ4HmpW0XpL4do27Sj",
+      "bytes": 37274,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-07.svg",
+      "fileId": "QlF8FexGDnYcX9sot8SO",
+      "bytes": 31922,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-08.svg",
+      "fileId": "igwWCzjwSwXb1VE1K6L9",
+      "bytes": 34309,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-09.svg",
+      "fileId": "ab13naqrpA8obrj8jKO9",
+      "bytes": 41972,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-10.svg",
+      "fileId": "QzTqqvU307XUnAbmimDZ",
+      "bytes": 28946,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-11.svg",
+      "fileId": "qcPb3d2rW7OeBFpefCFQ",
+      "bytes": 33816,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-12.svg",
+      "fileId": "dtMhLf7qlEVPcf0R61gn",
+      "bytes": 35853,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-13.svg",
+      "fileId": "UzsIrNzCvqOj9u1Em3pA",
+      "bytes": 40530,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-14.svg",
+      "fileId": "bbTWXaXT355oDv7US11B",
+      "bytes": 42147,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-15.svg",
+      "fileId": "sHAoTJ86AEGObSPZZovo",
+      "bytes": 43352,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-16.svg",
+      "fileId": "a5ixbSbbSmGS5oJGo4D4",
+      "bytes": 26400,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-17.svg",
+      "fileId": "fuuuW8JbAj4sNZEOAjVc",
+      "bytes": 37529,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/diagrams/diagram-18.svg",
+      "fileId": "tlqGyczCzYv5ClXTpU74",
+      "bytes": 16918,
+      "metadata_verified": true
+    },
+    {
+      "source": "assets/interfaces/baton.rs",
+      "fileId": "7jy0p9ccTLflugY4lYjT",
+      "bytes": 6314,
+      "metadata_verified": true
+    }
+  ],
+  "binary_download_verification": "not performed: private attachment URL requires authentication"
+}

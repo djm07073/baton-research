@@ -29,6 +29,6 @@ npm run docs:serve
 
 [로컬 미리보기](http://127.0.0.1:8765)는 왼쪽 목차·검색·페이지 내 목차·이전/다음 이동을 제공한다. `site/`는 생성된 미리보기이며 Git에 넣지 않는다. 수정할 원본은 `docs/`다. Diagram source와 렌더된 그림은 `docs/assets/diagrams/`에 함께 보관하며, Markdown의 Mermaid source를 바꾸면 그림과 manifest도 다시 렌더해야 한다.
 
-GitBook에서는 이 저장소의 `.gitbook.yaml`이 지정한 `docs/`를 Git Sync의 문서 루트로 사용할 수 있다. 이 저장소에는 연결용 소스를 준비했으며 GitBook 계정 연결·서비스 발행은 수행하지 않았다.
+2026-10-03 [GitBook — Beaker / Baton](https://app.gitbook.com/o/Z5g7kwPjokG0jEOyXNu6/s/pvyFEde12m2tVRjI8TRw/) 비공개 공간에 구현 문서 31개와 섹션 안내 7개를 업로드했다. [Rust 인터페이스](https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces)를 바로 읽을 수 있다. 원본은 `docs/`이며 Git Sync는 연결하지 않았다. 추후 연결할 때 `.gitbook.yaml`이 지정한 `docs/`를 문서 루트로 사용한다. [업로드 검증 기록](assets/review/gitbook-upload-20261003/README.md)을 함께 남겼다.
 
 [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md)는 이전 섹션 링크를 보존하는 진입점이다. 분리 직전 본문과 그림은 [보관 스냅샷](archive/2026-10-03-before-gitbook/README.md)에 보존했다. 현재 문서와 스냅샷을 동시에 수정하지 않는다.
