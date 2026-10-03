@@ -1,8 +1,10 @@
-# Receiving direction and reexecuting
+# Receiving direction and executing branches
 
-**Non-leader Baton requests a new schedule; Executor reuses valid completed work.** Baton verifies the leader and context, resolves required inputs, and sends a reschedule request. Only a completed prefix with the same execution context is reusable.
+**Non-leader Baton submits the new path; Executor links and executes its branches.** Baton verifies the leader and context, resolves required inputs, and sends parent-linked blocks through execute(block). Only a completed prefix with the same execution context is reusable.
 
-## Non-leader lifecycle: direction and rescheduling
+<a id="non-leader-lifecycle-direction-and-rescheduling"></a>
+
+## Non-leader lifecycle: direction and branch execution
 
 ```mermaid
 sequenceDiagram
@@ -19,10 +21,10 @@ sequenceDiagram
         alt Body or base state unavailable
             B->>B: Keep local work pending, native cut path continues
         else Execution input ready
-            B->>B: Assign current local job generation
-            B->>E: reschedule(exact base, new order, generation)
-            E->>E: Find reusable exact prefix / supersede stale suffix work
-            E->>E: Fork retained checkpoint / execute new suffix
+            B->>B: Assemble block hash / execution-parent hash / exact context
+            B->>E: execute(block)
+            E->>E: Resolve valid parent checkpoint / link child in execution tree
+            E->>E: Reuse matching completed child or execute it through Runtime
             E-->>B: ExecutionResult (completed prefix of new request)
         end
     end

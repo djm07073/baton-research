@@ -25,7 +25,7 @@
 ## Baton layer
 
 * [Baton: roles and reports](baton/README.md)
-* [Direction and rescheduling](baton/direction.md)
+* [Direction and branch execution](baton/direction.md)
 * [Baton interfaces](baton/interfaces.md)
 
 ## Execution layer
@@ -41,7 +41,7 @@
 * [Block body exchange](e2e/block-body.md)
 * [Native proposal, DA, and finality](e2e/native-consensus.md)
 * [Leader reports and proposal races](e2e/leader.md)
-* [Direction receipt and reexecution](e2e/reschedule.md)
+* [Direction receipt and branch execution](e2e/reschedule.md)
 * [Finalized order and canonical application](e2e/canonical.md)
 * [Startup, restart, and recovery](e2e/recovery.md)
 * [Executor certification and queries](e2e/results.md)

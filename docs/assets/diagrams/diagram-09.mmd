@@ -4,8 +4,8 @@ sequenceDiagram
     participant O as Executor
     participant Q as QMDB batches
     participant A as Runtime
-    B->>O: execute(base checkpoint, exact order, runtime, generation)
-    O->>O: Locate valid base / retain reusable prefix
+    B->>O: execute(block hash, parent block hash, exact inputs/context)
+    O->>O: Resolve valid execution parent / link child in tree
     O->>Q: Fork parent batch / create branch
     Q-->>O: Mutable batch
     loop Ordered input blocks
@@ -17,7 +17,7 @@ sequenceDiagram
     O-->>B: ExecutionResult(branch handle, context, results)
     M-->>O: OrderedRange(irrevocable range, canonical predecessor)
     O->>O: commit(range)
-    O->>O: Verify branch exactly matches committed input
+    O->>O: Verify exact committed path / canonical predecessor
     O->>O: Fence incompatible / unknown active branch workers
     O->>Q: DatabaseSet::finalize(matching batches)
     Q-->>O: Applied / readable state + Barrier
@@ -25,12 +25,13 @@ sequenceDiagram
     alt Durable barrier succeeds and metadata linkage completes
         Q-->>O: Durable flush completion
         O->>O: Complete recoverable state + outputs + cursor linkage
+        O->>O: Advance canonical tip / logically prune conflicting branches
         O-->>M: CommitResult / durable delivery ACK
         opt Local scheduling notification
             O-->>B: Applied progress, no finalization approval
         end
         opt Safe retention boundary permits cleanup
-            O->>O: Prune incompatible forks / retain compatible suffixes
+            O->>O: Delete unreferenced pruned forks / retain compatible descendants
         end
     else Shutdown, flush failure, or incomplete metadata linkage
         Q-->>O: No successful durable completion

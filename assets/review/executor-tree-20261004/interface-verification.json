@@ -1,0 +1,87 @@
+{
+  "traits": 8,
+  "documented_methods": 34,
+  "rust_sha256": "838bc5df9d47d9768e1ea0a0e8452eb59ad0b7b37600c2f07349a46da5c63901",
+  "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+  "syntax_check": "rustc --crate-type lib --edition 2024 docs/assets/interfaces/baton.rs -o /tmp/baton-executor-interface.rlib",
+  "syntax_check_passed": true,
+  "standalone_planner_removed": true,
+  "public_reschedule_removed": true,
+  "methods": [
+    {
+      "trait": "TxPool",
+      "documented_methods": [
+        "admit",
+        "select",
+        "on_proposal",
+        "on_commit"
+      ]
+    },
+    {
+      "trait": "TxPolicy",
+      "documented_methods": [
+        "analyze",
+        "classify"
+      ]
+    },
+    {
+      "trait": "BlockService",
+      "documented_methods": [
+        "build",
+        "verify",
+        "fetch",
+        "commitment",
+        "publish",
+        "on_retire"
+      ]
+    },
+    {
+      "trait": "Orderer",
+      "documented_methods": [
+        "record",
+        "next_range",
+        "acknowledge",
+        "recover"
+      ]
+    },
+    {
+      "trait": "Baton",
+      "documented_methods": [
+        "on_block",
+        "on_context",
+        "on_report",
+        "on_direction",
+        "on_execution",
+        "on_planned",
+        "on_commit",
+        "prepared_policy"
+      ]
+    },
+    {
+      "trait": "Executor",
+      "documented_methods": [
+        "plan",
+        "execute",
+        "commit",
+        "recover",
+        "read"
+      ]
+    },
+    {
+      "trait": "Runtime",
+      "documented_methods": [
+        "execute"
+      ]
+    },
+    {
+      "trait": "ResultService",
+      "documented_methods": [
+        "sign",
+        "collect",
+        "verify",
+        "certificate"
+      ]
+    }
+  ],
+  "protocol_execution": false
+}

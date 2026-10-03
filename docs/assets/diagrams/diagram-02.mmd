@@ -10,7 +10,7 @@ sequenceDiagram
     T-->>N: Candidate tx batch
     N->>N: Build body, store + sync, native header / DA
     N-->>B: CandidateBlock(block_ref, verified body, context)
-    B->>E: execute(exact base, intended order, generation)
+    B->>E: execute(block hash, parent block hash, exact inputs/context)
     E-->>B: ExecutionResult / branch handle
     Note over N,B: Native consensus and reports / directions proceed in parallel
     N-->>E: Orderer delivers OrderedRange(exact order, predecessor, evidence)

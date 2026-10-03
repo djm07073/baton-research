@@ -1,5 +1,5 @@
 flowchart TB
-    B[Baton / Execute and Reschedule] --> O[Proposed Executor / prefix tree]
+    B[Baton / plan and execute block] --> O[Proposed Executor / planning and execution tree]
     ORDER[Orderer / irrevocable OrderedRange] --> O
     O --> R[Runtime]
     R -->|reads and pending mutations| U[Unmerkleized batch / parent overlays]

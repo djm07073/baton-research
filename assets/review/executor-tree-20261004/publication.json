@@ -1,0 +1,140 @@
+{
+  "date": "2026-10-04",
+  "source_base_commit": "bcec89a4903c94b1d4dc7f8c9f9771180f677a88",
+  "repository": "https://github.com/djm07073/baton-research",
+  "organization": "Beaker",
+  "space": "Baton",
+  "space_id": "pvyFEde12m2tVRjI8TRw",
+  "visibility": "private",
+  "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces",
+  "change_request": "comkUhM17dVqVEMrwHZY",
+  "verified_change_revision": "vQwvIrmFvGng9k3t7R2J",
+  "published_revision": "DC05zLPlfWkUydJDXdiw",
+  "page_document_ids_match": true,
+  "files_match": true,
+  "live_rust_page_verified": true,
+  "content_pages": 31,
+  "section_index_pages": 7,
+  "diagrams": 18,
+  "traits": 8,
+  "documented_methods": 34,
+  "links_verified": 313,
+  "files": [
+    {
+      "source": "assets/diagrams/diagram-01.svg",
+      "id": "Wu0ZQvqbFjjhXqJgdHyE",
+      "name": "diagram-01.svg",
+      "size": 33054
+    },
+    {
+      "source": "assets/diagrams/diagram-02.svg",
+      "id": "sGOq9LY3GjtYjlSAczpW",
+      "name": "diagram-02.svg",
+      "size": 36453
+    },
+    {
+      "source": "assets/diagrams/diagram-03.svg",
+      "id": "L1F6sy4vI8U1e7KHxXoP",
+      "name": "diagram-03.svg",
+      "size": 36756
+    },
+    {
+      "source": "assets/diagrams/diagram-04.svg",
+      "id": "kGQ01WblsVmIJmiBYiXI",
+      "name": "diagram-04.svg",
+      "size": 31973
+    },
+    {
+      "source": "assets/diagrams/diagram-05.svg",
+      "id": "QlnLKYbKfpJAMU0chqqq",
+      "name": "diagram-05.svg",
+      "size": 43538
+    },
+    {
+      "source": "assets/diagrams/diagram-06.svg",
+      "id": "oYLqy1lOUDl6tuW33pgo",
+      "name": "diagram-06.svg",
+      "size": 37581
+    },
+    {
+      "source": "assets/diagrams/diagram-07.svg",
+      "id": "WhzTQoCvfAkPK86jMVeo",
+      "name": "diagram-07.svg",
+      "size": 32397
+    },
+    {
+      "source": "assets/diagrams/diagram-08.svg",
+      "id": "bdORmAZFFf0M1vaQE7Zp",
+      "name": "diagram-08.svg",
+      "size": 33894
+    },
+    {
+      "source": "assets/diagrams/diagram-09.svg",
+      "id": "0MXI6znEeZTyvhrQ5uXR",
+      "name": "diagram-09.svg",
+      "size": 42687
+    },
+    {
+      "source": "assets/diagrams/diagram-10.svg",
+      "id": "FIkuKgb9Jh8JQPMsHhPR",
+      "name": "diagram-10.svg",
+      "size": 28909
+    },
+    {
+      "source": "assets/diagrams/diagram-11.svg",
+      "id": "ra9ixKNiNzPnZstmmXkF",
+      "name": "diagram-11.svg",
+      "size": 34354
+    },
+    {
+      "source": "assets/diagrams/diagram-12.svg",
+      "id": "WK1xHpg2axfhnQN6GCqG",
+      "name": "diagram-12.svg",
+      "size": 35824
+    },
+    {
+      "source": "assets/diagrams/diagram-13.svg",
+      "id": "CRkJqfVSqdpfMQnKEsSt",
+      "name": "diagram-13.svg",
+      "size": 40498
+    },
+    {
+      "source": "assets/diagrams/diagram-14.svg",
+      "id": "oKqZYPGR73FwJJUSFMMZ",
+      "name": "diagram-14.svg",
+      "size": 41846
+    },
+    {
+      "source": "assets/diagrams/diagram-15.svg",
+      "id": "QfOOeDQTL9VPm8tCxBhh",
+      "name": "diagram-15.svg",
+      "size": 43526
+    },
+    {
+      "source": "assets/diagrams/diagram-16.svg",
+      "id": "hVTaYFxsatX6LjJRxJt4",
+      "name": "diagram-16.svg",
+      "size": 26422
+    },
+    {
+      "source": "assets/diagrams/diagram-17.svg",
+      "id": "uATCT8pIzrx06YuqAWUQ",
+      "name": "diagram-17.svg",
+      "size": 37545
+    },
+    {
+      "source": "assets/diagrams/diagram-18.svg",
+      "id": "7gcH0rptY2odTIKGhNFs",
+      "name": "diagram-18.svg",
+      "size": 16979
+    },
+    {
+      "source": "assets/interfaces/baton.rs",
+      "id": "rNxdpq5mto0bVmyMHz6h",
+      "name": "baton.rs",
+      "size": 11231
+    }
+  ],
+  "git_sync_configured": false,
+  "protocol_validation": false
+}

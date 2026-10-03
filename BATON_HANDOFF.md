@@ -2,6 +2,12 @@
 
 Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
 
+## 2026-10-04 Executor planning and execution tree
+
+The latest user decision merges Planner into Executor and removes the public reschedule method. Executor::plan evaluates bounded direction candidates; execute(block) resolves a valid execution-parent block hash, links the child, and executes through Runtime; commit(range) promotes the exact finalized path, persists it durably, and prunes conflicting branches. Compatible descendants remain pending. Physical reclamation follows worker-reference release and required recovery/query/result/state-sync retention. An execution-parent hash is distinct from a Multimmit producer-header parent; concrete hash/context binding remains open.
+
+The canonical Rust page now has eight traits, and every method has English Rust doc comments explaining its role and success boundary. Baton retains report windows, direction authentication/dissemination, and a completed prepared-policy cache. Executor owns planning, tree links, branch reuse, worker priority/fencing, canonical promotion, and pruning. Planning from a snapshot must not block commit or native cut. This is an interface/documentation change, not runtime implementation or a new native protocol proof. Published GitBook revision `DC05zLPlfWkUydJDXdiw` is verified; see [Executor tree update checks](assets/review/executor-tree-20261004/README.md).
+
 ## English documentation revision
 
 The 31 active docs pages now use English, including navigation and diagram labels. Each module begins with a plain-language responsibility, then describes Rust trait inputs/outputs, call flow, and detailed completion conditions. All nine Rust declarations, pinned external source occurrences, and 39 blank policy decisions are preserved. Two stale diagram endpoints now match the already-adopted Executor responsibility: canonical outcomes originate in Executor, and Orderer delivers directly to Executor. This is documentation work, not protocol implementation or validation. GitBook updates preserve existing page identities; Markdown remains canonical without Git Sync. The English revision `QZTpgxjih7GpPhLNrfyh` is published and verified; see [publication checks](assets/review/english-docs-20261003/README.md).

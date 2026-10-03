@@ -12,10 +12,10 @@ sequenceDiagram
         alt Body or base state unavailable
             B->>B: Keep local work pending, native cut path continues
         else Execution input ready
-            B->>B: Assign current local job generation
-            B->>E: reschedule(exact base, new order, generation)
-            E->>E: Find reusable exact prefix / supersede stale suffix work
-            E->>E: Fork retained checkpoint / execute new suffix
+            B->>B: Assemble block hash / execution-parent hash / exact context
+            B->>E: execute(block)
+            E->>E: Resolve valid parent checkpoint / link child in execution tree
+            E->>E: Reuse matching completed child or execute it through Runtime
             E-->>B: ExecutionResult (completed prefix of new request)
         end
     end

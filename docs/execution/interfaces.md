@@ -1,20 +1,24 @@
 # Executor, Runtime, and result certification interfaces
 
-**Runtime computes; Executor coordinates and persists; ResultService certifies.** Runtime receives a valid branch state and computes transaction effects. Executor manages branch lifecycle, peer communication, and canonical application. Its internal ResultService signs and verifies execution results.
+**Runtime computes; Executor coordinates and persists; ResultService certifies.** Runtime receives a valid branch state and computes transaction effects. Executor combines planning and tree handling: it links parent/child branches, selects direction candidates, executes work, and promotes the canonical path. It also owns peer communication and canonical application. Its internal ResultService signs and verifies execution results.
 
 ## Interface overview
 
 Rust declarations: [Executor](../overview/rust-interfaces.md#executor) and [Runtime](../overview/rust-interfaces.md#runtime). The Rust interfaces page owns the complete declarations. Each async method returns a Future with `Result<SuccessType, Self::Error>` as its output. The table uses associated types from the trait and describes the successful value; Error is a separate failure result.
 
-`ExecuteRequest` identifies an exact base checkpoint, input order, runtime identity, and generation. `RescheduleRequest` identifies the new request and superseded generation. Concrete struct layouts remain open. Success from `execute` or `reschedule` means a completed ExecutionResult for the requested prefix; cancellation or incomplete work is not success. `commit` validates exact OrderedRange, predecessor, and evidence, executes missing work, and returns CommitResult only after state, outputs, and cursor are recoverably durable. Advisory cancellation cannot drop a canonical mutation future. Failures or lost completions follow the QMDB recovery contract.
+`Executor::Block` carries a block hash, parent block hash, exact ordered body/input references, and execution context. The parent hash resolves an execution-tree checkpoint with the same base, runtime, and exact preceding input; it is not simply a native producer-header parent. Concrete hash encoding and struct layouts remain open. `execute(block)` validates that parent, links the child, and runs Runtime on its state. Missing or incomplete parents require fetching/recovery or pending work, not execution from an unrelated base. Duplicate calls can reuse only an identical completed child/context; cancellation or incomplete work is not successful ExecutionResult.
+
+`plan` replaces the former Planner trait and evaluates a frozen report snapshot over bounded admissible candidates. It returns an optional completed PreparedPolicy for Baton. Planning runs from a snapshot; it cannot monopolize Executor or delay canonical commit/native cut. Direction changes use execute(block) again and let Executor manage priority, branch reuse, and stale results internally. No reschedule request type or method is needed.
+
+`commit` validates exact OrderedRange, predecessor, and evidence, completes missing work, and connects the matching path to the canonical tree. It fences and logically prunes conflicting branches while retaining compatible descendants. Physical deletion waits for worker references and required query, certification, sync, and recovery retention to be released. It returns CommitResult only after state, outputs, and cursor are recoverably durable. Advisory cancellation cannot drop a canonical mutation future. Failures or lost completions follow the QMDB recovery contract.
 
 `Runtime::State` supplies valid branch-scoped access for the selected QMDB variant. Do not assume QMDB provides a generic KV API or immutable historical snapshots. `Runtime::Input` carries transactions/body and runtime context; `Output` carries application results and outputs. Runtime cannot promote a branch or determine native order. Executor cannot adopt a branch that failed after partial writes as a completed checkpoint. `read` is limited to retained versions and readiness; certification is a separate ResultService boundary.
 
 | Proposed interface | Input | Responsibility | Result |
 |---|---|---|---|
-| `Executor::execute` | `Self::ExecuteRequest`: base, order, runtime, generation | Fork from parent branch → execute Runtime → produce batch / outputs | `Self::ExecutionResult`: completed checkpoint/context/outputs |
-| `Executor::reschedule` | `Self::RescheduleRequest`: order/context and superseded generation | Verify reusable prefix → cancel old suffix → execute new suffix | `Self::ExecutionResult`: completed new-request prefix |
-| `Executor::commit` | `Self::OrderedRange`: exact range, predecessor, evidence | Match completed work or execute missing work → apply canonically to QMDB | `Self::CommitResult`: recoverable durable application |
+| `Executor::plan` | `Self::Context`, `Self::ReportSnapshot`, `Self::Candidates` | Evaluate valid bounded candidates from a frozen snapshot without blocking commit or native cut | `Option<Self::PreparedPolicy>`: completed selection or no prepared result |
+| `Executor::execute` | `Self::Block`: block hash, execution-parent hash, exact inputs/context | Resolve valid parent → link child → execute Runtime or reuse identical completed work | `Self::ExecutionResult`: completed checkpoint/context/outputs |
+| `Executor::commit` | `Self::OrderedRange`: exact range, predecessor, evidence | Match completed path or execute missing work → promote canonical path → apply QMDB → prune conflicting branches | `Self::CommitResult`: recoverable durable application |
 | `Executor::recover` | `Self::Recovery`: durable state / outputs / cursor | Restore canonical checkpoint; reconstruct transient branches | `Self::Checkpoint`: recovered execution base |
 | `Executor::read` | `Self::Query`: retained canonical state query | Read retained state at that commit | `Self::ReadResult`: state/outputs and readiness |
 

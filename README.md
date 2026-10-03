@@ -5,7 +5,7 @@ Read and edit the implementation design in **[Baton Docs](docs/README.md)**. The
 | Start here | Covers |
 |---|---|
 | [Implementation docs](docs/README.md) · [Contents](docs/SUMMARY.md) | Four layers, module responsibilities, Commonware source mapping, E2E sequences, open decisions |
-| [Rust interfaces](docs/overview/rust-interfaces.md) · [Single Rust file](docs/assets/interfaces/baton.rs) | Six core traits, three supporting traits, arguments, return types, completion conditions |
+| [Rust interfaces](docs/overview/rust-interfaces.md) · [Single Rust file](docs/assets/interfaces/baton.rs) | Six core traits, two supporting traits, arguments, return types, completion conditions |
 | [Research paper draft](baton-paper.md) | Algorithm, conditional safety/reuse arguments, native integration obligations, evaluation plan |
 
 The [GitBook Baton space](https://app.gitbook.com/o/Z5g7kwPjokG0jEOyXNu6/s/pvyFEde12m2tVRjI8TRw/) is private within Beaker. [Rust interfaces](https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces) is a direct entry point. Markdown in docs/ remains canonical. Git Sync and automatic Google Docs synchronization are not configured.

@@ -49,10 +49,10 @@ The pinned [reshare validator assembly](https://github.com/commonwarexyz/monorep
 | 2 | TxPool / BlockService | Tx admission and body exchange, without requiring an application runtime |
 | 3 | Orderer / native evidence export | Sparse native finality → continuous exact input; gap backfill |
 | 4 | Executor / Runtime / QMDB | Canonical ranges, result certification, Executor peer state sync, durable application |
-| 5 | Baton candidate intake / scheduling / rescheduling | Exact-prefix reuse and suffix reexecution |
-| 6 | Reports / Planner / direction | No reports, late reports, leader change, cut preemption |
+| 5 | Baton candidate intake / parent-linked block requests | Exact-prefix reuse and suffix reexecution |
+| 6 | Reports / Executor planning / direction | No reports, late reports, leader change, cut preemption |
 | 7 | Native policy adoption / continuation / recovery | Selected-prefix inclusion, exact leading order, no-wait behavior |
 
 Without stage-7 adoption and continuation proofs, advisory scheduling and protected-prefix Baton integration are different completion states. Choose test workloads after deciding application semantics. The plan does not prescribe building a Bank module first.
 
-Stage 4 connects stage-3 canonical input directly through [Orderer → Executor::commit](../consensus/ordered-input.md#consensus-and-baton-integration). Stage 5 then adds candidate intake, speculation, and rescheduling. [Direct-result signing / collection / queries](../e2e/results.md#result-endpoint-direct-execution-and-f1-certification) and [Executor peer state sync](../e2e/state-sync.md#state-sync-from-certified-execution-results) also belong to stage 4 inside Executor, rather than result transport through Baton. Implement concrete signature boundaries, roots, codecs, and key bindings after reviewing their open decisions.
+Stage 4 connects stage-3 canonical input directly through [Orderer → Executor::commit](../consensus/ordered-input.md#consensus-and-baton-integration). Stage 5 then adds candidate intake and speculative execution-tree branches. [Direct-result signing / collection / queries](../e2e/results.md#result-endpoint-direct-execution-and-f1-certification) and [Executor peer state sync](../e2e/state-sync.md#state-sync-from-certified-execution-results) also belong to stage 4 inside Executor, rather than result transport through Baton. Implement concrete signature boundaries, roots, codecs, and key bindings after reviewing their open decisions.

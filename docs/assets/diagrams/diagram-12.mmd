@@ -1,11 +1,12 @@
 sequenceDiagram
     participant L as Leader Baton
-    participant P as Planner
+    participant P as Executor: planning
     participant N as Native leader proposal owner
     participant V as Native validators
     L->>P: Frozen reports / exact planning context
     alt Evaluated candidate reaches owner before proposal freeze
-        P-->>N: PreparedPolicy(context, validity material)
+        P-->>L: PreparedPolicy(context, validity material)
+        L-->>N: Cached prepared policy for actual-context recheck
         N->>N: Recheck actual parent / history / frontier / request correlation
         alt Recheck admits candidate for this actual proposal
             N->>N: Freeze selected prefix and policy before signing
@@ -17,8 +18,9 @@ sequenceDiagram
     end
     N-->>V: Authenticated native proposal with fixed interpretation
     V-->>N: Native proposal votes
-    opt Late planner result / new report / larger native pool
-        P-->>N: Late prepared result
+    opt Late planning result / new report / larger native pool
+        P-->>L: Late prepared result
+        L-->>N: Current cache, no mutation of frozen proposal
         N->>N: Do not mutate this proposal policy
     end
     Note over L,V: Native votes are not a direction-reply quorum

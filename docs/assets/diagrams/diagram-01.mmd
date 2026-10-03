@@ -7,11 +7,10 @@ flowchart TB
     B -->|StoredBody| O[Baton]
     N -. Reporter artifact .-> O
     M -->|OrderedRange| E
-    O <-->|plan / result| P[Planner]
     O -. PreparedPolicy .-> H[Native policy hook]
     H -. recheck / freeze .-> N
     O -->|Direction| PE[Peer Baton]
-    O <-->|commands / results| E[Executor]
+    O <-->|plan and execute / results| E[Executor: planning and execution tree]
     E <-->|state / outputs| R[Runtime]
     E -->|valid batches / durability| S[Commonware QMDB]
     E <-->|signatures / certificates / change sets| V[Peer Executor]
@@ -22,4 +21,4 @@ flowchart TB
     classDef new fill:#dcfce7,stroke:#16a34a,color:#14532d;
     class N,NET,S reuse;
     class T,B,H adapt;
-    class X,M,O,P,PE,E,R,V new;
+    class X,M,O,PE,E,R,V new;

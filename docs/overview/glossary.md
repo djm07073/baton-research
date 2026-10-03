@@ -11,16 +11,17 @@ Use the six module names below consistently. Words such as `owner`, `controller`
 | `TxPool` | Admit and retain transactions; select candidate batches; update their lifecycle from results | [Tx interfaces](../tx/interfaces.md#interface-overview) |
 | `BlockService` | Build, durably store, distribute, fetch, and retain custody of producer bodies | [Block body interfaces](../consensus/block-body.md#interface-overview) |
 | `Orderer` | Interpret native evidence and history; deliver finalized execution order | [Ordered input](../consensus/ordered-input.md#consensus-and-baton-integration) |
-| `Baton` | Coordinate intended order; schedule and reschedule speculative execution | [Baton interfaces](../baton/interfaces.md#interface-overview) |
-| `Executor` | Manage branches, state finalization, state sync, QMDB application, recovery, and queries | [Execution interfaces](../execution/interfaces.md#interface-overview) |
+| `Baton` | Coordinate intended order, reports, and direction; request speculative blocks | [Baton interfaces](../baton/interfaces.md#interface-overview) |
+| `Executor` | Plan direction; link execution-tree parents; execute, promote, prune, certify, sync, and recover | [Execution interfaces](../execution/interfaces.md#interface-overview) |
 | `Runtime` | Compute application transaction effects on the supplied branch state | [Runtime contract](../execution/interfaces.md#interface-overview) |
 
-Three supporting traits refine these jobs. `TxPolicy` extracts static transaction features and evaluates selection policy. `Planner` chooses a direction. `ResultService` is **inside Executor** and signs, collects, verifies, and serves execution results. Executor owns peer communication and state sync; ResultService is not a separate top-level service. These traits do not prescribe separate actors or crates. Keep upstream names such as `Multimmit`, `Automaton`, `Relay`, `Reporter`, and `DatabaseSet` unchanged.
+Two supporting traits refine these jobs. `TxPolicy` extracts static transaction features and evaluates selection policy. Direction planning is an Executor method; Planner is no longer a separate trait. `ResultService` is **inside Executor** and signs, collects, verifies, and serves execution results. Executor owns peer communication and state sync; ResultService is not a separate top-level service. These traits do not prescribe separate actors or crates. Keep upstream names such as `Multimmit`, `Automaton`, `Relay`, `Reporter`, and `DatabaseSet` unchanged.
 
 | Data name | Meaning and completion condition |
 |---|---|
 | `StoredBody` | Durable local custody of a body and required parent material. Native header authentication is a separate step. |
 | `CandidateBlock` | An authenticated producer header joined with the matching StoredBody in the exact context. Cut inclusion and final order remain separate. |
+| `Executor::Block` | A parent-linked execution-tree input: block hash, parent block hash, exact input/body references, and execution context. Its parent is an execution predecessor, not one producer lane's header parent. |
 | `Report` / `Direction` | A report of intended execution order / the leader's advisory ordering guidance. Baton is the module; direction is the message. |
 | `PreparedPolicy` | A proposal-binding candidate from completed evaluation of valid candidates. The native owner still rechecks and adopts it in the actual context. |
 | `OrderedRange` | A continuous, irreversible sequence of exact execution inputs established from authenticated history. |
@@ -36,7 +37,8 @@ Producer, validator, leader, and non-leader are node **roles**. A cut is a nativ
 
 | Earlier name | Current name |
 |---|---|
-| ExecutionController / scheduling controller | Baton |
+| ExecutionController / scheduling controller | Baton admits scheduling messages; Executor owns execution-tree scheduling |
+| Planner / reschedule request | Executor::plan / parent-linked Executor::execute; no separate trait or reschedule API |
 | BranchOwner / CanonicalApplyOwner / Execution owner | Executor's branch management / canonical single writer |
 | Application runtime | Runtime |
 | ExecutionSigner / ResultCollector | ResultService's signing / collection responsibilities |
@@ -56,4 +58,4 @@ Producer and validator are separate roles; a node may perform both. Leader direc
 
 Fixing each producer prefix still leaves the exact merged execution order to establish. Once verified, that continuous input becomes an OrderedRange. [Canonical delivery](../e2e/canonical.md#cut-commit--ordered-range--execution-commit) explains history gaps and ordering settledness.
 
-Transactions live in the [producer payload/body](../e2e/block-body.md#block-lifecycle-mempool--propose--body-dissemination). The native leader proposal gathers ordering evidence across lanes and is itself transaction-free. [Proposal freeze](../e2e/leader.md#planner-completion-versus-proposal-freeze) explains how Baton policy is attached to its actual proposal context.
+Transactions live in the [producer payload/body](../e2e/block-body.md#block-lifecycle-mempool--propose--body-dissemination). The native leader proposal gathers ordering evidence across lanes and is itself transaction-free. [Proposal freeze](../e2e/leader.md#planning-completion-versus-proposal-freeze) explains how Baton policy is attached to its actual proposal context.

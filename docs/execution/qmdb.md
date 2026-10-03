@@ -18,7 +18,7 @@ An unmerkleized batch retains pending writes and its parent branch before applic
 
 ```mermaid
 flowchart TB
-    B[Baton / Execute and Reschedule] --> O[Proposed Executor / prefix tree]
+    B[Baton / plan and execute block] --> O[Proposed Executor / planning and execution tree]
     ORDER[Orderer / irrevocable OrderedRange] --> O
     O --> R[Runtime]
     R -->|reads and pending mutations| U[Unmerkleized batch / parent overlays]
@@ -80,14 +80,14 @@ Deterministic derivation of canonical operations/batch boundaries versus separat
 
 ## Manage the branch tree for execution requests
 
-The execution branch tree is a **prefix tree of execution orders**, separate from producer-header ancestry. All branches in this example start from the same canonical state S0.
+The execution branch tree is a **parent-linked prefix tree of execution orders**, separate from producer-header ancestry. Each execute(block) input identifies its block hash and parent block hash; Executor resolves the parent to a valid execution checkpoint before linking and running the child. Hash identity must bind the exact predecessor state, runtime, and ordered inputs. A producer payload occurring after different execution prefixes needs distinct execution-node identity even when its body/header hash is unchanged. Concrete encoding remains open. All branches in this example start from the same canonical state S0.
 
 ```mermaid
 flowchart LR
-    S[S0: canonical state] --> A[Checkpoint after A]
-    A --> AB[A → B checkpoint]
-    AB --> ABC[A → B → C: existing branch]
-    AB --> ABD[A → B → D: new direction branch]
+    S[S0: canonical state] --> A[A: parent hash S0]
+    A --> AB[B: parent hash A, AB checkpoint]
+    AB --> ABC[C: parent hash AB, existing branch]
+    AB --> ABD[D: parent hash AB, new direction branch]
     S --> X[Checkpoint after X]
     X --> XA[X → A: execute A from another base]
     classDef canonical fill:#dbeafe,stroke:#2563eb,color:#172554;
@@ -100,9 +100,9 @@ flowchart LR
 
 [Open full-size diagram](../assets/diagrams/diagram-18.svg)
 
-Changing `A→B→C` to `A→B→D` can preserve completed `A→B` at the same S0 and runtime and execute only D. The A in `X→A` has a different input state and cannot be reused just because the block has the same name.
+Changing `A→B→C` to `A→B→D` submits `execute(D)` with `parent_block_hash = hash(AB)`; Executor links D to completed AB and executes only D at the same S0 and runtime. There is no public reschedule operation. The A in `X→A` has a different input state and cannot be reused just because the block has the same name.
 
-Executor validates base/context and finds reusable prefixes. It invalidates stale generations and retains parent checkpoints required by new branches. A reused checkpoint must remain compatible with the current canonical frontier. Once AB is canonical, advisory direction cannot return to A→D. Pruning must preserve worker-referenced state and checkpoints needed for commit/recovery. Numerical budgets and GC policies remain open.
+Executor owns planning, validates parent hashes and base/context, and finds reusable checkpoints. It manages internal worker generations and retains parents required by child branches. A reused checkpoint must remain compatible with the current canonical frontier. Once AB is canonical, advisory direction cannot return to A→D. Committing AB retains valid C and D descendants. Committing ABD prunes the competing C branch and the X→A branch; canonical ancestor metadata remains as required for recovery and queries. Pruning must preserve worker-referenced state and checkpoints needed for commit/recovery. Numerical budgets and GC policies remain open.
 
 Mutable keyed Any/Current batch read-through is a **branch-scoped view combining ancestor overlays with the applied database**, not an independent immutable snapshot. This description does not apply to variants such as compact that lack keyed get.
 
@@ -121,11 +121,11 @@ CPU hashing over an immutable Merkle snapshot may finish after caller cancellati
 | 3 | Execute missing/mismatching suffix from canonical base or prepare verified peer material | Equal roots alone cannot substitute different inputs |
 | 4 | Fence incompatible/unknown active workers; apply matching batches | Single canonical writer and valid branch-scoped reads |
 | 5 | Produce durable CommitResult | State, outputs, and cursor must be recoverable together |
-| 6 | Clean incompatible forks; retain/reconnect compatible suffixes | Never reverse finalized input/interpretation; physical recovery alignment follows the selected contract |
+| 6 | Prune incompatible forks from the live execution tree; retain/reconnect compatible suffixes | Never reverse finalized input/interpretation; physical recovery alignment follows the selected contract |
 
 If A→B→C was executed speculatively but the canonical range is A→B, apply only AB. C remains pending; preserving its work depends on actual ancestry and context. If AB is still speculative at the same base and canonical range becomes A→D, the B→C results cannot serve that commit.
 
-Canonical promotion is more than changing a branch pointer. Apply/sync QMDB writes and make outputs, metadata, and AppliedCursor consistently recoverable after a crash. GC scheduling remains open and separate from durable state/output/cursor completion. Active-access fencing and required retention always remain necessary.
+Canonical promotion is more than changing a branch pointer. Apply/sync QMDB writes and make outputs, metadata, and AppliedCursor consistently recoverable after a crash. Logical pruning is part of commit: conflicting branches lose live-tree membership and result-adoption authority. Physical deletion releases batches/checkpoints only after worker references and required retention are clear. GC scheduling remains open and separate from durable state/output/cursor completion. Active-access fencing and required retention always remain necessary.
 
 If ABC is one sealed batch with no AB checkpoint, applying ABC and hiding C cannot commit only AB. Executor must create a separate boundary at AB from a valid exact predecessor or reexecute through AB to create it. new_batches starts at the currently applied database; it cannot automatically restore an earlier prefix after the database advances. [Actual base capture](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2704).
 

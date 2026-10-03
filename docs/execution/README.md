@@ -1,13 +1,15 @@
 # Execution: roles and responsibilities
 
-**Executor turns ordered transactions into durable application state.** It manages execution branches, certifies results with peer Executors, imports verified peer state when useful, and recovers after restart. Runtime computes transaction effects. ResultService handles certification inside Executor.
+**Executor turns ordered transactions into durable application state.** It chooses direction candidates, manages the parent-linked execution tree, certifies results with peer Executors, imports verified peer state when useful, and recovers after restart. Runtime computes transaction effects. ResultService handles certification inside Executor.
 
 ## Roles and responsibilities
 
-Executor receives speculative execute/reschedule requests from Baton and finalized inputs directly from Orderer. It uses Runtime and QMDB to manage state and outputs. It communicates directly with other validators' Executors to certify results or synchronize local state from verified results. The application-specific Bank balance and nonce model is outside the current scope.
+Executor receives planning snapshots and parent-linked execute(block) inputs from Baton, and finalized commit(range) inputs directly from Orderer. Planner is merged into Executor; there is no separate reschedule API. It uses Runtime and QMDB to manage state and outputs. It communicates directly with other validators' Executors to certify results or synchronize local state from verified results. The application-specific Bank balance and nonce model is outside the current scope.
 
 | Responsibility | Executor owns | Boundary and completion condition |
 |---|---|---|
+| Planning | Completed bounded candidate evaluation from a frozen report/context snapshot | PreparedPolicy for Baton; native cut never waits for it |
+| Execution tree | Resolve parent hashes, link children, track completed checkpoints, promote canonical path, prune conflicting branches | Parent is an execution predecessor; compatible canonical descendants remain pending |
 | Direct execution | Runtime computation, branch management, prefix reuse, suffix reexecution | Completed ExecutionResult; speculative work is not canonical application |
 | Result signing | Validate and sign its directly executed result through internal ResultService | Bind finalized exact input, canonical input state, runtime, and full result; never sign an imported result as its own execution |
 | State finalization | Verify peer signatures / certificates; retain and disseminate the original certificate | f+1 distinct eligible signatures on one full statement, with irrevocable order and input-state chain verified |
@@ -28,7 +30,7 @@ Keep speculative and canonical state separate. Execute produces branch results w
 | QMDB database variant / state encoding / root type | |
 | Canonical operations / batch-boundary derivation / logical-root integration | |
 | Scope of Stateful actor reuse | |
-| Branch key / checkpoint granularity | |
+| Block / parent-hash encoding and binding / checkpoint granularity | |
 | Execution scheduling / cancellation / worker-fencing contract | |
 | Atomic commit of state / outputs / cursor | |
 | Branch pruning / memory / disk budget | |

@@ -96,7 +96,7 @@ The source before page partitioning is preserved in the [archived snapshot](arch
 
 <a id="56-non-leader-실행재실행-요청"></a>
 
-[Direction and rescheduling](docs/baton/direction.md#non-leader-request-execution-and-rescheduling)
+[Direction and rescheduling](docs/baton/direction.md#non-leader-request-parent-linked-execution)
 
 <a id="58-미결정-사항"></a>
 
@@ -168,11 +168,11 @@ The source before page partitioning is preserved in the [archived snapshot](arch
 
 <a id="211-planner-completion과-proposal-freeze의-경합"></a>
 
-[Leader reports and proposal races](docs/e2e/leader.md#planner-completion-versus-proposal-freeze)
+[Leader reports and proposal races](docs/e2e/leader.md#planning-completion-versus-proposal-freeze)
 
 <a id="26-baton-lifecycle-non-leader의-direction재실행-요청"></a>
 
-[Direction receipt and reexecution](docs/e2e/reschedule.md#non-leader-lifecycle-direction-and-rescheduling)
+[Direction receipt and reexecution](docs/e2e/reschedule.md#non-leader-lifecycle-direction-and-branch-execution)
 
 <a id="27-cut-commit--ordered-range--실행-commit"></a>
 

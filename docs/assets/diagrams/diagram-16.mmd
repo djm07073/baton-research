@@ -7,7 +7,7 @@ flowchart TB
     V <-->|events / typed capabilities| C[CoreState / private semantic owner]
     V <-->|append / sync / covering ACK| J[Native journal / checkpoints]
     V <-->|payload callbacks / accepted-artifact notices| A[BlockService / Automaton]
-    C -. new planning / policy bridge .-> P[Baton / Planner]
+    C -. new planning / policy bridge .-> P[Baton / Executor planning]
     P -. prepared matching candidate .-> C
     C -. new exact evidence export .-> D[Orderer]
     D --> E[Executor]

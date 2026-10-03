@@ -1,6 +1,6 @@
 # Baton interfaces and local progress notifications
 
-**Baton requests execution; Executor owns completion.** Baton handlers admit blocks and scheduling messages and request execute or reschedule work. Applied progress is an optional local notification and does not require a reply before execution can proceed.
+**Baton requests execution; Executor owns completion.** Baton handlers admit blocks and scheduling messages and request Executor planning or parent-linked execute work. Applied progress is an optional local notification and does not require a reply before execution can proceed.
 
 ## Interface overview
 
@@ -8,16 +8,16 @@ Rust declaration: [Baton](../overview/rust-interfaces.md#baton). The Rust interf
 
 `Context` binds the leader view, history, actual parent, rule, window, and immutable ordering frontier. It is not assumed to be the same type as `BlockService::ProducerContext`. `on_block` admits a CandidateBlock whose body and authenticated header have been joined. A StoredBody notice alone is insufficient. Baton reception and the Commonware attachment perform the join and handler call.
 
-The `on_*` handlers check context, admit local inputs, and schedule work. A runtime driver runs Executor and Planner jobs and returns completion to handlers. Driver, queue, and task placement remain open; this contract adds no mandatory actor count. Planner returns `on_planned(context, policy)`, which checks the original window and context before updating prepared state. Late or stale completion cannot overwrite a new context. `on_execution` receives only completed valid checkpoints; failure, incomplete-job notification, and retry contracts remain open in the Execution decisions. `prepared_policy()` is an immediate query that returns only a completed valid candidate currently available. Native Core rechecks actual context and freezes policy; the cut does not wait for `Some`.
+The `on_*` handlers check context, admit local inputs, and schedule work. A runtime driver runs Executor planning and execution jobs and returns completion to handlers. Driver, queue, and task placement remain open; this contract adds no mandatory actor count. Executor planning completes through `on_planned(context, policy)`, which checks the original window and context before updating prepared state. Late or stale completion cannot overwrite a new context. `on_execution` receives only completed valid checkpoints; failure, incomplete-job notification, and retry contracts remain open in the Execution decisions. `prepared_policy()` is an immediate query that returns only a completed valid candidate currently available. Native Core rechecks actual context and freezes policy; the cut does not wait for `Some`.
 
 | Proposed interface | Source | Responsibility and next output |
 |---|---|---|
 | `Baton::on_block` | Consensus body attachment | Validate reference/context → local intended order → Executor::execute |
-| `Baton::on_context` | Native owner hook | Manage exact context / immutable frontier → window / Planner input |
+| `Baton::on_context` | Native owner hook | Manage exact context / immutable frontier → window / Executor::plan input |
 | `Baton::on_report` | Report connection | Verify signature, context, identity, limits → leader snapshot admission |
-| `Baton::on_direction` | Current leader | Authenticate and check context → Executor::reschedule |
-| `Baton::on_planned` / `prepared_policy` | Planner completion → Baton → native owner | Check original request; retain prepared state → immediate query → actual proposal-context recheck |
-| `Baton::on_execution` | Executor | Check result generation/context → maintain branch handle and local readiness |
+| `Baton::on_direction` | Current leader | Authenticate and check context → parent-linked Executor::execute(block) |
+| `Baton::on_planned` / `prepared_policy` | Executor planning completion → Baton → native owner | Check original request; retain prepared state → immediate query → actual proposal-context recheck |
+| `Baton::on_execution` | Executor | Check result context → observe completed local work; tree links and workers remain Executor-owned |
 | `Baton::on_commit` | Optional local applied notification from Executor | Update scheduling progress; no approval of delivery ACK, pool cleanup, or result certification |
 
 Sending or handling `on_commit` does not condition Executor application, certification, state sync, or delivery acknowledgement. Executor proceeds without a Baton reply. `Baton::on_*` are local handlers, not separate wire messages. Successful return reports local handling or scheduling, not direction approval or a remote ACK. ExecutionResult represents completed speculative execution; its codec and concrete fields remain open.

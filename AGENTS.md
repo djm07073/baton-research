@@ -10,6 +10,8 @@ The latest user decisions are authoritative. docs/ is the current implementation
 
 Current adopted requirements:
 
+- Latest interface decision (2026-10-04): merge Planner into Executor; no separate Planner trait or public reschedule API. Executor::plan evaluates a bounded frozen report snapshot, execute(block) links a validated execution-parent hash and runs the child, and commit(range) promotes the exact canonical path and prunes conflicting branches. Keep valid canonical descendants and retain referenced/recovery/query/sync data until physical reclamation is safe. Eight traits remain; all methods have Rust documentation comments. Baton handles reports/direction and prepared-policy caching; Executor owns planning and execution-tree scheduling. Execution-parent hashes do not mean native producer-header parents. Planning cannot block canonical commit or native cut.
+
 - Project name: Baton; paper title: “Baton: Execution-Aware Ordering for Autobahn”. Keep the repository name, source URLs, historical citations and archive filenames unchanged. Use direction in current prose.
 - Base: Native Multimmit, n=5f+1. Preserve tip extraction and extension; the concrete direction-preserving adaptation is unimplemented/unproved. Hermes is related work, not the adopted engine.
 - Reports are authenticated intended orders, not execution history, progress proofs, execution completion or approval votes. Bind exact epoch/view/history/canonical parent/rule/window/frontier; count one identity once and preserve raw support through completion.

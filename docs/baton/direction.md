@@ -1,10 +1,10 @@
-# Choosing direction and rescheduling
+# Choosing direction and executing branches
 
-**Planner chooses a promising order; Baton turns it into local execution requests.** The leader evaluates original reports, chooses a valid candidate, and shares advisory direction. Each receiving Baton adjusts its speculative schedule without introducing a direction-approval quorum.
+**Executor chooses a promising order and owns its execution tree; Baton handles reports and direction messages.** The leader evaluates original reports, chooses a valid candidate, and shares advisory direction. Each receiving Baton adjusts its speculative schedule without introducing a direction-approval quorum.
 
 ## Leader: choose direction from reports
 
-Rust declaration: [Planner](../overview/rust-interfaces.md#planner). The Rust interfaces page owns the complete declaration.
+Rust declaration: [Executor::plan](../overview/rust-interfaces.md#executor). The Rust interfaces page owns the complete declaration.
 
 `ReportSnapshot` is a once-closed set of distinct, same-context original reports. `Candidates` is a bounded set of admissible full candidates. Return `Some` only when evaluation of that set has completed and the selection is valid. Incomplete evaluation or absence of valid candidates cannot be published as prepared policy. Never await this background future on the native cut path. Tail selection, budgets, adoption, and continuation remain open.
 
@@ -17,7 +17,7 @@ Rust declaration: [Planner](../overview/rust-interfaces.md#planner). The Rust in
 | Primary selection | Same-context original reports | Maximize the length of a valid nonempty entire prefix shared by `2f+1` reports | Full candidate containing the selected prefix |
 | Fallback | No such prefix | Maximize raw sum-LCP among valid candidates | Valid direction candidate |
 | NativeBase | No reports / no prepared valid candidate | Use an actual-parent-valid base policy | Native cut continues |
-| Disseminate | Prepared direction | Send to producer and executor-validator Baton endpoints | Advisory rescheduling |
+| Disseminate | Prepared direction | Send to producer and executor-validator Baton endpoints | Parent-linked speculative execution |
 
 Let `ℓᵢ(P)=|LCP(P,Rᵢ)|`. The fallback score is `Σᵢℓᵢ(P)`. Filtering or completing reports must not manufacture support. An unfinished candidate search cannot establish a completed longest-prefix selection. Support from `2f+1` reports leaves at least `f+1` honest **intentions** under the fault assumption; it does not establish finished work, reuse, or native inclusion.
 
@@ -32,7 +32,7 @@ For an illustrative calculation, take `f=1,n=6` and five distinct identities in 
 
 The primary rule selects **P1**: supported prefix length takes priority even though P2 has a larger sum. If a different deadline snapshot contains only `R1=[A,B,C,D]` and `R2=[A,C,D,B]`, three-report support is impossible, so use the fallback. The raw sums are `4+1=5` for P1 and `1+2=3` for P2, selecting P1. Do not subtract the largest f LCP values. This calculation does not establish a global optimum outside the candidate set, native inclusion, or completed execution work.
 
-How to choose the tail after an equally long supported prefix, including any secondary score, remains undecided. A cut does not wait for reports, timers, or Planner. Distinguish using a valid base before a candidate is prepared from preserving an already authenticated protected prefix. Native prefix adoption and exact continuation remain unimplemented and unproved.
+How to choose the tail after an equally long supported prefix, including any secondary score, remains undecided. A cut does not wait for reports, timers, or Executor planning. Distinguish using a valid base before a candidate is prepared from preserving an already authenticated protected prefix. Native prefix adoption and exact continuation remain unimplemented and unproved.
 
 Suppose a valid prefix `p=[A1,B1]` is selected after the same immutable frontier. The following comparison assumes the same canonical input state and runtime and valid predecessor closure. It illustrates the requirement, without claiming an executed trace or completed preservation proof.
 
@@ -50,11 +50,13 @@ Send to producer Baton endpoints and the validator Baton endpoints responsible f
 
 There is no direction-receipt vote, ACK, or Ready quorum. Once the leader-local collection, selection, and dissemination cycle closes, the next cycle may start for new work or context. It does not wait for every node to finish the previous direction.
 
-## Non-leader: request execution and rescheduling
+<a id="non-leader-request-execution-and-rescheduling"></a>
 
-Accept direction only from the current leader and for the matching context. Check required bodies and input state, then create an `Executor::reschedule` request. Compare the exact prefix of the old and new orders; reuse only work with a completed checkpoint and matching input state and runtime.
+## Non-leader: request parent-linked execution
 
-Cancel superseded generation jobs or invalidate their results, then execute the new suffix from a valid checkpoint. Late completions cannot replace the current branch or canonical state. Missing bodies or base state may leave local speculation pending, without adding a native cut wait for direction replies.
+Accept direction only from the current leader and for the matching context. Resolve the required bodies and submit the proposed path as parent-linked `Executor::Block` values through `Executor::execute(block)`. A→B→C changing to A→B→D submits D with the hash of the completed AB execution parent. Executor reuses AB only when its input state, runtime, exact prefix, and storage ancestry match. A fresh public reschedule command is unnecessary.
+
+Executor owns parent lookup, child linking, task priority, duplicate-work reuse, and stale-result fencing. An unfinished or missing parent leaves dependent work pending or triggers recovery; it never licenses execution from a different state. Old compatible branches may remain until commit or resource cleanup; a direction update does not itself make another branch canonical. Late completions cannot replace canonical state. Missing bodies or parent state add no native cut wait for direction replies.
 
 ## Open decisions
 

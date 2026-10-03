@@ -42,8 +42,8 @@ sequenceDiagram
     participant O as Executor
     participant Q as QMDB batches
     participant A as Runtime
-    B->>O: execute(base checkpoint, exact order, runtime, generation)
-    O->>O: Locate valid base / retain reusable prefix
+    B->>O: execute(block hash, parent block hash, exact inputs/context)
+    O->>O: Resolve valid execution parent / link child in tree
     O->>Q: Fork parent batch / create branch
     Q-->>O: Mutable batch
     loop Ordered input blocks
@@ -55,7 +55,7 @@ sequenceDiagram
     O-->>B: ExecutionResult(branch handle, context, results)
     M-->>O: OrderedRange(irrevocable range, canonical predecessor)
     O->>O: commit(range)
-    O->>O: Verify branch exactly matches committed input
+    O->>O: Verify exact committed path / canonical predecessor
     O->>O: Fence incompatible / unknown active branch workers
     O->>Q: DatabaseSet::finalize(matching batches)
     Q-->>O: Applied / readable state + Barrier
@@ -63,12 +63,13 @@ sequenceDiagram
     alt Durable barrier succeeds and metadata linkage completes
         Q-->>O: Durable flush completion
         O->>O: Complete recoverable state + outputs + cursor linkage
+        O->>O: Advance canonical tip / logically prune conflicting branches
         O-->>M: CommitResult / durable delivery ACK
         opt Local scheduling notification
             O-->>B: Applied progress, no finalization approval
         end
         opt Safe retention boundary permits cleanup
-            O->>O: Prune incompatible forks / retain compatible suffixes
+            O->>O: Delete unreferenced pruned forks / retain compatible descendants
         end
     else Shutdown, flush failure, or incomplete metadata linkage
         Q-->>O: No successful durable completion
@@ -78,4 +79,4 @@ sequenceDiagram
 
 [Open full-size diagram](../assets/diagrams/diagram-09.svg)
 
-This sequence assumes completed branch work exactly matches the canonical range. If it is missing or different, follow [canonical execution / repair](canonical.md#cut-commit--ordered-range--execution-commit). Branch construction and pruning are proposed Executor behavior; cleanup is optional and concrete GC scheduling is open. `DatabaseSet::finalize` and `Barrier::durable` are upstream APIs, but applied/readable state is not durable completion. See [canonical application](../execution/qmdb.md#commit-a-branch-to-canonical-state) for state/output/cursor linkage, failures, and acknowledgement boundaries, and the [durability barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L469).
+This sequence assumes completed branch work exactly matches the canonical range. If it is missing or different, follow [canonical execution / repair](canonical.md#cut-commit--ordered-range--execution-commit). Branch construction, canonical promotion, and logical pruning belong to Executor. Physical reclamation follows safe retention and worker-reference release; concrete GC scheduling remains open. `DatabaseSet::finalize` and `Barrier::durable` are upstream APIs, but applied/readable state is not durable completion. See [canonical application](../execution/qmdb.md#commit-a-branch-to-canonical-state) for state/output/cursor linkage, failures, and acknowledgement boundaries, and the [durability barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L469).
