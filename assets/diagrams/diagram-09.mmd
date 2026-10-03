@@ -1,5 +1,6 @@
 sequenceDiagram
     participant B as Baton
+    participant M as Orderer
     participant O as Executor
     participant Q as QMDB batches
     participant A as Runtime
@@ -14,7 +15,8 @@ sequenceDiagram
     end
     O->>Q: Merkleize at requested checkpoint boundary, granularity undecided
     O-->>B: ExecutionResult(branch handle, context, results)
-    B->>O: commit(irrevocable range, canonical predecessor)
+    M-->>O: OrderedRange(irrevocable range, canonical predecessor)
+    O->>O: commit(range)
     O->>O: Verify branch exactly matches committed input
     O->>O: Fence incompatible / unknown active branch workers
     O->>Q: DatabaseSet::finalize(matching batches)
@@ -23,11 +25,14 @@ sequenceDiagram
     alt Durable barrier succeeds and metadata linkage completes
         Q-->>O: Durable flush completion
         O->>O: Complete recoverable state + outputs + cursor linkage
-        O-->>B: CommitResult
+        O-->>M: CommitResult / durable delivery ACK
+        opt Local scheduling notification
+            O-->>B: Applied progress, no finalization approval
+        end
         opt Safe retention boundary permits cleanup
             O->>O: Prune incompatible forks / retain compatible suffixes
         end
     else Shutdown, flush failure, or incomplete metadata linkage
         Q-->>O: No successful durable completion
-        Note over B,O: CommitResult / delivery ACK를 발행하지 않고 recovery 경계에서 처리
+        Note over M,O: CommitResult / delivery ACK를 발행하지 않고 recovery 경계에서 처리
     end

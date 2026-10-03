@@ -1,7 +1,6 @@
 sequenceDiagram
     participant N as Native Multimmit
     participant M as Orderer
-    participant B as Baton
     participant E as Executor
     N-->>M: Authenticated finality / extension evidence
     M->>M: Recover exact history / frozen policy / slot evidence
@@ -9,14 +8,15 @@ sequenceDiagram
         M->>M: Backfill and stop dense emission at the gap
         Note over N,M: Native protocol은 자체 규칙에 따라 계속 진행
     else 다음 연속 exact range가 irrevocable
-        M-->>B: OrderedRange(predecessor, inputs, evidence)
-        B->>E: commit(range, expected canonical predecessor)
+        M-->>E: OrderedRange(predecessor, inputs, evidence)
+        E->>E: commit(range, expected canonical predecessor)
         alt Matching completed speculative branch prefix 존재
             E->>E: Select exact committed prefix, keep compatible suffix pending
-        else branch 누락 또는 순서 불일치
-            E->>E: Execute from canonical base / repair suffix
+        else 적용 가능한 peer certificate + state material 검증 완료
+            E->>E: Fence unfinished work and apply material at matching base
+        else local work / peer material이 준비되지 않음
+            E->>E: Execute from canonical base / repair suffix, peer sync 병행
         end
         E->>E: Validate results, apply QMDB changes, durable commit
-        E-->>B: CommitResult(new cursor, roots, outputs)
-        B-->>M: Delivery ACK after durability
+        E-->>M: CommitResult / delivery ACK after durability
     end

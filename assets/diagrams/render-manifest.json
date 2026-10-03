@@ -1,21 +1,21 @@
 {
   "specification": "IMPLEMENTATION_SPEC.md",
-  "specification_sha256": "eaa633a59ccb6c0d6146cb24ba9f0011d2d57a157a26d3a1fa7eb04f7ace5f64",
+  "specification_sha256": "79d5a7109a685d8b8c968bcc92b135fad290a70dc62a8c95f064128c919ff74b",
   "renderer": "mermaid 11.12.0",
   "diagrams": [
     {
       "name": "diagram-01",
       "title": "1.1 네 레이어",
-      "width": 959,
-      "height": 1018,
-      "source_sha256": "b02f58074716422d8af23dc6620204239d0fb19ee0b80bb33d29959954eff689"
+      "width": 1046,
+      "height": 914,
+      "source_sha256": "eef36ac93ab9c68d6d5363554207b4ceb46693de3a437e4d12c19880f935d733"
     },
     {
       "name": "diagram-02",
       "title": "2.1 전체 E2E: tx 입력부터 canonical state까지",
-      "width": 1135,
-      "height": 1321,
-      "source_sha256": "65539f8083ef5e32e40949fe579a3f20c5d7f152cdafff1466aaeb97f3f91612"
+      "width": 1129,
+      "height": 1472,
+      "source_sha256": "40cd5d17844ba22fb472253328a28f29e7dbaeaaded8733af8dfb86d4dda646f"
     },
     {
       "name": "diagram-03",
@@ -55,30 +55,30 @@
     {
       "name": "diagram-08",
       "title": "2.7 Cut commit → ordered range → 실행 commit",
-      "width": 926,
-      "height": 1447,
-      "source_sha256": "4b01c3694fa76aa90819d8740e7927a06e92e767d011a0348b62ac112b551f38"
+      "width": 717,
+      "height": 1685,
+      "source_sha256": "5686aea41684755347155b036855b09e5797eb19a43ab6518d99770d0a2ded4d"
     },
     {
       "name": "diagram-09",
       "title": "2.8 Execution lifecycle: QMDB 분기 생성과 canonical 승격",
-      "width": 913,
-      "height": 2014,
-      "source_sha256": "b87674a91bd79a84e404a5484fb8263678a6de6577609524da76f84b220a902a"
+      "width": 1122,
+      "height": 2136,
+      "source_sha256": "528b89080801e9e9b3bd459a13f6056e0025450ddb091dcc5323ef35ed58dcf6"
     },
     {
       "name": "diagram-10",
       "title": "2.9 재시작과 backfill",
-      "width": 1108,
-      "height": 912,
-      "source_sha256": "bdfb7bb4e7f3b9ca4c4b0698fe51b301b22bab180c05787bf599df4cdd702db0"
+      "width": 899,
+      "height": 932,
+      "source_sha256": "2b3bbe1752eafca1d7b944fd031b0bc525f62e8b18e28f464dd09b348ac0e7d1"
     },
     {
       "name": "diagram-11",
       "title": "2.10 결과 endpoint: direct execution과 f+1 인증",
-      "width": 1119,
-      "height": 1290,
-      "source_sha256": "72e05d54ea987a169c64810de8c3102d23704512082f539457b2663eac91a0f4"
+      "width": 919,
+      "height": 1387,
+      "source_sha256": "a2818613c08f3da63ec5ed6658b55f350c17dbdd519b447ab9e7cf3ca121e067"
     },
     {
       "name": "diagram-12",
@@ -92,14 +92,14 @@
       "title": "2.12 Startup: custody를 준비한 뒤 native recovery",
       "width": 1325,
       "height": 1713,
-      "source_sha256": "62e1275ae140f34d374fc8dfc705e5aee84b2a6b4d96b05b70ecb1328b67b35d"
+      "source_sha256": "19751c57910b19c56d6d109bfc9628a5635970c064dc6a91c3340c4b02705e0d"
     },
     {
       "name": "diagram-14",
-      "title": "2.13 미채택 catch-up 후보: certificate + state material",
+      "title": "2.13 State sync: 인증된 실행 결과로 상태 동기",
       "width": 899,
-      "height": 1349,
-      "source_sha256": "3151d083be64a58b307659493fd1ef5a5682a820cefbab30496f3e8da561a41a"
+      "height": 2149,
+      "source_sha256": "02d917fe07a216c25e3e7c7fa8a04b0d1f855bef906740e5b11e3a7bc393d2bb"
     },
     {
       "name": "diagram-15",
@@ -118,9 +118,9 @@
     {
       "name": "diagram-17",
       "title": "6.3 QMDB state 관리와 재사용 경계",
-      "width": 1557,
-      "height": 1388,
-      "source_sha256": "ea1c61c248badae127a7613c62d2bb791bccee88ea5c45e6d2ed82ac861b61a7"
+      "width": 1656,
+      "height": 1436,
+      "source_sha256": "74880d021a873e497ee64c68d891c0a77e22cdf1b588328ef15e53ab2725b390"
     },
     {
       "name": "diagram-18",

@@ -1,20 +1,22 @@
 sequenceDiagram
-    participant E as Executor
-    participant S as ResultService: signing
-    participant C as ResultService: collection
-    participant V as Other eligible executors
+    participant E as Validator Executor
+    participant S as 내부 ResultService
+    participant P as Peer Validator Executor
     participant R as Certified result consumer
-    E-->>S: Exact input / predecessor / runtime / executed result
-    S->>S: Verify direct execution and canonical context
+    E->>S: Completed direct execution with exact context
+    S->>S: Verify own execution and irrevocable order / input-state chain
     S->>S: Persist own statement / signature obligation
-    S-->>C: Signed ExecutionStatement
-    V-->>C: Same exact statement signatures
-    C->>C: Verify distinct epoch identities and exact statement match
+    S-->>E: Own signed ExecutionStatement
+    E-->>P: Execution signature
+    P-->>E: Matching execution signatures or result certificate
+    E->>S: Verify distinct epoch identities and exact statement match
     alt f+1 matching eligible signatures verified
-        C-->>R: Result certificate + input range identity
-        R->>R: Verify irrevocable exact order and input-state chain
-        Note over R: Certificate acceptance와 local fetched / applied / durable readiness 구분
+        S-->>E: Verified result certificate
+        Note over E: State-finalization endpoint verified, local durability is separate
+        E-->>P: Result certificate, state material on peer request
+        E-->>R: Result certificate + exact input identity
+        R->>R: Verify certificate, irrevocable order and input-state chain
     else 아직 부족함
-        C->>C: Retain / reprovide / collect
+        E->>E: Retain / reprovide signatures and continue local execution
     end
-    Note over E,C: Collector 대기는 다음 local execution / native cut의 direction barrier가 아님
+    Note over E,P: Executor끼리 직접 교환, Baton report / direction 경로를 거치지 않음

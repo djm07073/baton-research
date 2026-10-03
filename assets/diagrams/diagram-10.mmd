@@ -2,7 +2,6 @@ sequenceDiagram
     participant S as Startup owner
     participant Q as QMDB / Commit metadata
     participant M as Orderer
-    participant B as Baton
     participant E as Executor
     S->>Q: Recover last durable applied commit
     Q-->>S: State / outputs / AppliedCursor
@@ -10,8 +9,7 @@ sequenceDiagram
     S->>M: Recover archive and delivery cursors
     M->>M: Fetch missing authenticated history / bodies
     S->>E: Open recovered canonical checkpoint
-    Note over B,E: Speculative branch tree는 durable canonical state에서 다시 구성 가능
-    M-->>B: Redeliver unacknowledged exact range
-    B->>E: Idempotent commit(range)
-    E-->>B: Existing matching commit or newly durable result
-    B-->>M: Delivery ACK
+    Note over E: Speculative branch tree는 durable canonical state에서 다시 구성 가능
+    M-->>E: Redeliver unacknowledged exact range
+    E->>E: Idempotent commit(range)
+    E-->>M: Existing matching durable CommitResult / delivery ACK

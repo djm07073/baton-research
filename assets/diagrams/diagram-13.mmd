@@ -4,7 +4,7 @@ sequenceDiagram
     participant A as BlockService: Automaton 연결
     participant N as Native Engine
     participant E as Executor
-    participant B as Orderer / Baton 연결
+    participant B as Orderer / Executor 연결
     S->>W: Register native and application logical channels
     S->>A: Open body storage / parent lookup, start service
     S->>W: Start authenticated network service

@@ -6,7 +6,7 @@ flowchart TB
     N -->|exact evidence / history| M[Orderer]
     B -->|StoredBody| O[Baton]
     N -. Reporter artifact .-> O
-    M -->|OrderedRange| O
+    M -->|OrderedRange| E
     O <-->|plan / result| P[Planner]
     O -. PreparedPolicy .-> H[Native policy hook]
     H -. recheck / freeze .-> N
@@ -14,8 +14,8 @@ flowchart TB
     O <-->|commands / results| E[Executor]
     E <-->|state / outputs| R[Runtime]
     E -->|valid batches / durability| S[Commonware QMDB]
-    E -->|ExecutionResult| V[ResultService]
-    O -->|CommitResult| T
+    E <-->|signatures / certificates / change sets| V[Peer Executor]
+    E -->|CommitResult| T
     NET[Commonware P2P: 모든 plane 공유] --- N
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;

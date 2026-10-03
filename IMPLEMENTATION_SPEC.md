@@ -23,7 +23,7 @@
 
 ### 1.1 네 레이어
 
-Tx 레이어는 실행할 후보를 모으고, consensus는 producer별 payload commitment와 순서에 관한 native 증거를 만든다. Baton은 아직 확정되지 않은 block의 실행 순서를 예상해 작업을 예약하고, 확정 이력에서 얻은 exact ordered range가 도착하면 실행 레이어에 commit을 요청한다. 실행 레이어는 application runtime으로 state를 계산하고 QMDB에 저장한다. 따라서 body를 가지고 있다는 사실, 실행 방향을 받았다는 사실, 순서가 확정되었다는 사실, local state가 durable하다는 사실을 각각 구분한다.
+Tx 레이어는 실행할 후보를 모으고, consensus는 producer별 payload commitment와 순서에 관한 native 증거를 만든다. Baton은 아직 확정되지 않은 block의 실행 순서를 예상해 사전 실행·재실행을 조율한다. 확정 이력에서 얻은 exact ordered range는 Orderer가 Executor에 직접 전달한다. 실행 레이어는 application runtime으로 state를 계산하고 QMDB에 저장한다. 따라서 body를 가지고 있다는 사실, 실행 방향을 받았다는 사실, 순서가 확정되었다는 사실, local state가 durable하다는 사실을 각각 구분한다.
 
 이 문서에서 custody는 요청된 producer context의 본문과 필요한 부모 자료를 재시작 뒤에도 복원할 수 있게 영속 보관하는 책임이다. 구체 저장·조회·복구 연결은 [§4.4](#44-블록-전파조회custody)에 설명한다.
 
@@ -36,7 +36,7 @@ flowchart TB
     N -->|exact evidence / history| M[Orderer]
     B -->|StoredBody| O[Baton]
     N -. Reporter artifact .-> O
-    M -->|OrderedRange| O
+    M -->|OrderedRange| E
     O <-->|plan / result| P[Planner]
     O -. PreparedPolicy .-> H[Native policy hook]
     H -. recheck / freeze .-> N
@@ -44,8 +44,8 @@ flowchart TB
     O <-->|commands / results| E[Executor]
     E <-->|state / outputs| R[Runtime]
     E -->|valid batches / durability| S[Commonware QMDB]
-    E -->|ExecutionResult| V[ResultService]
-    O -->|CommitResult| T
+    E <-->|signatures / certificates / change sets| V[Peer Executor]
+    E -->|CommitResult| T
     NET[Commonware P2P: 모든 plane 공유] --- N
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
@@ -68,9 +68,9 @@ Ordered delivery와 history recovery는 consensus attachment의 내부 역할이
 | 레이어 | 어디서 무엇을 받는가 | 내부에서 처리하는 것 | 다음 레이어에 무엇을 주는가 |
 |---|---|---|---|
 | Tx: TxPool | Client 또는 tx P2P의 tx bytes | 구조 검증·admission·후보 보관, 선택한 위치의 정적 분석 | BlockService에 bounded tx batch |
-| Consensus: BlockService + Multimmit + Orderer | TxPool의 후보 tx, peer의 body/header/proof | 본문 구성·custody, native DA·합의, 검증된 이력에서 dense order 복구 | Baton에 CandidateBlock과 OrderedRange |
-| Baton | 후보 block, ordering context, peer reports, leader direction, canonical range | Intended order, report 수집·선택, 실행 예약·재예약, commit 요청 생성 | Executor의 execute / reschedule / commit 호출 |
-| Execution: Executor + Runtime | Baton의 명령, exact parent state·runtime·ordered input | QMDB branch 생성, tx 실행, 재사용·suffix repair, canonical 적용 | Baton에 ExecutionResult 또는 CommitResult |
+| Consensus: BlockService + Multimmit + Orderer | TxPool의 후보 tx, peer의 body/header/proof | 본문 구성·custody, native DA·합의, 검증된 이력에서 dense order 복구 | Baton에 CandidateBlock; Executor에 OrderedRange |
+| Baton | 후보 block, ordering context, peer reports, leader direction | Intended order, report 수집·선택, 사전 실행 예약·재예약 | Executor의 execute / reschedule 호출 |
+| Execution: Executor + Runtime | Baton의 실행 요청, Orderer의 확정 입력, peer Executor의 인증 결과·state material | 직접 실행·결과 인증·state sync·canonical 적용 | Peer 결과 교환; Orderer / TxPool에 durable 완료; Baton에는 실행 결과·선택적 적용 알림 |
 
 ### 1.3 역할과 용어
 
@@ -81,11 +81,11 @@ Ordered delivery와 history recovery는 consensus attachment의 내부 역할이
 | `TxPool` | Tx admission·후보 보관·batch 선택·결과 반영 | [§3.2](#32-인터페이스-개요) |
 | `BlockService` | Producer body 생성·영속 보관·전파·조회·custody | [§4.2](#42-인터페이스-개요) |
 | `Orderer` | Native 증거와 이력을 해석해 확정 실행 순서 전달 | [§4.5](#45-합의와-baton-연결) |
-| `Baton` | 실행 순서 조율·작업 예약·재예약·commit 전달 | [§5.2](#52-인터페이스-개요) |
-| `Executor` | 실행 branch 관리·QMDB canonical 적용·복구·조회 | [§6.2](#62-인터페이스-개요) |
+| `Baton` | 실행 순서 조율·사전 실행 예약·재예약 | [§5.2](#52-인터페이스-개요) |
+| `Executor` | 실행 branch 관리·state finalization·state sync·QMDB 적용·복구·조회 | [§6.2](#62-인터페이스-개요) |
 | `Runtime` | 주어진 branch state에서 application tx 계산 | [§6.2](#62-인터페이스-개요) |
 
-`TxPolicy`는 정적 분석·선택 정책, `Planner`는 direction 선택 알고리즘, `ResultService`는 결과 서명·수집·인증 조회의 교체 가능한 보조 trait다. 여섯 모듈 안에 조립할 수 있으며 별도 서비스로 배치하기로 정한 것이 아니다. Native `Multimmit`, `Automaton`, `Relay`, `Reporter`, `DatabaseSet` 등의 upstream 이름은 그대로 사용한다.
+`TxPolicy`는 정적 분석·선택 정책, `Planner`는 direction 선택 알고리즘의 보조 trait다. `ResultService`는 **Executor 내부**에서 결과 서명·수집·인증 검증·조회를 맡는 보조 trait다. Executor가 peer 통신과 state sync를 소유하며 ResultService를 별도 최상위 서비스로 두지 않는다. Trait 경계만으로 별도 actor·crate 배치를 결정하지 않는다. Native `Multimmit`, `Automaton`, `Relay`, `Reporter`, `DatabaseSet` 등의 upstream 이름은 그대로 사용한다.
 
 | 데이터 이름 | 뜻과 완료 조건 |
 |---|---|
@@ -115,7 +115,8 @@ Producer·validator·leader·non-leader는 노드의 **역할**이다. Cut은 na
 | BodyReady / BlockAvailable | StoredBody / CandidateBlock — 두 단계는 유지 |
 | BranchReady / speculative outcome | ExecutionResult |
 | CommitApplied / durable commit result | CommitResult |
-| OnBlockAvailable / OnOrderedRange / OnCommitApplied | Baton::on_block / on_ordered_range / on_commit |
+| OnBlockAvailable / OnCommitApplied | Baton::on_block / on_commit — 로컬 입력 / 선택적 적용 알림 |
+| OnOrderedRange / 이전 Baton commit 전달 | Orderer → Executor::commit — Baton 경유 제거 |
 
 </details>
 
@@ -134,8 +135,9 @@ Tx를 담는 것은 [producer payload/body](#23-block-lifecycle-mempool--propose
 | Tx / body data path | Tx API → pool → builder → body store / P2P → peer custody | Admission, body bytes와 digest, local durable custody |
 | Native consensus path | Authenticated native network → batcher → voter / Core owner → signed protocol artifacts | Producer ancestry·DA·view votes·native finality·extension evidence |
 | Baton control path | Known input / intended order → reports → leader snapshot / planner → direction → local reschedule | Advisory execution order와 completed prepared candidate |
-| Canonical input path | Exact native evidence / policy history → ordered delivery → Baton Commit | 뒤집히지 않는 연속 exact ordered input |
-| State application path | Commit → execution branch matching / repair → QMDB apply → durability → output / cursor | Local durable canonical state와 recoverable commit identity |
+| Canonical input path | Exact native evidence / policy history → Orderer → Executor::commit | 뒤집히지 않는 연속 exact ordered input |
+| Execution result path | Executor ↔ Executor: 직접 실행 서명 → f+1 결과 인증서 검증 | Irrevocable exact order와 canonical input state에 결속된 state finalization |
+| State application path | Executor의 직접 실행 결과 또는 검증한 peer change set → QMDB apply → durability → output / cursor | Local durable canonical state와 recoverable commit identity |
 
 Body를 이미 받은 것, 높은 report support를 가진 것, native ordering에 인증된 것, state에 적용한 것은 서로 다른 상태다. 한 경로의 완료를 다른 경로의 증거로 바꾸지 않는다.
 
@@ -145,12 +147,14 @@ Body를 이미 받은 것, 높은 report support를 가진 것, native ordering�
 |---|---|---|
 | Native Core | Native signing reservations, producer/DA/view/finality state | Voter의 typed capability executor / native publication |
 | BlockService | Body 저장·fetch·구조 검증·custody 결과 | Automaton 요청자와 Baton의 block 수신 |
-| Orderer | 검증·보관한 증거, terminal slots, emitted / acknowledged cursors | Baton에 OrderedRange, gap에는 history fetch |
+| Orderer | 검증·보관한 증거, terminal slots, emitted / acknowledged cursors | Executor에 OrderedRange, gap에는 history fetch |
 | Baton + Planner | Window reports, completed candidate, intended order, local job generation | Direction 전파·prepared policy 전달·Executor 호출 |
-| Executor | Speculative checkpoints / worker refs와 canonical QMDB state | ExecutionResult 또는 durable CommitResult |
+| Executor | Speculative checkpoints / worker refs, 실행 결과 서명·인증서·sync 자료, canonical QMDB state | Peer Executor와 직접 결과 인증 / state sync; 로컬 Baton에 ExecutionResult 또는 durable CommitResult |
 | Runtime | 전달받은 유효 branch state의 tx 계산 | Executor에 writes / outputs |
 
 Planner·Runtime worker는 결과를 계산한다. 현재 native context에 policy를 채택할 권한은 Native Core에, 현재 branch 결과를 채택하거나 canonical state를 적용할 권한은 Executor에 있다. Executor의 branch 관리와 canonical single writer는 같은 모듈 안에서도 다른 권한이다. Wire direction의 freshness와 local cancellation generation도 다른 식별 규칙이다.
+
+**State finalization과 state sync의 책임·통신 주체는 Executor다.** Baton은 사전 실행·재실행을 요청하고 로컬 실행 결과를 받는다. 확정 입력은 Orderer → Executor로 직접 전달하고 durable 완료는 Executor → Orderer / TxPool로 전달한다. Baton의 수신·승인·회신을 finalization / state sync / canonical 적용 조건으로 두지 않는다. 실행 결과 서명·인증서·change set의 peer 교환은 Baton 간 report / direction 경로를 거치지 않는다. State sync는 validator의 정상 실행 경로에서 사용할 수 있는 선택지이며, 구체 검증·전환·저장 계약은 [§6.1](#61-역할과-책임)과 [§6.7](#67-state-sync-인증된-실행-결과로-상태-동기)에 모았다.
 
 ### 1.6 P2P 연결과 message planes
 
@@ -164,7 +168,7 @@ Planner·Runtime worker는 결과를 계산한다. 현재 native context에 poli
 | Application body | Body store / resolver peers | Body bytes와 exact reference에 대한 fetch / response | |
 | Baton report | Validator Baton ↔ leader Baton | Window 안내 / signed intended-order report | |
 | Baton direction | Leader Baton → producer / executor Baton | Advisory direction | |
-| Execution result | Direct signers / collector / consumers | Exact statement signatures / result certificate | |
+| Execution result / state sync | Validator Executor ↔ Executor; 인증 조회는 consumer → Executor | Exact statement signatures / result certificates / change sets와 조회·재요청 | |
 
 추가 plane은 같은 Commonware network의 logical channels로 연결할 수 있다. Plane마다 새 물리 connection 또는 별도 P2P stack을 만들기로 정한 것은 아니다. 인증 transport와 message-level context 검증도 다른 책임이다. Tx / body / report의 CPU·queue·bandwidth 경쟁은 존재하므로, 논리적 no-wait를 물리적인 resource isolation 보장으로 설명하지 않는다. Runtime thread / pool 배치와 quotas는 미결정이다.
 
@@ -179,9 +183,9 @@ Planner·Runtime worker는 결과를 계산한다. 현재 native context에 poli
 | Peer body → custody / lookup | `BlockService::verify` / `fetch` |
 | 인증된 후보 → 사전 실행 | `Baton::on_block` → `Executor::execute` → `Runtime::execute` |
 | Reports → direction → 실행 계획 변경 | `Baton::on_report` → `Planner::plan` → `Baton::on_direction` → `Executor::reschedule` |
-| Native 증거 → 확정 순서 → local state 적용 | `Orderer::record` / `next_range` → `Baton::on_ordered_range` → `Executor::commit` |
-| Durable 완료 → 전달 확인·pool 갱신 | `Baton::on_commit` → `Orderer::acknowledge` + `TxPool::on_commit` |
-| 직접 실행 결과 → 서명·인증 조회 | `ResultService::sign` / `collect` / `certificate` |
+| Native 증거 → 확정 순서 → local state 적용 | `Orderer::record` / `next_range` → `Executor::commit`; Baton 경유 없음 |
+| Durable 완료 → 전달 확인·pool 갱신 | Executor → `Orderer::acknowledge` + `TxPool::on_commit`; Baton 알림은 선택적 |
+| Executor 내부 직접 실행 결과 → 서명·인증 조회 | 내부 `ResultService::sign` / `collect` / `certificate`; peer 전송은 Executor ↔ Executor |
 
 조립할 때 아래 associated types는 같은 concrete 타입으로 연결한다. Trait 이름이 같다고 Rust가 자동으로 연결해 주는 것은 아니며, 각 receiver의 context·identity·evidence 검증도 계속 필요하다.
 
@@ -189,9 +193,9 @@ Planner·Runtime worker는 결과를 계산한다. 현재 native context에 poli
 |---|---|
 | `Baton::Context = Planner::Context` | 동일 planning context; native producer Context와는 구분 |
 | `Planner::PreparedPolicy = Baton::PreparedPolicy` | 완료된 선택 결과 → native actual-context 재검증 hook |
-| `Orderer::OrderedRange = Baton::OrderedRange = Executor::OrderedRange` | 확정 순서 → commit 요청 |
+| `Orderer::OrderedRange = Executor::OrderedRange` | 확정 순서 → 직접 commit 요청 |
 | `Executor::ExecutionResult = Baton::ExecutionResult = ResultService::ExecutionResult` | 완료한 실행 → generation/context 확인 또는 canonical 결과 서명 검증 |
-| `Executor::CommitResult = Baton::CommitResult = Orderer::CommitResult = TxPool::CommitResult` | Durable 완료 → delivery 확인·tx lifecycle 반영 |
+| `Executor::CommitResult = Baton::CommitResult = Orderer::CommitResult = TxPool::CommitResult` | Executor의 durable 완료 → delivery 확인·tx lifecycle 반영; Baton::CommitResult는 선택적 알림 |
 
 메서드의 `&mut self`는 호출 handle의 Rust ownership 표기이며, 모든 branch 계산을 한 작업자로 실행하거나 DB의 single writer가 자동 보장된다는 뜻이 아니다. 공유 handle / worker concurrency·canonical writer / fencing은 implementation에서 연결한다. `impl Future + Send`는 Commonware callback과 비슷한 선언 방식이며 async runtime·dyn dispatch·boxing 정책은 선택하지 않았다.
 
@@ -208,7 +212,7 @@ Planner·Runtime worker는 결과를 계산한다. 현재 native context에 poli
 | Leader 선택·전파와 non-leader 재예약 | [Leader](#25-baton-lifecycle-leader-report-수집과-direction-전파), [Non-leader](#26-baton-lifecycle-non-leader의-direction재실행-요청) |
 | Cut 해석·gap / matching branch / flush 실패 | [Ordered range](#27-cut-commit--ordered-range--실행-commit), [QMDB commit](#28-execution-lifecycle-qmdb-분기-생성과-canonical-승격) |
 | 이미 적용한 range 재전달과 native startup | [Restart delivery](#29-재시작과-backfill), [Startup custody](#212-startup-custody를-준비한-뒤-native-recovery) |
-| Optional certificate + state material catch-up | [미채택 import 후보](#213-미채택-catch-up-후보-certificate--state-material) |
+| Validator의 인증 결과 수신·남은 실행 중단·상태 적용 | [State sync](#213-state-sync-인증된-실행-결과로-상태-동기) |
 | f+1 결과 인증과 late planner completion | [Result endpoint](#210-결과-endpoint-direct-execution과-f1-인증), [Proposal freeze](#211-planner-completion과-proposal-freeze의-경합) |
 
 ### 2.1 전체 E2E: tx 입력부터 canonical state까지
@@ -229,14 +233,16 @@ sequenceDiagram
     B->>E: execute(exact base, intended order, generation)
     E-->>B: ExecutionResult / branch handle
     Note over N,B: Native consensus와 report / direction 경로는 병렬 진행
-    N-->>B: OrderedRange(exact order, predecessor, evidence)
-    B->>E: commit(ordered range)
-    E->>E: Reuse matching prefix / execute missing suffix
+    N-->>E: Orderer delivers OrderedRange(exact order, predecessor, evidence)
+    E->>E: commit(ordered range)
+    E->>E: Reuse matching work / execute or verify peer state material
     E->>E: Durable canonical state + outputs + cursor
-    E-->>B: CommitResult(cursor, state root, outputs)
-    B-->>N: Delivery adapter ACK after durability, not native vote
-    B-->>T: TxPool::on_commit(exact range / tx outcomes)
-    Note over B,E: 설계의 state-finalization endpoint는 exact order + 동일 statement의 f+1 실행 서명
+    E-->>N: CommitResult / delivery ACK after durability, not native vote
+    E-->>T: TxPool::on_commit(exact range / tx outcomes)
+    opt Local scheduling notification
+        E-->>B: Applied progress notification, no approval / ACK required
+    end
+    Note over E: State finalization / state sync는 Executor peer 경로, exact order + 동일 statement의 f+1 서명
 ```
 
 [그림 크게 보기](assets/diagrams/diagram-02.svg)
@@ -441,7 +447,6 @@ Direction이 바뀌었다고 모든 block을 재실행하지 않는다. Executor
 sequenceDiagram
     participant N as Native Multimmit
     participant M as Orderer
-    participant B as Baton
     participant E as Executor
     N-->>M: Authenticated finality / extension evidence
     M->>M: Recover exact history / frozen policy / slot evidence
@@ -449,16 +454,17 @@ sequenceDiagram
         M->>M: Backfill and stop dense emission at the gap
         Note over N,M: Native protocol은 자체 규칙에 따라 계속 진행
     else 다음 연속 exact range가 irrevocable
-        M-->>B: OrderedRange(predecessor, inputs, evidence)
-        B->>E: commit(range, expected canonical predecessor)
+        M-->>E: OrderedRange(predecessor, inputs, evidence)
+        E->>E: commit(range, expected canonical predecessor)
         alt Matching completed speculative branch prefix 존재
             E->>E: Select exact committed prefix, keep compatible suffix pending
-        else branch 누락 또는 순서 불일치
-            E->>E: Execute from canonical base / repair suffix
+        else 적용 가능한 peer certificate + state material 검증 완료
+            E->>E: Fence unfinished work and apply material at matching base
+        else local work / peer material이 준비되지 않음
+            E->>E: Execute from canonical base / repair suffix, peer sync 병행
         end
         E->>E: Validate results, apply QMDB changes, durable commit
-        E-->>B: CommitResult(new cursor, roots, outputs)
-        B-->>M: Delivery ACK after durability
+        E-->>M: CommitResult / delivery ACK after durability
     end
 ```
 
@@ -471,6 +477,7 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant B as Baton
+    participant M as Orderer
     participant O as Executor
     participant Q as QMDB batches
     participant A as Runtime
@@ -485,7 +492,8 @@ sequenceDiagram
     end
     O->>Q: Merkleize at requested checkpoint boundary, granularity undecided
     O-->>B: ExecutionResult(branch handle, context, results)
-    B->>O: commit(irrevocable range, canonical predecessor)
+    M-->>O: OrderedRange(irrevocable range, canonical predecessor)
+    O->>O: commit(range)
     O->>O: Verify branch exactly matches committed input
     O->>O: Fence incompatible / unknown active branch workers
     O->>Q: DatabaseSet::finalize(matching batches)
@@ -494,13 +502,16 @@ sequenceDiagram
     alt Durable barrier succeeds and metadata linkage completes
         Q-->>O: Durable flush completion
         O->>O: Complete recoverable state + outputs + cursor linkage
-        O-->>B: CommitResult
+        O-->>M: CommitResult / durable delivery ACK
+        opt Local scheduling notification
+            O-->>B: Applied progress, no finalization approval
+        end
         opt Safe retention boundary permits cleanup
             O->>O: Prune incompatible forks / retain compatible suffixes
         end
     else Shutdown, flush failure, or incomplete metadata linkage
         Q-->>O: No successful durable completion
-        Note over B,O: CommitResult / delivery ACK를 발행하지 않고 recovery 경계에서 처리
+        Note over M,O: CommitResult / delivery ACK를 발행하지 않고 recovery 경계에서 처리
     end
 ```
 
@@ -515,7 +526,6 @@ sequenceDiagram
     participant S as Startup owner
     participant Q as QMDB / Commit metadata
     participant M as Orderer
-    participant B as Baton
     participant E as Executor
     S->>Q: Recover last durable applied commit
     Q-->>S: State / outputs / AppliedCursor
@@ -523,11 +533,10 @@ sequenceDiagram
     S->>M: Recover archive and delivery cursors
     M->>M: Fetch missing authenticated history / bodies
     S->>E: Open recovered canonical checkpoint
-    Note over B,E: Speculative branch tree는 durable canonical state에서 다시 구성 가능
-    M-->>B: Redeliver unacknowledged exact range
-    B->>E: Idempotent commit(range)
-    E-->>B: Existing matching commit or newly durable result
-    B-->>M: Delivery ACK
+    Note over E: Speculative branch tree는 durable canonical state에서 다시 구성 가능
+    M-->>E: Redeliver unacknowledged exact range
+    E->>E: Idempotent commit(range)
+    E-->>M: Existing matching durable CommitResult / delivery ACK
 ```
 
 [그림 크게 보기](assets/diagrams/diagram-10.svg)
@@ -545,29 +554,31 @@ sequenceDiagram
 
 ### 2.10 결과 endpoint: direct execution과 f+1 인증
 
-ResultService의 signing / collection은 내부 역할이다. Sequence에서 역할을 나눠 표시하되 별도 모듈·actor 두 개를 필수로 만들지는 않는다. Proposed trait는 [§6.8](#68-결과-인증-trait)에 모았다.
+ResultService의 signing / collection은 **Executor 내부 역할**이다. 아래 sequence는 validator Executor끼리 직접 서명을 교환·수집하는 경로다. 인증서와 change set의 송수신도 같은 execution peer 경계이며 Baton이 중계하지 않는다. Proposed trait는 [§6.8](#68-결과-인증-trait)에 모았다.
 
 ```mermaid
 sequenceDiagram
-    participant E as Executor
-    participant S as ResultService: signing
-    participant C as ResultService: collection
-    participant V as Other eligible executors
+    participant E as Validator Executor
+    participant S as 내부 ResultService
+    participant P as Peer Validator Executor
     participant R as Certified result consumer
-    E-->>S: Exact input / predecessor / runtime / executed result
-    S->>S: Verify direct execution and canonical context
+    E->>S: Completed direct execution with exact context
+    S->>S: Verify own execution and irrevocable order / input-state chain
     S->>S: Persist own statement / signature obligation
-    S-->>C: Signed ExecutionStatement
-    V-->>C: Same exact statement signatures
-    C->>C: Verify distinct epoch identities and exact statement match
+    S-->>E: Own signed ExecutionStatement
+    E-->>P: Execution signature
+    P-->>E: Matching execution signatures or result certificate
+    E->>S: Verify distinct epoch identities and exact statement match
     alt f+1 matching eligible signatures verified
-        C-->>R: Result certificate + input range identity
-        R->>R: Verify irrevocable exact order and input-state chain
-        Note over R: Certificate acceptance와 local fetched / applied / durable readiness 구분
+        S-->>E: Verified result certificate
+        Note over E: State-finalization endpoint verified, local durability is separate
+        E-->>P: Result certificate, state material on peer request
+        E-->>R: Result certificate + exact input identity
+        R->>R: Verify certificate, irrevocable order and input-state chain
     else 아직 부족함
-        C->>C: Retain / reprovide / collect
+        E->>E: Retain / reprovide signatures and continue local execution
     end
-    Note over E,C: Collector 대기는 다음 local execution / native cut의 direction barrier가 아님
+    Note over E,P: Executor끼리 직접 교환, Baton report / direction 경로를 거치지 않음
 ```
 
 [그림 크게 보기](assets/diagrams/diagram-11.svg)
@@ -576,7 +587,7 @@ State root 값 하나만 같은 서명을 합치지 않는다. Exact input range
 
 서명·검증 계산은 Commonware cryptography primitive를 재사용하는 방향으로 연결한다. 공통 단일 서명 API의 진입점은 [`Signer::sign(namespace, msg)`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs#L93)와 [`Verifier::verify(namespace, msg, sig)`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs#L130)다.
 
-`ExecutionStatement` 구성과 실행에 참여할 수 있는 epoch identity 확인, 서로 다른 identity가 같은 전체 statement에 서명했는지 확인하는 책임은 새 `ResultService` adapter에 둔다. Native scheme의 [message signing](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1143)과 [verification](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1189)은 primitive 호출의 참고 예다. 결과 서명의 scheme·key·domain·codec·aggregation 선택은 미결정이며, 이 예의 BLS scheme을 기본값으로 채택하지 않는다.
+`ExecutionStatement` 구성과 실행에 참여할 수 있는 epoch identity 확인, 서로 다른 identity가 같은 전체 statement에 서명했는지 확인하는 책임은 Executor 내부 `ResultService`에 둔다. Native scheme의 [message signing](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1143)과 [verification](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1189)은 primitive 호출의 참고 예다. 결과 서명의 scheme·key·domain·codec·aggregation 선택은 미결정이며, 이 예의 BLS scheme을 기본값으로 채택하지 않는다.
 
 ### 2.11 Planner completion과 proposal freeze의 경합
 
@@ -622,7 +633,7 @@ sequenceDiagram
     participant A as BlockService: Automaton 연결
     participant N as Native Engine
     participant E as Executor
-    participant B as Orderer / Baton 연결
+    participant B as Orderer / Executor 연결
     S->>W: Register native and application logical channels
     S->>A: Open body storage / parent lookup, start service
     S->>W: Start authenticated network service
@@ -662,39 +673,51 @@ sequenceDiagram
 
 Engine이 반환하는 running handle 자체를 모든 서비스의 readiness 증명으로 쓰지 않는다. Body service readiness, native engine readiness, ordered delivery readiness, execution state readiness를 하나의 ready flag로 합치지 않는다. Recovery에 필요한 verify가 true로 해소되기 전 native 시작을 성공으로 보고하지 않는다. Startup dependency 때문에 새 report나 direction 승인 round를 기다리는 구조를 만들지 않는다.
 
-### 2.13 미채택 catch-up 후보: certificate + state material
+### 2.13 State sync: 인증된 실행 결과로 상태 동기
 
-이 그림은 §6.7의 optional import 후보를 설명하며 [canonical apply](#65-commit-요청을-받으면-branch를-canonical로-만들기)의 single owner·access fence·durability 계약 안에서 처리한다. Message / coordinator 이름은 제안 계약이며 기본 `Executor::commit`을 대체하는 채택 구현이 아니다.
+이 그림은 §6.7의 **validator 정상 경로로 정한 state sync**를 설명한다. Peer Executor가 보낸 인증 결과와 state material을 수신 Executor가 검증·적용한다. Baton 간 통신이나 별도 catch-up coordinator를 추가하지 않는다. [Canonical apply](#65-commit-요청을-받으면-branch를-canonical로-만들기)의 single writer·access fence·durability 계약을 공유한다. 책임과 경로는 정했지만 wire format·전환·저장 계약은 아직 구현·검증되지 않았다.
 
 ```mermaid
 sequenceDiagram
-    participant P as Material / Certificate source
-    participant C as Proposed catch-up owner
+    participant P as Peer Validator Executor
+    participant E as Local Validator Executor
     participant Q as QMDB / Logical commit adapter
-    participant V as Certified query consumer
-    P-->>C: Existing execution certificate + state material
-    C->>C: Verify exact native range, predecessor, runtime, eligible f+1 signatures
-    C->>C: Check local base and material / output commitments
-    alt Context or material mismatch
-        Note over C,Q: Target를 canonical 결과로 채택하지 않음
-    else Exact target and material verified
-        C->>Q: Apply verified material at matching base
-        Q-->>C: Applied state + durability observation
-        C->>Q: Await durable state / outputs / cursor linkage
-        alt Durable import completes
-            Q-->>C: Recoverable target checkpoint
-            C->>C: Confirm recoverable ImportedVerified provenance
-            C-->>V: Locally ready result + original certificate
-        else Durable completion unconfirmed or failed
-            Note over C,V: Local ready / CommitResult를 발행하지 않고 recovery에서 재검증
+    participant B as Local Baton
+    E->>E: Continue direct execution while result is unavailable
+    P-->>E: Result certificate
+    E->>E: Verify eligible f+1 signatures and irrevocable exact context
+    alt Ordering / predecessor evidence unresolved
+        E->>E: Keep certificate pending, recover evidence / continue valid local work
+    else Result certificate verified
+        E->>P: Request matching change set / outputs
+        P-->>E: State material
+        E->>E: Check exact local base and target / output commitments
+        alt Material missing, invalid or not applicable
+            E->>E: Keep executing / request valid material, no canonical adoption
+        else Applicable target and material verified
+            E->>E: Fence unfinished work at a safe boundary
+            E->>Q: Apply material at matching canonical base
+            Q-->>E: Applied state + durability observation
+            E->>Q: Await durable state / outputs / cursor linkage
+            alt Durable import completes
+                Q-->>E: Recoverable target checkpoint
+                E->>E: Preserve imported provenance and original certificate
+                E->>E: Complete delivery ACK / tx outcome handoff
+                opt Local scheduling notification
+                    E-->>B: Applied progress only, no approval / ACK required
+                end
+                E->>E: Execute next range from synced canonical state
+            else Durable completion unconfirmed or failed
+                Note over E,B: Local ready / CommitResult를 발행하지 않고 recovery에서 재확인
+            end
         end
     end
-    Note over P,C: Imported range를 own DirectExecuted signature로 바꾸지 않음
+    Note over P,E: Imported range에 own direct-execution signature를 추가하지 않음
 ```
 
 [그림 크게 보기](assets/diagrams/diagram-14.svg)
 
-원래 certificate의 전달과 local state의 durable readiness는 다른 사건이다. Material format·root 검증·import commit 방식은 미결정이고, 올바른 canonical base에서 다음 range를 직접 실행하는 경로는 기존 execution interface를 사용한다.
+원래 certificate의 전달·state finalization 확인과 local state의 durable readiness는 다른 사건이다. 남은 실행은 인증서만 도착했다고 중단하지 않는다. 검증·적용 가능한 material이 확보되어야 하며, 부분 실행 state에 canonical-base delta를 덧붙이지 않는다. 구체 material format·checkpoint 전환·root 검증·import commit 방식은 미결정이고, 올바른 canonical base에서 다음 range를 직접 실행하는 경로는 기존 execution interface를 사용한다.
 
 ### 2.14 Native 합의 정상 경로: producer DA → leader proposal → finality
 
@@ -813,7 +836,7 @@ pub trait TxPolicy: Send {
 | `TxPolicy::classify` | TxPool / inclusion 연결부 | Static features | Routing / filtering decision; 위치·정책은 미결정 |
 | `TxPool::select` | Producer adapter → pool | Native producer context, bounded limits | Candidate tx batch |
 | `TxPool::on_proposal` | Producer adapter → pool | Attachment의 local request correlation, cancellation / local outcome | 후보 lifecycle 갱신; permanent deletion 여부는 canonical 근거와 구분 |
-| `TxPool::on_commit` | Baton → pool | Durable ordered range의 tx 결과 | Canonical lifecycle 반영 |
+| `TxPool::on_commit` | Executor → pool | Durable ordered range의 tx 결과 | Canonical lifecycle 반영 |
 
 Tx ID는 tx, external body commitment는 외부 body, native header ID는 epoch/chain/height/parent/commitment를 포함한 전체 producer header를 식별한다. 선택한 tx bytes와 body, authenticated header, canonical tx outcome의 대응은 adapter가 유지한다. Local request correlation도 native private build ID가 Context로 전달된다는 뜻은 아니다. API codec·ID 규칙·중복 의미는 아래 빈칸에서 정한다. [Producer header identity](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L113).
 
@@ -905,7 +928,7 @@ pub trait BlockService: Send {
 | 후보 실행 전달 | 제안 `CandidateBlock` | Authenticated native header와 exact body 대응 확인 → Baton block intake |
 | Planning context | 신규 native owner hook | Leader view / V-QC parent / history / frontier → Baton planner read-only context |
 | Policy adoption | 신규 native policy hook | Prepared matching candidate → proposal-bound frozen policy |
-| Canonical 입력 전달 | 신규 evidence export + ordered delivery adapter | Exact authenticated native evidence / policy history → Baton ordered range |
+| Canonical 입력 전달 | 신규 evidence export + ordered delivery adapter | Exact authenticated native evidence / policy history → Executor ordered range |
 
 `CandidateBlock`에는 body digest뿐 아니라 producer header와의 인증된 대응이 필요하다. Local build 직후 아직 header가 서명되지 않았다면 그 body는 local speculative candidate로 구분한다. Authenticated header를 아는 것과 final cut 포함도 별개다. 순서를 바꿀 수 있는 global frontier는 노드의 AppliedCursor로 대신하지 않는다.
 
@@ -1103,7 +1126,7 @@ Direct proposal validation과 V-QC 기반 rescue / view recovery 경로는 같�
 
 ### 5.1 역할과 책임
 
-Consensus에서 받은 후보 block을 execution에 넘겨 사전 실행을 예약한다. Local known inputs에서 intended order를 만들고 peer report를 교환한다. Leader는 이를 받아 direction을 선택·전파하며, non-leader는 direction을 받아 실행 계획을 바꾼다. Canonical ordered range가 오면 execution에 commit 요청을 넘긴다.
+Consensus에서 받은 후보 block을 execution에 넘겨 사전 실행을 예약한다. Local known inputs에서 intended order를 만들고 peer report를 교환한다. Leader는 이를 받아 direction을 선택·전파하며, non-leader는 direction을 받아 실행 계획을 바꾼다. 확정 순서의 전달·canonical 적용·state finalization·state sync는 Orderer / Executor가 직접 처리한다. Baton은 이 경로의 승인자나 대기 조건이 아니다.
 
 **Baton**이 scheduling과 재실행 요청을 맡고, **Executor**가 speculative branch 관리와 canonical state 적용을 맡는다. **Runtime**은 tx 계산만 수행한다. Executor 내부에서도 canonical 적용은 single writer로 직렬화한다. Native signing·vote·finality authority는 consensus에 남는다.
 
@@ -1115,7 +1138,6 @@ pub trait Baton: Send {
     type Context;
     type Report;
     type Direction;
-    type OrderedRange;
     type ExecutionResult;
     type CommitResult;
     type PreparedPolicy;
@@ -1125,7 +1147,6 @@ pub trait Baton: Send {
     fn on_context(&mut self, context: Self::Context) -> Result<(), Self::Error>;
     fn on_report(&mut self, report: Self::Report) -> Result<(), Self::Error>;
     fn on_direction(&mut self, direction: Self::Direction) -> Result<(), Self::Error>;
-    fn on_ordered_range(&mut self, range: Self::OrderedRange) -> Result<(), Self::Error>;
     fn on_execution(&mut self, result: Self::ExecutionResult) -> Result<(), Self::Error>;
     fn on_planned(
         &mut self,
@@ -1148,11 +1169,10 @@ pub trait Baton: Send {
 | `Baton::on_report` | Report connection | 서명·context·identity·limits 검증 → leader snapshot admission |
 | `Baton::on_direction` | 현재 leader | Auth/context 확인 → Executor::reschedule |
 | `Baton::on_planned` / `prepared_policy` | Planner 완료 → Baton → native owner | 원래 요청 context 확인·준비 상태 보관 → 즉시 조회 → actual proposal context 재검증 |
-| `Baton::on_ordered_range` | Orderer | Contiguous irrevocable range 확인 → Executor::commit |
 | `Baton::on_execution` | Executor | ExecutionResult의 generation·context 확인 → branch handle와 local 준비 상태 관리 |
-| `Baton::on_commit` | Executor | Durable cursor/결과 확인 → delivery ACK / pool outcome. Own result statement는 direct execution provenance를 별도 확인 |
+| `Baton::on_commit` | Executor의 선택적 로컬 적용 알림 | Applied progress를 scheduling에 반영; delivery ACK / pool cleanup / 결과 인증을 승인하지 않음 |
 
-`Baton::on_*`은 local handler이며 별도 wire message가 아니다. 성공 반환은 local 처리·작업 예약의 결과이고 direction 승인이나 remote ACK가 아니다. ExecutionResult는 완료된 speculative 실행 결과이며, codec·필드 선택은 미결정이다.
+`on_commit` 알림을 보내거나 처리하는 것이 Executor의 적용·인증·state sync·delivery ACK 완료 조건은 아니다. Executor는 Baton의 응답 없이 이 경로를 진행한다. `Baton::on_*`은 local handler이며 별도 wire message가 아니다. 성공 반환은 local 처리·작업 예약의 결과이고 direction 승인이나 remote ACK가 아니다. ExecutionResult는 완료된 speculative 실행 결과이며, codec·필드 선택은 미결정이다.
 
 ### 5.3 Report connection
 
@@ -1257,9 +1277,21 @@ Execution의 durable `CommitResult` 뒤에 delivery ACK와 mempool canonical out
 
 ### 6.1 역할과 책임
 
-Baton에서 받은 Execute·Reschedule·Commit을 수행한다. Runtime으로 body의 tx를 실행하고 QMDB branch state와 outputs를 관리한다. Bank 잔액·nonce 모델은 이 문서에 넣지 않는다.
+**Executor는 validator의 실행·state finalization·state sync를 책임진다.** Baton의 execute / reschedule 요청과 Orderer의 직접 확정 입력을 받아 Runtime과 QMDB로 state·outputs를 관리한다. 다른 validator의 Executor와 직접 소통해 실행 결과를 인증하고, 인증된 결과를 받아 로컬 상태를 동기화한다. Bank 잔액·nonce 모델은 이 문서에 넣지 않는다.
 
-Speculative state와 canonical state를 분리한다. Execute는 branch 결과를 만들며 canonical commit authority를 가지지 않는다. Commit은 증명된 exact ordered input과 올바른 canonical predecessor에 결속된 결과만 적용한다.
+| 책임 | Executor가 처리하는 것 | 경계와 완료 조건 |
+|---|---|---|
+| 직접 실행 | Runtime 계산, branch 관리, prefix 재사용·suffix 재실행 | 완료한 ExecutionResult; speculative 결과를 canonical로 간주하지 않음 |
+| 결과 서명 | 내부 ResultService로 자신의 직접 실행 결과를 검증·서명 | 확정 exact input·올바른 input state·runtime·전체 결과에 결속; imported 결과의 own signature 금지 |
+| State finalization | Peer signatures / certificate 검증과 원래 인증서 보관·전파 | 동일 full statement의 distinct eligible f+1 signatures와 irrevocable order / input-state chain 확인 |
+| Executor peer 통신 | 서명·인증서·change set·outputs 송수신, 조회·재요청·serving | Executor ↔ Executor; Commonware P2P 재사용, Baton이 중계·승인하지 않음 |
+| State sync 전환 | 검증된 인증서와 적용 가능한 material이 먼저 준비되면 남은 실행을 중단하고 적용 | Matching base와 safe cancellation / writer fence; 인증서만으로 실행 중단하지 않음 |
+| 로컬 적용·복구 | 직접 계산하거나 검증한 state / outputs / cursor를 QMDB와 commit metadata에 저장 | Recoverable durable CommitResult; state finalization 확인과 별도 완료 조건 |
+| 완료 전달 | Orderer에 durable delivery ACK, TxPool에 canonical tx 결과; Baton에는 실행 결과 / 선택적 적용 알림 | Baton의 응답·승인은 결과 인증·state sync·적용·ACK의 선행조건이 아님 |
+
+ResultService는 Executor 내부의 서명·수집·인증 검증 책임을 나눈 trait다. Peer 통신과 state material의 검증·적용·저장·복구는 Executor가 소유한다. Baton끼리 교환하는 intended-order reports / directions와 별도 경로다. 인증서·material이 준비되지 않으면 직접 실행을 계속하며, 다른 노드의 완료를 기다린 뒤에만 실행을 시작하는 공통 barrier를 만들지 않는다. 인증서가 local ordered input보다 먼저 오면 unresolved 순서를 대신 확정하지 않고 pending으로 두거나 인증 이력을 복구한다.
+
+Speculative state와 canonical state를 분리한다. Execute는 branch 결과를 만들며 canonical commit authority를 가지지 않는다. Commit과 state sync는 증명된 exact ordered input과 올바른 canonical predecessor에 결속된 결과만 적용하고 canonical single writer를 공유한다. 이미 진행 중인 canonical mutation을 sync 도착 때문에 drop하거나 경쟁 writer로 우회하지 않는다. 구체 전환·race·failure 계약은 §6.6의 미결정 사항이다.
 
 ### 6.2 인터페이스 개요
 
@@ -1332,7 +1364,7 @@ Executor는 exact ordered input의 tx/body·runtime identity와 유효한 branch
 
 Runtime이 계산한 tx 결과와 worker가 요청 범위의 실행 시도를 끝내지 못한 사건은 구분한다. Executor는 해당 미완료 범위를 completed branch outcome으로 채택하지 않는다. Tx 실패의 state/output 의미와 미완료 시도를 Executor에서 Baton으로 알리는 계약·재시도 방식은 미결정이다.
 
-Executor::read의 local 조회 readiness와 `f+1` 결과 인증은 별도다. Signer·collector·consumer의 연결은 [§2.10](#210-결과-endpoint-direct-execution과-f1-인증), optional certified import는 [§6.7](#67-미채택-후보-certificate--state-material로-catch-up)에서 설명한다.
+Executor::read의 local 조회 readiness와 `f+1` 결과 인증은 별도다. Signer·collector·consumer의 연결은 [§2.10](#210-결과-endpoint-direct-execution과-f1-인증), Executor peer state sync는 [§6.7](#67-state-sync-인증된-실행-결과로-상태-동기)에서 설명한다.
 
 ### 6.3 QMDB state 관리와 재사용 경계
 
@@ -1350,7 +1382,8 @@ Unmerkleized batch는 적용 전 pending writes와 parent branch를 보관한다
 
 ```mermaid
 flowchart TB
-    B[Baton / Execute and Commit] --> O[Proposed Executor / prefix tree]
+    B[Baton / Execute and Reschedule] --> O[Proposed Executor / prefix tree]
+    ORDER[Orderer / irrevocable OrderedRange] --> O
     O --> R[Runtime]
     R -->|reads and pending mutations| U[Unmerkleized batch / parent overlays]
     U -->|merkleize| K[Merkleized QMDB batch / storage root and ancestry]
@@ -1371,13 +1404,14 @@ flowchart TB
     Q -. optional Current layer .-> C[Bitmap grafted structure / Current canonical root]
     D -->|start_sync handles| F[Barrier / durability observation]
     F -->|successful durable observation| J[Proposed durable state-output-cursor coordinator]
-    J -->|recoverable linkage complete: CommitResult| B
+    J -->|recoverable linkage complete: CommitResult / ACK| ORDER
+    J -. optional applied progress .-> B
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
     class U,K,I,L,M,A,C,F reuse;
     class D adapt;
-    class B,O,R,J fresh;
+    class B,ORDER,O,R,J fresh;
 ```
 
 [그림 크게 보기](assets/diagrams/diagram-17.svg)
@@ -1388,7 +1422,7 @@ Merkleized QMDB batch가 제공하는 것은 sealed storage work와 root/ancestr
 
 QMDB database, unmerkleized/merkleized batches와 commit lifecycle을 활용한다. `commonware_glue::stateful`은 parent state fork, pending-tip 보관, finalization 적용·pruning·lazy replay의 참고 구현이다. 다만 기존 block-DAG / marshal 계약이 Multimmit의 cross-producer dense execution order와 같지는 않다. **Batch/storage 계층을 우선 재사용하고, Stateful actor 전체의 호환 여부는 별도 연결 과제**로 남긴다. [Stateful source](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs).
 
-| 실행의 논리적 동작 | 실제 upstream API | Baton adapter가 추가로 확인할 것 |
+| 실행의 논리적 동작 | 실제 upstream API | Executor adapter가 추가로 확인할 것 |
 |---|---|---|
 | Canonical base에서 batch 만들기 | `DatabaseSet::new_batches` | Exact base / runtime / cursor와 해당 DB의 현재 identity |
 | Pending parent에서 분기 | `DatabaseSet::fork_batches`, `Merkleized::new_batch` | 실제 valid ancestor batch와 exact execution prefix |
@@ -1448,7 +1482,7 @@ Generation을 무효화하면 **결과 채택 권한**을 취소한다. Worker a
 |---|---|---|
 | 1 | Ordered range의 evidence·predecessor·runtime 확인 | Local advisory order를 canonical 근거로 쓰지 않음 |
 | 2 | Exact range와 일치하는 completed branch prefix 찾기 | Branch 전체가 더 길어도 확정된 prefix만 대상으로 삼음 |
-| 3 | 없는 work / mismatch suffix를 canonical base에서 실행 | State root가 우연히 같다는 이유로 다른 input을 대체하지 않음 |
+| 3 | 없는 work / mismatch suffix를 canonical base에서 실행하거나 검증된 peer material 준비 | State root가 우연히 같다는 이유로 다른 input을 대체하지 않음 |
 | 4 | Incompatible / unknown active workers를 fence한 뒤 해당 batch 적용 | Single canonical writer, branch-scoped read validity |
 | 5 | Durable CommitResult 발급 | State / output / cursor가 함께 복구 가능할 때 완료 |
 | 6 | Incompatible forks 정리, compatible suffix 보존 / 재연결 | 확정 canonical 입력/해석은 되돌리지 않음; physical recovery alignment는 선택한 계약을 따름 |
@@ -1492,9 +1526,9 @@ Flush completion handle의 abort가 underlying disk work를 전부 취소한다�
 | Replay / checkpoint / state sync | |
 | Query interface / certified result 연결 | |
 
-### 6.7 미채택 후보: certificate + state material로 catch-up
+### 6.7 State sync: 인증된 실행 결과로 상태 동기
 
-이전 논의의 “합의된 state root와 change set을 받아 따라오기”는 **optional certified state sync** 후보로 다룬다. 기본 `Executor::commit` 경로를 이 방식으로 바꾸기로 결정한 것은 아니다. Import의 적용·복구도 [§6.5의 Executor와 durability 계약](#65-commit-요청을-받으면-branch를-canonical로-만들기)을 따른다. Certificate와 material의 별도 검증은 아래 표에 정리한다. QMDB sync target 검증은 native order와 execution certificate의 출처까지 자동 검증하는 API가 아니다.
+**Validator Executor끼리 인증된 실행 결과로 상태를 동기화하는 기능을 정상 경로의 선택지로 둔다.** 재시작·뒤처진 노드에만 한정하지 않는다. 직접 실행 중에도 인증된 결과와 적용 가능한 change set이 먼저 준비되면 남은 실행을 줄일 수 있다. 책임·peer 통신 경로는 정한 요구사항이며, 전환 정책·자료 형식·검증·저장 구현과 안전성 / 진행성 검증은 아직 남아 있다. 직접 실행을 반드시 대체하거나 인증서를 기다리도록 정한 것이 아니다. State sync의 적용·복구도 [§6.5의 Executor와 durability 계약](#65-commit-요청을-받으면-branch를-canonical로-만들기)을 따른다. Certificate와 material의 별도 검증은 아래 표에 정리한다. QMDB sync target 검증은 native order와 execution certificate의 출처까지 자동 검증하는 API가 아니다.
 
 | 단계 | 검증할 연결 | 다음 단계에 주는 것 |
 |---|---|---|
@@ -1506,6 +1540,8 @@ Flush completion handle의 abort가 underlying disk work를 전부 취소한다�
 ImportedVerified provenance와 canonical checkpoint의 recovery 연결도 import commit 계약에 포함한다. Recovery 때 direct execution 근거를 복원하지 못하면 해당 range에 own signature를 만들지 않는다. Imported material을 검증·적용한 행위를 해당 range의 own `DirectExecuted` signature로 바꾸지 않는다. Receiver는 원래 signers의 certificate를 전파하거나 인증 조회에 쓸 수 있고, 채택한 canonical base에서 **다음 range**를 직접 실행한 경우 그 다음 statement에 서명할 수 있다. Correctness certificate는 material의 보관·전파·조회 availability를 보장하지 않으므로 serve / retention 조건은 따로 정해야 한다. Delta / checkpoint format, root 종류, signer boundary, import codec과 crash recovery 방식은 §6.6의 빈칸에 남긴다.
 
 ### 6.8 결과 인증 trait
+
+이 trait는 Executor 내부 결과 인증 역할이다. Executor가 peer 메시지를 받아 `collect` / `verify`에 전달하고, 검증 결과에 따라 state finalization을 확인하거나 §6.7의 state material 검증·적용을 진행한다. 여기의 인증 조회 성공은 material 확보·local durable 적용 완료가 아니다. Peer transport / codec / request·response와 state sync 전환 API의 구체 계약은 §6.6에 남긴다.
 
 ```rust
 use std::future::Future;
@@ -1580,7 +1616,7 @@ Tx 저장·선택은 [§3.1의 pool 재사용 후보](#31-역할과-책임), bod
 | 5. Producer와 leader | [Chain](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/chain.rs), [View](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/view.rs) | Payload build callback와 leader의 여러 lane cut 구성은 어떻게 다른가? |
 | 6. Native 출력 경계 | [Finality](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs), [State-machine contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md) | 어떤 evidence를 export·보관해야 application이 dense order를 복구할 수 있는가? |
 | 7. QMDB 내부 | [QMDB lifecycle](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/mod.rs), [Batch chain](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs) | Pending checkpoint, actual DB ancestor, operations commitment의 관계는 무엇인가? |
-| 8. Apply와 durable 완료 | [DatabaseSet / Barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs), [Stateful processor](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/processor/mod.rs) | Readable callback과 flush ACK는 어느 지점에서 갈라지고 Baton owner가 무엇을 추가해야 하는가? |
+| 8. Apply와 durable 완료 | [DatabaseSet / Barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs), [Stateful processor](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/processor/mod.rs) | Readable callback과 flush ACK는 어느 지점에서 갈라지고 Executor가 무엇을 추가해야 하는가? |
 
 ### 7.2 개발 단계와 확인할 흐름
 
@@ -1589,14 +1625,14 @@ Tx 저장·선택은 [§3.1의 pool 재사용 후보](#31-역할과-책임), bod
 | 1 | 기존 Multimmit example 구조와 버전 고정 | 기존 native producer / DA / consensus 흐름 |
 | 2 | TxPool / BlockService | §2.2–2.4, 업무 runtime 없이도 tx body 전달 확인 |
 | 3 | Orderer / native evidence export | Native sparse finality → contiguous exact inputs, gap backfill |
-| 4 | Executor / Runtime / QMDB | §2.7–2.9, canonical range와 durable state 연결 |
+| 4 | Executor / Runtime / QMDB | §2.7–2.10·2.13, canonical range·결과 인증·Executor peer state sync·durable state 연결 |
 | 5 | Baton의 block 수신 / scheduling / reschedule | §2.1·2.6·2.8, 동일 prefix 재사용과 suffix 재실행 |
 | 6 | Baton report / Planner / direction 전파 | §2.5, no-report·late-report·leader 교체·cut preemption |
 | 7 | Native proposal policy / continuation / recovery 연결 | Selected prefix inclusion + exact leading order + no-wait 검증 |
 
 단계 7의 native adoption·continuation 증명이 없으면 advisory scheduling 연결과 protected-prefix Baton 통합을 같은 완료 상태로 부르지 않는다. 테스트 workload는 application semantics 결정 후 정하며 Bank를 먼저 개발하는 단계는 두지 않는다.
 
-단계 4에서는 [§5.2의 `Baton::on_ordered_range`→`Executor::commit` 연결](#52-인터페이스-개요)로 단계 3의 canonical 입력을 execution에 먼저 전달하고, 단계 5에서 candidate intake·speculation·reschedule을 더한다. [§2.10의 direct-result signer / collector / query 연결](#210-결과-endpoint-direct-execution과-f1-인증)도 이 execution 경로에 붙일 개발 항목이다. 구체 signature boundary·root construction·codec·key 연결은 빈 결정 칸을 정한 뒤 구현한다.
+단계 4에서는 [§4.5의 Orderer→Executor::commit 직접 연결](#45-합의와-baton-연결)로 단계 3의 canonical 입력을 execution에 먼저 전달하고, 단계 5에서 candidate intake·speculation·reschedule을 더한다. [§2.10의 direct-result signer / collector / query 연결](#210-결과-endpoint-direct-execution과-f1-인증)과 [§2.13의 Executor peer state sync](#213-state-sync-인증된-실행-결과로-상태-동기)도 단계 4의 Executor 내부 연결 과제다. Baton 간 결과 전달로 구현하지 않는다. 구체 signature boundary·root construction·codec·key 연결은 빈 결정 칸을 정한 뒤 구현한다.
 
 ### 7.3 컴포넌트별 검증 케이스
 

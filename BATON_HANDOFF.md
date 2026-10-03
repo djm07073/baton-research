@@ -12,6 +12,12 @@ Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF
 
 §1.7은 호출 흐름과 associated type 연결을, 각 레이어의 인터페이스 절은 Rust trait 선언 초안을 보여준다. 구체 필드·codec·정책·runtime 배치는 미결정이며 native cut의 no-wait, 실행 결과 / durable 적용 / 결과 인증의 구분을 유지한다. 선언 문법 확인은 서비스 구현이나 프로토콜 실행 검증과 구분한다. 이전 문서 검토의 snapshot 기록은 이 후속 수정의 검토 기록으로 대체하지 않는다.
 
+## Executor의 state finalization / state sync 책임
+
+최신 사용자 결정에 따라 state finalization과 validator의 정상 경로 state sync는 Executor가 담당한다. 서명·인증서·change set은 Executor ↔ Executor로 직접 교환하고 ResultService는 Executor 내부 역할로 둔다. 확정 순서는 Orderer → Executor로 직접 전달하며 durable delivery ACK와 tx 결과도 Executor → Orderer / TxPool로 보낸다. Baton은 사전 실행·재실행과 report / direction을 조율하며 이 경로의 승인·중계·대기 조건이 아니다. 로컬 적용 알림은 선택적이다.
+
+「State sync: 인증된 실행 결과로 상태 동기」는 기능 방향·책임을 정한 요구사항이다. 정상 실행 도중에도 인증서와 적용 가능한 자료를 검증한 뒤 남은 실행을 줄일 수 있다. 인증서만으로 중단하거나 imported 결과에 own direct-execution signature를 추가하지 않는다. Wire / material format, 안전한 작업 전환·canonical writer·durability·recovery와 성능 검증은 구현 전 과제로 남긴다. 문서·sequence 수정은 실제 프로토콜 구현이나 안전성 증명 완료를 뜻하지 않는다.
+
 ## Current document priority and historical document synchronization
 
 1. Latest explicit user decisions.
