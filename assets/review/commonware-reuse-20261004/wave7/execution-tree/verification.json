@@ -1,0 +1,388 @@
+{
+  "utc": "2026-10-03T22:44:45.914816+00:00",
+  "source_count": 18,
+  "errors": [],
+  "blob_matches": true,
+  "report_sha256": "83dede50fa097a80c325b968419949c1e1618c8ff5c86741bb759c98798d2bfc",
+  "reader_delta_sha256": "ad50880d0fa4de9ff7458be9529df12d26ae520f4fb4e4f85e2e3c458ea129ae",
+  "release_mcp_sha256": "09c9d6419bf1fb4f8f015616492cfc9d5abc6ad858cba63bdd0407341a3569ff",
+  "anchors": [
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/mod.rs",
+      "line": 85,
+      "line_text": "pub mod batch_chain;",
+      "source_sha256": "1b7642aac2ec22e50fd426fd0af05824aeee4363ae5eaf6e5c6652c5a437adfa"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "line": 30,
+      "line_text": "/// Identifies a QMDB state by its operation `size` and authenticated `root`.",
+      "source_sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "line": 98,
+      "line_text": "    pub(crate) fn validate_apply_to(",
+      "source_sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "line": 120,
+      "line_text": "pub(crate) fn ancestors<T, P>(",
+      "source_sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "line": 173,
+      "line_text": "/// through the weak parent chain.",
+      "source_sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2718,
+      "line_text": "where",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2867,
+      "line_text": "    }",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "line": 1078,
+      "line_text": "}",
+      "source_sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "line": 1138,
+      "line_text": "    }",
+      "source_sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2894,
+      "line_text": "    pub fn to_batch(&self) -> Arc<MerkleizedBatch<F, H::Digest, U, S>> {",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "line": 1151,
+      "line_text": "{",
+      "source_sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "line": 1052,
+      "line_text": "    pub const fn root(&self) -> D {",
+      "source_sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/db.rs",
+      "line": 776,
+      "line_text": "    pub fn validate_batch(",
+      "source_sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 153,
+      "line_text": "        self",
+      "source_sha256": "0e5e12492554098c2fe16c1ffd61c559390b99f8e4027a0c81caea4eb0371441"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 213,
+      "line_text": "    F: Family,",
+      "source_sha256": "0e5e12492554098c2fe16c1ffd61c559390b99f8e4027a0c81caea4eb0371441"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 307,
+      "line_text": "pub trait Merkleized: Sized + Send + Sync {",
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 508,
+      "line_text": "pub trait DatabaseSet<E>: Clone + Send + Sync + 'static {",
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 202,
+      "line_text": "enum Base<F: Family, D: Digest, U: update::Update, S: Strategy> {",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 338,
+      "line_text": "pub struct MerkleizedBatch<F: Family, D: Digest, U: update::Update, S: Strategy> {",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 1313,
+      "line_text": "    fn into_parts(self) -> (BTreeMap<U::Key, Option<U::Value>>, Merkleizer<F, H, U, S>) {",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2587,
+      "line_text": "{",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/merkle/batch.rs",
+      "line": 33,
+      "line_text": "//! # Parent chain and memory",
+      "source_sha256": "093f454fe5f572c618089a3b92cd6910b2bd7e0c0a0da3d4053aaae75515ee96"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/merkle/batch.rs",
+      "line": 59,
+      "line_text": "//!",
+      "source_sha256": "093f454fe5f572c618089a3b92cd6910b2bd7e0c0a0da3d4053aaae75515ee96"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "line": 188,
+      "line_text": "pub(crate) fn validate_batch_applicable<F: Family, D: Digest>(",
+      "source_sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "line": 206,
+      "line_text": "/// applied locally and are skipped.",
+      "source_sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2733,
+      "line_text": "    pub fn validate_batch(",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2743,
+      "line_text": "    ///",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/actor/processor/mod.rs",
+      "line": 188,
+      "line_text": "",
+      "source_sha256": "0591c898cea77efef7fb57fbfe93f906613578d6296cf99f7399c9fae3f175e3"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/actor/processor/mod.rs",
+      "line": 222,
+      "line_text": "/// Returns the winner and pending descendants whose state survives finalization.",
+      "source_sha256": "0591c898cea77efef7fb57fbfe93f906613578d6296cf99f7399c9fae3f175e3"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/actor/processor/mod.rs",
+      "line": 992,
+      "line_text": "    /// Retain the winner as a branch parent and discard incompatible state.",
+      "source_sha256": "0591c898cea77efef7fb57fbfe93f906613578d6296cf99f7399c9fae3f175e3"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/actor/processor/mod.rs",
+      "line": 1173,
+      "line_text": "    async fn fork_batches(",
+      "source_sha256": "0591c898cea77efef7fb57fbfe93f906613578d6296cf99f7399c9fae3f175e3"
+    },
+    {
+      "repository": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/application/src/consensus/db.rs",
+      "line": 58,
+      "line_text": "pub type StateBatch<E, H, T, S> = AnyUnmerkleized<",
+      "source_sha256": "275c1d3c10b3d325fe65d5b2db14a205448505023b11f914635da6d69ffab998"
+    },
+    {
+      "repository": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/application/src/consensus/db.rs",
+      "line": 118,
+      "line_text": "pub(super) async fn finalize_execution<E, H, S>(",
+      "source_sha256": "275c1d3c10b3d325fe65d5b2db14a205448505023b11f914635da6d69ffab998"
+    },
+    {
+      "repository": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/application/src/consensus/execution.rs",
+      "line": 159,
+      "line_text": "#[tracing::instrument(name = \"application.execute.compute\", level = \"info\", skip_all)]",
+      "source_sha256": "33f25de08c1999a022ff074b098d5c9de02f3776d55579ba24a886e0d9e1c2e4"
+    },
+    {
+      "repository": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/application/src/consensus/glue.rs",
+      "line": 64,
+      "line_text": "            self.genesis_transactions_target.clone(),",
+      "source_sha256": "7e5f8d8c8e651c8cf298de0c9cf2c9a4e05ba74c12c3fb1fa1cbef8967cfcee9"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/application.rs",
+      "line": 51,
+      "line_text": "impl<E, S> ConsensusApplication<E> for Application<S>",
+      "source_sha256": "a35e1e8cc30ae7a6b6aa94196a3300f4a1362279fd5913b94493450737f03860"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/application.rs",
+      "line": 70,
+      "line_text": "        let min_timestamp = parent",
+      "source_sha256": "a35e1e8cc30ae7a6b6aa94196a3300f4a1362279fd5913b94493450737f03860"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "line": 935,
+      "line_text": "}",
+      "source_sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "line": 975,
+      "line_text": "    fn trim_committed(&self) -> Self {",
+      "source_sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "line": 457,
+      "line_text": "    /// uncommitted operations are not guaranteed to survive.",
+      "source_sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/db.rs",
+      "line": 538,
+      "line_text": "    /// Prunes historical operations prior to `prune_loc`. This does not affect the db's root or",
+      "source_sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/actor/core/verifications.rs",
+      "line": 158,
+      "line_text": "",
+      "source_sha256": "bda479d159b1cb1100ca3277ea95ce46a30658cac53949dbb00a4a87dd1ab097"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/actor/processor/mod.rs",
+      "line": 489,
+      "line_text": "/// Marshal and database prune targets selected from finalized history.",
+      "source_sha256": "0591c898cea77efef7fb57fbfe93f906613578d6296cf99f7399c9fae3f175e3"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2587,
+      "line_text": "{",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 338,
+      "line_text": "pub struct MerkleizedBatch<F: Family, D: Digest, U: update::Update, S: Strategy> {",
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "line": 65,
+      "line_text": "/// Position and inactivity-floor state for a merkleized QMDB batch.",
+      "source_sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "line": 1052,
+      "line_text": "    pub const fn root(&self) -> D {",
+      "source_sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df"
+    }
+  ],
+  "compiled": false
+}

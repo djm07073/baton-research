@@ -1,0 +1,331 @@
+{
+  "checked_at_utc": "2026-10-03T22:46:46.025064+00:00",
+  "baseline": "f2973dd98598eddac73d212c2b78e04cefb311c8",
+  "fresh_sources": 34,
+  "complete_trees": 5,
+  "anchors": [
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/traits.rs",
+      "line": 399,
+      "line_text": "    fn best_transactions("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/traits.rs",
+      "line": 1189,
+      "line_text": "impl<T> BestTransactions for Box<T>"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/traits.rs",
+      "line": 1175,
+      "line_text": "    /// Creates an iterator which uses a closure to determine whether a transaction should be"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "line": 318,
+      "line_text": "pub struct BestTransactionFilter<I, P> {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/mod.rs",
+      "line": 113,
+      "line_text": "pub use best::{BestTransactionFilter, BestTransactionsWithPrioritizedSenders};"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "line": 337,
+      "line_text": "    fn next(&mut self) -> Option<Self::Item> {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "line": 124,
+      "line_text": "    pub(crate) fn mark_invalid("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "line": 208,
+      "line_text": "    pub fn next_tx_and_priority("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "line": 283,
+      "line_text": "    fn no_updates(&mut self) {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/traits.rs",
+      "line": 606,
+      "line_text": "    /// Returns all pending transactions filtered by predicate"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/txpool.rs",
+      "line": 524,
+      "line_text": "    pub(crate) fn pending_transactions_with_predicate("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/actor.rs",
+      "line": 177,
+      "line_text": "    pub async fn pending(&self, limit: usize) -> Vec<T> {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/actor.rs",
+      "line": 403,
+      "line_text": "            Message::Pending { limit, responder } => {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "line": 160,
+      "line_text": "    pub fn pending(&mut self, limit: usize) -> Vec<T> {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/tx.rs",
+      "line": 32,
+      "line_text": "pub trait PoolTransaction: Clone + Send + Sync + 'static {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/actor.rs",
+      "line": 195,
+      "line_text": "    pub fn finalized("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "line": 211,
+      "line_text": "    pub fn finalize("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/lib.rs",
+      "line": 10,
+      "line_text": "pub trait TransactionSource<C, P, H>:"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "line": 829,
+      "line_text": "                Message::Propose {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "line": 406,
+      "line_text": "fn pop_lane_proposal<H>("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "line": 437,
+      "line_text": "fn pop_proposal<H>("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/payload/builder/src/lib.rs",
+      "line": 249,
+      "line_text": "            self.pool.best_transactions_with_attributes(attributes)"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/payload/builder/src/lib.rs",
+      "line": 590,
+      "line_text": "                continue;"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/payload/builder/src/lib.rs",
+      "line": 616,
+      "line_text": "            }"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/transaction-pool/src/best.rs",
+      "line": 116,
+      "line_text": "    fn mark_invalid(&mut self, transaction: &Self::Item, kind: InvalidPoolTransactionError) {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/transaction-pool/src/best.rs",
+      "line": 139,
+      "line_text": "    inner: I,"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/lib.rs",
+      "line": 146,
+      "line_text": "        fn propose("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/voter/executor.rs",
+      "line": 708,
+      "line_text": "                let receiver = automaton.propose(context).await;"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/lib.rs",
+      "line": 243,
+      "line_text": "        fn broadcast(&mut self, payload: Self::Digest, plan: Self::Plan) -> Feedback;"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "Cargo.toml",
+      "line": 63,
+      "line_text": "version = \"2026.7.0\""
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "Cargo.toml",
+      "line": 61,
+      "line_text": "commonware-actor = \"2026.9.0\""
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "Cargo.toml",
+      "line": 51,
+      "line_text": "commonware-actor = { git = \"https://github.com/commonwarexyz/monorepo\", rev = \"92036f4beefedc9817f0954d98fb99e0b52431cb\" }"
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/traits.rs",
+      "line": 1175,
+      "line_text": "    /// Creates an iterator which uses a closure to determine whether a transaction should be"
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "line": 337,
+      "line_text": "    fn next(&mut self) -> Option<Self::Item> {"
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "line": 124,
+      "line_text": "    pub(crate) fn mark_invalid("
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "line": 160,
+      "line_text": "    pub fn pending(&mut self, limit: usize) -> Vec<T> {"
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "line": 406,
+      "line_text": "fn pop_lane_proposal<H>("
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/payload/builder/src/lib.rs",
+      "line": 590,
+      "line_text": "                continue;"
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/payload/builder/src/lib.rs",
+      "line": 616,
+      "line_text": "            }"
+    }
+  ],
+  "files": {
+    "REPORT.md": "201b6888c89eb24fc73f9325226c914b343e336f3b7f823edf8769821d79e8d8",
+    "READER_DELTA.md": "fc3bed85d9f7c20ccb6a70300405c1fd2bed8e747b1a76b93b4c47f31db5f84b",
+    "source-manifest.json": "dadb1f58033d5559bf6bcd9bcbe61cc177087600fdbf020e8d2fa0d3b2234511"
+  },
+  "reader_baseline_hashes": {
+    "docs/tx/README.md": "7d1b4d26320b1c487b03437b8123923040b6c0f8713eee43f27f11f52cf555ff",
+    "docs/tx/interfaces.md": "64c74f0663712717cb12947addd329949b2d3636a7e19f87c5a99016c1a79a52",
+    "docs/reference/integration.md": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+    "docs/overview/rust-interfaces.md": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36"
+  }
+}

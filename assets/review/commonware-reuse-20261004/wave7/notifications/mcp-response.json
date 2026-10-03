@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# consensus/src/reporter.rs (v2026.9.0) [lines 20-62]\n\n```rust\n20: \n21: /// A struct used to report activity to multiple [Reporter]s (which may or may not be present).\n22: #[derive(Clone)]\n23: pub struct Reporters<A, R1, R2> {\n24:     r1: Option<R1>,\n25:     r2: Option<R2>,\n26: \n27:     _phantom: PhantomData<A>,\n28: }\n29: \n30: impl<A, R1, R2> Reporter for Reporters<A, R1, R2>\n31: where\n32:     A: Clone + Send + 'static,\n33:     R1: Reporter<Activity = A>,\n34:     R2: Reporter<Activity = A>,\n35: {\n36:     type Activity = A;\n37: \n38:     fn report(&mut self, activity: Self::Activity) -> Feedback {\n39:         // This approach avoids cloning activity, if possible.\n40:         match (&mut self.r1, &mut self.r2) {\n41:             (Some(r1), Some(r2)) => combine(r1.report(activity.clone()), r2.report(activity)),\n42:             (Some(r1), None) => r1.report(activity),\n43:             (None, Some(r2)) => r2.report(activity),\n44:             (None, None) => Feedback::Ok,\n45:         }\n46:     }\n47: }\n48: \n49: const fn combine(a: Feedback, b: Feedback) -> Feedback {\n50:     match (a, b) {\n51:         (Feedback::Closed, _) | (_, Feedback::Closed) => Feedback::Closed,\n52:         (Feedback::Backoff, _) | (_, Feedback::Backoff) => Feedback::Backoff,\n53:         (Feedback::Ok, Feedback::Ok) => Feedback::Ok,\n54:     }\n55: }\n56: \n57: impl<A, R1, R2> From<(Option<R1>, Option<R2>)> for Reporters<A, R1, R2> {\n58:     fn from((r1, r2): (Option<R1>, Option<R2>)) -> Self {\n59:         Self {\n60:             r1,\n61:             r2,\n62:             _phantom: PhantomData,\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

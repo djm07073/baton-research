@@ -1,0 +1,23 @@
+{
+  "checked_at_utc": "2026-10-03T22:50:47.975460+00:00",
+  "report_hashes": {
+    "body-codec": "2e2dacda99f22abad89bb1e1741c1a449419961e9188feb4428dab914cfa2255",
+    "execution-tree": "83dede50fa097a80c325b968419949c1e1618c8ff5c86741bb759c98798d2bfc"
+  },
+  "reader_delta_hashes": {
+    "body-codec": "5db1fc0cc406e078a6dede135ac834c353860b306a0958ffc83dbec707e7f20c",
+    "execution-tree": "ad50880d0fa4de9ff7458be9529df12d26ae520f4fb4e4f85e2e3c458ea129ae"
+  },
+  "fresh_sources": 34,
+  "fresh_complete_trees": 4,
+  "source_manifest_sha256": "a4ac2133676a0bf5ff3445983498d1a7a76f001c8ff063f60d3e9b3e1faf6bcc",
+  "reviews": {
+    "BODY_CODEC_CROSS_REVIEW.md": "23c4cc4bf69d63610cce90b7642748f2ea9de57a61372e84c23ffd20382e3575",
+    "EXECUTION_TREE_CROSS_REVIEW.md": "a20d423d768d809654f432ff1edefa92d1382f0826ed74fa61240433618eb3c0"
+  },
+  "limited_root_reader_hashes": {
+    "docs/consensus/block-body.md": "d7909e8e10084ab512efadb297a7dee9773482563a35f52e540a53289f31c1ed",
+    "docs/execution/qmdb.md": "f5b3d5a15130829fcd02cafcd21a0855ccf592f4cdd0599639dd029d5e0e1207"
+  },
+  "not_global_final_review": true
+}

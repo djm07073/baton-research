@@ -1,0 +1,548 @@
+{
+  "checked_at_utc": "2026-10-03T22:56:59.393886+00:00",
+  "baseline": "f2973dd98598eddac73d212c2b78e04cefb311c8",
+  "page_hashes": {
+    "docs/consensus/block-body.md": "2b214a3e446a03214868abd64beeb9b04827692c17f49bc7310b75a6f57a142e",
+    "docs/execution/qmdb.md": "f5b3d5a15130829fcd02cafcd21a0855ccf592f4cdd0599639dd029d5e0e1207",
+    "docs/tx/README.md": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+    "docs/tx/interfaces.md": "a3a339b998a7d6c04a8953229933d1500c5cd0d57b7c1b41b36540bdcd21f331"
+  },
+  "changed_docs": [
+    "docs/consensus/block-body.md",
+    "docs/execution/qmdb.md",
+    "docs/tx/README.md",
+    "docs/tx/interfaces.md"
+  ],
+  "markdown_pages_preserved": 32,
+  "unchanged_headings": true,
+  "old_external_url_occurrences_preserved": true,
+  "rust_mermaid_blocks_preserved": true,
+  "explicit_anchors_preserved": true,
+  "public_traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "method_count": 30,
+  "blank_policy_cells": 39,
+  "non_md_docs_assets_unchanged": [
+    {
+      "path": "docs/assets/diagrams/diagram-01.mmd",
+      "sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.png",
+      "sha256": "2f54aae5f2633cbeea568251cf6c7409ef80f585f26183108ea804037363079e"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.svg",
+      "sha256": "1cc2f73798aebe66e0df5340e9b8c08089b0584ee7548f2945260905acac8559"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.mmd",
+      "sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.png",
+      "sha256": "bc2ce63537f9600d30ea186adefe20e4e58d435fd2b46bdbcf40c665a2ab1926"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.svg",
+      "sha256": "471643b14f453a36226a53e4f2bd585aefc29c3d7ec88f0f6b75fa6a392aefec"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.mmd",
+      "sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.png",
+      "sha256": "faff8a15ba7700cc4bb2ab29f3956f11161a6551631da10e18ed4be56b3dc0c1"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.svg",
+      "sha256": "43236514d36d4a482938ab1b5c07cceb56fd46d573cf74f0865aee5f936815b9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.mmd",
+      "sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.png",
+      "sha256": "053067d50300713115c622a7222560e65aaf84621e2aba39271ab3075d9bacd3"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.svg",
+      "sha256": "f434320b7787129fd370cc6dbe4313470c3eaac18a60d806c8893b13e9510f97"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.mmd",
+      "sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.png",
+      "sha256": "6617b91dfa54c021e017ac74a7de277df4b8b4ce3705f17926295fdf9c323855"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.svg",
+      "sha256": "e62e69a588c1bf8ab6826c148f5460a70c6bd78cd6482dfd54907620107f28ef"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.mmd",
+      "sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.png",
+      "sha256": "bbc69603dfa192de7416752205e0d6187fd57e8a490013511074bb0a24dfb303"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.svg",
+      "sha256": "9be4f7d669f013df97b47eef920b99100dcf7c4b2b9daa704c3f61b817c8a3a6"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.mmd",
+      "sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.png",
+      "sha256": "b06a4a47f6163bd164e1d3ba02972fe700f88d6b7a29db9442f9f47f561d80f0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.svg",
+      "sha256": "a4197537a07c462855a651bc55ebaec28dfc09ce2d09d71c8d36e37e1b8529cb"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.mmd",
+      "sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.png",
+      "sha256": "d04375ec071ed99d39728347c835151ccfd6ac5f694e0a6f4e03f8dfa6de5868"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.svg",
+      "sha256": "184c85b990f2fbfb2f977c01b16399acdfa2a184970a6ccb0848743b93bdc93a"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.mmd",
+      "sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.png",
+      "sha256": "7d3e5e98749bc3a1128c724ca9c270724d5b398e84649d3d5b9ef6ca373ae796"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.svg",
+      "sha256": "61745836f1fa617c1beec94554690bf7e6cbc23e60944bf09845aab846e4cd75"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.mmd",
+      "sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.png",
+      "sha256": "8e351bbf8bbd0e7fbfd6db806357b074cde971da89b3933b4e33d7b8b8dbc3c5"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.svg",
+      "sha256": "0ac9ed66c95d13fdded7fa061856d320dc86cc4fc9125445bc5f7953dfb3308d"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.mmd",
+      "sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.png",
+      "sha256": "a039b18312ca983b6b4492e4cfb5eaa6bb63874689b01feaf8b9c30c643dbb9c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.svg",
+      "sha256": "e0859f3d552cb117790ba65b3c61c5b0735b8e5a4ea22e8ec7713e14650e58f3"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.mmd",
+      "sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.png",
+      "sha256": "cc90ab29bf71ea3d5e457d1650080be4730b8bf67226b1e603281e195524af47"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.svg",
+      "sha256": "8ffeb31d72c057e91004e0674e74ed964afbbba170c4cb31673e18ce9a6b4fb9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.mmd",
+      "sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.png",
+      "sha256": "e977f58945e3715ae68b7e945a9b2f0af26e2822c5097c433ff38752a1680df2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.svg",
+      "sha256": "0ca441e6c0202ccd6b8d71a4b38fa386a11ad391b4043724744484f65568849a"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.mmd",
+      "sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.png",
+      "sha256": "313eb544752267cf05e50913175c48848914146e5948b19feeeb439ec9fed67b"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.svg",
+      "sha256": "109065a5b3be43bcb661809e1754cc05cf721759a74c09c655f7a99202ff2948"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.mmd",
+      "sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.png",
+      "sha256": "0f0b547b25e59a3f7f4014cca8ea36325bd0ebc29383c8b13b7a4822dbd711b9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.svg",
+      "sha256": "957cbfc54b6c53c341eba4619f31838811f3681f2813a1ee56560dde412583f0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.mmd",
+      "sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.png",
+      "sha256": "cb0eddc63d110e5afb6e29a54bbbf3a0e909d01e7f10ef69bf742274511ec9ce"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.svg",
+      "sha256": "2f77191f2bfef52bec24c217353e1f2b3bc88841d0c3c6003c9667b1b1a1ebaa"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.mmd",
+      "sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.png",
+      "sha256": "057dcf929dd9f1f838ddc956014a4f2fdf31250fa858942a00a72763b87a9cd2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.svg",
+      "sha256": "6db0e1fd7e04031a2b66c42891e289ae85ac981e28f13ab1df3f1508b618fbcd"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.mmd",
+      "sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.png",
+      "sha256": "4e01e4fa9e2c5360bca37b4679f4b08e767c3d55d7d3c0301f8fbfc9f4b2bfc9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.svg",
+      "sha256": "6dce7bb98004ab0f970b4d66e24ce3ace964b645222f2b010e1f9c0c754a69c9"
+    },
+    {
+      "path": "docs/assets/diagrams/render-manifest.json",
+      "sha256": "ccbcfa2d198d721e6dbda01ed1a923b4e9cd27cdbb10def0c74c296a982980c7"
+    },
+    {
+      "path": "docs/assets/interfaces/baton.rs",
+      "sha256": "cf43886aff0008c7a8d646f44899f8ab6ab3d0c5a6e59f0745bd6df276ee09a9"
+    }
+  ],
+  "new_source_citation_occurrences": [
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs#L202",
+      "line_text": "    /// Use `Cfg = ()` if no configuration is needed for a specific type."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/types/vec.rs#L65",
+      "line_text": ""
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/config.rs#L5",
+      "line_text": "/// Configuration for the [super::Engine]."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs#L402",
+      "line_text": "pub trait CodecShared: Codec + Send + Sync {}"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L175",
+      "line_text": ""
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/reporter.rs#L7",
+      "line_text": "/// An implementation of [Reporter] for an optional [Reporter]."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/actor/src/mailbox.rs#L91",
+      "line_text": "/// Overflow behavior for actor messages when an inbox is full."
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L535",
+      "line_text": "        let reporters = Reporters::from(("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2587",
+      "line_text": "{"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L338",
+      "line_text": "pub struct MerkleizedBatch<F: Family, D: Digest, U: update::Update, S: Strategy> {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L65",
+      "line_text": "/// Position and inactivity-floor state for a merkleized QMDB batch."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/batch.rs#L1052",
+      "line_text": "    pub const fn root(&self) -> D {"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/payload/builder/src/lib.rs#L590",
+      "line_text": "                continue;"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/payload/builder/src/lib.rs#L616",
+      "line_text": "            }"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/webserver/actor.rs#L406",
+      "line_text": "fn pop_lane_proposal<H>("
+    },
+    {
+      "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/pool.rs#L160",
+      "line_text": "    pub fn pending(&mut self, limit: usize) -> Vec<T> {"
+    },
+    {
+      "url": "https://github.com/paradigmxyz/reth/blob/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/traits.rs#L1175",
+      "line_text": "    /// Creates an iterator which uses a closure to determine whether a transaction should be"
+    },
+    {
+      "url": "https://github.com/paradigmxyz/reth/blob/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/pool/best.rs#L337",
+      "line_text": "    fn next(&mut self) -> Option<Self::Item> {"
+    },
+    {
+      "url": "https://github.com/paradigmxyz/reth/blob/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/pool/best.rs#L124",
+      "line_text": "    pub(crate) fn mark_invalid("
+    }
+  ],
+  "fresh_matched_source_files_for_new_citations": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/codec.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs",
+      "sha256": "c3021910c531f56cf0fcc307580d1b5c0ff07e2b4632cf8e4600cc333d5f9179",
+      "git_blob": "eb42cad65061c838d1a7b3681c7b2c65696166bf",
+      "tree_blob": "eb42cad65061c838d1a7b3681c7b2c65696166bf",
+      "bytes": 25446
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/types/vec.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/types/vec.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/types/vec.rs",
+      "sha256": "bbbed7a17dd4ec34eab1a28da0340b055788e409244bd2f0a35e6ce3c24762c1",
+      "git_blob": "54b7e61e38c314c95fdf35c152281e0748a2a15b",
+      "tree_blob": "54b7e61e38c314c95fdf35c152281e0748a2a15b",
+      "bytes": 10619
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/config.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/config.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/config.rs",
+      "sha256": "49c3e076394e7d5360e5291dd4a16953c6c7fc3cee64d9fabee6d957c3df75f4",
+      "git_blob": "d7328640118d223890ebd56fb6262da149c01f07",
+      "tree_blob": "d7328640118d223890ebd56fb6262da149c01f07",
+      "bytes": 736
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs",
+      "sha256": "f5f5f5ce4a43944e7a54467c6f796bd988c1bba0a8ff5e793dbf2c757827de34",
+      "git_blob": "f7bb8ca46d8224b735b652aa0d668fc5aaf95f30",
+      "tree_blob": "f7bb8ca46d8224b735b652aa0d668fc5aaf95f30",
+      "bytes": 26975
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/reporter.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/reporter.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/global-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/reporter.rs",
+      "sha256": "085499f6768e182030c297ab12015edcce56a585898cbc8687ea35b95d03fba8",
+      "git_blob": "5c0fa1c2ddeca172c3c0d46afc62e3f6df999a6d",
+      "tree_blob": "5c0fa1c2ddeca172c3c0d46afc62e3f6df999a6d"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "actor/src/mailbox.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/actor/src/mailbox.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/global-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/actor/src/mailbox.rs",
+      "sha256": "d89c0d1c20e8def1f4f7e45dc00f058355a86b3cf84b6f816a257746b16009cf",
+      "git_blob": "dfd95eff53af6831ba42caea87e5579a0621c1ef",
+      "tree_blob": "dfd95eff53af6831ba42caea87e5579a0621c1ef"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/global-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs",
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5",
+      "git_blob": "58a843e1cbd0dcb289a2752034f08ae6494b81d7",
+      "tree_blob": "58a843e1cbd0dcb289a2752034f08ae6494b81d7"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs",
+      "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582",
+      "git_blob": "df9c35a43fda0f248135ff379e5c14ac13ec9981",
+      "tree_blob": "df9c35a43fda0f248135ff379e5c14ac13ec9981",
+      "bytes": 207316
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs",
+      "sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee",
+      "git_blob": "dee9c6b86b9025b46c155e05f34f75c7c377bfa2",
+      "tree_blob": "dee9c6b86b9025b46c155e05f34f75c7c377bfa2",
+      "bytes": 15044
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/batch.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/batch.rs",
+      "sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df",
+      "git_blob": "285d7d9d154ba9a17e824565e7c6041906d6cbea",
+      "tree_blob": "285d7d9d154ba9a17e824565e7c6041906d6cbea",
+      "bytes": 76703
+    },
+    {
+      "source": "tempo",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/payload/builder/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/payload/builder/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/sources/tempo/crates/payload/builder/src/lib.rs",
+      "sha256": "61568290e08cc06416190b67a271acaf22abedb0132acc629980067dcff87121",
+      "git_blob": "58c491944db4c7b486e7b93efd362cfdf915e54c",
+      "tree_blob": "58c491944db4c7b486e7b93efd362cfdf915e54c",
+      "bytes": 50979,
+      "blob_verified": true
+    },
+    {
+      "source": "constantinople",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/webserver/actor.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/sources/constantinople/crates/mempool/src/webserver/actor.rs",
+      "sha256": "96ff6fd243372b0fb891102a6cab1d0c25204b9600b2efd6732266f6dcfdccd5",
+      "git_blob": "557f5ea4fa827efcd698134799a6e8cdda781cd0",
+      "tree_blob": "557f5ea4fa827efcd698134799a6e8cdda781cd0",
+      "bytes": 52261,
+      "blob_verified": true
+    },
+    {
+      "source": "nunchi",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "url": "https://raw.githubusercontent.com/nunchi-labs/sdk/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/pool.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/sources/nunchi/mempool/src/pool.rs",
+      "sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+      "git_blob": "90fab9253f40757e49ae39472683e187d821e25e",
+      "tree_blob": "90fab9253f40757e49ae39472683e187d821e25e",
+      "bytes": 15385,
+      "blob_verified": true
+    },
+    {
+      "source": "reth",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/traits.rs",
+      "url": "https://raw.githubusercontent.com/paradigmxyz/reth/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/traits.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/sources/reth/crates/transaction-pool/src/traits.rs",
+      "sha256": "8d2550da48835784874f9e4e31894e40f713b3369eda145e9e33b9e8e471cb4e",
+      "git_blob": "ef4d74953fb96ceae93ed407dbe4ed9518667141",
+      "tree_blob": "ef4d74953fb96ceae93ed407dbe4ed9518667141",
+      "bytes": 86752,
+      "blob_verified": true
+    },
+    {
+      "source": "reth",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "url": "https://raw.githubusercontent.com/paradigmxyz/reth/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/pool/best.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/sources/reth/crates/transaction-pool/src/pool/best.rs",
+      "sha256": "10e0b93f0d0cb64b6933a5c6ce55d115108e4b9d55da81f963f2a22c7fde0575",
+      "git_blob": "5468a71a0c9228d4fcc5352fbfe38975a647c537",
+      "tree_blob": "5468a71a0c9228d4fcc5352fbfe38975a647c537",
+      "bytes": 48152,
+      "blob_verified": true
+    }
+  ],
+  "additional_fetched_files": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "actor/src/mailbox.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/actor/src/mailbox.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/global-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/actor/src/mailbox.rs",
+      "sha256": "d89c0d1c20e8def1f4f7e45dc00f058355a86b3cf84b6f816a257746b16009cf",
+      "git_blob": "dfd95eff53af6831ba42caea87e5579a0621c1ef",
+      "tree_blob": "dfd95eff53af6831ba42caea87e5579a0621c1ef"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/reporter.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/reporter.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/global-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/reporter.rs",
+      "sha256": "085499f6768e182030c297ab12015edcce56a585898cbc8687ea35b95d03fba8",
+      "git_blob": "5c0fa1c2ddeca172c3c0d46afc62e3f6df999a6d",
+      "tree_blob": "5c0fa1c2ddeca172c3c0d46afc62e3f6df999a6d"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave7/static-selection/global-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs",
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5",
+      "git_blob": "58a843e1cbd0dcb289a2752034f08ae6494b81d7",
+      "tree_blob": "58a843e1cbd0dcb289a2752034f08ae6494b81d7"
+    }
+  ],
+  "docs_check": {
+    "content_pages": 31,
+    "local_links_checked": 257,
+    "rendered_diagrams": 18,
+    "blank_policy_cells": 39,
+    "migration_checked": true,
+    "failures": []
+  }
+}

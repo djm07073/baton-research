@@ -1,0 +1,18 @@
+[
+  {
+    "path": "docs/consensus/block-body.md",
+    "sha256": "2b214a3e446a03214868abd64beeb9b04827692c17f49bc7310b75a6f57a142e"
+  },
+  {
+    "path": "docs/execution/qmdb.md",
+    "sha256": "f5b3d5a15130829fcd02cafcd21a0855ccf592f4cdd0599639dd029d5e0e1207"
+  },
+  {
+    "path": "docs/tx/README.md",
+    "sha256": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f"
+  },
+  {
+    "path": "docs/tx/interfaces.md",
+    "sha256": "a3a339b998a7d6c04a8953229933d1500c5cd0d57b7c1b41b36540bdcd21f331"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "explicit_release": "v2026.9.0",
+  "release_pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+  "response_sha256": "122004d583934575f8fc64a8663a5d3dcb631144255d4059538710e73adc0a26",
+  "source_sha256": "bbbed7a17dd4ec34eab1a28da0340b055788e409244bd2f0a35e6ce3c24762c1",
+  "matched_numbered_lines": 12,
+  "mcp_line_offset_to_github": 1,
+  "native_identical": true,
+  "actual_content_verified": true
+}

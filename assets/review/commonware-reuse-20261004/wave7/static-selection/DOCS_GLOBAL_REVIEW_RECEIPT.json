@@ -1,0 +1,39 @@
+{
+  "reviewer": "/root/reuse_orderer_v3",
+  "checked_at_utc": "2026-10-03T22:56:59.433265+00:00",
+  "baseline": "f2973dd98598eddac73d212c2b78e04cefb311c8",
+  "result": "pass_no_actionable_corrections",
+  "page_hashes": {
+    "docs/consensus/block-body.md": "2b214a3e446a03214868abd64beeb9b04827692c17f49bc7310b75a6f57a142e",
+    "docs/execution/qmdb.md": "f5b3d5a15130829fcd02cafcd21a0855ccf592f4cdd0599639dd029d5e0e1207",
+    "docs/tx/README.md": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+    "docs/tx/interfaces.md": "a3a339b998a7d6c04a8953229933d1500c5cd0d57b7c1b41b36540bdcd21f331"
+  },
+  "markdown_pages_preserved": 32,
+  "non_md_docs_assets_unchanged": 56,
+  "traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "methods": 30,
+  "blank_choices": 39,
+  "new_citation_occurrences": 19,
+  "fresh_blob_matched_sources_for_new_citations": 15,
+  "additional_raw_fetches": 3,
+  "docs_check": {
+    "content_pages": 31,
+    "local_links_checked": 257,
+    "rendered_diagrams": 18,
+    "blank_policy_cells": 39,
+    "migration_checked": true,
+    "failures": []
+  },
+  "detailed_receipt_sha256": "da3a4b549f0c9125ee4d86bb63203a9a139456b0d45fc05347f3ff5e578c4750",
+  "report_sha256": "d4ce0dffc6831fd0de045f3e532f836f1e1cbd6459d5adab29baa14026fc23f7",
+  "canonical_edits": false,
+  "implementation_compilation_native_tests": false,
+  "six_hour_completion_claim": false
+}

@@ -1,0 +1,86 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "reviewed_at_utc": "2026-10-03T22:57:22.883672+00:00",
+  "baseline": "f2973dd98598eddac73d212c2b78e04cefb311c8",
+  "scope": "final four-page wave7 draft; full body page plus source-checked new body delta; other page deltas coherence only (specialist reviews separate)",
+  "pages": {
+    "docs/consensus/block-body.md": {
+      "sha256": "2b214a3e446a03214868abd64beeb9b04827692c17f49bc7310b75a6f57a142e",
+      "baseline_sha256": "58e684e650355918c1e601ef9ee43a2ffe14600a50f8559d54ced5dfa8956491",
+      "baseline_lines_preserved_in_order": true,
+      "headings_unchanged": true
+    },
+    "docs/execution/qmdb.md": {
+      "sha256": "f5b3d5a15130829fcd02cafcd21a0855ccf592f4cdd0599639dd029d5e0e1207",
+      "baseline_sha256": "54e5c420980de25a2304a6208e8fd8302f251000e8d8972ce16edfc2b9e71435",
+      "baseline_lines_preserved_in_order": true,
+      "headings_unchanged": true
+    },
+    "docs/tx/README.md": {
+      "sha256": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+      "baseline_sha256": "7d1b4d26320b1c487b03437b8123923040b6c0f8713eee43f27f11f52cf555ff",
+      "baseline_lines_preserved_in_order": true,
+      "headings_unchanged": true
+    },
+    "docs/tx/interfaces.md": {
+      "sha256": "a3a339b998a7d6c04a8953229933d1500c5cd0d57b7c1b41b36540bdcd21f331",
+      "baseline_sha256": "64c74f0663712717cb12947addd329949b2d3636a7e19f87c5a99016c1a79a52",
+      "baseline_lines_preserved_in_order": false,
+      "headings_unchanged": true
+    }
+  },
+  "new_body_citation_count": 8,
+  "new_body_citations": [
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/actor/src/mailbox.rs#L91",
+      "own_fresh_source": "cross-review-sources/native/actor/src/mailbox.rs",
+      "sha256": "d89c0d1c20e8def1f4f7e45dc00f058355a86b3cf84b6f816a257746b16009cf",
+      "anchor_text": "/// Overflow behavior for actor messages when an inbox is full."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/config.rs#L5",
+      "own_fresh_source": "sources/native/broadcast/src/buffered/config.rs",
+      "sha256": "49c3e076394e7d5360e5291dd4a16953c6c7fc3cee64d9fabee6d957c3df75f4",
+      "anchor_text": "/// Configuration for the [super::Engine]."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs#L202",
+      "own_fresh_source": "sources/native/codec/src/codec.rs",
+      "sha256": "c3021910c531f56cf0fcc307580d1b5c0ff07e2b4632cf8e4600cc333d5f9179",
+      "anchor_text": "    /// Use `Cfg = ()` if no configuration is needed for a specific type."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs#L402",
+      "own_fresh_source": "sources/native/codec/src/codec.rs",
+      "sha256": "c3021910c531f56cf0fcc307580d1b5c0ff07e2b4632cf8e4600cc333d5f9179",
+      "anchor_text": "pub trait CodecShared: Codec + Send + Sync {}"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/types/vec.rs#L65",
+      "own_fresh_source": "sources/native/codec/src/types/vec.rs",
+      "sha256": "bbbed7a17dd4ec34eab1a28da0340b055788e409244bd2f0a35e6ce3c24762c1",
+      "anchor_text": ""
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L175",
+      "own_fresh_source": "sources/native/consensus/src/multimmit/types/block.rs",
+      "sha256": "f5f5f5ce4a43944e7a54467c6f796bd988c1bba0a8ff5e793dbf2c757827de34",
+      "anchor_text": ""
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/reporter.rs#L7",
+      "own_fresh_source": "cross-review-sources/native/consensus/src/reporter.rs",
+      "sha256": "085499f6768e182030c297ab12015edcce56a585898cbc8687ea35b95d03fba8",
+      "anchor_text": "/// An implementation of [Reporter] for an optional [Reporter]."
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L535",
+      "own_fresh_source": "sources/tempo/crates/consensus/src/consensus/engine.rs",
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5",
+      "anchor_text": "        let reporters = Reporters::from(("
+    }
+  ],
+  "added_tempo_path_fresh_source_count": 9,
+  "remaining_material_issues": [],
+  "notation_request_resolved": true
+}

@@ -1,0 +1,16 @@
+{
+  "spaceId": "pvyFEde12m2tVRjI8TRw",
+  "change_request_id": "rcT3ZAPCvF24CgW3Tviy",
+  "change_request_number": 10,
+  "baseline_revision": "NFuXtAIdglYgcndKT0Ly",
+  "reviewed_draft_revision": "LGx4ZschnDBuC8BQUpza",
+  "published_revision": "FC0fuQHY8XibiksLncT6",
+  "verified_pages": 38,
+  "changed_documents": 4,
+  "unchanged_documents": 34,
+  "file_metadata_unchanged": 95,
+  "live_documents_match_reviewed_draft": true,
+  "new_uploads": 0,
+  "raw_file_bytes_verified": false,
+  "failures": []
+}

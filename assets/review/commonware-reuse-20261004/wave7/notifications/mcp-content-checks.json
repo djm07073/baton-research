@@ -1,0 +1,9 @@
+{
+  "explicit_version": "v2026.9.0",
+  "matched_numbered_lines": 43,
+  "html_rejected": true,
+  "numbering": "MCP zero-based, GitHub one-based",
+  "native_release_source_byte_identical": true,
+  "native_sha256": "085499f6768e182030c297ab12015edcce56a585898cbc8687ea35b95d03fba8",
+  "failures": []
+}

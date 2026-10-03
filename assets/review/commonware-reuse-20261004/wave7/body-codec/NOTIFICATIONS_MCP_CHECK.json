@@ -1,0 +1,7 @@
+{
+  "report_sha256": "9c47cd3cb115981d9f0c2d94695ee3c25d2ef10e5b98e5e648eeb09dca0f11ed",
+  "independent_release_source": "cross-review-sources/release/consensus/src/reporter.rs",
+  "matched_MCP_numbered_lines": 43,
+  "failures": [],
+  "native_release_byte_identical": true
+}

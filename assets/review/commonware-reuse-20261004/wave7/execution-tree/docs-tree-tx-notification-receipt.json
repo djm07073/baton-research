@@ -1,0 +1,148 @@
+{
+  "utc": "2026-10-03T22:50:34.920781+00:00",
+  "baseline": "f2973dd98598eddac73d212c2b78e04cefb311c8",
+  "pages": {
+    "docs/execution/qmdb.md": "f5b3d5a15130829fcd02cafcd21a0855ccf592f4cdd0599639dd029d5e0e1207",
+    "docs/tx/interfaces.md": "a3a339b998a7d6c04a8953229933d1500c5cd0d57b7c1b41b36540bdcd21f331",
+    "docs/tx/README.md": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+    "docs/consensus/block-body.md": "d7909e8e10084ab512efadb297a7dee9773482563a35f52e540a53289f31c1ed"
+  },
+  "new_citations": [
+    {
+      "page": "docs/execution/qmdb.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2587,
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582",
+      "line_text": "{"
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 338,
+      "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582",
+      "line_text": "pub struct MerkleizedBatch<F: Family, D: Digest, U: update::Update, S: Strategy> {"
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "line": 65,
+      "source_sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee",
+      "line_text": "/// Position and inactivity-floor state for a merkleized QMDB batch."
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "line": 1052,
+      "source_sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df",
+      "line_text": "    pub const fn root(&self) -> D {"
+    },
+    {
+      "page": "docs/tx/interfaces.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/traits.rs",
+      "line": 1175,
+      "source_sha256": "8d2550da48835784874f9e4e31894e40f713b3369eda145e9e33b9e8e471cb4e",
+      "line_text": "    /// Creates an iterator which uses a closure to determine whether a transaction should be"
+    },
+    {
+      "page": "docs/tx/interfaces.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "line": 337,
+      "source_sha256": "10e0b93f0d0cb64b6933a5c6ce55d115108e4b9d55da81f963f2a22c7fde0575",
+      "line_text": "    fn next(&mut self) -> Option<Self::Item> {"
+    },
+    {
+      "page": "docs/tx/interfaces.md",
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "line": 124,
+      "source_sha256": "10e0b93f0d0cb64b6933a5c6ce55d115108e4b9d55da81f963f2a22c7fde0575",
+      "line_text": "    pub(crate) fn mark_invalid("
+    },
+    {
+      "page": "docs/tx/README.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/payload/builder/src/lib.rs",
+      "line": 590,
+      "source_sha256": "61568290e08cc06416190b67a271acaf22abedb0132acc629980067dcff87121",
+      "line_text": "                continue;"
+    },
+    {
+      "page": "docs/tx/README.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/payload/builder/src/lib.rs",
+      "line": 616,
+      "source_sha256": "61568290e08cc06416190b67a271acaf22abedb0132acc629980067dcff87121",
+      "line_text": "            }"
+    },
+    {
+      "page": "docs/tx/README.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "line": 406,
+      "source_sha256": "96ff6fd243372b0fb891102a6cab1d0c25204b9600b2efd6732266f6dcfdccd5",
+      "line_text": "fn pop_lane_proposal<H>("
+    },
+    {
+      "page": "docs/tx/README.md",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "line": 160,
+      "source_sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+      "line_text": "    pub fn pending(&mut self, limit: usize) -> Vec<T> {"
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/reporter.rs",
+      "line": 7,
+      "source_sha256": "085499f6768e182030c297ab12015edcce56a585898cbc8687ea35b95d03fba8",
+      "line_text": "/// An implementation of [Reporter] for an optional [Reporter]."
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "actor/src/mailbox.rs",
+      "line": 91,
+      "source_sha256": "d89c0d1c20e8def1f4f7e45dc00f058355a86b3cf84b6f816a257746b16009cf",
+      "line_text": "/// Overflow behavior for actor messages when an inbox is full."
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "line": 535,
+      "source_sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5",
+      "line_text": "        let reporters = Reporters::from(("
+    }
+  ],
+  "compiled": false,
+  "docs/overview/rust-interfaces.md": {
+    "sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+    "byte_identical_baseline": true
+  },
+  "docs/assets/interfaces/baton.rs": {
+    "sha256": "cf43886aff0008c7a8d646f44899f8ab6ab3d0c5a6e59f0745bd6df276ee09a9",
+    "byte_identical_baseline": true
+  },
+  "review_sha256": "3663fac783bf2a7adc166a88149524b68d1fe00006b862dd824ff6e7dfdab6ec"
+}

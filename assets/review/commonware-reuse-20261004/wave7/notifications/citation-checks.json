@@ -1,0 +1,118 @@
+{
+  "report_sha256": "9c47cd3cb115981d9f0c2d94695ee3c25d2ef10e5b98e5e648eeb09dca0f11ed",
+  "checked_anchors": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/lib.rs",
+      "line": 101,
+      "line_text": "    mod reporter;",
+      "source_sha256": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/reporter.rs",
+      "line": 7,
+      "line_text": "/// An implementation of [Reporter] for an optional [Reporter].",
+      "source_sha256": "085499f6768e182030c297ab12015edcce56a585898cbc8687ea35b95d03fba8"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/reporter.rs",
+      "line": 30,
+      "line_text": "",
+      "source_sha256": "085499f6768e182030c297ab12015edcce56a585898cbc8687ea35b95d03fba8"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/reporter.rs",
+      "line": 66,
+      "line_text": "}",
+      "source_sha256": "085499f6768e182030c297ab12015edcce56a585898cbc8687ea35b95d03fba8"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "actor/src/mailbox.rs",
+      "line": 359,
+      "line_text": "pub fn new<T: Policy>(metrics: impl Metrics, capacity: NonZeroUsize) -> (Sender<T>, Receiver<T>) {",
+      "source_sha256": "d89c0d1c20e8def1f4f7e45dc00f058355a86b3cf84b6f816a257746b16009cf"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "actor/src/mailbox.rs",
+      "line": 274,
+      "line_text": "impl<T: Policy> Sender<T> {",
+      "source_sha256": "d89c0d1c20e8def1f4f7e45dc00f058355a86b3cf84b6f816a257746b16009cf"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "actor/src/mailbox.rs",
+      "line": 58,
+      "line_text": "/// Retained overflow messages for a mailbox policy.",
+      "source_sha256": "d89c0d1c20e8def1f4f7e45dc00f058355a86b3cf84b6f816a257746b16009cf"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "actor/src/mailbox.rs",
+      "line": 91,
+      "line_text": "/// Overflow behavior for actor messages when an inbox is full.",
+      "source_sha256": "d89c0d1c20e8def1f4f7e45dc00f058355a86b3cf84b6f816a257746b16009cf"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "actor/src/lib.rs",
+      "line": 13,
+      "line_text": "    /// Feedback from submitting work to a bounded endpoint.",
+      "source_sha256": "e05f4194eeee88127882ec1c239a339c3265fe8506c48feccd61a20a2551b137"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/activity.rs",
+      "line": 7,
+      "line_text": "/// A contextually admitted or durably committed Multimmit fact.",
+      "source_sha256": "be265a860b63d0bfbc4718056bdbf3630481db174392809411514f497434d465"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/voter/actor.rs",
+      "line": 1655,
+      "line_text": "    async fn dispatch_work(&mut self, work: CoreWork<V, H::Digest>) -> Result<bool, Fatal> {",
+      "source_sha256": "7dc0b0fd04eb3706d6dc4a3873ae5615c2356d859a5102f998e7949c670036bc"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "line": 535,
+      "line_text": "        let reporters = Reporters::from((",
+      "source_sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/ingress.rs",
+      "line": 20,
+      "line_text": "",
+      "source_sha256": "77d11aa78bdd62cf59574f1b18e11f5f64f3330d080a153ce0fdc95a2c66edaa"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/peer_manager/ingress.rs",
+      "line": 148,
+      "line_text": "impl Reporter for Mailbox {",
+      "source_sha256": "af2bd222135d7c92497e8c99f0925b7d9846fcab441c6b3f5d99e6df1dab2816"
+    }
+  ],
+  "failures": []
+}

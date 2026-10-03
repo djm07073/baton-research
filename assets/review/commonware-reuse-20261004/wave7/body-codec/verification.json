@@ -1,0 +1,230 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "checked_at_utc": "2026-10-03T22:45:09.924506+00:00",
+  "baseline": "f2973dd98598eddac73d212c2b78e04cefb311c8",
+  "source_count": 35,
+  "report_sha256": "2e2dacda99f22abad89bb1e1741c1a449419961e9188feb4428dab914cfa2255",
+  "reader_delta_sha256": "5db1fc0cc406e078a6dede135ac834c353860b306a0958ffc83dbec707e7f20c",
+  "new_anchor_count": 31,
+  "source_anchor_coverage": [
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/codec.rs",
+      "line": 268,
+      "sha256": "c3021910c531f56cf0fcc307580d1b5c0ff07e2b4632cf8e4600cc333d5f9179"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/codec.rs",
+      "line": 202,
+      "sha256": "c3021910c531f56cf0fcc307580d1b5c0ff07e2b4632cf8e4600cc333d5f9179"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/codec.rs",
+      "line": 305,
+      "sha256": "c3021910c531f56cf0fcc307580d1b5c0ff07e2b4632cf8e4600cc333d5f9179"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/types/vec.rs",
+      "line": 65,
+      "sha256": "bbbed7a17dd4ec34eab1a28da0340b055788e409244bd2f0a35e6ce3c24762c1"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/types/bytes.rs",
+      "line": 34,
+      "sha256": "01449e52ae5586d981169c37026430229e669fd25cc8e90701bbdbd86ea6fc93"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "cryptography/src/lib.rs",
+      "line": 221,
+      "sha256": "82ea2dcab1dbf2621c3c002a99f2b445e5f1bb2f80a0c6e32142b8db2d59fb0a"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "cryptography/src/lib.rs",
+      "line": 264,
+      "sha256": "82ea2dcab1dbf2621c3c002a99f2b445e5f1bb2f80a0c6e32142b8db2d59fb0a"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/engine.rs",
+      "line": 111,
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/engine.rs",
+      "line": 237,
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/codec.rs",
+      "line": 402,
+      "sha256": "c3021910c531f56cf0fcc307580d1b5c0ff07e2b4632cf8e4600cc333d5f9179"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/immutable/storage.rs",
+      "line": 377,
+      "sha256": "a92d48f6e9ae4c6bb150aff6a3e9b80f9fae27ca3240f572727180e4b5d63b1e"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 602,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/config.rs",
+      "line": 5,
+      "sha256": "49c3e076394e7d5360e5291dd4a16953c6c7fc3cee64d9fabee6d957c3df75f4"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/wire.rs",
+      "line": 38,
+      "sha256": "35dc4326bbcf53daefaf30de40c41b2abe5450b7bc61d073d9e30e372c337baa"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "line": 177,
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/types/primitives.rs",
+      "line": 177,
+      "sha256": "169d5f287e545400b6876346fc49d09d47fcbf1233ca3151ace7f43f6e28941e"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/codec.rs",
+      "line": 233,
+      "sha256": "c3021910c531f56cf0fcc307580d1b5c0ff07e2b4632cf8e4600cc333d5f9179"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/varint.rs",
+      "line": 118,
+      "sha256": "515eee96260f5d5ada5f3d7bef9ec2d62823df851053301a97deca95a9f554e0"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "line": 47,
+      "sha256": "f5f5f5ce4a43944e7a54467c6f796bd988c1bba0a8ff5e793dbf2c757827de34"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "line": 175,
+      "sha256": "f5f5f5ce4a43944e7a54467c6f796bd988c1bba0a8ff5e793dbf2c757827de34"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "line": 203,
+      "sha256": "f5f5f5ce4a43944e7a54467c6f796bd988c1bba0a8ff5e793dbf2c757827de34"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/admission.rs",
+      "line": 145,
+      "sha256": "c3877fff858e5de73c6858128555466fcc8dc60eb386684ccf848ec75c94f313"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/lib.rs",
+      "line": 56,
+      "sha256": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "examples/log-multimmit/src/application/actor.rs",
+      "line": 36,
+      "sha256": "e606f6f078a21c1df334dd6536082e237194c93e7598d66eb125c11efb65af60"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "types/src/block.rs",
+      "line": 62,
+      "sha256": "ae3060b5a942b7354732d20f35ef8777d6ca4a627f469ea80b6fe435dd4aabe0"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "types/src/block.rs",
+      "line": 138,
+      "sha256": "ae3060b5a942b7354732d20f35ef8777d6ca4a627f469ea80b6fe435dd4aabe0"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/block.rs",
+      "line": 120,
+      "sha256": "ff3156309bb5285507a60778ed4ea6afbc9cf64d4d9a3d47f6754a01836d80b9"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/block.rs",
+      "line": 222,
+      "sha256": "ff3156309bb5285507a60778ed4ea6afbc9cf64d4d9a3d47f6754a01836d80b9"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/block.rs",
+      "line": 278,
+      "sha256": "ff3156309bb5285507a60778ed4ea6afbc9cf64d4d9a3d47f6754a01836d80b9"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/chain.rs",
+      "line": 1618,
+      "sha256": "ea254ea8d1c3981643e6c0957f7c814c94a81395d457be261524d0f76ef3b92a"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/lib.rs",
+      "line": 116,
+      "sha256": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470"
+    }
+  ],
+  "reader_baseline_sha256": "87c3c359a63975cba3eca125fa93f1e68977942ab2fa8ee1768816aa2c2775a2",
+  "scope": "Fresh source/API audit; independent review pending; no implementation/compilation or choices"
+}
