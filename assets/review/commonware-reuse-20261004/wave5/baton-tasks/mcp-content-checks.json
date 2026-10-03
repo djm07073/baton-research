@@ -1,0 +1,22 @@
+[
+  {
+    "name": "clock",
+    "sha256": "855c2762f63cac37f70eb8a238ba7a57a06c06e0b6c68363e101a92618ffe808",
+    "expected_symbol": "Clock",
+    "symbol_present": true,
+    "html_rejected": false,
+    "source_version": "v2026.9.0",
+    "native_authority": false,
+    "line_number_warning": "MCP numbering differs by +1 from GitHub lines; use fresh raw source for anchors"
+  },
+  {
+    "name": "strategy",
+    "sha256": "95643232ec7153869d28e12e3997717e2f7644a63c84860ab6758b3e75489859",
+    "expected_symbol": "Strategy",
+    "symbol_present": true,
+    "html_rejected": false,
+    "source_version": "v2026.9.0",
+    "native_authority": false,
+    "line_number_warning": "MCP numbering differs by +1 from GitHub lines; use fresh raw source for anchors"
+  }
+]

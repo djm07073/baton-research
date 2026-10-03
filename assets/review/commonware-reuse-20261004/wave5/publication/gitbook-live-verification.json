@@ -1,0 +1,205 @@
+{
+  "published_revision": "jCIYtF1KMH1WI7GnVz2Y",
+  "reviewed_draft_revision": "P1byoUYZRywUDnDXtGvd",
+  "baseline_revision": "VZgSSM1vxObvtUhGUVFR",
+  "pages": 38,
+  "updated_documents": 8,
+  "unchanged_documents": 30,
+  "page_identity_and_document_id_match": true,
+  "all_file_metadata_unchanged": true,
+  "remote_file_count": 95,
+  "new_uploads": 0,
+  "checks": [
+    {
+      "id": "3OvyWTKM5uWJ1JTktps0",
+      "path": "baton/roles",
+      "documentId": "OO1lVJZH69rVLhB5jS5i"
+    },
+    {
+      "id": "3pjcORUOr509g17x4ygJ",
+      "path": "baton/direction",
+      "documentId": "8yf7zbV7XqpMUEzABmyh"
+    },
+    {
+      "id": "bA4mHdZsclI94Hr8FxuV",
+      "path": "reference",
+      "documentId": "4H4ZFaPjUEeJuewC2Rfm"
+    },
+    {
+      "id": "BAILspeefeHw6iLY0rX3",
+      "path": "tx/roles",
+      "documentId": "vy6KNrbuvCqzVZWxzT0T"
+    },
+    {
+      "id": "BCmTHrj1KjxTAW9qz9Ok",
+      "path": "reference/integration",
+      "documentId": "rPJ4TuW38lcgG5I1JLbl"
+    },
+    {
+      "id": "BXfAElB8ATQH7dbpqmgm",
+      "path": "baton",
+      "documentId": "hl2d8KqiMBSrcMzf4MZS"
+    },
+    {
+      "id": "BytJ0SideZZqJsRObbha",
+      "path": "execution/qmdb",
+      "documentId": "yZnysbrIvNFs864BWHR2"
+    },
+    {
+      "id": "c9nXu7RW1sNCXRrgROwR",
+      "path": "e2e",
+      "documentId": "lbq76LriXCet57dFcMLC"
+    },
+    {
+      "id": "ddouvFyMOwIKI10ltCCC",
+      "path": "start",
+      "documentId": "8FKaimnviA4VLUDe7EF6"
+    },
+    {
+      "id": "Eg5KQi4bDlaWjPFmWxfG",
+      "path": "baton/interfaces",
+      "documentId": "NLJpGEnNiHaS5MIo3tMj"
+    },
+    {
+      "id": "eMU7vCkb44e071a5q2ok",
+      "path": "execution",
+      "documentId": "RClavT8k5utazKsKaUbl"
+    },
+    {
+      "id": "eqtTh7bULw0VNqUvDgBd",
+      "path": "overview/architecture",
+      "documentId": "9holJBFuuZ17y3KONZAt"
+    },
+    {
+      "id": "Ez5tuxtb6aajszo2mj9U",
+      "path": "reference/sources",
+      "documentId": "GhHHZA3Rp3bSragMWtW4"
+    },
+    {
+      "id": "FcmlwGE5FVX125FcMkCJ",
+      "path": "consensus",
+      "documentId": "PXXKDk9ijwIeIlEW7dqi"
+    },
+    {
+      "id": "fSMOy1CruvdxuFZHij62",
+      "path": "e2e/canonical",
+      "documentId": "PXZ4UZYbseZSaJKMpw18"
+    },
+    {
+      "id": "g1kO3la0qYnPmndON23S",
+      "path": "consensus/roles",
+      "documentId": "EL1ze5Wr3hxe1uz2Hlg9"
+    },
+    {
+      "id": "g3dEfSE7zFEsEDo4DNIN",
+      "path": "e2e/recovery",
+      "documentId": "2fnIVwyJ7gphYNgtoSDN"
+    },
+    {
+      "id": "IniAvgnSA9K4bnpio0xc",
+      "path": "tx",
+      "documentId": "WUuhLCERZvCRsUkyVxFd"
+    },
+    {
+      "id": "iq9PIQIBNvy7xCPMyirI",
+      "path": "e2e/block-body",
+      "documentId": "I2rgoMRir1EQrbgerVzv"
+    },
+    {
+      "id": "iQBCvg8IQLSupkQb0IHv",
+      "path": "execution/state-sync",
+      "documentId": "r0OJtYKMn2OWpghBHQGc"
+    },
+    {
+      "id": "jrZyeYzHpxdxIAIbtu55",
+      "path": "e2e/reschedule",
+      "documentId": "qp5RwAxObDqlpcbpY8lQ"
+    },
+    {
+      "id": "KtJEkG5v13LtRxPCWiSF",
+      "path": "e2e/state-sync",
+      "documentId": "IxQGopvhYyAyo0BkAVJd"
+    },
+    {
+      "id": "Lfyz1AbF29ql5e9ZQ1g2",
+      "path": "consensus/ordered-input",
+      "documentId": "1ufssBmgIl7MZtF2i16o"
+    },
+    {
+      "id": "lLdHXsL8PlIMymXDLxbI",
+      "path": "overview/glossary",
+      "documentId": "tzohFLZB1c2PxdbuTZYa"
+    },
+    {
+      "id": "NB3v1H0iYHZGYfodw8ZR",
+      "path": "e2e/leader",
+      "documentId": "cyv6W7eolULCrYXVzYOS"
+    },
+    {
+      "id": "P25eDmatPnfIRCBq5W82",
+      "path": "overview",
+      "documentId": "IQzG5cO4wZPodkVsr3nw"
+    },
+    {
+      "id": "q3033aajDjJ5aLB9dVHY",
+      "path": "execution/roles",
+      "documentId": "XJB8Bt2EFGVEh0oMjM2R"
+    },
+    {
+      "id": "R1krejCUjwtwoXNGZs9o",
+      "path": "execution/interfaces",
+      "documentId": "yRpwdTZgQukdBn05ZapM"
+    },
+    {
+      "id": "R8VpBC3WCkOHQSS72ZW0",
+      "path": "e2e/normal",
+      "documentId": "3YIbRbL8C6pgfKkpf5PU"
+    },
+    {
+      "id": "s6ipwmMRaN2lx6vZ8sRW",
+      "path": "e2e/results",
+      "documentId": "L6SPgiMOEx5649ovPC2T"
+    },
+    {
+      "id": "sJc2FOUl8KF8ky9r1EKm",
+      "path": "consensus/decisions",
+      "documentId": "h6chAYmsq7AGFYrpcI9O"
+    },
+    {
+      "id": "UJWZyWmmBoyCoLneEByT",
+      "path": "reference/verification",
+      "documentId": "hXRO1KfvAhopfQkbmB5H"
+    },
+    {
+      "id": "UPR1SCpuf5zUoUetIAkq",
+      "path": "tx/interfaces",
+      "documentId": "ZqR3TmAstugnVe9tyujc"
+    },
+    {
+      "id": "UXwv4d2aDxhnRXCCOeFA",
+      "path": "overview/networking",
+      "documentId": "PxeORJDZbUWa2KCVYCto"
+    },
+    {
+      "id": "UziPYQpfWeuCyLtuWpWx",
+      "path": "consensus/block-body",
+      "documentId": "eEdX844oVy9xlzjgvh5A"
+    },
+    {
+      "id": "VY7nIvWFRnoJHzGoBqNF",
+      "path": "overview/interfaces",
+      "documentId": "k9bU1VeCfS1XCTyglAGA"
+    },
+    {
+      "id": "xcDDH0AA03iU2slbiHNo",
+      "path": "overview/rust-interfaces",
+      "documentId": "FrhbNtYUIS8uYlBWIQul"
+    },
+    {
+      "id": "Y08WMfgwxDqQJjt7MtZV",
+      "path": "e2e/native-consensus",
+      "documentId": "7f9i6AYQl70qmDHN7vjx"
+    }
+  ],
+  "failures": []
+}

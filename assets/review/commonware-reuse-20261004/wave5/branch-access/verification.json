@@ -1,0 +1,141 @@
+{
+  "fresh_files": 57,
+  "hash_failures": [],
+  "report_citations": [
+    {
+      "path": "Cargo.toml",
+      "line": 78,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "Cargo.toml",
+      "line": 51,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 93,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "glue/src/stateful/db/current.rs",
+      "line": 93,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 238,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "glue/src/stateful/db/current.rs",
+      "line": 241,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 1388,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 418,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 744,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 341,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 263,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 1306,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2603,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2704,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "line": 188,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "crates/application/src/consensus/execution.rs",
+      "line": 160,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "crates/application/src/consensus/db.rs",
+      "line": 57,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "crates/node/executor/src/outcome.rs",
+      "line": 9,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "crates/storage/overlay/src/overlay.rs",
+      "line": 7,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "crates/storage/qmdb/src/store.rs",
+      "line": 266,
+      "receipt": true,
+      "valid": true
+    },
+    {
+      "path": "crates/storage/qmdb/src/store.rs",
+      "line": 334,
+      "receipt": true,
+      "valid": true
+    }
+  ],
+  "report_sha256": "1c8dea6dbba1571b410d4081d29db3078646b769c133ceb90ffb7e78cca5e030",
+  "sketch_sha256": "e39f2cd3c9b017772802d6a8cd526f943cf1f414863e24ca1157925ad6167d39",
+  "compiled": false,
+  "pool_cross_review_sha256": "66e20b0552b422260f209eb698b54502871258a60410555ef6de576a0ea370ea",
+  "pool_report_sha256": "89dda1e5f2bf5ff628d33be1c1f490b38573a352a0afd583309c0c23d19594ac",
+  "execution_baton_review_sha256": "f3434b3a4ba4f01bbe298ccd4c251811136212aecdbace290f08d9ea98899657",
+  "execution_baton_page_receipt_sha256": "1a5e0a5d6ca7ada6f971142c273df37c90f236a77e60b2258cc5701243a37006",
+  "source_manifest_sha256": "c4d4db0fdd5c8ea2cf04d2908ee620533927ba87044bc3ecd7d056956ac5fb34",
+  "pool_final_report_sha256": "880481a271e4f4077d760d6e1378b68eae99d767ee89782eb5922d5346018ab6"
+}

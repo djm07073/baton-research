@@ -1,0 +1,219 @@
+[
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 22,
+    "text": "    /// Per-lane pending transactions, ordered by nonce."
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/lib.rs",
+    "line": 10,
+    "text": "commonware_macros::stability_scope!(ALPHA {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/tx.rs",
+    "line": 1,
+    "text": "use commonware_codec::EncodeSize;"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 1,
+    "text": "use crate::config::PoolConfig;"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/utils/mod.rs",
+    "line": 24,
+    "text": "mod cell;"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/utils/cell.rs",
+    "line": 6,
+    "text": "/// Spawn a task using a [`Cell`] by taking its context, restoring the context synchronously"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/telemetry/metrics/mod.rs",
+    "line": 60,
+    "text": "/// A registered counter metric."
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/lib.rs",
+    "line": 139,
+    "text": "    pub trait Sender: LimitedSender {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/tx.rs",
+    "line": 7,
+    "text": "/// Nonce sequence key for a module transaction."
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "common/src/transaction.rs",
+    "line": 61,
+    "text": "    pub fn sign<Operation: self::Operation>("
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "crypto/src/lib.rs",
+    "line": 17,
+    "text": "/// Signature curve supported by Nunchi account keys."
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "common/Cargo.toml",
+    "line": 10,
+    "text": "[features]"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "common/src/lib.rs",
+    "line": 4,
+    "text": "#[cfg(feature = \"state\")]"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "Cargo.toml",
+    "line": 52,
+    "text": "nunchi-common = { version = \"2026.9.0-alpha.1\", path = \"common\" }"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/tx.rs",
+    "line": 32,
+    "text": "pub trait PoolTransaction: Clone + Send + Sync + 'static {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/Cargo.toml",
+    "line": 10,
+    "text": "[dependencies]"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 61,
+    "text": "impl<T: PoolTransaction> MempoolHandle<T> {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 473,
+    "text": "    fn handle_network<P>(&mut self, peer: P, mut bytes: commonware_runtime::IoBuf)"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/metrics.rs",
+    "line": 33,
+    "text": "pub(crate) enum SubmitSource {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 81,
+    "text": "    pub fn check_stateless(tx: &T, config: &PoolConfig) -> Result<(), AdmissionError> {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 20,
+    "text": "enum Message<T: PoolTransaction> {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 195,
+    "text": "    pub fn finalized("
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 414,
+    "text": "            Message::Finalized {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 211,
+    "text": "    pub fn finalize("
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/status.rs",
+    "line": 35,
+    "text": "        if self.capacity == 0 {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 128,
+    "text": "            admitted_at: self.last_height,"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 211,
+    "text": "    pub fn finalize("
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 160,
+    "text": "    pub fn pending(&mut self, limit: usize) -> Vec<T> {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 307,
+    "text": ""
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 175,
+    "text": "    /// Fetch up to `limit` executable transactions, gap-free within each nonce"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 13,
+    "text": "    tx: T,"
+  }
+]

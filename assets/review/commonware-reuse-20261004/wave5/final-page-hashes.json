@@ -1,0 +1,42 @@
+{
+  "baseline": "b5747f6a28527a4507901f2e46b426b5ff2a4b7c",
+  "pages": [
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "240343de16701934f3210d861356cb8882c4c4b3ac8cacb9a6bbac2e9527d192",
+      "bytes": 24743
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "7d1b4d26320b1c487b03437b8123923040b6c0f8713eee43f27f11f52cf555ff",
+      "bytes": 21084
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "64c74f0663712717cb12947addd329949b2d3636a7e19f87c5a99016c1a79a52",
+      "bytes": 6016
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "754d6c0b411de8549eefc6a8242eca843a9deb981cdd4fb9f5269734c0ad6295",
+      "bytes": 28026
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "e6aa69292bf74d459d856a0c485a165f2333b7a327489445e169d2520d6b306e"
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36"
+    },
+    {
+      "path": "docs/baton/README.md",
+      "sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97"
+    }
+  ],
+  "independent_reader_hashes_match": true
+}

@@ -8,6 +8,8 @@ Rust declaration: [Baton::plan](../overview/rust-interfaces.md#baton). The Rust 
 
 `ReportSnapshot` is a once-closed set of distinct, same-context original reports. `Candidates` is a bounded set of admissible full candidates. Return `Some` only when evaluation of that set has completed and the selection is valid. Incomplete evaluation or absence of valid candidates cannot be published as prepared policy. Never await this background future on the native cut path. Tail selection, budgets, adoption, and continuation remain open.
 
+The snapshot owner admits verified reports; packet observation or worker completion alone is not admission. A verification result processed after closure stays outside that snapshot. Fix the deadline once with the existing Clock and run evaluation through [Commonware task/completion mechanisms](README.md#commonware-primitives-in-the-baton-layer). Synchronous strategy cases must also stay off the admission/cut owner; no new scheduler or direction collector is required.
+
 | Stage | Input | Responsibility | Output |
 |---|---|---|---|
 | Start window | New work and actual planning context | Fix context and set the deadline | Window context |

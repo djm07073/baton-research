@@ -1,0 +1,20 @@
+{
+  "baseline": "b5747f6a28527a4507901f2e46b426b5ff2a4b7c",
+  "pages": {
+    "docs/execution/qmdb.md": "e6aa69292bf74d459d856a0c485a165f2333b7a327489445e169d2520d6b306e",
+    "docs/overview/rust-interfaces.md": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+    "docs/baton/README.md": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd",
+    "docs/baton/direction.md": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97"
+  },
+  "rust_blocks_unchanged": true,
+  "traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "blank_policy_cells": 39,
+  "filled_policy_cells": [],
+  "source_based_only": true
+}

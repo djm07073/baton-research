@@ -1,0 +1,623 @@
+{
+  "reviewed_at_utc": "2026-10-03T21:54:27.399182+00:00",
+  "report_sha256": "90ab05469a72864c2d5596bd16e50250d7c50a55165f765d641ee7cfc24991a6",
+  "supplied_manifest_sha256": "570a21323afe728c7ec4a06daa3914d37d97fc696b2cfefd0ca3787c9bd1675d",
+  "independent_fresh_receipt_sha256": "e8e676762024d0e242136407cc39e31c166307cc966ea31b013d46a6896ca1e5",
+  "fresh_decisive_sources": 28,
+  "supplied33_rehash": [
+    {
+      "source": "native",
+      "path": "storage/src/archive/mod.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "storage/src/archive/immutable/mod.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "storage/src/archive/immutable/storage.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "storage/src/archive/prunable/mod.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "storage/src/archive/prunable/storage.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "storage/src/freezer/mod.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "storage/src/freezer/storage.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "storage/src/translator.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "storage/src/index/unordered.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "codec/src/codec.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "utils/src/lib.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "consensus/src/marshal/store.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "consensus/src/marshal/resolver/handler.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "resolver/src/lib.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "resolver/src/p2p/mod.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "resolver/src/p2p/engine.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "resolver/src/p2p/ingress.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "release",
+      "path": "consensus/src/marshal/store.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "release",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "tempo",
+      "path": "crates/consensus/src/storage/mod.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "tempo",
+      "path": "crates/consensus/src/storage/hybrid/mod.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "tempo",
+      "path": "crates/consensus/src/alias.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "tempo",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "alto",
+      "path": "chain/src/engine.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "alto",
+      "path": "follower/src/engine.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "utils/src/sequence/mod.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "resolver/src/p2p/wire.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "consensus/src/lib.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "storage/src/lib.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "alto",
+      "path": "follower/src/archive.rs",
+      "sha256_match": true,
+      "blob_match": true
+    },
+    {
+      "source": "native",
+      "path": "consensus/src/marshal/core/mailbox.rs",
+      "sha256_match": true,
+      "blob_match": true
+    }
+  ],
+  "anchors": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/mod.rs",
+      "line": 21,
+      "line_text": "/// Subject of a `get` or `has` operation.",
+      "sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/mod.rs",
+      "line": 44,
+      "line_text": "/// A write-once key-value store addressed by both an index and a key.",
+      "sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/mod.rs",
+      "line": 163,
+      "line_text": "pub trait MultiArchive: Archive {",
+      "sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/immutable/storage.rs",
+      "line": 364,
+      "line_text": "pub struct Archive<E: Context, K: Array, V: CodecShared>(Box<Inner<E, K, V>>);",
+      "sha256": "a92d48f6e9ae4c6bb150aff6a3e9b80f9fae27ca3240f572727180e4b5d63b1e",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/prunable/storage.rs",
+      "line": 587,
+      "line_text": "pub struct Archive<T: Translator, E: Context, K: Array, V: CodecShared>(Box<Inner<T, E, K, V>>);",
+      "sha256": "befa1532590be4fc4b4530919008bed8cb6089d13328076681bdbbd706e91f7d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/prunable/storage.rs",
+      "line": 702,
+      "line_text": "impl<T: Translator, E: Context, K: Array, V: CodecShared> crate::archive::MultiArchive",
+      "sha256": "befa1532590be4fc4b4530919008bed8cb6089d13328076681bdbbd706e91f7d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "codec/src/codec.rs",
+      "line": 402,
+      "line_text": "pub trait CodecShared: Codec + Send + Sync {}",
+      "sha256": "c3021910c531f56cf0fcc307580d1b5c0ff07e2b4632cf8e4600cc333d5f9179",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/sequence/mod.rs",
+      "line": 37,
+      "line_text": "pub trait Span:",
+      "sha256": "d96ea91886471360466e8187f2f319986e84ac4ccededd23047408285adf1908",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "line": 47,
+      "line_text": "/// Consensus metadata associated with one application payload.",
+      "sha256": "f5f5f5ce4a43944e7a54467c6f796bd988c1bba0a8ff5e793dbf2c757827de34",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "line": 119,
+      "line_text": "pub struct TransactionBlockHeader<D: Digest> {",
+      "sha256": "f5f5f5ce4a43944e7a54467c6f796bd988c1bba0a8ff5e793dbf2c757827de34",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/mod.rs",
+      "line": 1,
+      "line_text": "//! A write-once key-value store for ordered data.",
+      "sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/prunable/storage.rs",
+      "line": 276,
+      "line_text": "    async fn get_key(&self, key: &K) -> Result<Option<V>, Error> {",
+      "sha256": "befa1532590be4fc4b4530919008bed8cb6089d13328076681bdbbd706e91f7d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/prunable/storage.rs",
+      "line": 525,
+      "line_text": "    async fn get_all(&self, index: u64) -> Result<Option<Vec<V>>, Error> {",
+      "sha256": "befa1532590be4fc4b4530919008bed8cb6089d13328076681bdbbd706e91f7d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/freezer/mod.rs",
+      "line": 217,
+      "line_text": "use std::num::NonZeroUsize;",
+      "sha256": "025e7e103178f276d197aa32fc69e34e704177d765f1409a8407b122ee74f32e",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/freezer/storage.rs",
+      "line": 24,
+      "line_text": "/// Location of an item in the [Freezer].",
+      "sha256": "1d6195bb5bfe174601d7f5d2293e2771ef6eab4daca02d143b2e26fa538d2c4b",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/freezer/storage.rs",
+      "line": 899,
+      "line_text": "    /// Get the value for a given [Cursor].",
+      "sha256": "1d6195bb5bfe174601d7f5d2293e2771ef6eab4daca02d143b2e26fa538d2c4b",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/immutable/storage.rs",
+      "line": 89,
+      "line_text": "struct Inner<E: Context, K: Array, V: CodecShared> {",
+      "sha256": "a92d48f6e9ae4c6bb150aff6a3e9b80f9fae27ca3240f572727180e4b5d63b1e",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/freezer/storage.rs",
+      "line": 1151,
+      "line_text": "impl<E: Context, K: Array, V: CodecShared> Freezer<E, K, V> {",
+      "sha256": "1d6195bb5bfe174601d7f5d2293e2771ef6eab4daca02d143b2e26fa538d2c4b",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/immutable/mod.rs",
+      "line": 19,
+      "line_text": "//! # Durability and Recovery",
+      "sha256": "24c762c5249f8e412254864f619541a23f533b06d7d2e493497008f5b358ab70",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/mod.rs",
+      "line": 137,
+      "line_text": "    fn sync(self) -> impl Future<Output = Result<Self, Error>> + Send;",
+      "sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/prunable/storage.rs",
+      "line": 462,
+      "line_text": "    async fn sync(mut self: Box<Self>) -> Result<Box<Self>, Error> {",
+      "sha256": "befa1532590be4fc4b4530919008bed8cb6089d13328076681bdbbd706e91f7d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/prunable/storage.rs",
+      "line": 401,
+      "line_text": "    async fn prune(mut self: Box<Self>, min: u64) -> Result<Box<Self>, Error> {",
+      "sha256": "befa1532590be4fc4b4530919008bed8cb6089d13328076681bdbbd706e91f7d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/prunable/storage.rs",
+      "line": 629,
+      "line_text": "    async fn put_sync(mut self, index: u64, key: K, data: V) -> Result<Self, Error> {",
+      "sha256": "befa1532590be4fc4b4530919008bed8cb6089d13328076681bdbbd706e91f7d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/mod.rs",
+      "line": 103,
+      "line_text": "",
+      "sha256": "62ed3e53099f0a081956c97a9d2341e50b0159b6c3af4783c6fa989d553e2597",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/lib.rs",
+      "line": 146,
+      "line_text": "    pub trait Consumer: Clone + Send + 'static {",
+      "sha256": "3f490165744ec253b4b6a1e10a51a34192c62ece9008bdb6a1c1f315d80764bb",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/engine.rs",
+      "line": 93,
+      "line_text": "impl<E, P, D, B, Key, Con, Pro, NetS, NetR> Engine<E, P, D, B, Key, Con, Pro, NetS, NetR>",
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/engine.rs",
+      "line": 360,
+      "line_text": "    /// Handles the case where the application responds to a request from an external peer.",
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/lib.rs",
+      "line": 114,
+      "line_text": "    /// Consumer disposition for a delivered response.",
+      "sha256": "3f490165744ec253b4b6a1e10a51a34192c62ece9008bdb6a1c1f315d80764bb",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/engine.rs",
+      "line": 77,
+      "line_text": "    /// Holds futures that resolve once the `Producer` has produced the data.",
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/wire.rs",
+      "line": 28,
+      "line_text": "impl<Key: Span> EncodeSize for Message<Key> {",
+      "sha256": "35dc4326bbcf53daefaf30de40c41b2abe5450b7bc61d073d9e30e372c337baa",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/wire.rs",
+      "line": 109,
+      "line_text": "impl<Key: Span> EncodeSize for Payload<Key> {",
+      "sha256": "35dc4326bbcf53daefaf30de40c41b2abe5450b7bc61d073d9e30e372c337baa",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "line": 133,
+      "line_text": "",
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "line": 279,
+      "line_text": "        let (marshal, marshal_mailbox, _) = MarshalActor::init(",
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "follower/src/archive.rs",
+      "line": 288,
+      "line_text": "pub(crate) enum Blocks<E: BufferPooler + Storage + Metrics + Clock> {",
+      "sha256": "2c38f414d398369311d605669f9fe9db6a4bb03356c405bf8c24d5b2da473b31",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/alias.rs",
+      "line": 137,
+      "line_text": "        )",
+      "sha256": "3cab895e0f42a507f6a9e93c9edfbada3c95c8d05a9053916777e93ebe587aa0",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/alias.rs",
+      "line": 194,
+      "line_text": "            finalizations_by_height,",
+      "sha256": "3cab895e0f42a507f6a9e93c9edfbada3c95c8d05a9053916777e93ebe587aa0",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/storage/hybrid/mod.rs",
+      "line": 289,
+      "line_text": "/// Finalized blocks store backed by a prunable archive (a hot cache of",
+      "sha256": "988cca432e9cd10032642f31228435dfaf75241e71d61f9eca9f564a909c5b39",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 149,
+      "line_text": "    cache: cache::Manager<E, V, P::Scheme>,",
+      "sha256": "15790a9a24b6f233aec9ceb7a2fb82e84a55af91a2f04bd5e14f4d00176374b1",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 1012,
+      "line_text": "        // Attempt to fill gaps before handling produce requests so we can serve",
+      "sha256": "15790a9a24b6f233aec9ceb7a2fb82e84a55af91a2f04bd5e14f4d00176374b1",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/resolver/handler.rs",
+      "line": 118,
+      "line_text": "/// Receiver for resolver handler messages.",
+      "sha256": "6b775c121a05a6b76ccd4132795863067f1d29672667d7b4619e69122c09f08d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/store.rs",
+      "line": 118,
+      "line_text": "pub trait Blocks: Send + Sync + Sized + 'static {",
+      "sha256": "df0aa555315a084d1a55b604727c026a001d591918d60306581334baeb725b4d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/store.rs",
+      "line": 285,
+      "line_text": "impl<E, B> Blocks for immutable::Archive<E, B::Digest, B>",
+      "sha256": "df0aa555315a084d1a55b604727c026a001d591918d60306581334baeb725b4d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/store.rs",
+      "line": 389,
+      "line_text": "impl<T, E, B> Blocks for prunable::Archive<T, E, B::Digest, B>",
+      "sha256": "df0aa555315a084d1a55b604727c026a001d591918d60306581334baeb725b4d",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/lib.rs",
+      "line": 62,
+      "line_text": "    pub trait Block: Heightable + Codec + Digestible + Send + Sync + 'static {",
+      "sha256": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 2149,
+      "line_text": "    async fn find_block_in_storage_by_commitment(",
+      "sha256": "15790a9a24b6f233aec9ceb7a2fb82e84a55af91a2f04bd5e14f4d00176374b1",
+      "fresh_tree_blob_verified": true
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/alias.rs",
+      "line": 316,
+      "line_text": "            floor,",
+      "sha256": "3cab895e0f42a507f6a9e93c9edfbada3c95c8d05a9053916777e93ebe587aa0",
+      "fresh_tree_blob_verified": true
+    }
+  ]
+}

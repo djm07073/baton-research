@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-10-03T21:45:03.690829+00:00",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "27b8bd42e75f3020e3dfd53302774bdb808fa579827c259bf2dc712617ad947a"
+    },
+    {
+      "path": "README.md",
+      "sha256": "861d73faee57e85a98d1eecfa0c278ccde66801c37b856d09a1d088505bad0b9"
+    },
+    {
+      "path": "BATON_HANDOFF.md",
+      "sha256": "cb05136315a94e76132513505fa74ca29cbe01173525c64edb2238b048b81065"
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "5de73fea82efdeb9c68396a246a5219fce727f0d541070a8dac77dabac7f31d2"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "d9ccd7b04fecc5a1a61d7a709e0ef6a05539000113a9f057cd71532ffc4fbe92"
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "33db4673933e1a34bb02f1fa28a10f21edf4f1cc47fbeefdd95c59330abc9b27"
+    }
+  ]
+}

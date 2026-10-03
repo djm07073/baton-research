@@ -1,0 +1,56 @@
+[
+  {
+    "path": "runtime/src/lib.rs",
+    "line": 261,
+    "fresh_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "utils/src/futures.rs",
+    "line": 16,
+    "fresh_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "macros/src/lib.rs",
+    "line": 45,
+    "fresh_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "parallel/src/lib.rs",
+    "line": 795,
+    "fresh_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "parallel/src/lib.rs",
+    "line": 1007,
+    "fresh_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "glue/src/stateful/db/any.rs",
+    "line": 93,
+    "fresh_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "storage/src/qmdb/any/batch.rs",
+    "line": 2603,
+    "fresh_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "crates/application/src/consensus/execution.rs",
+    "line": 160,
+    "fresh_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "crates/storage/qmdb/src/store.rs",
+    "line": 266,
+    "fresh_receipt": true,
+    "valid_anchor": true
+  }
+]

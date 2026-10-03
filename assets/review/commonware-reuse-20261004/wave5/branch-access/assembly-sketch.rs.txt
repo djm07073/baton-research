@@ -1,0 +1,65 @@
+// NONCOMPILED ANNOTATED SOURCE SHAPE; NOT IMPLEMENTATION OR AN ADOPTED SCHEMA.
+// All calls below refer to native 534af0ede48affd35b2111522527547b4cc9bf72.
+// `set` is one supported concrete Shared<DB>, not an arbitrary DatabaseSet.
+// Its Unmerkleized is the chosen concrete AnyUnmerkleized/CurrentUnmerkleized.
+// Symbols for effects, outputs, keys, selection and authority are application placeholders.
+// Commonware imports used by the calls:
+use commonware_glue::stateful::db::{DatabaseSet, Merkleized, Unmerkleized};
+// Inherent keyed methods belong to:
+// commonware_glue::stateful::db::any::{AnyUnmerkleized, AnyStaged}
+// or db::current::{CurrentUnmerkleized, CurrentStaged}.
+
+// A. Storage supplies an existing branch draft while an APPLICATION authority
+// validates and keeps the exact base valid across reads/materialization.
+// This authority covers all writer clones; it is not a retained Shared read guard.
+let mut draft = set.new_batches().await;
+// Or, if the exact parent is already sealed and applicable:
+// let mut draft = <ConcreteSet as DatabaseSet<Context>>::fork_batches(&sealed_parent);
+
+// B. Optional unadopted root-deferred sibling construction:
+// Each child gets a separate fresh draft at the SAME authorized applied/sealed anchor.
+// Iterator items are owned Storage-ready mutations (K, Option<Value>) for the
+// retained exact parent prefix relative to that anchor; do not assume arbitrary
+// logical effect merging or native mutation extraction can produce them.
+for (key, value) in replayable_parent_mutations_for_this_child {
+    draft = draft.write(key, value); // Existing pending mutation map; no merkleize.
+}
+let parent_value = draft.get(&read_key).await?;
+// Executor calculates a transaction using parent_value and current attempt context.
+draft = draft.write(output_key, computed_value_or_delete);
+// Further transactions read their own prior writes through the same existing draft.
+// Another sibling repeats A+B from retained effects; it does not clone this draft.
+
+// C. Executor hands ownership of this completed one-shot draft to Storage.
+// Keep exact selected-prefix effects, outputs and direct-work provenance separately
+// before handing off if reconstruction/multiple boundaries will need them.
+let completed_draft = draft;
+// Storage::prepare's opaque result may carry this existing draft plus application
+// binding; this sketch does not fix a struct, type variant or signing boundary.
+
+// D. Storage chooses the needed preparation request, consumes one concrete batch.
+let prepared = completed_draft.merkleize().await?;
+let selected_root = prepared.root();
+// Bind chosen root kind/materialization rule and full exact input/base/runtime/outputs.
+// Executor signs only after this and only with own direct-execution/validation evidence.
+// A tuple set needs separate concrete merkleize calls; the tuple has no generic seal.
+
+// E. Storage canonical apply, after application exact-range/provenance authorization.
+// Run concrete Any/Current validate_batch under the SAME writer/fencing authority.
+// Upstream readers/locks can be used for preflight; do not nest wrapper calls in guards.
+// A preflight does not verify imported proof/material or every later IO error.
+let barrier = set.finalize(prepared).await; // Native recipe applies + starts flush.
+let durable = barrier.durable().await;
+// Failure is not ACK. Success still requires recoverable state/output/cursor/provenance
+// linkage; no upstream database-set cross-store crash transaction is claimed.
+
+// Alternative staged compute ownership; choose only where execution semantics fit:
+let (values, staged) = other_authorized_draft.stage(&read_keys).await?;
+// Executor can return existing `staged` plus application Vec<(usize, Option<Value>)>
+// and Vec<(Key, Option<Value>)>. It must preserve exactly that staged index map.
+// More reads: staged.expand consumes/returns staged and stable appended range.
+// Expand DOES NOT observe newly computed values held only in the caller update vector.
+// Parent-dependent child reads must therefore use actual pending writes, retained effects
+// or another explicitly valid access path; do not treat staged as a mutable overlay.
+let prepared_from_staged = staged.merkleize(indexed_updates, unread_key_upserts).await?;
+// Neither path calls glue Application or requires its actor.

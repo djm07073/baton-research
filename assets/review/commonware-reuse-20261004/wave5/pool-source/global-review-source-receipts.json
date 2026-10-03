@@ -1,0 +1,161 @@
+{
+  "retrieved_at_utc": "2026-10-03T21:57:47.734974+00:00",
+  "sources": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "parallel/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/parallel/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/parallel/src/lib.rs",
+      "bytes": 60893,
+      "sha256": "52a45191faa76acaf0cf724eb04804390fd57b9743435c7de6e82898447c213b",
+      "git_blob": "9780db47130f3814e28e632cbb00d7d530e6a91d",
+      "tree_blob": "9780db47130f3814e28e632cbb00d7d530e6a91d",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/futures.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/utils/src/futures.rs",
+      "bytes": 20255,
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973",
+      "git_blob": "69dc2efc6541d8242911c54be0509b0a7116e0de",
+      "tree_blob": "69dc2efc6541d8242911c54be0509b0a7116e0de",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "macros/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/macros/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/macros/src/lib.rs",
+      "bytes": 13104,
+      "sha256": "274c70751ff1bbd08da72574043582cc340faaffdafe2acf8077e7c9fd2562a2",
+      "git_blob": "94600ae1426fe8114de552aca9f791a3cbec3795",
+      "tree_blob": "94600ae1426fe8114de552aca9f791a3cbec3795",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "macros/impl/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/macros/impl/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/macros/impl/src/lib.rs",
+      "bytes": 23594,
+      "sha256": "ae1d77b4575d18b96b382fe31ed9c9e0eeadd231f82a944f955c0044d7e7dcbf",
+      "git_blob": "30e1333e0a2e6748f1a8bb00d66f209ed910cdd0",
+      "tree_blob": "30e1333e0a2e6748f1a8bb00d66f209ed910cdd0",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/runtime/src/lib.rs",
+      "bytes": 125207,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+      "git_blob": "139a63a62b07caaadb799d3f4b1cfa4a8cd37fca",
+      "tree_blob": "139a63a62b07caaadb799d3f4b1cfa4a8cd37fca",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/tokio/runtime.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/tokio/runtime.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/runtime/src/tokio/runtime.rs",
+      "bytes": 35783,
+      "sha256": "855b836b353b553a0bc24389abe850a985ebcd76cb960b6fedbf5e3d2508c192",
+      "git_blob": "2defd7d93966c22ea4b6c9c22661c11210da7f80",
+      "tree_blob": "2defd7d93966c22ea4b6c9c22661c11210da7f80",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/runtime/src/utils/handle.rs",
+      "bytes": 20715,
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "git_blob": "efd0782b46d254a82f94edc11d6ed2d4ce137ddf",
+      "tree_blob": "efd0782b46d254a82f94edc11d6ed2d4ce137ddf",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/glue/src/stateful/db/any.rs",
+      "bytes": 33453,
+      "sha256": "0e5e12492554098c2fe16c1ffd61c559390b99f8e4027a0c81caea4eb0371441",
+      "git_blob": "7011d7689eb1ceb1bfbdba3c4549e7568cc5ba37",
+      "tree_blob": "7011d7689eb1ceb1bfbdba3c4549e7568cc5ba37",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/storage/src/qmdb/any/batch.rs",
+      "bytes": 207316,
+      "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582",
+      "git_blob": "df9c35a43fda0f248135ff379e5c14ac13ec9981",
+      "tree_blob": "df9c35a43fda0f248135ff379e5c14ac13ec9981",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/native/storage/src/qmdb/batch_chain.rs",
+      "bytes": 15044,
+      "sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee",
+      "git_blob": "dee9c6b86b9025b46c155e05f34f75c7c377bfa2",
+      "tree_blob": "dee9c6b86b9025b46c155e05f34f75c7c377bfa2",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "refcell/kora",
+      "pin": "446b4c7aba80e8358486ddb43a276c5bfa183102",
+      "path": "crates/storage/qmdb/src/store.rs",
+      "url": "https://raw.githubusercontent.com/refcell/kora/446b4c7aba80e8358486ddb43a276c5bfa183102/crates/storage/qmdb/src/store.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/kora/crates/storage/qmdb/src/store.rs",
+      "bytes": 21318,
+      "sha256": "41f005d3917864184aee145c9cc0f29f378df2e1058abea5f98beece054bbf0c",
+      "git_blob": "5b492c7e231806c3777aa347b3b173eebeb593bc",
+      "tree_blob": "5b492c7e231806c3777aa347b3b173eebeb593bc",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/application/src/consensus/execution.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/application/src/consensus/execution.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/constantinople/crates/application/src/consensus/execution.rs",
+      "bytes": 31909,
+      "sha256": "33f25de08c1999a022ff074b098d5c9de02f3776d55579ba24a886e0d9e1c2e4",
+      "git_blob": "cc550fc0a8c846038ee2fc46bf25dec245987347",
+      "tree_blob": "cc550fc0a8c846038ee2fc46bf25dec245987347",
+      "git_blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/application/src/consensus/db.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/application/src/consensus/db.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave5/pool-source/global-review-sources/constantinople/crates/application/src/consensus/db.rs",
+      "bytes": 8888,
+      "sha256": "275c1d3c10b3d325fe65d5b2db14a205448505023b11f914635da6d69ffab998",
+      "git_blob": "d022875648af25ebd25d8b61ac538acfa4f777b7",
+      "tree_blob": "d022875648af25ebd25d8b61ac538acfa4f777b7",
+      "git_blob_verified": true
+    }
+  ]
+}

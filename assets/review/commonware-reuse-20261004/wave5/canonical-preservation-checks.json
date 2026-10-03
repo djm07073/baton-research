@@ -1,0 +1,55 @@
+{
+  "pages": [
+    {
+      "path": "docs/baton/README.md",
+      "sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd",
+      "headings_unchanged": true,
+      "old_source_occurrences_preserved": true
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97",
+      "headings_unchanged": true,
+      "old_source_occurrences_preserved": true
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "240343de16701934f3210d861356cb8882c4c4b3ac8cacb9a6bbac2e9527d192",
+      "headings_unchanged": true,
+      "old_source_occurrences_preserved": true
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "e6aa69292bf74d459d856a0c485a165f2333b7a327489445e169d2520d6b306e",
+      "headings_unchanged": true,
+      "old_source_occurrences_preserved": true
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+      "headings_unchanged": true,
+      "old_source_occurrences_preserved": true
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "754d6c0b411de8549eefc6a8242eca843a9deb981cdd4fb9f5269734c0ad6295",
+      "headings_unchanged": true,
+      "old_source_occurrences_preserved": true
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "7d1b4d26320b1c487b03437b8123923040b6c0f8713eee43f27f11f52cf555ff",
+      "headings_unchanged": true,
+      "old_source_occurrences_preserved": true
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "64c74f0663712717cb12947addd329949b2d3636a7e19f87c5a99016c1a79a52",
+      "headings_unchanged": true,
+      "old_source_occurrences_preserved": true
+    }
+  ],
+  "rust_export_byte_identical": true,
+  "rust_export_sha256": "cf43886aff0008c7a8d646f44899f8ab6ab3d0c5a6e59f0745bd6df276ee09a9",
+  "failures": []
+}

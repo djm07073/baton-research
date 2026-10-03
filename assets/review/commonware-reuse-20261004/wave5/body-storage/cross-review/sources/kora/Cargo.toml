@@ -1,0 +1,144 @@
+[workspace]
+members = ["bin/*", "crates/e2e", "crates/network/*", "crates/node/*", "crates/storage/*", "crates/utilities/*"]
+default-members = ["bin/kora"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+license = "MIT"
+repository = "https://github.com/refcell/kora"
+
+[workspace.lints.rust]
+missing-debug-implementations = "warn"
+missing-docs = "warn"
+unreachable-pub = "warn"
+unused-must-use = "deny"
+rust-2018-idioms = "deny"
+unnameable-types = "warn"
+
+[workspace.lints.rustdoc]
+all = "warn"
+
+[workspace.lints.clippy]
+all = "warn"
+missing-const-for-fn = "warn"
+use-self = "warn"
+option-if-let-else = "warn"
+redundant-clone = "warn"
+
+[profile.dev]
+debug = "line-tables-only"
+split-debuginfo = "packed"
+incremental = false
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+debug = false
+strip = "symbols"
+
+[profile.maxperf]
+inherits = "release"
+lto = "fat"
+codegen-units = 1
+
+[workspace.dependencies]
+# Local crates
+kora-builder = { path = "crates/node/builder" }
+kora-domain = { path = "crates/node/domain" }
+kora-metrics = { path = "crates/node/metrics" }
+kora-cli = { path = "crates/utilities/cli" }
+kora-crypto = { path = "crates/utilities/crypto" }
+kora-backend = { path = "crates/storage/backend" }
+kora-config = { path = "crates/node/config" }
+kora-consensus = { path = "crates/node/consensus" }
+kora-executor = { path = "crates/node/executor" }
+kora-ledger = { path = "crates/node/ledger" }
+kora-marshal = { path = "crates/network/marshal" }
+kora-reporters = { path = "crates/node/reporters" }
+kora-service = { path = "crates/node/service" }
+kora-simplex = { path = "crates/node/simplex" }
+kora-transport = { path = "crates/network/transport" }
+kora-transport-sim = { path = "crates/network/transport-sim" }
+kora-sys = { path = "crates/utilities/sys" }
+kora-handlers = { path = "crates/storage/handlers" }
+kora-overlay = { path = "crates/storage/overlay" }
+kora-qmdb = { path = "crates/storage/qmdb" }
+kora-qmdb-ledger = { path = "crates/storage/qmdb-ledger" }
+kora-traits = { path = "crates/storage/traits" }
+kora-indexer = { path = "crates/storage/indexer" }
+kora-dkg = { path = "crates/node/dkg" }
+kora-runner = { path = "crates/node/runner" }
+kora-rpc = { path = "crates/node/rpc" }
+kora-txpool = { path = "crates/node/txpool" }
+kora-e2e = { path = "crates/e2e" }
+
+commonware-p2p = "2026.5.0"
+commonware-actor = "2026.5.0"
+commonware-utils = "2026.5.0"
+commonware-codec = "2026.5.0"
+commonware-stream = "2026.5.0"
+commonware-macros = "2026.5.0"
+commonware-storage = "2026.5.0"
+commonware-runtime = "2026.5.0"
+commonware-resolver = "2026.5.0"
+commonware-parallel = "2026.5.0"
+commonware-broadcast = "2026.5.0"
+commonware-consensus = "2026.5.0"
+commonware-cryptography = "2026.5.0"
+
+# Alloy
+alloy-primitives = "1.0"
+alloy-consensus = { version = "1.0", features = ["k256"] }
+alloy-eips = "1.0"
+alloy-rlp = "0.3"
+
+# Execution
+revm = { version = "38.0.0", default-features = false, features = ["optional_balance_check", "optional_no_base_fee"] }
+alloy-evm = { version = "0.34.0", default-features = false }
+
+# Async
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+
+# CLI
+clap = { version = "4", features = ["derive"] }
+
+# Tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Error handling
+thiserror = "2"
+eyre = "0.6"
+
+# Concurrency
+parking_lot = "0.12"
+
+# Misc
+async-trait = "0.1"
+anyhow = "1.0.100"
+libc = "0.2"
+rand = "0.8"
+rand_core = "0.6"
+governor = "0.10.4"
+prometheus-client = "0.24.0"
+bytes = "1"
+hex = "0.4"
+k256 = "0.13"
+sha3 = "0.10"
+
+# HTTP
+axum = "0.8"
+reqwest = { version = "0.12", features = ["json"] }
+
+# Testing
+rstest = "0.24"
+tempfile = "3"

@@ -1,0 +1,176 @@
+[
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 22,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/lib.rs",
+    "line": 10,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/tx.rs",
+    "line": 1,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 1,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "runtime/src/utils/mod.rs",
+    "line": 24,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "runtime/src/utils/cell.rs",
+    "line": 6,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "runtime/src/telemetry/metrics/mod.rs",
+    "line": 60,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "p2p/src/lib.rs",
+    "line": 139,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/tx.rs",
+    "line": 7,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "common/src/transaction.rs",
+    "line": 61,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "crypto/src/lib.rs",
+    "line": 17,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "common/Cargo.toml",
+    "line": 10,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "common/src/lib.rs",
+    "line": 4,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "Cargo.toml",
+    "line": 52,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/tx.rs",
+    "line": 32,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/Cargo.toml",
+    "line": 10,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 61,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 473,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/metrics.rs",
+    "line": 33,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 81,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 20,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 195,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 414,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 211,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/status.rs",
+    "line": 35,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 160,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 307,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 175,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 13,
+    "independent_receipt": true,
+    "valid_anchor": true
+  }
+]

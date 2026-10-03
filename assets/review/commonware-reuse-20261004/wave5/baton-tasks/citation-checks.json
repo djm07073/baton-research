@@ -1,0 +1,97 @@
+{
+  "report_sha256": "b8112fc405dc958d421ee6bb041a07452329c5115246617958e3752a2cd3dfa6",
+  "sources": [
+    {
+      "path": "runtime/src/lib.rs",
+      "line": 428,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "runtime/src/lib.rs",
+      "line": 261,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "runtime/src/tokio/runtime.rs",
+      "line": 563,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "utils/src/futures.rs",
+      "line": 16,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "utils/src/futures.rs",
+      "line": 77,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "parallel/src/lib.rs",
+      "line": 122,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "macros/src/lib.rs",
+      "line": 45,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "actor/src/lib.rs",
+      "line": 13,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "parallel/src/lib.rs",
+      "line": 795,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "parallel/src/lib.rs",
+      "line": 1007,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "runtime/src/utils/handle.rs",
+      "line": 252,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "consensus/src/multimmit/actors/voter/executor.rs",
+      "line": 37,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    },
+    {
+      "path": "consensus/src/multimmit/actors/voter/executor.rs",
+      "line": 479,
+      "line_exists": true,
+      "sha256_matches": true,
+      "pin_matches": true
+    }
+  ],
+  "failures": []
+}

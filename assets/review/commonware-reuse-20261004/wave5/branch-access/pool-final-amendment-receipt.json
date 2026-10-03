@@ -1,0 +1,19 @@
+{
+  "report_path": "assets/review/commonware-reuse-20261004/wave5/pool-source/REPORT.md",
+  "report_sha256": "880481a271e4f4077d760d6e1378b68eae99d767ee89782eb5922d5346018ab6",
+  "canonical_tx_interfaces_sha256": "64c74f0663712717cb12947addd329949b2d3636a7e19f87c5a99016c1a79a52",
+  "source_path": "sources/nunchi/mempool/src/pool.rs",
+  "source_sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+  "checked_source_lines": {
+    "admission": [
+      126,
+      130
+    ],
+    "height_ttl": [
+      260,
+      280
+    ]
+  },
+  "scope": "narrow TTL/hydration amendment only",
+  "source_based_only": true
+}

@@ -1,0 +1,16 @@
+{
+  "review_sha256": "62864ddc272f8a4deeb10cb430c0d074c15bbefadc23889f187f67a73b12bc09",
+  "page_hashes_match": true,
+  "fresh_sdk_files": 15,
+  "new_external_anchor_count": 9,
+  "new_external_anchors_in_independent_receipts": true,
+  "public_traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "blank_open_decisions": 39,
+  "mermaid_diagrams": 18
+}
