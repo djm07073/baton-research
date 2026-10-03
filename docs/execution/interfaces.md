@@ -4,56 +4,7 @@ Runtime은 tx 계산을, Executor는 branch·저장·peer 통신을, 내부 Resu
 
 ## 인터페이스 개요
 
-```rust
-use std::future::Future;
-
-pub trait Executor: Send {
-    type ExecuteRequest: Send;
-    type RescheduleRequest: Send;
-    type OrderedRange: Send;
-    type Recovery: Send;
-    type Query: Send;
-    type Checkpoint: Send;
-    type ExecutionResult: Send;
-    type CommitResult: Send;
-    type ReadResult: Send;
-    type Error: Send;
-
-    fn execute(
-        &mut self,
-        request: Self::ExecuteRequest,
-    ) -> impl Future<Output = Result<Self::ExecutionResult, Self::Error>> + Send;
-    fn reschedule(
-        &mut self,
-        request: Self::RescheduleRequest,
-    ) -> impl Future<Output = Result<Self::ExecutionResult, Self::Error>> + Send;
-    fn commit(
-        &mut self,
-        range: Self::OrderedRange,
-    ) -> impl Future<Output = Result<Self::CommitResult, Self::Error>> + Send;
-    fn recover(
-        &mut self,
-        recovery: Self::Recovery,
-    ) -> impl Future<Output = Result<Self::Checkpoint, Self::Error>> + Send;
-    fn read(
-        &mut self,
-        query: Self::Query,
-    ) -> impl Future<Output = Result<Self::ReadResult, Self::Error>> + Send;
-}
-
-pub trait Runtime: Send {
-    type State: Send;
-    type Input: Send;
-    type Output: Send;
-    type Error: Send;
-
-    fn execute(
-        &mut self,
-        state: &mut Self::State,
-        input: Self::Input,
-    ) -> impl Future<Output = Result<Self::Output, Self::Error>> + Send;
-}
-```
+Rust 선언: [Executor](../overview/rust-interfaces.md#executor) · [Runtime](../overview/rust-interfaces.md#runtime) — 전체 원형은 「Rust 인터페이스」에서 관리한다.
 
 `ExecuteRequest`는 exact base checkpoint·입력 order·runtime identity·generation을, `RescheduleRequest`는 새 요청과 superseded generation을 식별한다. 구체 struct layout은 미결정이다. `execute` / `reschedule`의 성공은 요청 prefix의 완료한 ExecutionResult이고, worker 취소·미완료를 성공으로 포장하지 않는다. `commit`은 exact OrderedRange·predecessor·evidence 검증과 missing-work 실행을 수행해 state/output/cursor의 recoverable durability가 끝난 뒤에만 CommitResult를 반환한다. Advisory cancellation으로 canonical mutation future를 drop하지 않으며 실패 / lost completion은 §6.5의 recovery 경계를 따른다.
 
@@ -79,35 +30,7 @@ Executor::read의 local 조회 readiness와 `f+1` 결과 인증은 별도다. Si
 
 이 trait는 Executor 내부 결과 인증 역할이다. Executor가 peer 메시지를 받아 `collect` / `verify`에 전달하고, 검증 결과에 따라 state finalization을 확인하거나 §6.7의 state material 검증·적용을 진행한다. 여기의 인증 조회 성공은 material 확보·local durable 적용 완료가 아니다. Peer transport / codec / request·response와 state sync 전환 API의 구체 계약은 §6.6에 남긴다.
 
-```rust
-use std::future::Future;
-
-pub trait ResultService: Send {
-    type ExecutionResult: Send;
-    type SignedStatement: Send;
-    type ExecutionStatement: Send;
-    type ResultCertificate: Send;
-    type Query: Send;
-    type Error: Send;
-
-    fn sign(
-        &mut self,
-        result: Self::ExecutionResult,
-    ) -> impl Future<Output = Result<Self::SignedStatement, Self::Error>> + Send;
-    fn collect(
-        &mut self,
-        signed: Self::SignedStatement,
-    ) -> impl Future<Output = Result<Option<Self::ResultCertificate>, Self::Error>> + Send;
-    fn verify(
-        &mut self,
-        certificate: Self::ResultCertificate,
-    ) -> impl Future<Output = Result<Self::ExecutionStatement, Self::Error>> + Send;
-    fn certificate(
-        &mut self,
-        query: Self::Query,
-    ) -> impl Future<Output = Result<Option<Self::ResultCertificate>, Self::Error>> + Send;
-}
-```
+Rust 선언: [ResultService](../overview/rust-interfaces.md#resultservice) — 전체 원형은 「Rust 인터페이스」에서 관리한다.
 
 `sign`은 완료한 ExecutionResult에서 own direct execution/validation provenance와 irrevocable exact range·canonical input-state·runtime 연결을 검증한 뒤 같은 full statement를 만든다. Advisory speculative order의 결과만으로 서명하지 않으며 ImportedVerified를 자신의 직접 실행으로 바꾸지 않는다. 서명된 결과의 correctness와 local apply/durability는 별도다. Per-block/chunk 등의 공통 서명 boundary는 정하지 않았다. Own statement/signature obligation은 선택한 recovery 계약으로 보관한다.
 

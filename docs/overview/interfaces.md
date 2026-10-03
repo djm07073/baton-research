@@ -1,6 +1,6 @@
 # 인터페이스 읽는 방법
 
-Rust trait는 앞으로 연결할 application API의 초안이다. 실제 Commonware API와 구현할 계약을 구분해서 읽는다.
+전체 선언은 [Rust 인터페이스](rust-interfaces.md)에서 읽는다. Rust trait는 앞으로 연결할 application API의 초안이다. 실제 Commonware API와 구현할 계약을 구분해서 읽는다.
 
 ## Rust trait를 읽는 방법
 
@@ -31,7 +31,7 @@ Rust trait는 앞으로 연결할 application API의 초안이다. 실제 Common
 
 `Baton::on_*`과 `BlockService::publish`는 local admission / 작업 예약 경계다. Native `Reporter`·`Relay`의 synchronous callback에서 느린 I/O를 기다리는 호출로 쓰지 않는다. Future를 반환하는 메서드의 기다림은 application 작업에 한정되며, native cut이 report·planner·direction 회신을 기다리는 조건을 추가하지 않는다. `Executor::commit`은 canonical mutation lifecycle을 소유하므로 advisory job 취소와 같이 취소하지 않는다.
 
-## 2. E2E lifecycle과 sequence diagram
+## E2E 흐름에서 호출 찾기
 
 | 확인할 케이스 | Sequence |
 |---|---|

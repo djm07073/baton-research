@@ -4,24 +4,7 @@ Leader는 원본 reports로 유효 direction을 선택하고, 각 노드의 Bato
 
 ## Leader: report로 Baton 생성
 
-```rust
-use std::future::Future;
-
-pub trait Planner: Send {
-    type Context: Send;
-    type ReportSnapshot: Send;
-    type Candidates: Send;
-    type PreparedPolicy: Send;
-    type Error: Send;
-
-    fn plan(
-        &mut self,
-        context: Self::Context,
-        reports: Self::ReportSnapshot,
-        candidates: Self::Candidates,
-    ) -> impl Future<Output = Result<Option<Self::PreparedPolicy>, Self::Error>> + Send;
-}
-```
+Rust 선언: [Planner](../overview/rust-interfaces.md#planner) — 전체 원형은 「Rust 인터페이스」에서 관리한다.
 
 `ReportSnapshot`은 한 번 닫은 distinct same-context 원본 보고 집합이고 `Candidates`는 bounded admissible full-candidate 집합이다. `Some`은 그 집합의 평가가 끝나고 선택이 유효한 경우만 반환한다. 미완료·유효 후보 부재는 prepared policy로 발표하지 않는다. 이 local background future를 native cut 경로에서 await하지 않는다. Same-prefix tail, budget, 채택·continuation 연결은 아래 기존 미결정 항목 그대로다.
 

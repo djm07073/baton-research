@@ -5,6 +5,7 @@
 | 읽을 문서 | 내용 |
 |---|---|
 | [구현 문서](docs/README.md) · [목차](docs/SUMMARY.md) | 네 레이어, 모듈 책임·Rust trait 초안·source map, E2E sequence, 빈 미결정 정책 표 |
+| [Rust 인터페이스](docs/overview/rust-interfaces.md) · [단일 Rust 파일](docs/assets/interfaces/baton.rs) | 핵심 모듈 6개와 보조 역할 3개의 trait 선언·메서드·레이어 연결 |
 | [연구·논문 초안](baton-paper.md) | 알고리즘, 조건부 안전성·재사용 논증, native prefix 통합 의무, 평가 계획 |
 
 2026-10-03 사용자 구조를 기준으로 구현 개요와 컴포넌트 연결 설명을 정리했다. Bank는 현재 범위에서 제외한다. **Protocol 구현, native 통합 증명, E2E 실행, benchmark 결과는 없다.** 문서의 새 message / owner 이름은 제안 계약이며 existing upstream API와 구분한다.

@@ -4,31 +4,7 @@ Baton은 Executor에 execute / reschedule을 요청한다. 확정 적용 진행�
 
 ## 인터페이스 개요
 
-```rust
-pub trait Baton: Send {
-    type CandidateBlock;
-    type Context;
-    type Report;
-    type Direction;
-    type ExecutionResult;
-    type CommitResult;
-    type PreparedPolicy;
-    type Error;
-
-    fn on_block(&mut self, block: Self::CandidateBlock) -> Result<(), Self::Error>;
-    fn on_context(&mut self, context: Self::Context) -> Result<(), Self::Error>;
-    fn on_report(&mut self, report: Self::Report) -> Result<(), Self::Error>;
-    fn on_direction(&mut self, direction: Self::Direction) -> Result<(), Self::Error>;
-    fn on_execution(&mut self, result: Self::ExecutionResult) -> Result<(), Self::Error>;
-    fn on_planned(
-        &mut self,
-        context: Self::Context,
-        policy: Option<Self::PreparedPolicy>,
-    ) -> Result<(), Self::Error>;
-    fn on_commit(&mut self, result: Self::CommitResult) -> Result<(), Self::Error>;
-    fn prepared_policy(&self) -> Option<Self::PreparedPolicy>;
-}
-```
+Rust 선언: [Baton](../overview/rust-interfaces.md#baton) — 전체 원형은 「Rust 인터페이스」에서 관리한다.
 
 `Context`는 leader view·history·actual parent·rule·window·불변 순서 경계를 결속한 planning context다. `BlockService::ProducerContext`와 같은 타입으로 가정하지 않는다. `on_block`은 body와 authenticated header가 join된 CandidateBlock 수신 경계이며, 단순 StoredBody 알림을 이 입력으로 바꾸지 않는다. Join과 실제 handler 호출은 Baton의 수신 부분 / Commonware 연결부에서 처리한다.
 

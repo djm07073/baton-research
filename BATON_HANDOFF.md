@@ -2,9 +2,15 @@
 
 Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
 
+## Rust 인터페이스 진입점
+
+사용자가 Rust 인터페이스를 찾기 어렵다고 지적하여 [Rust 인터페이스](docs/overview/rust-interfaces.md)를 목차 상단과 시작 페이지에 배치했다. 기존 9개 trait 선언은 이 페이지를 원본으로 모으고 레이어별 상세 계약은 선언의 해당 anchor를 연결한다. 선언 본문은 그대로 유지했다. [단일 Rust 파일](docs/assets/interfaces/baton.rs)은 이 페이지에서 생성하며 문법을 확인했다. 실제 서비스 구현·프로토콜 검증을 수행한 것은 아니다.
+
+문서는 이제 31개 페이지다. GitBook 업로드 대상 워크스페이스는 사용자가 지정한 Baton이며, 현재 GitBook 로그인 세션 확보가 필요한 상태다. GitHub 반영과 GitBook 서비스 업로드는 별개로 확인해야 한다.
+
 ## 2026-10-03 GitBook 형태의 페이지별 문서
 
-현재 수정할 구현 문서 원본은 [Baton Docs](docs/README.md)와 [목차](docs/SUMMARY.md)의 30개 페이지다. 전체 구조, Tx, Consensus, Baton, Execution, E2E, 개발·참고자료로 나눠 각각 검토한다. `.gitbook.yaml`은 GitBook Git Sync에 연결할 구조이며 계정 연결·서비스 발행은 수행하지 않았다. 로컬 사이트 빌드와 실행은 저장소 README에 설명한다.
+페이지 분리 당시 [Baton Docs](docs/README.md)와 [목차](docs/SUMMARY.md)를 30개 페이지로 구성했다. 전체 구조, Tx, Consensus, Baton, Execution, E2E, 개발·참고자료로 나눠 각각 검토한다. `.gitbook.yaml`은 GitBook Git Sync에 연결할 구조이며 계정 연결·서비스 발행은 수행하지 않았다. 로컬 사이트 빌드와 실행은 저장소 README에 설명한다.
 
 기존 IMPLEMENTATION_SPEC.md는 이전 섹션 링크를 새 페이지로 안내하는 진입점이다. 원본 본문과 18개 그림은 [분리 직전 스냅샷](archive/2026-10-03-before-gitbook/README.md)에 보존했다. 이전 모든 본문 절과 외부 출처를 새 페이지에 대응시켰으며, 아직 Baton이 canonical 전달을 중계하는 것처럼 적힌 §5.7은 최신 Orderer → Executor 책임에 맞게 정정했다. 39개 미결정 정책 칸은 비워 둔다.
 

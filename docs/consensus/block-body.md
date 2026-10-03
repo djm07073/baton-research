@@ -6,35 +6,7 @@ BlockService가 producer 본문을 생성·저장·전파·조회한다. 실제 
 
 Commonware의 `Automaton`, `Relay`, `Reporter`는 그대로 사용한다. 이를 위한 별도 `Consensus` trait를 다시 만들지 않는다. `BlockService`는 그 callback에 실제 body를 연결하는 application trait다.
 
-```rust
-use std::future::Future;
-
-pub trait BlockService: Send {
-    type ProducerContext: Send;
-    type Digest: Send;
-    type BlockRef: Send;
-    type StoredBody: Send;
-    type Retire: Send;
-    type Error: Send;
-
-    fn build(
-        &mut self,
-        context: Self::ProducerContext,
-    ) -> impl Future<Output = Result<Option<Self::StoredBody>, Self::Error>> + Send;
-    fn verify(
-        &mut self,
-        context: Self::ProducerContext,
-        digest: Self::Digest,
-    ) -> impl Future<Output = Result<bool, Self::Error>> + Send;
-    fn fetch(
-        &mut self,
-        block: Self::BlockRef,
-    ) -> impl Future<Output = Result<Self::StoredBody, Self::Error>> + Send;
-    fn commitment(&self, body: &Self::StoredBody) -> Self::Digest;
-    fn publish(&mut self, digest: Self::Digest) -> Result<(), Self::Error>;
-    fn on_retire(&mut self, retired: Self::Retire) -> Result<(), Self::Error>;
-}
-```
+Rust 선언: [BlockService](../overview/rust-interfaces.md#blockservice) — 전체 원형은 「Rust 인터페이스」에서 관리한다.
 
 `commitment`는 검증·보관한 body에 결속된 digest를 제공하는 accessor다. Native adapter는 이를 기존 propose receiver에 전달한다. `build`의 `Some(StoredBody)`는 body·필요 parent의 durable custody와 commitment 연결을 확인한 뒤에만 반환한다. `None`은 확정된 build decline이며, temporary missing dependency는 future / native receiver를 pending으로 둔다. `verify(false)`도 expected payload의 permanent invalidity에만 쓴다. Missing bytes·bad peer response는 fetch/retry, storage failure는 성공 custody를 발급하지 않는 경로다. `Error`를 native receiver closure나 `false`로 일괄 변환하지 않는다.
 

@@ -2,18 +2,21 @@
 
 Commonware Multimmit 위에 Tx·Baton·Execution을 연결하는 구현 설계 문서다. **페이지별로 읽고 검토하며, 수정할 원본은 이 docs 폴더의 Markdown이다.**
 
+**Rust API를 검토하려면 [Rust 인터페이스](overview/rust-interfaces.md)부터 읽는다.** 전체 trait와 단일 Rust 파일을 함께 제공한다.
+
 ## 먼저 읽을 페이지
 
 | 순서 | 페이지 | 확인할 내용 |
 |---|---|---|
 | 1 | [전체 아키텍처](overview/architecture.md) | 네 레이어와 데이터·제어·확정 경로 |
 | 2 | [역할과 공통 용어](overview/glossary.md) | 각 모듈의 책임과 완료 조건 |
-| 3 | [정상 E2E](e2e/normal.md) | Tx가 block·실행 결과·로컬 상태가 되는 과정 |
-| 4 | [Execution 역할과 책임](execution/README.md) | Executor의 state finalization·state sync |
+| 3 | [Rust 인터페이스](overview/rust-interfaces.md) | 핵심 모듈 6개·보조 역할 3개의 trait와 단일 Rust 파일 |
+| 4 | [정상 E2E](e2e/normal.md) | Tx가 block·실행 결과·로컬 상태가 되는 과정 |
+| 5 | [Execution 역할과 책임](execution/README.md) | Executor의 state finalization·state sync |
 
 ## 문서 구성
 
-- **전체 구조:** 아키텍처, 용어, P2P와 인터페이스 읽는 방법
+- **전체 구조:** 아키텍처, 용어, Rust 인터페이스, P2P와 인터페이스 읽는 방법
 - **Tx:** 접수·mempool·정적 분석·후보 선택
 - **Consensus:** Multimmit·Block body 송수신·확정 순서 전달
 - **Baton:** Reports·direction·사전 실행·재실행 조율

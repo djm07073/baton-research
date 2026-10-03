@@ -6,6 +6,7 @@
 
 * [전체 아키텍처](overview/architecture.md)
 * [역할과 공통 용어](overview/glossary.md)
+* [Rust 인터페이스](overview/rust-interfaces.md)
 * [P2P와 메시지 경로](overview/networking.md)
 * [인터페이스 읽는 방법](overview/interfaces.md)
 

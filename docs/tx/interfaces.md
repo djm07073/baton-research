@@ -4,48 +4,7 @@
 
 ## 인터페이스 개요
 
-```rust
-use std::future::Future;
-
-pub trait TxPool: Send {
-    type Tx: Send;
-    type Source: Send;
-    type Admission: Send;
-    type Selection: Send;
-    type Batch: Send;
-    type ProposalOutcome: Send;
-    type CommitResult: Send;
-    type Error: Send;
-
-    fn admit(
-        &mut self,
-        tx: Self::Tx,
-        source: Self::Source,
-    ) -> impl Future<Output = Result<Self::Admission, Self::Error>> + Send;
-    fn select(
-        &mut self,
-        request: Self::Selection,
-    ) -> impl Future<Output = Result<Self::Batch, Self::Error>> + Send;
-    fn on_proposal(
-        &mut self,
-        outcome: Self::ProposalOutcome,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-    fn on_commit(
-        &mut self,
-        result: Self::CommitResult,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-}
-
-pub trait TxPolicy: Send {
-    type Tx;
-    type Features;
-    type Decision;
-    type Error;
-
-    fn analyze(&self, tx: &Self::Tx) -> Result<Self::Features, Self::Error>;
-    fn classify(&self, features: &Self::Features) -> Result<Self::Decision, Self::Error>;
-}
-```
+Rust 선언: [TxPool](../overview/rust-interfaces.md#txpool) · [TxPolicy](../overview/rust-interfaces.md#txpolicy) — 전체 원형은 「Rust 인터페이스」에서 관리한다.
 
 `Selection`은 native producer context와 bounded selection limits를 식별한다. `Batch`는 후보이며 block 포함이나 tx 성공의 증거가 아니다. `on_proposal`은 local build 취소·재선택을, `on_commit`은 durable canonical 결과에 따른 lifecycle 갱신을 다룬다. 서로 같은 삭제 조건으로 취급하지 않는다.
 

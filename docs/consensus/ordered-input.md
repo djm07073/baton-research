@@ -4,33 +4,7 @@ Orderer가 검증한 native 증거와 이력에서 연속 확정 입력을 만�
 
 ## 합의와 Baton 연결
 
-```rust
-use std::future::Future;
-
-pub trait Orderer: Send {
-    type Evidence: Send;
-    type OrderedRange: Send;
-    type CommitResult: Send;
-    type Recovery: Send;
-    type Error: Send;
-
-    fn record(
-        &mut self,
-        evidence: Self::Evidence,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-    fn next_range(
-        &mut self,
-    ) -> impl Future<Output = Result<Self::OrderedRange, Self::Error>> + Send;
-    fn acknowledge(
-        &mut self,
-        result: Self::CommitResult,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-    fn recover(
-        &mut self,
-        recovery: Self::Recovery,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-}
-```
+Rust 선언: [Orderer](../overview/rust-interfaces.md#orderer) — 전체 원형은 「Rust 인터페이스」에서 관리한다.
 
 `Evidence`는 exact authenticated source witness와 해당 policy/history 해석을 포함하는 연결이다. Native 알림이나 normalized projection만 저장했다고 witness 보관이 끝나지 않는다. `next_range`는 contiguous irrevocable 입력만 반환하고 unresolved gap에서는 backfill / pending으로 둔다. Included body 미가용을 empty로 바꾸지 않는다. `acknowledge`는 같은 exact range의 durable `CommitResult`를 확인한 뒤 application delivery cursor를 진행한다. Native vote ACK나 body release 요청이 아니다.
 
