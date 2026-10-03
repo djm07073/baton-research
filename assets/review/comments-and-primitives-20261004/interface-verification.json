@@ -1,0 +1,16 @@
+{
+  "traits": [
+    "TxPool",
+    "BlockService",
+    "Orderer",
+    "Baton",
+    "Executor"
+  ],
+  "method_count": 33,
+  "all_methods_have_doc_comments": true,
+  "Baton_has_plan": true,
+  "Executor_has_plan": false,
+  "rustc_edition": 2024,
+  "syntax_check_passed": true,
+  "implementation_or_protocol_validation": false
+}

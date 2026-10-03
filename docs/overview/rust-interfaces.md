@@ -1,6 +1,6 @@
 # Rust interfaces
 
-**Each trait defines a module's inputs, outputs, and responsibility.** Start with its plain-language role, then read the method arguments and return types in the code. The six core modules and two supporting roles are collected here; layer pages explain their detailed completion conditions.
+**Each trait defines a module's inputs, outputs, and responsibility.** Start with its plain-language role, then read the method arguments and return types in the code. The five module interfaces are collected here; layer pages explain their detailed completion conditions.
 
 These declarations propose new application integration. They are not implemented crates or existing Commonware APIs. Concrete associated-type fields, codecs, channels, errors, and worker placement remain undecided. The declarations adopt no new wire schema or policy.
 
@@ -8,24 +8,23 @@ These declarations propose new application integration. They are not implemented
 
 ## Modules and call flow
 
-| Module / supporting role | Methods | Detailed contract |
-|---|---|---|
-| [TxPool](#txpool) | `admit`, `select`, `on_proposal`, `on_commit` | [Inputs, outputs, completion](../tx/interfaces.md) |
-| [TxPolicy](#txpolicy) | `analyze`, `classify` | [Inputs, outputs, completion](../tx/interfaces.md) |
-| [BlockService](#blockservice) | `build`, `verify`, `fetch`, `commitment`, `publish`, `on_retire` | [Inputs, outputs, completion](../consensus/block-body.md) |
-| [Orderer](#orderer) | `record`, `next_range`, `acknowledge`, `recover` | [Inputs, outputs, completion](../consensus/ordered-input.md) |
-| [Baton](#baton) | `on_block`, `on_context`, `on_report`, `on_direction`, `on_execution`, `on_planned`, `on_commit`, `prepared_policy` | [Inputs, outputs, completion](../baton/interfaces.md) |
-| [Executor](#executor) | `plan`, `execute`, `commit`, `recover`, `read` | [Inputs, outputs, completion](../execution/interfaces.md) |
-| [Runtime](#runtime) | `execute` | [Inputs, outputs, completion](../execution/interfaces.md) |
-| [ResultService](#resultservice) | `sign`, `collect`, `verify`, `certificate` | [Inputs, outputs, completion](../execution/interfaces.md) |
+| Module | Methods | Reuse and application responsibility | Detailed contract |
+|---|---|---|---|
+| [TxPool](#txpool) | `admit`, `analyze`, `classify`, `select`, `on_proposal`, `on_commit` | Candidate lifecycle and static policy in one module; selected pool reuse still needs integration | [Tx contracts](../tx/interfaces.md) |
+| [BlockService](#blockservice) | `build`, `verify`, `fetch`, `commitment`, `publish`, `on_retire` | Adapter over Commonware Automaton / Relay / Reporter and body storage / transport primitives; not a ready-made upstream BlockService | [Body contracts and primitives](../consensus/block-body.md) |
+| [Orderer](#orderer) | `record`, `next_range`, `acknowledge`, `recover` | Native evidence/history reuse plus new continuous ordered-delivery integration | [Ordered input](../consensus/ordered-input.md) |
+| [Baton](#baton) | `plan`, `on_block`, `on_context`, `on_report`, `on_direction`, `on_execution`, `on_planned`, `on_commit`, `prepared_policy` | Intended-order reports, bounded direction selection, dissemination, prepared-policy cache | [Direction selection](../baton/direction.md) |
+| [Executor](#executor) | `execute`, `commit`, `recover`, `read`, `sign_result`, `collect_result`, `verify_result`, `result_certificate` | Tree links, transaction effects and certification in one module; reuse QMDB and Commonware crypto/P2P beneath it | [Execution and certification](../execution/interfaces.md) |
 
-**Canonical call order:** Client → `TxPool::admit` → `BlockService::build` → native consensus → `Orderer::next_range` → `Executor::commit` → `Orderer::acknowledge` / `TxPool::on_commit`. Baton requests `Executor::plan` for direction selection and `Executor::execute(block)` for undecided inputs. Executor owns their execution tree; there is no separate Planner trait or reschedule method. ResultService and state sync belong inside Executor and on the Executor ↔ Executor path.
+**Canonical call order:** Client → `TxPool::admit` → `BlockService::build` → native consensus → `Orderer::next_range` → `Executor::commit` → `Orderer::acknowledge` / `TxPool::on_commit`. Baton chooses direction through `Baton::plan` and requests `Executor::execute(block)` for undecided inputs. Executor owns tree handling, transaction execution, result certification, and state sync. No separate Planner, Runtime, ResultService, or reschedule interface is required. Static analysis belongs to TxPool.
 
 Reuse Commonware Automaton, Relay, and Reporter rather than adding a separate Consensus trait. [Block construction and body contracts](../consensus/block-body.md) identify upstream attachment points. [Reading the interfaces](interfaces.md) explains type equality and call semantics.
 
+<a id="txpolicy"></a>
+
 ## TxPool
 
-**TxPool manages transaction candidates.** `admit` receives Tx and Source and returns Admission. `select` receives Selection and returns a candidate Batch. `on_proposal` tracks local proposal outcomes; `on_commit` updates lifecycle from a durable CommitResult. [Detailed contract](../tx/interfaces.md).
+**TxPool manages transaction candidates and static payload policy.** `admit` receives Tx and Source and returns Admission. `select` receives Selection and returns a candidate Batch. `on_proposal` tracks local proposal outcomes; `on_commit` updates lifecycle from a durable CommitResult. [Detailed contract](../tx/interfaces.md).
 
 ```rust
 use std::future::Future;
@@ -33,6 +32,8 @@ use std::future::Future;
 pub trait TxPool: Send {
     type Tx: Send;
     type Source: Send;
+    type Features;
+    type Decision;
     type Admission: Send;
     type Selection: Send;
     type Batch: Send;
@@ -47,6 +48,11 @@ pub trait TxPool: Send {
         tx: Self::Tx,
         source: Self::Source,
     ) -> impl Future<Output = Result<Self::Admission, Self::Error>> + Send;
+    /// Extract static features from the transaction payload without executing state changes.
+    fn analyze(&self, tx: &Self::Tx) -> Result<Self::Features, Self::Error>;
+    /// Evaluate selection or routing policy against the extracted static features.
+    fn classify(&self, features: &Self::Features) -> Result<Self::Decision, Self::Error>;
+
     /// Select a bounded candidate batch under the supplied selection policy.
     /// Selection alone does not retire transactions from the pool.
     fn select(
@@ -67,27 +73,9 @@ pub trait TxPool: Send {
 }
 ```
 
-## TxPolicy
-
-**TxPolicy classifies transactions from their payloads.** `analyze` takes a borrowed Tx and returns Features; `classify` takes borrowed Features and returns Decision. Placement and routing/filtering rules remain undecided. [Detailed contract](../tx/interfaces.md).
-
-```rust
-pub trait TxPolicy: Send {
-    type Tx;
-    type Features;
-    type Decision;
-    type Error;
-
-    /// Extract static features from the transaction payload without executing state changes.
-    fn analyze(&self, tx: &Self::Tx) -> Result<Self::Features, Self::Error>;
-    /// Evaluate selection or routing policy against the extracted static features.
-    fn classify(&self, features: &Self::Features) -> Result<Self::Decision, Self::Error>;
-}
-```
-
 ## BlockService
 
-**BlockService makes producer bodies available and recoverable.** `build` takes ProducerContext and returns an optional StoredBody; `verify` takes ProducerContext and Digest and returns a validity verdict; true requires durable custody; `fetch` takes BlockRef and returns StoredBody. `commitment` extracts Digest, while publish and retire handle local scheduling and retention. [Detailed contract](../consensus/block-body.md).
+**BlockService adapts Commonware primitives to real producer bodies.** `build` takes ProducerContext and returns an optional StoredBody; `verify` takes ProducerContext and Digest and returns a validity verdict; true requires durable custody; `fetch` takes BlockRef and returns StoredBody. `commitment` extracts Digest, while publish and retire handle local scheduling and retention. [Detailed contract](../consensus/block-body.md). The trait below is our integration interface. Keep upstream Automaton / Relay / Reporter callbacks and reuse archive, buffered broadcast, and resolver components; implement the body format, custody checks, and attachment wiring around them. It is not a new P2P or storage engine.
 
 ```rust
 use std::future::Future;
@@ -164,20 +152,36 @@ pub trait Orderer: Send {
 }
 ```
 
+<a id="planner"></a>
+
 ## Baton
 
-**Baton schedules speculative work.** Its handlers receive CandidateBlock, Context, Report, Direction, and local completion results. They return local admission/scheduling success or Error. `prepared_policy` immediately returns an optional completed PreparedPolicy. These returns are not state-finalization approval or remote direction ACKs. [Detailed contract](../baton/interfaces.md).
+**Baton chooses and shares the intended execution order.** Its handlers receive CandidateBlock, Context, Report, Direction, and local completion results. `plan` evaluates a frozen report snapshot over bounded admissible candidates and returns an optional completed PreparedPolicy. The handlers return local admission/scheduling success or Error. `prepared_policy` immediately returns an optional completed PreparedPolicy. These returns are not state-finalization approval or remote direction ACKs. [Detailed contract](../baton/interfaces.md).
 
 ```rust
+use std::future::Future;
+
 pub trait Baton: Send {
     type CandidateBlock;
-    type Context;
+    type Context: Send;
+    type ReportSnapshot: Send;
+    type Candidates: Send;
     type Report;
     type Direction;
     type ExecutionResult;
     type CommitResult;
-    type PreparedPolicy;
+    type PreparedPolicy: Send;
     type Error;
+
+    /// Evaluate a frozen report snapshot over the bounded admissible candidate set.
+    /// Return Some only after valid completed selection; native cut never awaits this work.
+    /// This selects direction; Executor independently manages its parent-linked execution tree.
+    fn plan(
+        &mut self,
+        context: Self::Context,
+        reports: Self::ReportSnapshot,
+        candidates: Self::Candidates,
+    ) -> impl Future<Output = Result<Option<Self::PreparedPolicy>, Self::Error>> + Send;
 
     /// Admit an authenticated header/body pair and request parent-linked speculative execution.
     fn on_block(&mut self, block: Self::CandidateBlock) -> Result<(), Self::Error>;
@@ -191,7 +195,7 @@ pub trait Baton: Send {
     /// Accept a completed execution result only for a matching context.
     /// Executor retains ownership of branch links, checkpoints, and worker lifetimes.
     fn on_execution(&mut self, result: Self::ExecutionResult) -> Result<(), Self::Error>;
-    /// Cache a completed Executor planning result only for its original context and window.
+    /// Cache a completed Baton planning result only for its original context and window.
     /// Late or incomplete evaluation cannot overwrite current prepared policy.
     fn on_planned(
         &mut self,
@@ -207,26 +211,17 @@ pub trait Baton: Send {
 }
 ```
 
-<a id="planner"></a>
-
-## Planning inside Executor
-
-**Executor owns planning and execution-tree handling together.** `plan` receives Context, a frozen ReportSnapshot, and bounded Candidates; it returns an optional PreparedPolicy after completed valid evaluation. Baton collects and authenticates reports, disseminates direction, and keeps the immediate prepared-policy cache. Native cut never awaits planning. [Selection rule](../baton/direction.md).
-
-The former Planner responsibility is merged into Executor. Direction changes produce new parent-linked blocks through the same `execute(block)` entry point. Branch matching, reuse, task priority, stale-result rejection, and cleanup are internal Executor responsibilities; no public reschedule method is needed.
+<a id="runtime"></a>
+<a id="resultservice"></a>
 
 ## Executor
 
-**Executor builds the execution tree and advances its canonical path.** `execute(block)` resolves the parent block hash to a valid checkpoint, links the child, and executes it through Runtime. `commit(range)` promotes the exact finalized path, applies it durably, and prunes conflicting branches. Valid descendants of the new canonical tip remain pending. `plan` performs bounded direction selection; `recover` restores the tree's durable base; `read` queries retained canonical state. Executor also owns peer certification and state sync. [Detailed contract](../execution/interfaces.md).
+**Executor builds the execution tree and advances its canonical path.** `execute(block)` resolves the parent block hash to a valid checkpoint, links the child, and executes its transaction effects. `commit(range)` promotes the exact finalized path, applies it durably, and prunes conflicting branches. Valid descendants of the new canonical tip remain pending. `recover` restores the tree's durable base; `read` queries retained canonical state. Baton owns direction selection. Executor owns peer certification and state sync, using Commonware signing/verification primitives plus application checks for exact order, eligible distinct identities, and matching statements. [Detailed contract](../execution/interfaces.md).
 
 ```rust
 use std::future::Future;
 
 pub trait Executor: Send {
-    type Context: Send;
-    type ReportSnapshot: Send;
-    type Candidates: Send;
-    type PreparedPolicy: Send;
     type Block: Send;
     type OrderedRange: Send;
     type Recovery: Send;
@@ -235,19 +230,14 @@ pub trait Executor: Send {
     type ExecutionResult: Send;
     type CommitResult: Send;
     type ReadResult: Send;
+    type SignedStatement: Send;
+    type ExecutionStatement: Send;
+    type ResultCertificate: Send;
+    type ResultQuery: Send;
     type Error: Send;
 
-    /// Evaluate a frozen report snapshot over the bounded admissible candidate set.
-    /// Return Some only after valid completed selection; native cut never awaits this work.
-    /// Planning reads a tree/context snapshot and cannot hold up canonical commit.
-    fn plan(
-        &mut self,
-        context: Self::Context,
-        reports: Self::ReportSnapshot,
-        candidates: Self::Candidates,
-    ) -> impl Future<Output = Result<Option<Self::PreparedPolicy>, Self::Error>> + Send;
     /// Resolve block.parent_block_hash to the exact valid execution-parent checkpoint.
-    /// Validate context, link the child in the execution tree, and execute through Runtime.
+    /// Validate context, link the child in the execution tree, and compute the transaction effects on that branch.
     /// Reuse only matching completed work; success returns its completed ExecutionResult.
     /// A missing or unfinished parent cannot be executed from an unrelated state.
     fn execute(
@@ -274,76 +264,36 @@ pub trait Executor: Send {
         &mut self,
         query: Self::Query,
     ) -> impl Future<Output = Result<Self::ReadResult, Self::Error>> + Send;
-}
-```
-
-## Runtime
-
-**Runtime computes transaction effects on a supplied branch.** `execute` receives mutable State and Input and returns Output. Executor supplies the valid branch and retains canonical application authority. [Detailed contract](../execution/interfaces.md).
-
-```rust
-use std::future::Future;
-
-pub trait Runtime: Send {
-    type State: Send;
-    type Input: Send;
-    type Output: Send;
-    type Error: Send;
-
-    /// Compute transaction effects on the valid branch state supplied by Executor.
-    /// Return completed outputs; Runtime cannot promote branches or decide canonical order.
-    fn execute(
-        &mut self,
-        state: &mut Self::State,
-        input: Self::Input,
-    ) -> impl Future<Output = Result<Self::Output, Self::Error>> + Send;
-}
-```
-
-## ResultService
-
-**ResultService certifies execution results inside Executor.** `sign` takes completed ExecutionResult and returns SignedStatement. `collect` takes a signed statement and returns an optional ResultCertificate; `verify` returns the verified ExecutionStatement. `certificate` queries an optional existing certificate. Each future carries Error separately. [Detailed contract](../execution/interfaces.md).
-
-```rust
-use std::future::Future;
-
-pub trait ResultService: Send {
-    type ExecutionResult: Send;
-    type SignedStatement: Send;
-    type ExecutionStatement: Send;
-    type ResultCertificate: Send;
-    type Query: Send;
-    type Error: Send;
 
     /// Sign a directly executed or directly validated result for irrevocable exact input.
     /// Bind the canonical input state, runtime, and full result; never sign imported work as own execution.
-    fn sign(
+    fn sign_result(
         &mut self,
         result: Self::ExecutionResult,
     ) -> impl Future<Output = Result<Self::SignedStatement, Self::Error>> + Send;
     /// Verify and collect matching statements from distinct eligible epoch validators.
     /// Return a certificate once f+1 signatures match the full subject; fewer returns None.
-    fn collect(
+    fn collect_result(
         &mut self,
         signed: Self::SignedStatement,
     ) -> impl Future<Output = Result<Option<Self::ResultCertificate>, Self::Error>> + Send;
     /// Verify certificate signatures, exact irrevocable order, and canonical input-state chain.
     /// Verification does not establish state-material availability or durable local application.
-    fn verify(
+    fn verify_result(
         &mut self,
         certificate: Self::ResultCertificate,
     ) -> impl Future<Output = Result<Self::ExecutionStatement, Self::Error>> + Send;
     /// Return a retained certificate for the exact query, if available.
     /// Serving a certificate does not create an own direct-execution signature.
-    fn certificate(
+    fn result_certificate(
         &mut self,
-        query: Self::Query,
+        query: Self::ResultQuery,
     ) -> impl Future<Output = Result<Option<Self::ResultCertificate>, Self::Error>> + Send;
 }
 ```
 
 ## Interface boundary for state finalization and state sync
 
-ResultService is internal to Executor. Executor exchanges peer signatures, certificates, and change sets, verifies results, and applies usable material through its canonical writer, fencing, and durability contract. Imported results cannot become own DirectExecuted signatures.
+Transaction execution and result certification are internal Executor responsibilities. Commonware supplies signing, signature verification, QMDB storage, and network primitives. Executor adds the application statement, exact-order/input-state binding, f+1 distinct-identity collection, and safe durable apply. Executor exchanges peer signatures, certificates, and change sets, verifies results, and applies usable material through its canonical writer, fencing, and durability contract. Imported results cannot become own DirectExecuted signatures.
 
 `Executor::commit` currently identifies the durable canonical application boundary. Concrete methods and structs for peer codec, material requests, verification, and switching remain undecided. These declarations do not claim a complete state-sync API. See [State sync](../execution/state-sync.md) and [Execution responsibilities](../execution/README.md).

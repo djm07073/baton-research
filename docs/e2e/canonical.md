@@ -41,14 +41,12 @@ sequenceDiagram
     participant M as Orderer
     participant O as Executor
     participant Q as QMDB batches
-    participant A as Runtime
     B->>O: execute(block hash, parent block hash, exact inputs/context)
     O->>O: Resolve valid execution parent / link child in tree
     O->>Q: Fork parent batch / create branch
     Q-->>O: Mutable batch
     loop Ordered input blocks
-        O->>A: Runtime executes body against branch state
-        A-->>O: State writes + outputs
+        O->>O: Execute body on branch state → writes and outputs
         O->>Q: Apply pending writes to branch
     end
     O->>Q: Merkleize at requested checkpoint boundary, granularity undecided

@@ -4,7 +4,7 @@
 
 ## QMDB state and reuse boundaries
 
-QMDB here is the authenticated database family implemented in Commonware `storage::qmdb`. Database state is derived from an append-only log of state-changing operations. Runtime interprets transactions/bodies and produces state reads and mutations. QMDB gathers mutations in batches, computes storage operations and roots, and applies/persists valid batches supplied by Executor. QMDB itself is neither a transaction execution engine nor native consensus. [Terminology and lifecycle](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/mod.rs#L1).
+QMDB here is the authenticated database family implemented in Commonware `storage::qmdb`. Database state is derived from an append-only log of state-changing operations. Executor interprets transactions/bodies and produces state reads and mutations. QMDB gathers mutations in batches, computes storage operations and roots, and applies/persists valid batches supplied by Executor. QMDB itself is neither a transaction execution engine nor native consensus. [Terminology and lifecycle](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/mod.rs#L1).
 
 For mutable keyed Any, internal structures include an **operations journal**, **key-to-latest-operation index**, **active-operation bitmap**, and **operations root**. Reads find candidate locations through the index, check the journal operation and key, and return the value. Its snapshot field names the current-key index, not an immutable historical Baton state snapshot. [Any fields](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs#L57), [Lookup](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs#L203).
 
@@ -18,10 +18,9 @@ An unmerkleized batch retains pending writes and its parent branch before applic
 
 ```mermaid
 flowchart TB
-    B[Baton / plan and execute block] --> O[Proposed Executor / planning and execution tree]
+    B[Baton / execute block requests] --> O[Proposed Executor / execution tree]
     ORDER[Orderer / irrevocable OrderedRange] --> O
-    O --> R[Runtime]
-    R -->|reads and pending mutations| U[Unmerkleized batch / parent overlays]
+    O -->|transaction reads and pending mutations| U[Unmerkleized batch / parent overlays]
     U -->|merkleize| K[Merkleized QMDB batch / storage root and ancestry]
     K -->|valid canonical range only| D[DatabaseSet / ManagedDb adapter]
     subgraph Q[Any keyed DB: illustration]
@@ -47,14 +46,14 @@ flowchart TB
     classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
     class U,K,I,L,M,A,C,F reuse;
     class D adapt;
-    class B,ORDER,O,R,J fresh;
+    class B,ORDER,O,J fresh;
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-17.svg)
 
 A merkleized QMDB batch supplies sealed storage work, roots, and ancestry. Executor creates the application checkpoint that additionally binds exact runtime, input prefix, completed execution, and outputs.
 
-The orange DatabaseSet / ManagedDb adapter connects existing APIs to proposed Executor responsibilities; it does not require changing those upstream traits. The internal Any/Current diagram is illustrative, not a variant selection. Keyless, Immutable, and compact have different access and retention structures. Review concrete APIs before choosing reuse scope; no variant is adopted yet. Runtime and Executor are new application responsibilities, while QMDB indexing, journals, and Merkle algorithms remain Commonware responsibilities.
+The orange DatabaseSet / ManagedDb adapter connects existing APIs to proposed Executor responsibilities; it does not require changing those upstream traits. The internal Any/Current diagram is illustrative, not a variant selection. Keyless, Immutable, and compact have different access and retention structures. Review concrete APIs before choosing reuse scope; no variant is adopted yet. Executor transaction/tree logic is a new application responsibility, while QMDB indexing, journals, and Merkle algorithms remain Commonware responsibilities.
 
 Reuse QMDB databases, unmerkleized/merkleized batches, and commit lifecycle. `commonware_glue::stateful` is a reference for parent forks, pending tips, finalization, pruning, and lazy replay. Its block-DAG/marshal contract differs from Multimmit merged producer execution order. **Reuse batch/storage first; assess the full Stateful actor separately.** [Stateful source](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs).
 
@@ -70,7 +69,7 @@ Reuse QMDB databases, unmerkleized/merkleized batches, and commit lifecycle. `co
 
 Merkleize each database's batch and compute its root. DatabaseSet has no single root/merkleize operation. Binding multiple database roots and outputs into one result is an open adapter contract. The names above refer to [database lifecycle traits](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L508); distinguish generic execution commands from upstream methods.
 
-Generic Unmerkleized does not expose identical get/write/delete APIs across every variant. Runtime state access needs an adapter for the selected database's concrete methods. Executor::read is a proposed query contract; DatabaseSet::readers does not promise arbitrary historical cursor snapshots. Query and pruning policy must define which retained checkpoints/versions are readable.
+Generic Unmerkleized does not expose identical get/write/delete APIs across every variant. Executor transaction-state access needs an adapter for the selected database's concrete methods. Executor::read is a proposed query contract; DatabaseSet::readers does not promise arbitrary historical cursor snapshots. Query and pruning policy must define which retained checkpoints/versions are readable.
 
 Identical transaction order and final logical values do not automatically imply identical operations history or roots when checkpoint batching or repeated-key normalization differs.
 
@@ -102,7 +101,7 @@ flowchart LR
 
 Changing `A→B→C` to `A→B→D` submits `execute(D)` with `parent_block_hash = hash(AB)`; Executor links D to completed AB and executes only D at the same S0 and runtime. There is no public reschedule operation. The A in `X→A` has a different input state and cannot be reused just because the block has the same name.
 
-Executor owns planning, validates parent hashes and base/context, and finds reusable checkpoints. It manages internal worker generations and retains parents required by child branches. A reused checkpoint must remain compatible with the current canonical frontier. Once AB is canonical, advisory direction cannot return to A→D. Committing AB retains valid C and D descendants. Committing ABD prunes the competing C branch and the X→A branch; canonical ancestor metadata remains as required for recovery and queries. Pruning must preserve worker-referenced state and checkpoints needed for commit/recovery. Numerical budgets and GC policies remain open.
+Executor validates parent hashes and base/context, and finds reusable checkpoints. It manages internal worker generations and retains parents required by child branches. A reused checkpoint must remain compatible with the current canonical frontier. Once AB is canonical, advisory direction cannot return to A→D. Committing AB retains valid C and D descendants. Committing ABD prunes the competing C branch and the X→A branch; canonical ancestor metadata remains as required for recovery and queries. Pruning must preserve worker-referenced state and checkpoints needed for commit/recovery. Numerical budgets and GC policies remain open.
 
 Mutable keyed Any/Current batch read-through is a **branch-scoped view combining ancestor overlays with the applied database**, not an independent immutable snapshot. This description does not apply to variants such as compact that lack keyed get.
 

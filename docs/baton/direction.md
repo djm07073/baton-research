@@ -1,10 +1,10 @@
 # Choosing direction and executing branches
 
-**Executor chooses a promising order and owns its execution tree; Baton handles reports and direction messages.** The leader evaluates original reports, chooses a valid candidate, and shares advisory direction. Each receiving Baton adjusts its speculative schedule without introducing a direction-approval quorum.
+**Baton chooses and shares a promising order; Executor manages its execution tree.** The leader evaluates original reports, chooses a valid candidate, and shares advisory direction. Each receiving Baton adjusts its speculative schedule without introducing a direction-approval quorum.
 
 ## Leader: choose direction from reports
 
-Rust declaration: [Executor::plan](../overview/rust-interfaces.md#executor). The Rust interfaces page owns the complete declaration.
+Rust declaration: [Baton::plan](../overview/rust-interfaces.md#baton). The Rust interfaces page owns the complete declaration.
 
 `ReportSnapshot` is a once-closed set of distinct, same-context original reports. `Candidates` is a bounded set of admissible full candidates. Return `Some` only when evaluation of that set has completed and the selection is valid. Incomplete evaluation or absence of valid candidates cannot be published as prepared policy. Never await this background future on the native cut path. Tail selection, budgets, adoption, and continuation remain open.
 
@@ -32,7 +32,7 @@ For an illustrative calculation, take `f=1,n=6` and five distinct identities in 
 
 The primary rule selects **P1**: supported prefix length takes priority even though P2 has a larger sum. If a different deadline snapshot contains only `R1=[A,B,C,D]` and `R2=[A,C,D,B]`, three-report support is impossible, so use the fallback. The raw sums are `4+1=5` for P1 and `1+2=3` for P2, selecting P1. Do not subtract the largest f LCP values. This calculation does not establish a global optimum outside the candidate set, native inclusion, or completed execution work.
 
-How to choose the tail after an equally long supported prefix, including any secondary score, remains undecided. A cut does not wait for reports, timers, or Executor planning. Distinguish using a valid base before a candidate is prepared from preserving an already authenticated protected prefix. Native prefix adoption and exact continuation remain unimplemented and unproved.
+How to choose the tail after an equally long supported prefix, including any secondary score, remains undecided. A cut does not wait for reports, timers, or Baton planning. Distinguish using a valid base before a candidate is prepared from preserving an already authenticated protected prefix. Native prefix adoption and exact continuation remain unimplemented and unproved.
 
 Suppose a valid prefix `p=[A1,B1]` is selected after the same immutable frontier. The following comparison assumes the same canonical input state and runtime and valid predecessor closure. It illustrates the requirement, without claiming an executed trace or completed preservation proof.
 

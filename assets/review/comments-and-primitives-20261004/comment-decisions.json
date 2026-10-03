@@ -1,0 +1,36 @@
+{
+  "pageId": "xcDDH0AA03iU2slbiHNo",
+  "comments": [
+    {
+      "commentId": "WlqfMwZtDhYTcxy2neFM",
+      "verifiedTarget": "Planning inside Executor",
+      "request": "Remove the redundant section",
+      "documentationChange": "Removed the section; later ownership correction places direction selection in Baton::plan."
+    },
+    {
+      "commentId": "rlySXmlVgRzby2cBDb1F",
+      "verifiedTarget": "ResultService",
+      "request": "Explain separation and Commonware reuse",
+      "documentationChange": "Removed separate public trait; Executor owns signing/collection/verification/query, using crypto and a collector candidate."
+    },
+    {
+      "commentId": "u5E7LmEB2TSpueymSNwp",
+      "verifiedTarget": "Runtime",
+      "request": "Treat transaction execution as Executor responsibility",
+      "documentationChange": "Removed separate Runtime application trait; Commonware runtime remains task/I/O infrastructure."
+    },
+    {
+      "commentId": "AkTHnW3EgmnsDxjDe1Vo",
+      "verifiedTarget": "TxPolicy",
+      "request": "Merge with TxPool",
+      "documentationChange": "Moved analyze/classify and associated types into TxPool."
+    },
+    {
+      "commentId": "BuVkAC4TMrIvDuSOiauP",
+      "verifiedTarget": "BlockService",
+      "request": "Distinguish upstream primitives from our wrapper",
+      "documentationChange": "Documented native callbacks, body broadcast/archive/resolver reuse and required integration logic."
+    }
+  ],
+  "comment_threads_modified": false
+}

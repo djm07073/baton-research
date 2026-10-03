@@ -1,17 +1,16 @@
 sequenceDiagram
     participant E as Validator Executor
-    participant S as Internal ResultService
     participant P as Peer Validator Executor
     participant R as Certified result consumer
-    E->>S: Completed direct execution with exact context
-    S->>S: Verify own execution and irrevocable order / input-state chain
-    S->>S: Persist own statement / signature obligation
-    S-->>E: Own signed ExecutionStatement
+    E->>E: sign_result(completed direct execution, exact context)
+    E->>E: Verify own execution and irrevocable order / input-state chain
+    E->>E: Persist own statement / signature obligation
+    E->>E: Own signed ExecutionStatement ready
     E-->>P: Execution signature
     P-->>E: Matching execution signatures or result certificate
-    E->>S: Verify distinct epoch identities and exact statement match
+    E->>E: collect_result / verify_result: identities and full statement
     alt f+1 matching eligible signatures verified
-        S-->>E: Verified result certificate
+        E->>E: Verified result certificate ready
         Note over E: State-finalization endpoint verified, local durability is separate
         E-->>P: Result certificate, state material on peer request
         E-->>R: Result certificate + exact input identity

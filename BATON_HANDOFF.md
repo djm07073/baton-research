@@ -1,8 +1,16 @@
 # Baton — current research handoff
 
-Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
+Updated 2026-10-04. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
 
-## 2026-10-04 Executor planning and execution tree
+## 2026-10-04 GitBook comments and planning ownership correction
+
+Five inline comments were read at their exact Rust-interface anchors: BlockService Commonware reuse, merging TxPolicy into TxPool, Runtime ownership, ResultService decomposition/primitive reuse, and removing the redundant Planning inside Executor section. The follow-up user question corrected direction selection ownership: Baton::plan selects direction from reports; Executor handles execution-tree parents, execute/commit, canonical promotion and pruning. The previous merge mistakenly combined these two responsibilities.
+
+The public interface now has five module traits. TxPool absorbs static analyze/classify. Executor owns transaction effects and exposes sign_result, collect_result, verify_result, and result_certificate directly; Runtime and ResultService are no longer application traits. Commonware task runtime, crypto, storage, and transport primitives remain reusable beneath these contracts. Application statement verification and exact-order/input-state checks remain Executor responsibilities. All methods retain English Rust doc comments. Existing historical notes below describe earlier revisions.
+
+Commonware primitive selection is now recorded in each layer and in docs/reference/integration.md. Discovery queried commonware-library MCP v0.0.5 at explicit source v2026.9.0; native Multimmit remains pinned to 534af0ede48affd35b2111522527547b4cc9bf72. Collector/result transport, Stateful lifecycle and QMDB sync are reuse candidates with explicit compatibility and application-verification boundaries. Buffered broadcast is not durable custody; generic collector response counts are not f+1 execution certificates; one-time Stateful bootstrap sync is not repeated normal-path validator sync. No dependency or protocol implementation was changed. Published GitBook revision `TBVjJb5b1ideu6YEBXIq` matches the verified 38-page draft. See [comment and primitive checks](assets/review/comments-and-primitives-20261004/README.md).
+
+## Historical: 2026-10-04 Executor planning and execution tree
 
 The latest user decision merges Planner into Executor and removes the public reschedule method. Executor::plan evaluates bounded direction candidates; execute(block) resolves a valid execution-parent block hash, links the child, and executes through Runtime; commit(range) promotes the exact finalized path, persists it durably, and prunes conflicting branches. Compatible descendants remain pending. Physical reclamation follows worker-reference release and required recovery/query/result/state-sync retention. An execution-parent hash is distinct from a Multimmit producer-header parent; concrete hash/context binding remains open.
 

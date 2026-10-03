@@ -24,7 +24,7 @@ sequenceDiagram
             B->>B: Assemble block hash / execution-parent hash / exact context
             B->>E: execute(block)
             E->>E: Resolve valid parent checkpoint / link child in execution tree
-            E->>E: Reuse matching completed child or execute it through Runtime
+            E->>E: Reuse matching completed child or compute its transaction effects inside Executor
             E-->>B: ExecutionResult (completed prefix of new request)
         end
     end

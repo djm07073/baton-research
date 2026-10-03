@@ -1,6 +1,6 @@
 # Tx layer: roles and flow
 
-**TxPool manages the transactions available for the next block.** It accepts candidates, keeps them available, supplies bounded batches to BlockService, and updates their lifecycle after canonical results. TxPolicy supplies static analysis; whether it runs in a router or during block packing remains undecided.
+**TxPool manages the transactions available for the next block.** It accepts candidates, keeps them available, supplies bounded batches to BlockService, and updates their lifecycle after canonical results. TxPool also supplies static payload analysis and policy hooks; whether it runs in a router or during block packing remains undecided.
 
 ## Roles and responsibilities
 
@@ -32,3 +32,18 @@ The wire protocol, inventory/body exchange, producer targeting, retransmission, 
 | Durability of admission responses | |
 | Proposal cancellation / reselection / retransmission | |
 | Canonical cleanup / retention / GC | |
+
+## Commonware primitives in the transaction layer
+
+**TxPool owns admission and selection; Commonware supplies the networking, encoding and storage building blocks.** Keep static analysis inside `TxPool::analyze` / `classify`, whichever routing or block-filtering policy is eventually chosen.
+
+| Primitive | Where it connects | Application responsibility |
+|---|---|---|
+| `commonware_p2p::authenticated`, `Sender`, `Receiver`, `Recipients` | Tx propagation over logical channels on the existing authenticated network | Tx admission, duplicate identity, peer limits and routing/filtering policy |
+| `commonware_codec::Codec` and `commonware_cryptography::{Signer, Verifier}` | Decode bounded tx messages and verify the chosen tx signature subject | Tx schema, domain, static features and application validity rules |
+| `commonware_runtime` and `commonware_actor::Feedback` | Pool tasks, bounded mailboxes and local completion signals | Pool ownership, admission/selection coordination and feedback semantics |
+| `commonware_storage::queue` (candidate) | Persistent pending-work storage if durable pool admission is selected | Deduplication, indexing, eviction and transaction selection; a queue is not a complete mempool |
+
+The MCP release inventory does not expose a standalone mempool or block-builder crate. It does show that Stateful accepts an application provider that may be backed by a mempool. Keep the existing Constantinople pool candidate under review; do not infer that a ready-made pool exists from that provider interface. The router-versus-filtering-layer choice remains open.
+
+See [versioned primitive evidence and compatibility checks](../reference/integration.md#primitive-reuse-catalog).

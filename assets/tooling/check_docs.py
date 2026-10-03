@@ -101,8 +101,8 @@ def main():
             failures.append('Original sections must be mapped exactly once')
         current = '\n'.join((docs / page['path']).read_text() for page in record['pages'])
         citations = lambda text: Counter(t for t in re.findall(r'\]\(([^\s)]+)\)', text) if urlparse(t).scheme)
-        if citations(current) != citations(original.read_text()):
-            failures.append('External citation occurrences changed during migration')
+        if citations(original.read_text()) - citations(current):
+            failures.append('Original external citation occurrences missing after migration')
         if decisions != 39:
             failures.append(f'Expected 39 preserved blank policy cells, got {decisions}')
         legacy_ids = heading_ids(original.read_text())

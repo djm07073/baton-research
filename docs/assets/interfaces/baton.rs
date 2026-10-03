@@ -6,6 +6,8 @@ use std::future::Future;
 pub trait TxPool: Send {
     type Tx: Send;
     type Source: Send;
+    type Features;
+    type Decision;
     type Admission: Send;
     type Selection: Send;
     type Batch: Send;
@@ -20,6 +22,11 @@ pub trait TxPool: Send {
         tx: Self::Tx,
         source: Self::Source,
     ) -> impl Future<Output = Result<Self::Admission, Self::Error>> + Send;
+    /// Extract static features from the transaction payload without executing state changes.
+    fn analyze(&self, tx: &Self::Tx) -> Result<Self::Features, Self::Error>;
+    /// Evaluate selection or routing policy against the extracted static features.
+    fn classify(&self, features: &Self::Features) -> Result<Self::Decision, Self::Error>;
+
     /// Select a bounded candidate batch under the supplied selection policy.
     /// Selection alone does not retire transactions from the pool.
     fn select(
@@ -37,18 +44,6 @@ pub trait TxPool: Send {
         &mut self,
         result: Self::CommitResult,
     ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-}
-
-pub trait TxPolicy: Send {
-    type Tx;
-    type Features;
-    type Decision;
-    type Error;
-
-    /// Extract static features from the transaction payload without executing state changes.
-    fn analyze(&self, tx: &Self::Tx) -> Result<Self::Features, Self::Error>;
-    /// Evaluate selection or routing policy against the extracted static features.
-    fn classify(&self, features: &Self::Features) -> Result<Self::Decision, Self::Error>;
 }
 
 pub trait BlockService: Send {
@@ -116,13 +111,25 @@ pub trait Orderer: Send {
 
 pub trait Baton: Send {
     type CandidateBlock;
-    type Context;
+    type Context: Send;
+    type ReportSnapshot: Send;
+    type Candidates: Send;
     type Report;
     type Direction;
     type ExecutionResult;
     type CommitResult;
-    type PreparedPolicy;
+    type PreparedPolicy: Send;
     type Error;
+
+    /// Evaluate a frozen report snapshot over the bounded admissible candidate set.
+    /// Return Some only after valid completed selection; native cut never awaits this work.
+    /// This selects direction; Executor independently manages its parent-linked execution tree.
+    fn plan(
+        &mut self,
+        context: Self::Context,
+        reports: Self::ReportSnapshot,
+        candidates: Self::Candidates,
+    ) -> impl Future<Output = Result<Option<Self::PreparedPolicy>, Self::Error>> + Send;
 
     /// Admit an authenticated header/body pair and request parent-linked speculative execution.
     fn on_block(&mut self, block: Self::CandidateBlock) -> Result<(), Self::Error>;
@@ -136,7 +143,7 @@ pub trait Baton: Send {
     /// Accept a completed execution result only for a matching context.
     /// Executor retains ownership of branch links, checkpoints, and worker lifetimes.
     fn on_execution(&mut self, result: Self::ExecutionResult) -> Result<(), Self::Error>;
-    /// Cache a completed Executor planning result only for its original context and window.
+    /// Cache a completed Baton planning result only for its original context and window.
     /// Late or incomplete evaluation cannot overwrite current prepared policy.
     fn on_planned(
         &mut self,
@@ -152,10 +159,6 @@ pub trait Baton: Send {
 }
 
 pub trait Executor: Send {
-    type Context: Send;
-    type ReportSnapshot: Send;
-    type Candidates: Send;
-    type PreparedPolicy: Send;
     type Block: Send;
     type OrderedRange: Send;
     type Recovery: Send;
@@ -164,19 +167,14 @@ pub trait Executor: Send {
     type ExecutionResult: Send;
     type CommitResult: Send;
     type ReadResult: Send;
+    type SignedStatement: Send;
+    type ExecutionStatement: Send;
+    type ResultCertificate: Send;
+    type ResultQuery: Send;
     type Error: Send;
 
-    /// Evaluate a frozen report snapshot over the bounded admissible candidate set.
-    /// Return Some only after valid completed selection; native cut never awaits this work.
-    /// Planning reads a tree/context snapshot and cannot hold up canonical commit.
-    fn plan(
-        &mut self,
-        context: Self::Context,
-        reports: Self::ReportSnapshot,
-        candidates: Self::Candidates,
-    ) -> impl Future<Output = Result<Option<Self::PreparedPolicy>, Self::Error>> + Send;
     /// Resolve block.parent_block_hash to the exact valid execution-parent checkpoint.
-    /// Validate context, link the child in the execution tree, and execute through Runtime.
+    /// Validate context, link the child in the execution tree, and compute the transaction effects on that branch.
     /// Reuse only matching completed work; success returns its completed ExecutionResult.
     /// A missing or unfinished parent cannot be executed from an unrelated state.
     fn execute(
@@ -203,53 +201,29 @@ pub trait Executor: Send {
         &mut self,
         query: Self::Query,
     ) -> impl Future<Output = Result<Self::ReadResult, Self::Error>> + Send;
-}
-
-pub trait Runtime: Send {
-    type State: Send;
-    type Input: Send;
-    type Output: Send;
-    type Error: Send;
-
-    /// Compute transaction effects on the valid branch state supplied by Executor.
-    /// Return completed outputs; Runtime cannot promote branches or decide canonical order.
-    fn execute(
-        &mut self,
-        state: &mut Self::State,
-        input: Self::Input,
-    ) -> impl Future<Output = Result<Self::Output, Self::Error>> + Send;
-}
-
-pub trait ResultService: Send {
-    type ExecutionResult: Send;
-    type SignedStatement: Send;
-    type ExecutionStatement: Send;
-    type ResultCertificate: Send;
-    type Query: Send;
-    type Error: Send;
 
     /// Sign a directly executed or directly validated result for irrevocable exact input.
     /// Bind the canonical input state, runtime, and full result; never sign imported work as own execution.
-    fn sign(
+    fn sign_result(
         &mut self,
         result: Self::ExecutionResult,
     ) -> impl Future<Output = Result<Self::SignedStatement, Self::Error>> + Send;
     /// Verify and collect matching statements from distinct eligible epoch validators.
     /// Return a certificate once f+1 signatures match the full subject; fewer returns None.
-    fn collect(
+    fn collect_result(
         &mut self,
         signed: Self::SignedStatement,
     ) -> impl Future<Output = Result<Option<Self::ResultCertificate>, Self::Error>> + Send;
     /// Verify certificate signatures, exact irrevocable order, and canonical input-state chain.
     /// Verification does not establish state-material availability or durable local application.
-    fn verify(
+    fn verify_result(
         &mut self,
         certificate: Self::ResultCertificate,
     ) -> impl Future<Output = Result<Self::ExecutionStatement, Self::Error>> + Send;
     /// Return a retained certificate for the exact query, if available.
     /// Serving a certificate does not create an own direct-execution signature.
-    fn certificate(
+    fn result_certificate(
         &mut self,
-        query: Self::Query,
+        query: Self::ResultQuery,
     ) -> impl Future<Output = Result<Option<Self::ResultCertificate>, Self::Error>> + Send;
 }

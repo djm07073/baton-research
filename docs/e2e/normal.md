@@ -42,7 +42,6 @@ This diagram shows one arrival order where speculative work finishes first. If c
 sequenceDiagram
     participant C as Client / Tx peer
     participant A as TxPool: admission
-    participant S as TxPolicy
     participant P as TxPool: candidate storage
     participant B as BlockService
     participant O as Executor
@@ -52,8 +51,7 @@ sequenceDiagram
         A-->>C: Rejected
     else Valid transaction
         opt Static analysis placed at admission
-            A->>S: TxPolicy::analyze(tx payload, version)
-            S-->>A: Static features / policy input
+            A->>A: TxPool::analyze / classify(tx payload) → static policy input
         end
         A->>P: Admit(tx_id, tx, optional metadata)
         alt Same tx_id already retained
@@ -64,8 +62,7 @@ sequenceDiagram
         A-->>C: Admission result
         B->>P: TxPool::select(context, limits)
         opt Static analysis placed at packing
-            P->>S: Analyze / filter candidate txs
-            S-->>P: Static features / policy selection
+            P->>P: TxPool::analyze / classify → filter candidates
         end
         P-->>B: Candidate batch
         Note over P,B: Selection / proposal cancellation / reselection policy is open

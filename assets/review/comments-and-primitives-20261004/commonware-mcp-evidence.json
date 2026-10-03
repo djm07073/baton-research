@@ -1,0 +1,134 @@
+{
+  "endpoint": "https://mcp.commonware.xyz",
+  "server": "commonware-library",
+  "server_version": "0.0.5",
+  "indexed_source": "v2026.9.0",
+  "native_pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+  "queries": [
+    {
+      "label": "versions",
+      "tool": "list_versions",
+      "arguments": {},
+      "response_sha256": "5fbcac97ff394fec59065ab56a6441c2d1483bdc66633f00b2a05614f16d590d"
+    },
+    {
+      "label": "crates",
+      "tool": "list_crates",
+      "arguments": {},
+      "response_sha256": "26419a187eb991bcf1ee90142cf28baf2099bfc7c932cbb54af74396cccd4e9b"
+    },
+    {
+      "label": "collector-lib",
+      "tool": "get_file",
+      "arguments": {
+        "path": "collector/src/lib.rs",
+        "version": "v2026.9.0",
+        "start_line": 0,
+        "end_line": 280
+      },
+      "response_sha256": "1b5c56f595471d4f98b43362e72b0c432de0323130a92de2c22a48b4d2923179"
+    },
+    {
+      "label": "collector-p2p",
+      "tool": "get_file",
+      "arguments": {
+        "path": "collector/src/p2p/mod.rs",
+        "version": "v2026.9.0",
+        "start_line": 0,
+        "end_line": 150
+      },
+      "response_sha256": "c9576099e031aa13a81784acd3b5acc083cfe8a6df5b5a1e5b70ff84881691fb"
+    },
+    {
+      "label": "resolver-lib",
+      "tool": "get_file",
+      "arguments": {
+        "path": "resolver/src/lib.rs",
+        "version": "v2026.9.0",
+        "start_line": 0,
+        "end_line": 160
+      },
+      "response_sha256": "0432ecdd667033483fde9ac5b9dcf1f118bc30c5f7bf385970d4c43c74d2cc81"
+    },
+    {
+      "label": "resolver-p2p",
+      "tool": "get_file",
+      "arguments": {
+        "path": "resolver/src/p2p/mod.rs",
+        "version": "v2026.9.0",
+        "start_line": 0,
+        "end_line": 160
+      },
+      "response_sha256": "11c880af20ad272e7f497046d8cf23071a5925ac2e07e44f7acd0e72980d3e74"
+    },
+    {
+      "label": "broadcast-buffered",
+      "tool": "get_file",
+      "arguments": {
+        "path": "broadcast/src/buffered/mod.rs",
+        "version": "v2026.9.0",
+        "start_line": 0,
+        "end_line": 140
+      },
+      "response_sha256": "7d65607f02acaaeeaf93b4ce3efa57d614a8f51182570015732081b0b5548406"
+    },
+    {
+      "label": "storage-lib",
+      "tool": "get_file",
+      "arguments": {
+        "path": "storage/src/lib.rs",
+        "version": "v2026.9.0",
+        "start_line": 0,
+        "end_line": 100
+      },
+      "response_sha256": "b07eb1f0087ea3567d4788ef6e82e924da8999d789ec1726c69fc24402c9dc31"
+    },
+    {
+      "label": "stateful-lib",
+      "tool": "get_file",
+      "arguments": {
+        "path": "glue/src/stateful/mod.rs",
+        "version": "v2026.9.0",
+        "start_line": 0,
+        "end_line": 180
+      },
+      "response_sha256": "a5b7d65f8b8acf59d6c11bf6eccbd2f380abb034325290dd74c00057bc8f70aa"
+    },
+    {
+      "label": "p2p-lib",
+      "tool": "get_file",
+      "arguments": {
+        "path": "p2p/src/lib.rs",
+        "version": "v2026.9.0",
+        "start_line": 0,
+        "end_line": 145
+      },
+      "response_sha256": "3cac688f829ccd61c7c065cd6f3a783adc8b9a89b0f4fb8168cdd74754c3e131"
+    },
+    {
+      "label": "mempool-search",
+      "tool": "search_code",
+      "arguments": {
+        "query": "mempool",
+        "version": "v2026.9.0",
+        "file_type": "all",
+        "max_results": 5
+      },
+      "response_sha256": "ba73bcc136f591c8e929a367980e1f510256a751a9ac0cf41ca67984fb902321"
+    },
+    {
+      "label": "multimmit-search",
+      "tool": "search_code",
+      "arguments": {
+        "query": "multimmit",
+        "version": "v2026.9.0",
+        "max_results": 3
+      },
+      "response_sha256": "5e29edaa46800095f1b05b66f70afd34b09f63e1d59ff4cc7ff9ed51aed8f4cb"
+    }
+  ],
+  "limits": [
+    "Indexed Multimmit query returned no matches; native pin retained.",
+    "No protocol build, dependency upgrade or integration compatibility validated."
+  ]
+}

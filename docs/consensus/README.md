@@ -24,7 +24,7 @@ flowchart TB
     V <-->|events / typed capabilities| C[CoreState / private semantic owner]
     V <-->|append / sync / covering ACK| J[Native journal / checkpoints]
     V <-->|payload callbacks / accepted-artifact notices| A[BlockService / Automaton]
-    C -. new planning / policy bridge .-> P[Baton / Executor planning]
+    C -. new planning / policy bridge .-> P[Baton: direction planning]
     P -. prepared matching candidate .-> C
     C -. new exact evidence export .-> D[Orderer]
     D --> E[Executor]
@@ -65,3 +65,19 @@ Keep producer `Automaton::propose` separate from the leader proposal that combin
 Private native signing computation may overlap durability work. The safety boundary is a durable acknowledgement covering the signing reservation / domain change before a fresh local signature is externally published. The build/sign sequence does not require signature computation itself to start after every fsync. Baton prepared completion grants no signing authority and cannot bypass the native durability/publication gate.
 
 Direct proposal validation and V-QC rescue / view recovery do not simply repeat the same callback. Checking Baton policy only on the direct proposal hook does not establish authenticated inheritance. Predicates before direct voting and the authenticated policy/evidence inherited by rescue and ordered delivery require separate integration. [View recovery](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/view.rs#L1380).
+
+## Commonware primitives in the consensus layer
+
+**Reuse the native consensus engine and generic body services; develop the adapters that connect them to application bodies and exact ordered input.** `BlockService` and `Orderer` are our integration contracts, not names of upstream primitives.
+
+| Primitive | Where it connects | Application responsibility |
+|---|---|---|
+| Pinned `commonware_consensus::multimmit::Engine`; `Automaton`, `Relay`, `Reporter` | Native producer proposal/verification, payload relay and authenticated observations | Body/pool callbacks, custody readiness and evidence export; preserve native consensus authority |
+| `commonware_broadcast::buffered::{Engine, Mailbox}` | Broadcast bodies and serve recent buffered messages | Bind a body to its digest and persist it before claiming durable custody; the bounded buffer can evict data |
+| `commonware_storage::{archive, journal, metadata}` | Body/proof retention and durable recovery metadata | Key schema, retention obligations, delivery cursor and recovery fencing |
+| `commonware_resolver::p2p::{Engine, Producer}` plus `Consumer`, `Resolver` | Fetch missing bodies, policy material and history from peers with retry | Validate returned data against the exact requested digest/context; decide which retained evidence is sufficient |
+| `commonware_p2p::authenticated` and `commonware_codec` | Existing network channels and bounded body/evidence messages | Channel budgets, wire schema and context binding |
+
+Native tip extraction remains the source of ordering facts. Continuous exact-order delivery, frozen Baton policy interpretation and recovery of missing history still need adapters and proofs. Existing Simplex Marshal/Deferred wiring is a useful assembly reference, not a verified unchanged Multimmit adapter.
+
+See [body custody boundaries](block-body.md#body-dissemination-lookup-and-custody) and [versioned primitive evidence](../reference/integration.md#primitive-reuse-catalog).

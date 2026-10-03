@@ -31,7 +31,7 @@
 ## Execution layer
 
 * [Execution: responsibilities](execution/README.md)
-* [Executor, Runtime, and certification interfaces](execution/interfaces.md)
+* [Executor and certification interfaces](execution/interfaces.md)
 * [QMDB branches and canonical application](execution/qmdb.md)
 * [State sync from certified results](execution/state-sync.md)
 

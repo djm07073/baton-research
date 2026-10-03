@@ -9,7 +9,7 @@
 | Tx / pool | New, duplicate, structurally invalid; proposal cancellation; no cleanup before canonical outcome | Not run |
 | Builder / custody | Digest mismatch, missing body/parent, durability failure, late build completion | Not run |
 | Native / delivery | Unresolved gap, authenticated empty, extension, missing history, preserved emitted prefix after restart | Not run |
-| Leader Baton | Threshold/deadline race, duplicate identity, stale context, incomplete Executor planning, cut ready first | Not run |
+| Leader Baton | Threshold/deadline race, duplicate identity, stale context, incomplete Baton planning, cut ready first | Not run |
 | Non-leader Baton | Missed/late direction, missing body, order change, separated producer/executor roles | Not run |
 | Execution | Prefix reuse, input-state/runtime mismatch, canceled-job completion, partial-prefix commit | Not run |
 | QMDB recovery | Crash during commit, lost ACK, same-range redelivery, required checkpoint recovery after pruning | Not run |

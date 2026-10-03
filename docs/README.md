@@ -10,7 +10,7 @@
 |---|---|---|
 | 1 | [Architecture](overview/architecture.md) | Four layers and the data, control, and canonical paths |
 | 2 | [Roles and terminology](overview/glossary.md) | Module responsibilities and completion conditions |
-| 3 | [Rust interfaces](overview/rust-interfaces.md) | Six core traits, two supporting traits, and one Rust export |
+| 3 | [Rust interfaces](overview/rust-interfaces.md) | Five module traits, and one Rust export |
 | 4 | [Normal E2E](e2e/normal.md) | Transaction → block → execution result → durable state |
 | 5 | [Execution responsibilities](execution/README.md) | Executor-owned state finalization and state sync |
 
@@ -19,8 +19,8 @@
 - **Overview:** architecture, terminology, Rust interfaces, P2P, interface-reading guide.
 - **Tx:** admission, mempool, static analysis, candidate selection.
 - **Consensus:** Multimmit, body exchange, finalized ordered input.
-- **Baton:** reports, direction authentication/dissemination, speculative block requests.
-- **Execution:** planning, execution tree, Runtime, QMDB, certification, state sync, recovery.
+- **Baton:** reports, direction selection/authentication/dissemination, speculative block requests.
+- **Execution:** execution tree, transaction effects, QMDB, certification, state sync, recovery.
 - **E2E:** normal flow, body exchange, native consensus, leader planning, reexecution, canonical application, restart, certification, state sync.
 - **Development and references:** Commonware integration anchors and development/verification plans.
 

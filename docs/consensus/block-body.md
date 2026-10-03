@@ -1,6 +1,6 @@
 # Block construction and body exchange
 
-**BlockService supplies the bytes behind a producer commitment.** It builds transaction bodies, retains durable custody, distributes them, and fetches missing content. Executor and Runtime decide application transaction outcomes during ordered execution.
+**BlockService supplies the bytes behind a producer commitment.** It builds transaction bodies, retains durable custody, distributes them, and fetches missing content. Executor decides application transaction outcomes during ordered execution.
 
 ## Interface overview
 

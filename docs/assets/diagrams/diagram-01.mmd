@@ -1,17 +1,15 @@
 flowchart TB
-    C[Client / Tx API] --> T[TxPool]
-    T -. analysis placement undecided .-> X[TxPolicy]
+    C[Client / Tx API] --> T[TxPool: candidates and static policy]
     T -->|candidate batch| B[BlockService]
     B -->|payload / custody| N[commonware_consensus::multimmit]
     N -->|exact evidence / history| M[Orderer]
-    B -->|StoredBody| O[Baton]
+    B -->|StoredBody| O[Baton: reports and direction selection]
     N -. Reporter artifact .-> O
     M -->|OrderedRange| E
     O -. PreparedPolicy .-> H[Native policy hook]
     H -. recheck / freeze .-> N
     O -->|Direction| PE[Peer Baton]
-    O <-->|plan and execute / results| E[Executor: planning and execution tree]
-    E <-->|state / outputs| R[Runtime]
+    O <-->|execute / results| E[Executor: tree, execution and certification]
     E -->|valid batches / durability| S[Commonware QMDB]
     E <-->|signatures / certificates / change sets| V[Peer Executor]
     E -->|CommitResult| T
@@ -21,4 +19,4 @@ flowchart TB
     classDef new fill:#dcfce7,stroke:#16a34a,color:#14532d;
     class N,NET,S reuse;
     class T,B,H adapt;
-    class X,M,O,PE,E,R,V new;
+    class M,O,PE,E,V new;

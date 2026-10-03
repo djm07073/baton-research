@@ -1,14 +1,14 @@
 {
-  "specification": "baton-executor-diagrams.md",
-  "specification_sha256": "1ec602b99e1bac8d1f4c522fd91ff7e6ca2f95e6a948c3d06b9c7720ebe71251",
+  "specification": "baton-comments-diagrams.md",
+  "specification_sha256": "0342d05441635b39d90228a8bee4c15634676727b51c2915d9b8ca71d14788b6",
   "renderer": "mermaid 11.12.0",
   "diagrams": [
     {
       "name": "diagram-01",
       "title": "Four layers",
-      "width": 1045,
-      "height": 962,
-      "source_sha256": "72ea2ebc759b470fed53bc17797bcdefc99a77e5392852edf5686b8e3a90ee95"
+      "width": 974,
+      "height": 986,
+      "source_sha256": "f728228733e59c51bd5f5835f13d2f2fedbd697f7c175214e3c8f080ba63e2e7"
     },
     {
       "name": "diagram-02",
@@ -20,9 +20,9 @@
     {
       "name": "diagram-03",
       "title": "Tx lifecycle: new, duplicate, and invalid transactions",
-      "width": 1326,
-      "height": 1484,
-      "source_sha256": "d601e6c5441f4897777ecac56166f644bbd8b61c1052a264b7d53d6148415e00"
+      "width": 1116,
+      "height": 1666,
+      "source_sha256": "55fd749b7dbc5c4567c0bcf3783600a71cb480d035ebf02ff94e1fe7ca451c6e"
     },
     {
       "name": "diagram-04",
@@ -43,14 +43,14 @@
       "title": "Leader lifecycle: collect reports and disseminate direction",
       "width": 1139,
       "height": 1702,
-      "source_sha256": "055c7c1a4a5bd3873cde50a61fcb0a44ba9ecddcd1ce4b0d7fb3d4ac9dace34b"
+      "source_sha256": "46d3917011d291db4dfdfd769893c3fd86020e2df4728c2175b29c6d0df492bd"
     },
     {
       "name": "diagram-07",
       "title": "Non-leader lifecycle: direction and branch execution",
       "width": 919,
       "height": 1339,
-      "source_sha256": "0494d95e332017e7b7602ae84e98f3ebbaee6a5b5ace399133341a5f382f71bd"
+      "source_sha256": "a5c4df363c5e4b3bdb8a4233cd3b99b4d388ccebcd231c52bbd9ebaa18e2182d"
     },
     {
       "name": "diagram-08",
@@ -62,9 +62,9 @@
     {
       "name": "diagram-09",
       "title": "Execution lifecycle: QMDB branches and canonical promotion",
-      "width": 1122,
-      "height": 2227,
-      "source_sha256": "67f923ca49da720775e337271e93de54b3072b75b3c37508d780d80f1b3a224a"
+      "width": 912,
+      "height": 2247,
+      "source_sha256": "281037ecc8f015633fc59f33313a91ba46158d6638297cf74d08b8c50f56c067"
     },
     {
       "name": "diagram-10",
@@ -76,16 +76,16 @@
     {
       "name": "diagram-11",
       "title": "Result endpoint: direct execution and f+1 certification",
-      "width": 919,
-      "height": 1387,
-      "source_sha256": "578ea56c049e97a576bd2217b3b09a0ab605517b9b7910855721224e623cc26e"
+      "width": 709,
+      "height": 1627,
+      "source_sha256": "3fcbbac2820f0219e71e765609fe30605a23fc59db6ccc099fd89b7585415f92"
     },
     {
       "name": "diagram-12",
       "title": "Planning completion versus proposal freeze",
       "width": 910,
       "height": 1661,
-      "source_sha256": "4e123a4bba47eabf260f085e3eb1b31e111ab7af33679aa245ca9b250cdf240c"
+      "source_sha256": "7008971e6dd05621f815d6994ae474f6f3366ac6b0dcf8982d7542c717fc0612"
     },
     {
       "name": "diagram-13",
@@ -113,14 +113,14 @@
       "title": "Native actors and source layout",
       "width": 1143,
       "height": 962,
-      "source_sha256": "0b853d528c61d1c0d14c56f66ea9c305a057ea4b08a880f0e93661dec3a6f675"
+      "source_sha256": "74051c5b53ede03729f50d6183109e1170a3003bdb3c885ad6e10b0b65303062"
     },
     {
       "name": "diagram-17",
       "title": "QMDB state and reuse boundaries",
       "width": 1656,
-      "height": 1436,
-      "source_sha256": "dda1e6bbda0a9a6440fb2cd45abbebda6dd854dc3be3d44d8522518365ec6f4d"
+      "height": 1332,
+      "source_sha256": "29163783ed697a8f3e4e92cfa8592889929df04a285e3067b24f0245fa700b9a"
     },
     {
       "name": "diagram-18",

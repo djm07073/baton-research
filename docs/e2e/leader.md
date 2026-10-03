@@ -1,6 +1,6 @@
 # Leader reports, direction, and proposal races
 
-**Leader Baton prepares an execution suggestion while native consensus keeps moving.** It closes a report window, asks Executor to choose a valid direction, and disseminates the result. Native Core may freeze a proposal before Executor planning finishes.
+**Leader Baton prepares an execution suggestion while native consensus keeps moving.** It closes a report window, asks Executor to choose a valid direction, and disseminates the result. Native Core may freeze a proposal before Baton planning finishes.
 
 ## Leader lifecycle: collect reports and disseminate direction
 
@@ -9,9 +9,9 @@ sequenceDiagram
     participant N as Native owner / proposed planning bridge
     participant L as Leader Baton
     participant V as Validator Baton
-    participant P as Executor: planning
+    participant P as Baton: planning task
     participant X as Producer / Executor Baton peers
-    par Report window / Executor planning
+    par Report window / Baton planning
         N-->>L: Read-only leader planning context
         L-->>V: Authenticated window context
         loop Valid reports arriving before closure, possibly none
@@ -30,7 +30,7 @@ sequenceDiagram
         L->>L: Local cycle closes, fresh work / context starts next cycle
     and Native cut path
         N->>N: Prepared matching policy or valid NativeBase
-        Note over N,L: Cut does not wait for report count / deadline / Executor planning completion
+        Note over N,L: Cut does not wait for report count / deadline / Baton planning completion
         N->>N: Freeze authenticated proposal policy, native votes
     end
 ```
@@ -46,7 +46,7 @@ Window announcement and binding prepared policy to an actual proposal require in
 ```mermaid
 sequenceDiagram
     participant L as Leader Baton
-    participant P as Executor: planning
+    participant P as Baton: planning task
     participant N as Native leader proposal owner
     participant V as Native validators
     L->>P: Frozen reports / exact planning context

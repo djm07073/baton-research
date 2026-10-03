@@ -19,7 +19,7 @@ The example derives an ordinary BLS roster and separate DA/nullification thresho
 | [Finality owner](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs) | Exact native facts and authentication provenance | Resumable evidence export, retention handoff, history backfill |
 | [Native tip algebra](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/algebra/tips.rs#L143) | Extraction and settledness rules | Verified shared extraction facade and continuous ordered delivery; address private API access |
 | [QMDB Stateful](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs) | Batch fork, merkleize, apply, pending-state management | Branch/canonical adapter for Multimmit exact execution order |
-| [Cryptography](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs) | Namespace/message signing and verification primitives | ExecutionStatement encoding, epoch keys, signer/collector integration |
+| [Cryptography](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs) | Namespace/message signing and verification primitives | Executor statement encoding, epoch keys, signing and collection |
 | [Codec](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/lib.rs) | Write, Read, EncodeSize APIs | Schema, version, and limits for tx/body/report/direction/result |
 
 #### Source reading order
@@ -48,11 +48,37 @@ The pinned [reshare validator assembly](https://github.com/commonwarexyz/monorep
 | 1 | Pin existing Multimmit example and dependencies | Native producer / DA / consensus |
 | 2 | TxPool / BlockService | Tx admission and body exchange, without requiring an application runtime |
 | 3 | Orderer / native evidence export | Sparse native finality → continuous exact input; gap backfill |
-| 4 | Executor / Runtime / QMDB | Canonical ranges, result certification, Executor peer state sync, durable application |
+| 4 | Executor / QMDB | Canonical ranges, result certification, Executor peer state sync, durable application |
 | 5 | Baton candidate intake / parent-linked block requests | Exact-prefix reuse and suffix reexecution |
-| 6 | Reports / Executor planning / direction | No reports, late reports, leader change, cut preemption |
+| 6 | Baton reports / candidate selection / direction | No reports, late reports, leader change, cut preemption |
 | 7 | Native policy adoption / continuation / recovery | Selected-prefix inclusion, exact leading order, no-wait behavior |
 
 Without stage-7 adoption and continuation proofs, advisory scheduling and protected-prefix Baton integration are different completion states. Choose test workloads after deciding application semantics. The plan does not prescribe building a Bank module first.
 
 Stage 4 connects stage-3 canonical input directly through [Orderer → Executor::commit](../consensus/ordered-input.md#consensus-and-baton-integration). Stage 5 then adds candidate intake and speculative execution-tree branches. [Direct-result signing / collection / queries](../e2e/results.md#result-endpoint-direct-execution-and-f1-certification) and [Executor peer state sync](../e2e/state-sync.md#state-sync-from-certified-execution-results) also belong to stage 4 inside Executor, rather than result transport through Baton. Implement concrete signature boundaries, roots, codecs, and key bindings after reviewing their open decisions.
+
+## Primitive reuse catalog
+
+**Prefer an existing primitive before writing a generic service.** The application traits describe responsibility boundaries; they do not prescribe separate implementations of networking, retry, storage or cryptography.
+
+Primitive discovery used the public [Commonware library MCP](https://mcp.commonware.xyz), server `commonware-library` version `0.0.5`, with an explicit `v2026.9.0` source version. `list_versions`, `list_crates`, `get_file` and focused `search_code` queries supplied the inventory below. The adopted native Multimmit source remains pinned to `534af0ede48affd35b2111522527547b4cc9bf72`. A Multimmit search in the indexed release returned no matches; this is a limit of that release inventory, not a reason to replace the native engine.
+
+| Layer | Preferred building blocks | Compatibility / custom boundary |
+|---|---|---|
+| [Transaction](../tx/README.md#commonware-primitives-in-the-transaction-layer) | Authenticated P2P, codec, crypto, runtime/actor; persistent queue or existing pool candidate | Pool semantics and static routing/filtering remain application work |
+| [Consensus](../consensus/README.md#commonware-primitives-in-the-consensus-layer) | Pinned Multimmit callbacks; buffered broadcast, archive, journal, metadata and resolver | Body/custody integration and exact merged-order delivery need adapters |
+| [Baton](../baton/README.md#commonware-primitives-in-the-baton-layer) | Existing P2P, crypto, codec, clock/task infrastructure; optional parallel work | Report rules, direction selection and protected-prefix adoption are custom |
+| [Execution](../execution/README.md#commonware-primitives-in-the-execution-layer) | QMDB/Stateful database lifecycle, crypto, collector, resolver and QMDB sync | Native-order adaptation, f+1 certificate semantics and normal-path validator sync are custom |
+
+### Source evidence from the indexed release
+
+| Source | What was verified |
+|---|---|
+| [Collector traits](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/collector/src/lib.rs) and [P2P collector](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/collector/src/p2p/mod.rs) | `Originator::send/cancel`, `Handler::process`, `Monitor::collected`, P2P Engine/Config/Mailbox; request and response share commitment/digest types |
+| [Buffered broadcast](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/broadcast/src/buffered/mod.rs) | Broadcast, bounded per-peer cache and on-demand cached retrieval; Engine/Mailbox exports |
+| [Resolver](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/resolver/src/lib.rs) and [P2P resolver](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/resolver/src/p2p/mod.rs) | Producer/Consumer verification boundary, retries, targeted and subscriber-aware fetch lifecycle |
+| [Stateful](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/glue/src/stateful/mod.rs) | Pending-parent forks, application compute, finalization/pruning, one-time bootstrap sync, QMDB sync source integration |
+| [Storage inventory](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/storage/src/lib.rs) | QMDB, queue, archive, journal and metadata modules; this inventory alone does not establish a complete mempool |
+| [P2P interfaces](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/p2p/src/lib.rs) | Shared authenticated network and sender/receiver abstractions; local send feedback does not guarantee remote delivery |
+
+Before adopting a candidate, check that it exists at the chosen dependency revision, inspect its concrete trait bounds and wire/storage behavior, and validate the adapter against native Multimmit contexts. If it requires a dependency change, document that change and revalidate native compatibility first. Do not mix the indexed release and native pin into an assumed compatible build. Existing source-pinned links above remain the implementation baseline; MCP discovery is additional design evidence.
