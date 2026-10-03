@@ -6,6 +6,12 @@ Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF
 
 현재 구현 스펙은 [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) 한 파일이다. 사용자 지정 네 레이어(Tx-router / mempool, Native Multimmit, Baton, generic execution / QMDB)와 lifecycle sequence를 중심으로 새 개요를 정리했으며 Bank는 현재 개발 범위에서 제외한다. 미결정 정책은 빈 결정 칸으로 보존한다. 아래 Google Docs revision 표와 상세 구현 계약은 이전 snapshot의 출처이며 새 개요와 자동 동기화하지 않는다. 구현 개요의 문서 검토를 마쳤으며 protocol 구현·E2E·benchmark 결과는 없다.
 
+## Rust 인터페이스와 이름 정리
+
+현재 구현 문서의 중심 모듈은 `TxPool`, `BlockService`, `Orderer`, `Baton`, `Executor`, `Runtime`이다. `TxPolicy`, `Planner`, `ResultService`는 이 안에 조립할 수 있는 보조 trait이며 별도 actor·crate를 필수로 추가하는 결정은 아니다. 기존 controller / owner / signer 등의 표기는 구현 스펙 §1.3의 대응표에서 찾는다. Commonware의 upstream API 이름은 유지한다.
+
+§1.7은 호출 흐름과 associated type 연결을, 각 레이어의 인터페이스 절은 Rust trait 선언 초안을 보여준다. 구체 필드·codec·정책·runtime 배치는 미결정이며 native cut의 no-wait, 실행 결과 / durable 적용 / 결과 인증의 구분을 유지한다. 선언 문법 확인은 서비스 구현이나 프로토콜 실행 검증과 구분한다. 이전 문서 검토의 snapshot 기록은 이 후속 수정의 검토 기록으로 대체하지 않는다.
+
 ## Current document priority and historical document synchronization
 
 1. Latest explicit user decisions.

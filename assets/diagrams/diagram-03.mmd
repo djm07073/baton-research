@@ -1,17 +1,17 @@
 sequenceDiagram
     participant C as Client / Tx peer
-    participant A as Admission
-    participant S as Static analysis / Policy hook
-    participant P as Mempool
-    participant B as Producer body builder
-    participant O as Canonical outcome feed
+    participant A as TxPool: admission
+    participant S as TxPolicy
+    participant P as TxPool: 후보 보관
+    participant B as BlockService
+    participant O as Baton
     C->>A: Tx bytes
     A->>A: Decode / domain / signature / size checks
     alt 구조적으로 잘못된 tx
         A-->>C: Rejected
     else 유효한 tx
         opt Admission 위치를 선택한 경우
-            A->>S: AnalyzeStatic(tx payload, version)
+            A->>S: TxPolicy::analyze(tx payload, version)
             S-->>A: Static features / policy input
         end
         A->>P: Admit(tx_id, tx, optional metadata)
@@ -21,7 +21,7 @@ sequenceDiagram
             P-->>A: New admission
         end
         A-->>C: Admission result
-        B->>P: SelectBatch(context, limits)
+        B->>P: TxPool::select(context, limits)
         opt Packing 위치를 선택한 경우
             P->>S: Analyze / filter candidate txs
             S-->>P: Static features / policy selection

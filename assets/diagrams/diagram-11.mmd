@@ -1,7 +1,7 @@
 sequenceDiagram
-    participant E as Direct executor / QMDB
-    participant S as Execution signer
-    participant C as Result collector
+    participant E as Executor
+    participant S as ResultService: signing
+    participant C as ResultService: collection
     participant V as Other eligible executors
     participant R as Certified result consumer
     E-->>S: Exact input / predecessor / runtime / executed result

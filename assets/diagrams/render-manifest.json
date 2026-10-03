@@ -1,42 +1,42 @@
 {
   "specification": "IMPLEMENTATION_SPEC.md",
-  "specification_sha256": "c84789432b990dbb4b375232ffec5520bcbaa5868c52a56165416e8689fa992b",
+  "specification_sha256": "eaa633a59ccb6c0d6146cb24ba9f0011d2d57a157a26d3a1fa7eb04f7ace5f64",
   "renderer": "mermaid 11.12.0",
   "diagrams": [
     {
       "name": "diagram-01",
       "title": "1.1 네 레이어",
-      "width": 1692,
-      "height": 2049,
-      "source_sha256": "9b98ee47c69695e168606bde31e71d80b88ae026c631e8aaf3d5cb0f279d3311"
+      "width": 959,
+      "height": 1018,
+      "source_sha256": "b02f58074716422d8af23dc6620204239d0fb19ee0b80bb33d29959954eff689"
     },
     {
       "name": "diagram-02",
       "title": "2.1 전체 E2E: tx 입력부터 canonical state까지",
-      "width": 1132,
-      "height": 1341,
-      "source_sha256": "e9085997b03ef971610b91f534574a28af21b47c8685a198629ec9dc9d1f074b"
+      "width": 1135,
+      "height": 1321,
+      "source_sha256": "65539f8083ef5e32e40949fe579a3f20c5d7f152cdafff1466aaeb97f3f91612"
     },
     {
       "name": "diagram-03",
       "title": "2.2 Tx lifecycle: 신규·중복·잘못된 tx",
-      "width": 1318,
+      "width": 1326,
       "height": 1483,
-      "source_sha256": "022a35c41fbe9fd58948c5abd44f9adb57d1ea134cd45a730753c07f1c53484f"
+      "source_sha256": "fc6fefba88cfd1a4eebe0d3c1e3449eb165308d3d6e8c597ad3dd1fcea994cd8"
     },
     {
       "name": "diagram-04",
       "title": "2.3 Block lifecycle: mempool → propose → body 전파",
       "width": 1334,
       "height": 841,
-      "source_sha256": "d5bc43c62ac8d3f60ef73cbcfc853aad2b59b52f6ebb12c02cb073843282f17f"
+      "source_sha256": "c4f4c318085c6309a087afc41bcb216376fa73714dccc1347cf62478256bf78b"
     },
     {
       "name": "diagram-05",
       "title": "2.4 Block lifecycle: verify·본문 누락·검증 실패",
-      "width": 1335,
+      "width": 1334,
       "height": 2051,
-      "source_sha256": "4e656236be545cb101000cc2d72b0e7fdde4b016e4bdee2c2852ace4dcf3c1d3"
+      "source_sha256": "01ba81d1452e0f041df7b4300e8b4e2f1419078a449f32bec063639448bcaf48"
     },
     {
       "name": "diagram-06",
@@ -50,77 +50,77 @@
       "title": "2.6 Baton lifecycle: non-leader의 direction·재실행 요청",
       "width": 919,
       "height": 1300,
-      "source_sha256": "07088786f2d89c7715da81f299cc0b04fc817787306c479a724598203d40c6de"
+      "source_sha256": "e0499d9c9e1f955f0686c2834320be191225fe06b1d13483e3037654a4e443fd"
     },
     {
       "name": "diagram-08",
       "title": "2.7 Cut commit → ordered range → 실행 commit",
       "width": 926,
       "height": 1447,
-      "source_sha256": "ad765ed093cca53b925cfc0324af4d125de6ed765d9b4e5b597b71eebe16b05b"
+      "source_sha256": "4b01c3694fa76aa90819d8740e7927a06e92e767d011a0348b62ac112b551f38"
     },
     {
       "name": "diagram-09",
       "title": "2.8 Execution lifecycle: QMDB 분기 생성과 canonical 승격",
-      "width": 906,
+      "width": 913,
       "height": 2014,
-      "source_sha256": "55cff0c8b9f87238928ca6deb62bb59d2bb7f331b85f6fddd0d83b2c0c895501"
+      "source_sha256": "b87674a91bd79a84e404a5484fb8263678a6de6577609524da76f84b220a902a"
     },
     {
       "name": "diagram-10",
       "title": "2.9 재시작과 backfill",
       "width": 1108,
       "height": 912,
-      "source_sha256": "cb461d188ede556b8cb6347f42b9b7d86cb74b4c06275884ed44d3ce1206df71"
+      "source_sha256": "bdfb7bb4e7f3b9ca4c4b0698fe51b301b22bab180c05787bf599df4cdd702db0"
     },
     {
       "name": "diagram-11",
       "title": "2.10 결과 endpoint: direct execution과 f+1 인증",
       "width": 1119,
       "height": 1290,
-      "source_sha256": "3b2327bc0a860e267790de4e01cee03568337a06d5495c1189eeb04de7d0662c"
+      "source_sha256": "72e05d54ea987a169c64810de8c3102d23704512082f539457b2663eac91a0f4"
     },
     {
       "name": "diagram-12",
       "title": "2.11 Planner completion과 proposal freeze의 경합",
       "width": 910,
       "height": 1655,
-      "source_sha256": "fd911f11a5ede2fa6edb79947a0dcf155aa2e78a5e96d1b01ea8632cfb724efa"
+      "source_sha256": "53c501451a8ebf599b5342304030118f0538ead2d4456f38015e0ebda087960e"
     },
     {
       "name": "diagram-13",
       "title": "2.12 Startup: custody를 준비한 뒤 native recovery",
       "width": 1325,
       "height": 1713,
-      "source_sha256": "f623c1d14ab0d3b524f48ba5138be233ab5583461fa1e88da75a7791a75eb516"
+      "source_sha256": "62e1275ae140f34d374fc8dfc705e5aee84b2a6b4d96b05b70ecb1328b67b35d"
     },
     {
       "name": "diagram-14",
       "title": "2.13 미채택 catch-up 후보: certificate + state material",
       "width": 899,
-      "height": 1366,
-      "source_sha256": "bad474e10a0d2ee4592347d9dcebd5cbf5a3a7e6614634d25d45031b0ec01951"
+      "height": 1349,
+      "source_sha256": "3151d083be64a58b307659493fd1ef5a5682a820cefbab30496f3e8da561a41a"
     },
     {
       "name": "diagram-15",
       "title": "2.14 Native 합의 정상 경로: producer DA → leader proposal → finality",
       "width": 1149,
       "height": 2081,
-      "source_sha256": "bbbfac7d863051d0402a3d640da97913d57486f70b3d0b9ec7989a46c8d94a2f"
+      "source_sha256": "48cee25916142893eb8f544791e1b051da27bf5c50d99684f48922d6f14f6e68"
     },
     {
       "name": "diagram-16",
       "title": "4.6 실제 native actor와 파일 구조",
-      "width": 1161,
-      "height": 986,
-      "source_sha256": "76ccdefc11226aec91bcf5e4c834c54e7b0ef255dcdf81a370e0a2fcfa59c5af"
+      "width": 1143,
+      "height": 962,
+      "source_sha256": "1d8e98ca27b2ec52fcb5ef6dc54fc945bfe78cb29d6e6805a1c51cb01cb5af45"
     },
     {
       "name": "diagram-17",
       "title": "6.3 QMDB state 관리와 재사용 경계",
       "width": 1557,
-      "height": 1412,
-      "source_sha256": "9120fe020b6501853428c1f58a4be1bbb5fb82e1e0e902ad42427f738d4caa53"
+      "height": 1388,
+      "source_sha256": "ea1c61c248badae127a7613c62d2bb791bccee88ea5c45e6d2ed82ac861b61a7"
     },
     {
       "name": "diagram-18",

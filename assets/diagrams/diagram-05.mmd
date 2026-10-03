@@ -1,10 +1,10 @@
 sequenceDiagram
     participant N as Native engine
-    participant A as Automaton / Custody adapter
-    participant S as Body store / Resolver
+    participant A as BlockService: Automaton 연결
+    participant S as BlockService: storage / fetch
     participant P as Body peer
-    participant I as Authenticated block intake
-    participant B as Baton intake
+    participant I as Baton: block 수신
+    participant B as Baton: scheduling
     N->>A: Automaton::verify(Context from native header, payload)
     A->>S: Lookup body and required parent
     alt 필요한 body / parent가 없음
@@ -29,10 +29,10 @@ sequenceDiagram
             alt Covering durable custody succeeds
                 S-->>A: Durable body reference
                 A-->>N: verify(true)
-                A-->>I: BodyReady(durable body, producer context)
+                A-->>I: StoredBody(durable body, producer context)
                 alt Matching authenticated header observation is available
                     I->>I: Match exact body / header identity and source provenance
-                    I-->>B: BlockAvailable(block_ref, body, context)
+                    I-->>B: CandidateBlock(block_ref, body, context)
                 else Header observation or matching context remains unresolved
                     Note over I,B: Candidate join stays pending, native verify completion above is independent
                 end

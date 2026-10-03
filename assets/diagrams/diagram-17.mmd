@@ -1,6 +1,6 @@
 flowchart TB
-    B[Baton controller / Execute and Commit] --> O[Proposed Execution owner / prefix tree]
-    O --> R[Generic Application Runtime]
+    B[Baton / Execute and Commit] --> O[Proposed Executor / prefix tree]
+    O --> R[Runtime]
     R -->|reads and pending mutations| U[Unmerkleized batch / parent overlays]
     U -->|merkleize| K[Merkleized QMDB batch / storage root and ancestry]
     K -->|valid canonical range only| D[DatabaseSet / ManagedDb adapter]
@@ -20,7 +20,7 @@ flowchart TB
     Q -. optional Current layer .-> C[Bitmap grafted structure / Current canonical root]
     D -->|start_sync handles| F[Barrier / durability observation]
     F -->|successful durable observation| J[Proposed durable state-output-cursor coordinator]
-    J -->|recoverable linkage complete: CommitApplied| B
+    J -->|recoverable linkage complete: CommitResult| B
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;

@@ -1,8 +1,8 @@
 sequenceDiagram
     participant L as Leader Baton
     participant B as Non-leader Baton
-    participant S as Body store / Resolver
-    participant E as Execution / Branch owner
+    participant S as BlockService: storage / fetch
+    participant E as Executor
     L-->>B: Direction(context, order, prefix)
     B->>B: Check leader / epoch / view / parent / frontier / wire freshness
     alt 오래되었거나 다른 context
@@ -13,10 +13,10 @@ sequenceDiagram
             B->>B: Keep local work pending, native cut path continues
         else 실행 입력 준비됨
             B->>B: Assign current local job generation
-            B->>E: Reschedule(exact base, new order, generation)
+            B->>E: reschedule(exact base, new order, generation)
             E->>E: Find reusable exact prefix / supersede stale suffix work
             E->>E: Fork retained checkpoint / execute new suffix
-            E-->>B: New branch outcome
+            E-->>B: ExecutionResult (새 요청의 완료 prefix)
         end
     end
     Note over L,B: 실행 결과나 direction 승인 회신을 기다리는 round 없음

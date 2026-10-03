@@ -1,23 +1,23 @@
 sequenceDiagram
     participant C as Client
-    participant T as Tx / Mempool
-    participant N as Consensus attachment
+    participant T as TxPool
+    participant N as Multimmit + BlockService + Orderer
     participant B as Baton
-    participant E as Execution / QMDB
-    C->>T: Submit(tx)
+    participant E as Executor
+    C->>T: admit(tx)
     T-->>C: Admitted(tx_id)
-    N->>T: SelectBatch(producer context, limits)
+    N->>T: TxPool::select(producer context, limits)
     T-->>N: Candidate tx batch
     N->>N: Build body, store + sync, native header / DA
-    N-->>B: BlockAvailable(block_ref, verified body, context)
-    B->>E: Execute(exact base, intended order, generation)
-    E-->>B: Speculative outcome / branch handle
+    N-->>B: CandidateBlock(block_ref, verified body, context)
+    B->>E: execute(exact base, intended order, generation)
+    E-->>B: ExecutionResult / branch handle
     Note over N,B: Native consensus와 report / direction 경로는 병렬 진행
     N-->>B: OrderedRange(exact order, predecessor, evidence)
-    B->>E: Commit(ordered range)
+    B->>E: commit(ordered range)
     E->>E: Reuse matching prefix / execute missing suffix
     E->>E: Durable canonical state + outputs + cursor
-    E-->>B: CommitApplied(cursor, state root, outputs)
+    E-->>B: CommitResult(cursor, state root, outputs)
     B-->>N: Delivery adapter ACK after durability, not native vote
-    B-->>T: CanonicalOutcome(exact range / tx outcomes)
+    B-->>T: TxPool::on_commit(exact range / tx outcomes)
     Note over B,E: 설계의 state-finalization endpoint는 exact order + 동일 statement의 f+1 실행 서명

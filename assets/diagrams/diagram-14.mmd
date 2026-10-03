@@ -17,7 +17,7 @@ sequenceDiagram
             C->>C: Confirm recoverable ImportedVerified provenance
             C-->>V: Locally ready result + original certificate
         else Durable completion unconfirmed or failed
-            Note over C,V: Local ready / CommitApplied를 발행하지 않고 recovery에서 재검증
+            Note over C,V: Local ready / CommitResult를 발행하지 않고 recovery에서 재검증
         end
     end
     Note over P,C: Imported range를 own DirectExecuted signature로 바꾸지 않음

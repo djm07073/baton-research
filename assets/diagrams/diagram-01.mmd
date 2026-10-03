@@ -1,51 +1,25 @@
 flowchart TB
-    C[Client / Tx API] --> T
-    subgraph TX[Tx-router / Tx mempool]
-        T[Tx admission] --> P[Mempool / inclusion adapter]
-        X[Static analysis / policy hook: 위치 미결정]
-        T -. admission에 둘 경우 .-> X
-        P -. packing에 둘 경우 .-> X
-    end
-    subgraph CONS[Consensus attachment]
-        B[Producer application adapter / body builder]
-        D[Body custody / broadcast / fetch]
-        N[commonware_consensus::multimmit]
-        M[Ordered delivery adapter / history recovery]
-        H[Planning context / policy binding hook]
-        B --> D
-        D -->|opaque payload commitment / custody verdict| N
-        N --> M
-    end
-    P -->|tx batch| B
-    subgraph BAT[Baton layer]
-        O[Block intake / execution controller]
-        R[Report connection / leader planner]
-        Q[Direction receive / reschedule]
-        O --> R
-        R --> Q
-    end
-    D -->|BodyReady: body / context| O
-    N -. existing Reporter accepted-artifact notice .-> O
-    M -->|irrevocable exact ordered range| O
-    R -. prepared policy .-> H
-    H -. native proposal binding .-> N
-    subgraph EXEC[Execution layer]
-        E[Execution interface / application runtime]
-        F[Branch owner / execution-prefix tree]
-        S[Commonware QMDB storage / batches]
-        E --> F
-        F --> S
-    end
-    O -->|Execute / Commit| E
-    Q -->|Reschedule| E
-    E -->|Execution outcome / durable commit result| O
-    O -->|durable canonical tx outcome| P
-    NET[Commonware P2P / 하나의 연결 기반] --- TX
-    NET --- CONS
-    NET --- BAT
+    C[Client / Tx API] --> T[TxPool]
+    T -. 분석 위치 미결정 .-> X[TxPolicy]
+    T -->|candidate batch| B[BlockService]
+    B -->|payload / custody| N[commonware_consensus::multimmit]
+    N -->|exact evidence / history| M[Orderer]
+    B -->|StoredBody| O[Baton]
+    N -. Reporter artifact .-> O
+    M -->|OrderedRange| O
+    O <-->|plan / result| P[Planner]
+    O -. PreparedPolicy .-> H[Native policy hook]
+    H -. recheck / freeze .-> N
+    O -->|Direction| PE[Peer Baton]
+    O <-->|commands / results| E[Executor]
+    E <-->|state / outputs| R[Runtime]
+    E -->|valid batches / durability| S[Commonware QMDB]
+    E -->|ExecutionResult| V[ResultService]
+    O -->|CommitResult| T
+    NET[Commonware P2P: 모든 plane 공유] --- N
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef new fill:#dcfce7,stroke:#16a34a,color:#14532d;
     class N,NET,S reuse;
-    class P,B,D,H adapt;
-    class T,X,M,O,R,Q,E,F new;
+    class T,B,H adapt;
+    class X,M,O,P,PE,E,R,V new;

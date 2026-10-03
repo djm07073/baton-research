@@ -4,7 +4,7 @@
 
 | 읽을 문서 | 내용 |
 |---|---|
-| [구현 스펙](IMPLEMENTATION_SPEC.md) | Multimmit example에 Tx / Baton / generic execution / QMDB를 연결하는 네 레이어, 책임·인터페이스·source map, lifecycle sequence, 빈 미결정 정책 표 |
+| [구현 스펙](IMPLEMENTATION_SPEC.md) | 네 레이어, 통일한 모듈 이름·Rust trait 초안·source map, lifecycle sequence, 빈 미결정 정책 표 |
 | [연구·논문 초안](baton-paper.md) | 알고리즘, 조건부 안전성·재사용 논증, native prefix 통합 의무, 평가 계획 |
 
 2026-10-03 사용자 구조를 기준으로 구현 개요와 컴포넌트 연결 설명을 정리했다. Bank는 현재 범위에서 제외한다. **Protocol 구현, native 통합 증명, E2E 실행, benchmark 결과는 없다.** 문서의 새 message / owner 이름은 제안 계약이며 existing upstream API와 구분한다.
