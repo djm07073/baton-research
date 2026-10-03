@@ -1,0 +1,62 @@
+{
+  "read_at_utc": "2026-10-03T21:27:06.244023+00:00",
+  "files": [
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "0827e8c86b8b04788cced1062efea579eb46298aeb2792cdb67ae30294c7c5f2",
+      "prior_headings_preserved": true,
+      "prior_external_urls_preserved": true
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "sha256": "eae0d3a439353ed7d463ae0850e99d0ca3b234b0d92c7a827b64576c6c93b088",
+      "prior_headings_preserved": true,
+      "prior_external_urls_preserved": true
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "b93993c06103578bc129bc8b259c462b986a3ad645cbd03e6cbeb55875ecb49a",
+      "prior_headings_preserved": true,
+      "prior_external_urls_preserved": true
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "33db4673933e1a34bb02f1fa28a10f21edf4f1cc47fbeefdd95c59330abc9b27",
+      "prior_headings_preserved": true,
+      "prior_external_urls_preserved": true
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "d9ccd7b04fecc5a1a61d7a709e0ef6a05539000113a9f057cd71532ffc4fbe92",
+      "prior_headings_preserved": true,
+      "prior_external_urls_preserved": true
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "5de73fea82efdeb9c68396a246a5219fce727f0d541070a8dac77dabac7f31d2",
+      "prior_headings_preserved": true,
+      "prior_external_urls_preserved": true
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "099084ff74c6910b4147febf3bcca5435bc9d8e80fe8140ab1d8d7555b64e6a3",
+      "prior_headings_preserved": true,
+      "prior_external_urls_preserved": true
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "prior_headings_preserved": true,
+      "prior_external_urls_preserved": true
+    }
+  ],
+  "application_rust_blocks_unchanged": true,
+  "traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "tx_open_policy_table_unchanged": true
+}

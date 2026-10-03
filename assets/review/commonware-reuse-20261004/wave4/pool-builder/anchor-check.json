@@ -1,0 +1,275 @@
+[
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 61,
+    "text": "impl<T: PoolTransaction> MempoolHandle<T> {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/lib.rs",
+    "line": 15,
+    "text": "mod pool;"
+  },
+  {
+    "repo": "commonwarexyz/constantinople",
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/mempool/src/webserver/mailbox.rs",
+    "line": 112,
+    "text": "    pub fn try_submit("
+  },
+  {
+    "repo": "paradigmxyz/reth",
+    "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+    "path": "crates/transaction-pool/src/traits.rs",
+    "line": 126,
+    "text": "    /// Imports an _external_ transaction."
+  },
+  {
+    "repo": "paradigmxyz/reth",
+    "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+    "path": "crates/transaction-pool/src/traits.rs",
+    "line": 407,
+    "text": "    fn best_transactions_with_attributes("
+  },
+  {
+    "repo": "paradigmxyz/reth",
+    "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+    "path": "crates/transaction-pool/src/traits.rs",
+    "line": 775,
+    "text": "pub trait TransactionPoolExt: TransactionPool {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 287,
+    "text": "    /// Spawn the actor's event loop with p2p transaction propagation."
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 433,
+    "text": "    fn handle_with_gossip<S>(&mut self, message: Message<T>, sender: &mut S)"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 473,
+    "text": "    fn handle_network<P>(&mut self, peer: P, mut bytes: commonware_runtime::IoBuf)"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 292,
+    "text": "    pub fn start_p2p<E, S, R>(self, context: E, p2p: (S, R)) -> Handle<()>"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 94,
+    "text": "    pub async fn submit_many(&self, txs: Vec<T>) -> Vec<Result<Digest, AdmissionError>> {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/actors/voter/executor.rs",
+    "line": 682,
+    "text": "    /// Spawns the application build for one machine-issued production job."
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 157,
+    "text": "    /// Up to `limit` executable transactions, round-robin across ready nonce"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 108,
+    "text": "        // A same-nonce resubmission replaces the earlier transaction"
+  },
+  {
+    "repo": "paradigmxyz/reth",
+    "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+    "path": "crates/transaction-pool/src/traits.rs",
+    "line": 1109,
+    "text": "/// An `Iterator` that only returns transactions that are ready to be executed."
+  },
+  {
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/payload/builder/src/lib.rs",
+    "line": 578,
+    "text": "            // Ensure we still have capacity for this transaction within the block gas limit."
+  },
+  {
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/payload/builder/src/lib.rs",
+    "line": 650,
+    "text": "                // Notify transactions iterator about the new state."
+  },
+  {
+    "repo": "commonwarexyz/constantinople",
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/mempool/src/webserver/actor.rs",
+    "line": 402,
+    "text": "/// Pops pool entries for a proposal at `height`, recording each served batch."
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 95,
+    "text": "    /// Admit an already stateless-verified transaction."
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "chain/src/application.rs",
+    "line": 896,
+    "text": "    async fn finalized("
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 195,
+    "text": "    pub fn finalized("
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 414,
+    "text": "            Message::Finalized {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/lib.rs",
+    "line": 15,
+    "text": "mod pool;"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 46,
+    "text": "    pub fn new(config: PoolConfig) -> Self {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/pool.rs",
+    "line": 237,
+    "text": "        for (account, new_nonce) in lane_nonces {"
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "mempool/src/actor.rs",
+    "line": 217,
+    "text": "    /// Status of a transaction the pool has seen. In-memory only: history is"
+  },
+  {
+    "repo": "paradigmxyz/reth",
+    "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+    "path": "crates/transaction-pool/src/maintain.rs",
+    "line": 98,
+    "text": "pub fn maintain_transaction_pool_future<N, Client, P, St>("
+  },
+  {
+    "repo": "paradigmxyz/reth",
+    "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+    "path": "crates/transaction-pool/src/maintain.rs",
+    "line": 191,
+    "text": "        // after performing a pool update after a new block we have some time to properly update"
+  },
+  {
+    "repo": "paradigmxyz/reth",
+    "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+    "path": "crates/transaction-pool/src/maintain.rs",
+    "line": 260,
+    "text": "            ev = events.next() =>  {"
+  },
+  {
+    "repo": "paradigmxyz/reth",
+    "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+    "path": "crates/transaction-pool/src/maintain.rs",
+    "line": 491,
+    "text": "                // check if the range of the commit is canonical with the pool's block"
+  },
+  {
+    "repo": "paradigmxyz/reth",
+    "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+    "path": "crates/transaction-pool/src/maintain.rs",
+    "line": 828,
+    "text": "/// Task which manages saving local transactions to the persistent file in case of shutdown."
+  },
+  {
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/transaction-pool/src/tempo_pool.rs",
+    "line": 1323,
+    "text": "    fn on_canonical_state_change(&self, update: CanonicalStateUpdate<'_, Self::Block>) {"
+  },
+  {
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/transaction-pool/src/maintain.rs",
+    "line": 476,
+    "text": "pub async fn maintain_tempo_pool<Client, EvmConfig>(pool: TempoTransactionPool<Client, EvmConfig>)"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/lib.rs",
+    "line": 146,
+    "text": "        fn propose("
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/lib.rs",
+    "line": 228,
+    "text": "    pub trait Relay: Clone + Send + 'static {"
+  },
+  {
+    "repo": "commonwarexyz/monorepo",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/ingress.rs",
+    "line": 89,
+    "text": "/// Ingress mailbox for [super::Engine]."
+  },
+  {
+    "repo": "nunchi-labs/sdk",
+    "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "chain/src/application.rs",
+    "line": 736,
+    "text": "    async fn propose("
+  },
+  {
+    "repo": "commonwarexyz/constantinople",
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/application/src/consensus/lifecycle.rs",
+    "line": 71,
+    "text": "        // Select from the mempool, then execute the selection best effort"
+  },
+  {
+    "repo": "tempoxyz/tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/consensus/application/impl.rs",
+    "line": 206,
+    "text": "        // Subscribe to the payload build. The executor owns the build job"
+  }
+]

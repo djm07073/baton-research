@@ -1,0 +1,119 @@
+[workspace]
+members = [
+    "access-control",
+    "authority",
+    "bridge",
+    "common",
+    "chain",
+    "clob",
+    "coins",
+    "crypto",
+    "dkg",
+    "narae",
+    "xtask",
+    "mempool",
+    "oracle",
+    "rpc",
+    "mcp",
+    "examples/bridge-chain",
+    "examples/coins/chain",
+    "examples/coins/indexer",
+    "examples/custom-module",
+]
+exclude = [
+    "examples/wallet-extension/wasm-crypto",
+    "examples/wallet-extension/fixture-gen",
+]
+resolver = "2"
+
+[workspace.package]
+version = "2026.9.0-alpha.1"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+rust-version = "1.95.0"
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = [
+    'cfg(commonware_stability_ALPHA)',
+    'cfg(commonware_stability_BETA)',
+    'cfg(commonware_stability_GAMMA)',
+    'cfg(commonware_stability_DELTA)',
+    'cfg(commonware_stability_EPSILON)',
+    'cfg(commonware_stability_RESERVED)',
+] }
+
+[workspace.dependencies]
+nunchi-access-control = { version = "2026.9.0-alpha.1", path = "access-control" }
+nunchi-coins = { version = "2026.9.0-alpha.1", path = "coins" }
+nunchi-authority = { version = "2026.9.0-alpha.1", path = "authority" }
+nunchi-bridge = { version = "2026.9.0-alpha.1", path = "bridge" }
+nunchi-chain = { version = "2026.9.0-alpha.1", path = "chain" }
+nunchi-clob = { version = "2026.9.0-alpha.1", path = "clob" }
+nunchi-common = { version = "2026.9.0-alpha.1", path = "common" }
+nunchi-crypto = { version = "2026.9.0-alpha.1", path = "crypto" }
+nunchi-dkg = { version = "2026.9.0-alpha.1", path = "dkg" }
+nunchi-mempool = { version = "2026.9.0-alpha.1", path = "mempool" }
+nunchi-oracle = { version = "2026.9.0-alpha.1", path = "oracle" }
+nunchi-rpc = { version = "2026.9.0-alpha.1", path = "rpc" }
+nunchi-coins-chain = { version = "2026.9.0-alpha.1", path = "examples/coins/chain" }
+nunchi-bridge-chain = { version = "2026.9.0-alpha.1", path = "examples/bridge-chain" }
+nunchi-xtask = { version = "2026.9.0-alpha.1", package = "xtask", path = "xtask" }
+commonware-actor = "2026.9.0"
+commonware-codec = "2026.9.0"
+commonware-coding = "2026.9.0"
+commonware-consensus = "2026.9.0"
+commonware-cryptography = "2026.9.0"
+commonware-formatting = "2026.9.0"
+commonware-glue = "2026.9.0"
+commonware-macros = "2026.9.0"
+commonware-p2p = "2026.9.0"
+commonware-resolver = "2026.9.0"
+commonware-runtime = "2026.9.0"
+commonware-storage = "2026.9.0"
+commonware-stream = "2026.9.0"
+commonware-utils = "2026.9.0"
+commonware-math = "2026.9.0"
+commonware-parallel = "2026.9.0"
+thiserror = "2.0.12"
+bytes = "1.7.1"
+chacha20poly1305 = "0.10.1"
+rand = "0.10.2"
+rand_core = "0.10.1"
+futures = "0.3.31"
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
+clap = "4.6.1"
+toml = "0.9.12"
+governor = "0.10.2"
+prometheus-client = "0.25.0"
+async-trait = "0.1.89"
+jsonrpsee = { version = "0.26.0", features = ["server", "macros"] }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+serde_with = "3"
+bech32 = "0.11"
+axum = "0.8.8"
+tokio = "1.41.0"
+tower-http = "0.6.2"
+
+[profile.bench]
+overflow-checks = true
+
+[profile.release]
+overflow-checks = true
+codegen-units = 1
+lto = true
+
+# Speed up compilation time for dev builds by reducing emitted debug info.
+# NOTE: Debuggers may provide less useful information with this setting.
+# Uncomment this section if you're using a debugger.
+[profile.dev]
+# https://davidlattimore.github.io/posts/2024/02/04/speeding-up-the-rust-edit-build-run-cycle.html
+debug = "line-tables-only"
+overflow-checks = true
+split-debuginfo = "unpacked"
+
+[profile.test]
+debug = "line-tables-only"
+overflow-checks = true
+split-debuginfo = "unpacked"

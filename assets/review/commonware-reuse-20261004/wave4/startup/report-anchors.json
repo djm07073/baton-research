@@ -1,0 +1,226 @@
+[
+  {
+    "source": "native",
+    "path": "p2p/src/authenticated/discovery/network.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 192,
+    "anchor_text": "    pub fn start(mut self) -> Handle<()> {",
+    "source_sha256": "6303cbe80cb21cc1af6c3aeb91e1b6654c0a2d8c1f47d8312a6cb0a8fed71582"
+  },
+  {
+    "source": "native",
+    "path": "p2p/src/authenticated/router/ingress.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 204,
+    "anchor_text": "        // receive the content, so accept the submission without encoding or enqueueing it.",
+    "source_sha256": "3fa0dc6a91d27c90fde14ccff5a647d80e3a5499ae22a7fad84af1e30d6a5544"
+  },
+  {
+    "source": "native",
+    "path": "storage/src/archive/immutable/storage.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 110,
+    "anchor_text": "    async fn init(context: E, cfg: Config<V::Cfg>) -> Result<Self, Error> {",
+    "source_sha256": "a92d48f6e9ae4c6bb150aff6a3e9b80f9fae27ca3240f572727180e4b5d63b1e"
+  },
+  {
+    "source": "native",
+    "path": "broadcast/src/buffered/engine.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 121,
+    "anchor_text": "    pub fn new(context: E, cfg: Config<P, M::Cfg, D>) -> (Self, Mailbox<P, M>) {",
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+  },
+  {
+    "source": "native",
+    "path": "resolver/src/p2p/engine.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 151,
+    "anchor_text": "    pub fn start(mut self, network: (NetS, NetR)) -> Handle<()> {",
+    "source_sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903"
+  },
+  {
+    "source": "native",
+    "path": "consensus/src/multimmit/engine.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 700,
+    "anchor_text": "    pub async fn start(",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "source": "native",
+    "path": "consensus/src/multimmit/engine.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 272,
+    "anchor_text": "pub(crate) async fn verify_recovered_payloads<A, D>(",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "source": "native",
+    "path": "consensus/src/multimmit/actors/voter/actor.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 913,
+    "anchor_text": "            .startup_drain_latency",
+    "source_sha256": "7dc0b0fd04eb3706d6dc4a3873ae5615c2356d859a5102f998e7949c670036bc"
+  },
+  {
+    "source": "native",
+    "path": "storage/src/archive/immutable/storage.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 293,
+    "anchor_text": "    async fn sync(mut self: Box<Self>) -> Result<Box<Self>, Error> {",
+    "source_sha256": "a92d48f6e9ae4c6bb150aff6a3e9b80f9fae27ca3240f572727180e4b5d63b1e"
+  },
+  {
+    "source": "native",
+    "path": "storage/src/archive/mod.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 137,
+    "anchor_text": "    fn sync(self) -> impl Future<Output = Result<Self, Error>> + Send;",
+    "source_sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877"
+  },
+  {
+    "source": "native",
+    "path": "runtime/src/lib.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 287,
+    "anchor_text": "        /// # Mandatory Supervision",
+    "source_sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+  },
+  {
+    "source": "native",
+    "path": "runtime/src/utils/handle.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 189,
+    "anchor_text": "    /// Waits for the first handle to complete and aborts all handles before returning.",
+    "source_sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e"
+  },
+  {
+    "source": "native",
+    "path": "runtime/src/utils/signal.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 125,
+    "anchor_text": "impl Drop for Guard {",
+    "source_sha256": "30349b19075c0e7fe5367fda27bdef75980caf81beb2e30c915841af917b24fb"
+  },
+  {
+    "source": "native",
+    "path": "resolver/src/p2p/engine.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 193,
+    "anchor_text": "            on_stopped => {",
+    "source_sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903"
+  },
+  {
+    "source": "native",
+    "path": "consensus/src/multimmit/actors/voter/executor.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 58,
+    "anchor_text": "    pub(super) fn shutdown_tasks(&mut self) {",
+    "source_sha256": "780e2723d917711ef7800a20de1aadd79048d32904ce38bcf2463994115aacea"
+  },
+  {
+    "source": "native",
+    "path": "consensus/src/multimmit/engine.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 514,
+    "anchor_text": "impl Readiness {",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "source": "native",
+    "path": "consensus/src/multimmit/engine.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 588,
+    "anchor_text": "    /// Consumes the handle and waits for every engine child to stop.",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "source": "native",
+    "path": "consensus/src/multimmit/engine.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 816,
+    "anchor_text": "            let mut shutdown = root.stopped();",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  },
+  {
+    "source": "native",
+    "path": "runtime/src/utils/handle.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 129,
+    "anchor_text": "                    let _ = sender.send(Ok(result));",
+    "source_sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e"
+  },
+  {
+    "source": "native",
+    "path": "runtime/src/utils/supervision.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 145,
+    "anchor_text": "    pub(crate) fn abort(self: &Arc<Self>) {",
+    "source_sha256": "8b534c8f374c33bab1861dcda9d7f8d8b60c3785182b5b35406f66ffa5b9eac0"
+  },
+  {
+    "source": "tempo",
+    "path": "crates/consensus/src/lib.rs",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "line": 148,
+    "anchor_text": "    let (network, consensus_engine) = (",
+    "source_sha256": "d09cb17ecedce40656a4d752748204fcba8077f61fabebfc6a0e981697b7fabc"
+  },
+  {
+    "source": "tempo",
+    "path": "crates/consensus/src/consensus/engine.rs",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "line": 524,
+    "anchor_text": "        let peer_manager = self.peer_manager.start();",
+    "source_sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5"
+  },
+  {
+    "source": "tempo",
+    "path": "crates/consensus/src/alias.rs",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "line": 132,
+    "anchor_text": "        let finalizations_by_height = storage::init_finalizations_archive(",
+    "source_sha256": "3cab895e0f42a507f6a9e93c9edfbada3c95c8d05a9053916777e93ebe587aa0"
+  },
+  {
+    "source": "alto",
+    "path": "chain/src/engine.rs",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "line": 195,
+    "anchor_text": "        let finalizations_by_height = immutable::Archive::init(",
+    "source_sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+  },
+  {
+    "source": "alto",
+    "path": "chain/src/engine.rs",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "line": 465,
+    "anchor_text": "        let marshal_handle = self",
+    "source_sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+  },
+  {
+    "source": "alto",
+    "path": "validator/src/main.rs",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "line": 349,
+    "anchor_text": "        let p2p = network.start();",
+    "source_sha256": "ca8cb60ba125269d23aff966998ed15e0eecf399293da623f3a8bfd73663a53a"
+  },
+  {
+    "source": "tempo",
+    "path": "crates/consensus/src/alias.rs",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "line": 216,
+    "anchor_text": "        if let Some(marshal_stored_height) = marshal_floor.height() {",
+    "source_sha256": "3cab895e0f42a507f6a9e93c9edfbada3c95c8d05a9053916777e93ebe587aa0"
+  },
+  {
+    "source": "native",
+    "path": "consensus/src/multimmit/engine.rs",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "line": 306,
+    "anchor_text": "/// Opens (or reopens) every durable store for one engine and prepares the startup path.",
+    "source_sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+  }
+]

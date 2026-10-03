@@ -1,0 +1,226 @@
+[
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/authenticated/discovery/network.rs",
+    "line": 192,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/authenticated/router/ingress.rs",
+    "line": 204,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 700,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/archive/immutable/storage.rs",
+    "line": 110,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "storage/src/archive/mod.rs",
+    "line": 137,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 306,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/lib.rs",
+    "line": 148,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/consensus/engine.rs",
+    "line": 524,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/alto",
+    "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "chain/src/engine.rs",
+    "line": 465,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/lib.rs",
+    "line": 281,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/utils/handle.rs",
+    "line": 189,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 588,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "runtime/src/utils/handle.rs",
+    "line": 125,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "cryptography/src/certificate.rs",
+    "line": 178,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "utils/src/ordered.rs",
+    "line": 274,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "utils/src/faults.rs",
+    "line": 62,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "cryptography/src/certificate.rs",
+    "line": 346,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "cryptography/src/certificate.rs",
+    "line": 509,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "cryptography/src/certificate.rs",
+    "line": 10,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/authenticated/router/ingress.rs",
+    "line": 204,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "Cargo.toml",
+    "line": 63,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "Cargo.lock",
+    "line": 3120,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/alto",
+    "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "Cargo.lock",
+    "line": 748,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "nunchi-labs/sdk",
+    "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+    "path": "Cargo.lock",
+    "line": 666,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "resolver/src/p2p/config.rs",
+    "line": 9,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "v2026.9.0",
+    "path": "resolver/src/p2p/config.rs",
+    "line": 9,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/lib.rs",
+    "line": 375,
+    "independent_receipt": true,
+    "valid_anchor": true
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "v2026.9.0",
+    "path": "p2p/src/lib.rs",
+    "line": 380,
+    "independent_receipt": true,
+    "valid_anchor": true
+  }
+]

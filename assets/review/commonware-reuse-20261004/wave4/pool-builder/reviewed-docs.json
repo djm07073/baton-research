@@ -1,0 +1,25 @@
+{
+  "read_at_utc": "2026-10-03T21:19:33.719764+00:00",
+  "files": [
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "2b8bd54d850d6fefabce36077230e3e993dfd79a7d2640cf8a4e1225025c3728"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "d34b2de52e91d47a67ba42f49c0839a83778469a595a9953e30ebd118c18de58"
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "c9141ddd44e2b21b084417e34a407b51561dd690de71ab42e9106508bd5d99ff"
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "dde7ec9beefed392b97a70c27fc36847858c25acd9a0e06a3fd44b4d7a5db829"
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "2e13341fd211b88529f5c8800aa41e9a48a37039432b2a623ba97880f1ad2c64"
+    }
+  ]
+}

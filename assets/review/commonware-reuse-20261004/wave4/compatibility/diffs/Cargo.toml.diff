@@ -1,0 +1,122 @@
+--- native/Cargo.toml
++++ release/Cargo.toml
+@@ -11,6 +11,7 @@
+     "conformance/macros",
+     "consensus",
+     "cryptography",
++    "cryptography/curve25519",
+     "deployer",
+     "formatting",
+     "glue",
+@@ -31,7 +32,6 @@
+     "examples/estimator",
+     "examples/flood",
+     "examples/log",
+-    "examples/log-multimmit",
+     "examples/reshare",
+ 
+     # Fuzz builds
+@@ -41,6 +41,7 @@
+     "collector/fuzz",
+     "consensus/fuzz",
+     "cryptography/fuzz",
++    "cryptography/curve25519/fuzz",
+     "math/fuzz",
+     "p2p/fuzz",
+     "runtime/fuzz",
+@@ -60,7 +61,7 @@
+ libraries = [{ path = ".github/dylints/*" }]
+ 
+ [workspace.package]
+-version = "2026.7.0"
++version = "2026.9.0"
+ edition = "2024"
+ license = "MIT OR Apache-2.0"
+ homepage = "https://commonware.xyz"
+@@ -103,8 +104,9 @@
+ 	"rt-tokio",
+ 	"sigv4a",
+ ] }
++aws-smithy-runtime-api = { version = "1.13.0", features = ["client"] }
+ axum = "0.8.9"
+-blake3 = { version = "1.8.5", default-features = false }
++blake3 = { version = "1.8.7", default-features = false }
+ blst = { version = "0.3.16", default-features = false }
+ bytes = { version = "1.12.1", default-features = false }
+ cfg-if = "1.0.4"
+@@ -112,32 +114,33 @@
+ chrono = "0.4.45"
+ clap = "4.6.1"
+ colored = "3.1.1"
+-commonware-actor = { version = "2026.7.0", path = "actor" }
+-commonware-bench = { version = "2026.7.0", path = "bench" }
+-commonware-broadcast = { version = "2026.7.0", path = "broadcast" }
+-commonware-codec = { version = "2026.7.0", path = "codec", default-features = false }
+-commonware-codec-macros = { version = "2026.7.0", path = "codec/macros" }
+-commonware-coding = { version = "2026.7.0", path = "coding" }
+-commonware-collector = { version = "2026.7.0", path = "collector" }
+-commonware-conformance = { version = "2026.7.0", path = "conformance" }
+-commonware-conformance-macros = { version = "2026.7.0", path = "conformance/macros" }
+-commonware-consensus = { version = "2026.7.0", path = "consensus" }
+-commonware-cryptography = { version = "2026.7.0", path = "cryptography", default-features = false }
+-commonware-deployer = { version = "2026.7.0", path = "deployer", default-features = false }
+-commonware-formatting = { version = "2026.7.0", path = "formatting", default-features = false }
+-commonware-glue = { version = "2026.7.0", path = "glue" }
+-commonware-invariants = { version = "2026.7.0", path = "invariants" }
+-commonware-macros = { version = "2026.7.0", path = "macros", default-features = false }
+-commonware-macros-impl = { version = "2026.7.0", path = "macros/impl" }
+-commonware-math = { version = "2026.7.0", path = "math", default-features = false }
+-commonware-p2p = { version = "2026.7.0", path = "p2p" }
+-commonware-parallel = { version = "2026.7.0", path = "parallel", default-features = false }
+-commonware-resolver = { version = "2026.7.0", path = "resolver" }
+-commonware-runtime = { version = "2026.7.0", path = "runtime" }
+-commonware-runtime-macros = { version = "2026.7.0", path = "runtime/macros" }
+-commonware-storage = { version = "2026.7.0", path = "storage", default-features = false }
+-commonware-stream = { version = "2026.7.0", path = "stream" }
+-commonware-utils = { version = "2026.7.0", path = "utils", default-features = false }
++commonware-actor = { version = "2026.9.0", path = "actor" }
++commonware-bench = { version = "2026.9.0", path = "bench" }
++commonware-broadcast = { version = "2026.9.0", path = "broadcast" }
++commonware-codec = { version = "2026.9.0", path = "codec", default-features = false }
++commonware-codec-macros = { version = "2026.9.0", path = "codec/macros" }
++commonware-coding = { version = "2026.9.0", path = "coding" }
++commonware-collector = { version = "2026.9.0", path = "collector" }
++commonware-conformance = { version = "2026.9.0", path = "conformance" }
++commonware-conformance-macros = { version = "2026.9.0", path = "conformance/macros" }
++commonware-consensus = { version = "2026.9.0", path = "consensus" }
++commonware-cryptography = { version = "2026.9.0", path = "cryptography", default-features = false }
++commonware-cryptography-curve25519 = { version = "2026.9.0", path = "cryptography/curve25519", default-features = false }
++commonware-deployer = { version = "2026.9.0", path = "deployer", default-features = false }
++commonware-formatting = { version = "2026.9.0", path = "formatting", default-features = false }
++commonware-glue = { version = "2026.9.0", path = "glue" }
++commonware-invariants = { version = "2026.9.0", path = "invariants" }
++commonware-macros = { version = "2026.9.0", path = "macros", default-features = false }
++commonware-macros-impl = { version = "2026.9.0", path = "macros/impl" }
++commonware-math = { version = "2026.9.0", path = "math", default-features = false }
++commonware-p2p = { version = "2026.9.0", path = "p2p" }
++commonware-parallel = { version = "2026.9.0", path = "parallel", default-features = false }
++commonware-resolver = { version = "2026.9.0", path = "resolver" }
++commonware-runtime = { version = "2026.9.0", path = "runtime" }
++commonware-runtime-macros = { version = "2026.9.0", path = "runtime/macros" }
++commonware-storage = { version = "2026.9.0", path = "storage", default-features = false }
++commonware-stream = { version = "2026.9.0", path = "stream" }
++commonware-utils = { version = "2026.9.0", path = "utils", default-features = false }
+ console-subscriber = "0.5.0"
+ const-hex = { version = "1.19.1", default-features = false }
+ cpufeatures = "0.3.0"
+@@ -165,7 +168,6 @@
+ libc = "0.2.186"
+ libfuzzer-sys = "0.4.13"
+ loom = "0.7.2"
+-mimalloc = "0.1.52"
+ num-bigint = { version = "0.4.8", default-features = false }
+ num-integer = "0.1.46"
+ num-rational = { version = "0.4.2", features = ["num-bigint"] }
+@@ -198,6 +200,7 @@
+ serde_yaml = "0.9.34"
+ sha2 = { version = "0.11.0", default-features = false }
+ shlex = "2.0.1"
++subtle = { version = "2.6.1", default-features = false }
+ syn = "2.0.119"
+ sysinfo = "0.39.6"
+ thiserror = { version = "2.0.18", default-features = false }

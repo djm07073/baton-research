@@ -1,0 +1,108 @@
+[
+  {
+    "path": "Cargo.toml",
+    "equal": false,
+    "native_sha": "a6f32c206c57ed0be605cda7784ca2e2b3131163c069c77ac406949712bb7dae",
+    "release_sha": "51892906fb135a9ff99073c4fcf383e4c63f6d7f5da270bb121475dc80af1cd8"
+  },
+  {
+    "path": "codec/src/lib.rs",
+    "equal": false,
+    "native_sha": "57146ad4f4fc64c9adc882a01767974ca24e63f1f421bcbc01bcbd0e967a2f83",
+    "release_sha": "ac21126dae2a942881b7a1a84cf9d11d5675d54711eb70a1a6b510fd61c730e5"
+  },
+  {
+    "path": "cryptography/src/lib.rs",
+    "equal": false,
+    "native_sha": "82ea2dcab1dbf2621c3c002a99f2b445e5f1bb2f80a0c6e32142b8db2d59fb0a",
+    "release_sha": "181287e1ef37081b9020682b7ae86ab491756dc2fcd058974e6515d7cba0c6a1"
+  },
+  {
+    "path": "cryptography/src/sha256/mod.rs",
+    "equal": false,
+    "native_sha": "c53d22c362be432cbd5470bd4d49c9281cd07104c251374e5935a73fdf16076e",
+    "release_sha": "9f1615a24484368d2bf43c13d18c1ea9f364d4641ef75654e1cd5e1252baf202"
+  },
+  {
+    "path": "p2p/src/lib.rs",
+    "equal": false,
+    "native_sha": "d1f2bfd100849dc730385b459dbf14cabb434909494d83677c7e6666ef163272",
+    "release_sha": "b6d6ed87771990688a4e0c19fd5b99300ae62143ea41523ca1e2ba6f4a9259ed"
+  },
+  {
+    "path": "p2p/src/authenticated/discovery/network.rs",
+    "equal": true,
+    "native_sha": "6303cbe80cb21cc1af6c3aeb91e1b6654c0a2d8c1f47d8312a6cb0a8fed71582",
+    "release_sha": "6303cbe80cb21cc1af6c3aeb91e1b6654c0a2d8c1f47d8312a6cb0a8fed71582"
+  },
+  {
+    "path": "broadcast/src/buffered/engine.rs",
+    "equal": true,
+    "native_sha": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "release_sha": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+  },
+  {
+    "path": "broadcast/src/buffered/config.rs",
+    "equal": true,
+    "native_sha": "49c3e076394e7d5360e5291dd4a16953c6c7fc3cee64d9fabee6d957c3df75f4",
+    "release_sha": "49c3e076394e7d5360e5291dd4a16953c6c7fc3cee64d9fabee6d957c3df75f4"
+  },
+  {
+    "path": "broadcast/src/buffered/mod.rs",
+    "equal": false,
+    "native_sha": "7970ab2ca47246a89dac66650d921e39a87f9c50585b02b9f264fe916c178d74",
+    "release_sha": "8034265b04ebad7ac4c5bb457cadb4ae0cf01c43432bba2f3423bd4d071a9dba"
+  },
+  {
+    "path": "resolver/src/lib.rs",
+    "equal": false,
+    "native_sha": "3f490165744ec253b4b6a1e10a51a34192c62ece9008bdb6a1c1f315d80764bb",
+    "release_sha": "240cd0c6736600876aac35eb34e6ea7962a15c59c070c316d89f9fac6a4099b6"
+  },
+  {
+    "path": "resolver/src/p2p/engine.rs",
+    "equal": false,
+    "native_sha": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+    "release_sha": "0becdf5afd8680c9482ba3b88c551be4e3e25b5043145a4c1471a067b3649a47"
+  },
+  {
+    "path": "resolver/src/p2p/config.rs",
+    "equal": false,
+    "native_sha": "849a929900bb1b68560e3e7601958f95f34f4bc666d4c2a5b2cdca9c57ec2003",
+    "release_sha": "f6ef8df4a6611b4a520cf3474f42fd5d48126e00e63fec0a914b4f25b4f7008f"
+  },
+  {
+    "path": "resolver/src/p2p/mod.rs",
+    "equal": false,
+    "native_sha": "62ed3e53099f0a081956c97a9d2341e50b0159b6c3af4783c6fa989d553e2597",
+    "release_sha": "f11a014f537ecd7ce2efb698ddb79e5c8d1583f7b8a67a984356b9f0d0b2a779"
+  },
+  {
+    "path": "runtime/src/lib.rs",
+    "equal": false,
+    "native_sha": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+    "release_sha": "4744b08a8a66f8515db111e305c86e21f5c0f514f013440c24f8ac29512d858f"
+  },
+  {
+    "path": "runtime/src/tokio/mod.rs",
+    "equal": false,
+    "native_sha": "e5ce124c3ceef44e40ef5b753d753363cd84a9f7424068b972539ad4c0871004",
+    "release_sha": "f9e389b94d0424f6bd4084b2e8dab71ae6fd46b8bb9e4299e5fa51b337a6164d"
+  },
+  {
+    "path": "consensus/src/lib.rs",
+    "equal": false,
+    "native_sha": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470",
+    "release_sha": "f060a313d67b30dc5a220277b1c321cc9cc39fa7a67c48739c6e6ae1a4022a4b"
+  },
+  {
+    "path": "consensus/src/multimmit/mod.rs",
+    "release": "absent"
+  },
+  {
+    "path": "glue/src/stateful/db/mod.rs",
+    "equal": false,
+    "native_sha": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+    "release_sha": "96b0964a2bea28fc0ec9fd6edfd98d25b8c6fd58d1dda3b87950113bcf2315ba"
+  }
+]

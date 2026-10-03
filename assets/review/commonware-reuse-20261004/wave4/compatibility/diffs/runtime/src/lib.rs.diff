@@ -1,0 +1,446 @@
+--- native/runtime/src/lib.rs
++++ release/runtime/src/lib.rs
+@@ -75,8 +75,71 @@
+ 
+     pub mod telemetry;
+ 
+-    /// Default [`Blob`] version used when no version is specified via [`Storage::open`].
+-    pub const DEFAULT_BLOB_VERSION: u16 = 0;
++    /// Runtime-owned layout of a [`Blob`].
++    ///
++    /// This determines the container format, including its header and data offset, not the
++    /// application-owned contents version passed to [`Storage::open_versioned`].
++    ///
++    /// Restricting the layouts a runtime accepts can be used to orchestrate rollback-safe
++    /// upgrades.
++    #[repr(u16)]
++    #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
++    pub enum BlobLayout {
++        /// An 8-byte header, with data beginning immediately after it.
++        ///
++        /// A V0 header has no checksum, so an interrupted creation is not reliably
++        /// recognized: an image whose magic and layout version are durable parses as a
++        /// complete header and reopens as blob version 0 or fails as a version mismatch
++        /// until the blob is removed.
++        #[deprecated(note = "unaligned pages can degrade performance")]
++        V0 = 0,
++        /// A header padded to one 4096-byte page, so data begins on an aligned boundary.
++        V1 = 1,
++    }
++
++    /// Latest supported [`BlobLayout`], used to create new [`Blob`]s unless the runtime
++    /// restricts layouts to an older range.
++    pub const DEFAULT_BLOB_LAYOUT: BlobLayout = BlobLayout::V1;
++
++    impl BlobLayout {
++        /// All blob layouts supported by this runtime.
++        #[allow(deprecated)]
++        pub const ALL: std::ops::RangeInclusive<Self> = Self::V0..=DEFAULT_BLOB_LAYOUT;
++    }
++
++    /// Application-owned version of a [`Blob`]'s contents.
++    ///
++    /// This is independent of the runtime-owned [`BlobLayout`].
++    #[derive(Clone, Copy, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
++    #[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
++    pub struct BlobVersion(u16);
++
++    impl BlobVersion {
++        /// Creates a blob version from a `u16`.
++        pub const fn new(version: u16) -> Self {
++            Self(version)
++        }
++
++        /// Returns the underlying `u16`.
++        pub const fn get(self) -> u16 {
++            self.0
++        }
++    }
++
++    impl std::fmt::Display for BlobVersion {
++        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
++            write!(f, "{}", self.0)
++        }
++    }
++
++    impl std::fmt::Debug for BlobVersion {
++        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
++            write!(f, "{}", self.0)
++        }
++    }
++
++    /// Default application-owned [`Blob`] contents version used by [`Storage::open`].
++    pub const DEFAULT_BLOB_VERSION: BlobVersion = BlobVersion::new(0);
+ 
+     /// Errors that can occur when interacting with the runtime.
+     #[derive(Error, Debug, Clone)]
+@@ -125,10 +188,15 @@
+         BlobInsufficientLength,
+         #[error("blob corrupt: {0}/{1} reason: {2}")]
+         BlobCorrupt(String, String, String),
++        #[error("blob layout mismatch: expected one of {expected:?}, found {found:?}")]
++        BlobLayoutMismatch {
++            expected: std::ops::RangeInclusive<BlobLayout>,
++            found: BlobLayout,
++        },
+         #[error("blob version mismatch: expected one of {expected:?}, found {found}")]
+         BlobVersionMismatch {
+-            expected: std::ops::RangeInclusive<u16>,
+-            found: u16,
++            expected: std::ops::RangeInclusive<BlobVersion>,
++            found: BlobVersion,
+         },
+         #[error("invalid or missing checksum")]
+         InvalidChecksum,
+@@ -599,6 +667,15 @@
+     /// recovery: data read at initialization can be assumed to survive a
+     /// subsequent crash without an explicit [`Blob::sync`].
+     ///
++    /// # Cancellation
++    ///
++    /// Dropping an operation's future does not guarantee cancellation: the
++    /// operation may still complete, and later operations may observe its
++    /// effect.
++    ///
++    /// Runtimes must ensure that no operation issued by a previous run against
++    /// the same storage is still in flight when a new run begins.
++    ///
+     /// # Partition Names
+     ///
+     /// Partition names must be non-empty and contain only ASCII alphanumeric
+@@ -638,8 +715,10 @@
+         ///
+         /// # Layout
+         ///
+-        /// New blobs are created with the latest header layout. Reopening an existing blob
+-        /// honors the layout recorded in its header.
++        /// New blobs are created with the latest layout allowed by the runtime. Reopening an
++        /// existing blob honors the layout recorded in its header when the runtime's
++        /// configured layout range allows it, and returns [Error::BlobLayoutMismatch]
++        /// otherwise.
+         ///
+         /// # Returns
+         ///
+@@ -648,8 +727,8 @@
+             &self,
+             partition: &str,
+             name: &[u8],
+-            versions: std::ops::RangeInclusive<u16>,
+-        ) -> impl Future<Output = Result<(Self::Blob, u64, u16), Error>> + Send;
++            versions: std::ops::RangeInclusive<BlobVersion>,
++        ) -> impl Future<Output = Result<(Self::Blob, u64, BlobVersion), Error>> + Send;
+ 
+         /// Remove a blob from a given partition.
+         ///
+@@ -680,6 +759,47 @@
+         -> impl Future<Output = Result<Vec<Vec<u8>>, Error>> + Send;
+     }
+ 
++    /// Options that alter one [`Blob::read_at`] or [`Blob::read_at_buf`] operation.
++    ///
++    /// [`ReadOptions::default`] applies no options.
++    #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
++    pub struct ReadOptions(u8);
++
++    impl ReadOptions {
++        /// Advise that data brought in by this read need not remain in the OS page cache.
++        ///
++        /// This is a best-effort performance hint for callers that retain the data or
++        /// do not expect to read it again soon. Implementations may ignore it, and it
++        /// does not guarantee that the range is absent from the OS page cache.
++        pub const DONT_CACHE: Self = Self(1 << 0);
++
++        /// Return whether all of `options` are set.
++        #[must_use]
++        pub const fn contains(self, options: Self) -> bool {
++            self.0 & options.0 == options.0
++        }
++
++        /// Return these options with `options` cleared.
++        #[must_use]
++        pub const fn without(self, options: Self) -> Self {
++            Self(self.0 & !options.0)
++        }
++    }
++
++    impl std::ops::BitOr for ReadOptions {
++        type Output = Self;
++
++        fn bitor(self, rhs: Self) -> Self::Output {
++            Self(self.0 | rhs.0)
++        }
++    }
++
++    impl std::ops::BitOrAssign for ReadOptions {
++        fn bitor_assign(&mut self, rhs: Self) {
++            self.0 |= rhs.0;
++        }
++    }
++
+     /// Options that alter one [`Blob::write_at`] operation.
+     ///
+     /// [`WriteOptions::default`] applies no options.
+@@ -690,13 +810,15 @@
+     impl WriteOptions {
+         /// Durably persist the submitted bytes before returning.
+         ///
+-        /// This is not a durability barrier for earlier operations.
++        /// This is not a durability barrier for earlier writes without
++        /// [`WriteOptions::SYNC`] or earlier [`Blob::resize`] calls.
+         pub const SYNC: Self = Self(1 << 0);
+ 
+         /// Advise that the submitted bytes need not remain in the OS page cache.
+         ///
+         /// This is a best-effort performance hint for callers that maintain their own cache.
+-        /// Implementations may ignore it. It does not change visibility or durability.
++        /// Implementations may ignore it. It does not change visibility or durability, or
++        /// guarantee that the range is absent from the OS page cache.
+         pub const DONT_CACHE: Self = Self(1 << 1);
+ 
+         /// Return whether all of `options` are set.
+@@ -740,19 +862,17 @@
+     /// When a blob is dropped, any unsynced changes may be discarded. Implementations
+     /// may attempt to sync during drop but errors will go unhandled. Call `sync`
+     /// before dropping to ensure all changes are durably persisted.
++    ///
++    /// # Durability
++    ///
++    /// After a crash, a write not covered by a completed [Blob::sync] may be torn: any
++    /// subset of its bytes may be durable. Bytes outside the written range remain
++    /// unchanged.
+     #[allow(clippy::len_without_is_empty)]
+     pub trait Blob: Clone + Send + Sync + 'static {
+-        /// Read `len` bytes at `offset` into caller-provided buffer(s).
+-        ///
+-        /// The caller provides the buffer(s), and the implementation fills it with
+-        /// exactly `len` bytes of data read from the blob starting at `offset`.
+-        /// Returns the same buffer(s), filled with data.
+-        ///
+-        /// # Contract
+-        ///
+-        /// - The returned buffers reuse caller-provided storage, with exactly `len`
+-        ///   bytes filled from `offset`.
+-        /// - Caller-provided chunk layout is preserved.
++        /// Read exactly `len` bytes at `offset` into caller-provided buffers.
++        ///
++        /// Returns the same buffers with their chunk layout preserved.
+         ///
+         /// # Panics
+         ///
+@@ -762,24 +882,22 @@
+             offset: u64,
+             len: usize,
+             bufs: impl Into<IoBufsMut> + Send,
++            options: ReadOptions,
+         ) -> impl Future<Output = Result<IoBufsMut, Error>> + Send;
+ 
+-        /// Read `len` bytes at `offset`, returning a buffer(s) with exactly `len` bytes
+-        /// of data read from the blob starting at `offset`.
++        /// Read exactly `len` bytes at `offset`.
+         ///
+         /// To reuse a buffer(s), use [`Blob::read_at_buf`].
+         fn read_at(
+             &self,
+             offset: u64,
+             len: usize,
++            options: ReadOptions,
+         ) -> impl Future<Output = Result<IoBufsMut, Error>> + Send;
+ 
+-        /// Write `bufs` to the blob at the given offset with composable [`WriteOptions`].
+-        ///
+-        /// With [`WriteOptions::SYNC`], the submitted bytes are durably persisted before this
+-        /// operation returns. This is not a durability barrier for previous operations: earlier
+-        /// writes without [`WriteOptions::SYNC`] and earlier [`Blob::resize`] calls require
+-        /// [`Blob::sync`] to become durable.
++        /// Write every remaining byte in `bufs` to the blob at `offset`.
++        ///
++        /// The buffers are treated as one logical byte sequence in chunk order.
+         fn write_at(
+             &self,
+             offset: u64,
+@@ -900,6 +1018,31 @@
+     use utils::reschedule;
+ 
+     #[test]
++    fn test_blob_version() {
++        let version = BlobVersion::new(7);
++        assert_eq!(version.get(), 7);
++        assert_eq!(version.to_string(), "7");
++        assert_eq!(format!("{version:?}"), "7");
++        assert_eq!(BlobVersion::default(), DEFAULT_BLOB_VERSION);
++        assert!((BlobVersion::new(3)..=BlobVersion::new(7)).contains(&version));
++    }
++
++    #[test]
++    fn test_read_options_compose() {
++        // The flag must compose, assign, remove, and remain absent from the default.
++        let options = ReadOptions::default() | ReadOptions::DONT_CACHE;
++        let mut assigned = ReadOptions::default();
++        assigned |= ReadOptions::DONT_CACHE;
++        assert!(options.contains(ReadOptions::DONT_CACHE));
++        assert_eq!(assigned, options);
++        assert_eq!(
++            options.without(ReadOptions::DONT_CACHE),
++            ReadOptions::default()
++        );
++        assert!(!ReadOptions::default().contains(ReadOptions::DONT_CACHE));
++    }
++
++    #[test]
+     fn test_write_options_compose() {
+         let options = WriteOptions::SYNC | WriteOptions::DONT_CACHE;
+         let mut assigned = WriteOptions::SYNC;
+@@ -1308,7 +1451,7 @@
+ 
+             // Read data from the blob
+             let read = blob
+-                .read_at(0, data.len())
++                .read_at(0, data.len(), ReadOptions::default())
+                 .await
+                 .expect("Failed to read from blob");
+             assert_eq!(read.coalesce(), data);
+@@ -1331,7 +1474,10 @@
+             assert_eq!(len, data.len() as u64);
+ 
+             // Read data part of message back
+-            let read = blob.read_at(7, 7).await.expect("Failed to read data");
++            let read = blob
++                .read_at(7, 7, ReadOptions::default())
++                .await
++                .expect("Failed to read data");
+             assert_eq!(read.coalesce(), b"Storage");
+ 
+             // Sync the blob
+@@ -1390,13 +1536,16 @@
+                 .expect("Failed to write data2");
+ 
+             // Read data back
+-            let read = blob.read_at(0, 10).await.expect("Failed to read data");
++            let read = blob
++                .read_at(0, 10, ReadOptions::default())
++                .await
++                .expect("Failed to read data");
+             let read = read.coalesce();
+             assert_eq!(&read.as_ref()[..5], data1);
+             assert_eq!(&read.as_ref()[5..], data2);
+ 
+             // Read past end of blob
+-            let result = blob.read_at(10, 10).await;
++            let result = blob.read_at(10, 10, ReadOptions::default()).await;
+             assert!(result.is_err());
+ 
+             // Rewrite data without affecting length
+@@ -1406,13 +1555,16 @@
+                 .expect("Failed to write data3");
+ 
+             // Read data back
+-            let read = blob.read_at(0, 10).await.expect("Failed to read data");
++            let read = blob
++                .read_at(0, 10, ReadOptions::default())
++                .await
++                .expect("Failed to read data");
+             let read = read.coalesce();
+             assert_eq!(&read.as_ref()[..5], data1);
+             assert_eq!(&read.as_ref()[5..], data3);
+ 
+             // Read past end of blob
+-            let result = blob.read_at(10, 10).await;
++            let result = blob.read_at(10, 10, ReadOptions::default()).await;
+             assert!(result.is_err());
+         });
+     }
+@@ -1456,11 +1608,17 @@
+             assert_eq!(len, new_len);
+ 
+             // Read original data
+-            let read_buf = blob.read_at(0, data.len()).await.unwrap();
++            let read_buf = blob
++                .read_at(0, data.len(), ReadOptions::default())
++                .await
++                .unwrap();
+             assert_eq!(read_buf.coalesce(), data);
+ 
+             // Read extended part (should be zeros)
+-            let extended_part = blob.read_at(data.len() as u64, data.len()).await.unwrap();
++            let extended_part = blob
++                .read_at(data.len() as u64, data.len(), ReadOptions::default())
++                .await
++                .unwrap();
+             assert_eq!(extended_part.coalesce(), vec![0; data.len()].as_slice());
+ 
+             // Truncate the blob
+@@ -1472,7 +1630,10 @@
+             assert_eq!(size, data.len() as u64);
+ 
+             // Read truncated data
+-            let read_buf = blob.read_at(0, data.len()).await.unwrap();
++            let read_buf = blob
++                .read_at(0, data.len(), ReadOptions::default())
++                .await
++                .unwrap();
+             assert_eq!(read_buf.coalesce(), data);
+             blob.sync().await.unwrap();
+         });
+@@ -1520,7 +1681,7 @@
+ 
+                 // Read data back
+                 let read = blob
+-                    .read_at(0, 10 + additional)
++                    .read_at(0, 10 + additional, ReadOptions::default())
+                     .await
+                     .expect("Failed to read data");
+                 let read = read.coalesce();
+@@ -1548,7 +1709,7 @@
+                 .expect("Failed to open blob");
+ 
+             // Read data past file length (empty file)
+-            let result = blob.read_at(0, 10).await;
++            let result = blob.read_at(0, 10, ReadOptions::default()).await;
+             assert!(result.is_err());
+ 
+             // Write data to the blob
+@@ -1558,7 +1719,7 @@
+                 .expect("Failed to write to blob");
+ 
+             // Read data past file length (non-empty file)
+-            let result = blob.read_at(0, 20).await;
++            let result = blob.read_at(0, 20, ReadOptions::default()).await;
+             assert!(result.is_err());
+         })
+     }
+@@ -1595,7 +1756,7 @@
+                 let data_len = data.len();
+                 move |_| async move {
+                     let read = blob
+-                        .read_at(0, data_len)
++                        .read_at(0, data_len, ReadOptions::default())
+                         .await
+                         .expect("Failed to read from blob");
+                     assert_eq!(read.coalesce(), data);
+@@ -1606,7 +1767,7 @@
+                 let data_len = data.len();
+                 move |_| async move {
+                     let read = blob
+-                        .read_at(0, data_len)
++                        .read_at(0, data_len, ReadOptions::default())
+                         .await
+                         .expect("Failed to read from blob");
+                     assert_eq!(read.coalesce(), data);
+@@ -1620,7 +1781,7 @@
+ 
+             // Read data from the blob
+             let read = blob
+-                .read_at(0, data.len())
++                .read_at(0, data.len(), ReadOptions::default())
+                 .await
+                 .expect("Failed to read from blob");
+             assert_eq!(read.coalesce(), data);
+@@ -3254,7 +3415,7 @@
+             let strategy = context.child("pool").strategy(NZUsize!(1)).manual();
+ 
+             let output = strategy
+-                .spawn(|strategy| strategy.map_collect_vec(0..2, |i| i + 1))
++                .spawn(2, |strategy| strategy.map_collect_vec(0..2, |i| i + 1))
+                 .await;
+ 
+             assert_eq!(output, vec![1, 2]);

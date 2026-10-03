@@ -1,0 +1,200 @@
+{
+  "successful_sources": 73,
+  "failures": [],
+  "anchors": [
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "Cargo.toml",
+      "line": 63,
+      "valid": true,
+      "text": "version = \"2026.7.0\""
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "v2026.9.0",
+      "path": "Cargo.toml",
+      "line": 64,
+      "valid": true,
+      "text": "version = \"2026.9.0\""
+    },
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "Cargo.lock",
+      "line": 666,
+      "valid": true,
+      "text": "name = \"commonware-codec\""
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "Cargo.lock",
+      "line": 3120,
+      "valid": true,
+      "text": "name = \"commonware-codec\""
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "Cargo.lock",
+      "line": 748,
+      "valid": true,
+      "text": "name = \"commonware-codec\""
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/authenticated/discovery/network.rs",
+      "line": 67,
+      "valid": true,
+      "text": "    pub fn new(context: E, cfg: Config<C>) -> (Self, tracker::Oracle<C::PublicKey>) {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/authenticated/discovery/network.rs",
+      "line": 169,
+      "valid": true,
+      "text": "    pub fn register("
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/engine.rs",
+      "line": 44,
+      "valid": true,
+      "text": "pub struct Engine<E, P, M, D>"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/config.rs",
+      "line": 6,
+      "valid": true,
+      "text": "pub struct Config<P: PublicKey, MCfg, D: Provider<PublicKey = P>> {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/engine.rs",
+      "line": 36,
+      "valid": true,
+      "text": "/// Manages incoming and outgoing P2P requests, coordinating fetch and serve operations."
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/config.rs",
+      "line": 9,
+      "valid": true,
+      "text": "pub struct Config<"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 341,
+      "valid": true,
+      "text": "pub trait ManagedDb<E>: Send + Sync + Sized {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/mod.rs",
+      "line": 100,
+      "valid": true,
+      "text": "pub trait Producer: Clone + Send + 'static {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/lib.rs",
+      "line": 149,
+      "valid": true,
+      "text": ""
+    },
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/tx.rs",
+      "line": 34,
+      "valid": true,
+      "text": "    type NonceKey: Clone + Ord + Hash + Debug + Send + Sync + 'static;"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "cryptography/src/lib.rs",
+      "line": 221,
+      "valid": true,
+      "text": "    pub trait Digestible: Clone + Sized + Send + Sync + 'static {"
+    },
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/actor.rs",
+      "line": 292,
+      "valid": true,
+      "text": "    pub fn start_p2p<E, S, R>(self, context: E, p2p: (S, R)) -> Handle<()>"
+    },
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/Cargo.toml",
+      "line": 10,
+      "valid": true,
+      "text": "[dependencies]"
+    },
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "common/Cargo.toml",
+      "line": 10,
+      "valid": true,
+      "text": "[features]"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/config.rs",
+      "line": 38,
+      "valid": true,
+      "text": "    pub initial: Duration,"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "v2026.9.0",
+      "path": "resolver/src/p2p/config.rs",
+      "line": 35,
+      "valid": true,
+      "text": "    /// Local identity of the participant (if any)."
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/lib.rs",
+      "line": 375,
+      "valid": true,
+      "text": "    pub trait Blocker: Clone + Send + 'static {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "v2026.9.0",
+      "path": "p2p/src/lib.rs",
+      "line": 380,
+      "valid": true,
+      "text": "    pub trait Blocker: Clone + Send + 'static {"
+    }
+  ],
+  "report_sha256": "7438231243f5ff8efcfe73c24d7d325eec4cb1f138d4ecdfdad8be42ece10af5",
+  "failed_requests": 3,
+  "source_hash_failures": [],
+  "source_manifest_sha256": "41fef9d88dd3b96667a2746c7effd5fb5ebadac8687af0030ed1b6b3491862ac",
+  "cross_review_artifact_sha256": {
+    "LIFECYCLE_CROSS_CHECK.md": "ff45b8d5ebde1004cddd2a9839f6fd89570396e79954eb14e43ad16722cd2ecb",
+    "CERTIFICATION_CROSS_REVIEW.md": "77c2f6bc4692976f367666eac5d7953cb50bd8287999cb9377e8505bcf4f0d61",
+    "STARTUP_CROSS_REVIEW.md": "6ad44f26438fd49cb322280680248429934d76001b9d7e970d0f4825677bc0ec",
+    "DOCS_REVIEW.md": "3353f8c8e99e22cac58c64ca0f8ce25718b9270df2a1a5a083074374eb61af16"
+  }
+}

@@ -45,7 +45,7 @@ Reuse native Scheme verification and public Tally body opening, ViewProof/TipRec
 
 | Source | Inspected revision | Compatibility scope |
 |---|---|---|
-| Native Commonware baseline | `534af0ede48affd35b2111522527547b4cc9bf72` | Adopted Multimmit pin; implementation API baseline |
+| Native Commonware baseline | `534af0ede48affd35b2111522527547b4cc9bf72` | Adopted Multimmit git pin; workspace packages declare `2026.7.0`, which does not identify an equivalent registry release |
 | Commonware MCP | Explicit `v2026.9.0`, server `0.0.5` | Discovery/corroboration; different database apply/finalize API |
 | Tempo | `61c979a524f9af5de9c540a0088c429a44741e4c` | Uses Commonware `2026.9.0`; Reth `038edab20dfff017f7a7502e683c732e5628ad89` |
 | Alto | `1d87569348b5560699465a72d691d90f18affb9c` | Uses Commonware `2026.9.0`; Simplex assembly reference |
@@ -54,11 +54,26 @@ Reuse native Scheme verification and public Tally body opening, ViewProof/TipRec
 
 These are pinned source inspections, not a compiled Baton assembly or a production/maturity assessment. Check selected imports/signatures against the adopted dependency graph before reuse. A successful MCP response is not source evidence if it contains homepage HTML or a guessed nonexistent path. [Tempo dependencies](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/Cargo.toml#L255), [Alto dependencies](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/Cargo.toml#L23), [Constantinople dependencies](https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/Cargo.toml#L51).
 
+**Assemble the reused primitives from one native dependency graph.** The inspected Tempo, Alto and Nunchi lockfiles resolve Commonware from crates.io at `2026.9.0`; the adopted native git workspace declares `2026.7.0`. Their Sender, runtime, codec and digest types are different Rust package identities even where source files match. Copy the component wiring, then adapt a chosen ecosystem actor and its dependent packages to the native graph. A patch with the native package version cannot satisfy an unchanged `2026.9.0` minimum requirement. No dependency upgrade or actor port is made by these docs. [Native workspace](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/Cargo.toml#L63), [Tempo lock](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/Cargo.lock#L3120), [Alto lock](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/Cargo.lock#L748), [Nunchi lock](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/Cargo.lock#L666), [Cargo patch requirements](https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-patch-section).
+
+### Check native constructor inputs
+
+| Existing entry | Connections to supply |
+|---|---|
+| `discovery::Network::new(context, config)` | Native runtime/signing types; retain Oracle, register channel pairs, then start network |
+| `buffered::Engine::new(context, config)` | Body `Digestible + Codec`, its decode config, same transport PublicKey and peer Provider; retain Mailbox and start on the raw body pair |
+| `resolver::p2p::Engine::new(context, config)` | Archive-backed Producer, validating Consumer, exact key, same-PublicKey Provider/Blocker; start on the raw fetch pair |
+| Selected pool actor | Workload-compatible transaction type and one resolved upstream graph; keep admission, selection and canonical completion meanings explicit |
+
+The native resolver Config requires `initial: Duration`, which the indexed release removed. Release `Blocker` also adds `blocked()`, absent from native. Use the chosen native constructor and trait definitions rather than copying a release configuration unchanged. This table is an assembly checklist, not a compiled example or a choice of numeric configuration. [Native resolver Config](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/config.rs#L9), [release Config](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/resolver/src/p2p/config.rs#L9), [native Blocker](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/lib.rs#L375), [release Blocker](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/p2p/src/lib.rs#L380).
+
 ## Commonware integration anchors
 
 All native links are pinned to commit `534af0ede48affd35b2111522527547b4cc9bf72`. New bridges in the table are proposed contracts that still need implementation.
 
 Assembly starts at log-multimmit/main.rs. The example creates commonware_runtime::tokio::Runner, then registers authenticated discovery Network and native logical channels in its context. It passes Application as Automaton/Relay and configures Rayon crypto strategy, profile, and committee in EngineConfig. Startup runs network.start → engine.start → running.ready. Baton integration first prepares body services under the [startup sequence](../e2e/recovery.md#startup-prepare-custody-before-native-recovery), then connects application planes and execution. [Runtime / network assembly](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs#L293).
+
+Reuse runtime `Supervisor`/`Spawner` and owned `Handle::select` for the chosen service lifetimes. Network binding and the separate body resolver precede recovered-body requests; native remembered readiness is not ongoing health. Task abort/join and cooperative shutdown are not archive/QMDB flush barriers, and strict native child/signing quiescence is not proved by this source audit. [Lifecycle assembly and completion](../e2e/recovery.md#own-service-lifetimes-and-durable-shutdown).
 
 The example derives an ordinary BLS roster and separate DA/nullification threshold sharing from mock seeds. This is example key setup, not an adopted production setup. Transport identity, native signing domains, and application tx/result signature domains are not assumed to share one key or namespace. [Example keys](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs#L17).
 
@@ -121,6 +136,8 @@ Primitive discovery used the public [Commonware library MCP](https://mcp.commonw
 | [Consensus](../consensus/README.md#commonware-primitives-in-the-consensus-layer) | Pinned Multimmit callbacks; buffered broadcast, archive, journal, metadata and resolver | Body/custody integration and exact merged-order delivery need adapters |
 | [Baton](../baton/README.md#commonware-primitives-in-the-baton-layer) | Existing P2P, crypto, codec, clock/task infrastructure; optional parallel work | Report rules, direction selection and protected-prefix adoption are custom |
 | [Execution](../execution/README.md#commonware-primitives-in-the-execution-layer) | Lower-level QMDB/DatabaseSet lifecycle, crypto, collector, resolver and QMDB sync | Executor/Storage binding, deferred-root views, f+1 semantics and normal-path validator switching are custom |
+
+For result certification, evaluate the existing Subject/Attestation/Scheme/Signers APIs before implementing signer encoding, signature batching or aggregation. Their built-in consensus quorum must be adapted to the execution f+1 requirement; full input/base/provenance verification stays in Executor. [Certificate assembly connection](../execution/interfaces.md#reuse-certificate-building-blocks).
 
 ### Source evidence from the indexed release
 

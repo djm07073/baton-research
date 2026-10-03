@@ -1,0 +1,460 @@
+use super::{Config, Mailbox, Message, metrics};
+use commonware_actor::mailbox;
+use commonware_codec::Codec;
+use commonware_cryptography::{Digestible, PublicKey};
+use commonware_macros::select_loop;
+use commonware_p2p::{
+    Provider, Receiver, Recipients, Sender,
+    utils::codec::{WrappedSender, wrap},
+};
+use commonware_runtime::{
+    BufferPooler, Clock, ContextCell, Handle, Metrics, Spawner, spawn_cell,
+    telemetry::metrics::{GaugeExt, status::Status},
+};
+use commonware_utils::{
+    channel::{fallible::OneshotExt, oneshot},
+    ordered::Set,
+};
+use std::{
+    collections::{BTreeMap, VecDeque},
+    sync::Arc,
+};
+use tracing::{debug, error, trace, warn};
+
+/// A responder waiting for a message.
+struct Waiter<M> {
+    /// The responder to send the message to.
+    responder: oneshot::Sender<Arc<M>>,
+}
+
+/// Result of buffering an incoming or locally sent digest (inserted, duplicate, or ineligible).
+enum InsertMessageResult {
+    Inserted,
+    Duplicate,
+    Ineligible,
+}
+
+/// Instance of the main engine for the module.
+///
+/// It is responsible for:
+/// - Broadcasting messages to the network
+/// - Receiving messages from the network
+/// - Storing messages in the cache
+/// - Responding to requests from the application
+pub struct Engine<E, P, M, D>
+where
+    E: BufferPooler + Clock + Spawner + Metrics,
+    P: PublicKey,
+    M: Digestible + Codec,
+    D: Provider<PublicKey = P>,
+{
+    ////////////////////////////////////////
+    // Interfaces
+    ////////////////////////////////////////
+    context: ContextCell<E>,
+
+    ////////////////////////////////////////
+    // Configuration
+    ////////////////////////////////////////
+    /// My public key
+    public_key: P,
+
+    /// Whether messages are sent as priority
+    priority: bool,
+
+    /// Number of messages to cache per peer
+    deque_size: usize,
+
+    /// Configuration for decoding messages
+    codec_config: M::Cfg,
+
+    ////////////////////////////////////////
+    // Messaging
+    ////////////////////////////////////////
+    /// The mailbox for receiving messages.
+    mailbox_receiver: mailbox::Receiver<Message<P, M>>,
+
+    /// Pending requests from the application.
+    waiters: BTreeMap<M::Digest, Vec<Waiter<M>>>,
+
+    /// Provider for peer set changes.
+    peer_provider: D,
+
+    ////////////////////////////////////////
+    // Cache
+    ////////////////////////////////////////
+    /// All cached messages by digest.
+    items: BTreeMap<M::Digest, Arc<M>>,
+
+    /// A LRU cache of the latest received digests from each peer.
+    ///
+    /// This is used to limit the number of digests stored per peer.
+    /// At most `deque_size` digests are stored per peer. This value is expected to be small, so
+    /// membership checks are done in linear time.
+    deques: BTreeMap<P, VecDeque<M::Digest>>,
+
+    /// The number of times each digest (globally unique) exists in one of the deques.
+    ///
+    /// Multiple peers can send the same message and we only want to store
+    /// the message once.
+    counts: BTreeMap<M::Digest, usize>,
+
+    /// Latest primary peer set allowed to keep buffered messages resident.
+    latest_primary_peers: Set<P>,
+
+    ////////////////////////////////////////
+    // Metrics
+    ////////////////////////////////////////
+    /// Metrics
+    metrics: metrics::Metrics<P>,
+}
+
+impl<E, P, M, D> Engine<E, P, M, D>
+where
+    E: BufferPooler + Clock + Spawner + Metrics,
+    P: PublicKey,
+    M: Digestible + Codec,
+    D: Provider<PublicKey = P>,
+{
+    /// Creates a new engine with the given context and configuration.
+    /// Returns the engine and a mailbox for sending messages to the engine.
+    pub fn new(context: E, cfg: Config<P, M::Cfg, D>) -> (Self, Mailbox<P, M>) {
+        let (mailbox_sender, mailbox_receiver) =
+            mailbox::new(context.child("mailbox"), cfg.mailbox_size);
+        let mailbox = Mailbox::<P, M>::new(mailbox_sender);
+
+        let metrics = metrics::Metrics::init(&context);
+
+        let result = Self {
+            context: ContextCell::new(context),
+            public_key: cfg.public_key,
+            priority: cfg.priority,
+            deque_size: cfg.deque_size,
+            codec_config: cfg.codec_config,
+            mailbox_receiver,
+            waiters: BTreeMap::new(),
+            deques: BTreeMap::new(),
+            items: BTreeMap::new(),
+            counts: BTreeMap::new(),
+            latest_primary_peers: Set::default(),
+            peer_provider: cfg.peer_provider,
+            metrics,
+        };
+
+        (result, mailbox)
+    }
+
+    /// Starts the engine with the given network.
+    pub fn start(
+        mut self,
+        network: (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>),
+    ) -> Handle<()> {
+        spawn_cell!(self.context, self.run(network))
+    }
+
+    /// Inner run loop called by `start`.
+    async fn run(mut self, network: (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>)) {
+        let (mut sender, mut receiver) = wrap(
+            self.codec_config.clone(),
+            self.context.network_buffer_pool().clone(),
+            network.0,
+            network.1,
+        );
+        let mut peer_set_subscription = self.peer_provider.subscribe().await;
+
+        select_loop! {
+            self.context,
+            on_start => {
+                // Cleanup waiters
+                self.cleanup_waiters();
+                let _ = self.metrics.waiters.try_set(self.waiters.len());
+            },
+            on_stopped => {
+                debug!("shutdown");
+            },
+            // Handle peer set subscription messages
+            Some(update) = peer_set_subscription.recv() else {
+                debug!("peer set subscription closed");
+                break;
+            } => {
+                // Evict by latest primary only; see buffered module docs.
+                self.update_latest_primary_peers(update.latest.primary);
+            },
+            // Handle mailbox messages
+            Some(msg) = self.mailbox_receiver.recv() else {
+                error!("mailbox receiver failed");
+                break;
+            } => match msg {
+                Message::Broadcast {
+                    recipients,
+                    message,
+                } => {
+                    trace!("mailbox: broadcast");
+                    self.handle_broadcast(&mut sender, recipients, message);
+                }
+                Message::Subscribe { digest, responder } => {
+                    trace!("mailbox: subscribe");
+                    self.handle_subscribe(digest, responder);
+                }
+                Message::Get { digest, responder } => {
+                    trace!("mailbox: get");
+                    self.handle_get(digest, responder);
+                }
+            },
+            // Handle incoming messages
+            msg = receiver.recv() => {
+                // Error handling
+                let (peer, msg) = match msg {
+                    Ok(r) => r,
+                    Err(err) => {
+                        error!(?err, "receiver failed");
+                        break;
+                    }
+                };
+
+                // Decode the message
+                let msg = match msg {
+                    Ok(msg) => msg,
+                    Err(err) => {
+                        warn!(?err, ?peer, "failed to decode message");
+                        self.metrics.receive.inc(Status::Invalid);
+                        continue;
+                    }
+                };
+
+                trace!(?peer, "network");
+                self.metrics.peer.get_or_create_by(&peer).inc();
+                self.handle_network(peer, msg);
+            },
+        }
+    }
+
+    ////////////////////////////////////////
+    // Handling
+    ////////////////////////////////////////
+
+    /// Handles a `broadcast` request from the application.
+    fn handle_broadcast<Sr: Sender<PublicKey = P>>(
+        &mut self,
+        sender: &mut WrappedSender<Sr, M>,
+        recipients: Recipients<P>,
+        msg: Arc<M>,
+    ) {
+        // Store the message, continue even if it was already stored
+        let digest = msg.digest();
+        let _ = self.insert_shared_message(self.public_key.clone(), digest, &msg);
+
+        // Broadcast the message to the network
+        sender.send_ref(recipients, msg.as_ref(), self.priority);
+    }
+
+    /// Handles a `subscribe` request from the application.
+    ///
+    /// If the message is already in the cache, the responder is immediately sent the message.
+    /// Otherwise, the responder is stored in the waiters list.
+    fn handle_subscribe(&mut self, digest: M::Digest, responder: oneshot::Sender<Arc<M>>) {
+        // Check if the message is already in the cache
+        if let Some(item) = self.items.get(&digest).cloned() {
+            self.respond_subscribe(responder, item);
+            return;
+        }
+
+        // Store the responder
+        self.waiters
+            .entry(digest)
+            .or_default()
+            .push(Waiter { responder });
+    }
+
+    /// Handles a `get` request from the application.
+    fn handle_get(&mut self, digest: M::Digest, responder: oneshot::Sender<Option<Arc<M>>>) {
+        let item = self.items.get(&digest).cloned();
+        self.respond_get(responder, item);
+    }
+
+    /// Handles a message that was received from a peer.
+    fn handle_network(&mut self, peer: P, msg: M) {
+        let digest = msg.digest();
+        match self.insert_message(peer.clone(), digest, msg) {
+            InsertMessageResult::Inserted => {
+                self.metrics.receive.inc(Status::Success);
+            }
+            InsertMessageResult::Duplicate => {
+                debug!(?peer, "message already stored");
+                self.metrics.receive.inc(Status::Dropped);
+            }
+            InsertMessageResult::Ineligible => {
+                debug!(?peer, "message from peer outside latest.primary not cached");
+                self.metrics.receive.inc(Status::Dropped);
+            }
+        }
+    }
+
+    ////////////////////////////////////////
+    // Cache Management
+    ////////////////////////////////////////
+
+    /// Inserts a message into the cache.
+    ///
+    /// Waiters are notified even when a sender is not eligible to keep a
+    /// buffered cache entry resident.
+    fn insert_message(&mut self, peer: P, digest: M::Digest, msg: M) -> InsertMessageResult {
+        if let Some(waiters) = self.waiters.remove(&digest) {
+            let msg = Arc::new(msg);
+            self.respond_waiters(waiters, &msg);
+            return self.insert_cache_entry(peer, digest, || Arc::clone(&msg));
+        }
+
+        self.insert_cache_entry(peer, digest, || Arc::new(msg))
+    }
+
+    /// Inserts a shared message into the cache.
+    fn insert_shared_message(
+        &mut self,
+        peer: P,
+        digest: M::Digest,
+        msg: &Arc<M>,
+    ) -> InsertMessageResult {
+        if let Some(waiters) = self.waiters.remove(&digest) {
+            self.respond_waiters(waiters, msg);
+        }
+
+        self.insert_cache_entry(peer, digest, || Arc::clone(msg))
+    }
+
+    /// Records a peer's reference to a message, acquiring an `Arc` only when
+    /// the cache needs to store the message.
+    fn insert_cache_entry(
+        &mut self,
+        peer: P,
+        digest: M::Digest,
+        make_shared: impl FnOnce() -> Arc<M>,
+    ) -> InsertMessageResult {
+        // Only peers listed in `latest.primary` may buffer
+        if self.latest_primary_peers.position(&peer).is_none() {
+            return InsertMessageResult::Ineligible;
+        }
+
+        // Get the relevant deque for the peer
+        let deque = self
+            .deques
+            .entry(peer)
+            .or_insert_with(|| VecDeque::with_capacity(self.deque_size + 1));
+
+        // If the message is already in the deque, move it to the front and return early
+        if let Some(i) = deque.iter().position(|d| *d == digest) {
+            if i != 0 {
+                let v = deque.remove(i).unwrap(); // Must exist
+                deque.push_front(v);
+            }
+            return InsertMessageResult::Duplicate;
+        };
+
+        // - Insert the digest into the peer cache
+        // - Increment the item count
+        // - Insert the message if-and-only-if the new item count is 1
+        deque.push_front(digest);
+        let count = self
+            .counts
+            .entry(digest)
+            .and_modify(|c| *c = c.checked_add(1).unwrap())
+            .or_insert(1);
+        if *count == 1 {
+            let existing = self.items.insert(digest, make_shared());
+            assert!(existing.is_none());
+        }
+
+        // If the cache is full...
+        if deque.len() > self.deque_size {
+            // Remove the oldest item from the peer cache
+            // Decrement the item count
+            // Remove the message if-and-only-if the new item count is 0
+            let stale = deque.pop_back().unwrap();
+            decrement_digest_refcount(&mut self.counts, &mut self.items, &stale);
+        }
+
+        InsertMessageResult::Inserted
+    }
+
+    fn update_latest_primary_peers(&mut self, peers: Set<P>) {
+        for (peer, deque) in self
+            .deques
+            .extract_if(.., |peer, _| peers.position(peer).is_none())
+        {
+            debug!(?peer, digests = deque.len(), "evicting disconnected peer");
+            for digest in deque {
+                decrement_digest_refcount(&mut self.counts, &mut self.items, &digest);
+            }
+        }
+        self.latest_primary_peers = peers;
+    }
+
+    ////////////////////////////////////////
+    // Utilities
+    ////////////////////////////////////////
+
+    /// Remove all waiters that have dropped receivers.
+    fn cleanup_waiters(&mut self) {
+        self.waiters.retain(|_, waiters| {
+            let initial_len = waiters.len();
+            waiters.retain(|waiter| !waiter.responder.is_closed());
+            let dropped_count = initial_len - waiters.len();
+
+            // Increment metrics for each dropped waiter
+            for _ in 0..dropped_count {
+                self.metrics.get.inc(Status::Dropped);
+            }
+
+            !waiters.is_empty()
+        });
+    }
+
+    /// Respond to a waiter with a message.
+    /// Increments the appropriate metric based on the result.
+    fn respond_subscribe(&mut self, responder: oneshot::Sender<Arc<M>>, msg: Arc<M>) {
+        self.metrics.subscribe.inc(if responder.send_lossy(msg) {
+            Status::Success
+        } else {
+            Status::Dropped
+        });
+    }
+
+    fn respond_waiters(&mut self, waiters: Vec<Waiter<M>>, msg: &Arc<M>) {
+        for waiter in waiters {
+            self.respond_subscribe(waiter.responder, Arc::clone(msg));
+        }
+    }
+
+    /// Respond to a get request.
+    /// Increments the appropriate metric based on the result.
+    fn respond_get(&mut self, responder: oneshot::Sender<Option<Arc<M>>>, msg: Option<Arc<M>>) {
+        let found = msg.is_some();
+        self.metrics.get.inc(if responder.send_lossy(msg) {
+            if found {
+                Status::Success
+            } else {
+                Status::Failure
+            }
+        } else {
+            Status::Dropped
+        });
+    }
+}
+
+/// Decrement a digest refcount and evict it from cache when no references remain.
+fn decrement_digest_refcount<D: Ord, M>(
+    counts: &mut BTreeMap<D, usize>,
+    items: &mut BTreeMap<D, M>,
+    digest: &D,
+) {
+    let should_remove = {
+        let count = counts.get_mut(digest).expect("count must exist");
+        *count = count.checked_sub(1).expect("count must be > 0");
+        *count == 0
+    };
+    if should_remove {
+        let existing = counts.remove(digest);
+        assert!(existing == Some(0));
+        items.remove(digest);
+    }
+}

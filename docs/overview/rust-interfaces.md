@@ -4,6 +4,8 @@
 
 The five application declarations propose integration, not implemented crates. The separately labelled Commonware signature excerpts are existing upstream APIs, not new Baton declarations. Concrete associated-type fields, codecs, channels, errors, and worker placement remain undecided. These interfaces adopt no new wire schema or policy and do not require one actor or crate per role.
 
+When connecting upstream handles, use types from the same resolved Commonware dependency graph. Matching import names or encoded hash bytes do not make a registry-release Sender, codec trait or digest equal to its native git counterpart. [Version and constructor checklist](../reference/integration.md#reference-versions-are-not-one-compatible-dependency-graph).
+
 **The application Rust blocks on this page are the source of truth.** The [single Rust file](../assets/interfaces/baton.rs) is generated from them. Existing-library excerpts marked `rust,ignore` stay out of that standalone export because they require the pinned Commonware dependencies. Syntax checking of the export is separate from checking upstream compatibility, implementing services, or verifying the protocol. Future-returning declarations need `use std::future::Future;`.
 
 ## Modules and call flow

@@ -1,0 +1,1 @@
+[{"repo":"commonwarexyz/monorepo","pin":"534af0ede48affd35b2111522527547b4cc9bf72","path":"consensus/src/multimmit/actors/producer/actor.rs","error":"HTTP 404; guessed producer module absent; actual callback ownership inspected in actors/voter/executor.rs"}]

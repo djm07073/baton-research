@@ -1,0 +1,170 @@
+[
+  {
+    "path": "p2p/src/authenticated/discovery/network.rs",
+    "line": 192,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "p2p/src/authenticated/router/ingress.rs",
+    "line": 204,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "storage/src/archive/immutable/storage.rs",
+    "line": 110,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 121,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "resolver/src/p2p/engine.rs",
+    "line": 151,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 700,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 272,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "consensus/src/multimmit/actors/voter/actor.rs",
+    "line": 913,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "storage/src/archive/immutable/storage.rs",
+    "line": 293,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "storage/src/archive/mod.rs",
+    "line": 137,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "runtime/src/lib.rs",
+    "line": 287,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "runtime/src/utils/handle.rs",
+    "line": 189,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "runtime/src/utils/signal.rs",
+    "line": 125,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "resolver/src/p2p/engine.rs",
+    "line": 193,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "consensus/src/multimmit/actors/voter/executor.rs",
+    "line": 58,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 514,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 588,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 816,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "runtime/src/utils/handle.rs",
+    "line": 129,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "runtime/src/utils/supervision.rs",
+    "line": 145,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "crates/consensus/src/lib.rs",
+    "line": 148,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "crates/consensus/src/consensus/engine.rs",
+    "line": 524,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "crates/consensus/src/alias.rs",
+    "line": 132,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "chain/src/engine.rs",
+    "line": 195,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "chain/src/engine.rs",
+    "line": 465,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "validator/src/main.rs",
+    "line": 349,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "crates/consensus/src/alias.rs",
+    "line": 216,
+    "independent_receipt": true,
+    "line_valid": true
+  },
+  {
+    "path": "consensus/src/multimmit/engine.rs",
+    "line": 306,
+    "independent_receipt": true,
+    "line_valid": true
+  }
+]

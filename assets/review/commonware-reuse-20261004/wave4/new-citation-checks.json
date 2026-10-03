@@ -1,0 +1,606 @@
+{
+  "checked_at_utc": "2026-10-03T21:29:12.092533+00:00",
+  "source": "Fresh root raw downloads; repo/pin/anchor contexts independently inspected",
+  "links": [
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/Cargo.lock#L748",
+      "source_revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "bytes": 113626,
+      "sha256": "0f1870e5a7b48f4dfd3cf83d4ba8c4cade42dd378e647cd1d9e1a9d67dc6b808",
+      "git_blob_sha": "c7cabf5e9ccbd6a8e3763d17e187b6470741339e",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "[[package]]",
+        "name = \"commonware-codec\"",
+        "version = \"2026.9.0\"",
+        "source = \"registry+https://github.com/rust-lang/crates.io-index\"",
+        "checksum = \"4d1e1bd11366f81e304c737c098eb0c075cef59e21daff44c3227952c2f75b49\""
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs#L465",
+      "source_revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "bytes": 19385,
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18",
+      "git_blob_sha": "dbc2f2309f2804c6be48fe1f45399f36c2b465fa",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "        // Start marshal",
+        "        let marshal_handle = self",
+        "            .marshal",
+        "            .start(self.marshaled, self.buffer_mailbox, marshal);",
+        ""
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/webserver/mailbox.rs#L112",
+      "source_revision": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "bytes": 6631,
+      "sha256": "6424f5f8002533827d7709132b11e4f012872f2febe6ebf31cfcce8e83895ec5",
+      "git_blob_sha": "ef6ee912ba3fdd5e2546122e991ac8a6bfbe6ac2",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "    /// Returns `None` if the channel is full.",
+        "    pub fn try_submit(",
+        "        &self,",
+        "        batch_id: String,",
+        "        digests: Vec<H::Digest>,"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/Cargo.toml#L63",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 9447,
+      "sha256": "a6f32c206c57ed0be605cda7784ca2e2b3131163c069c77ac406949712bb7dae",
+      "git_blob_sha": "ff495b37d56570a6a2b11f45920120acace92e40",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "[workspace.package]",
+        "version = \"2026.7.0\"",
+        "edition = \"2024\"",
+        "license = \"MIT OR Apache-2.0\"",
+        "homepage = \"https://commonware.xyz\""
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L306",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 64562,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+      "git_blob_sha": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "/// Opens (or reopens) every durable store for one engine and prepares the startup path.",
+        "///",
+        "/// A node with no durable checkpoint and an empty journal starts fresh; otherwise it recovers",
+        "/// from its newest complete checkpoint and contiguous journal suffix. A validator deployment may"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L588",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 64562,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+      "git_blob_sha": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "    /// Consumes the handle and waits for every engine child to stop.",
+        "    pub async fn join(self) {",
+        "        let _ = self.task.await;",
+        "    }"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L700",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 64562,
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+      "git_blob_sha": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "    )]",
+        "    pub async fn start(",
+        "        mut self,",
+        "        data: (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>),",
+        "        consensus: (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>),"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L10",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 31671,
+      "sha256": "853ea79c2cae741860a7935f88c4a397f47ae9874b9155f183d3180f9f1e010c",
+      "git_blob_sha": "ca1ac76dbf51be8e354a96b15da977aecd3d46fa",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "//! Certificates are generic over the signing scheme, allowing users to choose",
+        "//! the scheme best suited for their requirements:",
+        "//!",
+        "//! - [`ed25519`]: Attributable signatures with individual verification. HSM-friendly, no trusted",
+        "//!   setup required, and widely supported. Certificates contain individual signatures from each"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L178",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 31671,
+      "sha256": "853ea79c2cae741860a7935f88c4a397f47ae9874b9155f183d3180f9f1e010c",
+      "git_blob_sha": "ca1ac76dbf51be8e354a96b15da977aecd3d46fa",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "/// Identifies the subject of a signature or certificate.",
+        "pub trait Subject: Clone + Debug + Send + Sync {",
+        "    /// Pre-computed namespace(s) for this subject type.",
+        "    type Namespace: Namespace;",
+        ""
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L346",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 31671,
+      "sha256": "853ea79c2cae741860a7935f88c4a397f47ae9874b9155f183d3180f9f1e010c",
+      "git_blob_sha": "ca1ac76dbf51be8e354a96b15da977aecd3d46fa",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "        D: Digest;",
+        "",
+        "    /// Batch-verifies attestations and separates valid attestations from signer indices that failed",
+        "    /// verification.",
+        "    ///"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L509",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 31671,
+      "sha256": "853ea79c2cae741860a7935f88c4a397f47ae9874b9155f183d3180f9f1e010c",
+      "git_blob_sha": "ca1ac76dbf51be8e354a96b15da977aecd3d46fa",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "#[derive(Clone, Debug, PartialEq, Eq, Hash)]",
+        "pub struct Signers {",
+        "    bitmap: BitMap<1>,",
+        "}",
+        ""
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/discovery/network.rs#L192",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 11388,
+      "sha256": "6303cbe80cb21cc1af6c3aeb91e1b6654c0a2d8c1f47d8312a6cb0a8fed71582",
+      "git_blob_sha": "6da34b288c11ecb269a182114b9cd0bc6d9c0058",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "    /// overflows.",
+        "    pub fn start(mut self) -> Handle<()> {",
+        "        // Size the router mailbox from the registered channels before binding their senders.",
+        "        // Submissions made before binding are accepted and dropped.",
+        "        let (router, router_mailbox) = router::Actor::new("
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/router/ingress.rs#L204",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 11051,
+      "sha256": "3fa0dc6a91d27c90fde14ccff5a647d80e3a5499ae22a7fad84af1e30d6a5544",
+      "git_blob_sha": "4f101375e7f61d21595ee16b529c29829536191d",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "        // Treat sends before the router is bound as sends with no connected peers. Nothing can",
+        "        // receive the content, so accept the submission without encoding or enqueueing it.",
+        "        let Some(mailbox) = self.shared.mailbox.get() else {",
+        "            return Unreliable::new(Feedback::Ok);",
+        "        };"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/lib.rs#L375",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 16744,
+      "sha256": "d1f2bfd100849dc730385b459dbf14cabb434909494d83677c7e6666ef163272",
+      "git_blob_sha": "9931331ede2de93c9b16eaad3dc263b13fe952ec",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "    /// Interface for blocking other peers.",
+        "    pub trait Blocker: Clone + Send + 'static {",
+        "        /// Public key type used to identify peers.",
+        "        type PublicKey: PublicKey;",
+        ""
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/config.rs#L9",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 1517,
+      "sha256": "849a929900bb1b68560e3e7601958f95f34f4bc666d4c2a5b2cdca9c57ec2003",
+      "git_blob_sha": "b9372a5efd43aa30afb1c93cdd69bb3fd04531f6",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "/// Configuration for the peer actor.",
+        "pub struct Config<",
+        "    P: PublicKey,",
+        "    D: Provider<PublicKey = P>,",
+        "    B: Blocker<PublicKey = P>,"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs#L281",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 125207,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+      "git_blob_sha": "139a63a62b07caaadb799d3f4b1cfa4a8cd37fca",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "        fn dedicated(self) -> Self;",
+        "",
+        "        /// Spawn a task with the current context.",
+        "        ///",
+        "        /// Unlike directly awaiting a future, the task starts running immediately even if the caller"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L125",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 20715,
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "git_blob_sha": "efd0782b46d254a82f94edc11d6ed2d4ce137ddf",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "                Abortable::new(AssertUnwindSafe(f).catch_unwind(), abort_registration).await;",
+        "",
+        "            // Handle result",
+        "            match result {",
+        "                Ok(Ok(result)) => {"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L189",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 20715,
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "git_blob_sha": "efd0782b46d254a82f94edc11d6ed2d4ce137ddf",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "    /// Waits for the first handle to complete and aborts all handles before returning.",
+        "    ///",
+        "    /// Dropping the returned future also aborts every handle. Selection is biased toward handles",
+        "    /// that appear earlier in the iterator."
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/immutable/storage.rs#L110",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 13833,
+      "sha256": "a92d48f6e9ae4c6bb150aff6a3e9b80f9fae27ca3240f572727180e4b5d63b1e",
+      "git_blob_sha": "ce3f72708b986503f939e2c385f30956c01a29c9",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "    /// See [Archive::init].",
+        "    async fn init(context: E, cfg: Config<V::Cfg>) -> Result<Self, Error> {",
+        "        // Initialize metadata",
+        "        let metadata = Metadata::<E, U64, Record>::init(",
+        "            context.child(\"metadata\"),"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/mod.rs#L137",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 45888,
+      "sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877",
+      "git_blob_sha": "51cec09eace51b01c1b313090007579a38f5dc2b",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "    /// Sync all pending writes.",
+        "    fn sync(self) -> impl Future<Output = Result<Self, Error>> + Send;",
+        "",
+        "    /// Request that all pending writes are synced.",
+        "    ///"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/faults.rs#L62",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 14486,
+      "sha256": "46ad12c3f6fbc075a6642c9b8130446770615039d12279f1ac9413d494646897",
+      "git_blob_sha": "ea0d4b71414cbd424a897da692c1f61b6fabd76b",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "    fn quorum(n: impl ToPrimitive) -> u32 {",
+        "        let n = n",
+        "            .to_u32()",
+        "            .expect(\"n must be a non-negative integer that fits in u32\");",
+        "        assert!(n > 0, \"n must not be zero\");"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/ordered.rs#L274",
+      "source_revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "bytes": 33010,
+      "sha256": "3f95fddd7f8b3335802f88a80dbb3e4ee969179afbde36c42fade2819447c706",
+      "git_blob_sha": "4e7624be019c1532843b8badac24a8bf571bcbd0",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "impl<T: Ord> Quorum for Set<T> {",
+        "    type Item = T;",
+        "",
+        "    fn quorum<M: Faults>(&self) -> u32 {"
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/p2p/src/lib.rs#L380",
+      "source_revision": "v2026.9.0",
+      "bytes": 17371,
+      "sha256": "b6d6ed87771990688a4e0c19fd5b99300ae62143ea41523ca1e2ba6f4a9259ed",
+      "git_blob_sha": "39fee5a262521687a965661e7bc440c840b24201",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "    /// Interface for blocking other peers.",
+        "    pub trait Blocker: Clone + Send + 'static {",
+        "        /// Public key type used to identify peers.",
+        "        type PublicKey: PublicKey;",
+        ""
+      ]
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/resolver/src/p2p/config.rs#L9",
+      "source_revision": "v2026.9.0",
+      "bytes": 1453,
+      "sha256": "f6ef8df4a6611b4a520cf3474f42fd5d48126e00e63fec0a914b4f25b4f7008f",
+      "git_blob_sha": "e644d2e7f235dcdbb16f14da00cda881803471ce",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "/// Configuration for the peer actor.",
+        "pub struct Config<",
+        "    P: PublicKey,",
+        "    D: Provider<PublicKey = P>,",
+        "    B: Blocker<PublicKey = P>,"
+      ]
+    },
+    {
+      "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/Cargo.lock#L666",
+      "source_revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "bytes": 158343,
+      "sha256": "c1827622a850b60a157d203edb657bd37bf33476f941a3bca8cea17f5b4bc177",
+      "git_blob_sha": "e3f8ea208bfb675dc283086cc5638f2f605becec",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "[[package]]",
+        "name = \"commonware-codec\"",
+        "version = \"2026.9.0\"",
+        "source = \"registry+https://github.com/rust-lang/crates.io-index\"",
+        "checksum = \"4d1e1bd11366f81e304c737c098eb0c075cef59e21daff44c3227952c2f75b49\""
+      ]
+    },
+    {
+      "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/Cargo.toml#L10",
+      "source_revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "bytes": 690,
+      "sha256": "2eff13e932d0b752716fdd2e191de5ed1bf544dea7a7df65404ed48b2697cd5f",
+      "git_blob_sha": "415d0178ff84d004972f8b21ce736e36a262ea3a",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "[dependencies]",
+        "nunchi-common = { workspace = true }",
+        "nunchi-crypto = { workspace = true }",
+        "commonware-codec = { workspace = true }"
+      ]
+    },
+    {
+      "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L433",
+      "source_revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "bytes": 17292,
+      "sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+      "git_blob_sha": "becd1fd372cf61a11a388d1528dd1be2d4243316",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "    fn handle_with_gossip<S>(&mut self, message: Message<T>, sender: &mut S)",
+        "    where",
+        "        S: Sender,",
+        "        T: Encode,"
+      ]
+    },
+    {
+      "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L473",
+      "source_revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "bytes": 17292,
+      "sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+      "git_blob_sha": "becd1fd372cf61a11a388d1528dd1be2d4243316",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "    fn handle_network<P>(&mut self, peer: P, mut bytes: commonware_runtime::IoBuf)",
+        "    where",
+        "        P: PublicKey,",
+        "        T: Read<Cfg = ()>,"
+      ]
+    },
+    {
+      "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L61",
+      "source_revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "bytes": 17292,
+      "sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+      "git_blob_sha": "becd1fd372cf61a11a388d1528dd1be2d4243316",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "impl<T: PoolTransaction> MempoolHandle<T> {",
+        "    /// Submit a transaction for admission, returning its digest on success or",
+        "    /// the reason it was refused.",
+        "    pub async fn submit(&self, tx: T) -> Result<Digest, AdmissionError> {"
+      ]
+    },
+    {
+      "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/lib.rs#L15",
+      "source_revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "bytes": 910,
+      "sha256": "92b0cd637a14289526ec3cf639c7f1146c1e0c456205d3d2d12813a51c3f7427",
+      "git_blob_sha": "471e964a4bcd35b546e602961d600df5f5067037",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "mod metrics;",
+        "mod pool;",
+        "mod status;",
+        "#[cfg(test)]",
+        "mod testing;"
+      ]
+    },
+    {
+      "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/pool.rs#L108",
+      "source_revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "bytes": 15385,
+      "sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+      "git_blob_sha": "90fab9253f40757e49ae39472683e187d821e25e",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "        // A same-nonce resubmission replaces the earlier transaction",
+        "        // (last-write-wins): only the account's own signers can produce one,",
+        "        // and replacement lets owners unstick an unexecutable transaction.",
+        "        // Replacements bypass the capacity checks since pool size is unchanged."
+      ]
+    },
+    {
+      "url": "https://github.com/paradigmxyz/reth/blob/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/maintain.rs#L830",
+      "source_revision": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "bytes": 40071,
+      "sha256": "8bf73ff9a40b972face224e5795fd72bd4a5815b1f06b6b2309a45bf63d12b7e",
+      "git_blob_sha": "a7a26f52b8353f0f73f169851efe5f1ec5f7ed4c",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "/// Reloads the transactions from the file on the boot up and inserts them into the pool.",
+        "pub async fn backup_local_transactions_task<P>(",
+        "    shutdown: reth_tasks::shutdown::GracefulShutdown,",
+        "    pool: P,",
+        "    config: LocalTransactionBackupConfig,"
+      ]
+    },
+    {
+      "url": "https://github.com/paradigmxyz/reth/blob/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/maintain.rs#L98",
+      "source_revision": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "bytes": 40071,
+      "sha256": "8bf73ff9a40b972face224e5795fd72bd4a5815b1f06b6b2309a45bf63d12b7e",
+      "git_blob_sha": "a7a26f52b8353f0f73f169851efe5f1ec5f7ed4c",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "/// Returns a spawnable future for maintaining the state of the transaction pool.",
+        "pub fn maintain_transaction_pool_future<N, Client, P, St>(",
+        "    client: Client,",
+        "    pool: P,",
+        "    events: St,"
+      ]
+    },
+    {
+      "url": "https://github.com/paradigmxyz/reth/blob/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/traits.rs#L1109",
+      "source_revision": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "bytes": 86752,
+      "sha256": "8d2550da48835784874f9e4e31894e40f713b3369eda145e9e33b9e8e471cb4e",
+      "git_blob_sha": "ef4d74953fb96ceae93ed407dbe4ed9518667141",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "/// An `Iterator` that only returns transactions that are ready to be executed.",
+        "///",
+        "/// This makes no assumptions about the order of the transactions, but expects that _all_",
+        "/// transactions are valid (no nonce gaps.) for the tracked state of the pool."
+      ]
+    },
+    {
+      "url": "https://github.com/paradigmxyz/reth/blob/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/traits.rs#L1130",
+      "source_revision": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "bytes": 86752,
+      "sha256": "8d2550da48835784874f9e4e31894e40f713b3369eda145e9e33b9e8e471cb4e",
+      "git_blob_sha": "ef4d74953fb96ceae93ed407dbe4ed9518667141",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "    /// listen to pool updates.",
+        "    fn no_updates(&mut self);",
+        "",
+        "    /// Allows newly received transactions to be yielded even if their priority is higher than a",
+        "    /// transaction that was already yielded."
+      ]
+    },
+    {
+      "url": "https://github.com/paradigmxyz/reth/blob/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/traits.rs#L126",
+      "source_revision": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "bytes": 86752,
+      "sha256": "8d2550da48835784874f9e4e31894e40f713b3369eda145e9e33b9e8e471cb4e",
+      "git_blob_sha": "ef4d74953fb96ceae93ed407dbe4ed9518667141",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "    /// Imports an _external_ transaction.",
+        "    ///",
+        "    /// This is intended to be used by the network to insert incoming transactions received over the",
+        "    /// p2p network."
+      ]
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/Cargo.lock#L3120",
+      "source_revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "bytes": 375798,
+      "sha256": "5b71c9a3e69cfa5eda42df214a8e35600b062c2d75c7b25c94b95c6966a013e8",
+      "git_blob_sha": "d06bd4e455414df794115864aad79e0f4b45c2f3",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "[[package]]",
+        "name = \"commonware-codec\"",
+        "version = \"2026.9.0\"",
+        "source = \"registry+https://github.com/rust-lang/crates.io-index\"",
+        "checksum = \"4d1e1bd11366f81e304c737c098eb0c075cef59e21daff44c3227952c2f75b49\""
+      ]
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L524",
+      "source_revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "bytes": 20899,
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5",
+      "git_blob_sha": "58a843e1cbd0dcb289a2752034f08ae6494b81d7",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "        );",
+        "        let peer_manager = self.peer_manager.start();",
+        "",
+        "        let broadcast = self.broadcast.start(broadcast_channel);",
+        "        let resolver = marshal::resolver::p2p::init("
+      ]
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/lib.rs#L148",
+      "source_revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "bytes": 10572,
+      "sha256": "d09cb17ecedce40656a4d752748204fcba8077f61fabebfc6a0e981697b7fabc",
+      "git_blob_sha": "d9af8a0cfd422094357b6878d487043e6900fbdb",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "",
+        "    let (network, consensus_engine) = (",
+        "        network.start(),",
+        "        consensus_engine.start(votes, certificates, resolver, broadcaster, marshal, dkg),",
+        "    );"
+      ]
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/transaction-pool/src/maintain.rs#L476",
+      "source_revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "bytes": 54749,
+      "sha256": "100264b2642d1e21110af5d93b1e0f1352a4d4b28a678f3b1465b96d4f96064c",
+      "git_blob_sha": "2e8b7d8fc626c17aa42a143e9ee136b39e0708ca",
+      "anchor_in_range": true,
+      "anchor_context": [
+        "/// competing for canonical state updates and to minimize contention on pool locks.",
+        "pub async fn maintain_tempo_pool<Client, EvmConfig>(pool: TempoTransactionPool<Client, EvmConfig>)",
+        "where",
+        "    EvmConfig: ConfigureTempoPoolEvm,",
+        "    Client: StateProviderFactory"
+      ]
+    }
+  ]
+}
