@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant P as Producer의 native owner
+    participant A as Validator의 BlockService
+    participant V as Validator의 native owner
+    participant L as 현재 view의 leader owner
+    participant F as 수신 node의 view / finality owner
+    P-->>V: Signed producer header를 native peers에 전파
+    V->>A: verify(producer Context, commitment)
+    A-->>V: true: valid + durable custody
+    V->>V: Contiguous DA choice / durable publication gate
+    V-->>P: DA share: 해당 producer에게만 전송
+    par Producer certification 업무
+        opt 같은 header의 valid shares n−2f개 확보
+            P->>P: Exact DA certificate 복구 / durable admission
+            P-->>V: DA certificate 전파
+        end
+    and Leader proposal / direct voting 업무
+        L->>L: Earlier V-QC parent + lane anchors / local DA-voted paths
+        L-->>V: Signed LeaderBlock + 필요한 exact parent V-QC
+        V->>V: Native proposal 검증 / position·extension vote 예약
+        V-->>F: Complete signed vote를 native peers에 broadcast
+    end
+    F->>F: 검증된 distinct attributed votes / view messages 보관
+    par Local sticky pool
+        opt n−f votes for one LeaderBlock
+            F->>F: Local leader / tip finality
+        end
+    and Portable L-QC
+        opt n−f exact votes for one LeaderBlock
+            F->>F: L-QC aggregate / admission
+        end
+    and V-QC / view exit
+        opt n−f..n messages / ≥2f+1 designated votes
+            F->>F: V-QC aggregate / safe tips / view exit
+        end
+    end

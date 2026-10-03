@@ -1,0 +1,297 @@
+{
+  "original_spec_sha256": "79d5a7109a685d8b8c968bcc92b135fad290a70dc62a8c95f064128c919ff74b",
+  "original_archive": "archive/2026-10-03-before-gitbook/IMPLEMENTATION_SPEC.md",
+  "all_original_sections_mapped_once": true,
+  "external_citation_occurrences_preserved": 118,
+  "diagram_sources_preserved": 18,
+  "explicit_corrections": [
+    "5.7 stale Baton canonical-delivery wording corrected to latest Orderer -> Executor responsibility",
+    "2.4 heading renamed to Block body 송수신"
+  ],
+  "pages": [
+    {
+      "group": "전체 구조",
+      "path": "overview/architecture.md",
+      "title": "전체 아키텍처",
+      "original_sections": [
+        "1.1",
+        "1.2",
+        "1.4",
+        "1.5"
+      ],
+      "sha256": "1d6e80ae01c4591332107c88a6c69e149716aad68880ceec3d1827e69ce825d1"
+    },
+    {
+      "group": "전체 구조",
+      "path": "overview/glossary.md",
+      "title": "역할과 공통 용어",
+      "original_sections": [
+        "1.3"
+      ],
+      "sha256": "5f6717ec060f3b2c674b833ead0a27412ffb17c039112fee89ee5e7a1d2ec646"
+    },
+    {
+      "group": "전체 구조",
+      "path": "overview/networking.md",
+      "title": "P2P와 메시지 경로",
+      "original_sections": [
+        "1.6"
+      ],
+      "sha256": "0181a0dadc69528586c87878455b190c2030dbb807454d5467a8b8e00b62a94a"
+    },
+    {
+      "group": "전체 구조",
+      "path": "overview/interfaces.md",
+      "title": "인터페이스 읽는 방법",
+      "original_sections": [
+        "1.7"
+      ],
+      "sha256": "34f04a3467f5bf185be25beb9e9c1ffa95d55186c952061fbfb405d0ee178dc1"
+    },
+    {
+      "group": "Tx 레이어",
+      "path": "tx/README.md",
+      "title": "Tx 레이어: 역할과 동작",
+      "original_sections": [
+        "3.1",
+        "3.3",
+        "3.4"
+      ],
+      "sha256": "829362cf7cd81d2550879affb7c10bb6516c9b41f4b66e047a2e909f373bec2f"
+    },
+    {
+      "group": "Tx 레이어",
+      "path": "tx/interfaces.md",
+      "title": "Tx 인터페이스",
+      "original_sections": [
+        "3.2"
+      ],
+      "sha256": "5da3db132cf47378ad6fc1ae7bff64e8cc9c6c406b1226e70167513b2b1c24b2"
+    },
+    {
+      "group": "Consensus 레이어",
+      "path": "consensus/README.md",
+      "title": "Consensus: 역할과 native 구조",
+      "original_sections": [
+        "4.1",
+        "4.6"
+      ],
+      "sha256": "e265014f8d325dc58679cbc31a152860f5ebc31dcb0fa2ebd076ed2ae356d6df"
+    },
+    {
+      "group": "Consensus 레이어",
+      "path": "consensus/block-body.md",
+      "title": "블록 생성과 Block body 송수신",
+      "original_sections": [
+        "4.2",
+        "4.3",
+        "4.4"
+      ],
+      "sha256": "648bba05a66e0733397bd15224b2354bc98010767a5c0b2a28d96a66e6edc4ed"
+    },
+    {
+      "group": "Consensus 레이어",
+      "path": "consensus/ordered-input.md",
+      "title": "확정 실행 순서 전달",
+      "original_sections": [
+        "4.5"
+      ],
+      "sha256": "dc45273fc2966a3a0bebf7370551086bae8ed6c01824ef668dc8cf297a8956c9"
+    },
+    {
+      "group": "Consensus 레이어",
+      "path": "consensus/decisions.md",
+      "title": "Consensus 미결정 사항",
+      "original_sections": [
+        "4.7"
+      ],
+      "sha256": "5e537c31d9c46ce24f69d1a706128befcd642e9a79c9efe63bf5063f4d831326"
+    },
+    {
+      "group": "Baton 레이어",
+      "path": "baton/README.md",
+      "title": "Baton: 역할과 report 경로",
+      "original_sections": [
+        "5.1",
+        "5.3"
+      ],
+      "sha256": "4b57f0c9ecb8e65e15ef25064537b1674d502169436a5290f3108be53b039b24"
+    },
+    {
+      "group": "Baton 레이어",
+      "path": "baton/direction.md",
+      "title": "Direction 선택과 재실행",
+      "original_sections": [
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.8"
+      ],
+      "sha256": "a4108541a8c59153fc4b5235180e9c03a50d2fa6fc2bd50a6ed9f8a6ab05d05a"
+    },
+    {
+      "group": "Baton 레이어",
+      "path": "baton/interfaces.md",
+      "title": "Baton 인터페이스와 로컬 진행 알림",
+      "original_sections": [
+        "5.2",
+        "5.7"
+      ],
+      "sha256": "90749ed4d9a73a9869b6af1697c24938bfb3e7c5eed987e8bab0a0cc64b2d3cb"
+    },
+    {
+      "group": "Execution 레이어",
+      "path": "execution/README.md",
+      "title": "Execution: 역할과 책임",
+      "original_sections": [
+        "6.1",
+        "6.6"
+      ],
+      "sha256": "49556d7f2bb81b6aa434605922931daae47a7d82ae8fc13459038277c694da77"
+    },
+    {
+      "group": "Execution 레이어",
+      "path": "execution/interfaces.md",
+      "title": "Executor·Runtime·결과 인증 인터페이스",
+      "original_sections": [
+        "6.2",
+        "6.8"
+      ],
+      "sha256": "487fe66c496aef9a990e1ebc2711d97e618d3b851260da76dcf04c3d2f962428"
+    },
+    {
+      "group": "Execution 레이어",
+      "path": "execution/qmdb.md",
+      "title": "QMDB 분기·재사용·상태 적용",
+      "original_sections": [
+        "6.3",
+        "6.4",
+        "6.5"
+      ],
+      "sha256": "f4dc37f25f0af8893bcbc64b7caae8a5b4a8749925e15b7d732e8c03b79bf93e"
+    },
+    {
+      "group": "Execution 레이어",
+      "path": "execution/state-sync.md",
+      "title": "State sync: 인증된 실행 결과로 상태 동기",
+      "original_sections": [
+        "6.7"
+      ],
+      "sha256": "93d7c271b671eba6075a35e25bab0b3b28f6a46879fc00ed5c7dc37efa8bdc67"
+    },
+    {
+      "group": "E2E 케이스",
+      "path": "e2e/normal.md",
+      "title": "정상 흐름: tx 접수부터 상태 적용까지",
+      "original_sections": [
+        "2.1",
+        "2.2"
+      ],
+      "sha256": "8a8086fe157c0ab5effd1be14bec1b61e4f6402232d12ba9818ae3f08a4bff7e"
+    },
+    {
+      "group": "E2E 케이스",
+      "path": "e2e/block-body.md",
+      "title": "Block body 송수신",
+      "original_sections": [
+        "2.3",
+        "2.4"
+      ],
+      "sha256": "a79d2ca6866aff724da3c267b86150668eb7c4453403ae8c561996fffb0ed85e"
+    },
+    {
+      "group": "E2E 케이스",
+      "path": "e2e/native-consensus.md",
+      "title": "블록 제안·DA·cut 확정",
+      "original_sections": [
+        "2.14"
+      ],
+      "sha256": "0bb638eda7730b363e782278c237764fc9f9aa23518b66ca1e0ce3175f583520"
+    },
+    {
+      "group": "E2E 케이스",
+      "path": "e2e/leader.md",
+      "title": "Leader report·direction과 proposal 경합",
+      "original_sections": [
+        "2.5",
+        "2.11"
+      ],
+      "sha256": "fbd78e6d10a98c65ab2b778a1d3f82ce973ec9de73f26e19d16dd15cd279d7a1"
+    },
+    {
+      "group": "E2E 케이스",
+      "path": "e2e/reschedule.md",
+      "title": "Direction 수신과 재실행",
+      "original_sections": [
+        "2.6"
+      ],
+      "sha256": "3fb7848dac16476636a23aba23033c6643a3d170b11172d48adbeaa7a3257aa5"
+    },
+    {
+      "group": "E2E 케이스",
+      "path": "e2e/canonical.md",
+      "title": "확정 순서와 canonical 상태 적용",
+      "original_sections": [
+        "2.7",
+        "2.8"
+      ],
+      "sha256": "d632a2b7c2ed8ee8eeef2d7d4d0f7e441726b5b1e4b1f7340811da39d2580b53"
+    },
+    {
+      "group": "E2E 케이스",
+      "path": "e2e/recovery.md",
+      "title": "시작·재시작과 이력 복구",
+      "original_sections": [
+        "2.12",
+        "2.9"
+      ],
+      "sha256": "dada3c4b5c4ae98f6c642a9e6b51d33f61cbfbc71035c3f0c74c57dd46199bd9"
+    },
+    {
+      "group": "E2E 케이스",
+      "path": "e2e/results.md",
+      "title": "Executor 간 결과 인증과 조회",
+      "original_sections": [
+        "2.10"
+      ],
+      "sha256": "16c88b6a420242c49f849ede7274bbb6f60d0781071d61b16afb1ba317dea9e1"
+    },
+    {
+      "group": "E2E 케이스",
+      "path": "e2e/state-sync.md",
+      "title": "State sync: 인증된 실행 결과로 상태 동기",
+      "original_sections": [
+        "2.13"
+      ],
+      "sha256": "c04584ad11b8ae3a1acc0d9dedb43835d2161144697a65f00bdeb01c3070bf6a"
+    },
+    {
+      "group": "개발·참고자료",
+      "path": "reference/integration.md",
+      "title": "Commonware 연결 지점과 개발 순서",
+      "original_sections": [
+        "7.1",
+        "7.2"
+      ],
+      "sha256": "87aedaee59a662c5527a8d63db03b3a61653e37a6d519112f8c25b347ae8b52b"
+    },
+    {
+      "group": "개발·참고자료",
+      "path": "reference/verification.md",
+      "title": "검증할 케이스",
+      "original_sections": [
+        "7.3"
+      ],
+      "sha256": "0e176baebcc0015feb6b4253eff8b5a90d4ea40753f1c1a2ba57989f6963a224"
+    },
+    {
+      "group": "개발·참고자료",
+      "path": "reference/sources.md",
+      "title": "참고자료와 문서 상태",
+      "original_sections": [
+        "8"
+      ],
+      "sha256": "f4345569683b5298578d55ea5d23f783cfa2e187046d3e3bbc75cdd4d04fe252"
+    }
+  ]
+}

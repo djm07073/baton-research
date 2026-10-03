@@ -1,0 +1,133 @@
+{
+  "specification": "IMPLEMENTATION_SPEC.md",
+  "specification_sha256": "79d5a7109a685d8b8c968bcc92b135fad290a70dc62a8c95f064128c919ff74b",
+  "renderer": "mermaid 11.12.0",
+  "diagrams": [
+    {
+      "name": "diagram-01",
+      "title": "1.1 네 레이어",
+      "width": 1046,
+      "height": 914,
+      "source_sha256": "eef36ac93ab9c68d6d5363554207b4ceb46693de3a437e4d12c19880f935d733"
+    },
+    {
+      "name": "diagram-02",
+      "title": "2.1 전체 E2E: tx 입력부터 canonical state까지",
+      "width": 1129,
+      "height": 1472,
+      "source_sha256": "40cd5d17844ba22fb472253328a28f29e7dbaeaaded8733af8dfb86d4dda646f"
+    },
+    {
+      "name": "diagram-03",
+      "title": "2.2 Tx lifecycle: 신규·중복·잘못된 tx",
+      "width": 1326,
+      "height": 1483,
+      "source_sha256": "fc6fefba88cfd1a4eebe0d3c1e3449eb165308d3d6e8c597ad3dd1fcea994cd8"
+    },
+    {
+      "name": "diagram-04",
+      "title": "2.3 Block lifecycle: mempool → propose → body 전파",
+      "width": 1334,
+      "height": 841,
+      "source_sha256": "c4f4c318085c6309a087afc41bcb216376fa73714dccc1347cf62478256bf78b"
+    },
+    {
+      "name": "diagram-05",
+      "title": "2.4 Block lifecycle: verify·본문 누락·검증 실패",
+      "width": 1334,
+      "height": 2051,
+      "source_sha256": "01ba81d1452e0f041df7b4300e8b4e2f1419078a449f32bec063639448bcaf48"
+    },
+    {
+      "name": "diagram-06",
+      "title": "2.5 Baton lifecycle: leader report 수집과 direction 전파",
+      "width": 1139,
+      "height": 1684,
+      "source_sha256": "df5a14cba7dd10677119845e95868b912e32f74901cf0f271d47494621b0f42f"
+    },
+    {
+      "name": "diagram-07",
+      "title": "2.6 Baton lifecycle: non-leader의 direction·재실행 요청",
+      "width": 919,
+      "height": 1300,
+      "source_sha256": "e0499d9c9e1f955f0686c2834320be191225fe06b1d13483e3037654a4e443fd"
+    },
+    {
+      "name": "diagram-08",
+      "title": "2.7 Cut commit → ordered range → 실행 commit",
+      "width": 717,
+      "height": 1685,
+      "source_sha256": "5686aea41684755347155b036855b09e5797eb19a43ab6518d99770d0a2ded4d"
+    },
+    {
+      "name": "diagram-09",
+      "title": "2.8 Execution lifecycle: QMDB 분기 생성과 canonical 승격",
+      "width": 1122,
+      "height": 2136,
+      "source_sha256": "528b89080801e9e9b3bd459a13f6056e0025450ddb091dcc5323ef35ed58dcf6"
+    },
+    {
+      "name": "diagram-10",
+      "title": "2.9 재시작과 backfill",
+      "width": 899,
+      "height": 932,
+      "source_sha256": "2b3bbe1752eafca1d7b944fd031b0bc525f62e8b18e28f464dd09b348ac0e7d1"
+    },
+    {
+      "name": "diagram-11",
+      "title": "2.10 결과 endpoint: direct execution과 f+1 인증",
+      "width": 919,
+      "height": 1387,
+      "source_sha256": "a2818613c08f3da63ec5ed6658b55f350c17dbdd519b447ab9e7cf3ca121e067"
+    },
+    {
+      "name": "diagram-12",
+      "title": "2.11 Planner completion과 proposal freeze의 경합",
+      "width": 910,
+      "height": 1655,
+      "source_sha256": "53c501451a8ebf599b5342304030118f0538ead2d4456f38015e0ebda087960e"
+    },
+    {
+      "name": "diagram-13",
+      "title": "2.12 Startup: custody를 준비한 뒤 native recovery",
+      "width": 1325,
+      "height": 1713,
+      "source_sha256": "19751c57910b19c56d6d109bfc9628a5635970c064dc6a91c3340c4b02705e0d"
+    },
+    {
+      "name": "diagram-14",
+      "title": "2.13 State sync: 인증된 실행 결과로 상태 동기",
+      "width": 899,
+      "height": 2149,
+      "source_sha256": "02d917fe07a216c25e3e7c7fa8a04b0d1f855bef906740e5b11e3a7bc393d2bb"
+    },
+    {
+      "name": "diagram-15",
+      "title": "2.14 Native 합의 정상 경로: producer DA → leader proposal → finality",
+      "width": 1149,
+      "height": 2081,
+      "source_sha256": "48cee25916142893eb8f544791e1b051da27bf5c50d99684f48922d6f14f6e68"
+    },
+    {
+      "name": "diagram-16",
+      "title": "4.6 실제 native actor와 파일 구조",
+      "width": 1143,
+      "height": 962,
+      "source_sha256": "1d8e98ca27b2ec52fcb5ef6dc54fc945bfe78cb29d6e6805a1c51cb01cb5af45"
+    },
+    {
+      "name": "diagram-17",
+      "title": "6.3 QMDB state 관리와 재사용 경계",
+      "width": 1656,
+      "height": 1436,
+      "source_sha256": "74880d021a873e497ee64c68d891c0a77e22cdf1b588328ef15e53ab2725b390"
+    },
+    {
+      "name": "diagram-18",
+      "title": "6.4 실행 요청을 받으면 분기 tree 정리",
+      "width": 1113,
+      "height": 262,
+      "source_sha256": "9658ea27bdb39e8a80d9824bc6fc4671736fd5107f7a96fa7c0380872fb028d4"
+    }
+  ]
+}

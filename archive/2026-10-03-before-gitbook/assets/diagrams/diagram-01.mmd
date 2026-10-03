@@ -1,0 +1,25 @@
+flowchart TB
+    C[Client / Tx API] --> T[TxPool]
+    T -. 분석 위치 미결정 .-> X[TxPolicy]
+    T -->|candidate batch| B[BlockService]
+    B -->|payload / custody| N[commonware_consensus::multimmit]
+    N -->|exact evidence / history| M[Orderer]
+    B -->|StoredBody| O[Baton]
+    N -. Reporter artifact .-> O
+    M -->|OrderedRange| E
+    O <-->|plan / result| P[Planner]
+    O -. PreparedPolicy .-> H[Native policy hook]
+    H -. recheck / freeze .-> N
+    O -->|Direction| PE[Peer Baton]
+    O <-->|commands / results| E[Executor]
+    E <-->|state / outputs| R[Runtime]
+    E -->|valid batches / durability| S[Commonware QMDB]
+    E <-->|signatures / certificates / change sets| V[Peer Executor]
+    E -->|CommitResult| T
+    NET[Commonware P2P: 모든 plane 공유] --- N
+    classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
+    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
+    classDef new fill:#dcfce7,stroke:#16a34a,color:#14532d;
+    class N,NET,S reuse;
+    class T,B,H adapt;
+    class X,M,O,P,PE,E,R,V new;

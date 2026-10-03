@@ -2,9 +2,17 @@
 
 Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
 
+## 2026-10-03 GitBook 형태의 페이지별 문서
+
+현재 수정할 구현 문서 원본은 [Baton Docs](docs/README.md)와 [목차](docs/SUMMARY.md)의 30개 페이지다. 전체 구조, Tx, Consensus, Baton, Execution, E2E, 개발·참고자료로 나눠 각각 검토한다. `.gitbook.yaml`은 GitBook Git Sync에 연결할 구조이며 계정 연결·서비스 발행은 수행하지 않았다. 로컬 사이트 빌드와 실행은 저장소 README에 설명한다.
+
+기존 IMPLEMENTATION_SPEC.md는 이전 섹션 링크를 새 페이지로 안내하는 진입점이다. 원본 본문과 18개 그림은 [분리 직전 스냅샷](archive/2026-10-03-before-gitbook/README.md)에 보존했다. 이전 모든 본문 절과 외부 출처를 새 페이지에 대응시켰으며, 아직 Baton이 canonical 전달을 중계하는 것처럼 적힌 §5.7은 최신 Orderer → Executor 책임에 맞게 정정했다. 39개 미결정 정책 칸은 비워 둔다.
+
+아래 단일 파일 재구성 설명은 페이지 분리 전 단계의 이력이다. 현재 문서의 책임·인터페이스 설명은 각 레이어 페이지에서, 사건별 흐름은 E2E 페이지에서 수정한다. Protocol 구현·통합 증명·E2E·benchmark 결과를 추가한 작업은 아니다.
+
 ## 2026-10-03 구현 문서 재구성
 
-현재 구현 스펙은 [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) 한 파일이다. 사용자 지정 네 레이어(Tx-router / mempool, Native Multimmit, Baton, generic execution / QMDB)와 lifecycle sequence를 중심으로 새 개요를 정리했으며 Bank는 현재 개발 범위에서 제외한다. 미결정 정책은 빈 결정 칸으로 보존한다. 아래 Google Docs revision 표와 상세 구현 계약은 이전 snapshot의 출처이며 새 개요와 자동 동기화하지 않는다. 구현 개요의 문서 검토를 마쳤으며 protocol 구현·E2E·benchmark 결과는 없다.
+페이지 분리 전 구현 스펙은 한 파일이었다. [원본 스냅샷](archive/2026-10-03-before-gitbook/IMPLEMENTATION_SPEC.md)을 보존했다. 사용자 지정 네 레이어(Tx-router / mempool, Native Multimmit, Baton, generic execution / QMDB)와 lifecycle sequence를 중심으로 새 개요를 정리했으며 Bank는 현재 개발 범위에서 제외한다. 미결정 정책은 빈 결정 칸으로 보존한다. 아래 Google Docs revision 표와 상세 구현 계약은 이전 snapshot의 출처이며 새 개요와 자동 동기화하지 않는다. 구현 개요의 문서 검토를 마쳤으며 protocol 구현·E2E·benchmark 결과는 없다.
 
 ## Rust 인터페이스와 이름 정리
 
@@ -21,7 +29,7 @@ Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF
 ## Current document priority and historical document synchronization
 
 1. Latest explicit user decisions.
-2. [Current implementation architecture](IMPLEMENTATION_SPEC.md) and [Baton research paper](baton-paper.md), each for its stated scope.
+2. [Current implementation architecture](docs/README.md) and [Baton research paper](baton-paper.md), each for its stated scope.
 3. Google Docs revisions below and the [archived detailed implementation specification](archive/2026-10-03-root-history/repository/research/archive/2026-10-03-implementation-outline/baton-implementation-spec.md) as provenance of the previous manual synchronization. Reconcile later revisions deliberately with current user decisions and Markdown; these snapshots do not replace the current architecture.
 4. Historical Overpass outline/design/reviews, earlier handoffs, draft PR1, toy and archive material as cited context.
 

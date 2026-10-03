@@ -1,0 +1,35 @@
+sequenceDiagram
+    participant P as Peer Validator Executor
+    participant E as Local Validator Executor
+    participant Q as QMDB / Logical commit adapter
+    participant B as Local Baton
+    E->>E: Continue direct execution while result is unavailable
+    P-->>E: Result certificate
+    E->>E: Verify eligible f+1 signatures and irrevocable exact context
+    alt Ordering / predecessor evidence unresolved
+        E->>E: Keep certificate pending, recover evidence / continue valid local work
+    else Result certificate verified
+        E->>P: Request matching change set / outputs
+        P-->>E: State material
+        E->>E: Check exact local base and target / output commitments
+        alt Material missing, invalid or not applicable
+            E->>E: Keep executing / request valid material, no canonical adoption
+        else Applicable target and material verified
+            E->>E: Fence unfinished work at a safe boundary
+            E->>Q: Apply material at matching canonical base
+            Q-->>E: Applied state + durability observation
+            E->>Q: Await durable state / outputs / cursor linkage
+            alt Durable import completes
+                Q-->>E: Recoverable target checkpoint
+                E->>E: Preserve imported provenance and original certificate
+                E->>E: Complete delivery ACK / tx outcome handoff
+                opt Local scheduling notification
+                    E-->>B: Applied progress only, no approval / ACK required
+                end
+                E->>E: Execute next range from synced canonical state
+            else Durable completion unconfirmed or failed
+                Note over E,B: Local ready / CommitResult를 발행하지 않고 recovery에서 재확인
+            end
+        end
+    end
+    Note over P,E: Imported range에 own direct-execution signature를 추가하지 않음

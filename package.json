@@ -1,0 +1,13 @@
+{
+  "name": "baton-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:check": "python3 assets/tooling/check_docs.py",
+    "docs:build": "node assets/tooling/build_docs.mjs",
+    "docs:serve": "python3 -m http.server 8765 --bind 127.0.0.1 --directory site"
+  },
+  "devDependencies": {
+    "marked": "17.0.5"
+  }
+}

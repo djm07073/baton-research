@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant C as Client
+    participant T as TxPool
+    participant N as Multimmit + BlockService + Orderer
+    participant B as Baton
+    participant E as Executor
+    C->>T: admit(tx)
+    T-->>C: Admitted(tx_id)
+    N->>T: TxPool::select(producer context, limits)
+    T-->>N: Candidate tx batch
+    N->>N: Build body, store + sync, native header / DA
+    N-->>B: CandidateBlock(block_ref, verified body, context)
+    B->>E: execute(exact base, intended order, generation)
+    E-->>B: ExecutionResult / branch handle
+    Note over N,B: Native consensus와 report / direction 경로는 병렬 진행
+    N-->>E: Orderer delivers OrderedRange(exact order, predecessor, evidence)
+    E->>E: commit(ordered range)
+    E->>E: Reuse matching work / execute or verify peer state material
+    E->>E: Durable canonical state + outputs + cursor
+    E-->>N: CommitResult / delivery ACK after durability, not native vote
+    E-->>T: TxPool::on_commit(exact range / tx outcomes)
+    opt Local scheduling notification
+        E-->>B: Applied progress notification, no approval / ACK required
+    end
+    Note over E: State finalization / state sync는 Executor peer 경로, exact order + 동일 statement의 f+1 서명
