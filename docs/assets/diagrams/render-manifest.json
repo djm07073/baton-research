@@ -1,21 +1,21 @@
 {
-  "specification": "baton-comments-diagrams.md",
-  "specification_sha256": "0342d05441635b39d90228a8bee4c15634676727b51c2915d9b8ca71d14788b6",
+  "specification": "baton-reuse-diagrams.md",
+  "specification_sha256": "eff3ca4e65838ac64d6b1a5ae209d241184f0dce27aea8a63270e22046bbed92",
   "renderer": "mermaid 11.12.0",
   "diagrams": [
     {
       "name": "diagram-01",
       "title": "Four layers",
-      "width": 974,
-      "height": 986,
-      "source_sha256": "f728228733e59c51bd5f5835f13d2f2fedbd697f7c175214e3c8f080ba63e2e7"
+      "width": 1172,
+      "height": 1186,
+      "source_sha256": "432d40eac8f8556c659419915e638d6ac010540cf28ffbb43f9326528a2b2446"
     },
     {
       "name": "diagram-02",
       "title": "Full E2E: transaction input to canonical state",
-      "width": 1129,
-      "height": 1489,
-      "source_sha256": "b731af9a9717067e856299d2d6004bad273435247441278e72133774de60b49e"
+      "width": 1338,
+      "height": 1625,
+      "source_sha256": "4c6f189d22c32bfc4dc621abbb30d548509f25659cba59ea7538ff5e08a22ec2"
     },
     {
       "name": "diagram-03",
@@ -28,15 +28,15 @@
       "name": "diagram-04",
       "title": "Block lifecycle: mempool \u2192 propose \u2192 body dissemination",
       "width": 1334,
-      "height": 841,
-      "source_sha256": "27bfdefc7bcb4cc6e348183daf6249e74c4bdd5396cc1b0bd768e24d7e2a7c2e"
+      "height": 1070,
+      "source_sha256": "7f95598b976911f947839b5942061337af2991edd660246801881a0029b9dda8"
     },
     {
       "name": "diagram-05",
       "title": "Body lookup, verification, and missing-content handling",
       "width": 1334,
-      "height": 2051,
-      "source_sha256": "1ce4b2ec8d69ff2e8020902c89f1e7bfccfdba7be6469b2c7f561bf983708a53"
+      "height": 2068,
+      "source_sha256": "fcf64a78c6ef20617a61b31ef29248b6ceb9747d423f9a06491700f45e25bf0d"
     },
     {
       "name": "diagram-06",
@@ -55,30 +55,30 @@
     {
       "name": "diagram-08",
       "title": "Cut commit \u2192 ordered range \u2192 execution commit",
-      "width": 717,
-      "height": 1651,
-      "source_sha256": "7bccd64be33990afce666d62173e8bc3ae1dc41e70cd2e4e664b9db986a06c7f"
+      "width": 912,
+      "height": 1710,
+      "source_sha256": "4309330438cbf20f3ae2cfb41435a42b2cea0b255fd399822a6dea3d187d935b"
     },
     {
       "name": "diagram-09",
       "title": "Execution lifecycle: QMDB branches and canonical promotion",
-      "width": 912,
-      "height": 2247,
-      "source_sha256": "281037ecc8f015633fc59f33313a91ba46158d6638297cf74d08b8c50f56c067"
+      "width": 926,
+      "height": 2234,
+      "source_sha256": "cd361561d9c5ef609114450c1819f67caf4e42dc17ca4a169b5b75ec33333cd7"
     },
     {
       "name": "diagram-10",
       "title": "Restart and backfill",
       "width": 899,
-      "height": 932,
-      "source_sha256": "55833ab1f7714c9a7edac9716b583b8eac2cd9f20fba3b1bbea5d5c04ff1683c"
+      "height": 949,
+      "source_sha256": "9569c6af7ea91d67268d0ebcf582f4e78f42db2ec83f96277e5fec61d54796eb"
     },
     {
       "name": "diagram-11",
       "title": "Result endpoint: direct execution and f+1 certification",
-      "width": 709,
-      "height": 1627,
-      "source_sha256": "3fcbbac2820f0219e71e765609fe30605a23fc59db6ccc099fd89b7585415f92"
+      "width": 922,
+      "height": 1677,
+      "source_sha256": "9b3b280543653674c266228b23048d84fb7bf3c2e518334282928142b3476c36"
     },
     {
       "name": "diagram-12",
@@ -92,14 +92,14 @@
       "title": "Startup: prepare custody before native recovery",
       "width": 1325,
       "height": 1713,
-      "source_sha256": "e940b309520a1989ec0106144222f9cebf53a4fa4dcac328d10c8e378c67a7d5"
+      "source_sha256": "717987e5bc233231b68df9575b2faf9f5adf3f305cb0050825417f068d95030e"
     },
     {
       "name": "diagram-14",
       "title": "State sync from certified execution results",
-      "width": 899,
-      "height": 2131,
-      "source_sha256": "9c07614578531f8a85af9ebfed23e9e5a7de44a5168f127ff1db200af41e9b78"
+      "width": 902,
+      "height": 2182,
+      "source_sha256": "26955fef169e5e9a8b98423a82cef5706c725a4164559ad128f67588f0e1b959"
     },
     {
       "name": "diagram-15",
@@ -118,9 +118,9 @@
     {
       "name": "diagram-17",
       "title": "QMDB state and reuse boundaries",
-      "width": 1656,
-      "height": 1332,
-      "source_sha256": "29163783ed697a8f3e4e92cfa8592889929df04a285e3067b24f0245fa700b9a"
+      "width": 1318,
+      "height": 1636,
+      "source_sha256": "69645e1f40c0aee8ca63708abce75156c4a72c2d6cd833d53a7031d94b98f66c"
     },
     {
       "name": "diagram-18",

@@ -4,14 +4,15 @@
 
 ## Four layers
 
-The Tx layer collects candidate transactions. Consensus produces commitments to each producer's payload and evidence about ordering. Baton collects reports and shares direction for blocks that are still undecided. Baton evaluates report snapshots to select direction. Executor owns the parent-linked execution tree. Orderer reads finalized history and delivers the exact ordered range directly to Executor. Executor computes application transaction effects and uses QMDB to store state. These are distinct milestones: receiving a body, receiving a direction, fixing the order, and durably applying local state.
+The Tx layer collects candidate transactions. Consensus commits to producer payloads and produces ordering evidence. Baton evaluates intended-order reports and shares direction for undecided blocks. Executor owns the execution tree and computes transaction changes. Orderer delivers finalized exact input directly to Executor. Storage prepares selected roots and applies canonical changes using QMDB. Receiving a body/direction, finishing computation, fixing order, certifying a result and durably applying local state are distinct milestones.
 
 Here, **custody** means durably retaining the body and required parent material for the requested producer context so they can be recovered after a restart. [Block storage and custody](../consensus/block-body.md#body-dissemination-lookup-and-custody) describes the storage, fetch, and recovery connections.
 
 ```mermaid
 flowchart TB
     C[Client / Tx API] --> T[TxPool: candidates and static policy]
-    T -->|candidate batch| B[BlockService]
+    T -->|candidate batch| B[BlockService: body / custody adapter]
+    B <-->|bytes / fetch / durability| BP[Commonware buffer / resolver / archive]
     B -->|payload / custody| N[commonware_consensus::multimmit]
     N -->|exact evidence / history| M[Orderer]
     B -->|StoredBody| O[Baton: reports and direction selection]
@@ -21,21 +22,22 @@ flowchart TB
     H -. recheck / freeze .-> N
     O -->|Direction| PE[Peer Baton]
     O <-->|execute / results| E[Executor: tree, execution and certification]
-    E -->|valid batches / durability| S[Commonware QMDB]
+    E -->|completed changes / selected commit| S[Storage: roots / canonical writer / recovery]
+    S -->|batch / merkleize / apply / sync| Q[Commonware QMDB]
     E <-->|signatures / certificates / change sets| V[Peer Executor]
     E -->|CommitResult| T
     NET[Commonware P2P: shared by all planes] --- N
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef new fill:#dcfce7,stroke:#16a34a,color:#14532d;
-    class N,NET,S reuse;
-    class T,B,H adapt;
+    class N,NET,BP,Q reuse;
+    class T,B,H,S adapt;
     class M,O,PE,E,V new;
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-01.svg)
 
-Blue marks Commonware foundations to reuse. Orange marks existing components that need adapters or changes. Green marks new Baton or application behavior. QMDB still needs batch, commit, and root integration; blue does not mean the entire layer can be connected without changes. The mempool implementation remains undecided, as does placing static analysis in a router or at block packing time.
+Blue marks existing Commonware engines/algorithms to reuse. Orange marks thin integration around existing components; it does not prescribe changing underlying buffer, resolver, archive or QMDB algorithms. Green marks new Baton or application semantics. BlockService directly implements upstream callbacks. Storage directly uses QMDB batches/roots/durability without adopting glue Application. Pool backend and static-analysis placement remain undecided. [Real-chain assembly recipes](../reference/integration.md#copy-the-assembly-from-real-chains) show where these components connect.
 
 Baton joins a StoredBody with its authenticated native header reference to produce a CandidateBlock. Existing Reporter notices for accepted artifacts can supply the header reference. The body/notice join adapter needs implementation; a new native header export hook is not automatically required.
 
@@ -48,7 +50,7 @@ Ordered delivery and history recovery belong inside the consensus attachment. Or
 | Tx: TxPool | Transaction bytes from clients or tx peers | Structural checks, admission, candidate retention, static analysis at the chosen integration point | A bounded candidate batch to BlockService |
 | Consensus: BlockService + Multimmit + Orderer | Candidate transactions and peer bodies, headers, and proofs | Body construction and custody, native DA and consensus, reconstruction of continuous order from verified history | CandidateBlock to Baton; OrderedRange to Executor |
 | Baton | Candidate blocks, ordering context, peer reports, leader direction | Intended-order reports, report-window admission, direction selection, validation and dissemination | Prepared policy to the native hook; parent-linked execute blocks to Executor |
-| Execution: Executor | Baton execution requests, Orderer finalized input, peer result certificates and state material | Transaction execution, execution-tree links and pruning, direct execution, result certification, state sync, canonical application | Peer result exchange; durable completion to Orderer and TxPool; execution results and optional applied notifications to Baton |
+| Execution: Executor + Storage | Baton execution requests, Orderer finalized input, peer certificates/material | Executor: effects, logical tree, certification and sync control. Storage: selected roots, canonical apply/flush, physical retention and recovery | Completed effects; peer results; durable receipt to Orderer/TxPool; optional progress to Baton |
 
 ## Data, control, and canonical paths
 
@@ -59,7 +61,7 @@ Ordered delivery and history recovery belong inside the consensus attachment. Or
 | Baton control | Known input / intended order → reports → leader snapshot → Baton planning → direction → execute parent-linked branches | Advisory execution order and a completed prepared candidate |
 | Canonical input | Exact native evidence / policy history → Orderer → Executor::commit | A continuous, irreversible sequence of exact execution inputs |
 | Execution result | Executor ↔ Executor: direct-execution signatures → f+1 result certificate verification | State finalization bound to irrevocable exact order and canonical input state |
-| State application | Executor's direct result or verified peer change set → QMDB apply → durability → output / cursor | Durable local canonical state and a recoverable commit identity |
+| State preparation / application | Executor effects or verified peer material → Storage selected root / QMDB apply → durability and metadata linkage | Prepared commitment before signing; durable state/output/cursor/provenance before delivery ACK |
 
 Receiving a body, collecting report support, authenticating an ordering decision, and applying state establish different facts. Completion on one path cannot stand in for evidence required by another.
 
@@ -68,11 +70,12 @@ Receiving a body, collecting report support, authenticating an ordering decision
 | Module / native owner | State it may change | Next action |
 |---|---|---|
 | Native Core | Signing reservations, producer, DA, view, and finality state | Voter executes typed capabilities and publishes native artifacts |
-| BlockService | Stored bodies, fetch jobs, structural checks, custody results | Completes Automaton requests and provides bodies to Baton |
+| BlockService | Body/header correlation and custody/retention integration around primitive handles | Completes upstream Automaton requests; buffer/resolver/archive own generic work |
 | Orderer | Verified retained evidence, terminal slots, emitted and acknowledged cursors | Delivers OrderedRange to Executor; fetches history across gaps |
 | Baton | Window reports, candidate evaluation, prepared-policy cache, intended order, authenticated direction context | Broadcasts direction, passes prepared policy, calls Executor |
-| Executor | Parent-linked execution tree, checkpoints and worker references, signatures, certificates, sync material, canonical QMDB state | Exchanges results and sync material with peer Executors; returns ExecutionResult or an optional durable CommitResult notification to local Baton |
+| Executor | Execution tree, completed effects, logical branch pruning, signatures/certificates and sync switching | Exchanges peer results; selects exact canonical material; returns completed effects or durable receipts |
+| Storage | QMDB bases/batches/roots, canonical writer/access fence, durable state and physical retention | Prepares selected commitments; applies authorized material; recovers state/outputs/cursor/provenance |
 
-Baton's planning workers evaluate direction candidates. Executor workers compute transaction effects and certified results. Native Core decides whether a policy can be adopted in the actual native context. Executor decides whether branch results can be adopted and canonical state can be changed. Branch management and the canonical single writer are separate authorities within Executor. Wire-direction freshness and local cancellation generations also use different identity rules.
+Baton workers evaluate direction candidates. Executor workers compute transaction effects and verify results. Native Core decides policy adoption in actual native context. Executor selects exact canonical paths and authorizes direct/imported material; Storage checks applicable ancestry/access and serializes database mutation. Logical branch management and the storage writer are separate authorities, even when they share one implementation. Wire-direction freshness, local worker generations and the stable signing subject use different identity rules.
 
 **Executor owns state finalization and state sync, including peer communication.** Baton selects direction and requests parent-linked speculative execution, then receives local execution results. Executor handles branch changes through execute(block), then canonical promotion and conflicting-branch pruning through commit(range). Orderer sends finalized input directly to Executor; Executor reports durable completion to Orderer and TxPool. Receiving, approving, or acknowledging a Baton message is not a condition for finalization, sync, or canonical application. Signatures, certificates, and change sets travel directly between Executors. State sync is an option on the normal validator execution path. See [Execution responsibilities](../execution/README.md#roles-and-responsibilities) and [State sync](../execution/state-sync.md#state-sync-from-certified-execution-results) for verification, switching, and storage requirements.

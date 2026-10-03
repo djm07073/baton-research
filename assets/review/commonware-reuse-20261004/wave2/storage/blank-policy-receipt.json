@@ -1,0 +1,201 @@
+{
+  "checked_at": "2026-10-03T20:11:18.880150+00:00",
+  "count": 39,
+  "rows": [
+    {
+      "path": "docs/consensus/decisions.md",
+      "line": 9,
+      "text": "| Body format / size limit / archive layout | |"
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "line": 10,
+      "text": "| Body transport adapter / fetch protocol | |"
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "line": 11,
+      "text": "| Targeted retry / fallback / pending want, subscriber, and byte budgets | |"
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "line": 12,
+      "text": "| Evidence export schema / retention handoff | |"
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "line": 13,
+      "text": "| Ordering policy codec / availability | |"
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "line": 14,
+      "text": "| Protected-prefix adoption conditions | |"
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "line": 15,
+      "text": "| Exact continuation / extension / view recovery integration | |"
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "line": 16,
+      "text": "| Backfill / checkpoint / GC | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 65,
+      "text": "| Window announcement / report / direction message codec | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 66,
+      "text": "| Report / direction logical channels and quotas | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 67,
+      "text": "| Intended-order construction rule | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 68,
+      "text": "| Candidate set / horizon / finite work budget | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 69,
+      "text": "| Conflicting reports within one window | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 70,
+      "text": "| Tail selection / hysteresis for the same supported prefix | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 71,
+      "text": "| Concrete deadline and cycle-restart settings | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 72,
+      "text": "| Wire direction version / freshness / update ordering | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 73,
+      "text": "| Producer / validator dissemination targets | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 74,
+      "text": "| Native proposal adoption and policy-binding implementation | |"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "line": 75,
+      "text": "| Execution signing scope / common boundary | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 48,
+      "text": "| Tx format / ID / signature domain | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 49,
+      "text": "| Mempool implementation to reuse | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 50,
+      "text": "| Static-analysis placement and result schema | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 51,
+      "text": "| Router / packing policy and replacement interface | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 52,
+      "text": "| Tx P2P wire protocol / logical channel ID | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 53,
+      "text": "| Candidate selection order / byte and count limits | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 54,
+      "text": "| Application semantics of duplicate transactions | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 55,
+      "text": "| Durability of admission responses | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 56,
+      "text": "| Proposal cancellation / reselection / retransmission | |"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "line": 57,
+      "text": "| Canonical cleanup / retention / GC | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 38,
+      "text": "| Application transaction semantics | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 39,
+      "text": "| QMDB database variant / state encoding / root type | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 40,
+      "text": "| Canonical operations / batch-boundary derivation / logical-root integration | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 41,
+      "text": "| Root-deferred read/effects view / checkpoint sealing policy | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 42,
+      "text": "| Block / parent-hash encoding and binding / checkpoint granularity | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 43,
+      "text": "| Execution scheduling / cancellation / worker-fencing contract | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 44,
+      "text": "| Atomic commit of state / outputs / cursor | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 45,
+      "text": "| Branch pruning / memory / disk budget | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 46,
+      "text": "| Replay / checkpoint / state sync | |"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "line": 47,
+      "text": "| Query interface / certified-result integration | |"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# Search results for \"pub trait Source\" (v2026.9.0)\n\nFound 2 file(s):\n\n## storage/src/qmdb/sync/mod.rs\n\n```rust\n38: mod requests;\n39: \n40: /// A [`Source`] of operations for the given database.\n41: pub trait SourceFor<DB: Database>:\n42:     Source<Family = DB::Family, Op = DB::Op, Digest = DB::Digest> + 'static\n43: {\n44: }\n```\n\n## storage/src/qmdb/sync/source.rs\n\n```rust\n389: pub type FeedbackTx = Option<oneshot::Sender<bool>>;\n390: \n391: /// A source for proofs and operations.\n392: pub trait Source: Send + Sync {\n393:     /// The merkle family backing this source's proofs.\n394:     type Family: Family;\n395: \n```\n\n---\nFiles are listed by path. Use `list_crates` to see crate name to path mappings. Use `get_file` with `start_line` and `end_line` to fetch specific line ranges instead of entire files."
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

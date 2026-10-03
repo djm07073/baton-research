@@ -1,6 +1,6 @@
 # Leader reports, direction, and proposal races
 
-**Leader Baton prepares an execution suggestion while native consensus keeps moving.** It closes a report window, asks Executor to choose a valid direction, and disseminates the result. Native Core may freeze a proposal before Baton planning finishes.
+**Leader Baton prepares an execution suggestion while native consensus keeps moving.** It closes a report window, uses Baton::plan to choose a valid direction, and disseminates the result. Native Core may freeze a proposal before Baton planning finishes.
 
 ## Leader lifecycle: collect reports and disseminate direction
 

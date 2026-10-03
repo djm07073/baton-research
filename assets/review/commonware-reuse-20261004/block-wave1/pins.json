@@ -1,0 +1,41 @@
+{
+  "pins": [
+    {
+      "name": "Tempo",
+      "repository": "tempoxyz/tempo",
+      "commit": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "source": "Existing parent-verified pin; fetched exact primary-source tree and files",
+      "commonware_dependency": "2026.9.0"
+    },
+    {
+      "name": "Alto",
+      "repository": "commonwarexyz/alto",
+      "commit": "1d87569348b5560699465a72d691d90f18affb9c",
+      "source": "GitHub connector GET /repos/commonwarexyz/alto/commits/main",
+      "commonware_dependency": "2026.9.0"
+    },
+    {
+      "name": "Native Commonware",
+      "repository": "commonwarexyz/monorepo",
+      "commit": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "source": "Adopted native pin; unchanged",
+      "commonware_dependency": null
+    },
+    {
+      "name": "Constantinople",
+      "repository": "commonwarexyz/constantinople",
+      "commit": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "source": "GitHub connector GET /repos/commonwarexyz/constantinople/commits/main",
+      "commonware_dependency": "git 92036f4beefedc9817f0954d98fb99e0b52431cb"
+    },
+    {
+      "name": "Commonware MCP",
+      "endpoint": "https://mcp.commonware.xyz",
+      "version": "v2026.9.0",
+      "source": "/tmp/baton-commonware-mcp.py tools/call get_file; explicit source version",
+      "line_numbers": "MCP output zero-based; final GitHub links one-based"
+    }
+  ],
+  "research_scope": "First-wave source research; no implementation or native integration verification",
+  "source_queries_include_errors": true
+}

@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# Files in glue/src/stateful/db (v2026.9.0)\n\n```\nany.rs\ncurrent.rs\nmod.rs\nimmutable/\n  compact.rs\n  mod.rs\n  standard.rs\nkeyless/\n  compact.rs\n  mod.rs\n  standard.rs\np2p/\n  actor.rs\n  cancel.rs\n  handler.rs\n  mailbox.rs\n  metrics.rs\n  mod.rs\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

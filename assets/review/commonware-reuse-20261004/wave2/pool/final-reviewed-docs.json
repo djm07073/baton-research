@@ -1,0 +1,46 @@
+[
+  {
+    "path": "docs/tx/README.md",
+    "sha256": "cc240484b12c8418d37e4d032e2443df00dc73e88b01f77ba9114a99a13b45b5"
+  },
+  {
+    "path": "docs/tx/interfaces.md",
+    "sha256": "2b8bd54d850d6fefabce36077230e3e993dfd79a7d2640cf8a4e1225025c3728"
+  },
+  {
+    "path": "docs/consensus/block-body.md",
+    "sha256": "0ebb7b5c4d3e027f30138f239cb45771ef7b40032b32df35f3c08016b06c87fa"
+  },
+  {
+    "path": "docs/reference/integration.md",
+    "sha256": "a6e5ae6fe29cece60e5324c44e5cf4a5ba73f7238fac52c0ee414e99433a2fd3"
+  },
+  {
+    "path": "docs/overview/rust-interfaces.md",
+    "sha256": "8013382ce85dc94b6d85805751cbcbd3dc4304cd8cf2ac8774a5e4698b8990e8"
+  },
+  {
+    "path": "AGENTS.md",
+    "sha256": "27b8bd42e75f3020e3dfd53302774bdb808fa579827c259bf2dc712617ad947a"
+  },
+  {
+    "path": "README.md",
+    "sha256": "861d73faee57e85a98d1eecfa0c278ccde66801c37b856d09a1d088505bad0b9"
+  },
+  {
+    "path": "BATON_HANDOFF.md",
+    "sha256": "66a405bcd1a5630ea34b898cd938cc8c0b18429b186187f5f51742b899efcaf6"
+  },
+  {
+    "path": "baton-paper.md",
+    "sha256": "f756eeb76c14159f314258aa16b02a23d9c8aa1d45260a0c06cdeeb6c5fb039d"
+  },
+  {
+    "path": "docs/README.md",
+    "sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4"
+  },
+  {
+    "path": "docs/SUMMARY.md",
+    "sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8"
+  }
+]

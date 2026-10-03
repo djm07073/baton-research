@@ -1,0 +1,148 @@
+// Proposed Baton adapter sketch. This is not an upstream Commonware trait,
+// protocol implementation, or selected concrete codec/root policy.
+use commonware_glue::stateful::db::{Barrier, DatabaseSet};
+use commonware_cryptography::Digest;
+use commonware_storage::{
+    merkle::{Family, Location},
+    qmdb::batch_chain::Commitment,
+};
+use core::future::Future;
+use core::ops::Range;
+
+// ApplicationBinding carries exact epoch/history/frontier/input/runtime,
+// canonical input commitments, execution-parent identity and worker generation.
+// StorageRule carries the selected boundary/encoding/normalization rule.
+// Their concrete fields and encodings remain design decisions.
+
+// Illustrative non-wire binding fields. R is the undecided application-state
+// commitment representation; the QMDB operation commitment does not replace R.
+pub struct StorageBase<F: Family, D: Digest> {
+    pub operations: Commitment<F, D>,
+    pub retained: Range<Location<F>>,
+    pub inactivity_floor: Location<F>,
+    pub writer_generation: u64,
+}
+
+pub struct ExecutionBinding<F: Family, D: Digest, R> {
+    pub epoch: u64,
+    pub validator_set: D,
+    pub history: D,
+    pub immutable_frontier: D,
+    pub exact_input_range: D,
+    pub execution_parent: D,
+    pub runtime: D,
+    pub canonical_input_state: R,
+    pub storage_bases: Vec<StorageBase<F, D>>,
+    pub worker_generation: u64,
+    // The selected storage rule/boundary is added at preparation and included
+    // in the final signing subject; advisory direction is not canonical proof.
+}
+
+pub struct Executed<B, O, C> {
+    pub binding: C,
+    pub unsealed: B,
+    pub outputs: O,
+    // Completion and direct execution evidence are retained by Executor.
+    // No result root is required merely to return speculative effects.
+}
+
+pub struct Prepared<B, R, O, C> {
+    pub binding: C,
+    pub sealed: B,
+    pub result_commitment: R,
+    pub outputs: O,
+    // Storage has calculated the commitment for this exact selected boundary.
+    // Executor may now build a full statement for eligible direct signing.
+}
+
+pub struct Applied<C> {
+    pub binding: C,
+    pub barrier: Barrier,
+    // Local state is readable. Recoverable output/cursor/provenance linkage
+    // must also be completed before returning the durable receipt.
+}
+
+pub trait Storage<E>: Send {
+    type Databases: DatabaseSet<E>;
+    type Binding: Send;
+    type Outputs: Send;
+    type ResultCommitment: Send;
+    type StorageRule: Send;
+    type CanonicalPermit: Send;
+    type DurableReceipt: Send;
+    type Error: Send;
+
+    // Capture current applied base and obtain upstream unsealed batches.
+    // Validation of the supplied binding must be coupled to valid access.
+    fn begin_applied(
+        &self,
+        binding: Self::Binding,
+    ) -> impl Future<Output = Result<
+        <Self::Databases as DatabaseSet<E>>::Unmerkleized,
+        Self::Error,
+    >> + Send;
+
+    // Directly reuse upstream sealed-parent fork. This method does not accept
+    // an unsealed pending parent and does not promise immutable live-DB reads.
+    fn begin_sealed_child(
+        &self,
+        binding: Self::Binding,
+        parent: &<Self::Databases as DatabaseSet<E>>::Merkleized,
+    ) -> Result<<Self::Databases as DatabaseSet<E>>::Unmerkleized, Self::Error>;
+
+    // Merkleize only when the chosen signing/storage boundary needs a root.
+    // For a tuple DatabaseSet, a thin adapter dispatches concrete per-DB
+    // merkleize calls; DatabaseSet itself has no tuple merkleize method.
+    fn prepare(
+        &self,
+        work: Executed<
+            <Self::Databases as DatabaseSet<E>>::Unmerkleized,
+            Self::Outputs,
+            Self::Binding,
+        >,
+        rule: Self::StorageRule,
+    ) -> impl Future<Output = Result<Prepared<
+        <Self::Databases as DatabaseSet<E>>::Merkleized,
+        Self::ResultCommitment,
+        Self::Outputs,
+        Self::Binding,
+    >, Self::Error>> + Send;
+
+    // Executor supplies proven irrevocable exact input and selected material;
+    // Storage checks matching base/ancestry and canonical writer generation.
+    // Native pin: DatabaseSet::finalize(sealed).await returns the barrier.
+    // v2026.9.0: apply(sealed).await; finalize().await returns the barrier.
+    // Advisory cancellation must not drop this canonical mutation future.
+    fn apply_canonical(
+        &mut self,
+        permit: Self::CanonicalPermit,
+        prepared: Prepared<
+            <Self::Databases as DatabaseSet<E>>::Merkleized,
+            Self::ResultCommitment,
+            Self::Outputs,
+            Self::Binding,
+        >,
+    ) -> impl Future<Output = Result<Applied<Self::Binding>, Self::Error>> + Send;
+
+    // Await Barrier::durable and the application commit linkage for state,
+    // outputs, cursor and provenance. False/flush panic is never a success.
+    fn durable(
+        &mut self,
+        applied: Applied<Self::Binding>,
+    ) -> impl Future<Output = Result<Self::DurableReceipt, Self::Error>> + Send;
+}
+
+// Optional rootless tree extension remains a custom adapter, not an upstream
+// UnmerkleizedBatch fork. It can use an immutable effects chain + valid sealed
+// fallback base and materialize a chosen exact prefix into upstream batches.
+// A staged execution variant would replace Executed::unsealed with a bundle
+// of retained AnyStaged/CurrentStaged plus updates/upserts, then dispatch their
+// concrete merkleize methods in Storage::prepare. No variant is chosen here.
+
+// Executor::execute(block) -> Executed<unsealed draft/effects, outputs, binding>.
+// Executor::commit(range) -> verify order/base; extract matching completed
+// prefix; finish missing direct work or verify certificate+import material;
+// Storage::prepare; optionally sign/collect direct result; canonical apply;
+// Storage::durable; durable ACK/outcomes; logical pruning.
+// Root calculation precedes full-result signatures. Imported work preserves
+// ImportedVerified provenance and is never signed as own direct execution.

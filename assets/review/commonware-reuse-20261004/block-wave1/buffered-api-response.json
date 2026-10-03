@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# broadcast/src/buffered/mod.rs (v2026.9.0) [lines 0-55]\n\n```rust\n0: //! Broadcast messages to and cache messages from untrusted peers.\n1: //!\n2: //! # Overview\n3: //!\n4: //! The core of the module is the [Engine]. It is responsible for:\n5: //! - Accepting and caching messages from other participants\n6: //! - Broadcasting messages to all peers\n7: //! - Serving cached messages on-demand\n8: //!\n9: //! # Message Caching\n10: //!\n11: //! The engine receives messages from other peers and caches them. The cache is a bounded queue of\n12: //! messages per peer. When the cache is full, the oldest message is removed to make room for the\n13: //! new one.\n14: //!\n15: //! Messages referenced by multiple senders stay cached until the last per-sender deque that\n16: //! contains them is evicted (meaning redundant messages are only stored once).\n17: //!\n18: //! # Peer Management\n19: //!\n20: //! Only peers in `latest.primary` may buffer messages (see [commonware_p2p::Provider]). When a peer\n21: //! is no longer in `latest.primary`, its buffered messages are evicted unless buffered by any other\n22: //! primary peer.\n23: \n24: mod config;\n25: pub use config::Config;\n26: mod engine;\n27: pub use engine::Engine;\n28: mod ingress;\n29: pub use ingress::Mailbox;\n30: pub(crate) use ingress::Message;\n31: mod metrics;\n32: \n33: #[cfg(test)]\n34: pub mod mocks;\n35: \n36: #[cfg(test)]\n37: mod tests {\n38:     use super::{mocks::TestMessage, *};\n39:     use crate::Broadcaster;\n40:     use commonware_actor::{\n41:         Feedback,\n42:         mailbox::{Overflow, Policy},\n43:     };\n44:     use commonware_codec::RangeCfg;\n45:     use commonware_cryptography::{\n46:         Digestible, Hasher, Sha256, Signer as _,\n47:         ed25519::{PrivateKey, PublicKey},\n48:     };\n49:     use commonware_macros::test_traced;\n50:     use commonware_p2p::{\n51:         Manager as _, Recipients, Sender as _, TrackedPeers,\n52:         simulated::{Link, Network, Oracle, Receiver, Sender},\n53:     };\n54:     use commonware_runtime::{\n55:         Clock, Error, IoBuf, Metrics as _, Quota, Runner, Supervisor as _, deterministic,\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

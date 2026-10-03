@@ -1,0 +1,261 @@
+# glue/src/stateful/db/p2p/mailbox.rs (v2026.9.0)
+
+```rust
+0: //! Mailbox and wire types for the QMDB sync resolver service.
+1: 
+2: use crate::stateful::db::{AttachableResolver, Shared, p2p::cancel};
+3: use commonware_actor::mailbox::{Overflow, Policy, Sender};
+4: use commonware_codec::Read;
+5: use commonware_cryptography::Digest;
+6: use commonware_storage::{
+7:     merkle::Family,
+8:     qmdb::sync::{FeedbackTx, Request, Response, Source},
+9: };
+10: use commonware_utils::channel::oneshot;
+11: use std::{collections::VecDeque, future::Future};
+12: 
+13: /// The resolver actor dropped the response before completion.
+14: #[derive(Debug, thiserror::Error)]
+15: #[error("response dropped before completion")]
+16: pub struct ResponseDropped;
+17: 
+18: /// Where the actor delivers a fetched response, along with the channel the caller reports
+19: /// verification feedback on.
+20: pub(super) type ResponseTx<F, Op, D> = oneshot::Sender<(Response<F, Op, D>, FeedbackTx)>;
+21: 
+22: /// Messages sent from the [`Mailbox`] to the resolver [`Actor`](super::Actor).
+23: pub(super) enum Message<DB, F: Family, Op, D: Digest> {
+24:     /// Provide a database handle so the actor can serve incoming requests.
+25:     AttachDatabase(Shared<DB>),
+26:     /// Fetch operations from a remote peer via the P2P resolver engine.
+27:     GetOperations {
+28:         request: Request<F>,
+29:         response: ResponseTx<F, Op, D>,
+30:     },
+31:     /// Cancel a previously requested operation fetch.
+32:     CancelOperations { request: Request<F> },
+33: }
+34: 
+35: impl<DB, F: Family, Op, D: Digest> Message<DB, F, Op, D> {
+36:     fn response_closed(&self) -> bool {
+37:         match self {
+38:             Self::AttachDatabase(_) | Self::CancelOperations { .. } => false,
+39:             Self::GetOperations { response, .. } => response.is_closed(),
+40:         }
+41:     }
+42: }
+43: 
+44: pub(super) struct Pending<DB, F: Family, Op, D: Digest> {
+45:     database: Option<Shared<DB>>,
+46:     messages: VecDeque<Message<DB, F, Op, D>>,
+47: }
+48: 
+49: impl<DB, F: Family, Op, D: Digest> Default for Pending<DB, F, Op, D> {
+50:     fn default() -> Self {
+51:         Self {
+52:             database: None,
+53:             messages: VecDeque::new(),
+54:         }
+55:     }
+56: }
+57: 
+58: impl<DB, F: Family, Op, D: Digest> Overflow<Message<DB, F, Op, D>> for Pending<DB, F, Op, D> {
+59:     fn is_empty(&self) -> bool {
+60:         self.database.is_none() && self.messages.is_empty()
+61:     }
+62: 
+63:     fn drain<P>(&mut self, mut push: P)
+64:     where
+65:         P: FnMut(Message<DB, F, Op, D>) -> Option<Message<DB, F, Op, D>>,
+66:     {
+67:         if let Some(database) = self.database.take()
+68:             && let Some(Message::AttachDatabase(database)) = push(Message::AttachDatabase(database))
+69:         {
+70:             self.database = Some(database);
+71:             return;
+72:         }
+73: 
+74:         while let Some(message) = self.messages.pop_front() {
+75:             if message.response_closed() {
+76:                 continue;
+77:             }
+78: 
+79:             if let Some(message) = push(message) {
+80:                 self.messages.push_front(message);
+81:                 break;
+82:             }
+83:         }
+84:     }
+85: }
+86: 
+87: impl<DB, F: Family, Op, D: Digest> Policy for Message<DB, F, Op, D> {
+88:     type Overflow = Pending<DB, F, Op, D>;
+89: 
+90:     fn handle(overflow: &mut Self::Overflow, message: Self) {
+91:         if message.response_closed() {
+92:             return;
+93:         }
+94: 
+95:         match message {
+96:             Self::AttachDatabase(database) => {
+97:                 overflow.database = Some(database);
+98:             }
+99:             message => overflow.messages.push_back(message),
+100:         }
+101:     }
+102: }
+103: 
+104: /// Client-facing resolver mailbox used by the QMDB sync engine.
+105: pub struct Mailbox<DB, F: Family, Op, D: Digest> {
+106:     sender: Sender<Message<DB, F, Op, D>>,
+107: }
+108: 
+109: impl<DB, F: Family, Op, D: Digest> Clone for Mailbox<DB, F, Op, D> {
+110:     fn clone(&self) -> Self {
+111:         Self {
+112:             sender: self.sender.clone(),
+113:         }
+114:     }
+115: }
+116: 
+117: impl<DB, F: Family, Op, D: Digest> Mailbox<DB, F, Op, D> {
+118:     pub(super) const fn new(sender: Sender<Message<DB, F, Op, D>>) -> Self {
+119:         Self { sender }
+120:     }
+121: }
+122: 
+123: impl<DB: Send + Sync, F: Family, Op: Send, D: Digest> Mailbox<DB, F, Op, D> {
+124:     pub fn attach_database(&self, db: Shared<DB>) {
+125:         let _ = self.sender.enqueue(Message::AttachDatabase(db));
+126:     }
+127: }
+128: 
+129: impl<DB, F, Op, D> Source for Mailbox<DB, F, Op, D>
+130: where
+131:     F: Family,
+132:     Op: Read<Cfg = ()> + Send + Sync + Clone + 'static,
+133:     D: Digest,
+134:     DB: Send + Sync + 'static,
+135: {
+136:     type Family = F;
+137:     type Digest = D;
+138:     type Op = Op;
+139:     type Error = ResponseDropped;
+140: 
+141:     async fn serve(
+142:         &self,
+143:         request: Request<F>,
+144:     ) -> Result<(Response<Self::Family, Self::Op, Self::Digest>, FeedbackTx), Self::Error> {
+145:         let (response_tx, response_rx) = oneshot::channel();
+146:         let _ = self.sender.enqueue(Message::GetOperations {
+147:             request,
+148:             response: response_tx,
+149:         });
+150: 
+151:         let mut guard =
+152:             cancel::Guard::new(self.sender.clone(), Message::CancelOperations { request });
+153:         let result = response_rx.await;
+154:         guard.disarm();
+155:         result.map_err(|_| ResponseDropped)
+156:     }
+157: }
+158: 
+159: impl<DB, F, Op, D> AttachableResolver<DB> for Mailbox<DB, F, Op, D>
+160: where
+161:     F: Family,
+162:     Op: Read<Cfg = ()> + Send + Sync + Clone + 'static,
+163:     D: Digest,
+164:     DB: Send + Sync + 'static,
+165: {
+166:     fn attach_database(&self, db: Shared<DB>) -> impl Future<Output = ()> + Send {
+167:         Self::attach_database(self, db);
+168:         std::future::ready(())
+169:     }
+170: }
+171: 
+172: #[cfg(test)]
+173: mod tests {
+174:     use super::*;
+175:     use commonware_cryptography::sha256;
+176:     use commonware_runtime::{Runner as _, deterministic};
+177:     use commonware_storage::mmr;
+178:     use commonware_utils::{NZU64, NZUsize};
+179: 
+180:     /// A caller that abandons its fetch drops the future, which retracts the request from the
+181:     /// actor.
+182:     #[test]
+183:     fn dropping_get_operations_sends_cancel_message() {
+184:         deterministic::Runner::default().start(|context| async move {
+185:             let (sender, mut receiver) = commonware_actor::mailbox::new(context, NZUsize!(4));
+186:             let mailbox = Mailbox::<(), mmr::Family, u64, sha256::Digest>::new(sender);
+187:             let size = mmr::Location::new(10);
+188:             let start_loc = mmr::Location::new(3);
+189:             let max_ops = NZU64!(2);
+190: 
+191:             // Poll once so the request is enqueued, then abandon the fetch.
+192:             {
+193:                 let get = mailbox.serve(Request::Operations {
+194:                     size,
+195:                     start: start_loc,
+196:                     max_ops,
+197:                 });
+198:                 futures::pin_mut!(get);
+199:                 assert!(futures::poll!(get.as_mut()).is_pending());
+200:             }
+201: 
+202:             match receiver.recv().await.expect("request should be queued") {
+203:                 Message::GetOperations { request, .. } => {
+204:                     assert_eq!(request.size(), size);
+205:                     assert_eq!(request.start(), start_loc);
+206:                     assert_eq!(request.max_ops(), max_ops);
+207:                     assert!(matches!(request, Request::Operations { .. }));
+208:                 }
+209:                 Message::AttachDatabase(_) => panic!("unexpected attach message"),
+210:                 Message::CancelOperations { .. } => panic!("cancel should come after request"),
+211:             }
+212: 
+213:             match receiver.recv().await.expect("cancel should be queued") {
+214:                 Message::CancelOperations { request } => {
+215:                     assert_eq!(request.size(), size);
+216:                     assert_eq!(request.start(), start_loc);
+217:                     assert_eq!(request.max_ops(), max_ops);
+218:                     assert!(matches!(request, Request::Operations { .. }));
+219:                 }
+220:                 Message::AttachDatabase(_) => panic!("unexpected attach message"),
+221:                 Message::GetOperations { .. } => panic!("unexpected duplicate request"),
+222:             }
+223:         });
+224:     }
+225: 
+226:     /// A fetch that completes normally disarms the guard, so no cancel follows.
+227:     #[test]
+228:     fn completed_get_operations_sends_no_cancel() {
+229:         deterministic::Runner::default().start(|context| async move {
+230:             let (sender, mut receiver) = commonware_actor::mailbox::new(context, NZUsize!(4));
+231:             let mailbox = Mailbox::<(), mmr::Family, u64, sha256::Digest>::new(sender);
+232:             let get = mailbox.serve(Request::Operations {
+233:                 size: mmr::Location::new(10),
+234:                 start: mmr::Location::new(3),
+235:                 max_ops: NZU64!(2),
+236:             });
+237:             let observe = async move {
+238:                 let Message::GetOperations { response, .. } =
+239:                     receiver.recv().await.expect("request should be queued")
+240:                 else {
+241:                     panic!("expected a fetch request");
+242:                 };
+243:                 drop(response);
+244:                 receiver
+245:             };
+246: 
+247:             let (result, mut receiver) = futures::join!(get, observe);
+248:             assert!(matches!(result, Err(ResponseDropped)));
+249:             assert!(
+250:                 receiver.try_recv().is_err(),
+251:                 "a completed fetch must not enqueue a cancel"
+252:             );
+253:         });
+254:     }
+255: }
+256: 
+```

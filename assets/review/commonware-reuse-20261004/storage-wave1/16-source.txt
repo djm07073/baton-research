@@ -1,0 +1,13 @@
+# Files in collector/src/p2p (v2026.9.0)
+
+```
+engine.rs
+ingress.rs
+mod.rs
+mocks/
+  handler.rs
+  mod.rs
+  monitor.rs
+  sender.rs
+  types.rs
+```

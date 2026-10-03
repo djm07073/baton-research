@@ -1,0 +1,206 @@
+[
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "storage/src/qmdb/any/batch.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "00-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "storage/src/qmdb/any/traits.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "01-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "02-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "glue/src/stateful/db/mod.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "03-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "glue/src/stateful/db/any.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "04-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "glue/src/stateful/db/current.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "05-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "glue/src/stateful/db/p2p.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "06-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "storage/src/qmdb/sync/mod.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "07-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "collector/src/lib.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "08-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "collector/src/p2p/mod.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "09-source.json"
+  },
+  {
+    "tool": "list_files",
+    "arguments": {
+      "crate": "glue/src/stateful/db",
+      "version": "v2026.9.0"
+    },
+    "receipt": "10-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "collector/src/p2p/actor.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "11-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "storage/src/qmdb/sync/standard/mod.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "12-source.json"
+  },
+  {
+    "tool": "search_code",
+    "arguments": {
+      "query": "pub trait Source",
+      "crate": "storage",
+      "version": "v2026.9.0",
+      "max_results": 20
+    },
+    "receipt": "13-source.json"
+  },
+  {
+    "tool": "search_code",
+    "arguments": {
+      "query": "pub fn fork",
+      "crate": "glue",
+      "version": "v2026.9.0",
+      "max_results": 20
+    },
+    "receipt": "14-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "glue/src/stateful/db/p2p/mod.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "15-source.json"
+  },
+  {
+    "tool": "list_files",
+    "arguments": {
+      "crate": "collector/src/p2p",
+      "version": "v2026.9.0"
+    },
+    "receipt": "16-source.json"
+  },
+  {
+    "tool": "list_files",
+    "arguments": {
+      "crate": "storage/src/qmdb/sync",
+      "version": "v2026.9.0"
+    },
+    "receipt": "17-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "storage/src/qmdb/sync/source.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "18-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "storage/src/qmdb/sync/target.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "19-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "collector/src/p2p/engine.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "20-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "storage/src/qmdb/sync/engine.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "21-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "storage/src/qmdb/sync/database.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "22-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "glue/src/stateful/db/p2p/mailbox.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "23-source.json"
+  },
+  {
+    "tool": "get_file",
+    "arguments": {
+      "path": "glue/src/stateful/db/p2p/actor.rs",
+      "version": "v2026.9.0"
+    },
+    "receipt": "24-source.json"
+  }
+]

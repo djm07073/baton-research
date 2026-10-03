@@ -1,0 +1,109 @@
+{
+  "objective": "Maximize Commonware primitive reuse throughout Baton GitBook, grounded in actual Commonware chains, through six hours of repeated multi-agent investigation and independent review.",
+  "started_at_utc": "2026-10-03T19:29:14Z",
+  "review_window_end_utc": "2026-10-04T01:29:14Z",
+  "baseline_git_sha": "38f64555e27fb88feb2a1f4be6ae2c133c6082e7",
+  "baseline_gitbook_revision": "TBVjJb5b1ideu6YEBXIq",
+  "status": "active",
+  "requirements": [
+    "Survey real Commonware chains and extract source-pinned assembly recipes.",
+    "Replace redundant custom infrastructure in existing layer docs, Rust contracts and diagrams; retain only necessary application adapters.",
+    "Investigate reusable tx pool/block builder components beyond a primitive inventory.",
+    "Honor latest Executor/Storage separation, deferred roots and no dependency on glue Stateful Application.",
+    "Use repeated multi-agent research, cross-review and revision over requested six-hour window.",
+    "Publish verified coherent GitBook changes and synchronize canonical Markdown/GitHub/local mirror.",
+    "Preserve native Multimmit pin, no-wait direction behavior, exact order, f+1 result provenance and blank open-policy cells."
+  ],
+  "first_wave": [
+    "block_reuse_audit",
+    "pool_reuse_audit",
+    "storage_reuse_audit"
+  ],
+  "waves": [
+    {
+      "wave": 1,
+      "status": "reviewed",
+      "reports": [
+        {
+          "path": "block-wave1/REPORT.md",
+          "sha256": "60afd194415681ab9f894fed12ecc4362c180bd8b595d1d595c82e95467ca448"
+        },
+        {
+          "path": "pool-wave1/REPORT.md",
+          "sha256": "2901970043017a3d7fb2f8dbfc9f2825086aa46a6400c38da43634cbfb6db22c"
+        },
+        {
+          "path": "storage-wave1/REPORT.md",
+          "sha256": "924be6a8fe80049889b43d799fd9e491186187fa0164683d7c1d17a60e5d1c31"
+        },
+        {
+          "path": "block-wave1/STORAGE_CROSS_REVIEW.md",
+          "sha256": "06123d71946db17cb681ed527b3c75596b6a93c0b6de5efa7af7e0d9c96be439"
+        },
+        {
+          "path": "pool-wave1/REUSE_CROSS_REVIEW.md",
+          "sha256": "e447f4d5f95aa20e7b4335e5bd9791cc870b9c4891f198cc3b69f50f594a95f8"
+        },
+        {
+          "path": "storage-wave1/BLOCK_CROSS_REVIEW.md",
+          "sha256": "bfe95af7f45811518d1ee1abe48d50061ea3b7fc9f04e001ae498a9346d05b6a"
+        },
+        {
+          "path": "storage-wave1/POOL_CROSS_REVIEW.md",
+          "sha256": "9d7a57c35828ba1189aea791cfdadba5bb01baa5ed33e6982de27251650f86e6"
+        }
+      ]
+    },
+    {
+      "wave": 2,
+      "status": "reviewed",
+      "reports": [
+        {
+          "path": "wave2/flow/REPORT.md",
+          "sha256": "e9a857b8ff05c520c5aea3026b5d7afd9fb6460741c809cfc0bd9c2fec31d88c"
+        },
+        {
+          "path": "wave2/flow/RESOLUTION.md",
+          "sha256": "0e549f4d7972e52bb5c398cc1a00c798635c4196d694ce2b351a200aa72d38b4"
+        },
+        {
+          "path": "wave2/pool/REPORT.md",
+          "sha256": "c57957915b507b3207c8f3fc92d1c1410e8cad97390ffe72cd6485163323374d"
+        },
+        {
+          "path": "wave2/storage/REPORT.md",
+          "sha256": "1db88f5a304b739eab83e6213dbfb9a3e2e924fa33ac9aafe3337c9feda2d5e8"
+        }
+      ]
+    }
+  ],
+  "completion_audit": null,
+  "local_verification": {
+    "content_pages": 31,
+    "diagrams": 18,
+    "proposed_traits": [
+      "TxPool",
+      "Orderer",
+      "Baton",
+      "Executor",
+      "Storage"
+    ],
+    "blank_policy_cells": 39,
+    "browser": "browser-verification.json",
+    "protocol_implemented": false
+  },
+  "publication": {
+    "change_request_id": "OTFc0W01ZQvv2f4uiiU8",
+    "change_request_number": 5,
+    "status": "published",
+    "published_revision": "NY491pkJQdX6ny2Lyndj",
+    "reviewed_draft_revision": "Cr108qovd2ADFdJ73nPg",
+    "pages": 38,
+    "links": 393,
+    "preserved_heading_anchors": 79,
+    "assets": 19,
+    "raw_file_bytes_verified": false,
+    "raw_file_download_limitation": "Private file URL returned HTTP 403; upload/API metadata and local rendering verified."
+  },
+  "updated_at_utc": "2026-10-03T20:29:22.131606+00:00"
+}

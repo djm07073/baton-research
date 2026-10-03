@@ -1,0 +1,1006 @@
+# storage/src/qmdb/sync/source.rs (v2026.9.0)
+
+```rust
+0: use crate::{
+1:     Context,
+2:     journal::{authenticated, contiguous::Contiguous},
+3:     merkle::{Family, Location, MAX_PINNED_NODES, MAX_PROOF_DIGESTS_PER_ELEMENT, Proof},
+4:     qmdb::{self, operation::Floored, sync::ServeError},
+5: };
+6: use bytes::{Buf, BufMut};
+7: use commonware_codec::{
+8:     EncodeShared, EncodeSize, Error as CodecError, Read, ReadExt as _, ReadRangeExt as _, Write,
+9: };
+10: use commonware_cryptography::{Digest, Hasher};
+11: use commonware_parallel::Strategy;
+12: use commonware_utils::{
+13:     Span,
+14:     channel::oneshot,
+15:     sync::{AsyncRwLock, TracedAsyncRwLock},
+16: };
+17: use std::{cmp::Ordering, future::Future, num::NonZeroU64, sync::Arc};
+18: 
+19: /// A request for operations from a source's log.
+20: pub enum Request<F: Family> {
+21:     /// Fetch the operations in `[start, start + max_ops)`.
+22:     Operations {
+23:         /// Prove against the root the database had at this size.
+24:         size: Location<F>,
+25:         /// First operation to return.
+26:         start: Location<F>,
+27:         /// Maximum number of operations to return.
+28:         max_ops: NonZeroU64,
+29:     },
+30:     /// Fetch the single operation at `start` plus the pinned nodes at `start`, the lowest
+31:     /// location the client will retain. The proof in the response authenticates the pinned nodes,
+32:     /// so there is no way to request them on their own.
+33:     Boundary {
+34:         /// Prove against the root the database had at this size.
+35:         size: Location<F>,
+36:         /// The operation to return, which is also the location of the returned pinned nodes.
+37:         start: Location<F>,
+38:     },
+39: }
+40: 
+41: impl<F: Family> Request<F> {
+42:     /// The size whose root the response's proof must verify against.
+43:     pub const fn size(&self) -> Location<F> {
+44:         match self {
+45:             Self::Operations { size, .. } | Self::Boundary { size, .. } => *size,
+46:         }
+47:     }
+48: 
+49:     /// First operation to return.
+50:     pub const fn start(&self) -> Location<F> {
+51:         match self {
+52:             Self::Operations { start, .. } | Self::Boundary { start, .. } => *start,
+53:         }
+54:     }
+55: 
+56:     /// Maximum number of operations to return.
+57:     pub const fn max_ops(&self) -> NonZeroU64 {
+58:         match self {
+59:             Self::Operations { max_ops, .. } => *max_ops,
+60:             Self::Boundary { .. } => NonZeroU64::MIN,
+61:         }
+62:     }
+63: 
+64:     /// Total-order key for map lookups. The final component separates the variants.
+65:     fn order_key(&self) -> (u64, u64, u64, bool) {
+66:         (
+67:             *self.size(),
+68:             *self.start(),
+69:             self.max_ops().get(),
+70:             matches!(self, Self::Boundary { .. }),
+71:         )
+72:     }
+73: }
+74: 
+75: impl<F: Family> Clone for Request<F> {
+76:     fn clone(&self) -> Self {
+77:         *self
+78:     }
+79: }
+80: 
+81: impl<F: Family> Copy for Request<F> {}
+82: 
+83: impl<F: Family> PartialEq for Request<F> {
+84:     fn eq(&self, other: &Self) -> bool {
+85:         self.order_key() == other.order_key()
+86:     }
+87: }
+88: 
+89: impl<F: Family> Eq for Request<F> {}
+90: 
+91: impl<F: Family> PartialOrd for Request<F> {
+92:     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+93:         Some(self.cmp(other))
+94:     }
+95: }
+96: 
+97: impl<F: Family> Ord for Request<F> {
+98:     fn cmp(&self, other: &Self) -> Ordering {
+99:         self.order_key().cmp(&other.order_key())
+100:     }
+101: }
+102: 
+103: impl<F: Family> std::hash::Hash for Request<F> {
+104:     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+105:         self.order_key().hash(state);
+106:     }
+107: }
+108: 
+109: impl<F: Family> std::fmt::Debug for Request<F> {
+110:     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+111:         match self {
+112:             Self::Operations {
+113:                 size,
+114:                 start,
+115:                 max_ops,
+116:             } => f
+117:                 .debug_struct("Operations")
+118:                 .field("size", size)
+119:                 .field("start", start)
+120:                 .field("max_ops", max_ops)
+121:                 .finish(),
+122:             Self::Boundary { size, start } => f
+123:                 .debug_struct("Boundary")
+124:                 .field("size", size)
+125:                 .field("start", start)
+126:                 .finish(),
+127:         }
+128:     }
+129: }
+130: 
+131: impl<F: Family> std::fmt::Display for Request<F> {
+132:     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+133:         match self {
+134:             Self::Operations {
+135:                 size,
+136:                 start,
+137:                 max_ops,
+138:             } => write!(f, "Operations(size={size}, start={start}, max={max_ops})"),
+139:             Self::Boundary { size, start } => write!(f, "Boundary(size={size}, start={start})"),
+140:         }
+141:     }
+142: }
+143: 
+144: impl<F: Family> Write for Request<F> {
+145:     fn write(&self, buf: &mut impl BufMut) {
+146:         match self {
+147:             Self::Operations {
+148:                 size,
+149:                 start,
+150:                 max_ops,
+151:             } => {
+152:                 0u8.write(buf);
+153:                 size.write(buf);
+154:                 start.write(buf);
+155:                 max_ops.write(buf);
+156:             }
+157:             Self::Boundary { size, start } => {
+158:                 1u8.write(buf);
+159:                 size.write(buf);
+160:                 start.write(buf);
+161:             }
+162:         }
+163:     }
+164: }
+165: 
+166: impl<F: Family> EncodeSize for Request<F> {
+167:     fn encode_size(&self) -> usize {
+168:         1 + match self {
+169:             Self::Operations {
+170:                 size,
+171:                 start,
+172:                 max_ops,
+173:             } => size.encode_size() + start.encode_size() + max_ops.encode_size(),
+174:             Self::Boundary { size, start } => size.encode_size() + start.encode_size(),
+175:         }
+176:     }
+177: }
+178: 
+179: impl<F: Family> Read for Request<F> {
+180:     type Cfg = ();
+181: 
+182:     fn read_cfg(buf: &mut impl Buf, _: &()) -> Result<Self, CodecError> {
+183:         let request = match u8::read(buf)? {
+184:             0 => Self::Operations {
+185:                 size: Location::<F>::read(buf)?,
+186:                 start: Location::<F>::read(buf)?,
+187:                 max_ops: NonZeroU64::read(buf)?,
+188:             },
+189:             1 => Self::Boundary {
+190:                 size: Location::<F>::read(buf)?,
+191:                 start: Location::<F>::read(buf)?,
+192:             },
+193:             d => return Err(CodecError::InvalidEnum(d)),
+194:         };
+195:         if request.start() >= request.size() {
+196:             return Err(CodecError::Invalid("Request", "start >= size"));
+197:         }
+198:         Ok(request)
+199:     }
+200: }
+201: 
+202: impl<F: Family> Span for Request<F> {}
+203: 
+204: #[cfg(feature = "arbitrary")]
+205: impl<F: Family> arbitrary::Arbitrary<'_> for Request<F> {
+206:     fn arbitrary(u: &mut arbitrary::Unstructured<'_>) -> arbitrary::Result<Self> {
+207:         let size = u.int_in_range(1..=*F::MAX_LEAVES)?;
+208:         let start = u.int_in_range(0..=size - 1)?;
+209:         let size = Location::new(size);
+210:         let start = Location::new(start);
+211:         Ok(if u.arbitrary()? {
+212:             Self::Boundary { size, start }
+213:         } else {
+214:             Self::Operations {
+215:                 size,
+216:                 start,
+217:                 max_ops: u.arbitrary()?,
+218:             }
+219:         })
+220:     }
+221: }
+222: 
+223: /// One authenticated response, shaped like the [`Request`] it answers.
+224: ///
+225: /// In a [`Response::Boundary`], the proof, the operation, and the pinned nodes are verified as a
+226: /// unit. The pinned nodes are only believable because the proof folds them into digests it already
+227: /// commits to.
+228: pub enum Response<F: Family, Op, D: Digest> {
+229:     /// Answer to a [`Request::Operations`].
+230:     Operations {
+231:         /// Proof authenticating `operations` against the root at the requested size.
+232:         proof: Proof<F, D>,
+233:         /// The operations that were fetched.
+234:         operations: Vec<Op>,
+235:     },
+236:     /// Answer to a [`Request::Boundary`].
+237:     Boundary {
+238:         /// Proof authenticating `op` against the root at the requested size.
+239:         proof: Proof<F, D>,
+240:         /// The operation at the requested boundary.
+241:         op: Op,
+242:         /// Pinned nodes at the requested location.
+243:         pinned_nodes: Vec<D>,
+244:     },
+245: }
+246: 
+247: impl<F: Family, Op, D: Digest> Response<F, Op, D> {
+248:     /// The proof authenticating this response.
+249:     pub const fn proof(&self) -> &Proof<F, D> {
+250:         match self {
+251:             Self::Operations { proof, .. } | Self::Boundary { proof, .. } => proof,
+252:         }
+253:     }
+254: }
+255: 
+256: impl<F: Family, Op: Clone, D: Digest> Clone for Response<F, Op, D> {
+257:     fn clone(&self) -> Self {
+258:         match self {
+259:             Self::Operations { proof, operations } => Self::Operations {
+260:                 proof: proof.clone(),
+261:                 operations: operations.clone(),
+262:             },
+263:             Self::Boundary {
+264:                 proof,
+265:                 op,
+266:                 pinned_nodes,
+267:             } => Self::Boundary {
+268:                 proof: proof.clone(),
+269:                 op: op.clone(),
+270:                 pinned_nodes: pinned_nodes.clone(),
+271:             },
+272:         }
+273:     }
+274: }
+275: 
+276: impl<F: Family, Op: std::fmt::Debug, D: Digest> std::fmt::Debug for Response<F, Op, D> {
+277:     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+278:         match self {
+279:             Self::Operations { proof, operations } => f
+280:                 .debug_struct("Operations")
+281:                 .field("proof", proof)
+282:                 .field("operations", operations)
+283:                 .finish(),
+284:             Self::Boundary {
+285:                 proof,
+286:                 op,
+287:                 pinned_nodes,
+288:             } => f
+289:                 .debug_struct("Boundary")
+290:                 .field("proof", proof)
+291:                 .field("op", op)
+292:                 .field("pinned_nodes", pinned_nodes)
+293:                 .finish(),
+294:         }
+295:     }
+296: }
+297: 
+298: impl<F: Family, Op: Write, D: Digest> Write for Response<F, Op, D> {
+299:     fn write(&self, buf: &mut impl BufMut) {
+300:         match self {
+301:             Self::Operations { proof, operations } => {
+302:                 0u8.write(buf);
+303:                 proof.write(buf);
+304:                 operations.write(buf);
+305:             }
+306:             Self::Boundary {
+307:                 proof,
+308:                 op,
+309:                 pinned_nodes,
+310:             } => {
+311:                 1u8.write(buf);
+312:                 proof.write(buf);
+313:                 op.write(buf);
+314:                 pinned_nodes.write(buf);
+315:             }
+316:         }
+317:     }
+318: }
+319: 
+320: impl<F: Family, Op: EncodeSize, D: Digest> EncodeSize for Response<F, Op, D> {
+321:     fn encode_size(&self) -> usize {
+322:         1 + match self {
+323:             Self::Operations { proof, operations } => {
+324:                 proof.encode_size() + operations.encode_size()
+325:             }
+326:             Self::Boundary {
+327:                 proof,
+328:                 op,
+329:                 pinned_nodes,
+330:             } => proof.encode_size() + op.encode_size() + pinned_nodes.encode_size(),
+331:         }
+332:     }
+333: }
+334: 
+335: impl<F: Family, Op: Read, D: Digest> Read for Response<F, Op, D> {
+336:     /// The `max_ops` the request asked for, and the configuration for decoding one operation.
+337:     type Cfg = (usize, Op::Cfg);
+338: 
+339:     fn read_cfg(buf: &mut impl Buf, (max_ops, op_cfg): &Self::Cfg) -> Result<Self, CodecError> {
+340:         match u8::read(buf)? {
+341:             0 => {
+342:                 let max_proof_digests = max_ops.saturating_mul(MAX_PROOF_DIGESTS_PER_ELEMENT);
+343:                 let proof = Proof::<F, D>::read_cfg(buf, &max_proof_digests)?;
+344:                 let operations = Vec::<Op>::read_cfg(buf, &((..=*max_ops).into(), op_cfg.clone()))?;
+345:                 Ok(Self::Operations { proof, operations })
+346:             }
+347:             1 => {
+348:                 let proof = Proof::<F, D>::read_cfg(buf, &MAX_PROOF_DIGESTS_PER_ELEMENT)?;
+349:                 let op = Op::read_cfg(buf, op_cfg)?;
+350:                 let pinned_nodes = Vec::<D>::read_range(buf, ..=MAX_PINNED_NODES)?;
+351:                 Ok(Self::Boundary {
+352:                     proof,
+353:                     op,
+354:                     pinned_nodes,
+355:                 })
+356:             }
+357:             d => Err(CodecError::InvalidEnum(d)),
+358:         }
+359:     }
+360: }
+361: 
+362: #[cfg(feature = "arbitrary")]
+363: impl<F: Family, Op, D: Digest> arbitrary::Arbitrary<'_> for Response<F, Op, D>
+364: where
+365:     Op: for<'a> arbitrary::Arbitrary<'a>,
+366:     D: for<'a> arbitrary::Arbitrary<'a>,
+367: {
+368:     fn arbitrary(u: &mut arbitrary::Unstructured<'_>) -> arbitrary::Result<Self> {
+369:         Ok(if u.arbitrary()? {
+370:             Self::Boundary {
+371:                 proof: u.arbitrary()?,
+372:                 op: u.arbitrary()?,
+373:                 pinned_nodes: u.arbitrary()?,
+374:             }
+375:         } else {
+376:             Self::Operations {
+377:                 proof: u.arbitrary()?,
+378:                 operations: u.arbitrary()?,
+379:             }
+380:         })
+381:     }
+382: }
+383: 
+384: /// Where to report whether a response verified.
+385: ///
+386: /// After verifying a response, the sync engine sends `true` if it was valid and `false` if it
+387: /// was not, letting the [`Source`] provide feedback to whoever served it. `None` means the
+388: /// source accepts no feedback and its answer is final.
+389: pub type FeedbackTx = Option<oneshot::Sender<bool>>;
+390: 
+391: /// A source for proofs and operations.
+392: pub trait Source: Send + Sync {
+393:     /// The merkle family backing this source's proofs.
+394:     type Family: Family;
+395: 
+396:     /// The digest type used in this source's proofs.
+397:     type Digest: Digest;
+398: 
+399:     /// The type of operations this source yields.
+400:     type Op;
+401: 
+402:     /// Why this source could not answer.
+403:     type Error: std::error::Error + Send + 'static;
+404: 
+405:     /// Serve a request.
+406:     #[allow(clippy::type_complexity)]
+407:     fn serve<'a>(
+408:         &'a self,
+409:         request: Request<Self::Family>,
+410:     ) -> impl Future<
+411:         Output = Result<(Response<Self::Family, Self::Op, Self::Digest>, FeedbackTx), Self::Error>,
+412:     > + Send
+413:     + 'a;
+414: }
+415: 
+416: impl<T> Source for Arc<T>
+417: where
+418:     T: Source + ?Sized,
+419: {
+420:     type Family = T::Family;
+421:     type Digest = T::Digest;
+422:     type Op = T::Op;
+423:     type Error = T::Error;
+424: 
+425:     fn serve<'a>(
+426:         &'a self,
+427:         request: Request<Self::Family>,
+428:     ) -> impl Future<
+429:         Output = Result<(Response<Self::Family, Self::Op, Self::Digest>, FeedbackTx), Self::Error>,
+430:     > + Send
+431:     + 'a {
+432:         T::serve(self, request)
+433:     }
+434: }
+435: 
+436: impl<T> Source for Option<T>
+437: where
+438:     T: Source,
+439:     ServeError<T::Family>: From<T::Error>,
+440: {
+441:     type Family = T::Family;
+442:     type Digest = T::Digest;
+443:     type Op = T::Op;
+444:     type Error = ServeError<T::Family>;
+445: 
+446:     async fn serve(
+447:         &self,
+448:         request: Request<Self::Family>,
+449:     ) -> Result<(Response<Self::Family, Self::Op, Self::Digest>, FeedbackTx), Self::Error> {
+450:         let source = self.as_ref().ok_or(ServeError::MissingSource)?;
+451:         Ok(source.serve(request).await?)
+452:     }
+453: }
+454: 
+455: macro_rules! impl_locked_source {
+456:     ($lock:ident) => {
+457:         impl<T> Source for $lock<T>
+458:         where
+459:             T: Source,
+460:         {
+461:             type Family = T::Family;
+462:             type Digest = T::Digest;
+463:             type Op = T::Op;
+464:             type Error = T::Error;
+465: 
+466:             async fn serve(
+467:                 &self,
+468:                 request: Request<Self::Family>,
+469:             ) -> Result<(Response<Self::Family, Self::Op, Self::Digest>, FeedbackTx), Self::Error>
+470:             {
+471:                 self.read().await.serve(request).await
+472:             }
+473:         }
+474:     };
+475: }
+476: 
+477: impl_locked_source!(AsyncRwLock);
+478: impl_locked_source!(TracedAsyncRwLock);
+479: 
+480: impl<F, E, C, H, S> Source for authenticated::Journal<F, E, C, H, S>
+481: where
+482:     F: Family,
+483:     E: Context,
+484:     C: Contiguous<Item: EncodeShared + Floored<F>>,
+485:     H: Hasher,
+486:     S: Strategy,
+487: {
+488:     type Family = F;
+489:     type Digest = H::Digest;
+490:     type Op = C::Item;
+491:     type Error = qmdb::Error<F>;
+492: 
+493:     #[allow(clippy::type_complexity)]
+494:     #[tracing::instrument(
+495:         name = "qmdb.sync.serve",
+496:         level = "info",
+497:         skip_all,
+498:         fields(
+499:             size = *request.size(),
+500:             start = *request.start(),
+501:             max_ops = request.max_ops().get(),
+502:         ),
+503:     )]
+504:     async fn serve(
+505:         &self,
+506:         request: Request<F>,
+507:     ) -> Result<(Response<F, C::Item, H::Digest>, FeedbackTx), qmdb::Error<F>> {
+508:         // Reject before the floor lookup so the error carries the requested size and the
+509:         // floor read never touches out-of-range locations.
+510:         if request.size() > self.size() {
+511:             return Err(crate::merkle::Error::RangeOutOfBounds(request.size()).into());
+512:         }
+513:         let inactive_peaks = qmdb::inactive_peaks_at::<F, _>(self, request.size()).await?;
+514:         let response = match request {
+515:             Request::Operations {
+516:                 size,
+517:                 start,
+518:                 max_ops,
+519:             } => {
+520:                 let (proof, operations) = self
+521:                     .historical_proof(size, start, max_ops, inactive_peaks)
+522:                     .await?;
+523:                 Response::Operations { proof, operations }
+524:             }
+525:             Request::Boundary { size, start } => {
+526:                 let (proof, mut operations) = self
+527:                     .historical_proof(size, start, NonZeroU64::MIN, inactive_peaks)
+528:                     .await?;
+529:                 let op = operations
+530:                     .pop()
+531:                     .ok_or(crate::merkle::Error::RangeOutOfBounds(start))?;
+532:                 let pinned_nodes = self.merkle.pinned_nodes_at(start).await?;
+533:                 Response::Boundary {
+534:                     proof,
+535:                     op,
+536:                     pinned_nodes,
+537:                 }
+538:             }
+539:         };
+540:         Ok((response, None))
+541:     }
+542: }
+543: 
+544: impl<F, E, C, I, H, U, const N: usize, S> Source
+545:     for crate::qmdb::any::db::Db<F, E, C, I, H, U, N, S>
+546: where
+547:     F: Family,
+548:     E: Context,
+549:     C: crate::journal::contiguous::Mutable<Item = crate::qmdb::any::operation::Operation<F, U>>,
+550:     I: crate::index::Unordered<Value = Location<F>>,
+551:     H: Hasher,
+552:     U: crate::qmdb::any::operation::update::Update,
+553:     S: Strategy,
+554:     crate::qmdb::any::operation::Operation<F, U>: commonware_codec::Codec,
+555: {
+556:     type Family = F;
+557:     type Digest = H::Digest;
+558:     type Op = crate::qmdb::any::operation::Operation<F, U>;
+559:     type Error = qmdb::Error<F>;
+560: 
+561:     async fn serve(
+562:         &self,
+563:         request: Request<F>,
+564:     ) -> Result<(Response<Self::Family, Self::Op, Self::Digest>, FeedbackTx), Self::Error> {
+565:         self.log.serve(request).await
+566:     }
+567: }
+568: 
+569: #[cfg(test)]
+570: pub(crate) mod tests {
+571:     use super::*;
+572:     use crate::{
+573:         merkle::mmr,
+574:         translator::{OneCap, TwoCap},
+575:     };
+576:     use commonware_codec::{Decode as _, DecodeExt as _, Encode as _};
+577:     use commonware_cryptography::{Sha256, sha256::Digest as ShaDigest};
+578:     use commonware_parallel::Rayon;
+579:     use commonware_runtime::{Runner as _, deterministic};
+580:     use commonware_utils::{
+581:         NZU64,
+582:         sync::{AsyncRwLock, TracedAsyncRwLock},
+583:     };
+584:     use std::{collections::VecDeque, marker::PhantomData, sync::Arc};
+585: 
+586:     macro_rules! assert_source_variants {
+587:         ($db:ty) => {
+588:             assert_serves::<Arc<$db>>();
+589:             assert_serves::<Arc<AsyncRwLock<$db>>>();
+590:             assert_serves::<Arc<AsyncRwLock<Option<$db>>>>();
+591:             assert_serves::<Arc<TracedAsyncRwLock<$db>>>();
+592:             assert_serves::<Arc<TracedAsyncRwLock<Option<$db>>>>();
+593:         };
+594:     }
+595: 
+596:     fn assert_serves<S: Source>() {}
+597: 
+598:     /// A feedback slot whose receiver is dropped. It marks a response as feedback-accepting,
+599:     /// so the engine retries instead of failing.
+600:     pub fn dropped_feedback() -> FeedbackTx {
+601:         let (tx, _rx) = oneshot::channel();
+602:         Some(tx)
+603:     }
+604: 
+605:     /// A source that answers each request with the next scripted response.
+606:     #[derive(Clone)]
+607:     pub struct SequenceSource<F: Family, Op, D: Digest> {
+608:         #[allow(clippy::type_complexity)]
+609:         responses: Arc<commonware_utils::sync::Mutex<VecDeque<(Response<F, Op, D>, FeedbackTx)>>>,
+610:     }
+611: 
+612:     impl<F: Family, Op, D: Digest> SequenceSource<F, Op, D> {
+613:         pub fn new(responses: Vec<(Response<F, Op, D>, FeedbackTx)>) -> Self {
+614:             Self {
+615:                 responses: Arc::new(commonware_utils::sync::Mutex::new(VecDeque::from(
+616:                     responses,
+617:                 ))),
+618:             }
+619:         }
+620:     }
+621: 
+622:     impl<F, Op, D> Source for SequenceSource<F, Op, D>
+623:     where
+624:         F: Family,
+625:         D: Digest,
+626:         Op: Send + Sync + Clone + 'static,
+627:     {
+628:         type Family = F;
+629:         type Digest = D;
+630:         type Op = Op;
+631:         type Error = qmdb::Error<F>;
+632: 
+633:         async fn serve(
+634:             &self,
+635:             _request: Request<F>,
+636:         ) -> Result<(Response<F, Op, D>, FeedbackTx), qmdb::Error<F>> {
+637:             self.responses
+638:                 .lock()
+639:                 .pop_front()
+640:                 .ok_or(qmdb::Error::DataCorrupted("missing scripted response"))
+641:         }
+642:     }
+643: 
+644:     /// Fetch `target`'s final commit operation and pinned nodes from `source`.
+645:     pub async fn fetch_compact_state<R: Source>(
+646:         source: &R,
+647:         target: crate::qmdb::sync::CompactTarget<R::Family, R::Digest>,
+648:     ) -> Result<(Response<R::Family, R::Op, R::Digest>, FeedbackTx), R::Error> {
+649:         source
+650:             .serve(Request::Boundary {
+651:                 size: target.size,
+652:                 start: target.size - 1,
+653:             })
+654:             .await
+655:     }
+656: 
+657:     /// A source that always fails. Not `Clone`, which the engine must not require.
+658:     pub struct FailSource<F: Family, Op, D> {
+659:         _phantom: PhantomData<(F, Op, D)>,
+660:     }
+661: 
+662:     impl<F, Op, D> Source for FailSource<F, Op, D>
+663:     where
+664:         F: Family,
+665:         D: Digest,
+666:         Op: Send + Sync + Clone + 'static,
+667:     {
+668:         type Family = F;
+669:         type Digest = D;
+670:         type Op = Op;
+671:         type Error = qmdb::Error<F>;
+672: 
+673:         async fn serve(
+674:             &self,
+675:             _request: Request<F>,
+676:         ) -> Result<(Response<F, Op, D>, FeedbackTx), qmdb::Error<F>> {
+677:             Err(qmdb::Error::KeyNotFound) // Arbitrary dummy error
+678:         }
+679:     }
+680: 
+681:     impl<F: Family, Op, D> FailSource<F, Op, D> {
+682:         pub fn new() -> Self {
+683:             Self {
+684:                 _phantom: PhantomData,
+685:             }
+686:         }
+687:     }
+688: 
+689:     #[test]
+690:     fn test_all_qmdb_variants_implement_source() {
+691:         type AnyOrderedFixed = crate::qmdb::any::ordered::fixed::Db<
+692:             mmr::Family,
+693:             deterministic::Context,
+694:             ShaDigest,
+695:             ShaDigest,
+696:             Sha256,
+697:             OneCap,
+698:             Rayon,
+699:         >;
+700:         type AnyOrderedVariable = crate::qmdb::any::ordered::variable::Db<
+701:             mmr::Family,
+702:             deterministic::Context,
+703:             ShaDigest,
+704:             Vec<u8>,
+705:             Sha256,
+706:             OneCap,
+707:             Rayon,
+708:         >;
+709:         type AnyUnorderedFixed = crate::qmdb::any::unordered::fixed::Db<
+710:             mmr::Family,
+711:             deterministic::Context,
+712:             ShaDigest,
+713:             ShaDigest,
+714:             Sha256,
+715:             TwoCap,
+716:             Rayon,
+717:         >;
+718:         type AnyUnorderedVariable = crate::qmdb::any::unordered::variable::Db<
+719:             mmr::Family,
+720:             deterministic::Context,
+721:             ShaDigest,
+722:             Vec<u8>,
+723:             Sha256,
+724:             TwoCap,
+725:             Rayon,
+726:         >;
+727:         type CurrentOrderedFixed = crate::qmdb::current::ordered::fixed::Db<
+728:             mmr::Family,
+729:             deterministic::Context,
+730:             ShaDigest,
+731:             ShaDigest,
+732:             Sha256,
+733:             OneCap,
+734:             32,
+735:             Rayon,
+736:         >;
+737:         type CurrentOrderedVariable = crate::qmdb::current::ordered::variable::Db<
+738:             mmr::Family,
+739:             deterministic::Context,
+740:             ShaDigest,
+741:             Vec<u8>,
+742:             Sha256,
+743:             OneCap,
+744:             32,
+745:             Rayon,
+746:         >;
+747:         type CurrentUnorderedFixed = crate::qmdb::current::unordered::fixed::Db<
+748:             mmr::Family,
+749:             deterministic::Context,
+750:             ShaDigest,
+751:             ShaDigest,
+752:             Sha256,
+753:             TwoCap,
+754:             32,
+755:             Rayon,
+756:         >;
+757:         type CurrentUnorderedVariable = crate::qmdb::current::unordered::variable::Db<
+758:             mmr::Family,
+759:             deterministic::Context,
+760:             ShaDigest,
+761:             Vec<u8>,
+762:             Sha256,
+763:             TwoCap,
+764:             32,
+765:             Rayon,
+766:         >;
+767:         type ImmutableFixed = crate::qmdb::immutable::fixed::Db<
+768:             mmr::Family,
+769:             deterministic::Context,
+770:             ShaDigest,
+771:             ShaDigest,
+772:             Sha256,
+773:             TwoCap,
+774:             Rayon,
+775:         >;
+776:         type ImmutableVariable = crate::qmdb::immutable::variable::Db<
+777:             mmr::Family,
+778:             deterministic::Context,
+779:             ShaDigest,
+780:             Vec<u8>,
+781:             Sha256,
+782:             TwoCap,
+783:             Rayon,
+784:         >;
+785:         type KeylessFixed = crate::qmdb::keyless::fixed::Db<
+786:             mmr::Family,
+787:             deterministic::Context,
+788:             ShaDigest,
+789:             Sha256,
+790:             Rayon,
+791:         >;
+792:         type KeylessVariable = crate::qmdb::keyless::variable::Db<
+793:             mmr::Family,
+794:             deterministic::Context,
+795:             Vec<u8>,
+796:             Sha256,
+797:             Rayon,
+798:         >;
+799: 
+800:         assert_source_variants!(AnyOrderedFixed);
+801:         assert_source_variants!(AnyOrderedVariable);
+802:         assert_source_variants!(AnyUnorderedFixed);
+803:         assert_source_variants!(AnyUnorderedVariable);
+804:         assert_source_variants!(CurrentOrderedFixed);
+805:         assert_source_variants!(CurrentOrderedVariable);
+806:         assert_source_variants!(CurrentUnorderedFixed);
+807:         assert_source_variants!(CurrentUnorderedVariable);
+808:         assert_source_variants!(ImmutableFixed);
+809:         assert_source_variants!(ImmutableVariable);
+810:         assert_source_variants!(KeylessFixed);
+811:         assert_source_variants!(KeylessVariable);
+812: 
+813:         type KeylessFixedCompactDb = crate::qmdb::keyless::fixed::CompactDb<
+814:             mmr::Family,
+815:             deterministic::Context,
+816:             ShaDigest,
+817:             Sha256,
+818:             Rayon,
+819:         >;
+820:         type KeylessVariableCompactDb = crate::qmdb::keyless::variable::CompactDb<
+821:             mmr::Family,
+822:             deterministic::Context,
+823:             Vec<u8>,
+824:             Sha256,
+825:             (commonware_codec::RangeCfg<usize>, ()),
+826:             Rayon,
+827:         >;
+828:         type ImmutableFixedCompactDb = crate::qmdb::immutable::fixed::CompactDb<
+829:             mmr::Family,
+830:             deterministic::Context,
+831:             ShaDigest,
+832:             ShaDigest,
+833:             Sha256,
+834:             Rayon,
+835:         >;
+836:         type ImmutableVariableCompactDb = crate::qmdb::immutable::variable::CompactDb<
+837:             mmr::Family,
+838:             deterministic::Context,
+839:             ShaDigest,
+840:             Vec<u8>,
+841:             Sha256,
+842:             ((), (commonware_codec::RangeCfg<usize>, ())),
+843:             Rayon,
+844:         >;
+845: 
+846:         assert_source_variants!(KeylessFixedCompactDb);
+847:         assert_source_variants!(KeylessVariableCompactDb);
+848:         assert_source_variants!(ImmutableFixedCompactDb);
+849:         assert_source_variants!(ImmutableVariableCompactDb);
+850:     }
+851: 
+852:     /// The request codec refuses frames whose start reaches their size, and unknown tags.
+853:     #[test]
+854:     fn test_request_decode_rejects_malformed() {
+855:         let valid = Request::<mmr::Family>::Operations {
+856:             size: Location::new(10),
+857:             start: Location::new(3),
+858:             max_ops: NZU64!(2),
+859:         };
+860:         let decoded = Request::<mmr::Family>::decode(valid.encode()).unwrap();
+861:         assert_eq!(decoded, valid);
+862: 
+863:         let mut malformed = Vec::new();
+864:         1u8.write(&mut malformed); // Boundary tag
+865:         Location::<mmr::Family>::new(10).write(&mut malformed);
+866:         Location::<mmr::Family>::new(10).write(&mut malformed); // start == size
+867:         assert!(Request::<mmr::Family>::decode(&malformed[..]).is_err());
+868: 
+869:         let bad_tag = [7u8];
+870:         assert!(Request::<mmr::Family>::decode(&bad_tag[..]).is_err());
+871:     }
+872: 
+873:     /// Requests are map keys, so equality and ordering must separate every distinct request.
+874:     /// A `Boundary` differs from a one-op `Operations` at the same coordinates only by variant.
+875:     #[test]
+876:     fn test_request_identity() {
+877:         let operations = Request::<mmr::Family>::Operations {
+878:             size: Location::new(10),
+879:             start: Location::new(3),
+880:             max_ops: NZU64!(1),
+881:         };
+882:         let boundary = Request::<mmr::Family>::Boundary {
+883:             size: Location::new(10),
+884:             start: Location::new(3),
+885:         };
+886:         assert_eq!(boundary.max_ops(), NZU64!(1));
+887:         assert_ne!(operations, boundary);
+888: 
+889:         let mut set = std::collections::BTreeSet::new();
+890:         assert!(set.insert(operations));
+891:         assert!(set.insert(boundary));
+892:         assert!(!set.insert(operations));
+893:         assert_eq!(set.len(), 2);
+894: 
+895:         // Ordering is by size, then start, then max_ops.
+896:         let smaller_size = Request::<mmr::Family>::Operations {
+897:             size: Location::new(9),
+898:             start: Location::new(8),
+899:             max_ops: NZU64!(5),
+900:         };
+901:         let smaller_start = Request::<mmr::Family>::Operations {
+902:             size: Location::new(10),
+903:             start: Location::new(2),
+904:             max_ops: NZU64!(5),
+905:         };
+906:         let fewer_ops = Request::<mmr::Family>::Operations {
+907:             size: Location::new(10),
+908:             start: Location::new(3),
+909:             max_ops: NZU64!(2),
+910:         };
+911:         let larger_ops = Request::<mmr::Family>::Operations {
+912:             size: Location::new(10),
+913:             start: Location::new(3),
+914:             max_ops: NZU64!(5),
+915:         };
+916:         assert!(smaller_size < smaller_start);
+917:         assert!(smaller_start < fewer_ops);
+918:         assert!(fewer_ops < larger_ops);
+919:     }
+920: 
+921:     /// The response codec enforces the request-derived caps and rejects unknown tags.
+922:     #[test]
+923:     fn test_response_decode_rejects_malformed() {
+924:         type R = Response<mmr::Family, u64, ShaDigest>;
+925:         let digest = ShaDigest::from([7u8; 32]);
+926:         let proof = Proof::<mmr::Family, ShaDigest> {
+927:             leaves: Location::new(3),
+928:             inactive_peaks: 0,
+929:             digests: vec![digest],
+930:         };
+931: 
+932:         // More operations than the request's max_ops.
+933:         let response = R::Operations {
+934:             proof: proof.clone(),
+935:             operations: vec![1, 2, 3],
+936:         };
+937:         assert!(R::decode_cfg(response.encode(), &(3, ())).is_ok());
+938:         assert!(R::decode_cfg(response.encode(), &(2, ())).is_err());
+939: 
+940:         // More proof digests than the request-derived budget.
+941:         let oversized = Proof::<mmr::Family, ShaDigest> {
+942:             leaves: Location::new(3),
+943:             inactive_peaks: 0,
+944:             digests: vec![digest; MAX_PROOF_DIGESTS_PER_ELEMENT + 1],
+945:         };
+946:         let response = R::Operations {
+947:             proof: oversized,
+948:             operations: vec![1],
+949:         };
+950:         assert!(R::decode_cfg(response.encode(), &(1, ())).is_err());
+951: 
+952:         // More pinned nodes than the codec allows.
+953:         let response = R::Boundary {
+954:             proof: proof.clone(),
+955:             op: 1,
+956:             pinned_nodes: vec![digest; MAX_PINNED_NODES + 1],
+957:         };
+958:         assert!(R::decode_cfg(response.encode(), &(1, ())).is_err());
+959:         let response = R::Boundary {
+960:             proof,
+961:             op: 1,
+962:             pinned_nodes: vec![digest; MAX_PINNED_NODES],
+963:         };
+964:         assert!(R::decode_cfg(response.encode(), &(1, ())).is_ok());
+965: 
+966:         // Unknown tag.
+967:         assert!(R::decode_cfg(&[9u8][..], &(1, ())).is_err());
+968:     }
+969: 
+970:     /// A source behind a lock reaches the source and reports its error.
+971:     #[test]
+972:     fn test_locked_source_reaches_source() {
+973:         deterministic::Runner::default().start(|_context| async move {
+974:             let lock = AsyncRwLock::new(FailSource::<mmr::Family, u8, ShaDigest>::new());
+975: 
+976:             let request = Request::Operations {
+977:                 size: Location::new(1),
+978:                 start: Location::new(0),
+979:                 max_ops: NZU64!(1),
+980:             };
+981:             let result = lock.serve(request).await;
+982:             assert!(matches!(result, Err(crate::qmdb::Error::KeyNotFound)));
+983:         });
+984:     }
+985: }
+986: 
+987: #[cfg(all(test, feature = "arbitrary"))]
+988: mod conformance {
+989:     use super::*;
+990:     use crate::merkle::{mmb, mmr};
+991:     use commonware_codec::conformance::CodecConformance;
+992:     use commonware_cryptography::sha256::Digest as Sha256Digest;
+993: 
+994:     commonware_conformance::conformance_tests! {
+995:         CodecConformance<Request<mmr::Family>>,
+996:         CodecConformance<Request<mmb::Family>>,
+997:         CodecConformance<Response<mmr::Family, u64, Sha256Digest>>,
+998:         CodecConformance<Response<mmb::Family, u64, Sha256Digest>>,
+999:     }
+1000: }
+1001: 
+```

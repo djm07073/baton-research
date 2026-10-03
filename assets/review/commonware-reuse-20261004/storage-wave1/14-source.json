@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "No matches found for \"pub fn fork\" in v2026.9.0 (crate: glue)"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

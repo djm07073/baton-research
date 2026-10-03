@@ -1,0 +1,11 @@
+--- pin/collector/src/p2p/engine.rs
++++ v2026.9.0/collector/src/p2p/engine.rs
+@@ -123,7 +123,7 @@
+         );
+ 
+         // Create futures pool
+-        let mut processed: Pool<Result<(P, Rs), oneshot::error::RecvError>> = Pool::default();
++        let mut processed: Pool<'_, Result<(P, Rs), oneshot::error::RecvError>> = Pool::default();
+         select_loop! {
+             self.context,
+             on_stopped => {

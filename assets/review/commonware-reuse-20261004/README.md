@@ -1,0 +1,19 @@
+# Commonware reuse research and review
+
+Active six-hour documentation task. The source pin, baseline and full requirements are recorded in [run.json](run.json). Research reports are review material; canonical reader-facing documentation remains under docs/. Each proposal needs independent review before publication.
+
+The latest user decisions separate transaction execution from root/storage work and avoid a dependency on glue::stateful::Application. Existing application contracts may be simplified or replaced when an actual reusable component fits. A generic queue or provider handle is not evidence of a complete mempool. A Simplex example is not evidence of an unchanged Multimmit adapter.
+
+This record does not claim completion, protocol implementation, performance validation or six elapsed hours.
+
+## Reviewed findings
+
+The first wave inspected actual chain source and then cross-reviewed the other components: [body assembly](block-wave1/REPORT.md), [pool candidates](pool-wave1/REPORT.md) and [storage lifecycle](storage-wave1/REPORT.md). The second wave independently rechecked [all documentation flows](wave2/flow/REPORT.md), [pool reuse](wave2/pool/REPORT.md) and [storage/sync source](wave2/storage/REPORT.md). The flow review's [resolution record](wave2/flow/RESOLUTION.md) verifies the corrected ownership and callback references.
+
+Tempo and Alto assemble buffered body broadcast, resolvers and archives in the node/consensus layer. Baton reuses those components through existing native callbacks, without another public BlockService trait. Native Marshal is Simplex-specific; Multimmit ordering/custody integration remains adapter work. Pool reuse must account for actual admission, selection and canonical outcome semantics. Executor produces effects; Storage prepares selected roots and owns database application/durability using QMDB primitives. Full Stateful Application adoption is not required.
+
+Current local checks cover 31 pages, 18 diagrams, five proposed application traits and 39 intentionally blank policy cells. The [browser verification](browser-verification.json) checks image loading, English content, search, Rust declarations and mobile navigation. GitBook publication and GitHub synchronization are tracked separately in run.json; local checks alone do not establish publication or a compiled Baton integration.
+
+## Published batch
+
+Change request #5 is published as `NY491pkJQdX6ny2Lyndj`. The [page verification](gitbook-verification.json) and [live revision comparison](gitbook-live-verification.json) cover 38 pages, 393 links, 18 Mermaid blocks, five proposed traits and all 79 previous heading anchors. [Attachment checks](assets-verification.json) confirm accepted upload IDs and sizes against local source; raw private downloads returned HTTP 403, so remote byte equality is unconfirmed. This batch publication does not complete the ongoing six-hour goal.

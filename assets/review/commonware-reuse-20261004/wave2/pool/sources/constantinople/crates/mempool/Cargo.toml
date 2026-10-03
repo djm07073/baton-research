@@ -1,0 +1,60 @@
+[package]
+name = "constantinople-mempool"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[dependencies]
+# Workspace
+constantinople-primitives.workspace = true
+
+# Commonware
+commonware-actor.workspace = true
+commonware-codec.workspace = true
+commonware-formatting.workspace = true
+commonware-parallel.workspace = true
+commonware-runtime.workspace = true
+commonware-storage.workspace = true
+commonware-utils.workspace = true
+commonware-consensus.workspace = true
+commonware-cryptography = { workspace = true, features = ["std"] }
+
+# Other
+ahash.workspace = true
+axum.workspace = true
+bytes.workspace = true
+serde = { workspace = true, features = ["derive"] }
+tokio = { workspace = true, features = ["sync", "time"] }
+reqwest.workspace = true
+tracing.workspace = true
+serde_json.workspace = true
+derive_more = { workspace = true, features = ["display"] }
+futures.workspace = true
+tower-http = { version = "0.6", features = ["cors"] }
+
+[features]
+mocks = [ "commonware-consensus/mocks", "commonware-cryptography/mocks" ]
+
+[dev-dependencies]
+# Commonware
+commonware-math.workspace = true
+commonware-cryptography = { workspace = true, features = ["std"] }
+
+# Other
+bytes.workspace = true
+rand.workspace = true
+tower = { workspace = true, features = ["util"] }
+futures = { workspace = true, features = ["executor"] }
+criterion.workspace = true
+mimalloc.workspace = true
+
+[[bench]]
+name = "decode"
+harness = false

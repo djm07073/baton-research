@@ -31,7 +31,7 @@ sequenceDiagram
             S->>B: Start authenticated intake / retention / history backfill
         end
     and Execution recovery
-        S->>E: Recover canonical DB and applied metadata
+        S->>E: Recover execution base through Storage, with applied metadata/provenance
         E-->>S: Execution state readiness / recovery status
     end
     alt Execution state and exact input ready
@@ -56,11 +56,11 @@ A Running handle does not prove every service is ready. Body-service, native-eng
 ```mermaid
 sequenceDiagram
     participant S as Startup owner
-    participant Q as QMDB / Commit metadata
+    participant Q as Storage / QMDB / commit metadata
     participant M as Orderer
     participant E as Executor
     S->>Q: Recover last durable applied commit
-    Q-->>S: State / outputs / AppliedCursor
+    Q-->>S: State / outputs / AppliedCursor / provenance
     Note over S,M: Body custody follows the separate startup sequence
     S->>M: Recover archive and delivery cursors
     M->>M: Fetch missing authenticated history / bodies
@@ -78,7 +78,7 @@ sequenceDiagram
 | Native journal cursor | Native owner receives a durable domain-event prefix acknowledgement | Does not establish application evidence retention or state application |
 | Proposed ArchiveCursor | Orderer recoverably stores exact source witnesses and interpretation | Evidence, policy, and history for emitted ranges must remain recoverable |
 | Proposed OrderedCursor | Orderer appends exact continuous input from terminal slots | Range identity, predecessor, and interpretation bind to applied commit |
-| Proposed AppliedCursor | Executor durably applies state, outputs, and commit metadata | Lost acknowledgement for the same range can be recovered idempotently |
+| Proposed AppliedCursor | Storage proves durable state/output/cursor/provenance linkage; Executor delivers its receipt | Lost acknowledgement for the same range can be recovered idempotently |
 
 These coordinates cannot be compared by numeric magnitude. Witness coverage and exact identity connect archive, ordered input, and applied commit. Delivery acknowledgement alone does not justify deleting source material or guarantee permanent serving availability. Retention handoff, export lag, and bounded-buffering policy remain open. No separate archive quorum is added to native cut waits.
 

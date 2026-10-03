@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# Files in collector/src/p2p (v2026.9.0)\n\n```\nengine.rs\ningress.rs\nmod.rs\nmocks/\n  handler.rs\n  mod.rs\n  monitor.rs\n  sender.rs\n  types.rs\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

@@ -7,23 +7,25 @@
 ```mermaid
 sequenceDiagram
     participant N as Native producer owner
-    participant A as BlockService: Automaton adapter
-    participant P as BlockService: body build
-    participant S as BlockService: storage / fetch
-    participant R as BlockService: Relay adapter
-    participant V as Peer BlockService
+    participant A as BlockService / upstream callbacks
+    participant T as TxPool
+    participant S as Commonware Archive
+    participant D as Commonware buffered Engine
+    participant V as Peer body attachment
     N->>A: Automaton::propose(Context)
-    A->>P: Select / build bounded body
-    P-->>A: Body bytes + commitment
-    A->>S: Put body and required parent custody
-    S-->>A: Durable after sync
-    A-->>N: Payload digest
-    N->>N: Native header construction / signing
-    N->>R: Relay::broadcast(payload digest)
-    R->>S: Resolve body bytes
-    S-->>R: Body
-    R-->>V: Publish body
-    Note over N,V: Native headers / DA messages use a separate native data plane
+    A->>T: select(producer context, limits)
+    T-->>A: Candidate transactions
+    A->>A: Build bounded body, calculate digest/context binding
+    A->>S: Put exact body/required parents and sync
+    S-->>A: Covering durability + retained exact custody
+    A-->>N: Resolve payload digest receiver
+    N->>N: Native header signing under native authority
+    N->>A: Relay::broadcast(digest, ())
+    A->>A: Schedule retained-body lookup
+    A->>D: Mailbox::broadcast_shared(recipients, retained Arc)
+    D-->>V: Body over authenticated P2P channel
+    Note over A,V: Local broadcast admission is not remote receipt/custody ACK
+    Note over N,V: Native headers/DA use native data plane, bodies use application channels
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-04.svg)
@@ -36,14 +38,14 @@ Native Core owns producer-header signing authority. The builder creates a body a
 sequenceDiagram
     participant N as Native engine
     participant A as BlockService: Automaton adapter
-    participant S as BlockService: storage / fetch
-    participant P as Body peer
+    participant S as Commonware Archive / buffer / resolver
+    participant P as Peer resolver / archive-backed Producer
     participant I as Baton: block intake
     participant B as Baton: scheduling
     N->>A: Automaton::verify(Context from native header, payload)
     A->>S: Lookup body and required parent
     alt Required body / parent missing
-        S->>P: Fetch by exact reference
+        S->>P: Generic resolver fetch by exact key
         P-->>S: Response bytes
         S->>S: Validate expected digest and context
         opt Correct response for exact expected reference
@@ -54,7 +56,7 @@ sequenceDiagram
         S-->>A: Stored bytes
     end
     alt Required bytes remain unresolved
-        A->>A: Keep pending request, retry / await correct bytes
+        A->>A: Keep receiver pending, resolver retries / buffer subscription waits
         Note over N,A: No true / false result returned for this request yet
     else Expected bytes are available
         alt Expected payload is structurally invalid

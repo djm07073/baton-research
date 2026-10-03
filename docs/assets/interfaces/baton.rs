@@ -46,40 +46,6 @@ pub trait TxPool: Send {
     ) -> impl Future<Output = Result<(), Self::Error>> + Send;
 }
 
-pub trait BlockService: Send {
-    type ProducerContext: Send;
-    type Digest: Send;
-    type BlockRef: Send;
-    type StoredBody: Send;
-    type Retire: Send;
-    type Error: Send;
-
-    /// Build a producer body for the exact request context and retain durable custody.
-    /// Return None when no admissible body is prepared for that request.
-    fn build(
-        &mut self,
-        context: Self::ProducerContext,
-    ) -> impl Future<Output = Result<Option<Self::StoredBody>, Self::Error>> + Send;
-    /// Verify the referenced body and required parent material for this producer context.
-    /// Return true only when validation and durable custody requirements are satisfied.
-    fn verify(
-        &mut self,
-        context: Self::ProducerContext,
-        digest: Self::Digest,
-    ) -> impl Future<Output = Result<bool, Self::Error>> + Send;
-    /// Resolve a block reference to its retained body or fetch and verify missing material.
-    fn fetch(
-        &mut self,
-        block: Self::BlockRef,
-    ) -> impl Future<Output = Result<Self::StoredBody, Self::Error>> + Send;
-    /// Return the body digest; this does not authenticate its native header.
-    fn commitment(&self, body: &Self::StoredBody) -> Self::Digest;
-    /// Schedule local body dissemination through the Commonware relay attachment.
-    fn publish(&mut self, digest: Self::Digest) -> Result<(), Self::Error>;
-    /// Update retention after native retirement while preserving required custody and recovery data.
-    fn on_retire(&mut self, retired: Self::Retire) -> Result<(), Self::Error>;
-}
-
 pub trait Orderer: Send {
     type Evidence: Send;
     type OrderedRange: Send;
@@ -162,11 +128,10 @@ pub trait Executor: Send {
     type Block: Send;
     type OrderedRange: Send;
     type Recovery: Send;
-    type Query: Send;
     type Checkpoint: Send;
     type ExecutionResult: Send;
+    type PreparedResult: Clone + Send;
     type CommitResult: Send;
-    type ReadResult: Send;
     type SignedStatement: Send;
     type ExecutionStatement: Send;
     type ResultCertificate: Send;
@@ -175,38 +140,34 @@ pub trait Executor: Send {
 
     /// Resolve block.parent_block_hash to the exact valid execution-parent checkpoint.
     /// Validate context, link the child in the execution tree, and compute the transaction effects on that branch.
-    /// Reuse only matching completed work; success returns its completed ExecutionResult.
+    /// Return completed changes and outputs; Storage calculates a root when needed.
+    /// Reuse only matching completed work; unsealed child forks need a separate read-view adapter.
     /// A missing or unfinished parent cannot be executed from an unrelated state.
     fn execute(
         &mut self,
         block: Self::Block,
     ) -> impl Future<Output = Result<Self::ExecutionResult, Self::Error>> + Send;
     /// Verify the exact irrevocable range and canonical predecessor; complete missing work.
-    /// Promote the matching execution path and durably apply state, outputs, and cursor.
+    /// Select the matching path; ask Storage to prepare and durably apply exact material.
     /// Fence conflicting workers, prune conflicting branches, and retain valid descendants.
     /// Return CommitResult only after durable completion; physical GC follows safe retention.
     fn commit(
         &mut self,
         range: Self::OrderedRange,
     ) -> impl Future<Output = Result<Self::CommitResult, Self::Error>> + Send;
-    /// Recover canonical state, outputs, cursor, and checkpoint identity together.
-    /// Rebuild only branches with verified ancestry; reject stale recovered worker results.
+    /// Use Storage recovery to restore the canonical base, outputs, cursor and provenance.
+    /// Rebuild only execution branches with verified ancestry; reject stale worker results.
     fn recover(
         &mut self,
         recovery: Self::Recovery,
     ) -> impl Future<Output = Result<Self::Checkpoint, Self::Error>> + Send;
-    /// Read a retained canonical version with its readiness and output metadata.
-    /// A readable local value alone does not establish an f+1 result certificate.
-    fn read(
-        &mut self,
-        query: Self::Query,
-    ) -> impl Future<Output = Result<Self::ReadResult, Self::Error>> + Send;
-
-    /// Sign a directly executed or directly validated result for irrevocable exact input.
-    /// Bind the canonical input state, runtime, and full result; never sign imported work as own execution.
+    /// Sign a Storage-prepared result with retained own direct execution/validation evidence.
+    /// Require irrevocable exact input, canonical base, runtime and the computed result commitment.
+    /// Sign the stable full subject; local worker generations are not shared signature fields.
+    /// Never sign imported material as own execution or sign before the commitment exists.
     fn sign_result(
         &mut self,
-        result: Self::ExecutionResult,
+        result: Self::PreparedResult,
     ) -> impl Future<Output = Result<Self::SignedStatement, Self::Error>> + Send;
     /// Verify and collect matching statements from distinct eligible epoch validators.
     /// Return a certificate once f+1 signatures match the full subject; fewer returns None.
@@ -226,4 +187,50 @@ pub trait Executor: Send {
         &mut self,
         query: Self::ResultQuery,
     ) -> impl Future<Output = Result<Option<Self::ResultCertificate>, Self::Error>> + Send;
+}
+
+pub trait Storage: Send {
+    type ExecutionResult: Send;
+    type Preparation: Send;
+    type PreparedResult: Clone + Send;
+    type CanonicalInput: Send;
+    type CommitResult: Send;
+    type Recovery: Send;
+    type Checkpoint: Send;
+    type Query: Send;
+    type ReadResult: Send;
+    type Error: Send;
+
+    /// Prepare the exact selected prefix from completed changes, without executing transactions.
+    /// Use concrete QMDB merkleize calls and calculate the chosen result commitment.
+    /// Keep valid access/fencing through lazy reads, staged expansion and materialization.
+    /// Bind the selected storage rule, exact base/input, outputs and material to the prepared result.
+    /// Root type and deterministic batch/normalization rules remain open design choices.
+    fn prepare(
+        &mut self,
+        result: Self::ExecutionResult,
+        preparation: Self::Preparation,
+    ) -> impl Future<Output = Result<Self::PreparedResult, Self::Error>> + Send;
+    /// Check authorized exact canonical input, applicable ancestry and single-writer access.
+    /// Apply through QMDB and observe successful durability plus recoverable metadata linkage.
+    /// Return CommitResult only when state, outputs, cursor and provenance recover together.
+    /// Canonical mutation is not canceled with advisory workers; failed flush is not success.
+    fn apply(
+        &mut self,
+        input: Self::CanonicalInput,
+        result: Self::PreparedResult,
+    ) -> impl Future<Output = Result<Self::CommitResult, Self::Error>> + Send;
+    /// Recover the authoritative durable state, outputs, cursor and provenance together.
+    /// Restore retained storage bases; a prior readable notification is not a durable receipt.
+    fn recover(
+        &mut self,
+        recovery: Self::Recovery,
+    ) -> impl Future<Output = Result<Self::Checkpoint, Self::Error>> + Send;
+    /// Read a retained canonical version and its readiness/output metadata.
+    /// An arbitrary historical snapshot API is not promised by QMDB readers.
+    /// Result-certificate queries remain Executor responsibilities.
+    fn read(
+        &mut self,
+        query: Self::Query,
+    ) -> impl Future<Output = Result<Self::ReadResult, Self::Error>> + Send;
 }

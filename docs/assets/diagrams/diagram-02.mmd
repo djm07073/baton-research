@@ -1,25 +1,29 @@
 sequenceDiagram
     participant C as Client
     participant T as TxPool
-    participant N as Multimmit + BlockService + Orderer
+    participant N as Multimmit / body attachment / Orderer
     participant B as Baton
     participant E as Executor
+    participant S as Storage / QMDB
     C->>T: admit(tx)
-    T-->>C: Admitted(tx_id)
+    T-->>C: Admission result
     N->>T: TxPool::select(producer context, limits)
     T-->>N: Candidate tx batch
-    N->>N: Build body, store + sync, native header / DA
-    N-->>B: CandidateBlock(block_ref, verified body, context)
-    B->>E: execute(block hash, parent block hash, exact inputs/context)
-    E-->>B: ExecutionResult / branch handle
-    Note over N,B: Native consensus and reports / directions proceed in parallel
-    N-->>E: Orderer delivers OrderedRange(exact order, predecessor, evidence)
-    E->>E: commit(ordered range)
-    E->>E: Reuse matching work / execute or verify peer state material
-    E->>E: Durable canonical state + outputs + cursor
-    E-->>N: CommitResult / delivery ACK after durability, not native vote
-    E-->>T: TxPool::on_commit(exact range / tx outcomes)
-    opt Local scheduling notification
-        E-->>B: Applied progress notification, no approval / ACK required
+    N->>N: Body codec + Archive sync, Relay uses buffered broadcast
+    N-->>B: CandidateBlock(exact authenticated header + retained body)
+    B->>E: execute(block, execution-parent hash, exact context)
+    E-->>B: Completed changes / outputs, no root required per attempt
+    Note over N,E: Native consensus and Baton reports/directions proceed in parallel
+    N-->>E: Orderer delivers irrevocable OrderedRange
+    E->>E: commit(range): reuse exact prefix / finish missing work
+    E->>S: prepare(completed changes, selected boundary/rule)
+    S-->>E: Prepared material + result commitment
+    Note over E,S: Root exists before direct-result signing, peer collection does not gate native cut
+    E->>S: apply(authorized canonical input, prepared material)
+    S->>S: QMDB apply/flush + recoverable metadata linkage
+    S-->>E: Durable CommitResult
+    E-->>N: Delivery ACK after durability
+    E-->>T: Canonical tx outcomes
+    opt Optional scheduling notification
+        E-->>B: Applied progress, no approval/ACK
     end
-    Note over E: Executor peer finalization / sync: exact order + f+1 signatures on one statement

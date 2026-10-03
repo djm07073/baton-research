@@ -4,9 +4,9 @@
 
 ## Roles and responsibilities
 
-Baton receives candidate blocks from the consensus attachment and schedules speculative execution. It forms an intended order from locally known inputs and exchanges reports. The leader evaluates the report snapshot inside Baton, then disseminates the prepared direction. Non-leaders use a valid direction to adjust their execution plans. Orderer and Executor directly handle finalized input delivery, canonical application, state finalization, and state sync. These paths require no Baton approval or acknowledgement.
+Baton receives candidate blocks from the consensus attachment and schedules speculative execution. It forms an intended order from locally known inputs and exchanges reports. The leader evaluates the report snapshot inside Baton, then disseminates the prepared direction. Non-leaders use a valid direction to adjust their execution plans. Orderer, Executor and Storage handle exact input delivery, result certification and canonical application directly. Executor controls peer state sync; Storage controls roots/apply/durability. These paths require no Baton approval or acknowledgement.
 
-**Baton** owns report admission, direction messages, and speculative block requests. **Baton** also selects direction. **Executor** owns parent-linked execution branches, transaction effects, result certification, canonical promotion, and pruning. Executor serializes canonical application through a single writer. Native signing, voting, and finality authority remain with consensus.
+**Baton** owns report admission, direction messages, and speculative block requests. **Baton** also selects direction. **Executor** owns parent-linked execution branches, transaction effects, result certification, canonical promotion, and pruning. Storage prepares selected roots and serializes canonical application through the shared single writer; Executor orchestrates it. Native signing, voting, and finality authority remain with consensus.
 
 ## Report connection
 

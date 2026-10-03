@@ -1,0 +1,22 @@
+# Files in glue/src/stateful/db (v2026.9.0)
+
+```
+any.rs
+current.rs
+mod.rs
+immutable/
+  compact.rs
+  mod.rs
+  standard.rs
+keyless/
+  compact.rs
+  mod.rs
+  standard.rs
+p2p/
+  actor.rs
+  cancel.rs
+  handler.rs
+  mailbox.rs
+  metrics.rs
+  mod.rs
+```

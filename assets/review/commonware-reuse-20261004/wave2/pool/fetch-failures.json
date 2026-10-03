@@ -1,0 +1,21 @@
+[
+  {
+    "path": "crates/primitives/src/verify.rs",
+    "repo": "commonwarexyz/constantinople",
+    "commit": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "http_status": 404,
+    "use_as_evidence": false,
+    "resolution": "Git tree identifies auth.rs as actual verification source."
+  },
+  {
+    "paths": [
+      "crates/primitives/src/auth.rs",
+      "crates/primitives/src/sealed.rs"
+    ],
+    "repo": "commonwarexyz/constantinople",
+    "erroneous_commit": "3b6c92e76bf582855844a4175b8304808f6a9",
+    "http_status": 404,
+    "use_as_evidence": false,
+    "resolution": "Corrected SHA from previously verified receipts, fetched and git-tree-verified exact source."
+  }
+]

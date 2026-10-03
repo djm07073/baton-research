@@ -1,0 +1,298 @@
+# storage/src/qmdb/any/traits.rs (v2026.9.0)
+
+```rust
+0: //! Trait providing a unified test/benchmark interface across all Any database variants.
+1: 
+2: use crate::{
+3:     merkle::{Family, Location, Proof},
+4:     qmdb::{Error, operation::Key},
+5: };
+6: use commonware_codec::CodecShared;
+7: use commonware_cryptography::Digest;
+8: use commonware_runtime::Handle;
+9: use core::num::NonZeroU64;
+10: use std::{future::Future, ops::Range};
+11: 
+12: /// Unmerkleized batch of operations.
+13: pub trait UnmerkleizedBatch<Db: ?Sized>: Sized {
+14:     type Family: Family;
+15:     type K;
+16:     type V;
+17:     type Metadata;
+18:     type Merkleized: MerkleizedBatch;
+19: 
+20:     /// Record a mutation. Use `Some(value)` for update/create, `None` for delete.
+21:     fn write(self, key: Self::K, value: Option<Self::V>) -> Self;
+22: 
+23:     /// Resolve mutations, compute the new root, and return a merkleized batch.
+24:     fn merkleize(
+25:         self,
+26:         db: &Db,
+27:         metadata: Option<Self::Metadata>,
+28:     ) -> impl Future<Output = Result<Self::Merkleized, Error<Self::Family>>>;
+29: }
+30: 
+31: /// Merkleized batch of operations.
+32: pub trait MerkleizedBatch: Sized {
+33:     type Digest: Digest;
+34: 
+35:     /// Return the committed root.
+36:     fn root(&self) -> Self::Digest;
+37: }
+38: 
+39: /// The result of applying a batch: the database and the range of written operations.
+40: pub type ApplyBatchResult<D> =
+41:     Result<(D, Range<Location<<D as BatchableDb>::Family>>), Error<<D as BatchableDb>::Family>>;
+42: 
+43: /// Db that supports updates through a batch API.
+44: pub trait BatchableDb: Sized {
+45:     type Family: Family;
+46:     type K;
+47:     type V;
+48:     type Merkleized: MerkleizedBatch;
+49:     type Batch: UnmerkleizedBatch<
+50:             Self,
+51:             Family = Self::Family,
+52:             K = Self::K,
+53:             V = Self::V,
+54:             Metadata = Self::V,
+55:             Merkleized = Self::Merkleized,
+56:         >;
+57: 
+58:     /// Create a new speculative batch of operations with this database as its parent.
+59:     fn new_batch(&self) -> Self::Batch;
+60: 
+61:     /// Apply a merkleized batch, returning the range of written operations.
+62:     fn apply_batch(self, batch: Self::Merkleized) -> impl Future<Output = ApplyBatchResult<Self>>;
+63: }
+64: 
+65: /// Unified trait for an authenticated database.
+66: ///
+67: /// This trait provides access to authentication (root), pruning, persistence,
+68: /// reads, and batch mutations.
+69: pub trait DbAny<F: Family>:
+70:     BatchableDb<Family = F, K = <Self as DbAny<F>>::Key, V = <Self as DbAny<F>>::Value> + Send + Sync
+71: {
+72:     /// The key type used to look up values.
+73:     type Key: Key;
+74: 
+75:     /// The value type stored in the database.
+76:     type Value: CodecShared + Clone;
+77: 
+78:     /// The digest type used for merkleization.
+79:     type Digest: Digest;
+80: 
+81:     /// Get the value of a key.
+82:     fn get<'a>(
+83:         &'a self,
+84:         key: &'a Self::Key,
+85:     ) -> impl Future<Output = Result<Option<Self::Value>, Error<F>>> + Send + use<'a, F, Self>;
+86: 
+87:     /// Get the values of multiple keys, returned in the same order as the input keys.
+88:     fn get_many<'a>(
+89:         &'a self,
+90:         keys: &'a [&'a Self::Key],
+91:     ) -> impl Future<Output = Result<Vec<Option<Self::Value>>, Error<F>>> + Send + use<'a, F, Self>;
+92: 
+93:     /// Returns the root digest of the authenticated store.
+94:     fn root(&self) -> Self::Digest;
+95: 
+96:     /// Return [start, end) where `start` and `end - 1` are the Locations of the oldest and newest
+97:     /// retained operations respectively.
+98:     fn bounds(&self) -> Range<Location<F>>;
+99: 
+100:     /// Return the Location of the next operation appended to this db.
+101:     fn size(&self) -> Location<F> {
+102:         self.bounds().end
+103:     }
+104: 
+105:     /// Get the metadata associated with the last commit.
+106:     fn get_metadata(
+107:         &self,
+108:     ) -> impl Future<Output = Result<Option<<Self as DbAny<F>>::Value>, Error<F>>> + Send;
+109: 
+110:     /// Prune historical operations prior to `loc`.
+111:     fn prune(self, loc: Location<F>) -> impl Future<Output = Result<Self, Error<F>>> + Send;
+112: 
+113:     /// Begin durably persisting the database.
+114:     ///
+115:     /// Awaiting the returned [Handle] provides the same durability guarantee as [Self::commit]
+116:     /// for the state applied before the call, plus a best-effort attempt to bound the recovery
+117:     /// needed on startup. Use [Self::sync] to guarantee none is needed.
+118:     fn start_sync(self) -> impl Future<Output = Result<(Self, Handle<()>), Error<F>>> + Send;
+119: 
+120:     /// Durably persist the database, guaranteeing the current state will survive a crash.
+121:     ///
+122:     /// For a stronger guarantee that eliminates potential recovery, use [Self::sync] instead.
+123:     fn commit(self) -> impl Future<Output = Result<Self, Error<F>>> + Send;
+124: 
+125:     /// Durably persist the database, guaranteeing the current state will survive a crash, and that
+126:     /// no recovery will be needed on startup.
+127:     ///
+128:     /// This provides a stronger guarantee than [Self::commit] but may be slower.
+129:     fn sync(self) -> impl Future<Output = Result<Self, Error<F>>> + Send;
+130: 
+131:     /// Destroy the database, removing all data from disk.
+132:     fn destroy(self) -> impl Future<Output = Result<(), Error<F>>> + Send
+133:     where
+134:         Self: Sized;
+135: 
+136:     /// The location before which all operations can be pruned.
+137:     fn inactivity_floor_loc(&self) -> Location<F>;
+138: 
+139:     /// The maximum location that [`Self::prune`] accepts and the most recent location from which
+140:     /// this database can be safely synced.
+141:     fn sync_boundary(&self) -> Location<F>;
+142: }
+143: 
+144: /// Proof generation for Any database variants.
+145: ///
+146: /// Only Any variants implement this trait. Current variants have a different
+147: /// proof structure (grafted MMR + activity bitmap) that is incompatible with
+148: /// the ops-level proofs returned here.
+149: pub trait Provable<F: Family>: DbAny<F> {
+150:     /// The operation type stored in the log.
+151:     type Operation;
+152: 
+153:     /// Generate a proof of operations starting at `start_loc`.
+154:     #[allow(clippy::type_complexity)]
+155:     fn proof(
+156:         &self,
+157:         start_loc: Location<F>,
+158:         max_ops: NonZeroU64,
+159:     ) -> impl Future<Output = Result<(Proof<F, Self::Digest>, Vec<Self::Operation>), Error<F>>> + Send
+160:     {
+161:         async move {
+162:             self.historical_proof(self.bounds().end, start_loc, max_ops)
+163:                 .await
+164:         }
+165:     }
+166: 
+167:     /// Generate a proof of operations starting at `start_loc` for a historical size.
+168:     #[allow(clippy::type_complexity)]
+169:     fn historical_proof(
+170:         &self,
+171:         historical_size: Location<F>,
+172:         start_loc: Location<F>,
+173:         max_ops: NonZeroU64,
+174:     ) -> impl Future<Output = Result<(Proof<F, Self::Digest>, Vec<Self::Operation>), Error<F>>> + Send;
+175: }
+176: 
+177: /// Implements [`DbAny`] by delegating each method to an identically-named inherent method.
+178: ///
+179: /// # Syntax
+180: ///
+181: /// ```ignore
+182: /// impl_db_any! {
+183: ///     [$($generics)*] TypeName
+184: ///     where { $where_clause }
+185: ///     Family = .., Key = .., Value = .., Digest = ..
+186: /// }
+187: /// ```
+188: macro_rules! impl_db_any {
+189:     (
+190:         [$($gen:tt)*] $ty:ty
+191:         where { $($where_clause:tt)* }
+192:         Family = $fam:ty, Key = $key:ty, Value = $val:ty, Digest = $dig:ty
+193:     ) => {
+194:         impl<$($gen)*> $crate::qmdb::any::traits::DbAny<$fam> for $ty
+195:         where $($where_clause)*
+196:         {
+197:             type Key = $key;
+198:             type Value = $val;
+199:             type Digest = $dig;
+200: 
+201:             async fn get(&self, key: &$key) -> ::core::result::Result<Option<$val>, $crate::qmdb::Error<$fam>> {
+202:                 <$ty>::get(self, key).await
+203:             }
+204: 
+205:             async fn get_many(&self, keys: &[&$key]) -> ::core::result::Result<Vec<Option<$val>>, $crate::qmdb::Error<$fam>> {
+206:                 <$ty>::get_many(self, keys).await
+207:             }
+208: 
+209:             fn root(&self) -> $dig {
+210:                 <$ty>::root(self)
+211:             }
+212: 
+213:             fn bounds(&self) -> ::std::ops::Range<$crate::merkle::Location<$fam>> {
+214:                 <$ty>::bounds(self)
+215:             }
+216: 
+217:             async fn get_metadata(
+218:                 &self,
+219:             ) -> ::core::result::Result<Option<$val>, $crate::qmdb::Error<$fam>> {
+220:                 <$ty>::get_metadata(self).await
+221:             }
+222: 
+223:             async fn prune(
+224:                 self,
+225:                 loc: $crate::merkle::Location<$fam>,
+226:             ) -> ::core::result::Result<Self, $crate::qmdb::Error<$fam>> {
+227:                 <$ty>::prune(self, loc).await
+228:             }
+229: 
+230:             async fn start_sync(
+231:                 self,
+232:             ) -> ::core::result::Result<
+233:                 (Self, ::commonware_runtime::Handle<()>),
+234:                 $crate::qmdb::Error<$fam>,
+235:             > {
+236:                 <$ty>::start_sync(self).await
+237:             }
+238: 
+239:             async fn commit(self) -> ::core::result::Result<Self, $crate::qmdb::Error<$fam>> {
+240:                 <$ty>::commit(self).await
+241:             }
+242: 
+243:             async fn sync(self) -> ::core::result::Result<Self, $crate::qmdb::Error<$fam>> {
+244:                 <$ty>::sync(self).await
+245:             }
+246: 
+247:             async fn destroy(self) -> ::core::result::Result<(), $crate::qmdb::Error<$fam>> {
+248:                 <$ty>::destroy(self).await
+249:             }
+250: 
+251:             fn inactivity_floor_loc(&self) -> $crate::merkle::Location<$fam> {
+252:                 <$ty>::inactivity_floor_loc(self)
+253:             }
+254: 
+255:             fn sync_boundary(&self) -> $crate::merkle::Location<$fam> {
+256:                 <$ty>::sync_boundary(self)
+257:             }
+258:         }
+259:     };
+260: }
+261: 
+262: pub(crate) use impl_db_any;
+263: 
+264: /// Implements [`Provable`] by delegating each method to an identically-named inherent method.
+265: macro_rules! impl_provable {
+266:     (
+267:         [$($gen:tt)*] $ty:ty
+268:         where { $($where_clause:tt)* }
+269:         Family = $fam:ty, Operation = $op:ty
+270:     ) => {
+271:         impl<$($gen)*> $crate::qmdb::any::traits::Provable<$fam> for $ty
+272:         where $($where_clause)*
+273:         {
+274:             type Operation = $op;
+275: 
+276:             async fn historical_proof(
+277:                 &self,
+278:                 historical_size: $crate::merkle::Location<$fam>,
+279:                 start_loc: $crate::merkle::Location<$fam>,
+280:                 max_ops: ::core::num::NonZeroU64,
+281:             ) -> ::core::result::Result<
+282:                 ($crate::merkle::Proof<$fam, <Self as $crate::qmdb::any::traits::DbAny<$fam>>::Digest>, Vec<$op>),
+283:                 $crate::qmdb::Error<$fam>,
+284:             > {
+285:                 <$ty>::historical_proof(self, historical_size, start_loc, max_ops)
+286:                     .await
+287:             }
+288:         }
+289:     };
+290: }
+291: 
+292: pub(crate) use impl_provable;
+293: 
+```

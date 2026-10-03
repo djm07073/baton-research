@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# Search results for \"mempool\" (v2026.9.0)\n\nFound 1 file(s):\n\n## glue/src/stateful/mod.rs\n\n```rust\n185:     /// The stateful-owned provider, supplied through\n186:     /// [`Config::provider`](crate::stateful::Config::provider).\n187:     ///\n188:     /// This may be a mempool that serves transactions, a stream of\n189:     /// certificates, or any other handle to data that drives state\n190:     /// transitions. The stateful actor owns it and clones it for each proposal,\n191:     /// so it must be cheap to clone (e.g. `()` or a handle).\n```\n\n---\nFiles are listed by path. Use `list_crates` to see crate name to path mappings. Use `get_file` with `start_line` and `end_line` to fetch specific line ranges instead of entire files."
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

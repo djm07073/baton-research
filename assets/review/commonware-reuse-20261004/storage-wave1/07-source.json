@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# storage/src/qmdb/sync/mod.rs (v2026.9.0)\n\n```rust\n0: //! Shared sync types and functionality for authenticated databases.\n1: //!\n2: //! # Trust Model\n3: //!\n4: //! Sources are untrusted, and their responses are verified against the requested target. The\n5: //! target itself is a trusted input chosen by the caller: sync does not select or authenticate it.\n6: //!\n7: //! Target updates form a forward-only sequence. Sync adopts only strictly advancing targets and\n8: //! discards the rest. Selecting a single target before this boundary lets sync focus on fetching\n9: //! and verifying its data instead of reconciling competing targets.\n10: \n11: use crate::qmdb::sync::engine::Config;\n12: use commonware_codec::Encode;\n13: use commonware_macros::boxed;\n14: \n15: pub mod engine;\n16: pub(crate) use engine::Engine;\n17: \n18: mod error;\n19: pub use error::{EngineError, Error, ServeError};\n20: \n21: mod gaps;\n22: pub(crate) mod journal;\n23: pub(crate) use journal::Journal;\n24: \n25: mod metrics;\n26: pub use metrics::Metrics;\n27: \n28: mod database;\n29: pub use database::Database;\n30: pub(crate) use database::{Config as DatabaseConfig, journal_covers_range, local_pinned_nodes};\n31: \n32: pub mod source;\n33: pub use source::{FeedbackTx, Request, Response, Source};\n34: \n35: mod target;\n36: pub use target::{CompactTarget, Target};\n37: \n38: mod requests;\n39: \n40: /// A [`Source`] of operations for the given database.\n41: pub trait SourceFor<DB: Database>:\n42:     Source<Family = DB::Family, Op = DB::Op, Digest = DB::Digest> + 'static\n43: {\n44: }\n45: \n46: impl<DB, S> SourceFor<DB> for S\n47: where\n48:     DB: Database,\n49:     S: Source<Family = DB::Family, Op = DB::Op, Digest = DB::Digest> + 'static,\n50: {\n51: }\n52: \n53: /// Create/open a database and sync it to a target state\n54: #[boxed]\n55: pub async fn sync<DB, S>(\n56:     config: Config<DB, S>,\n57: ) -> Result<DB, Error<DB::Family, S::Error, DB::Digest>>\n58: where\n59:     DB: Database,\n60:     DB::Op: Encode,\n61:     S: SourceFor<DB>,\n62: {\n63:     Engine::new(config).await?.sync().await\n64: }\n65: \n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

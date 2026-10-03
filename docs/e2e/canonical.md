@@ -1,6 +1,6 @@
 # Finalized order and canonical state application
 
-**Orderer delivers the agreed inputs; Executor makes their effects durable.** Executor selects matching completed work, executes missing work, or verifies usable peer material. It acknowledges delivery only after canonical application is recoverably durable.
+**Orderer delivers exact input; Executor selects its effects; Storage makes them durable.** Executor selects matching completed work, executes missing work or authorizes verified peer material; Storage prepares roots and applies it. It acknowledges delivery only after canonical application is recoverably durable.
 
 ## Cut commit → ordered range → execution commit
 
@@ -9,6 +9,7 @@ sequenceDiagram
     participant N as Native Multimmit
     participant M as Orderer
     participant E as Executor
+    participant S as Storage / QMDB
     N-->>M: Authenticated finality / extension evidence
     M->>M: Recover exact history / frozen policy / slot evidence
     alt Earlier slot or history unresolved
@@ -24,7 +25,8 @@ sequenceDiagram
         else Local work / peer material unavailable
             E->>E: Execute from canonical base / repair suffix, peer sync in parallel
         end
-        E->>E: Validate results, apply QMDB changes, durable commit
+        E->>S: prepare / apply exact authorized material
+        S-->>E: Durable CommitResult after state/output/cursor/provenance linkage
         E-->>M: CommitResult / delivery ACK after durability
     end
 ```
@@ -39,42 +41,39 @@ The first native leader-finality notice does not immediately establish the compl
 sequenceDiagram
     participant B as Baton
     participant M as Orderer
-    participant O as Executor
-    participant Q as QMDB batches
-    B->>O: execute(block hash, parent block hash, exact inputs/context)
-    O->>O: Resolve valid execution parent / link child in tree
-    O->>Q: Fork parent batch / create branch
-    Q-->>O: Mutable batch
-    loop Ordered input blocks
-        O->>O: Execute body on branch state → writes and outputs
-        O->>Q: Apply pending writes to branch
-    end
-    O->>Q: Merkleize at requested checkpoint boundary, granularity undecided
-    O-->>B: ExecutionResult(branch handle, context, results)
-    M-->>O: OrderedRange(irrevocable range, canonical predecessor)
-    O->>O: commit(range)
-    O->>O: Verify exact committed path / canonical predecessor
-    O->>O: Fence incompatible / unknown active branch workers
-    O->>Q: DatabaseSet::finalize(matching batches)
-    Q-->>O: Applied / readable state + Barrier
-    O->>Q: Barrier::durable()
-    alt Durable barrier succeeds and metadata linkage completes
-        Q-->>O: Durable flush completion
-        O->>O: Complete recoverable state + outputs + cursor linkage
-        O->>O: Advance canonical tip / logically prune conflicting branches
-        O-->>M: CommitResult / durable delivery ACK
-        opt Local scheduling notification
-            O-->>B: Applied progress, no finalization approval
+    participant E as Executor
+    participant S as Storage / QMDB
+    B->>E: execute(block, execution-parent hash, exact context)
+    E->>E: Resolve completed parent, link execution child
+    E->>S: Obtain valid branch access / working draft
+    S-->>E: Unsealed batch or rootless read/effects adapter
+    E->>E: Compute ordered transaction changes and outputs
+    E-->>B: Completed ExecutionResult, hashing may be deferred
+    M-->>E: OrderedRange(irrevocable input, canonical predecessor)
+    E->>E: commit(range): select exact completed prefix
+    E->>E: Finish missing work, fence incompatible/unknown workers
+    E->>S: prepare(exact selected prefix, storage rule)
+    S->>S: Materialize / concrete merkleize with valid read-access fence
+    S-->>E: Prepared material, root and exact result/output binding
+    E->>S: apply(authorized canonical range, prepared result)
+    S->>S: Native DatabaseSet::finalize(matching sealed batches)
+    S->>S: Observe Barrier::durable + metadata/provenance linkage
+    alt Durable barrier and recoverable linkage succeed
+        S-->>E: Durable CommitResult
+        E->>E: Promote canonical path, logically prune conflicts
+        E-->>M: Durable delivery ACK
+        opt Optional scheduling notification
+            E-->>B: Applied progress only
         end
-        opt Safe retention boundary permits cleanup
-            O->>O: Delete unreferenced pruned forks / retain compatible descendants
+        opt References and serving obligations permit release
+            S->>S: Physically reclaim unreferenced material
         end
-    else Shutdown, flush failure, or incomplete metadata linkage
-        Q-->>O: No successful durable completion
-        Note over M,O: No CommitResult / delivery ACK, handle at recovery boundary
+    else Failed flush / shutdown / incomplete linkage
+        S-->>E: No successful durable completion
+        Note over M,E: No CommitResult/ACK, recover authoritative durable state
     end
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-09.svg)
 
-This sequence assumes completed branch work exactly matches the canonical range. If it is missing or different, follow [canonical execution / repair](canonical.md#cut-commit--ordered-range--execution-commit). Branch construction, canonical promotion, and logical pruning belong to Executor. Physical reclamation follows safe retention and worker-reference release; concrete GC scheduling remains open. `DatabaseSet::finalize` and `Barrier::durable` are upstream APIs, but applied/readable state is not durable completion. See [canonical application](../execution/qmdb.md#commit-a-branch-to-canonical-state) for state/output/cursor linkage, failures, and acknowledgement boundaries, and the [durability barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L469).
+This sequence assumes completed branch work exactly matches the canonical range. If it is missing or different, follow [canonical execution / repair](canonical.md#cut-commit--ordered-range--execution-commit). Branch construction, canonical promotion, and logical pruning belong to Executor. Storage performs physical reclamation after safe retention and worker-reference release; concrete GC scheduling remains open. The diagram uses the adopted native finalize(batch) recipe inside Storage; the release split is recorded in the QMDB page. `DatabaseSet::finalize` and `Barrier::durable` are upstream APIs, but applied/readable state is not durable completion. See [canonical application](../execution/qmdb.md#commit-a-branch-to-canonical-state) for state/output/cursor linkage, failures, and acknowledgement boundaries, and the [durability barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L469).

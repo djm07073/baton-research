@@ -1,9 +1,13 @@
 flowchart TB
-    B[Baton / execute block requests] --> O[Proposed Executor / execution tree]
-    ORDER[Orderer / irrevocable OrderedRange] --> O
-    O -->|transaction reads and pending mutations| U[Unmerkleized batch / parent overlays]
-    U -->|merkleize| K[Merkleized QMDB batch / storage root and ancestry]
-    K -->|valid canonical range only| D[DatabaseSet / ManagedDb adapter]
+    B[Baton / execute block requests] --> E[Executor: execution tree and transaction effects]
+    ORDER[Orderer / irrevocable OrderedRange] --> E
+    E -->|branch access / selected effects| S[Storage: prepare / canonical writer / recovery]
+    S -->|valid read and write handles| U[Commonware Unmerkleized batch]
+    E -->|optional rootless pending-parent path| O[Application effects chain / working read overlay]
+    O -->|selected exact prefix materialization| S
+    U -->|selected concrete merkleize call| K[Commonware Merkleized batch / root and ancestry]
+    S -->|prepare selected commitment| K
+    K -->|authorized canonical material| D[Commonware DatabaseSet / ManagedDb]
     subgraph Q[Any keyed DB: illustration]
         I[Key to latest operation location index]
         L[Authenticated operations journal]
@@ -17,14 +21,15 @@ flowchart TB
     D -->|apply_batch| L
     U -. valid read-through .-> I
     U -. valid read-through .-> L
-    Q -. optional Current layer .-> C[Bitmap grafted structure / Current canonical root]
-    D -->|start_sync handles| F[Barrier / durability observation]
-    F -->|successful durable observation| J[Proposed durable state-output-cursor coordinator]
-    J -->|recoverable linkage complete: CommitResult / ACK| ORDER
-    J -. optional applied progress .-> B
+    Q -. optional Current layer .-> C[Bitmap grafted structure / Current root]
+    D -->|start_sync handles| F[Commonware Barrier / durability observation]
+    F -->|successful observation| S
+    S -->|recoverable state-output-cursor-provenance linkage| E
+    E -->|durable CommitResult / ACK| ORDER
+    E -. optional progress .-> B
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
-    class U,K,I,L,M,A,C,F reuse;
-    class D adapt;
-    class B,ORDER,O,J fresh;
+    class U,K,D,I,L,M,A,C,F reuse;
+    class S adapt;
+    class B,ORDER,E,O fresh;

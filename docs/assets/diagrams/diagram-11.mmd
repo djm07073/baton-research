@@ -1,21 +1,24 @@
 sequenceDiagram
     participant E as Validator Executor
+    participant S as Storage / QMDB
     participant P as Peer Validator Executor
     participant R as Certified result consumer
-    E->>E: sign_result(completed direct execution, exact context)
-    E->>E: Verify own execution and irrevocable order / input-state chain
-    E->>E: Persist own statement / signature obligation
-    E->>E: Own signed ExecutionStatement ready
-    E-->>P: Execution signature
-    P-->>E: Matching execution signatures or result certificate
-    E->>E: collect_result / verify_result: identities and full statement
-    alt f+1 matching eligible signatures verified
-        E->>E: Verified result certificate ready
-        Note over E: State-finalization endpoint verified, local durability is separate
-        E-->>P: Result certificate, state material on peer request
-        E-->>R: Result certificate + exact input identity
-        R->>R: Verify certificate, irrevocable order and input-state chain
-    else Insufficient signatures
-        E->>E: Retain / reprovide signatures and continue local execution
+    E->>E: Complete direct execution, verify exact irrevocable input/base
+    E->>S: prepare(exact completed range, selected storage rule)
+    S-->>E: Computed commitment + bound outputs/material
+    E->>E: sign_result(prepared result) with own direct provenance
+    E->>E: Retain statement/provenance under chosen recovery contract
+    E-->>P: Signature on stable full ExecutionStatement
+    P-->>E: Matching signatures or original certificate
+    E->>E: Validate full subject, eligible distinct signers and context
+    alt At least f+1 matching eligible signatures verified
+        E->>E: Result certificate verified
+        Note over E,S: State finalization established, durable local application is separate
+        E-->>P: Original certificate, material on request
+        E-->>R: Certificate + exact input/base/result identity
+        R->>R: Verify certificate, order and input-state chain
+    else Insufficient validated signatures
+        E->>E: Continue valid local execution, retain/reprovide statements
     end
-    Note over E,P: Direct Executor exchange, separate from Baton reports / directions
+    Note over E,P: Collector may support pull requests, its raw count is not this certificate
+    Note over E,P: No Baton gate, imported range receives no own direct-execution signature

@@ -1,14 +1,14 @@
 sequenceDiagram
     participant N as Native engine
     participant A as BlockService: Automaton adapter
-    participant S as BlockService: storage / fetch
-    participant P as Body peer
+    participant S as Commonware Archive / buffer / resolver
+    participant P as Peer resolver / archive-backed Producer
     participant I as Baton: block intake
     participant B as Baton: scheduling
     N->>A: Automaton::verify(Context from native header, payload)
     A->>S: Lookup body and required parent
     alt Required body / parent missing
-        S->>P: Fetch by exact reference
+        S->>P: Generic resolver fetch by exact key
         P-->>S: Response bytes
         S->>S: Validate expected digest and context
         opt Correct response for exact expected reference
@@ -19,7 +19,7 @@ sequenceDiagram
         S-->>A: Stored bytes
     end
     alt Required bytes remain unresolved
-        A->>A: Keep pending request, retry / await correct bytes
+        A->>A: Keep receiver pending, resolver retries / buffer subscription waits
         Note over N,A: No true / false result returned for this request yet
     else Expected bytes are available
         alt Expected payload is structurally invalid

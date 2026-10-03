@@ -1,0 +1,255 @@
+# storage/src/qmdb/sync/database.rs (v2026.9.0)
+
+```rust
+0: use crate::{
+1:     Context,
+2:     merkle::{Family, Location, full},
+3:     qmdb::sync::{Journal, Target},
+4:     translator::Translator,
+5: };
+6: use commonware_cryptography::{Digest, Hasher};
+7: use commonware_parallel::Strategy;
+8: use commonware_utils::range::NonEmptyRange;
+9: use std::{future::Future, num::NonZeroU64};
+10: 
+11: /// Database configuration that can produce the configuration for its sync journal.
+12: pub trait Config {
+13:     type JournalConfig;
+14:     fn journal_config(&self) -> Self::JournalConfig;
+15: }
+16: 
+17: impl<T: Translator, J: Clone, S: Strategy> Config for crate::qmdb::any::Config<T, J, S> {
+18:     type JournalConfig = J;
+19: 
+20:     fn journal_config(&self) -> Self::JournalConfig {
+21:         self.journal_config.clone()
+22:     }
+23: }
+24: 
+25: impl<T: Translator, C: Clone, S: Strategy> Config for crate::qmdb::immutable::Config<T, C, S> {
+26:     type JournalConfig = C;
+27: 
+28:     fn journal_config(&self) -> Self::JournalConfig {
+29:         self.log.clone()
+30:     }
+31: }
+32: 
+33: impl<J: Clone, S: Strategy> Config for crate::qmdb::keyless::Config<J, S> {
+34:     type JournalConfig = J;
+35: 
+36:     fn journal_config(&self) -> Self::JournalConfig {
+37:         self.log.clone()
+38:     }
+39: }
+40: 
+41: impl<C: Clone + Send + Sync + 'static, S: Strategy> Config for crate::qmdb::compact::Config<C, S> {
+42:     type JournalConfig = ();
+43: 
+44:     fn journal_config(&self) -> Self::JournalConfig {}
+45: }
+46: 
+47: pub trait Database: Sized + Send {
+48:     type Family: Family;
+49:     type Op: Send + Sync;
+50:     type Journal: Journal<Self::Family, Context = Self::Context, Op = Self::Op>;
+51:     type Config: Config<JournalConfig = <Self::Journal as Journal<Self::Family>>::Config>;
+52:     type Digest: Digest;
+53:     type Context: commonware_runtime::Storage
+54:         + commonware_runtime::Clock
+55:         + commonware_runtime::Metrics;
+56:     type Hasher: commonware_cryptography::Hasher<Digest = Self::Digest>;
+57: 
+58:     /// Build a database from the journal and pinned nodes populated by the sync engine.
+59:     fn from_sync_result(
+60:         context: Self::Context,
+61:         config: Self::Config,
+62:         journal: Self::Journal,
+63:         pinned_nodes: Option<Vec<Self::Digest>>,
+64:         range: NonEmptyRange<Location<Self::Family>>,
+65:         apply_batch_size: NonZeroU64,
+66:     ) -> impl Future<Output = Result<Self, crate::qmdb::Error<Self::Family>>> + Send;
+67: 
+68:     /// Persist any state that must remain provisional until the engine verifies the rebuilt root.
+69:     ///
+70:     /// The engine calls this only after [`Self::root`] matches the requested target. Implementations
+71:     /// that persist everything in [`Self::from_sync_result`] must explicitly return `Ok(self)`.
+72:     fn persist_sync_result(
+73:         self,
+74:     ) -> impl Future<Output = Result<Self, crate::qmdb::Error<Self::Family>>> + Send;
+75: 
+76:     /// Return locally available pinned nodes for the target, if persisted local state can
+77:     /// authenticate them.
+78:     ///
+79:     /// Returning `Some` lets a completed sync journal reuse pinned nodes from an on-disk
+80:     /// database instead of fetching them from peers. Returning `None` always falls back to
+81:     /// fetching from peers.
+82:     fn local_pinned_nodes(
+83:         context: Self::Context,
+84:         config: &Self::Config,
+85:         target: &crate::qmdb::sync::Target<Self::Family, Self::Digest>,
+86:         journal: &Self::Journal,
+87:     ) -> impl Future<Output = Result<Option<Vec<Self::Digest>>, crate::qmdb::Error<Self::Family>>> + Send;
+88: 
+89:     /// Get the root digest of the database for verification
+90:     fn root(&self) -> Self::Digest;
+91: }
+92: 
+93: /// Whether a completed sync journal's `bounds` cover `range`: retained data reaches back to
+94: /// `range.start()` and ends exactly at `range.end()`.
+95: pub(crate) fn journal_covers_range<F: Family>(
+96:     bounds: std::ops::Range<u64>,
+97:     range: &NonEmptyRange<Location<F>>,
+98: ) -> bool {
+99:     Location::new(bounds.start) <= range.start() && Location::new(bounds.end) == range.end()
+100: }
+101: 
+102: /// Shared body for [`Database::local_pinned_nodes`] implementations backed by a persisted
+103: /// [`full::Merkle`]. Reopens it from `config` under `context` and returns the pinned nodes at
+104: /// `target.range.start()` if the persisted bounds cover the target and the root, computed with
+105: /// `inactivity_floor`, matches `target.root`. Returns `Ok(None)` when the persisted state
+106: /// cannot authenticate the target, including when an interrupted reset left required local
+107: /// nodes unavailable.
+108: pub(crate) async fn local_pinned_nodes<F, E, H, S>(
+109:     context: E,
+110:     config: full::Config<S>,
+111:     target: &Target<F, H::Digest>,
+112:     inactivity_floor: Location<F>,
+113: ) -> Result<Option<Vec<H::Digest>>, crate::qmdb::Error<F>>
+114: where
+115:     F: Family,
+116:     E: Context,
+117:     H: Hasher,
+118:     S: Strategy,
+119: {
+120:     let hasher = crate::qmdb::hasher::<H>();
+121: 
+122:     // A crash can persist a node-journal reset before its replacement metadata.
+123:     // Missing local pins then use a peer-authenticated boundary. Other errors still propagate.
+124:     let merkle = match full::Merkle::<F, _, _, S>::init(context, &hasher, config).await {
+125:         Ok(merkle) => merkle,
+126:         Err(crate::merkle::Error::MissingNode(_)) => return Ok(None),
+127:         Err(err) => return Err(err.into()),
+128:     };
+129:     let bounds = merkle.bounds();
+130:     if bounds.start > target.range.start() || bounds.end != target.range.end() {
+131:         return Ok(None);
+132:     }
+133: 
+134:     let inactive_peaks = F::inactive_peaks(target.range.end(), inactivity_floor);
+135:     if merkle.root(&hasher, inactive_peaks)? != target.root {
+136:         return Ok(None);
+137:     }
+138: 
+139:     merkle
+140:         .pinned_nodes_at(target.range.start())
+141:         .await
+142:         .map(Some)
+143:         .map_err(Into::into)
+144: }
+145: 
+146: #[cfg(test)]
+147: mod tests {
+148:     use super::{journal_covers_range, local_pinned_nodes};
+149:     use crate::{
+150:         journal::contiguous::fixed,
+151:         merkle::{Location, Position, full, mmr::Family as MmrFamily},
+152:         qmdb::sync::Target,
+153:     };
+154:     use commonware_cryptography::{Sha256, sha256::Digest};
+155:     use commonware_parallel::Sequential;
+156:     use commonware_runtime::{
+157:         BufferPooler, Runner as _, Supervisor as _, buffer::paged::CacheRef, deterministic,
+158:     };
+159:     use commonware_utils::{NZU16, NZU64, NZUsize, non_empty_range, range::NonEmptyRange};
+160: 
+161:     fn merkle_config(pooler: &impl BufferPooler) -> full::Config<Sequential> {
+162:         full::Config {
+163:             journal_partition: "local-pins-journal".into(),
+164:             metadata_partition: "local-pins-metadata".into(),
+165:             items_per_blob: NZU64!(7),
+166:             write_buffer: NZUsize!(1024),
+167:             replay_buffer: NZUsize!(1024),
+168:             strategy: Sequential,
+169:             page_cache: CacheRef::from_pooler(pooler, NZU16!(111), NZUsize!(5)),
+170:         }
+171:     }
+172: 
+173:     #[test]
+174:     fn test_journal_covers_range() {
+175:         let range: NonEmptyRange<Location<MmrFamily>> =
+176:             non_empty_range!(Location::new(10), Location::new(20));
+177: 
+178:         // Bounds reaching at least back to the start and ending exactly at the end cover.
+179:         assert!(journal_covers_range(10..20, &range));
+180:         assert!(journal_covers_range(5..20, &range));
+181: 
+182:         // Bounds starting after the range start do not cover.
+183:         assert!(!journal_covers_range(11..20, &range));
+184: 
+185:         // Bounds ending anywhere but exactly at the range end do not cover.
+186:         assert!(!journal_covers_range(10..19, &range));
+187:         assert!(!journal_covers_range(10..21, &range));
+188:         assert!(!journal_covers_range(0..0, &range));
+189:     }
+190: 
+191:     #[test]
+192:     fn local_pinned_nodes_treats_interrupted_reset_as_unavailable() {
+193:         deterministic::Runner::default().start(|context| async move {
+194:             let hasher = crate::qmdb::hasher::<Sha256>();
+195:             let config = merkle_config(&context);
+196:             let mut merkle = full::Merkle::<MmrFamily, _, Digest, Sequential>::init(
+197:                 context.child("init"),
+198:                 &hasher,
+199:                 config.clone(),
+200:             )
+201:             .await
+202:             .unwrap();
+203:             let mut batch = merkle.new_batch();
+204:             for i in 0u64..50 {
+205:                 batch = batch.add(&hasher, &i.to_be_bytes());
+206:             }
+207:             let batch = merkle.with_mem(|mem| batch.merkleize(mem, &hasher));
+208:             merkle = merkle.apply_batch(&batch).unwrap();
+209:             let merkle = merkle.sync().await.unwrap();
+210:             let merkle = merkle.prune(Location::new(30)).await.unwrap();
+211:             let merkle = merkle.sync().await.unwrap();
+212:             drop(merkle);
+213: 
+214:             // Model a crash after an incompatible reset durably cleared the node journal but
+215:             // before it replaced the prior target's pinned metadata.
+216:             let restart = Location::new(7);
+217:             let journal_config = fixed::Config {
+218:                 partition: config.journal_partition.clone(),
+219:                 items_per_blob: config.items_per_blob,
+220:                 page_cache: config.page_cache.clone(),
+221:                 write_buffer: config.write_buffer,
+222:                 replay_buffer: config.replay_buffer,
+223:             };
+224:             let journal = fixed::Journal::<_, Digest>::init(
+225:                 context.child("interrupted_reset"),
+226:                 journal_config,
+227:             )
+228:             .await
+229:             .unwrap();
+230:             let reset_pos = Position::<MmrFamily>::try_from(restart).unwrap();
+231:             let journal = journal.clear_to_size(*reset_pos).await.unwrap();
+232:             drop(journal);
+233: 
+234:             let target = Target {
+235:                 root: Digest::from([0; 32]),
+236:                 range: non_empty_range!(restart, Location::new(20)),
+237:             };
+238:             let pinned = local_pinned_nodes::<MmrFamily, _, Sha256, Sequential>(
+239:                 context.child("local_pins"),
+240:                 config,
+241:                 &target,
+242:                 restart,
+243:             )
+244:             .await
+245:             .unwrap();
+246:             assert!(pinned.is_none());
+247:         });
+248:     }
+249: }
+250: 
+```

@@ -1,0 +1,9 @@
+{
+  "invalid_html_receipts": [
+    "06-source.txt",
+    "11-source.txt",
+    "12-source.txt"
+  ],
+  "valid_non_html_receipts": 22,
+  "method": "Inspected line-numbered source bodies and directory paths; no protocol code compiled or executed."
+}

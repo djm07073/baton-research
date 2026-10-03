@@ -68,7 +68,7 @@ Direct proposal validation and V-QC rescue / view recovery do not simply repeat 
 
 ## Commonware primitives in the consensus layer
 
-**Reuse the native consensus engine and generic body services; develop the adapters that connect them to application bodies and exact ordered input.** `BlockService` and `Orderer` are our integration contracts, not names of upstream primitives.
+**Reuse the native consensus engine and generic body services; develop the adapters that connect them to application bodies and exact ordered input.** BlockService is the logical attachment over upstream callbacks; Orderer is the proposed exact-order contract. Neither name denotes a ready-made upstream primitive.
 
 | Primitive | Where it connects | Application responsibility |
 |---|---|---|

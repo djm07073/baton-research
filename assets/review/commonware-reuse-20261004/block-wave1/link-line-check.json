@@ -1,0 +1,197 @@
+{
+  "checked": [
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/mod.rs#L61",
+      "line_text": "//! ## Limitations and Future Work"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/standard/inline.rs#L223",
+      "line_text": "impl<E, S, A, B, ES> Automaton for Inline<E, S, A, B, ES>"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/standard/deferred.rs#L471",
+      "line_text": "impl<E, S, A, B, ES> Automaton for Deferred<E, S, A, B, ES>"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/application/actor.rs#L36",
+      "line_text": "impl<H: Hasher> Automaton for Application<H> {"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/Cargo.toml#L255",
+      "line_text": "commonware-actor = \"2026.9.0\""
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/Cargo.toml#L23",
+      "line_text": "commonware-actor = \"2026.9.0\""
+    },
+    {
+      "url": "https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/Cargo.toml#L51",
+      "line_text": "commonware-actor = { git = \"https://github.com/commonwarexyz/monorepo\", rev = \"92036f4beefedc9817f0954d98fb99e0b52431cb\" }"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L152",
+      "line_text": "            storage::BUFFER_POOL_CAPACITY,"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L207",
+      "line_text": "        let (broadcast, broadcast_mailbox) = buffered::Engine::new("
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/application/mod.rs#L1",
+      "line_text": "//! The interface between the consensus layer and the execution layer."
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/application/mod.rs#L74",
+      "line_text": "impl<E, S, A, B, ES> Marshaled<E, S, A, B, ES>"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L519",
+      "line_text": "            context,"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/storage/mod.rs#L56",
+      "line_text": "/// Open the finalization archive and ensure its tip certificate's epoch matches its stored height."
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/alias.rs#L132",
+      "line_text": "        let finalizations_by_height = storage::init_finalizations_archive("
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/storage/hybrid/mod.rs#L1",
+      "line_text": "//! [`Hybrid`] is a prunable archive of finalized blocks fronting reth."
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/storage/hybrid/mod.rs#L360",
+      "line_text": "    /// Drops blocks below the execution layer's finalized watermark."
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/storage/hybrid/mod.rs#L393",
+      "line_text": "impl<TContext, TExecutionBlockProvider> Blocks for Hybrid<TContext, TExecutionBlockProvider>"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/storage/hybrid/mod.rs#L51",
+      "line_text": "//! window)."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs#L177",
+      "line_text": "        let (buffer, buffer_mailbox) = buffered::Engine::new("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs#L273",
+      "line_text": "        // Create marshal"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs#L341",
+      "line_text": "        // Wrap the application in marshal"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs#L462",
+      "line_text": "        let buffer_handle = self.buffer.start(broadcast);"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/application.rs#L148",
+      "line_text": "    fn report(&mut self, activity: Self::Activity) -> Feedback {"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/reshare/src/validator.rs#L122",
+      "line_text": "    let resolver = marshal_resolver::init("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/engine.rs#L361",
+      "line_text": "        let n_participants = u16::try_from(config.output.players().len())"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/engine.rs#L519",
+      "line_text": "        let application = Marshaled::new("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/engine.rs#L618",
+      "line_text": "        let marshal_resolver = marshal_resolver::init("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L43",
+      "line_text": "/// - Responding to requests from the application"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/ingress.rs#L89",
+      "line_text": "/// Ingress mailbox for [super::Engine]."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs#L36",
+      "line_text": "/// Manages incoming and outgoing P2P requests, coordinating fetch and serve operations."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/config.rs#L8",
+      "line_text": "/// Configuration for the peer actor."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs#L99",
+      "line_text": "/// Serves data requested by the network."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs#L157",
+      "line_text": "        ///"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/lib.rs#L224",
+      "line_text": "    /// Relay notifies an attached application that a payload should be broadcast."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/mod.rs#L1",
+      "line_text": "//! Broadcast messages to and cache messages from untrusted peers."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/lib.rs#L26",
+      "line_text": "        /// Attempt to broadcast a message to the associated recipients."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs#L1",
+      "line_text": "//! Resolve data identified by a fixed-length key by using the P2P network."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs#L120",
+      "line_text": "        Invalid,"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/resolver/p2p.rs#L53",
+      "line_text": "pub fn init<E, C, B, D, S, R, P>("
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/resolver/handler.rs#L118",
+      "line_text": "/// Receiver for resolver handler messages."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/immutable/mod.rs#L6",
+      "line_text": "//! # Uniqueness"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/prunable/mod.rs#L32",
+      "line_text": "//!"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/prunable/mod.rs#L97",
+      "line_text": "//! # Pruning"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L265",
+      "line_text": "/// Verifies recovered application payloads before their dependent consensus authority becomes live."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/standard/deferred.rs#L488",
+      "line_text": "    /// Proposes a new block or re-proposes the epoch boundary block."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs#L27",
+      "line_text": "//! # Targeting"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs#L77",
+      "line_text": "    /// Holds futures that resolve once the `Producer` has produced the data."
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/ingress.rs#L47",
+      "line_text": "pub(crate) struct Pending<P: PublicKey, M: Digestible>(VecDeque<Message<P, M>>);"
+    }
+  ],
+  "invalid": []
+}

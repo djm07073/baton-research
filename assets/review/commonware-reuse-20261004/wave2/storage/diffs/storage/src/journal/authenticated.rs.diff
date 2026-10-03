@@ -1,0 +1,255 @@
+--- pin/storage/src/journal/authenticated.rs
++++ v2026.9.0/storage/src/journal/authenticated.rs
+@@ -31,7 +31,7 @@
+ use commonware_cryptography::{Digest, Hasher};
+ use commonware_macros::boxed;
+ use commonware_parallel::Strategy;
+-use commonware_runtime::Handle;
++use commonware_runtime::{Handle, ReadOptions};
+ use core::{
+     num::{NonZeroU64, NonZeroUsize},
+     ops::Range,
+@@ -183,21 +183,23 @@
+     /// Inclusion proof for the element at `loc`.
+     pub fn proof(
+         &self,
++        base: &Mem<F, D>,
+         hasher: &impl merkle::hasher::Hasher<F, Digest = D>,
+         loc: Location<F>,
+         inactive_peaks: usize,
+     ) -> Result<Proof<F, D>, merkle::Error<F>> {
+-        self.inner.proof(hasher, loc, inactive_peaks)
++        self.inner.proof(base, hasher, loc, inactive_peaks)
+     }
+ 
+     /// Inclusion proof for all elements in `range`.
+     pub fn range_proof(
+         &self,
++        base: &Mem<F, D>,
+         hasher: &impl merkle::hasher::Hasher<F, Digest = D>,
+         range: core::ops::Range<Location<F>>,
+         inactive_peaks: usize,
+     ) -> Result<Proof<F, D>, merkle::Error<F>> {
+-        self.inner.range_proof(hasher, range, inactive_peaks)
++        self.inner.range_proof(base, hasher, range, inactive_peaks)
+     }
+ 
+     /// The items added in this batch.
+@@ -323,14 +325,13 @@
+         }
+     }
+ 
+-    /// Add `items` to `batch`, merkleize, and compute the post-apply root, all as one CPU-bound
+-    /// job submitted through [`Strategy::spawn`].
++    /// Add `items` to `batch`, merkleize, and compute the post-apply root, all as one CPU-bound job
++    /// submitted through [`Strategy::spawn`].
+     ///
+-    /// The job hashes against an immutable snapshot of the committed Merkle state, so a
+-    /// parallel strategy hosts the batch's dominant CPU phase on its own pool instead of
+-    /// occupying the calling task. If the caller is cancelled mid-job, the job still runs to
+-    /// completion against its snapshot and the result is discarded (a panic inside the job is
+-    /// caught by [`Strategy::spawn`] and only propagates to a caller that awaits it).
++    /// The job hashes against an immutable snapshot of the committed Merkle state, so a parallel
++    /// strategy can host the batch's dominant CPU phase on its own pool instead of occupying the
++    /// calling task. If the job's caller is cancelled, the job still runs to completion
++    /// against its snapshot and the result is discarded.
+     pub(crate) async fn merkleize(
+         &self,
+         batch: UnmerkleizedBatch<F, H, C::Item, S>,
+@@ -345,7 +346,7 @@
+         let hasher = self.hasher.clone();
+         let strategy = self.strategy().clone();
+         strategy
+-            .spawn(move |_| {
++            .spawn(items.len(), move |_| {
+                 let merkleized = batch.add_many(items).merkleize(&mem);
+                 let root = merkleized.root(&mem, &hasher, inactive_peaks)?;
+                 drop(ancestors);
+@@ -667,6 +668,49 @@
+             .await
+     }
+ 
++    /// Inclusion proof for the items `batch` appends, anchored at the batch's speculative tip.
++    ///
++    /// Nodes below the batch chain are read from this journal's
++    /// [Merkle store][crate::merkle::mem::Mem], which retains them at least until
++    /// the batch's changes are flushed.
++    pub fn speculative_proof(
++        &self,
++        batch: &MerkleizedBatch<F, H::Digest, C::Item, S>,
++        inactive_peaks: usize,
++    ) -> Result<Proof<F, H::Digest>, Error<F>> {
++        let end = batch.size();
++        let start = Location::new(end - batch.items().len() as u64);
++        self.merkle
++            .with_mem(|mem| {
++                batch.range_proof(mem, &self.hasher, start..Location::new(end), inactive_peaks)
++            })
++            .map_err(Error::Merkle)
++    }
++
++    /// Merkle frontier at the first item `batch` appends ([`Family::nodes_to_pin`]).
++    ///
++    /// Nodes below the batch chain are read from this journal's
++    /// [Merkle store][crate::merkle::mem::Mem], which retains them at least until
++    /// the batch's changes are flushed.
++    pub fn speculative_pinned_nodes(
++        &self,
++        batch: &MerkleizedBatch<F, H::Digest, C::Item, S>,
++    ) -> Result<Vec<H::Digest>, Error<F>> {
++        let start = Location::new(batch.size() - batch.items().len() as u64);
++        self.merkle
++            .with_mem(|mem| {
++                F::nodes_to_pin(start)
++                    .map(|pos| {
++                        batch
++                            .get_node(pos)
++                            .or_else(|| mem.get_node(pos))
++                            .ok_or(merkle::Error::ElementPruned(pos))
++                    })
++                    .collect::<Result<Vec<_>, _>>()
++            })
++            .map_err(Error::Merkle)
++    }
++
+     /// Generate a historical proof with respect to the state of the Merkle structure when it had
+     /// `historical_leaves` leaves.
+     ///
+@@ -932,8 +976,9 @@
+         &self,
+         start_pos: u64,
+         buffer: NonZeroUsize,
++        read_options: ReadOptions,
+     ) -> Result<impl Stream<Item = Result<(u64, C::Item), JournalError>> + Send, JournalError> {
+-        self.journal.replay(start_pos, buffer).await
++        self.journal.replay(start_pos, buffer, read_options).await
+     }
+ }
+ 
+@@ -1063,8 +1108,8 @@
+         buffer::paged::CacheRef,
+         deterministic::{self, Context},
+         mocks::{
+-            DelayedSyncContext, PendingSyncs, drive_pending_syncs, fail_pending_syncs,
+-            next_pending_sync,
++            DelayedSyncContext, PendingSyncs, RecordingContext, drive_pending_syncs,
++            fail_pending_syncs, next_pending_sync,
+         },
+         reschedule,
+     };
+@@ -1087,6 +1132,14 @@
+         F,
+         deterministic::Context,
+         ContiguousJournal<deterministic::Context, TestOp<F>>,
++        Sha256,
++        Sequential,
++    >;
++
++    type RecordingTestJournal<F> = Journal<
++        F,
++        RecordingContext<deterministic::Context>,
++        ContiguousJournal<RecordingContext<deterministic::Context>, TestOp<F>>,
+         Sha256,
+         Sequential,
+     >;
+@@ -1124,6 +1177,7 @@
+             metadata_partition: format!("mmr-metadata-{suffix}"),
+             items_per_blob: NZU64!(11),
+             write_buffer: NZUsize!(1024),
++            replay_buffer: NZUsize!(1024),
+             strategy,
+             page_cache: CacheRef::from_pooler(pooler, PAGE_SIZE, PAGE_CACHE_SIZE),
+         }
+@@ -1140,6 +1194,7 @@
+             partition: format!("journal-{suffix}"),
+             items_per_blob: NZU64!(7),
+             write_buffer: NZUsize!(1024),
++            replay_buffer: NZUsize!(1024),
+             page_cache: CacheRef::from_pooler(pooler, PAGE_SIZE, PAGE_CACHE_SIZE),
+         }
+     }
+@@ -2879,13 +2934,19 @@
+     async fn test_replay_operations_inner<F: Family + PartialEq>(context: Context) {
+         // Test empty journal
+         let journal = create_empty_journal::<F>(context.child("empty"), "replay").await;
+-        let stream = journal.replay(0, NZUsize!(10)).await.unwrap();
++        let stream = journal
++            .replay(0, NZUsize!(10), ReadOptions::default())
++            .await
++            .unwrap();
+         futures::pin_mut!(stream);
+         assert!(stream.next().await.is_none());
+ 
+         // Test replaying all operations
+         let journal = create_journal_with_ops::<F>(context.child("with_ops"), "replay", 50).await;
+-        let stream = journal.replay(0, NZUsize!(100)).await.unwrap();
++        let stream = journal
++            .replay(0, NZUsize!(100), ReadOptions::default())
++            .await
++            .unwrap();
+         futures::pin_mut!(stream);
+ 
+         for i in 0..50 {
+@@ -2909,10 +2970,61 @@
+         executor.start(test_replay_operations_inner::<mmb::Family>);
+     }
+ 
++    #[test_traced("INFO")]
++    fn test_replay_propagates_read_options_to_backing_journal() {
++        let executor = deterministic::Runner::default();
++        executor.start(|context| async move {
++            let (context, recordings) = RecordingContext::new(context);
++            let merkle_cfg = merkle_config("replay-options", &context);
++            let journal_cfg = journal_config("replay-options", &context);
++            let page_cache = journal_cfg.page_cache.clone();
++            let mut journal = RecordingTestJournal::<mmr::Family>::new(
++                context,
++                merkle_cfg,
++                journal_cfg,
++                |op| op.is_commit(),
++                ForwardFold,
++            )
++            .await
++            .unwrap();
++
++            for i in 0..8 {
++                let operation = create_operation::<mmr::Family>(i);
++                (journal, _) = journal.append(&operation).await.unwrap();
++            }
++            journal = journal.sync().await.unwrap();
++
++            // Evict cached pages so the first replay item requires a backing read through the
++            // authenticated wrapper.
++            page_cache.clear();
++            let stream = journal
++                .replay(0, NZUsize!(100), ReadOptions::DONT_CACHE)
++                .await
++                .unwrap();
++            recordings.clear();
++            futures::pin_mut!(stream);
++            let (position, operation) = stream.next().await.unwrap().unwrap();
++            assert_eq!(position, 0);
++            assert_eq!(operation, create_operation::<mmr::Family>(0));
++
++            // The authenticated wrapper forwards DONT_CACHE unchanged to the backing journal.
++            let reads = recordings.snapshot().reads;
++            assert!(!reads.is_empty());
++            assert!(
++                reads
++                    .iter()
++                    .all(|options| *options == ReadOptions::DONT_CACHE)
++            );
++        });
++    }
++
+     /// Verify replay() starting from a middle location.
+     async fn test_replay_from_middle_inner<F: Family + PartialEq>(context: Context) {
+         let journal = create_journal_with_ops::<F>(context, "replay_middle", 50).await;
+-        let stream = journal.replay(25, NZUsize!(100)).await.unwrap();
++        let stream = journal
++            .replay(25, NZUsize!(100), ReadOptions::default())
++            .await
++            .unwrap();
+         futures::pin_mut!(stream);
+ 
+         let mut count = 0;

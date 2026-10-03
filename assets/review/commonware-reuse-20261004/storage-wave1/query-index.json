@@ -1,0 +1,12 @@
+[
+  "storage/src/qmdb/any/batch.rs",
+  "storage/src/qmdb/any/traits.rs",
+  "storage/src/qmdb/batch_chain.rs",
+  "glue/src/stateful/db/mod.rs",
+  "glue/src/stateful/db/any.rs",
+  "glue/src/stateful/db/current.rs",
+  "glue/src/stateful/db/p2p.rs",
+  "storage/src/qmdb/sync/mod.rs",
+  "collector/src/lib.rs",
+  "collector/src/p2p/mod.rs"
+]

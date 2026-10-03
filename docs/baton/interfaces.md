@@ -6,7 +6,7 @@
 
 Rust declaration: [Baton](../overview/rust-interfaces.md#baton). The Rust interfaces page owns the complete declaration.
 
-`Context` binds the leader view, history, actual parent, rule, window, and immutable ordering frontier. It is not assumed to be the same type as `BlockService::ProducerContext`. `on_block` admits a CandidateBlock whose body and authenticated header have been joined. A StoredBody notice alone is insufficient. Baton reception and the Commonware attachment perform the join and handler call.
+`Context` binds the leader view, history, actual parent, rule, window, and immutable ordering frontier. It is not assumed to be the same type as upstream `Automaton::Context` for the body attachment. `on_block` admits a CandidateBlock whose body and authenticated header have been joined. A StoredBody notice alone is insufficient. Baton reception and the Commonware attachment perform the join and handler call.
 
 The `on_*` handlers check context, admit local inputs, and schedule work. A task driver runs Baton planning jobs and Executor execution jobs and returns completion to handlers. Driver, queue, and task placement remain open; this contract adds no mandatory actor count. Baton planning completes through `on_planned(context, policy)`, which checks the original window and context before updating prepared state. Late or stale completion cannot overwrite a new context. `on_execution` receives only completed valid checkpoints; failure, incomplete-job notification, and retry contracts remain open in the Execution decisions. `prepared_policy()` is an immediate query that returns only a completed valid candidate currently available. Native Core rechecks actual context and freezes policy; the cut does not wait for `Some`.
 

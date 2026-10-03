@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# Files in storage/src/qmdb/sync (v2026.9.0)\n\n```\ndatabase.rs\nengine.rs\nerror.rs\ngaps.rs\njournal.rs\nmetrics.rs\nmod.rs\nrequests.rs\nsource.rs\ntarget.rs\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

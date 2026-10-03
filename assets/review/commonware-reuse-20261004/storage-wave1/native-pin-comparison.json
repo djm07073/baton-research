@@ -1,0 +1,23 @@
+[
+  {
+    "path": "glue/src/stateful/db/mod.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs",
+    "saved": "pin-glue-src-stateful-db-mod.rs",
+    "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+    "bytes": 175612
+  },
+  {
+    "path": "storage/src/qmdb/any/batch.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs",
+    "saved": "pin-storage-src-qmdb-any-batch.rs",
+    "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582",
+    "bytes": 207316
+  },
+  {
+    "path": "collector/src/lib.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/collector/src/lib.rs",
+    "saved": "pin-collector-src-lib.rs",
+    "sha256": "762fd749f69e34f26acecd39db354fbd292faaa66cc6e0710e28fa5c9936fd81",
+    "bytes": 2926
+  }
+]

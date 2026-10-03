@@ -1,0 +1,26 @@
+[
+  {
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "Cargo.toml",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/Cargo.toml",
+    "lines": 109
+  },
+  {
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/engine/src/engine.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/engine.rs",
+    "lines": 914
+  },
+  {
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/application/src/consensus/glue.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/application/src/consensus/glue.rs",
+    "lines": 146
+  },
+  {
+    "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+    "path": "crates/primitives/src/block.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/primitives/src/block.rs",
+    "lines": 554
+  }
+]

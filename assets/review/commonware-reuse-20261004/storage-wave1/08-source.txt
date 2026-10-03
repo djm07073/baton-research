@@ -1,0 +1,85 @@
+# collector/src/lib.rs (v2026.9.0)
+
+```rust
+0: //! Collect responses to [Committable] requests.
+1: //!
+2: //! # Status
+3: //!
+4: //! Stability varies by primitive. See [README](https://github.com/commonwarexyz/monorepo#stability) for details.
+5: 
+6: #![doc(
+7:     html_logo_url = "https://commonware.xyz/imgs/rustdoc_logo.svg",
+8:     html_favicon_url = "https://commonware.xyz/favicon.ico"
+9: )]
+10: 
+11: commonware_macros::stability_scope!(ALPHA {
+12:     use commonware_actor::Feedback;
+13:     use commonware_codec::Codec;
+14:     use commonware_cryptography::{Committable, Digestible, PublicKey};
+15:     use commonware_p2p::Recipients;
+16:     use commonware_utils::channel::oneshot;
+17: 
+18:     pub mod p2p;
+19: 
+20:     /// An [Originator] sends requests out to a set of [Handler]s and collects replies.
+21:     pub trait Originator: Clone + Send + 'static {
+22:         /// The [PublicKey] of a recipient.
+23:         type PublicKey: PublicKey;
+24: 
+25:         /// The type of request to send.
+26:         type Request: Committable + Digestible + Codec;
+27: 
+28:         /// Enqueues a `Request` to a set of [Recipients].
+29:         fn send(
+30:             &mut self,
+31:             recipients: Recipients<Self::PublicKey>,
+32:             request: Self::Request,
+33:         ) -> Feedback;
+34: 
+35:         /// Enqueues cancellation of a request by `commitment`, ignoring any future responses.
+36:         ///
+37:         /// Tracked commitments are not removed until explicitly cancelled.
+38:         fn cancel(&mut self, commitment: <Self::Request as Committable>::Commitment) -> Feedback;
+39:     }
+40: 
+41:     /// A [Handler] receives requests and (optionally) sends replies.
+42:     pub trait Handler: Clone + Send + 'static {
+43:         /// The [PublicKey] of the [Originator].
+44:         type PublicKey: PublicKey;
+45: 
+46:         /// The type of request received.
+47:         type Request: Committable + Digestible + Codec;
+48: 
+49:         /// The type of response to send.
+50:         type Response: Committable<Commitment = <Self::Request as Committable>::Commitment>
+51:             + Digestible<Digest = <Self::Request as Digestible>::Digest>
+52:             + Codec;
+53: 
+54:         /// Processes a `request` from an [Originator] and (optionally) send a response.
+55:         ///
+56:         /// If no response is needed, the `responder` should be dropped.
+57:         fn process(
+58:             &mut self,
+59:             origin: Self::PublicKey,
+60:             request: Self::Request,
+61:             response: oneshot::Sender<Self::Response>,
+62:         );
+63:     }
+64: 
+65:     /// A [Monitor] collects responses from [Handler]s.
+66:     pub trait Monitor: Clone + Send + 'static {
+67:         /// The [PublicKey] of the [Handler].
+68:         type PublicKey: PublicKey;
+69: 
+70:         /// The type of response collected.
+71:         type Response: Committable + Digestible + Codec;
+72: 
+73:         /// Called for each response collected with the number of responses collected so far for
+74:         /// the same commitment.
+75:         ///
+76:         /// [Monitor::collected] is only called once per `handler`.
+77:         fn collected(&mut self, handler: Self::PublicKey, response: Self::Response, count: usize);
+78:     }
+79: });
+80: 
+```

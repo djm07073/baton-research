@@ -1,0 +1,238 @@
+[
+  {
+    "source": "README.md",
+    "preserved_heading_anchors": 12,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "overview/architecture.md",
+    "preserved_heading_anchors": 4,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "overview/glossary.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "overview/rust-interfaces.md",
+    "preserved_heading_anchors": 7,
+    "new_heading_anchors": [
+      {
+        "slug": "storage",
+        "id": "section-012"
+      }
+    ]
+  },
+  {
+    "source": "overview/networking.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "overview/interfaces.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "tx/README.md",
+    "preserved_heading_anchors": 4,
+    "new_heading_anchors": [
+      {
+        "slug": "reuse-an-existing-pool-without-importing-the-wrong-lifecycle",
+        "id": "section-005"
+      }
+    ]
+  },
+  {
+    "source": "tx/interfaces.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "consensus/README.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "consensus/block-body.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": [
+      {
+        "slug": "reuse-the-same-body-components-as-tempo",
+        "id": "section-004"
+      }
+    ]
+  },
+  {
+    "source": "consensus/ordered-input.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "consensus/decisions.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "baton/README.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "baton/direction.md",
+    "preserved_heading_anchors": 4,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "baton/interfaces.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "execution/README.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "execution/interfaces.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "execution/qmdb.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": [
+      {
+        "slug": "existing-apis-at-the-native-pin-and-indexed-release",
+        "id": "section-004"
+      },
+      {
+        "slug": "defer-roots-without-inventing-an-unsealed-parent-fork",
+        "id": "section-005"
+      }
+    ]
+  },
+  {
+    "source": "execution/state-sync.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": [
+      {
+        "slug": "reuse-commonware-material-transport-and-proof-validation",
+        "id": "section-002"
+      }
+    ]
+  },
+  {
+    "source": "e2e/normal.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/block-body.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/native-consensus.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/leader.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/reschedule.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/canonical.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/recovery.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/results.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/state-sync.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "reference/integration.md",
+    "preserved_heading_anchors": 5,
+    "new_heading_anchors": [
+      {
+        "slug": "copy-the-assembly-from-real-chains",
+        "id": "section-006"
+      },
+      {
+        "slug": "body-assembly-to-implement",
+        "id": "section-007"
+      },
+      {
+        "slug": "pool-and-storage-assembly-to-evaluate",
+        "id": "section-008"
+      },
+      {
+        "slug": "reference-versions-are-not-one-compatible-dependency-graph",
+        "id": "section-009"
+      }
+    ]
+  },
+  {
+    "source": "reference/verification.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "reference/sources.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@overview",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@tx",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@consensus",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@baton",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@execution",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@e2e",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@reference",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  }
+]

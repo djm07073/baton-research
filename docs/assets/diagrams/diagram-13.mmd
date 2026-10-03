@@ -24,7 +24,7 @@ sequenceDiagram
             S->>B: Start authenticated intake / retention / history backfill
         end
     and Execution recovery
-        S->>E: Recover canonical DB and applied metadata
+        S->>E: Recover execution base through Storage, with applied metadata/provenance
         E-->>S: Execution state readiness / recovery status
     end
     alt Execution state and exact input ready

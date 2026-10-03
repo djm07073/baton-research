@@ -1,0 +1,372 @@
+# collector/src/p2p/actor.rs (v2026.9.0)
+
+```rust
+0: <!DOCTYPE html>
+1: <html lang="en">
+2: 
+3: <head>
+4:     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+5:     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+6:     <link rel="preload" href="/style.css" as="style">
+7:     <link rel="preload" href="/shared.js" as="script">
+8:     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+9: 
+10:     <title>commonware</title>
+11:     <meta name="description" content="">
+12:     <meta name="keywords" content="commonware, open source, common goods, software, internet, ownership, trust, blockchain, decentralization, crypto">
+13: 
+14:     <link rel="canonical" href="https://commonware.xyz/" />
+15:     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+16:     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-focused documentation">
+17: 
+18:     <meta property="og:url" content="https://commonware.xyz/" />
+19:     <meta property="og:type" content="website" />
+20:     <meta property="og:site_name" content="commonware" />
+21:     <meta property="og:title" content="commonware" />
+22:     <meta property="og:description" content="" />
+23:     <meta property="og:image" content="https://commonware.xyz/card.png" />
+24: 
+25:     <meta name="twitter:card" content="summary_large_image" />
+26:     <meta property="twitter:domain" content="commonware.xyz" />
+27:     <meta property="twitter:url" content="https://commonware.xyz" />
+28:     <meta property="twitter:title" content="commonware" />
+29:     <meta property="twitter:description" content="" />
+30:     <meta property="twitter:image" content="https://commonware.xyz/card.png" />
+31:     <meta property="twitter:site" content="@commonwarexyz" />
+32:     <meta property="twitter:creator" content="@commonwarexyz" />
+33:     <meta property="twitter:creator:id" content="@commonwarexyz" />
+34: 
+35:     <link rel="stylesheet" type="text/css" href="/style.css">
+36: </head>
+37: 
+38: <body>
+39:     <div id="logo-placeholder">
+40:         <div class="logo-line">
+41:             <span class="edge-logo-symbol">+</span>
+42:             <span class="horizontal-logo-symbol">~</span>
+43:             <span class="horizontal-logo-symbol"> </span>
+44:             <span class="horizontal-logo-symbol">-</span>
+45:             <span class="horizontal-logo-symbol">+</span>
+46:             <span class="horizontal-logo-symbol">-</span>
+47:             <span class="horizontal-logo-symbol">+</span>
+48:             <span class="horizontal-logo-symbol"> </span>
+49:             <span class="horizontal-logo-symbol">-</span>
+50:             <span class="horizontal-logo-symbol">+</span>
+51:             <span class="horizontal-logo-symbol">-</span>
+52:             <span class="horizontal-logo-symbol">~</span>
+53:             <span class="horizontal-logo-symbol">~</span>
+54:             <span class="edge-logo-symbol">*</span>
+55:         </div>
+56:         <div class="logo-line">
+57:             <span class="vertical-logo-symbol">|</span>
+58:             <span class="logo-text"> commonware </span>
+59:             <span class="vertical-logo-symbol"> </span>
+60:         </div>
+61:         <div class="logo-line">
+62:             <span class="edge-logo-symbol">*</span>
+63:             <span class="horizontal-logo-symbol">~</span>
+64:             <span class="horizontal-logo-symbol">+</span>
+65:             <span class="horizontal-logo-symbol">+</span>
+66:             <span class="horizontal-logo-symbol">-</span>
+67:             <span class="horizontal-logo-symbol"> </span>
+68:             <span class="horizontal-logo-symbol">~</span>
+69:             <span class="horizontal-logo-symbol">-</span>
+70:             <span class="horizontal-logo-symbol">+</span>
+71:             <span class="horizontal-logo-symbol"> </span>
+72:             <span class="horizontal-logo-symbol">-</span>
+73:             <span class="horizontal-logo-symbol">*</span>
+74:             <span class="horizontal-logo-symbol">-</span>
+75:             <span class="edge-logo-symbol">+</span>
+76:         </div>
+77:     </div>
+78:     <div class="content">
+79:         <h2>Primitives</h2>
+80:         <h3><a href="https://docs.rs/commonware-actor">actor</a></h3>
+81:         <p>Safely coordinate concurrent components.</p>
+82:         <h3><a href="https://docs.rs/commonware-broadcast">broadcast</a></h3>
+83:         <p>Disseminate data over a wide-area network.</p>
+84:         <h3><a href="https://docs.rs/commonware-codec">codec</a></h3>
+85:         <p>Serialize structured data.</p>
+86:         <h3><a href="https://docs.rs/commonware-coding">coding</a></h3>
+87:         <p>Encode data to enable recovery from a subset of fragments.</p>
+88:         <h3><a href="https://docs.rs/commonware-collector">collector</a></h3>
+89:         <p>Collect responses to committable requests.</p>
+90:         <h3><a href="https://docs.rs/commonware-conformance">conformance</a></h3>
+91:         <p>Automatically assert the stability of encoding and mechanisms over time.</p>
+92:         <h3><a href="https://docs.rs/commonware-consensus">consensus</a></h3>
+93:         <p>Order opaque messages in a Byzantine environment.</p>
+94:         <h3><a href="https://docs.rs/commonware-cryptography">cryptography</a></h3>
+95:         <p>Generate keys, sign arbitrary messages, and deterministically verify signatures.</p>
+96:         <h3><a href="https://docs.rs/commonware-deployer">deployer</a></h3>
+97:         <p>Deploy infrastructure across cloud providers.</p>
+98:         <h3><a href="https://docs.rs/commonware-formatting">formatting</a></h3>
+99:         <p>Format and parse encoded data.</p>
+100:         <h3><a href="https://docs.rs/commonware-glue">glue</a></h3>
+101:         <p>Default constructions that span multiple primitives.</p>
+102:         <h3><a href="https://docs.rs/commonware-invariants">invariants</a></h3>
+103:         <p>Define and exercise invariants.</p>
+104:         <h3><a href="https://docs.rs/commonware-math">math</a></h3>
+105:         <p>Create and manipulate mathematical objects.</p>
+106:         <h3><a href="https://docs.rs/commonware-p2p">p2p</a></h3>
+107:         <p>Communicate with authenticated peers.</p>
+108:         <h3><a href="https://docs.rs/commonware-parallel">parallel</a></h3>
+109:         <p>Parallelize fold operations with pluggable execution strategies.</p>
+110:         <h3><a href="https://docs.rs/commonware-resolver">resolver</a></h3>
+111:         <p>Resolve data identified by a fixed-length key.</p>
+112:         <h3><a href="https://docs.rs/commonware-runtime">runtime</a></h3>
+113:         <p>Execute asynchronous tasks with a configurable scheduler.</p>
+114:         <h3><a href="https://docs.rs/commonware-storage">storage</a></h3>
+115:         <p>Persist and retrieve data from an abstract store.</p>
+116:         <h3><a href="https://docs.rs/commonware-stream">stream</a></h3>
+117:         <p>Exchange messages over arbitrary transport.</p>
+118: 
+119:         <h2>Examples</h2>
+120:         <h3><a href="https://alto.commonware.xyz">alto</a></h3>
+121:         <p>A minimal (and wicked fast) blockchain built with the Commonware Library.</p>
+122:         <h3><a href="https://battleware.xyz">battleware</a></h3>
+123:         <p>An onchain battle secured by a VRF, Timelock Encryption, and MMRs.</p>
+124:         <h3><a href="https://docs.rs/commonware-bridge">bridge</a></h3>
+125:         <p>Send succinct consensus certificates between two networks.</p>
+126:         <h3><a href="https://docs.rs/commonware-chat">chat</a></h3>
+127:         <p>Send encrypted messages to a group of friends.</p>
+128:         <h3><a href="https://docs.rs/commonware-dkg">dkg</a></h3>
+129:         <p>Generate and reshare a threshold secret over an epoched log.</p>
+130:         <h3><a href="https://docs.rs/commonware-estimator">estimator</a></h3>
+131:         <p>Simulate mechanism performance under realistic network conditions.</p>
+132:         <h3><a href="https://docs.rs/commonware-flood">flood</a></h3>
+133:         <p>Spam peers deployed to AWS EC2 with random messages.</p>
+134:         <h3><a href="https://docs.rs/commonware-log">log</a></h3>
+135:         <p>Commit to a secret log and agree to its hash.</p>
+136: 
+137:         <h2>Blogs</h2>
+138:         <h3><a href="/blogs/1992.html">We Had It All In 1992</a></h3>
+139:         <div class="meta">
+140:             <div class="author">By <a href="https://x.com/guruvamsip">Guru Vamsi Policharla</a></div>
+141:             <div class="date">October 1st, 2026</div>
+142:         </div>
+143:         <p>Encrypted mempools are built on consensus protocols with a gap between corruption and reconstruction thresholds. We use that gap to eliminate pairings from batched threshold encryption.</p>
+144:         <h3><a href="/blogs/so-you-wanna-go-fast.html">So you wanna go fast?</a></h3>
+145:         <div class="meta">
+146:             <div class="author">By <a href="https://x.com/vex_0x">Ben Clabby</a></div>
+147:             <div class="date">September 19th, 2026</div>
+148:         </div>
+149:         <p>Ordering a few GB/s efficiently on a blockchain is hard. How do we keep up with incoming blocks while leaving room to recover from slowdowns and crashes?</p>
+150:         <h3><a href="/blogs/private-payments.html">Out of Sight, Out of State</a></h3>
+151:         <div class="meta">
+152:             <div class="author">By <a href="https://x.com/guruvamsip">Guru Vamsi Policharla</a></div>
+153:             <div class="date">September 12th, 2026</div>
+154:         </div>
+155:         <p>Private payments without an ever-growing global nullifier set. Bonsai keeps validator state proportional to the number of accounts while preserving support for offline wallets.</p>
+156:         <h3><a href="/blogs/clearing.html">Keep the Change</a></h3>
+157:         <div class="meta">
+158:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+159:             <div class="date">August 19th, 2026</div>
+160:         </div>
+161:         <p>$0.000001 payments cost more to replicate, settle onchain, and index than they're worth. Yet your agent will need to make millions of them over the coming years.</p>
+162:         <h3><a href="/blogs/earn-your-stripes.html">Earn Your Stripes</a></h3>
+163:         <div class="meta">
+164:             <div class="author">By <a href="https://x.com/kaizero_ainta">Sunghyeon Jo (QED)</a> and <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+165:             <div class="date">August 13th, 2026</div>
+166:         </div>
+167:         <p>Sharing large blocks efficiently means rebuilding them from smaller pieces. In the worst (and common) case, block recovery was limited to one core and repeated an expensive calculation. We now split that work across cores and skip the duplicate step, making it nearly 4x faster.</p>
+168:         <h3><a href="/blogs/pipelining-simplex.html">Simplex, Pipelined</a></h3>
+169:         <div class="meta">
+170:             <div class="author">By <a href="https://x.com/B_Chou">Brendan Chou</a></div>
+171:             <div class="date">August 12th, 2026</div>
+172:         </div>
+173:         <p>Simplex can now produce blocks as fast as its leader can build them. In a global deployment of 50 validators, it sustained 200 blocks per second with 300ms finality to your browser.</p>
+174:         <h3><a href="/blogs/multimmit.html">Multimmit: The Best of Both Worlds</a></h3>
+175:         <div class="meta">
+176:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+177:             <div class="date">July 25th, 2026</div>
+178:         </div>
+179:         <p>The fastest path to finality no longer belongs exclusively to the leader. In Multimmit, blocks from every honest producer (disseminating transactions in parallel) can reach the two-message-delay lower bound, even when they miss the leader's proposal.</p>
+180:         <h3><a href="/blogs/pick-your-poisons.html">Pick Your Poisons</a></h3>
+181:         <div class="meta">
+182:             <div class="author">By <a href="https://x.com/guruvamsip">Guru Vamsi Policharla</a></div>
+183:             <div class="date">July 22nd, 2026</div>
+184:         </div>
+185:         <p>All efficient constructions of batched threshold encryption force a choice: epoch restrictions, censorship issues, or a complicated setup. With our new work, you can trade one poison at full strength for digestible doses of two.</p>
+186:         <h3><a href="/blogs/constantinople.html">Constantinople</a></h3>
+187:         <div class="meta">
+188:             <div class="author">By <a href="https://x.com/vex_0x">Ben Clabby</a></div>
+189:             <div class="date">June 5th, 2026</div>
+190:         </div>
+191:         <p>For a thousand years, the world's richest trade route ran through a single city. But Constantinople didn't grow rich moving cargo; it grew rich counting it. Throughput on a ledger is only worth something once you can read it back.</p>
+192:         <h3><a href="/blogs/golden.html">Your Golden Ticket to a Better DKG</a></h3>
+193:         <div class="meta">
+194:             <div class="author">By <a href="https://x.com/cronokirby">Lucas Meier</a></div>
+195:             <div class="date">May 21st, 2026</div>
+196:         </div>
+197:         <p>We've completed an initial implementation of the Golden protocol, which lets you perform a DKG in just a single round.</p>
+198:         <h3><a href="/blogs/phone-a-friend.html">Phone a Friend</a></h3>
+199:         <div class="meta">
+200:             <div class="author">By <a href="https://x.com/guruvamsip">Guru Vamsi Policharla</a></div>
+201:             <div class="date">May 19th, 2026</div>
+202:         </div>
+203:         <p>Instead of every single validator carrying out the work of decryption, a well-provisioned helper can do the work once and broadcast hints to the network which will be used to quickly verify the result.</p>
+204:         <h3><a href="/blogs/route-66.html">Get Your Blocks on Route 66</a></h3>
+205:         <div class="meta">
+206:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+207:             <div class="date">May 12th, 2026</div>
+208:         </div>
+209:         <p>Today, we're announcing Route 66, a new initiative we're co-leading with Coinbase to make it faster and cheaper to connect to specialized blockchains, and a strategic investment from Coinbase Ventures.</p>
+210:         <h3><a href="/blogs/pyramid-mmb.html">Honey, I Shrunk the Proofs!</a></h3>
+211:         <div class="meta">
+212:             <div class="author">By <a href="https://x.com/roberto_bayardo">Roberto Bayardo</a></div>
+213:             <div class="date">May 6th, 2026</div>
+214:         </div>
+215:         <p>By combining an active-region-aware bagging policy, pyramid bagging, with the Merkle Mountain Belt (MMB), our new scheme makes active-value proofs small and predictable: within two digests of a balanced binary Merkle tree over those values (without sacrificing append-only updates).</p>
+216:         <h3><a href="/blogs/bte.html">Minimal Extractable Value</a></h3>
+217:         <div class="meta">
+218:             <div class="author">By <a href="https://x.com/guruvamsip">Guru Vamsi Policharla</a></div>
+219:             <div class="date">April 17th, 2026</div>
+220:         </div>
+221:         <p>A threshold encryption scheme is a cryptographic primitive that allows users to encrypt messages to a committee of n parties such that any t out of n members can non-interactively decrypt the message.</p>
+222:         <h3><a href="/blogs/batch-pari.html">The Proof is in the Pairing</a></h3>
+223:         <div class="meta">
+224:             <div class="author">By <a href="https://x.com/guruvamsip">Guru Vamsi Policharla</a></div>
+225:             <div class="date">March 24th, 2026</div>
+226:         </div>
+227:         <p>Blockchains are especially well-suited for two use cases: payments and trading. We've made real progress in scaling these systems with many chains supporting 10K-100K TPS. But what happens when we introduce privacy?</p>
+228:         <h3><a href="/blogs/carnot-bound.html">The Carnot Bound</a></h3>
+229:         <div class="meta">
+230:             <div class="author">By <a href="https://x.com/AndrewLewisPye">Andrew Lewis-Pye</a></div>
+231:             <div class="date">March 20th, 2026</div>
+232:         </div>
+233:         <p>Recently, we released a paper called The Carnot Bound, which investigates the fundamental limits and possibilities for bandwidth-efficient consensus. The paper establishes a tight lower bound on coding efficiency for protocols with fast finality, and shows that an additional round of voting breaks the barrier.</p>
+234:         <h3><a href="/blogs/its-a-grind.html">It's a Grind</a></h3>
+235:         <div class="meta">
+236:             <div class="author">By <a href="https://x.com/roberto_bayardo">Roberto Bayardo</a></div>
+237:             <div class="date">February 27, 2026</div>
+238:         </div>
+239:         <p>Authenticated databases use tree structures like tries, binary search trees, and BTrees to support fast key lookup and generate a verifiable state (known as 'merkleizing'). These structures work best when the keys are spread out evenly (uniformly distributed), and performance can suffer otherwise.</p>
+240:         <h3><a href="/blogs/coding.html">Deliver Us in Pieces</a></h3>
+241:         <div class="meta">
+242:             <div class="author">By <a href="https://x.com/vex_0x">Ben Clabby</a></div>
+243:             <div class="date">February 20, 2026</div>
+244:         </div>
+245:         <p>Validators on most blockchain networks are overprovisioned for bandwidth when they are a leader and underutilized the rest of the time. In a "standard" blockchain (akin to marshal::standard over broadcast::buffered), the proposer pushes the whole block to each validator. Even on multi-Gbps links, distributing a block this way can take hundreds of milliseconds. Meanwhile, validators waiting for their block have ample bandwidth (for when they are a proposer) but are doing nothing with it when not. What if they could help?</p>
+246:         <h3><a href="/blogs/is-it-ready-yet.html">Is it ready yet?</a></h3>
+247:         <div class="meta">
+248:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+249:             <div class="date">February 5, 2026</div>
+250:         </div>
+251:         <p>The Commonware Library is now home to 17 primitives and over 50 primitive dialects, with 93% test coverage and 1500 daily benchmarks. The only number that probably matters to you, however, is how many primitives are ready to use.</p>
+252:         <h3><a href="/blogs/conformance.html">Change is the Only Constant</a></h3>
+253:         <div class="meta">
+254:             <div class="author">By <a href="https://x.com/vex_0x">Ben Clabby</a></div>
+255:             <div class="date">December 19, 2025</div>
+256:         </div>
+257:         <p>Picture this: Your team is scrambling to get the latest release of a project out, and in one of several hasty PR reviews, your fancy LLM code reviewers overlook a breaking change to the protocol. You cut the release, and during your celebratory dinner, you notice you've got 26 unread messages on Slack.</p>
+258:         <h3><a href="/blogs/qmdb.html">QMDB All The Things</a></h3>
+259:         <div class="meta">
+260:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+261:             <div class="date">December 10, 2025</div>
+262:         </div>
+263:         <p>Over the last year, we've developed a family of append-only, authenticated databases (ADB) inspired by LayerZero's novel Quick Merkle Database (QMDB). Today, we are excited to announce that this family of databases will now be known as QMDB and that we are collaborating with LayerZero to productionize QMDB in the Commonware Library.</p>
+264:         <h3><a href="/blogs/welcome-tempo.html">Welcome, Tempo</a></h3>
+265:         <div class="meta">
+266:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+267:             <div class="date">November 7, 2025</div>
+268:         </div>
+269:         <p>Today, we're thrilled to share that Tempo is building with the Commonware Library, supporting our growth as a new core contributor, and accelerating our research and engineering with a strategic investment.</p>
+270:         <h3><a href="/blogs/zoda.html">Fast Block Dissemination with Immediate Guarantees</a></h3>
+271:         <div class="meta">
+272:             <div class="author">By <a href="https://x.com/cronokirby">Lucas Meier</a></div>
+273:             <div class="date">November 4, 2025</div>
+274:         </div>
+275:         <p>You can come to consensus over a mere fingerprint of the block---a hash for example---but doing anything interesting with that fingerprint, like processing transactions or updating state, requires disseminating (a lot of) data.</p>
+276:         <h3><a href="/blogs/reshare.html">Once a Validator, Not Always a Validator</a></h3>
+277:         <div class="meta">
+278:             <div class="author">By <a href="https://x.com/vex_0x">Ben Clabby</a> and <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+279:             <div class="date">October 31, 2025</div>
+280:         </div>
+281:         <p>Many consensus protocols, from Tendermint and HotStuff to our own Minimmit, are defined under a permissioned model where the validator set is fixed and known ahead of time. Safely transitioning from one committee to the next, where validators can be added and removed, is left as an exercise to the implementer.</p>
+282:         <h3><a href="/blogs/only-time-will-tell.html">Binding Timelock Encryption: Only Time Will Tell</a></h3>
+283:         <div class="meta">
+284:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+285:             <div class="date">September 11, 2025</div>
+286:         </div>
+287:         <p>As your parents insisted when you were growing up, good things come to those who wait. It turns out recent advances in cryptography have proven them right.</p>
+288:         <h3><a href="/blogs/adb-current.html">Grafting Trees to Prove Current State</a></h3>
+289:         <div class="meta">
+290:             <div class="author">By <a href="https://x.com/roberto_bayardo">Roberto Bayardo</a></div>
+291:             <div class="date">July 9, 2025</div>
+292:         </div>
+293:         <p>While proving you had a lot of money at some time in the past might go over well at a party, what's often far more useful is proving how much money you have <i>right now</i>. In database terms, this comes down to proving the <i>current state</i> of a key in a database, which is what we take on in this third article from our series on applying the Merkle Mountain Range (MMR) for efficient data authentication.</p>
+294:         <h3><a href="/blogs/minimmit.html">Minimmit: Fast Finality with Even Faster Blocks</a></h3>
+295:         <div class="meta">
+296:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a> and <a href="https://x.com/B_Chou">Brendan Chou</a></div>
+297:             <div class="date">June 24, 2025</div>
+298:         </div>
+299:         <p>Over the last few months, there has been renewed interest in developing <i>propose-and-vote</i> consensus protocols that reach finality after just one round of voting (~100-200ms). "Two-Phase" protocols, not without tradeoffs, only remain safe if a Byzantine adversary controls less than ~20% of stake (rather than the ~33% tolerance typically considered).</p>
+300:         <h3><a href="/blogs/buffered-signatures.html">Reducing Block Time (and Resource Usage) with Buffered Signatures</a></h3>
+301:         <div class="meta">
+302:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+303:             <div class="date">May 28, 2025</div>
+304:         </div>
+305:         <p>A few months ago, we launched Alto, a minimal (and wicked fast) blockchain for continuously benchmarking the Commonware Library. Today, I'm thrilled to share that this benchmarking drove a 20% reduction in block time (to ~200ms), a 20% reduction in block finality (to ~300ms), and a 65% reduction in CPU usage.</p>
+306:         <h3><a href="/blogs/adb-any.html">The Simplest Database You Need</a></h3>
+307:         <div class="meta">
+308:             <div class="author">By <a href="https://x.com/roberto_bayardo">Roberto Bayardo</a> and <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+309:             <div class="date">April 9, 2025</div>
+310:         </div>
+311:         <p>The primary limitation of the MMR compared to a more typical Merkle tree structure is its lack of support for removing elements from the list over which inclusion proofs can be provided. This restriction, at first glance, might appear to prohibit an MMR from being used to build a mutable database where keys take on values that change over time. However, append-only MMRs are a natural fit for authenticating log data. Instead of viewing our database as only a snapshot in time, the basic idea we'll build on is to maintain an MMR over the historical log of all database operations performed up until the present state.</p>
+312:         <h3><a href="/blogs/commonware-deployer.html">Your p2p demo runs locally. Now what?</a></h3>
+313:         <div class="meta">
+314:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+315:             <div class="date">March 6, 2025</div>
+316:         </div>
+317:         <p>You've built a peer-to-peer (p2p) demo that hums along on your local machine. Peers connect, messages flow, and for a moment, you're basking in localhost bliss. Then comes the inevitable question: how do you migrate this from your laptop to the cloud?</p>
+318:         <h3><a href="/blogs/commonware-broadcast.html">Scaling Throughput with Ordered Broadcast</a></h3>
+319:         <div class="meta">
+320:             <div class="author">By <a href="https://x.com/b_chou">Brendan Chou</a></div>
+321:             <div class="date">February 20, 2025</div>
+322:         </div>
+323:         <p>Blockchains require replicating data, like transactions, across nodes in the network—but doing it efficiently and reliably is a challenge. For the last decade, best-effort broadcast has been the norm, relying on consensus to guarantee delivery. The result? Wasted bandwidth by sending the same data multiple times, bottlenecked throughput by routing messages through a single node (the leader in consensus), and degraded performance whenever that node is unresponsive.</p>
+324:         <h3><a href="/blogs/mmr.html">Merkle Mountain Ranges for Performant Data Authentication</a></h3>
+325:         <div class="meta">
+326:             <div class="author">By <a href="https://x.com/roberto_bayardo">Roberto Bayardo</a></div>
+327:             <div class="date">February 13, 2025</div>
+328:         </div>
+329:         <p>Decentralized systems require the ability to prove authenticity of data received from potentially untrustworthy sources. The most well known data structure for this task is the Merkle tree, which allows one to efficiently prove inclusion of an element within a list without having to obtain the entire list from a trusted source.</p>
+330:         <h3><a href="/blogs/threshold-simplex.html">Many-to-Many Interoperability with Threshold Simplex</a></h3>
+331:         <div class="meta">
+332:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+333:             <div class="date">January 16, 2025</div>
+334:         </div>
+335:         <p>Starting with the launch of the second blockchain, connecting any blockchain to any other blockchain without additional trust assumptions has been an elusive dream. Ten years later, application developers must still settle for some version of this.</p>
+336:         <h3><a href="/blogs/commonware-the-anti-framework.html">Commonware: the Anti-Framework</a></h3>
+337:         <div class="meta">
+338:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+339:             <div class="date">December 11, 2024</div>
+340:         </div>
+341:         <p>Today’s blockchain stack is designed to be a jack of all trades, but master of none. Modeled after virtual machines (VM) and kernels, it exposes a balanced interface through a one-size-fits-all framework instead of molding to the needs of any specific application.</p>
+342:         <h3><a href="/blogs/commonware-runtime.html">commonware-runtime: The Foundation for Reliable and Performant Consensus</a></h3>
+343:         <div class="meta">
+344:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+345:             <div class="date">September 24, 2024</div>
+346:         </div>
+347:         <p>In blockchain engineering, there are few moments more stressful than the production release of a new mechanism (whether a novel consensus optimization or a tweak to peer discovery).</p>
+348:         <h3><a href="/blogs/commonware-cryptography.html">commonware-cryptography: Unlocking Seeds, Links, and Views</a></h3>
+349:         <div class="meta">
+350:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+351:             <div class="date">August 28, 2024</div>
+352:         </div>
+353:         <p>When I chat with a developer about launching their own onchain application (as a specialized blockchain), the same questions always come up.</p>
+354:         <h3><a href="/blogs/introducing-commonware.html">Introducing Commonware</a></h3>
+355:         <div class="meta">
+356:             <div class="author">By <a href="https://x.com/_patrickogrady">Patrick O'Grady</a></div>
+357:             <div class="date">August 8, 2024</div>
+358:         </div>
+359:         <p>Like many of you, I started working in the crypto space because I believe the internet will be a better place if (a lot) more of it is onchain.</p>
+360:     </div>
+361: 
+362:     <div id="footer-placeholder"></div>
+363:     <script src="/shared.js"></script>
+364: <!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4d2f6914711d472492aa385ac0230d80"}'></script><!-- Cloudflare Pages Analytics --></body>
+365: 
+366: </html>
+367: 
+```

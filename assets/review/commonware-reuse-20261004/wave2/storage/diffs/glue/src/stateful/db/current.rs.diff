@@ -1,0 +1,260 @@
+--- pin/glue/src/stateful/db/current.rs
++++ v2026.9.0/glue/src/stateful/db/current.rs
+@@ -548,9 +548,13 @@
+             && *target.range.end() == batch.bounds().tip.size
+     }
+ 
+-    async fn finalize(self, batch: Self::Merkleized) -> Result<(Self, Handle<()>), Error<F>> {
++    async fn apply(self, batch: Self::Merkleized) -> Result<Self, Error<F>> {
+         let (db, _) = self.apply_batch(batch.inner).await?;
+-        db.start_sync().await
++        Ok(db)
++    }
++
++    async fn finalize(self) -> Result<(Self, Handle<()>), Error<F>> {
++        self.start_sync().await
+     }
+ 
+     async fn prune(self, target: &Self::SyncTarget) -> Result<Self, Error<F>> {
+@@ -649,9 +653,13 @@
+             && *target.range.end() == batch.bounds().tip.size
+     }
+ 
+-    async fn finalize(self, batch: Self::Merkleized) -> Result<(Self, Handle<()>), Error<F>> {
++    async fn apply(self, batch: Self::Merkleized) -> Result<Self, Error<F>> {
+         let (db, _) = self.apply_batch(batch.inner).await?;
+-        db.start_sync().await
++        Ok(db)
++    }
++
++    async fn finalize(self) -> Result<(Self, Handle<()>), Error<F>> {
++        self.start_sync().await
+     }
+ 
+     async fn prune(self, target: &Self::SyncTarget) -> Result<Self, Error<F>> {
+@@ -707,8 +715,6 @@
+             },
+         },
+     };
+-    use commonware_utils::Array;
+-
+     type VConfig<T, F, K, V, S> = VariableConfig<
+         T,
+         <Operation<F, unordered::Update<K, VariableEncoding<V>>> as Read>::Cfg,
+@@ -724,7 +730,7 @@
+     where
+         F: Graftable,
+         E: Context + Spawner,
+-        K: Array,
++        K: commonware_storage::qmdb::operation::Key,
+         V: VariableValue + 'static,
+         H: Hasher,
+         T: commonware_storage::translator::Translator,
+@@ -767,7 +773,7 @@
+ where
+     F: Graftable,
+     E: Context + Spawner,
+-    K: Key + Array,
++    K: Key,
+     V: value::VariableValue + 'static,
+     H: Hasher,
+     T: Translator,
+@@ -828,9 +834,13 @@
+             && *target.range.end() == batch.bounds().tip.size
+     }
+ 
+-    async fn finalize(self, batch: Self::Merkleized) -> Result<(Self, Handle<()>), Error<F>> {
++    async fn apply(self, batch: Self::Merkleized) -> Result<Self, Error<F>> {
+         let (db, _) = self.apply_batch(batch.inner).await?;
+-        db.start_sync().await
++        Ok(db)
++    }
++
++    async fn finalize(self) -> Result<(Self, Handle<()>), Error<F>> {
++        self.start_sync().await
+     }
+ 
+     async fn prune(self, target: &Self::SyncTarget) -> Result<Self, Error<F>> {
+@@ -934,9 +944,13 @@
+             && *target.range.end() == batch.bounds().tip.size
+     }
+ 
+-    async fn finalize(self, batch: Self::Merkleized) -> Result<(Self, Handle<()>), Error<F>> {
++    async fn apply(self, batch: Self::Merkleized) -> Result<Self, Error<F>> {
+         let (db, _) = self.apply_batch(batch.inner).await?;
+-        db.start_sync().await
++        Ok(db)
++    }
++
++    async fn finalize(self) -> Result<(Self, Handle<()>), Error<F>> {
++        self.start_sync().await
+     }
+ 
+     async fn prune(self, target: &Self::SyncTarget) -> Result<Self, Error<F>> {
+@@ -1075,7 +1089,7 @@
+ where
+     F: Graftable,
+     E: Context + Spawner,
+-    K: Key + Array,
++    K: Key,
+     V: value::VariableValue + 'static,
+     H: Hasher,
+     T: Translator,
+@@ -1174,19 +1188,21 @@
+         merkle::{full::Config as MerkleConfig, mmr},
+         qmdb::current::{
+             ordered::{fixed as ordered_fixed, variable as ordered_variable},
+-            unordered::fixed,
++            unordered::{fixed, variable},
+         },
+         translator::TwoCap,
+     };
+     use commonware_utils::{NZU16, NZU64, NZUsize, non_empty_range};
+     use std::num::{NonZeroU16, NonZeroUsize};
+ 
+-    /// Finalize `batch` into `db` and wait for the deferred flush, boxing the future
+-    /// ([`ManagedDb::finalize`] embeds the database in its state machine).
+     #[boxed]
+-    async fn finalize<D: ManagedDb<deterministic::Context>>(db: D, batch: D::Merkleized) -> D {
+-        let (db, sync) = D::finalize(db, batch).await.unwrap();
+-        sync.await.expect("finalize flush failed");
++    async fn apply_and_finalize<D: ManagedDb<deterministic::Context>>(
++        db: D,
++        batch: D::Merkleized,
++    ) -> D {
++        let db = D::apply(db, batch).await.unwrap();
++        let (db, sync) = D::finalize(db).await.unwrap();
++        sync.await.expect("database sync failed");
+         db
+     }
+ 
+@@ -1221,6 +1237,18 @@
+         Sequential,
+     >;
+ 
++    /// The unordered variable wrapper accepts variable-length keys.
++    type VariableDb = variable::Db<
++        mmr::Family,
++        deterministic::Context,
++        Vec<u8>,
++        Digest,
++        Sha256,
++        TwoCap,
++        64,
++        Sequential,
++    >;
++
+     const PAGE_SIZE: NonZeroU16 = NZU16!(101);
+     const PAGE_CACHE_SIZE: NonZeroUsize = NZUsize!(11);
+ 
+@@ -1232,6 +1260,7 @@
+                 metadata_partition: format!("stateful-current-metadata-{suffix}"),
+                 items_per_blob: NZU64!(11),
+                 write_buffer: NZUsize!(1024),
++                replay_buffer: NZUsize!(1024),
+                 strategy: Sequential,
+                 page_cache: page_cache.clone(),
+             },
+@@ -1240,6 +1269,7 @@
+                 items_per_blob: NZU64!(7),
+                 page_cache,
+                 write_buffer: NZUsize!(1024),
++                replay_buffer: NZUsize!(1024),
+             },
+             grafted_metadata_partition: format!("stateful-current-grafted-{suffix}"),
+             translator: TwoCap,
+@@ -1260,6 +1290,7 @@
+                 metadata_partition: format!("stateful-current-metadata-{suffix}"),
+                 items_per_blob: NZU64!(11),
+                 write_buffer: NZUsize!(1024),
++                replay_buffer: NZUsize!(1024),
+                 strategy: Sequential,
+                 page_cache: page_cache.clone(),
+             },
+@@ -1270,6 +1301,7 @@
+                 codec_config: ((), ()),
+                 page_cache,
+                 write_buffer: NZUsize!(1024),
++                replay_buffer: NZUsize!(1024),
+             },
+             grafted_metadata_partition: format!("stateful-current-grafted-{suffix}"),
+             translator: TwoCap,
+@@ -1300,7 +1332,14 @@
+     }
+ 
+     #[test]
+-    fn ordered_fixed_managed_db_finalizes_batch_and_proves_exclusion() {
++    fn variable_current_db_trait_impls_compile() {
++        assert_managed_db::<VariableDb>();
++        assert_state_sync_db::<VariableDb, Arc<VariableDb>>();
++        assert_database_set::<Shared<VariableDb>>();
++    }
++
++    #[test]
++    fn ordered_fixed_managed_db_applies_batch_and_proves_exclusion() {
+         deterministic::Runner::default().start(|context| async move {
+             let config = fixed_config("ordered-fixed-managed-db", &context);
+             let db = <OrderedFixedDb as ManagedDb<_>>::init(context.child("db"), config)
+@@ -1324,7 +1363,7 @@
+ 
+             {
+                 let (slot, database) = db.write().await;
+-                slot.put(finalize::<OrderedFixedDb>(database, merkleized).await);
++                slot.put(apply_and_finalize::<OrderedFixedDb>(database, merkleized).await);
+             }
+ 
+             let guard = db.read().await;
+@@ -1358,7 +1397,7 @@
+             let val = |i: u64| Sha256::hash(&[&(i + 10_000).to_be_bytes()]);
+             let metadata = Sha256::hash(&[b"metadata"]);
+ 
+-            // Seed keys 0..50 and finalize.
++            // Seed keys 0..50 and persist them.
+             let mut seed = db.new_batch_for_test::<_>().await;
+             for i in 0..50u64 {
+                 seed = seed.write(key(i), Some(val(i)));
+@@ -1368,7 +1407,7 @@
+                 .unwrap();
+             {
+                 let (slot, database) = db.write().await;
+-                slot.put(finalize::<OrderedFixedDb>(database, merkleized).await);
++                slot.put(apply_and_finalize::<OrderedFixedDb>(database, merkleized).await);
+             }
+ 
+             // Read set: key(1) updated, key(2) deleted, key(999) missing -> created.
+@@ -1423,7 +1462,7 @@
+     }
+ 
+     #[test]
+-    fn ordered_variable_managed_db_finalizes_batch_and_proves_exclusion() {
++    fn ordered_variable_managed_db_applies_batch_and_proves_exclusion() {
+         deterministic::Runner::default().start(|context| async move {
+             let config = variable_config("ordered-variable-managed-db", &context);
+             let db = <OrderedVariableDb as ManagedDb<_>>::init(context.child("db"), config)
+@@ -1447,7 +1486,7 @@
+ 
+             {
+                 let (slot, database) = db.write().await;
+-                slot.put(finalize::<OrderedVariableDb>(database, merkleized).await);
++                slot.put(apply_and_finalize::<OrderedVariableDb>(database, merkleized).await);
+             }
+ 
+             let guard = db.read().await;
+@@ -1540,7 +1579,7 @@
+                 .unwrap();
+             {
+                 let (slot, database) = db.write().await;
+-                slot.put(finalize::<OrderedFixedDb>(database, merkleized1).await);
++                slot.put(apply_and_finalize::<OrderedFixedDb>(database, merkleized1).await);
+             }
+             let target_after_first = {
+                 let guard = db.read().await;
+@@ -1560,7 +1599,7 @@
+                 .unwrap();
+             {
+                 let (slot, database) = db.write().await;
+-                slot.put(finalize::<OrderedFixedDb>(database, merkleized2).await);
++                slot.put(apply_and_finalize::<OrderedFixedDb>(database, merkleized2).await);
+             }
+ 
+             {

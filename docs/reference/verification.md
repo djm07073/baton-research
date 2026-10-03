@@ -12,7 +12,9 @@
 | Leader Baton | Threshold/deadline race, duplicate identity, stale context, incomplete Baton planning, cut ready first | Not run |
 | Non-leader Baton | Missed/late direction, missing body, order change, separated producer/executor roles | Not run |
 | Execution | Prefix reuse, input-state/runtime mismatch, canceled-job completion, partial-prefix commit | Not run |
-| QMDB recovery | Crash during commit, lost ACK, same-range redelivery, required checkpoint recovery after pruning | Not run |
+| Storage / QMDB | Sealed-parent forks vs rootless overlay; exact-prefix preparation; root/boundary determinism; valid-access fences through merkleize | Not run |
+| QMDB recovery | Crash during commit, lost ACK, same-range redelivery, state/output/cursor/provenance linkage and retained-checkpoint recovery | Not run |
+| Primitive adapters | Occupied/below-floor archive puts; local feedback vs custody; resolver cancellation; collector invalid-first-response slot and distinct validated signatures | Not run |
 
 See [proposal freeze](../e2e/leader.md#planning-completion-versus-proposal-freeze) and the [native recovery owner](../consensus/README.md#native-actors-and-source-layout) for leader/view/context changes. Old reports and advisory work cannot enter a new context; preserve authenticated interpretation and emitted canonical prefixes. Adoption, continuation, and recovery bridges still need implementation and proofs.
 

@@ -1,0 +1,268 @@
+[
+  {
+    "label": "tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "Cargo.toml",
+    "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/Cargo.toml",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/tempo/Cargo.toml",
+    "lines": 421
+  },
+  {
+    "label": "tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/alias.rs",
+    "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/alias.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/tempo/crates/consensus/src/alias.rs",
+    "lines": 460
+  },
+  {
+    "label": "tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/consensus/engine.rs",
+    "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/tempo/crates/consensus/src/consensus/engine.rs",
+    "lines": 588
+  },
+  {
+    "label": "tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/consensus/application/mod.rs",
+    "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/application/mod.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/tempo/crates/consensus/src/consensus/application/mod.rs",
+    "lines": 201
+  },
+  {
+    "label": "tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/consensus/application/impl.rs",
+    "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/application/impl.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/tempo/crates/consensus/src/consensus/application/impl.rs",
+    "lines": 635
+  },
+  {
+    "label": "tempo",
+    "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/consensus/block.rs",
+    "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/block.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/tempo/crates/consensus/src/consensus/block.rs",
+    "lines": 714
+  },
+  {
+    "label": "tempo",
+    "path": "crates/consensus/src/storage.rs",
+    "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/storage.rs",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "label": "tempo",
+    "path": "crates/consensus/src/storage/blocks.rs",
+    "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/storage/blocks.rs",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "label": "alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "Cargo.toml",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/Cargo.toml",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/alto/Cargo.toml",
+    "lines": 79
+  },
+  {
+    "label": "alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "chain/src/engine.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/alto/chain/src/engine.rs",
+    "lines": 518
+  },
+  {
+    "label": "alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "chain/src/application.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/application.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/alto/chain/src/application.rs",
+    "lines": 511
+  },
+  {
+    "label": "alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "follower/src/engine.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/follower/src/engine.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/alto/follower/src/engine.rs",
+    "lines": 264
+  },
+  {
+    "label": "alto",
+    "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "types/src/block.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/types/src/block.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/alto/types/src/block.rs",
+    "lines": 330
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/mod.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/mod.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/broadcast/src/buffered/mod.rs",
+    "lines": 1659
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/broadcast/src/buffered/engine.rs",
+    "lines": 460
+  },
+  {
+    "label": "native",
+    "path": "broadcast/src/buffered/mailbox.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/mailbox.rs",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/lib.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/lib.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/broadcast/src/lib.rs",
+    "lines": 32
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/mod.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/mod.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/mod.rs",
+    "lines": 153
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/store.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/store.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/store.rs",
+    "lines": 436
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/resolver/mod.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/resolver/mod.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/resolver/mod.rs",
+    "lines": 13
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/resolver/p2p.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/resolver/p2p.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/resolver/p2p.rs",
+    "lines": 87
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/standard/inline.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/standard/inline.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/standard/inline.rs",
+    "lines": 1684
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/standard/deferred.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/standard/deferred.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/standard/deferred.rs",
+    "lines": 1896
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/standard/relay.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/standard/relay.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/standard/relay.rs",
+    "lines": 41
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/core/variant.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/variant.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/core/variant.rs",
+    "lines": 248
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/core/actor.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/actor.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/core/actor.rs",
+    "lines": 2492
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/marshal/core/mailbox.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/mailbox.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/marshal/core/mailbox.rs",
+    "lines": 1786
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/lib.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/lib.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/lib.rs",
+    "lines": 342
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "resolver/src/lib.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/resolver/src/lib.rs",
+    "lines": 253
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "resolver/src/p2p/mod.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/resolver/src/p2p/mod.rs",
+    "lines": 4129
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "examples/reshare/src/validator.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/examples/reshare/src/validator.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/examples/reshare/src/validator.rs",
+    "lines": 457
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "examples/log-multimmit/src/main.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/examples/log-multimmit/src/main.rs",
+    "lines": 601
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "examples/log-multimmit/src/application/actor.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/application/actor.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/examples/log-multimmit/src/application/actor.rs",
+    "lines": 85
+  },
+  {
+    "label": "native",
+    "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "consensus/src/multimmit/engine.rs",
+    "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs",
+    "local": "assets/review/commonware-reuse-20261004/block-wave1/sources/native/consensus/src/multimmit/engine.rs",
+    "lines": 1676
+  }
+]

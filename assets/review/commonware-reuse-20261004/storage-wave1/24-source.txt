@@ -1,0 +1,737 @@
+# glue/src/stateful/db/p2p/actor.rs (v2026.9.0)
+
+```rust
+0: //! Resolver service actor for QMDB sync over P2P.
+1: 
+2: use super::{Mailbox, handler, mailbox, metrics::Metrics as ResolverMetrics};
+3: use crate::stateful::db::Shared;
+4: use commonware_actor::mailbox as actor_mailbox;
+5: use commonware_codec::{Codec, Decode, Encode};
+6: use commonware_cryptography::PublicKey;
+7: use commonware_macros::select_loop;
+8: use commonware_p2p::{Blocker, Provider, Receiver, Sender};
+9: use commonware_resolver::{Resolver as _, p2p};
+10: use commonware_runtime::{
+11:     BufferPooler, Clock, ContextCell, Handle, Metrics, Spawner, spawn_cell,
+12:     telemetry::metrics::{GaugeExt, status},
+13: };
+14: use commonware_storage::{
+15:     merkle::Family,
+16:     qmdb::sync::{Request, Response, Source},
+17: };
+18: use commonware_utils::channel::{fallible::OneshotExt, oneshot};
+19: use futures::future;
+20: use rand_core::Rng;
+21: use std::{
+22:     collections::BTreeMap,
+23:     num::{NonZeroU64, NonZeroUsize},
+24:     time::Duration,
+25: };
+26: use tracing::{debug, info};
+27: 
+28: type Op<DB> = <Shared<DB> as Source>::Op;
+29: type DatabaseRoot<DB> = <Shared<DB> as Source>::Digest;
+30: type SyncMailbox<F, DB> = Mailbox<DB, F, Op<DB>, DatabaseRoot<DB>>;
+31: type SyncMessage<F, DB> = mailbox::Message<DB, F, Op<DB>, DatabaseRoot<DB>>;
+32: type PendingSubs<F, DB> =
+33:     BTreeMap<Request<F>, Vec<mailbox::ResponseTx<F, Op<DB>, DatabaseRoot<DB>>>>;
+34: 
+35: /// Configuration for [`Actor`].
+36: pub struct Config<P, D, B, DB>
+37: where
+38:     P: PublicKey,
+39:     D: Provider<PublicKey = P>,
+40:     B: Blocker<PublicKey = P>,
+41: {
+42:     /// Provider for the current peer set.
+43:     pub peer_provider: D,
+44: 
+45:     /// Blocker used when peers send invalid data.
+46:     pub blocker: B,
+47: 
+48:     /// Local database used to serve incoming requests when available.
+49:     pub database: Option<Shared<DB>>,
+50: 
+51:     /// Maximum size of resolver mailbox backlogs.
+52:     pub mailbox_size: NonZeroUsize,
+53: 
+54:     /// Local node identity if available.
+55:     pub me: Option<P>,
+56: 
+57:     /// Request timeout.
+58:     pub timeout: Duration,
+59: 
+60:     /// Retry cadence for pending fetches.
+61:     pub fetch_retry_timeout: Duration,
+62: 
+63:     /// Maximum number of operations to serve in a single response.
+64:     pub max_serve_ops: NonZeroU64,
+65: 
+66:     /// Send fetch requests with network priority.
+67:     pub priority_requests: bool,
+68: 
+69:     /// Send responses with network priority.
+70:     pub priority_responses: bool,
+71: }
+72: 
+73: /// Runtime serving state for the resolver actor.
+74: enum State<DB> {
+75:     /// Database is not attached yet.
+76:     NoDb,
+77:     /// Database is attached and can serve incoming requests.
+78:     HasDb(Shared<DB>),
+79: }
+80: 
+81: /// An action dispatched by incoming mailbox messages.
+82: enum MailboxAction<F: Family> {
+83:     None,
+84:     Fetch(Request<F>),
+85:     Cancel(Request<F>),
+86: }
+87: 
+88: /// Runs a QMDB sync resolver service over `commonware_resolver::p2p::Engine`.
+89: pub struct Actor<E, P, D, B, F, DB>
+90: where
+91:     E: BufferPooler + Clock + Spawner + Rng + Metrics,
+92:     P: PublicKey,
+93:     D: Provider<PublicKey = P>,
+94:     B: Blocker<PublicKey = P>,
+95:     F: Family,
+96:     DB: Send + Sync + 'static,
+97:     Shared<DB>: Source<Family = F>,
+98:     Op<DB>: Codec<Cfg = ()> + Send + Clone + 'static,
+99: {
+100:     context: ContextCell<E>,
+101:     config: Config<P, D, B, DB>,
+102:     mailbox_rx: actor_mailbox::Receiver<SyncMessage<F, DB>>,
+103:     state: State<DB>,
+104:     metrics: ResolverMetrics,
+105:     pending: PendingSubs<F, DB>,
+106: }
+107: 
+108: impl<E, P, D, B, F, DB> Actor<E, P, D, B, F, DB>
+109: where
+110:     E: BufferPooler + Clock + Spawner + Rng + Metrics,
+111:     P: PublicKey,
+112:     D: Provider<PublicKey = P>,
+113:     B: Blocker<PublicKey = P>,
+114:     F: Family,
+115:     DB: Send + Sync + 'static,
+116:     Shared<DB>: Source<Family = F>,
+117:     Op<DB>: Codec<Cfg = ()> + Send + Clone + 'static,
+118: {
+119:     /// Create a new resolver actor and mailbox.
+120:     pub fn new(context: E, mut cfg: Config<P, D, B, DB>) -> (Self, SyncMailbox<F, DB>) {
+121:         let metrics = ResolverMetrics::new(&context);
+122:         let state = cfg.database.take().map_or(State::NoDb, |db| {
+123:             let _ = metrics.has_database.try_set(1i64);
+124:             State::HasDb(db)
+125:         });
+126:         let (mailbox_tx, mailbox_rx) =
+127:             actor_mailbox::new(context.child("mailbox"), cfg.mailbox_size);
+128:         let mailbox = Mailbox::new(mailbox_tx);
+129:         let actor = Self {
+130:             context: ContextCell::new(context),
+131:             config: cfg,
+132:             mailbox_rx,
+133:             state,
+134:             metrics,
+135:             pending: BTreeMap::new(),
+136:         };
+137:         (actor, mailbox)
+138:     }
+139: 
+140:     /// Start the resolver service.
+141:     pub fn start(
+142:         mut self,
+143:         net: (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>),
+144:     ) -> Handle<()> {
+145:         spawn_cell!(self.context, self.run(net))
+146:     }
+147: 
+148:     /// Main event loop: multiplexes mailbox messages and engine callbacks.
+149:     async fn run(
+150:         mut self,
+151:         (sender, receiver): (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>),
+152:     ) {
+153:         let (handler_tx, mut handler_rx) =
+154:             actor_mailbox::new(self.context.child("handler"), self.config.mailbox_size);
+155:         let handler = handler::Handler::new(handler_tx);
+156:         let (engine, mut resolver_mailbox) = p2p::Engine::new(
+157:             self.context.as_present().child("resolver"),
+158:             p2p::Config {
+159:                 peer_provider: self.config.peer_provider.clone(),
+160:                 blocker: self.config.blocker.clone(),
+161:                 consumer: handler.clone(),
+162:                 producer: handler,
+163:                 mailbox_size: self.config.mailbox_size,
+164:                 me: self.config.me.clone(),
+165:                 timeout: self.config.timeout,
+166:                 fetch_retry_timeout: self.config.fetch_retry_timeout,
+167:                 priority_requests: self.config.priority_requests,
+168:                 priority_responses: self.config.priority_responses,
+169:             },
+170:         );
+171:         let mut resolver_task = engine.start((sender, receiver));
+172: 
+173:         select_loop! {
+174:             self.context,
+175:             on_start => {
+176:                 self.pending.retain(|_, subs| {
+177:                     subs.retain(|s| !s.is_closed());
+178:                     !subs.is_empty()
+179:                 });
+180:                 let mailbox_message = async {
+181:                     match self.mailbox_rx.recv().await {
+182:                         Some(message) => Some(message),
+183:                         None => future::pending().await,
+184:                     }
+185:                 };
+186:             },
+187:             on_stopped => {
+188:                 return;
+189:             },
+190:             _ = &mut resolver_task => {
+191:                 return;
+192:             },
+193:             Some(message) = mailbox_message else continue => {
+194:                 match self.handle_mailbox_message(message) {
+195:                     MailboxAction::None => {}
+196:                     MailboxAction::Fetch(request) => {
+197:                         resolver_mailbox.fetch(request);
+198:                     }
+199:                     MailboxAction::Cancel(request) => {
+200:                         resolver_mailbox.retain(move |key, _| key != &request);
+201:                     }
+202:                 }
+203:             },
+204:             Some(message) = handler_rx.recv() else {
+205:                 return;
+206:             } => match message {
+207:                 handler::EngineMessage::Deliver {
+208:                     key,
+209:                     value,
+210:                     response,
+211:                 } => {
+212:                     self.handle_deliver(key, value, response).await;
+213:                 }
+214:                 handler::EngineMessage::Produce { key, response } => {
+215:                     self.handle_produce(key, response).await;
+216:                 }
+217:             },
+218:         }
+219:     }
+220: 
+221:     /// Process a mailbox message. Returns a request to fetch if a new key was registered.
+222:     fn handle_mailbox_message(&mut self, message: SyncMessage<F, DB>) -> MailboxAction<F> {
+223:         match message {
+224:             mailbox::Message::AttachDatabase(db) => {
+225:                 let replacing_existing = matches!(self.state, State::HasDb(_));
+226:                 info!(replacing_existing, "attached resolver database");
+227:                 self.state = State::HasDb(db);
+228:                 let _ = self.metrics.has_database.try_set(1i64);
+229:                 MailboxAction::None
+230:             }
+231:             mailbox::Message::GetOperations { request, response } => {
+232:                 if let Some(subscribers) = self.pending.get_mut(&request) {
+233:                     subscribers.retain(|subscriber| !subscriber.is_closed());
+234:                     if !subscribers.is_empty() {
+235:                         subscribers.push(response);
+236:                         return MailboxAction::None;
+237:                     }
+238:                 }
+239:                 self.pending.insert(request, vec![response]);
+240:                 self.metrics.fetch_requests.inc();
+241:                 let _ = self.metrics.pending_requests.try_set(self.pending.len());
+242:                 MailboxAction::Fetch(request)
+243:             }
+244:             mailbox::Message::CancelOperations { request } => {
+245:                 if self.should_cancel_request(&request) {
+246:                     self.metrics.cancel_requests.inc();
+247:                     let _ = self.metrics.pending_requests.try_set(self.pending.len());
+248:                     MailboxAction::Cancel(request)
+249:                 } else {
+250:                     MailboxAction::None
+251:                 }
+252:             }
+253:         }
+254:     }
+255: 
+256:     /// Returns `true` if a request should be cancelled.
+257:     fn should_cancel_request(&mut self, request: &Request<F>) -> bool {
+258:         let Some(subscribers) = self.pending.get_mut(request) else {
+259:             return true;
+260:         };
+261:         subscribers.retain(|subscriber| !subscriber.is_closed());
+262:         if !subscribers.is_empty() {
+263:             return false;
+264:         }
+265:         self.pending.remove(request);
+266:         true
+267:     }
+268: 
+269:     /// Decode a peer's response, fan it out to pending subscribers, and aggregate approvals.
+270:     async fn handle_deliver(
+271:         &mut self,
+272:         key: Request<F>,
+273:         value: bytes::Bytes,
+274:         feedback_tx: oneshot::Sender<bool>,
+275:     ) {
+276:         // Only accept responses for keys we currently have in-flight.
+277:         // Unknown keys are unsolicited/stale deliveries and are ignored.
+278:         let Some(subscribers) = self.pending.remove(&key) else {
+279:             self.metrics.deliveries.inc(status::Status::Dropped);
+280:             feedback_tx.send_lossy(true);
+281:             return;
+282:         };
+283:         let _ = self.metrics.pending_requests.try_set(self.pending.len());
+284: 
+285:         let cfg = (key.max_ops().get() as usize, ());
+286:         let response = match Response::<F, Op<DB>, DatabaseRoot<DB>>::decode_cfg(value, &cfg) {
+287:             Ok(response)
+288:                 if matches!(
+289:                     (&key, &response),
+290:                     (Request::Operations { .. }, Response::Operations { .. })
+291:                         | (Request::Boundary { .. }, Response::Boundary { .. })
+292:                 ) =>
+293:             {
+294:                 response
+295:             }
+296:             _ => {
+297:                 self.pending.insert(key, subscribers);
+298:                 let _ = self.metrics.pending_requests.try_set(self.pending.len());
+299:                 self.metrics.deliveries.inc(status::Status::Invalid);
+300:                 feedback_tx.send_lossy(false);
+301:                 return;
+302:             }
+303:         };
+304: 
+305:         let mut approvals = Vec::new();
+306:         for subscriber in subscribers {
+307:             let (success_tx, success_rx) = oneshot::channel();
+308:             if subscriber
+309:                 .send((response.clone(), Some(success_tx)))
+310:                 .is_err()
+311:             {
+312:                 continue;
+313:             }
+314:             approvals.push(success_rx);
+315:         }
+316: 
+317:         if approvals.is_empty() {
+318:             self.metrics.deliveries.inc(status::Status::Success);
+319:             feedback_tx.send_lossy(true);
+320:             return;
+321:         }
+322: 
+323:         let mut peer_valid = true;
+324:         for approval in approvals {
+325:             if let Ok(approved) = approval.await {
+326:                 peer_valid &= approved;
+327:             }
+328:         }
+329: 
+330:         if peer_valid {
+331:             self.metrics.deliveries.inc(status::Status::Success);
+332:         } else {
+333:             self.metrics.deliveries.inc(status::Status::Failure);
+334:             debug!(?key, "downstream marked response as peer-invalid");
+335:         }
+336:         feedback_tx.send_lossy(peer_valid);
+337:     }
+338: 
+339:     /// Serve a peer's request by querying the local database.
+340:     async fn handle_produce(
+341:         &mut self,
+342:         key: Request<F>,
+343:         response_tx: oneshot::Sender<bytes::Bytes>,
+344:     ) {
+345:         let State::HasDb(database) = &self.state else {
+346:             self.metrics.serve_requests.inc(status::Status::Dropped);
+347:             return;
+348:         };
+349:         if let Request::Operations { max_ops, .. } = key
+350:             && max_ops > self.config.max_serve_ops
+351:         {
+352:             self.metrics.serve_requests.inc(status::Status::Dropped);
+353:             return;
+354:         }
+355:         let result = database.serve(key).await;
+356: 
+357:         let Ok((response, _feedback_tx)) = result else {
+358:             self.metrics.serve_requests.inc(status::Status::Failure);
+359:             return;
+360:         };
+361: 
+362:         response_tx.send_lossy(response.encode());
+363:         self.metrics.serve_requests.inc(status::Status::Success);
+364:     }
+365: }
+366: 
+367: #[cfg(test)]
+368: mod tests {
+369:     use super::*;
+370:     use bytes::Bytes;
+371:     use commonware_cryptography::{Sha256, ed25519, sha256};
+372:     use commonware_p2p::{Provider, TrackedPeers};
+373:     use commonware_parallel::Sequential;
+374:     use commonware_runtime::{
+375:         BufferPooler, Runner as _, Supervisor as _, buffer::paged::CacheRef, deterministic,
+376:     };
+377:     use commonware_storage::{
+378:         journal::contiguous::fixed::Config as FixedLogConfig,
+379:         mmr::{self, Location, Proof, full::Config as MmrJournalConfig},
+380:         qmdb::any::{FixedConfig, unordered::fixed},
+381:         translator::TwoCap,
+382:     };
+383:     use commonware_utils::{NZU16, NZU64, NZUsize, channel::oneshot};
+384:     use std::time::Duration;
+385: 
+386:     #[derive(Clone, Debug)]
+387:     struct DummyProvider;
+388: 
+389:     impl Provider for DummyProvider {
+390:         type PublicKey = ed25519::PublicKey;
+391: 
+392:         async fn peer_set(&mut self, _id: u64) -> Option<TrackedPeers<Self::PublicKey>> {
+393:             None
+394:         }
+395: 
+396:         async fn subscribe(&mut self) -> commonware_p2p::PeerSetSubscription<Self::PublicKey> {
+397:             let (_tx, rx) = commonware_utils::channel::mpsc::unbounded_channel();
+398:             rx
+399:         }
+400:     }
+401: 
+402:     #[derive(Clone)]
+403:     struct DummyBlocker;
+404: 
+405:     impl commonware_p2p::Blocker for DummyBlocker {
+406:         type PublicKey = ed25519::PublicKey;
+407: 
+408:         fn block(&mut self, _peer: Self::PublicKey) -> commonware_actor::Feedback {
+409:             commonware_actor::Feedback::Ok
+410:         }
+411: 
+412:         fn blocked(&mut self) -> commonware_p2p::BlockedSubscription<Self::PublicKey> {
+413:             let (_, receiver) =
+414:                 commonware_utils::channel::ring::channel(commonware_utils::NZUsize!(1));
+415:             receiver
+416:         }
+417:     }
+418: 
+419:     type TestDb = fixed::Db<
+420:         mmr::Family,
+421:         deterministic::Context,
+422:         sha256::Digest,
+423:         sha256::Digest,
+424:         Sha256,
+425:         TwoCap,
+426:         Sequential,
+427:     >;
+428:     type TestOp = <Shared<TestDb> as Source>::Op;
+429: 
+430:     type TestActor = Actor<
+431:         deterministic::Context,
+432:         ed25519::PublicKey,
+433:         DummyProvider,
+434:         DummyBlocker,
+435:         mmr::Family,
+436:         TestDb,
+437:     >;
+438: 
+439:     fn test_config(
+440:         database: Option<Shared<TestDb>>,
+441:     ) -> Config<ed25519::PublicKey, DummyProvider, DummyBlocker, TestDb> {
+442:         Config {
+443:             peer_provider: DummyProvider,
+444:             blocker: DummyBlocker,
+445:             database,
+446:             mailbox_size: NZUsize!(16),
+447:             me: None,
+448:             timeout: Duration::from_millis(10),
+449:             fetch_retry_timeout: Duration::from_millis(10),
+450:             max_serve_ops: NZU64!(16),
+451:             priority_requests: false,
+452:             priority_responses: false,
+453:         }
+454:     }
+455: 
+456:     fn test_request_at(size: Location) -> Request<mmr::Family> {
+457:         Request::Operations {
+458:             size,
+459:             start: Location::new(0),
+460:             max_ops: NZU64!(1),
+461:         }
+462:     }
+463: 
+464:     type TestPending = mailbox::ResponseTx<mmr::Family, TestOp, sha256::Digest>;
+465:     type TestPendingResult = oneshot::Receiver<(
+466:         Response<mmr::Family, TestOp, sha256::Digest>,
+467:         commonware_storage::qmdb::sync::FeedbackTx,
+468:     )>;
+469: 
+470:     fn test_subscriber() -> (TestPending, TestPendingResult) {
+471:         oneshot::channel()
+472:     }
+473: 
+474:     fn db_config(suffix: &str, pooler: &impl BufferPooler) -> FixedConfig<TwoCap, Sequential> {
+475:         let page_cache = CacheRef::from_pooler(pooler, NZU16!(101), NZUsize!(11));
+476:         FixedConfig {
+477:             merkle_config: MmrJournalConfig {
+478:                 journal_partition: format!("{suffix}-mmr-journal"),
+479:                 metadata_partition: format!("{suffix}-mmr-metadata"),
+480:                 items_per_blob: NZU64!(11),
+481:                 write_buffer: NZUsize!(1024),
+482:                 replay_buffer: NZUsize!(1024),
+483:                 strategy: Sequential,
+484:                 page_cache: page_cache.clone(),
+485:             },
+486:             journal_config: FixedLogConfig {
+487:                 partition: format!("{suffix}-log-journal"),
+488:                 items_per_blob: NZU64!(7),
+489:                 page_cache,
+490:                 write_buffer: NZUsize!(1024),
+491:                 replay_buffer: NZUsize!(1024),
+492:             },
+493:             translator: TwoCap,
+494:             init_cache_size: Some(NZUsize!(1024)),
+495:             init_buffer: NZUsize!(1 << 21),
+496:             init_concurrency: (),
+497:         }
+498:     }
+499: 
+500:     async fn init_db(context: deterministic::Context, suffix: &str) -> Shared<TestDb> {
+501:         let db = TestDb::init(context.child("db"), db_config(suffix, &context))
+502:             .await
+503:             .expect("db init should succeed");
+504:         Shared::new("test", db)
+505:     }
+506: 
+507:     fn encoded_fetch_payload() -> Bytes {
+508:         Response::<mmr::Family, TestOp, sha256::Digest>::Operations {
+509:             proof: Proof {
+510:                 leaves: Location::new(0),
+511:                 inactive_peaks: 0,
+512:                 digests: Vec::new(),
+513:             },
+514:             operations: Vec::new(),
+515:         }
+516:         .encode()
+517:     }
+518: 
+519:     #[test]
+520:     fn produce_denied_before_attach() {
+521:         deterministic::Runner::default().start(|context| async move {
+522:             let (mut actor, _mailbox) = TestActor::new(context.child("actor"), test_config(None));
+523: 
+524:             let (response_tx, response_rx) = oneshot::channel();
+525:             actor
+526:                 .handle_produce(test_request_at(Location::new(1)), response_tx)
+527:                 .await;
+528:             assert!(response_rx.await.is_err());
+529:         });
+530:     }
+531: 
+532:     #[test]
+533:     fn same_request_served_after_attach() {
+534:         deterministic::Runner::default().start(|context| async move {
+535:             let (mut actor, _mailbox) = TestActor::new(context.child("actor"), test_config(None));
+536:             let db = init_db(context.child("resolver_db"), "resolver-after-attach").await;
+537:             let size = db.read().await.bounds().end;
+538:             actor.handle_mailbox_message(mailbox::Message::AttachDatabase(db));
+539: 
+540:             let (response_tx, response_rx) = oneshot::channel();
+541:             actor
+542:                 .handle_produce(test_request_at(size), response_tx)
+543:                 .await;
+544: 
+545:             let payload = response_rx
+546:                 .await
+547:                 .expect("response should be available after attach");
+548:             assert!(!payload.is_empty());
+549:         });
+550:     }
+551: 
+552:     #[test]
+553:     fn produce_rejects_request_above_max_serve_ops() {
+554:         deterministic::Runner::default().start(|context| async move {
+555:             let (mut actor, _mailbox) = TestActor::new(context.child("actor"), test_config(None));
+556:             let db = init_db(context.child("resolver_db"), "resolver-unbounded-max-ops").await;
+557:             let size = db.read().await.bounds().end;
+558:             actor.handle_mailbox_message(mailbox::Message::AttachDatabase(db));
+559: 
+560:             let request = Request::Operations {
+561:                 size,
+562:                 start: Location::new(0),
+563:                 max_ops: NZU64!(1_000),
+564:             };
+565:             let (response_tx, response_rx) = oneshot::channel();
+566:             actor.handle_produce(request, response_tx).await;
+567: 
+568:             assert!(response_rx.await.is_err());
+569:         });
+570:     }
+571: 
+572:     #[test]
+573:     fn deliver_with_dropped_response_receiver_is_treated_as_valid() {
+574:         deterministic::Runner::default().start(|context| async move {
+575:             let (mut actor, _mailbox) = TestActor::new(context, test_config(None));
+576:             let request = test_request_at(Location::new(1));
+577: 
+578:             let (subscriber_tx, subscriber_rx) = test_subscriber();
+579:             drop(subscriber_rx);
+580:             actor.pending.insert(request, vec![subscriber_tx]);
+581: 
+582:             let (ack_tx, ack_rx) = oneshot::channel();
+583:             actor
+584:                 .handle_deliver(request, encoded_fetch_payload(), ack_tx)
+585:                 .await;
+586: 
+587:             assert!(ack_rx.await.unwrap());
+588:         });
+589:     }
+590: 
+591:     #[test]
+592:     fn deliver_with_rejected_subscriber_blocks_peer() {
+593:         deterministic::Runner::default().start(|context| async move {
+594:             let (mut actor, _mailbox) = TestActor::new(context, test_config(None));
+595:             let request = test_request_at(Location::new(1));
+596: 
+597:             let (sub1_tx, sub1_rx) = test_subscriber();
+598:             let (sub2_tx, sub2_rx) = test_subscriber();
+599:             actor.pending.insert(request, vec![sub1_tx, sub2_tx]);
+600: 
+601:             let (ack_tx, ack_rx) = oneshot::channel();
+602:             futures::join!(
+603:                 actor.handle_deliver(request, encoded_fetch_payload(), ack_tx),
+604:                 async {
+605:                     let (_response, feedback_tx) = sub1_rx.await.unwrap();
+606:                     feedback_tx
+607:                         .expect("deliveries should include feedback")
+608:                         .send(true)
+609:                         .unwrap();
+610:                 },
+611:                 async {
+612:                     let (_response, feedback_tx) = sub2_rx.await.unwrap();
+613:                     feedback_tx
+614:                         .expect("deliveries should include feedback")
+615:                         .send(false)
+616:                         .unwrap();
+617:                 }
+618:             );
+619: 
+620:             assert!(!ack_rx.await.unwrap());
+621:         });
+622:     }
+623: 
+624:     #[test]
+625:     fn deliver_ignores_dropped_subscriber_approval() {
+626:         deterministic::Runner::default().start(|context| async move {
+627:             let (mut actor, _mailbox) = TestActor::new(context, test_config(None));
+628:             let request = test_request_at(Location::new(1));
+629: 
+630:             let (sub1_tx, sub1_rx) = test_subscriber();
+631:             let (sub2_tx, sub2_rx) = test_subscriber();
+632:             actor.pending.insert(request, vec![sub1_tx, sub2_tx]);
+633: 
+634:             let (ack_tx, ack_rx) = oneshot::channel();
+635:             futures::join!(
+636:                 actor.handle_deliver(request, encoded_fetch_payload(), ack_tx),
+637:                 async {
+638:                     let fetch = sub1_rx.await.unwrap();
+639:                     drop(fetch);
+640:                 },
+641:                 async {
+642:                     let (_response, feedback_tx) = sub2_rx.await.unwrap();
+643:                     feedback_tx
+644:                         .expect("deliveries should include feedback")
+645:                         .send(true)
+646:                         .unwrap();
+647:                 }
+648:             );
+649: 
+650:             assert!(ack_rx.await.unwrap());
+651:         });
+652:     }
+653: 
+654:     #[test]
+655:     fn failed_then_deliver_clears_pending_and_allows_retry() {
+656:         deterministic::Runner::default().start(|context| async move {
+657:             let (mut actor, _mailbox) = TestActor::new(context, test_config(None));
+658:             let request = test_request_at(Location::new(1));
+659: 
+660:             let (subscriber_tx, _subscriber_rx) = test_subscriber();
+661:             actor.pending.insert(request, vec![subscriber_tx]);
+662:             actor.pending.remove(&request);
+663:             assert!(!actor.pending.contains_key(&request));
+664: 
+665:             let (ack_tx, ack_rx) = oneshot::channel();
+666:             actor
+667:                 .handle_deliver(request, Bytes::from_static(b"late-response"), ack_tx)
+668:                 .await;
+669:             assert!(ack_rx.await.unwrap());
+670:         });
+671:     }
+672: 
+673:     #[test]
+674:     fn get_operations_refetches_when_pending_subscribers_are_closed() {
+675:         deterministic::Runner::default().start(|context| async move {
+676:             let (mut actor, _mailbox) = TestActor::new(context, test_config(None));
+677:             let request = test_request_at(Location::new(1));
+678: 
+679:             let (stale_tx, stale_rx) = test_subscriber();
+680:             drop(stale_rx);
+681:             actor.pending.insert(request, vec![stale_tx]);
+682: 
+683:             let (fresh_tx, _fresh_rx) = test_subscriber();
+684:             let action = actor.handle_mailbox_message(mailbox::Message::GetOperations {
+685:                 request,
+686:                 response: fresh_tx,
+687:             });
+688: 
+689:             assert!(matches!(action, MailboxAction::Fetch(ref key) if key == &request));
+690:             let pending = actor.pending.get(&request).unwrap();
+691:             assert_eq!(pending.len(), 1);
+692:             assert!(!pending[0].is_closed());
+693:         });
+694:     }
+695: 
+696:     #[test]
+697:     fn deliver_rejects_answer_shaped_unlike_its_question() {
+698:         deterministic::Runner::default().start(|context| async move {
+699:             let (mut actor, _mailbox) = TestActor::new(context, test_config(None));
+700:             let request = Request::Boundary {
+701:                 size: Location::new(1),
+702:                 start: Location::new(0),
+703:             };
+704:             let (sub_tx, mut sub_rx) = test_subscriber();
+705:             actor.pending.insert(request, vec![sub_tx]);
+706: 
+707:             // An operations-shaped answer to a boundary request decodes but does not match.
+708:             let (feedback_tx, validity_rx) = oneshot::channel();
+709:             actor
+710:                 .handle_deliver(request, encoded_fetch_payload(), feedback_tx)
+711:                 .await;
+712: 
+713:             assert!(!validity_rx.await.unwrap());
+714:             assert!(actor.pending.contains_key(&request));
+715:             assert!(sub_rx.try_recv().is_err());
+716:         });
+717:     }
+718: 
+719:     #[test]
+720:     fn cancel_operations_cancels_pruned_request() {
+721:         deterministic::Runner::default().start(|context| async move {
+722:             let (mut actor, _mailbox) = TestActor::new(context, test_config(None));
+723:             let request = test_request_at(Location::new(1));
+724: 
+725:             let action =
+726:                 actor.handle_mailbox_message(mailbox::Message::CancelOperations { request });
+727: 
+728:             assert!(matches!(action, MailboxAction::Cancel(ref key) if key == &request));
+729:         });
+730:     }
+731: }
+732: 
+```

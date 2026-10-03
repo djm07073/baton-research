@@ -1,0 +1,384 @@
+# storage/src/qmdb/sync/target.rs (v2026.9.0)
+
+```rust
+0: use crate::{
+1:     merkle::{Family, Location},
+2:     qmdb::sync::error::EngineError,
+3: };
+4: use commonware_codec::{EncodeSize, Error as CodecError, Read, ReadExt as _, Write};
+5: use commonware_cryptography::Digest;
+6: use commonware_runtime::{Buf, BufMut};
+7: use commonware_utils::{non_empty_range, range::NonEmptyRange};
+8: 
+9: /// Target state to sync to.
+10: ///
+11: /// `PartialEq`, `Eq`, and `Clone` are implemented manually to avoid requiring `F` to implement
+12: /// them.
+13: #[derive(Debug)]
+14: pub struct Target<F: Family, D: Digest> {
+15:     /// The ops root the sync engine verifies streaming batches against.
+16:     pub root: D,
+17:     /// Range of operations to sync
+18:     pub range: NonEmptyRange<Location<F>>,
+19: }
+20: 
+21: impl<F: Family, D: Digest> Target<F, D> {
+22:     /// Create a sync target.
+23:     pub const fn new(root: D, range: NonEmptyRange<Location<F>>) -> Self {
+24:         Self { root, range }
+25:     }
+26: 
+27:     /// Whether this target advances relative to `from`.
+28:     ///
+29:     /// Both targets are assumed to describe valid states of the same append-only QMDB. Because
+30:     /// the root commits to the database size, valid targets at different sizes have distinct
+31:     /// roots.
+32:     pub fn advances(&self, from: &Self) -> bool {
+33:         self.range.end().is_valid()
+34:             && self.range.end() > from.range.end()
+35:             && self.range.start() >= from.range.start()
+36:     }
+37: }
+38: 
+39: impl<F: Family, D: Digest> Clone for Target<F, D> {
+40:     fn clone(&self) -> Self {
+41:         Self {
+42:             root: self.root,
+43:             range: self.range.clone(),
+44:         }
+45:     }
+46: }
+47: 
+48: impl<F: Family, D: Digest> PartialEq for Target<F, D> {
+49:     fn eq(&self, other: &Self) -> bool {
+50:         self.root == other.root && self.range == other.range
+51:     }
+52: }
+53: 
+54: impl<F: Family, D: Digest> Eq for Target<F, D> {}
+55: 
+56: impl<F: Family, D: Digest> Write for Target<F, D> {
+57:     fn write(&self, buf: &mut impl BufMut) {
+58:         self.root.write(buf);
+59:         self.range.write(buf);
+60:     }
+61: }
+62: 
+63: impl<F: Family, D: Digest> EncodeSize for Target<F, D> {
+64:     fn encode_size(&self) -> usize {
+65:         self.root.encode_size() + self.range.encode_size()
+66:     }
+67: }
+68: 
+69: impl<F: Family, D: Digest> Read for Target<F, D> {
+70:     type Cfg = ();
+71: 
+72:     fn read_cfg(buf: &mut impl Buf, _: &()) -> Result<Self, CodecError> {
+73:         let root = D::read(buf)?;
+74:         let range = NonEmptyRange::<Location<F>>::read(buf)?;
+75:         if !range.start().is_valid() || !range.end().is_valid() {
+76:             return Err(CodecError::Invalid(
+77:                 "storage::qmdb::sync::Target",
+78:                 "range bounds out of valid range",
+79:             ));
+80:         }
+81:         Ok(Self { root, range })
+82:     }
+83: }
+84: 
+85: #[cfg(feature = "arbitrary")]
+86: impl<F: Family, D: Digest> arbitrary::Arbitrary<'_> for Target<F, D>
+87: where
+88:     D: for<'a> arbitrary::Arbitrary<'a>,
+89: {
+90:     fn arbitrary(u: &mut arbitrary::Unstructured<'_>) -> arbitrary::Result<Self> {
+91:         let root = u.arbitrary()?;
+92:         let max_loc = F::MAX_LEAVES;
+93:         let lower = u.int_in_range(0..=*max_loc - 1)?;
+94:         let upper = u.int_in_range(lower + 1..=*max_loc)?;
+95:         Ok(Self {
+96:             root,
+97:             range: commonware_utils::non_empty_range!(Location::new(lower), Location::new(upper)),
+98:         })
+99:     }
+100: }
+101: 
+102: /// Target state for syncing to a compact-storage database.
+103: #[derive(Debug)]
+104: pub struct CompactTarget<F: Family, D: Digest> {
+105:     /// Target database root.
+106:     pub root: D,
+107:     /// Target database size.
+108:     pub size: Location<F>,
+109: }
+110: 
+111: impl<F: Family, D: Digest> TryFrom<&CompactTarget<F, D>> for Target<F, D> {
+112:     type Error = EngineError<F, D>;
+113: 
+114:     fn try_from(target: &CompactTarget<F, D>) -> Result<Self, Self::Error> {
+115:         let end = target.size;
+116:         let start =
+117:             end.checked_sub(1)
+118:                 .filter(|_| end.is_valid())
+119:                 .ok_or(EngineError::InvalidTarget {
+120:                     lower_bound_pos: Location::new(0),
+121:                     upper_bound_pos: end,
+122:                 })?;
+123:         Ok(Self {
+124:             root: target.root,
+125:             range: non_empty_range!(start, end),
+126:         })
+127:     }
+128: }
+129: 
+130: impl<F: Family, D: Digest> Clone for CompactTarget<F, D> {
+131:     fn clone(&self) -> Self {
+132:         Self {
+133:             root: self.root,
+134:             size: self.size,
+135:         }
+136:     }
+137: }
+138: 
+139: impl<F: Family, D: Digest> PartialEq for CompactTarget<F, D> {
+140:     fn eq(&self, other: &Self) -> bool {
+141:         self.root == other.root && self.size == other.size
+142:     }
+143: }
+144: 
+145: impl<F: Family, D: Digest> Eq for CompactTarget<F, D> {}
+146: 
+147: impl<F: Family, D: Digest> Write for CompactTarget<F, D> {
+148:     fn write(&self, buf: &mut impl BufMut) {
+149:         self.root.write(buf);
+150:         self.size.write(buf);
+151:     }
+152: }
+153: 
+154: impl<F: Family, D: Digest> EncodeSize for CompactTarget<F, D> {
+155:     fn encode_size(&self) -> usize {
+156:         self.root.encode_size() + self.size.encode_size()
+157:     }
+158: }
+159: 
+160: impl<F: Family, D: Digest> Read for CompactTarget<F, D> {
+161:     type Cfg = ();
+162: 
+163:     fn read_cfg(buf: &mut impl Buf, _: &()) -> Result<Self, CodecError> {
+164:         let root = D::read(buf)?;
+165:         let size = Location::<F>::read(buf)?;
+166:         if !size.is_valid() || size == 0 {
+167:             return Err(CodecError::Invalid(
+168:                 "storage::qmdb::sync::CompactTarget",
+169:                 "size must be in 1..=MAX_LEAVES",
+170:             ));
+171:         }
+172:         Ok(Self { root, size })
+173:     }
+174: }
+175: 
+176: #[cfg(feature = "arbitrary")]
+177: impl<F: Family, D: Digest> arbitrary::Arbitrary<'_> for CompactTarget<F, D>
+178: where
+179:     D: for<'a> arbitrary::Arbitrary<'a>,
+180: {
+181:     fn arbitrary(u: &mut arbitrary::Unstructured<'_>) -> arbitrary::Result<Self> {
+182:         let root = u.arbitrary()?;
+183:         let size = Location::new(u.int_in_range(1..=*F::MAX_LEAVES)?);
+184:         Ok(Self { root, size })
+185:     }
+186: }
+187: 
+188: #[cfg(test)]
+189: // The unit tests use `MmrFamily` only. The codec and predicates are family-agnostic (the
+190: // family only influences `Location::is_valid` via `F::MAX_LEAVES` and the `arbitrary` range
+191: // picker), so an MMB variant would duplicate coverage. Codec conformance covers both families.
+192: mod tests {
+193:     use super::*;
+194:     use crate::merkle::mmr::Family as MmrFamily;
+195:     use commonware_codec::{DecodeExt as _, Encode as _};
+196:     use commonware_cryptography::sha256;
+197:     use commonware_utils::non_empty_range;
+198:     use std::io::Cursor;
+199: 
+200:     fn target(root: sha256::Digest, start: u64, end: u64) -> Target<MmrFamily, sha256::Digest> {
+201:         Target::new(
+202:             root,
+203:             non_empty_range!(Location::new(start), Location::new(end)),
+204:         )
+205:     }
+206: 
+207:     #[test]
+208:     fn test_sync_target_serialization() {
+209:         let target = target(sha256::Digest::from([42; 32]), 100, 500);
+210: 
+211:         // Serialize
+212:         let mut buffer = Vec::new();
+213:         target.write(&mut buffer);
+214: 
+215:         // Verify encoded size matches actual size
+216:         assert_eq!(buffer.len(), target.encode_size());
+217: 
+218:         // Deserialize
+219:         let mut cursor = Cursor::new(buffer);
+220:         let deserialized = Target::read(&mut cursor).unwrap();
+221: 
+222:         // Verify
+223:         assert_eq!(target, deserialized);
+224:         assert_eq!(target.root, deserialized.root);
+225:         assert_eq!(target.range, deserialized.range);
+226:     }
+227: 
+228:     #[test]
+229:     fn test_sync_target_read_invalid_bounds() {
+230:         // Manually encode root + two Locations with reversed bounds
+231:         let mut buffer = Vec::new();
+232:         sha256::Digest::from([42; 32]).write(&mut buffer);
+233:         Location::<MmrFamily>::new(100).write(&mut buffer); // start
+234:         Location::<MmrFamily>::new(50).write(&mut buffer); // end (< start = invalid)
+235: 
+236:         let mut cursor = Cursor::new(buffer);
+237:         assert!(matches!(
+238:             Target::<MmrFamily, sha256::Digest>::read(&mut cursor),
+239:             Err(CodecError::Invalid("NonEmptyRange", "start must be < end"))
+240:         ));
+241: 
+242:         // Manually encode a target with an empty range (start == end)
+243:         let root = sha256::Digest::from([42; 32]);
+244:         let mut buffer = Vec::new();
+245:         root.write(&mut buffer);
+246:         Location::<MmrFamily>::new(100).write(&mut buffer);
+247:         Location::<MmrFamily>::new(100).write(&mut buffer);
+248: 
+249:         let mut cursor = Cursor::new(buffer);
+250:         assert!(matches!(
+251:             Target::<MmrFamily, sha256::Digest>::read(&mut cursor),
+252:             Err(CodecError::Invalid("NonEmptyRange", "start must be < end"))
+253:         ));
+254:     }
+255: 
+256:     #[test]
+257:     fn test_compact_target_decode_rejects_zero_size() {
+258:         let unused_root = sha256::Digest::from([42; 32]);
+259:         let encoded = CompactTarget::<MmrFamily, sha256::Digest> {
+260:             root: unused_root,
+261:             size: Location::new(0),
+262:         }
+263:         .encode();
+264: 
+265:         assert!(CompactTarget::<MmrFamily, sha256::Digest>::decode(encoded).is_err());
+266:     }
+267: 
+268:     #[test]
+269:     fn test_advances() {
+270:         let current_root = sha256::Digest::from([0; 32]);
+271:         let advanced_root = sha256::Digest::from([1; 32]);
+272:         let current = target(current_root, 10, 100);
+273: 
+274:         // End strictly increases, start does not decrease.
+275:         assert!(target(advanced_root, 10, 101).advances(&current));
+276:         assert!(target(advanced_root, 50, 200).advances(&current));
+277: 
+278:         // Same or smaller end does not advance.
+279:         assert!(!target(current_root, 10, 100).advances(&current));
+280:         assert!(!target(current_root, 10, 50).advances(&current));
+281: 
+282:         // A start moving backward does not advance, even with a larger end.
+283:         assert!(!target(advanced_root, 5, 200).advances(&current));
+284: 
+285:         // An end outside the location domain does not advance.
+286:         let beyond = target(advanced_root, 10, *MmrFamily::MAX_LEAVES + 1);
+287:         assert!(!beyond.advances(&current));
+288:     }
+289: 
+290:     #[test]
+291:     fn test_compact_target_serialization() {
+292:         let target = CompactTarget::<MmrFamily, sha256::Digest> {
+293:             root: sha256::Digest::from([42; 32]),
+294:             size: Location::new(100),
+295:         };
+296: 
+297:         let mut buffer = Vec::new();
+298:         target.write(&mut buffer);
+299:         assert_eq!(buffer.len(), target.encode_size());
+300: 
+301:         let mut cursor = Cursor::new(buffer);
+302:         let deserialized = CompactTarget::read(&mut cursor).unwrap();
+303:         assert_eq!(target, deserialized);
+304:         assert_eq!(target.root, deserialized.root);
+305:         assert_eq!(target.size, deserialized.size);
+306:     }
+307: 
+308:     #[test]
+309:     fn test_compact_target_decode_rejects_size_beyond_domain() {
+310:         let mut buffer = Vec::new();
+311:         sha256::Digest::from([42; 32]).write(&mut buffer);
+312:         Location::<MmrFamily>::new(*MmrFamily::MAX_LEAVES + 1).write(&mut buffer);
+313: 
+314:         let mut cursor = Cursor::new(buffer);
+315:         assert!(matches!(
+316:             CompactTarget::<MmrFamily, sha256::Digest>::read(&mut cursor),
+317:             Err(CodecError::Invalid(_, _))
+318:         ));
+319:     }
+320: 
+321:     #[test]
+322:     fn test_compact_target_to_ranged() {
+323:         let root = sha256::Digest::from([42; 32]);
+324: 
+325:         // The derived range replays the one operation ending at the target.
+326:         let compact = CompactTarget::<MmrFamily, _> {
+327:             root,
+328:             size: Location::new(100),
+329:         };
+330:         let ranged = Target::try_from(&compact).unwrap();
+331:         assert_eq!(ranged.root, root);
+332:         assert_eq!(ranged.range.start(), Location::new(99));
+333:         assert_eq!(ranged.range.end(), Location::new(100));
+334: 
+335:         // A size of one yields [0, 1).
+336:         let genesis = CompactTarget::<MmrFamily, _> {
+337:             root,
+338:             size: Location::new(1),
+339:         };
+340:         let ranged = Target::try_from(&genesis).unwrap();
+341:         assert_eq!(ranged.range.start(), Location::new(0));
+342:         assert_eq!(ranged.range.end(), Location::new(1));
+343: 
+344:         // A zero size has no operation to replay.
+345:         let empty = CompactTarget::<MmrFamily, _> {
+346:             root,
+347:             size: Location::new(0),
+348:         };
+349:         assert!(matches!(
+350:             Target::try_from(&empty),
+351:             Err(EngineError::InvalidTarget { .. })
+352:         ));
+353: 
+354:         // A size outside the location domain is rejected.
+355:         let beyond = CompactTarget::<MmrFamily, _> {
+356:             root,
+357:             size: MmrFamily::MAX_LEAVES + 1,
+358:         };
+359:         assert!(matches!(
+360:             Target::try_from(&beyond),
+361:             Err(EngineError::InvalidTarget { .. })
+362:         ));
+363:     }
+364: 
+365:     #[cfg(feature = "arbitrary")]
+366:     mod conformance {
+367:         use super::*;
+368:         use crate::merkle::mmb;
+369:         use commonware_codec::conformance::CodecConformance;
+370: 
+371:         commonware_conformance::conformance_tests! {
+372:             CodecConformance<Target<MmrFamily, sha256::Digest>>,
+373:             CodecConformance<Target<mmb::Family, sha256::Digest>>,
+374:             CodecConformance<CompactTarget<MmrFamily, sha256::Digest>>,
+375:             CodecConformance<CompactTarget<mmb::Family, sha256::Digest>>,
+376:         }
+377:     }
+378: }
+379: 
+```

@@ -1,0 +1,977 @@
+# collector/src/p2p/mod.rs (v2026.9.0)
+
+```rust
+0: //! Implementation of a [commonware_p2p]-optimized `collector`.
+1: 
+2: use crate::{Handler, Monitor};
+3: 
+4: mod engine;
+5: use commonware_p2p::Blocker;
+6: pub use engine::Engine;
+7: use std::num::NonZeroUsize;
+8: mod ingress;
+9: pub use ingress::{Mailbox, Message};
+10: 
+11: #[cfg(test)]
+12: mod mocks;
+13: 
+14: /// Configuration for an [Engine].
+15: #[derive(Clone)]
+16: pub struct Config<B: Blocker, M: Monitor, H: Handler, RqC, RsC> {
+17:     /// The [commonware_p2p::Blocker] that will be used to block peers from sending messages.
+18:     pub blocker: B,
+19: 
+20:     /// The [Monitor] that will be notified when a response is collected.
+21:     pub monitor: M,
+22: 
+23:     /// The [Handler] that will be used to process requests.
+24:     pub handler: H,
+25: 
+26:     /// The size of the mailbox for sending and receiving messages.
+27:     pub mailbox_size: NonZeroUsize,
+28: 
+29:     /// Whether or not to send requests with priority over other network messages.
+30:     pub priority_request: bool,
+31: 
+32:     /// The [commonware_codec::Codec] configuration for requests.
+33:     pub request_codec: RqC,
+34: 
+35:     /// Whether or not to send responses with priority over other network messages.
+36:     pub priority_response: bool,
+37: 
+38:     /// The [commonware_codec::Codec] configuration for responses.
+39:     pub response_codec: RsC,
+40: }
+41: 
+42: #[cfg(test)]
+43: mod tests {
+44:     use super::{
+45:         Config, Engine, Mailbox,
+46:         mocks::{
+47:             handler::Handler as MockHandler,
+48:             monitor::Monitor as MockMonitor,
+49:             types::{Request, Response},
+50:         },
+51:     };
+52:     use crate::{Handler, Monitor, Originator};
+53:     use commonware_actor::Feedback;
+54:     use commonware_codec::Encode;
+55:     use commonware_cryptography::{
+56:         Committable, Signer,
+57:         ed25519::{PrivateKey, PublicKey},
+58:     };
+59:     use commonware_macros::{select, test_traced};
+60:     use commonware_p2p::{
+61:         Blocker, Manager as _, Recipients, Sender as _,
+62:         simulated::{Link, Network, Oracle, Receiver, Sender},
+63:     };
+64:     use commonware_runtime::{
+65:         Clock, Quota, Runner, Supervisor as _, deterministic,
+66:         telemetry::metrics::count_running_tasks,
+67:     };
+68:     use commonware_utils::{NZU32, NZUsize, ordered::Set, probability};
+69:     use std::{num::NonZeroUsize, time::Duration};
+70: 
+71:     /// Default rate limit quota for tests (high enough to not interfere with normal operation)
+72:     const TEST_QUOTA: Quota = Quota::per_second(NZU32!(1_000_000));
+73: 
+74:     const MAILBOX_SIZE: NonZeroUsize = commonware_utils::NZUsize!(1024);
+75:     const LINK: Link = Link {
+76:         latency: Duration::from_millis(10),
+77:         jitter: Duration::from_millis(1),
+78:         success_rate: probability!(1.0),
+79:     };
+80:     const LINK_SLOW: Link = Link {
+81:         latency: Duration::from_secs(1),
+82:         jitter: Duration::from_millis(1),
+83:         success_rate: probability!(1.0),
+84:     };
+85: 
+86:     async fn setup_network_and_peers(
+87:         context: &deterministic::Context,
+88:         peer_seeds: &[u64],
+89:     ) -> (
+90:         Oracle<PublicKey, deterministic::Context>,
+91:         Vec<PrivateKey>,
+92:         Vec<PublicKey>,
+93:         Vec<(
+94:             (
+95:                 Sender<PublicKey, deterministic::Context>,
+96:                 Receiver<PublicKey>,
+97:             ),
+98:             (
+99:                 Sender<PublicKey, deterministic::Context>,
+100:                 Receiver<PublicKey>,
+101:             ),
+102:         )>,
+103:     ) {
+104:         let (network, oracle) = Network::new(
+105:             context.child("network"),
+106:             commonware_p2p::simulated::Config {
+107:                 max_size: 1024 * 1024,
+108:                 max_peers_per_set: NZUsize!(peer_seeds.len()),
+109:                 disconnect_on_block: true,
+110:                 tracked_peer_sets: NZUsize!(1),
+111:             },
+112:         );
+113:         network.start();
+114: 
+115:         let schemes: Vec<PrivateKey> = peer_seeds
+116:             .iter()
+117:             .map(|seed| PrivateKey::from_seed(*seed))
+118:             .collect();
+119:         let peers: Vec<PublicKey> = schemes.iter().map(|s| s.public_key()).collect();
+120: 
+121:         let mut connections = Vec::new();
+122:         for peer in &peers {
+123:             let control = oracle.control(peer.clone());
+124:             let (sender1, receiver1) = control.register(0, TEST_QUOTA).await.unwrap();
+125:             let (sender2, receiver2) = control.register(1, TEST_QUOTA).await.unwrap();
+126:             connections.push(((sender1, receiver1), (sender2, receiver2)));
+127:         }
+128:         oracle
+129:             .manager()
+130:             .track(0, Set::from_iter_dedup(peers.clone()));
+131: 
+132:         (oracle, schemes, peers, connections)
+133:     }
+134: 
+135:     async fn add_link(
+136:         oracle: &mut Oracle<PublicKey, deterministic::Context>,
+137:         link: Link,
+138:         peers: &[PublicKey],
+139:         from: usize,
+140:         to: usize,
+141:     ) {
+142:         oracle
+143:             .add_link(peers[from].clone(), peers[to].clone(), link.clone())
+144:             .await
+145:             .unwrap();
+146:         oracle
+147:             .add_link(peers[to].clone(), peers[from].clone(), link)
+148:             .await
+149:             .unwrap();
+150:     }
+151: 
+152:     #[allow(clippy::type_complexity)]
+153:     fn setup_and_spawn_engine(
+154:         context: &deterministic::Context,
+155:         blocker: impl Blocker<PublicKey = PublicKey>,
+156:         signer: impl Signer<PublicKey = PublicKey>,
+157:         connection: (
+158:             (
+159:                 Sender<PublicKey, deterministic::Context>,
+160:                 Receiver<PublicKey>,
+161:             ),
+162:             (
+163:                 Sender<PublicKey, deterministic::Context>,
+164:                 Receiver<PublicKey>,
+165:             ),
+166:         ),
+167:         monitor: impl Monitor<PublicKey = PublicKey, Response = Response>,
+168:         handler: impl Handler<PublicKey = PublicKey, Request = Request, Response = Response>,
+169:     ) -> Mailbox<PublicKey, Request> {
+170:         let public_key = signer.public_key();
+171:         let (engine, mailbox) = Engine::new(
+172:             context
+173:                 .child("engine")
+174:                 .with_attribute("public_key", &public_key),
+175:             Config {
+176:                 blocker,
+177:                 monitor,
+178:                 handler,
+179:                 mailbox_size: MAILBOX_SIZE,
+180:                 priority_request: false,
+181:                 request_codec: (),
+182:                 priority_response: false,
+183:                 response_codec: (),
+184:             },
+185:         );
+186:         engine.start(connection.0, connection.1);
+187: 
+188:         mailbox
+189:     }
+190: 
+191:     #[test_traced]
+192:     fn test_send_and_collect_response() {
+193:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+194:         executor.start(|context| async move {
+195:             let (mut oracle, schemes, peers, connections) =
+196:                 setup_network_and_peers(&context, &[0, 1]).await;
+197:             let mut schemes = schemes.into_iter();
+198:             let mut connections = connections.into_iter();
+199: 
+200:             // Link the two peers
+201:             add_link(&mut oracle, LINK.clone(), &peers, 0, 1).await;
+202: 
+203:             // Setup peer 1
+204:             let scheme = schemes.next().unwrap();
+205:             let conn = connections.next().unwrap();
+206:             let req_conn = conn.0;
+207:             let res_conn = conn.1;
+208:             let (mon, mut mon_out) = MockMonitor::new();
+209:             let mut mailbox1 = setup_and_spawn_engine(
+210:                 &context,
+211:                 oracle.control(scheme.public_key()),
+212:                 scheme,
+213:                 (req_conn, res_conn),
+214:                 mon,
+215:                 MockHandler::dummy(),
+216:             );
+217: 
+218:             // Setup peer 2
+219:             let scheme = schemes.next().unwrap();
+220:             let conn = connections.next().unwrap();
+221:             let req_conn = conn.0;
+222:             let res_conn = conn.1;
+223:             let (handler, mut handler_out) = MockHandler::new(true);
+224:             let _mailbox = setup_and_spawn_engine(
+225:                 &context,
+226:                 oracle.control(scheme.public_key()),
+227:                 scheme,
+228:                 (req_conn, res_conn),
+229:                 MockMonitor::dummy(),
+230:                 handler,
+231:             );
+232: 
+233:             // Send request from peer 1 to peer 2
+234:             let request = Request { id: 1, data: 1 };
+235:             assert_eq!(
+236:                 mailbox1.send(Recipients::One(peers[1].clone()), request.clone()),
+237:                 Feedback::Ok
+238:             );
+239: 
+240:             // Verify peer 2 received the request
+241:             let processed = handler_out.recv().await.unwrap();
+242:             assert_eq!(processed.origin, peers[0]);
+243:             assert_eq!(processed.request, request);
+244:             assert!(processed.responded);
+245: 
+246:             // Verify peer 1's monitor collected the response
+247:             let collected = mon_out.recv().await.unwrap();
+248:             assert_eq!(collected.handler, peers[1]);
+249:             assert_eq!(collected.response.id, 1);
+250:             assert_eq!(collected.response.result, 2);
+251:             assert_eq!(collected.count, 1);
+252:         });
+253:     }
+254: 
+255:     #[test_traced]
+256:     fn test_cancel_request() {
+257:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+258:         executor.start(|context| async move {
+259:             let (mut oracle, schemes, peers, connections) =
+260:                 setup_network_and_peers(&context, &[0, 1]).await;
+261:             let mut schemes = schemes.into_iter();
+262:             let mut connections = connections.into_iter();
+263: 
+264:             // Link the two peers
+265:             add_link(&mut oracle, LINK_SLOW.clone(), &peers, 0, 1).await;
+266: 
+267:             // Setup peer 1
+268:             let scheme = schemes.next().unwrap();
+269:             let conn = connections.next().unwrap();
+270:             let req_conn = conn.0;
+271:             let res_conn = conn.1;
+272:             let (mon, mut mon_out) = MockMonitor::new();
+273:             let mut mailbox = setup_and_spawn_engine(
+274:                 &context,
+275:                 oracle.control(scheme.public_key()),
+276:                 scheme,
+277:                 (req_conn, res_conn),
+278:                 mon,
+279:                 MockHandler::dummy(),
+280:             );
+281: 
+282:             // Setup peer 2
+283:             let scheme = schemes.next().unwrap();
+284:             let conn = connections.next().unwrap();
+285:             let req_conn = conn.0;
+286:             let res_conn = conn.1;
+287:             let (handler, _) = MockHandler::new(true);
+288:             let _mailbox = setup_and_spawn_engine(
+289:                 &context,
+290:                 oracle.control(scheme.public_key()),
+291:                 scheme,
+292:                 (req_conn, res_conn),
+293:                 MockMonitor::dummy(),
+294:                 handler,
+295:             );
+296: 
+297:             // Send request from peer 1 to peer 2
+298:             let request = Request { id: 1, data: 1 };
+299:             let commitment = request.commitment();
+300:             assert_eq!(
+301:                 mailbox.send(Recipients::One(peers[1].clone()), request.clone()),
+302:                 Feedback::Ok
+303:             );
+304: 
+305:             // Cancel immediately
+306:             assert_eq!(mailbox.cancel(commitment), Feedback::Ok);
+307: 
+308:             // Wait a bit and verify no response collected
+309:             select! {
+310:                 _ = mon_out.recv() => {
+311:                     panic!("Should not receive any monitor events");
+312:                 },
+313:                 _ = context.sleep(Duration::from_millis(5_000)) => {
+314:                     // Expected: no events
+315:                 },
+316:             }
+317:         });
+318:     }
+319: 
+320:     #[test_traced]
+321:     fn test_broadcast_request() {
+322:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+323:         executor.start(|context| async move {
+324:             let (mut oracle, schemes, peers, connections) =
+325:                 setup_network_and_peers(&context, &[0, 1, 2]).await;
+326:             let mut schemes = schemes.into_iter();
+327:             let mut connections = connections.into_iter();
+328: 
+329:             // Link the peers
+330:             add_link(&mut oracle, LINK.clone(), &peers, 0, 1).await;
+331:             add_link(&mut oracle, LINK.clone(), &peers, 0, 2).await;
+332: 
+333:             // Setup peer 1
+334:             let scheme1 = schemes.next().unwrap();
+335:             let conn1 = connections.next().unwrap();
+336:             let req_conn1 = conn1.0;
+337:             let res_conn1 = conn1.1;
+338:             let (mon1, mut mon_out1) = MockMonitor::new();
+339:             let mut mailbox1 = setup_and_spawn_engine(
+340:                 &context,
+341:                 oracle.control(scheme1.public_key()),
+342:                 scheme1,
+343:                 (req_conn1, res_conn1),
+344:                 mon1,
+345:                 MockHandler::dummy(),
+346:             );
+347: 
+348:             // Setup peer 2
+349:             let scheme2 = schemes.next().unwrap();
+350:             let conn2 = connections.next().unwrap();
+351:             let req_conn2 = conn2.0;
+352:             let res_conn2 = conn2.1;
+353:             let (handler2, _) = MockHandler::new(true);
+354:             let _mailbox2 = setup_and_spawn_engine(
+355:                 &context,
+356:                 oracle.control(scheme2.public_key()),
+357:                 scheme2,
+358:                 (req_conn2, res_conn2),
+359:                 MockMonitor::dummy(),
+360:                 handler2,
+361:             );
+362: 
+363:             // Setup peer 3
+364:             let scheme3 = schemes.next().unwrap();
+365:             let conn3 = connections.next().unwrap();
+366:             let req_conn3 = conn3.0;
+367:             let res_conn3 = conn3.1;
+368:             let (handler3, _) = MockHandler::new(true);
+369:             let _mailbox3 = setup_and_spawn_engine(
+370:                 &context,
+371:                 oracle.control(scheme3.public_key()),
+372:                 scheme3,
+373:                 (req_conn3, res_conn3),
+374:                 MockMonitor::dummy(),
+375:                 handler3,
+376:             );
+377: 
+378:             // Broadcast request
+379:             let request = Request { id: 3, data: 3 };
+380:             assert_eq!(
+381:                 mailbox1.send(Recipients::All, request.clone()),
+382:                 Feedback::Ok
+383:             );
+384: 
+385:             // Collect responses
+386:             let mut responses_collected = 0;
+387:             let mut peer2_responded = false;
+388:             let mut peer3_responded = false;
+389: 
+390:             for _ in 0..2 {
+391:                 let collected = mon_out1.recv().await.unwrap();
+392:                 assert_eq!(collected.response.id, 3);
+393:                 assert_eq!(collected.response.result, 6);
+394:                 responses_collected += 1;
+395:                 assert_eq!(collected.count, responses_collected);
+396: 
+397:                 if collected.handler == peers[1] {
+398:                     peer2_responded = true;
+399:                 } else if collected.handler == peers[2] {
+400:                     peer3_responded = true;
+401:                 }
+402:             }
+403: 
+404:             assert!(peer2_responded);
+405:             assert!(peer3_responded);
+406:         });
+407:     }
+408: 
+409:     #[test_traced]
+410:     fn test_duplicate_response_ignored() {
+411:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+412:         executor.start(|context| async move {
+413:             let (mut oracle, schemes, peers, connections) =
+414:                 setup_network_and_peers(&context, &[0, 1]).await;
+415:             let mut schemes = schemes.into_iter();
+416:             let mut connections = connections.into_iter();
+417: 
+418:             // Link the peers
+419:             add_link(&mut oracle, LINK.clone(), &peers, 0, 1).await;
+420: 
+421:             // Setup peer 1
+422:             let scheme1 = schemes.next().unwrap();
+423:             let conn1 = connections.next().unwrap();
+424:             let req_conn1 = conn1.0;
+425:             let res_conn1 = conn1.1;
+426:             let (mon1, mut mon_out1) = MockMonitor::new();
+427:             let mut mailbox1 = setup_and_spawn_engine(
+428:                 &context,
+429:                 oracle.control(scheme1.public_key()),
+430:                 scheme1,
+431:                 (req_conn1, res_conn1),
+432:                 mon1,
+433:                 MockHandler::dummy(),
+434:             );
+435: 
+436:             // Setup peer 2
+437:             let scheme2 = schemes.next().unwrap();
+438:             let conn2 = connections.next().unwrap();
+439:             let req_conn2 = conn2.0;
+440:             let res_conn2 = conn2.1;
+441:             let (handler2, _) = MockHandler::new(true);
+442:             let _mailbox2 = setup_and_spawn_engine(
+443:                 &context,
+444:                 oracle.control(scheme2.public_key()),
+445:                 scheme2,
+446:                 (req_conn2, res_conn2),
+447:                 MockMonitor::dummy(),
+448:                 handler2,
+449:             );
+450: 
+451:             // Send the same request multiple times
+452:             let request = Request { id: 5, data: 5 };
+453:             for _ in 0..3 {
+454:                 assert_eq!(
+455:                     mailbox1.send(Recipients::One(peers[1].clone()), request.clone()),
+456:                     Feedback::Ok
+457:                 );
+458:             }
+459: 
+460:             // Should only receive one response
+461:             let collected = mon_out1.recv().await.unwrap();
+462:             assert_eq!(collected.handler, peers[1]);
+463:             assert_eq!(collected.response.id, 5);
+464:             assert_eq!(collected.count, 1);
+465: 
+466:             // Wait and verify no more responses
+467:             select! {
+468:                 _ = mon_out1.recv() => {
+469:                     panic!("Should not receive duplicate responses");
+470:                 },
+471:                 _ = context.sleep(Duration::from_millis(5_000)) => {
+472:                     // Expected: no more responses
+473:                 },
+474:             }
+475:         });
+476:     }
+477: 
+478:     #[test_traced]
+479:     fn test_concurrent_requests() {
+480:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+481:         executor.start(|context| async move {
+482:             let (mut oracle, schemes, peers, connections) =
+483:                 setup_network_and_peers(&context, &[0, 1]).await;
+484:             let mut schemes = schemes.into_iter();
+485:             let mut connections = connections.into_iter();
+486: 
+487:             // Link the peers
+488:             add_link(&mut oracle, LINK.clone(), &peers, 0, 1).await;
+489: 
+490:             // Setup peer 1
+491:             let scheme1 = schemes.next().unwrap();
+492:             let conn1 = connections.next().unwrap();
+493:             let req_conn1 = conn1.0;
+494:             let res_conn1 = conn1.1;
+495:             let (mon1, mut mon_out1) = MockMonitor::new();
+496:             let mut mailbox1 = setup_and_spawn_engine(
+497:                 &context,
+498:                 oracle.control(scheme1.public_key()),
+499:                 scheme1,
+500:                 (req_conn1, res_conn1),
+501:                 mon1,
+502:                 MockHandler::dummy(),
+503:             );
+504: 
+505:             // Setup peer 2
+506:             let scheme2 = schemes.next().unwrap();
+507:             let conn2 = connections.next().unwrap();
+508:             let req_conn2 = conn2.0;
+509:             let res_conn2 = conn2.1;
+510:             let (mut handler2, _) = MockHandler::new(false);
+511:             handler2.set_response(10, Response { id: 10, result: 20 });
+512:             handler2.set_response(20, Response { id: 20, result: 40 });
+513:             let _mailbox2 = setup_and_spawn_engine(
+514:                 &context,
+515:                 oracle.control(scheme2.public_key()),
+516:                 scheme2,
+517:                 (req_conn2, res_conn2),
+518:                 MockMonitor::dummy(),
+519:                 handler2,
+520:             );
+521: 
+522:             // Send multiple concurrent requests
+523:             let request1 = Request { id: 10, data: 10 };
+524:             let request2 = Request { id: 20, data: 20 };
+525:             assert_eq!(
+526:                 mailbox1.send(Recipients::One(peers[1].clone()), request1),
+527:                 Feedback::Ok
+528:             );
+529:             assert_eq!(
+530:                 mailbox1.send(Recipients::One(peers[1].clone()), request2),
+531:                 Feedback::Ok
+532:             );
+533: 
+534:             // Collect both responses
+535:             let mut response10_received = false;
+536:             let mut response20_received = false;
+537:             for _ in 0..2 {
+538:                 let collected = mon_out1.recv().await.unwrap();
+539:                 assert_eq!(collected.handler, peers[1]);
+540:                 assert_eq!(collected.count, 1);
+541:                 match collected.response.id {
+542:                     10 => {
+543:                         assert_eq!(collected.response.result, 20);
+544:                         response10_received = true;
+545:                     }
+546:                     20 => {
+547:                         assert_eq!(collected.response.result, 40);
+548:                         response20_received = true;
+549:                     }
+550:                     _ => panic!("Unexpected response ID"),
+551:                 }
+552:             }
+553: 
+554:             assert!(response10_received);
+555:             assert!(response20_received);
+556:         });
+557:     }
+558: 
+559:     #[test_traced]
+560:     fn test_handler_no_response() {
+561:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+562:         executor.start(|context| async move {
+563:             let (mut oracle, schemes, peers, connections) =
+564:                 setup_network_and_peers(&context, &[0, 1]).await;
+565:             let mut schemes = schemes.into_iter();
+566:             let mut connections = connections.into_iter();
+567: 
+568:             // Link the peers
+569:             add_link(&mut oracle, LINK.clone(), &peers, 0, 1).await;
+570: 
+571:             // Setup peer 1
+572:             let scheme1 = schemes.next().unwrap();
+573:             let conn1 = connections.next().unwrap();
+574:             let req_conn1 = conn1.0;
+575:             let res_conn1 = conn1.1;
+576:             let (mon1, mut mon_out1) = MockMonitor::new();
+577:             let mut mailbox1 = setup_and_spawn_engine(
+578:                 &context,
+579:                 oracle.control(scheme1.public_key()),
+580:                 scheme1,
+581:                 (req_conn1, res_conn1),
+582:                 mon1,
+583:                 MockHandler::dummy(),
+584:             );
+585: 
+586:             // Setup peer 2 with handler that doesn't respond
+587:             let scheme2 = schemes.next().unwrap();
+588:             let conn2 = connections.next().unwrap();
+589:             let req_conn2 = conn2.0;
+590:             let res_conn2 = conn2.1;
+591:             let (handler2, mut handler_out2) = MockHandler::new(false);
+592:             let _mailbox2 = setup_and_spawn_engine(
+593:                 &context,
+594:                 oracle.control(scheme2.public_key()),
+595:                 scheme2,
+596:                 (req_conn2, res_conn2),
+597:                 MockMonitor::dummy(),
+598:                 handler2,
+599:             );
+600: 
+601:             // Send request
+602:             let request = Request { id: 100, data: 100 };
+603:             assert_eq!(
+604:                 mailbox1.send(Recipients::One(peers[1].clone()), request.clone()),
+605:                 Feedback::Ok
+606:             );
+607: 
+608:             // Verify handler received request but didn't respond
+609:             let processed = handler_out2.recv().await.unwrap();
+610:             assert_eq!(processed.origin, peers[0]);
+611:             assert_eq!(processed.request, request);
+612:             assert!(!processed.responded);
+613: 
+614:             // Verify no response collected
+615:             select! {
+616:                 _ = mon_out1.recv() => {
+617:                     panic!("Should not receive any monitor events");
+618:                 },
+619:                 _ = context.sleep(Duration::from_millis(1_000)) => {
+620:                     // Expected: no events
+621:                 },
+622:             }
+623:         });
+624:     }
+625: 
+626:     #[test_traced]
+627:     fn test_empty_recipients() {
+628:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+629:         executor.start(|context| async move {
+630:             let (oracle, schemes, _, connections) = setup_network_and_peers(&context, &[0]).await;
+631:             let mut schemes = schemes.into_iter();
+632:             let mut connections = connections.into_iter();
+633: 
+634:             // Setup peer 1
+635:             let scheme = schemes.next().unwrap();
+636:             let conn = connections.next().unwrap();
+637:             let req_conn = conn.0;
+638:             let res_conn = conn.1;
+639:             let (mon, mut mon_out) = MockMonitor::new();
+640:             let mut mailbox = setup_and_spawn_engine(
+641:                 &context,
+642:                 oracle.control(scheme.public_key()),
+643:                 scheme,
+644:                 (req_conn, res_conn),
+645:                 mon,
+646:                 MockHandler::dummy(),
+647:             );
+648: 
+649:             // Send request with empty recipients list
+650:             let request = Request { id: 1, data: 1 };
+651:             assert_eq!(mailbox.send(Recipients::All, request.clone()), Feedback::Ok);
+652: 
+653:             // Verify no responses collected
+654:             select! {
+655:                 _ = mon_out.recv() => {
+656:                     panic!("Should not receive any monitor events");
+657:                 },
+658:                 _ = context.sleep(Duration::from_millis(1_000)) => {
+659:                     // Expected: no events
+660:                 },
+661:             }
+662:         });
+663:     }
+664: 
+665:     #[test_traced]
+666:     fn test_send_closed_does_not_collect() {
+667:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+668:         executor.start(|context| async move {
+669:             let (oracle, schemes, peers, connections) =
+670:                 setup_network_and_peers(&context, &[0, 1]).await;
+671:             let mut schemes = schemes.into_iter();
+672:             let mut connections = connections.into_iter();
+673: 
+674:             // Setup peer 1 with a failing sender
+675:             let scheme = schemes.next().unwrap();
+676:             let conn = connections.next().unwrap();
+677:             let (_, receiver1) = conn.0; // Request channel
+678:             let sender1 = super::mocks::sender::Failing::<PublicKey>::new();
+679:             let (sender2, receiver2) = conn.1; // Response channel
+680:             let public_key = scheme.public_key();
+681:             let (engine, mut mailbox) = Engine::new(
+682:                 context
+683:                     .child("engine")
+684:                     .with_attribute("public_key", &public_key),
+685:                 Config {
+686:                     blocker: oracle.control(public_key),
+687:                     monitor: MockMonitor::dummy(),
+688:                     handler: MockHandler::dummy(),
+689:                     mailbox_size: MAILBOX_SIZE,
+690:                     priority_request: false,
+691:                     request_codec: (),
+692:                     priority_response: false,
+693:                     response_codec: (),
+694:                 },
+695:             );
+696: 
+697:             // Start engine
+698:             engine.start((sender1, receiver1), (sender2, receiver2));
+699: 
+700:             // Send request
+701:             let request = Request { id: 1, data: 1 };
+702:             assert_eq!(
+703:                 mailbox.send(Recipients::One(peers[1].clone()), request),
+704:                 Feedback::Ok
+705:             );
+706:         });
+707:     }
+708: 
+709:     #[test_traced]
+710:     fn test_send_after_shutdown_returns_closed() {
+711:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+712:         executor.start(|context| async move {
+713:             let (oracle, schemes, peers, connections) =
+714:                 setup_network_and_peers(&context, &[0, 1]).await;
+715:             let mut schemes = schemes.into_iter();
+716:             let mut connections = connections.into_iter();
+717: 
+718:             // Setup peer 1 with a failing sender
+719:             let scheme = schemes.next().unwrap();
+720:             let conn = connections.next().unwrap();
+721:             let (sender1, receiver1) = conn.0; // Request channel
+722:             let (sender2, receiver2) = conn.1; // Response channel
+723:             let public_key = scheme.public_key();
+724:             let (engine, mut mailbox) = Engine::new(
+725:                 context
+726:                     .child("engine")
+727:                     .with_attribute("public_key", &public_key),
+728:                 Config {
+729:                     blocker: oracle.control(public_key),
+730:                     monitor: MockMonitor::dummy(),
+731:                     handler: MockHandler::dummy(),
+732:                     mailbox_size: MAILBOX_SIZE,
+733:                     priority_request: false,
+734:                     request_codec: (),
+735:                     priority_response: false,
+736:                     response_codec: (),
+737:                 },
+738:             );
+739: 
+740:             // Start engine
+741:             let handle = engine.start((sender1, receiver1), (sender2, receiver2));
+742: 
+743:             // Stop the engine
+744:             handle.abort();
+745:             handle.await.expect_err("engine should be aborted");
+746: 
+747:             // Send request
+748:             let request = Request { id: 1, data: 1 };
+749:             assert_eq!(
+750:                 mailbox.send(Recipients::One(peers[1].clone()), request),
+751:                 Feedback::Closed
+752:             );
+753:         });
+754:     }
+755: 
+756:     #[test_traced]
+757:     fn test_response_from_unknown_peer() {
+758:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+759:         executor.start(|context| async move {
+760:             let (mut oracle, schemes, peers, connections) =
+761:                 setup_network_and_peers(&context, &[0, 1, 2]).await;
+762:             let mut schemes = schemes.into_iter();
+763:             let mut connections = connections.into_iter();
+764: 
+765:             // Link all peers
+766:             add_link(&mut oracle, LINK.clone(), &peers, 0, 1).await;
+767:             add_link(&mut oracle, LINK.clone(), &peers, 0, 2).await;
+768:             add_link(&mut oracle, LINK.clone(), &peers, 1, 2).await;
+769: 
+770:             // Setup peer 1 (originator)
+771:             let scheme1 = schemes.next().unwrap();
+772:             let conn1 = connections.next().unwrap();
+773:             let req_conn1 = conn1.0;
+774:             let res_conn1 = conn1.1;
+775:             let (mon1, mut mon_out1) = MockMonitor::new();
+776:             let mut mailbox1 = setup_and_spawn_engine(
+777:                 &context,
+778:                 oracle.control(scheme1.public_key()),
+779:                 scheme1,
+780:                 (req_conn1, res_conn1),
+781:                 mon1,
+782:                 MockHandler::dummy(),
+783:             );
+784: 
+785:             // Setup peer 2 (legitimate responder)
+786:             let scheme2 = schemes.next().unwrap();
+787:             let conn2 = connections.next().unwrap();
+788:             let req_conn2 = conn2.0;
+789:             let res_conn2 = conn2.1;
+790:             let (handler2, _) = MockHandler::new(true);
+791:             let _mailbox2 = setup_and_spawn_engine(
+792:                 &context,
+793:                 oracle.control(scheme2.public_key()),
+794:                 scheme2,
+795:                 (req_conn2, res_conn2),
+796:                 MockMonitor::dummy(),
+797:                 handler2,
+798:             );
+799: 
+800:             // Setup peer 3 (will respond with same commitment as peer 2's request)
+801:             let conn3 = connections.next().unwrap();
+802:             let mut res_conn3 = conn3.1;
+803: 
+804:             // Send request from peer 1 to peer 2 (collector records the in-flight request)
+805:             let request_to_peer2 = Request { id: 42, data: 42 };
+806:             assert_eq!(
+807:                 mailbox1.send(Recipients::One(peers[1].clone()), request_to_peer2.clone()),
+808:                 Feedback::Ok
+809:             );
+810: 
+811:             // Send a response from peer 3 to peer 1
+812:             let response_to_peer1 = Response { id: 42, result: 72 };
+813:             res_conn3.0.send(
+814:                 Recipients::One(peers[0].clone()),
+815:                 response_to_peer1.encode(),
+816:                 true,
+817:             );
+818: 
+819:             // Give some time for messages to be processed
+820:             context.sleep(Duration::from_millis(1_000)).await;
+821: 
+822:             // Should only receive one response (from peer 2, not peer 3)
+823:             let collected = mon_out1.recv().await.unwrap();
+824:             assert_eq!(collected.handler, peers[1]); // Response from peer 2
+825:             assert_eq!(collected.response.id, 42);
+826:             assert_eq!(collected.response.result, 84); // 42 * 2 (default mock behavior)
+827:             assert_eq!(collected.count, 1);
+828: 
+829:             // Verify no additional responses (peer 3's response should be ignored)
+830:             select! {
+831:                 _ = mon_out1.recv() => {
+832:                     panic!("Should not receive response from unknown peer");
+833:                 },
+834:                 _ = context.sleep(Duration::from_millis(1_000)) => {
+835:                     // Expected: no more events
+836:                 },
+837:             }
+838:         });
+839:     }
+840: 
+841:     #[allow(clippy::type_complexity)]
+842:     fn spawn_engines_with_handles(
+843:         engine_context: deterministic::Context,
+844:         oracle: &Oracle<PublicKey, deterministic::Context>,
+845:         schemes: Vec<PrivateKey>,
+846:         connections: Vec<(
+847:             (
+848:                 Sender<PublicKey, deterministic::Context>,
+849:                 Receiver<PublicKey>,
+850:             ),
+851:             (
+852:                 Sender<PublicKey, deterministic::Context>,
+853:                 Receiver<PublicKey>,
+854:             ),
+855:         )>,
+856:     ) -> (
+857:         Vec<Mailbox<PublicKey, Request>>,
+858:         Vec<commonware_runtime::Handle<()>>,
+859:     ) {
+860:         let mut mailboxes = Vec::new();
+861:         let mut handles = Vec::new();
+862: 
+863:         for (idx, (scheme, conn)) in schemes.into_iter().zip(connections).enumerate() {
+864:             let ctx = engine_context.child("peer").with_attribute("index", idx);
+865:             let (mon, _) = MockMonitor::new();
+866:             let (handler, _) = MockHandler::new(true);
+867:             let (engine, mailbox) = Engine::new(
+868:                 ctx,
+869:                 Config {
+870:                     blocker: oracle.control(scheme.public_key()),
+871:                     monitor: mon,
+872:                     handler,
+873:                     mailbox_size: MAILBOX_SIZE,
+874:                     priority_request: false,
+875:                     request_codec: (),
+876:                     priority_response: false,
+877:                     response_codec: (),
+878:                 },
+879:             );
+880:             handles.push(engine.start(conn.0, conn.1));
+881:             mailboxes.push(mailbox);
+882:         }
+883: 
+884:         (mailboxes, handles)
+885:     }
+886: 
+887:     #[test_traced]
+888:     fn test_operations_after_shutdown_do_not_panic() {
+889:         let executor = deterministic::Runner::timed(Duration::from_secs(10));
+890:         executor.start(|context| async move {
+891:             let (mut oracle, schemes, peers, connections) =
+892:                 setup_network_and_peers(&context, &[0, 1]).await;
+893: 
+894:             add_link(&mut oracle, LINK.clone(), &peers, 0, 1).await;
+895: 
+896:             let (mut mailboxes, handles) =
+897:                 spawn_engines_with_handles(context.child("engine"), &oracle, schemes, connections);
+898: 
+899:             // Abort all engines immediately
+900:             for handle in &handles {
+901:                 handle.abort();
+902:             }
+903:             for handle in handles {
+904:                 handle.await.expect_err("engine should be aborted");
+905:             }
+906: 
+907:             // All operations should not panic after shutdown
+908: 
+909:             // Send should not panic
+910:             let request = Request { id: 1, data: 1 };
+911:             let feedback = mailboxes[0].send(Recipients::One(peers[1].clone()), request.clone());
+912:             assert_eq!(feedback, Feedback::Closed);
+913: 
+914:             // Cancel should not panic
+915:             assert_eq!(mailboxes[0].cancel(request.commitment()), Feedback::Closed);
+916:         });
+917:     }
+918: 
+919:     fn clean_shutdown(seed: u64) {
+920:         let cfg = deterministic::Config::default()
+921:             .with_seed(seed)
+922:             .with_timeout(Some(Duration::from_secs(30)));
+923:         let executor = deterministic::Runner::new(cfg);
+924:         executor.start(|context| async move {
+925:             let (mut oracle, schemes, peers, connections) =
+926:                 setup_network_and_peers(&context, &[0, 1]).await;
+927: 
+928:             add_link(&mut oracle, LINK.clone(), &peers, 0, 1).await;
+929: 
+930:             let (mut mailboxes, handles) =
+931:                 spawn_engines_with_handles(context.child("peers"), &oracle, schemes, connections);
+932: 
+933:             // Allow tasks to start
+934:             context.sleep(Duration::from_millis(100)).await;
+935: 
+936:             // Count running tasks under the peers prefix
+937:             let running_before = count_running_tasks(&context, "peers");
+938:             assert!(
+939:                 running_before > 0,
+940:                 "at least one peer engine task should be running"
+941:             );
+942: 
+943:             // Verify network is functional - send a request and expect a response
+944:             let request = Request { id: 1, data: 1 };
+945:             assert_eq!(
+946:                 mailboxes[0].send(Recipients::One(peers[1].clone()), request.clone()),
+947:                 Feedback::Ok
+948:             );
+949: 
+950:             // Abort all engines
+951:             for handle in handles {
+952:                 handle.abort();
+953:             }
+954:             context.sleep(Duration::from_millis(100)).await;
+955: 
+956:             // Verify all peer engine tasks are stopped
+957:             let running_after = count_running_tasks(&context, "peers");
+958:             assert_eq!(
+959:                 running_after, 0,
+960:                 "all peer engine tasks should be stopped, but {running_after} still running"
+961:             );
+962:         });
+963:     }
+964: 
+965:     #[test]
+966:     fn test_clean_shutdown() {
+967:         for seed in 0..25 {
+968:             clean_shutdown(seed);
+969:         }
+970:     }
+971: }
+972: 
+```

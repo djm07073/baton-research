@@ -1,0 +1,1 @@
+{"tool": "get_file", "arguments": {"path": "resolver/src/lib.rs", "version": "v2026.9.0", "start_line": 0, "end_line": 210}, "output": "assets/review/commonware-reuse-20261004/block-wave1/resolver-adapters-response.json"}

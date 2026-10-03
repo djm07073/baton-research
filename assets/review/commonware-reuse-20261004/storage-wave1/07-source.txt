@@ -1,0 +1,70 @@
+# storage/src/qmdb/sync/mod.rs (v2026.9.0)
+
+```rust
+0: //! Shared sync types and functionality for authenticated databases.
+1: //!
+2: //! # Trust Model
+3: //!
+4: //! Sources are untrusted, and their responses are verified against the requested target. The
+5: //! target itself is a trusted input chosen by the caller: sync does not select or authenticate it.
+6: //!
+7: //! Target updates form a forward-only sequence. Sync adopts only strictly advancing targets and
+8: //! discards the rest. Selecting a single target before this boundary lets sync focus on fetching
+9: //! and verifying its data instead of reconciling competing targets.
+10: 
+11: use crate::qmdb::sync::engine::Config;
+12: use commonware_codec::Encode;
+13: use commonware_macros::boxed;
+14: 
+15: pub mod engine;
+16: pub(crate) use engine::Engine;
+17: 
+18: mod error;
+19: pub use error::{EngineError, Error, ServeError};
+20: 
+21: mod gaps;
+22: pub(crate) mod journal;
+23: pub(crate) use journal::Journal;
+24: 
+25: mod metrics;
+26: pub use metrics::Metrics;
+27: 
+28: mod database;
+29: pub use database::Database;
+30: pub(crate) use database::{Config as DatabaseConfig, journal_covers_range, local_pinned_nodes};
+31: 
+32: pub mod source;
+33: pub use source::{FeedbackTx, Request, Response, Source};
+34: 
+35: mod target;
+36: pub use target::{CompactTarget, Target};
+37: 
+38: mod requests;
+39: 
+40: /// A [`Source`] of operations for the given database.
+41: pub trait SourceFor<DB: Database>:
+42:     Source<Family = DB::Family, Op = DB::Op, Digest = DB::Digest> + 'static
+43: {
+44: }
+45: 
+46: impl<DB, S> SourceFor<DB> for S
+47: where
+48:     DB: Database,
+49:     S: Source<Family = DB::Family, Op = DB::Op, Digest = DB::Digest> + 'static,
+50: {
+51: }
+52: 
+53: /// Create/open a database and sync it to a target state
+54: #[boxed]
+55: pub async fn sync<DB, S>(
+56:     config: Config<DB, S>,
+57: ) -> Result<DB, Error<DB::Family, S::Error, DB::Digest>>
+58: where
+59:     DB: Database,
+60:     DB::Op: Encode,
+61:     S: SourceFor<DB>,
+62: {
+63:     Engine::new(config).await?.sync().await
+64: }
+65: 
+```

@@ -1,0 +1,233 @@
+# collector/src/p2p/engine.rs (v2026.9.0)
+
+```rust
+0: use super::{
+1:     Config,
+2:     ingress::{Mailbox, Message},
+3: };
+4: use crate::p2p::{Handler, Monitor};
+5: use commonware_actor::mailbox;
+6: use commonware_codec::Codec;
+7: use commonware_cryptography::{Committable, Digestible, PublicKey};
+8: use commonware_macros::select_loop;
+9: use commonware_p2p::{Blocker, Receiver, Recipients, Sender, utils::codec::wrap};
+10: use commonware_runtime::{
+11:     BufferPooler, Clock, ContextCell, Handle, Metrics, Spawner, spawn_cell,
+12:     telemetry::metrics::{Counter, Gauge, GaugeExt, MetricsExt as _},
+13: };
+14: use commonware_utils::{channel::oneshot, futures::Pool};
+15: use std::collections::{HashMap, HashSet};
+16: use tracing::{debug, error};
+17: 
+18: /// Engine that will disperse messages and collect responses.
+19: pub struct Engine<E, B, Rq, Rs, P, M, H>
+20: where
+21:     E: BufferPooler + Clock + Spawner,
+22:     P: PublicKey,
+23:     B: Blocker<PublicKey = P>,
+24:     Rq: Committable + Digestible + Codec,
+25:     Rs: Committable<Commitment = Rq::Commitment> + Digestible<Digest = Rq::Digest> + Codec,
+26:     M: Monitor<Response = Rs, PublicKey = P>,
+27:     H: Handler<Request = Rq, Response = Rs, PublicKey = P>,
+28: {
+29:     // Configuration
+30:     context: ContextCell<E>,
+31:     blocker: B,
+32:     priority_request: bool,
+33:     request_codec: Rq::Cfg,
+34:     priority_response: bool,
+35:     response_codec: Rs::Cfg,
+36: 
+37:     // Message passing
+38:     monitor: M,
+39:     handler: H,
+40:     mailbox: mailbox::Receiver<Message<P, Rq>>,
+41: 
+42:     // State
+43:     tracked: HashMap<Rq::Commitment, (HashSet<P>, HashSet<P>)>,
+44: 
+45:     // Metrics
+46:     outstanding: Gauge,
+47:     requests: Counter,
+48:     responses: Counter,
+49: }
+50: 
+51: impl<E, B, Rq, Rs, P, M, H> Engine<E, B, Rq, Rs, P, M, H>
+52: where
+53:     E: BufferPooler + Clock + Spawner + Metrics,
+54:     P: PublicKey,
+55:     B: Blocker<PublicKey = P>,
+56:     Rq: Committable + Digestible + Codec,
+57:     Rs: Committable<Commitment = Rq::Commitment> + Digestible<Digest = Rq::Digest> + Codec,
+58:     M: Monitor<Response = Rs, PublicKey = P>,
+59:     H: Handler<Request = Rq, Response = Rs, PublicKey = P>,
+60: {
+61:     /// Creates a new engine with the given configuration.
+62:     ///
+63:     /// Returns a tuple of the engine and the mailbox for sending messages.
+64:     pub fn new(context: E, cfg: Config<B, M, H, Rq::Cfg, Rs::Cfg>) -> (Self, Mailbox<P, Rq>) {
+65:         // Create mailbox
+66:         let (tx, rx) = mailbox::new(context.child("mailbox"), cfg.mailbox_size);
+67:         let mailbox: Mailbox<P, Rq> = Mailbox::new(tx);
+68: 
+69:         // Create metrics
+70:         let outstanding = context.gauge("outstanding", "outstanding commitments");
+71:         let requests = context.counter("requests", "processed requests");
+72:         let responses = context.counter("responses", "sent responses");
+73: 
+74:         (
+75:             Self {
+76:                 context: ContextCell::new(context),
+77:                 blocker: cfg.blocker,
+78:                 priority_request: cfg.priority_request,
+79:                 request_codec: cfg.request_codec,
+80:                 priority_response: cfg.priority_response,
+81:                 response_codec: cfg.response_codec,
+82:                 monitor: cfg.monitor,
+83:                 handler: cfg.handler,
+84:                 mailbox: rx,
+85:                 tracked: HashMap::new(),
+86:                 outstanding,
+87:                 requests,
+88:                 responses,
+89:             },
+90:             mailbox,
+91:         )
+92:     }
+93: 
+94:     /// Starts the engine with the given network channels.
+95:     ///
+96:     /// Returns a handle that can be used to wait for the engine to complete.
+97:     pub fn start(
+98:         mut self,
+99:         requests: (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>),
+100:         responses: (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>),
+101:     ) -> Handle<()> {
+102:         spawn_cell!(self.context, self.run(requests, responses))
+103:     }
+104: 
+105:     async fn run(
+106:         mut self,
+107:         requests: (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>),
+108:         responses: (impl Sender<PublicKey = P>, impl Receiver<PublicKey = P>),
+109:     ) {
+110:         // Wrap channels
+111:         let (mut req_tx, mut req_rx) = wrap(
+112:             self.request_codec,
+113:             self.context.network_buffer_pool().clone(),
+114:             requests.0,
+115:             requests.1,
+116:         );
+117:         let (mut res_tx, mut res_rx) = wrap(
+118:             self.response_codec,
+119:             self.context.network_buffer_pool().clone(),
+120:             responses.0,
+121:             responses.1,
+122:         );
+123: 
+124:         // Create futures pool
+125:         let mut processed: Pool<'_, Result<(P, Rs), oneshot::error::RecvError>> = Pool::default();
+126:         select_loop! {
+127:             self.context,
+128:             on_stopped => {
+129:                 debug!("context shutdown, stopping engine");
+130:             },
+131:             // Command from the mailbox
+132:             Some(command) = self.mailbox.recv() else continue => match command {
+133:                 Message::Send {
+134:                     request,
+135:                     recipients,
+136:                 } => {
+137:                     let commitment = request.commitment();
+138:                     let recipients = req_tx.send(recipients, request, self.priority_request);
+139:                     if !recipients.is_empty() {
+140:                         let entry = self.tracked.entry(commitment).or_insert_with(|| {
+141:                             self.outstanding.inc();
+142:                             (HashSet::new(), HashSet::new())
+143:                         });
+144:                         entry.0.extend(recipients);
+145:                     }
+146:                 }
+147:                 Message::Cancel { commitment } => {
+148:                     if self.tracked.remove(&commitment).is_none() {
+149:                         debug!(?commitment, "ignoring removal of unknown commitment");
+150:                     }
+151:                     let _ = self.outstanding.try_set(self.tracked.len());
+152:                 }
+153:             },
+154: 
+155:             // Response from a handler
+156:             Ok((peer, reply)) = processed.next_completed() else continue => {
+157:                 self.responses.inc();
+158: 
+159:                 // Send the response
+160:                 let _ = res_tx.send(Recipients::One(peer), reply, self.priority_response);
+161:             },
+162: 
+163:             // Request from an originator
+164:             message = req_rx.recv() => {
+165:                 self.requests.inc();
+166: 
+167:                 // Error handling
+168:                 let (peer, msg) = match message {
+169:                     Ok(r) => r,
+170:                     Err(err) => {
+171:                         error!(?err, "request receiver failed");
+172:                         break;
+173:                     }
+174:                 };
+175:                 let msg = match msg {
+176:                     Ok(msg) => msg,
+177:                     Err(err) => {
+178:                         commonware_p2p::block!(self.blocker, peer, ?err, "invalid request");
+179:                         continue;
+180:                     }
+181:                 };
+182: 
+183:                 // Handle the request
+184:                 let (tx, rx) = oneshot::channel();
+185:                 self.handler.process(peer.clone(), msg, tx);
+186:                 processed.push(async move { Ok((peer, rx.await?)) });
+187:             },
+188: 
+189:             // Response from a handler
+190:             response = res_rx.recv() => {
+191:                 // Error handling
+192:                 let (peer, msg) = match response {
+193:                     Ok(r) => r,
+194:                     Err(err) => {
+195:                         error!(?err, "response receiver failed");
+196:                         break;
+197:                     }
+198:                 };
+199:                 let msg = match msg {
+200:                     Ok(msg) => msg,
+201:                     Err(err) => {
+202:                         commonware_p2p::block!(self.blocker, peer, ?err, "invalid response");
+203:                         continue;
+204:                     }
+205:                 };
+206: 
+207:                 // Handle the response
+208:                 let commitment = msg.commitment();
+209:                 let Some(responses) = self.tracked.get_mut(&commitment) else {
+210:                     debug!(?commitment, ?peer, "response for unknown commitment");
+211:                     continue;
+212:                 };
+213:                 if !responses.0.contains(&peer) {
+214:                     debug!(?commitment, ?peer, "never sent request");
+215:                     continue;
+216:                 }
+217:                 if !responses.1.insert(peer.clone()) {
+218:                     debug!(?commitment, ?peer, "duplicate response");
+219:                     continue;
+220:                 }
+221: 
+222:                 // Send the response to the monitor
+223:                 self.monitor.collected(peer, msg, responses.1.len());
+224:             },
+225:         }
+226:     }
+227: }
+228: 
+```
