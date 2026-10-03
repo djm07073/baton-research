@@ -74,6 +74,10 @@ Producer-lane parent-state filtering cannot stand in for global canonical state.
 
 Transaction-byte budget differs from complete encoded body size. Bound the final body including framing and metadata, not only the transaction list.
 
+The same body must also fit a **fetch response**, whose envelope is larger than raw body broadcast. At the native pin, generic resolver response size is `8 + 1 + body_bytes.encode_size()`: an eight-byte request ID, one-byte tag and Bytes encoding including its length prefix. Requests similarly add `8 + 1` to the key's encoded size. Use checked size arithmetic and the chosen public codecs; the resolver's wire Message type is private. The network already accounts for its own transport framing. [Resolver encoding](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/wire.rs#L109), [Bytes codec](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/types/bytes.rs#L23).
+
+Allowing raw body bytes to consume the entire configured transport maximum can make that body's later fetch response oversized. The native Sender asserts its maximum payload size, so validate the whole envelope before serving it. Consumer also applies bounded application body decoding; the resolver's opaque Bytes bound does not choose tx-count, nested-object or validation-work limits. Limits and any fragmentation strategy remain open. [Sender maximum](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/channels.rs#L51).
+
 Commonware [`EncodeSize::encode_size`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs#L26) supplies the complete encoded-size calculation for the selected body type. [`Read::Cfg`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/codec.rs#L197) supplies type-specific decode limits on reception. Fields, versions, limits, and concrete codecs remain open and require application adapter integration.
 
 ## Body dissemination, lookup, and custody

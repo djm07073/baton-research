@@ -1,0 +1,16 @@
+{
+  "scope": "fresh source inspection only",
+  "reviewed_revision": "3c5ec96",
+  "written_at_utc": "2026-10-03T20:41:18.897530+00:00",
+  "sources_verified": 50,
+  "absent_guessed_paths": [
+    "chain/src/main.rs"
+  ],
+  "report_sha256": "c0686d641f3bb0682b3fd79f685df776bd89c89bd263796d2b20b998e6dbc0b7",
+  "findings": [
+    "N1 native example stale register arity",
+    "N2 whole resolver response envelope size"
+  ],
+  "canonical_edits": false,
+  "build_executed": false
+}

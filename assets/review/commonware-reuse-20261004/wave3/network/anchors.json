@@ -1,0 +1,317 @@
+[
+  {
+    "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/application/mod.rs#L1",
+    "source": "tempo",
+    "path": "crates/consensus/src/consensus/application/mod.rs",
+    "line": 1,
+    "text": "//! The interface between the consensus layer and the execution layer."
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/standard/relay.rs#L21",
+    "source": "release",
+    "path": "consensus/src/marshal/standard/relay.rs",
+    "line": 21,
+    "text": "pub(super) fn broadcast<S, B>("
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/core/actor.rs#L649",
+    "source": "release",
+    "path": "consensus/src/marshal/core/actor.rs",
+    "line": 649,
+    "text": "            Message::Forward {"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/standard/variant.rs#L90",
+    "source": "release",
+    "path": "consensus/src/marshal/standard/variant.rs",
+    "line": 90,
+    "text": "impl<B, K> Buffer<Standard<B>> for buffered::Mailbox<K, B>"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/standard/variant.rs#L113",
+    "source": "release",
+    "path": "consensus/src/marshal/standard/variant.rs",
+    "line": 113,
+    "text": "    fn retire(&self, _update: Retirement<B::Digest>) {}"
+  },
+  {
+    "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L526",
+    "source": "tempo",
+    "path": "crates/consensus/src/consensus/engine.rs",
+    "line": 526,
+    "text": "        let broadcast = self.broadcast.start(broadcast_channel);"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/validator/src/main.rs#L316",
+    "source": "alto",
+    "path": "validator/src/main.rs",
+    "line": 316,
+    "text": "        let (mut network, mut oracle) ="
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs#L366",
+    "source": "native",
+    "path": "examples/log-multimmit/src/main.rs",
+    "line": 366,
+    "text": "        let data = network.register(0, quota, 256);"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/discovery/network.rs#L169",
+    "source": "native",
+    "path": "p2p/src/authenticated/discovery/network.rs",
+    "line": 169,
+    "text": "    pub fn register("
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/discovery/mod.rs#L255",
+    "source": "native",
+    "path": "p2p/src/authenticated/discovery/mod.rs",
+    "line": 255,
+    "text": "pub use network::Network;"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/Cargo.toml#L23",
+    "source": "native",
+    "path": "examples/log-multimmit/Cargo.toml",
+    "line": 23,
+    "text": "commonware-p2p.workspace = true"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/Cargo.toml#L133",
+    "source": "native",
+    "path": "Cargo.toml",
+    "line": 133,
+    "text": "commonware-p2p = { version = \"2026.7.0\", path = \"p2p\" }"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/channels.rs#L51",
+    "source": "native",
+    "path": "p2p/src/authenticated/channels.rs",
+    "line": 51,
+    "text": "    fn send("
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L60",
+    "source": "native",
+    "path": "p2p/src/utils/codec.rs",
+    "line": 60,
+    "text": "    pub fn send_ref("
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/wire.rs#L16",
+    "source": "native",
+    "path": "resolver/src/p2p/wire.rs",
+    "line": 16,
+    "text": "impl<Key: Span> Write for Message<Key> {"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/wire.rs#L109",
+    "source": "native",
+    "path": "resolver/src/p2p/wire.rs",
+    "line": 109,
+    "text": "impl<Key: Span> EncodeSize for Payload<Key> {"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/types/bytes.rs#L23",
+    "source": "native",
+    "path": "codec/src/types/bytes.rs",
+    "line": 23,
+    "text": "impl EncodeSize for Bytes {"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/types/primitives.rs#L78",
+    "source": "native",
+    "path": "codec/src/types/primitives.rs",
+    "line": 78,
+    "text": "impl_numeric!(u64, get_u64, put_u64);"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/wire.rs#L139",
+    "source": "native",
+    "path": "resolver/src/p2p/wire.rs",
+    "line": 139,
+    "text": "                // Since the Bytes type will not allocate more memory than the buffer size,"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/validator/src/main.rs#L60",
+    "source": "alto",
+    "path": "validator/src/main.rs",
+    "line": 60,
+    "text": "fn configured_max_message_size(block_size: u32) -> u32 {"
+  },
+  {
+    "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/network.rs#L50",
+    "source": "tempo",
+    "path": "crates/consensus/src/network.rs",
+    "line": 50,
+    "text": "    (sender, receiver): (S, R),"
+  },
+  {
+    "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L488",
+    "source": "tempo",
+    "path": "crates/consensus/src/consensus/engine.rs",
+    "line": 488,
+    "text": "        let votes_channel = limit_channel("
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L40",
+    "source": "native",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 40,
+    "text": "/// - Broadcasting messages to the network"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs#L36",
+    "source": "native",
+    "path": "resolver/src/p2p/engine.rs",
+    "line": 36,
+    "text": "/// Manages incoming and outgoing P2P requests, coordinating fetch and serve operations."
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs#L100",
+    "source": "native",
+    "path": "resolver/src/p2p/mod.rs",
+    "line": 100,
+    "text": "pub trait Producer: Clone + Send + 'static {"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs#L149",
+    "source": "native",
+    "path": "resolver/src/lib.rs",
+    "line": 149,
+    "text": ""
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L16",
+    "source": "native",
+    "path": "p2p/src/utils/codec.rs",
+    "line": 16,
+    "text": "pub const fn wrap<S: Sender, R: Receiver, V: Codec>("
+  },
+  {
+    "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/peer_manager/ingress.rs#L65",
+    "source": "tempo",
+    "path": "crates/consensus/src/peer_manager/ingress.rs",
+    "line": 65,
+    "text": "impl Provider for Mailbox {"
+  },
+  {
+    "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/peer_manager/ingress.rs#L13",
+    "source": "tempo",
+    "path": "crates/consensus/src/peer_manager/ingress.rs",
+    "line": 13,
+    "text": ""
+  },
+  {
+    "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/network_identity.rs#L6",
+    "source": "tempo",
+    "path": "crates/consensus/src/network_identity.rs",
+    "line": 6,
+    "text": "#[derive(Debug, Clone, Copy)]"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L237",
+    "source": "native",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 237,
+    "text": "    fn handle_broadcast<Sr: Sender<PublicKey = P>>("
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/limited.rs#L105",
+    "source": "native",
+    "path": "p2p/src/utils/limited.rs",
+    "line": 105,
+    "text": "        recipients: Recipients<S::PublicKey>,"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L301",
+    "source": "native",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 301,
+    "text": "    fn insert_message(&mut self, peer: P, digest: M::Digest, msg: M) -> InsertMessageResult {"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L327",
+    "source": "native",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 327,
+    "text": "    fn insert_cache_entry("
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs#L66",
+    "source": "native",
+    "path": "resolver/src/p2p/mod.rs",
+    "line": 66,
+    "text": "//!"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/discovery/network.rs#L136",
+    "source": "native",
+    "path": "p2p/src/authenticated/discovery/network.rs",
+    "line": 136,
+    "text": "    /// # Backpressure"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/channels.rs#L199",
+    "source": "native",
+    "path": "p2p/src/authenticated/channels.rs",
+    "line": 199,
+    "text": "    pub fn register<C: Clock + Metrics>("
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/discovery/network.rs#L192",
+    "source": "native",
+    "path": "p2p/src/authenticated/discovery/network.rs",
+    "line": 192,
+    "text": "    pub fn start(mut self) -> Handle<()> {"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/router/ingress.rs#L204",
+    "source": "native",
+    "path": "p2p/src/authenticated/router/ingress.rs",
+    "line": 204,
+    "text": "        // receive the content, so accept the submission without encoding or enqueueing it."
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/lib.rs#L34",
+    "source": "native",
+    "path": "p2p/src/lib.rs",
+    "line": 34,
+    "text": "    ///"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/ingress.rs#L73",
+    "source": "native",
+    "path": "broadcast/src/buffered/ingress.rs",
+    "line": 73,
+    "text": "        }"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs#L77",
+    "source": "native",
+    "path": "resolver/src/p2p/engine.rs",
+    "line": 77,
+    "text": "    /// Holds futures that resolve once the `Producer` has produced the data."
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L169",
+    "source": "native",
+    "path": "p2p/src/utils/codec.rs",
+    "line": 169,
+    "text": "pub struct WrappedBackgroundReceiver<E, P, B, R, V, T>"
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L220",
+    "source": "native",
+    "path": "p2p/src/utils/codec.rs",
+    "line": 220,
+    "text": "    /// Start the background receiver."
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L271",
+    "source": "native",
+    "path": "p2p/src/utils/codec.rs",
+    "line": 271,
+    "text": "    fn handle_decode_result("
+  }
+]

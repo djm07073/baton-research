@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# storage/src/qmdb/any/mod.rs (v2026.9.0) [lines 89-104]\n\n```rust\n89: use std::sync::Arc;\n90: use tracing::warn;\n91: \n92: pub mod batch;\n93: pub mod db;\n94: pub mod operation;\n95: #[cfg(any(test, feature = \"test-traits\"))]\n96: pub mod traits;\n97: pub mod value;\n98: pub use value::{FixedValue, ValueEncoding, VariableValue};\n99: pub mod ordered;\n100: pub(crate) mod sync;\n101: pub mod unordered;\n102: \n103: /// Compute the authenticated root of a newly initialized database without opening storage.\n104: ///\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

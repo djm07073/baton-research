@@ -1,0 +1,57 @@
+# Independent Nunchi mempool reuse review
+
+Review date: 2026-10-04. Source: `nunchi-labs/sdk` at `eea35ced709f68c15d6fbc8bcc754696a7e44374`. Independently recalculated Git blob SHA-1 and SHA-256 for all 12 supplied Nunchi files; all match the checked manifest. This review changes only this report. No compilation, runtime experiment, protocol implementation, canonical documentation edit or workload/backend decision.
+
+## Verdict
+
+**Yes: Nunchi is a better conditional whole-actor reuse candidate than the reviewed Constantinople pool for custom payloads with SHA-256 identities and monotonic nonce lanes.** Its public generic transaction contract, P2P attachment and nondestructive candidate snapshots fit more of Baton's stated pool boundary without extracting a private fixed-transaction queue. This is an ecosystem package using Commonware `2026.9.0`, not a core Commonware pool primitive and not demonstrated compatible with Baton's native dependency pin.
+
+It still needs explicit canonical outcome/restart wiring, bounded packing/decoding and propagation expectations. The source's “dropped report self-heals on the next one” comment is not an unconditional implemented guarantee. Do not publish that claim as established behavior.
+
+## Exact available APIs and completion
+
+- [`PoolTransaction`](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/tx.rs#L32) permits a custom associated NonceKey/VerifyError and transaction implementation. Digest is concretely Commonware SHA-256; the implementation must faithfully bind content/domain, lane, nonce, encoded size and stateless verification. Trait typing does not itself prove those relationships. Nunchi Transaction has a blanket implementation; direct custom implementation avoids choosing that application format, although Cargo still depends on Nunchi common/crypto.
+- [`Mempool::new`](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L258) returns actor and cloneable handle. [`start_p2p`](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L292) takes existing Commonware Sender/Receiver and requires `T: Encode + Read<Cfg=()>`. No Simplex or Stateful trait is a mempool start requirement. The example chain uses Stateful, but Baton can reuse this actor without adopting that chain Application.
+- [`submit`](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L64) performs stateless checks on the caller, waits for mailbox delivery, then waits for the actor's admission reply. Success means in-memory admission, not durable storage, dissemination success or canonical inclusion. Cancellation/closed response does not roll back an already processed admission.
+- [`pending(limit)`](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L177) returns up to a transaction count; [`Pool::pending`](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/pool.rs#L160) clones entries and advances round-robin selection, without removing/reserving them. Multiple producers can select the same pending transaction. Gap-free means contiguous nonce runs relative to the pool's supplied committed-nonce snapshot; it does not mean balances or arbitrary runtime semantics were validated.
+- [`finalized(digests, lane_nonces, height)`](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L195) returns `()` after `try_send`, logging and dropping an unavailable/full mailbox notification. There is no processed/applied ACK. [`Pool::finalize`](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/pool.rs#L211) removes included digests regardless of which producer selected them, records status for even unpooled digests, advances supplied lane nonces monotonically, removes stale queued entries and scans TTL periodically. That is more general global cleanup than Constantinople's outstanding-local-proposal branch.
+- `status` is a bounded in-memory cache, explicitly lost on restart ([actor.rs L217](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L217)). None also covers cache eviction/shutdown; this is not a certified query result. Later duplicate/out-of-order finalize notifications can overwrite a cached digest's height; lane nonce advancement itself has a monotonic guard.
+
+## Integration gaps requiring explicit treatment
+
+### 1. Lost finalization updates do not always heal
+
+Source comment [actor.rs L190–194](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L190) claims the next report heals a dropped update. Actual updates carry only supplied digests and touched lanes. If lane A's report is lost and all later reports touch B, A's committed nonce remains stale. The chain callback constructs lane updates only from that block's transactions ([application.rs L908](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/chain/src/application.rs#L908)). The builder merely skips runtime-invalid candidates ([L278](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/chain/src/application.rs#L278), L334), without sending a pool removal/nonce refresh there.
+
+A stale leading nonce can repeatedly consume a small pending limit and delay useful successors; TTL may eventually remove entries but does not repair the missing committed nonce. This is source-level conditional reasoning, not an executed failure trace. Repair requires reliable/replayed canonical outcomes or periodic/restart full affected-lane snapshots with completion observability. An external retry loop calling the unchanged fire-and-forget method has no direct processed ACK; an actor/barrier extension or explicitly checked snapshot reconciliation is additional integration work.
+
+Baton must source cleanup from **Executor's linked durable canonical result**, including verified imported-state application, rather than producer DA, speculative execution or native sparse finality. A pool notification must not become Orderer's durable application ACK.
+
+### 2. Restart needs nonce snapshot initialization
+
+[`Pool::new`](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/pool.rs#L46) starts empty committed-nonce state; unknown lanes default to zero ([L307](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/pool.rs#L304)). All queues/indices/nonces/status/height are in memory; no durable restoration/provider bootstrap API is exported. An account already at nonce 10 cannot have pending nonce 10 selected from the default expected nonce zero unless its lane snapshot is seeded. The public finalized call can carry empty digests plus restored lane nonces/height, but is lossy and has no readiness completion. Initialization and every recovered/synced canonical change need a deliberate verified-state linkage and admission/selection readiness policy.
+
+### 3. Selection and post-decode size checks are not block/ingress bounds
+
+PoolConfig provides per-tx encoded-size and pending count limits ([config.rs](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/config.rs#L3)); pending limits count, not cumulative block bytes. A packing/static filter adapter must reserve actual full body framing and preserve required nonce predecessors if it drops individual selected candidates. Copying the SDK's builder would adopt runtime validation and per-attempt merkleization ([application.rs L264](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/chain/src/application.rs#L264), L290), conflicting with Baton's current separation if silently moved into TxPool/body DA handling. Reuse the pool independently.
+
+The P2P path calls `T::read_cfg(&mut bytes,&())` **before** the max_tx_bytes check and cryptographic verification ([actor.rs L478](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L478)); it does not explicitly require input exhaustion. A custom Read implementation therefore needs bounds before allocation, canonical/whole-input validation or an ingress bridge, plus configured network frame quotas. `Cfg=()` precludes passing a runtime decode configuration unchanged. Local submit_many accepts a whole Vec with no aggregate byte/count bound before verification/enqueue; mailbox capacity counts messages, not their retained bytes. Committed-lane metadata can grow beyond current pending-count limits over chain history. These are resource integration requirements, not a claim that all custom transaction codecs are unsafe.
+
+### 4. Gossip is one-shot local-origin full-body broadcast
+
+Locally admitted transactions call `Sender::send(Recipients::All, encoded,false)` once ([actor.rs L443](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L443)); no accepted peer does not turn successful admission into failure. Received transactions are admitted without rebroadcast. No inventory/fetch/anti-entropy/periodic replay or peer receipt acknowledgement is implemented in these snapshots. Whole-actor reuse therefore also depends on an adequate topology and accepted best-effort propagation semantics, or an additional existing broadcast/resolver attachment. The TODO in private Pool admission is not evidence that gossip is absent: the actual public actor implements this one-shot path.
+
+## Comparison and documentation disposition
+
+| Dimension | Reviewed Nunchi | Reviewed Constantinople |
+|---|---|---|
+| Payload abstraction | Public generic PoolTransaction; fixed SHA-256 + nonce-lane requirements | Fixed transfer/primitives and Header/SealedBlock source |
+| Candidate retention | Cloned snapshots, no destructive pop | Selected bytes popped; outstanding digests retained |
+| Public whole actor | Mempool/Handle/new/start/start_p2p | Webserver mailbox/source; tightly coupled private admission/kernel |
+| Network | Existing Commonware Sender/Receiver, one-shot origin broadcast | HTTP ingress/HTTP relayer |
+| Outcomes | Global digest removal + supplied committed lane nonces | Matching local outstanding proposals; queued peer-included cleanup not established |
+| Remaining work | Verified nonce initialization/refresh, dropped update recovery, packing/decode/propagation contracts | Generic type/lifecycle adaptation and retention/reselection as well as networking |
+
+Add Nunchi as a **conditional ecosystem whole-actor candidate** in the pool reuse comparison, ahead of private-kernel extraction for an actually adopted nonce-lane workload. Do not select nonce semantics, replacement/TTL/fairness rules, package/backend or routing strategy through this editorial addition. Same-nonce last-write-wins, round-robin lanes, eviction and TTL are concrete package policies that must be compatible with user-selected behavior or adapted; they are not arbitrary pluggable policies in the existing public interface.
+
+The 12 source files establish callable public surface and implementation behavior, not production readiness, publication availability, native-pin ABI compatibility or pool durability. No schema/default, Bank semantics or blank policy choice is adopted here.

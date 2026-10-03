@@ -203,6 +203,7 @@ pub trait Storage: Send {
 
     /// Prepare the exact selected prefix from completed changes, without executing transactions.
     /// Use concrete QMDB merkleize calls and calculate the chosen result commitment.
+    /// A QMDB unsealed draft is consumed; retain effects first if more rootless branches need them.
     /// Keep valid access/fencing through lazy reads, staged expansion and materialization.
     /// Bind the selected storage rule, exact base/input, outputs and material to the prepared result.
     /// Root type and deterministic batch/normalization rules remain open design choices.
@@ -212,6 +213,7 @@ pub trait Storage: Send {
         preparation: Self::Preparation,
     ) -> impl Future<Output = Result<Self::PreparedResult, Self::Error>> + Send;
     /// Check authorized exact canonical input, applicable ancestry and single-writer access.
+    /// Use concrete validate_batch preflight under that authority; it is not application proof verification.
     /// Apply through QMDB and observe successful durability plus recoverable metadata linkage.
     /// Return CommitResult only when state, outputs, cursor and provenance recover together.
     /// Canonical mutation is not canceled with advisory workers; failed flush is not success.

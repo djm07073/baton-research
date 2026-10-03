@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# glue/src/stateful/db/any.rs (v2026.9.0) [lines 98-157]\n\n```rust\n98:     H: Hasher,\n99:     S: Strategy,\n100:     Operation<F, U>: Codec,\n101: {\n102:     /// Set commit metadata included in the next\n103:     /// [`merkleize`](UnmerkleizedTrait::merkleize) call.\n104:     pub fn with_metadata(mut self, metadata: U::Value) -> Self {\n105:         self.metadata = Some(metadata);\n106:         self\n107:     }\n108: \n109:     /// Read a value by key, falling back to applied state.\n110:     pub async fn get(&self, key: &U::Key) -> Result<Option<U::Value>, Error<F>> {\n111:         let db = self.db.read().await;\n112:         self.batch.get(key, &db).await\n113:     }\n114: \n115:     /// Read multiple values by key, falling back to applied state.\n116:     ///\n117:     /// Returns results in the same order as the input keys.\n118:     pub async fn get_many(&self, keys: &[&U::Key]) -> Result<Vec<Option<U::Value>>, Error<F>> {\n119:         let db = self.db.read().await;\n120:         self.batch.get_many(keys, &db).await\n121:     }\n122: \n123:     /// Read multiple values and return a staged batch for the same keys.\n124:     ///\n125:     /// Returns results in the same order as the input keys.\n126:     pub async fn stage(\n127:         self,\n128:         keys: &[&U::Key],\n129:     ) -> Result<(Vec<Option<U::Value>>, AnyStaged<F, E, C, I, H, U, S>), Error<F>> {\n130:         let Self {\n131:             batch,\n132:             db,\n133:             metadata,\n134:         } = self;\n135:         let (values, staged) = {\n136:             let guard = db.read().await;\n137:             batch.stage(keys, &guard).await?\n138:         };\n139:         Ok((\n140:             values,\n141:             AnyStaged {\n142:                 staged,\n143:                 db,\n144:                 metadata,\n145:             },\n146:         ))\n147:     }\n148: \n149:     /// Record a mutation. `Some(value)` for upsert, `None` for delete.\n150:     pub fn write(mut self, key: U::Key, value: Option<U::Value>) -> Self {\n151:         self.batch = self.batch.write(key, value);\n152:         self\n153:     }\n154: }\n155: \n156: /// Wraps a QMDB [`MerkleizedBatch`] with a reference to the parent\n157: /// database, implementing the [`Merkleized`](super::Merkleized) trait.\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

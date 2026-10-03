@@ -304,6 +304,7 @@ pub trait Storage: Send {
 
     /// Prepare the exact selected prefix from completed changes, without executing transactions.
     /// Use concrete QMDB merkleize calls and calculate the chosen result commitment.
+    /// A QMDB unsealed draft is consumed; retain effects first if more rootless branches need them.
     /// Keep valid access/fencing through lazy reads, staged expansion and materialization.
     /// Bind the selected storage rule, exact base/input, outputs and material to the prepared result.
     /// Root type and deterministic batch/normalization rules remain open design choices.
@@ -313,6 +314,7 @@ pub trait Storage: Send {
         preparation: Self::Preparation,
     ) -> impl Future<Output = Result<Self::PreparedResult, Self::Error>> + Send;
     /// Check authorized exact canonical input, applicable ancestry and single-writer access.
+    /// Use concrete validate_batch preflight under that authority; it is not application proof verification.
     /// Apply through QMDB and observe successful durability plus recoverable metadata linkage.
     /// Return CommitResult only when state, outputs, cursor and provenance recover together.
     /// Canonical mutation is not canceled with advisory workers; failed flush is not success.
@@ -338,6 +340,8 @@ pub trait Storage: Send {
 ```
 
 PreparedResult is a retained/cloneable material handle so signing and application can share the same sealed result; use upstream retained batches rather than copying a second database. Batch creation, sealed-parent forks, pruning, sync sources and barrier observation use the upstream handles described in [QMDB](../execution/qmdb.md). This facade does not hide the crucial limit: `DatabaseSet::fork_batches` accepts a merkleized parent. Continuing one unsealed batch can defer roots; rootless branching across completed blocks requires an application read/effects adapter. A local generation, writer permit or retention coordinate must not become part of the cross-validator signing subject merely because it appears in a local binding record.
+
+The concrete Storage attachment also supplies authorized branch handles internally: upstream new_batches at an applied base, fork_batches at a sealed parent, or the application overlay for a rootless parent. Executor reads/writes through those concrete handles. Storage::read cannot substitute for pending-parent access. The inspected Any/Current unsealed/staged handles are one-shot and non-Clone; retain required effects before preparing them. See [concrete branch access](../execution/qmdb.md#give-executor-concrete-branch-access) for production wrapper and generic type constraints.
 
 ## Interface boundary for state finalization and state sync
 

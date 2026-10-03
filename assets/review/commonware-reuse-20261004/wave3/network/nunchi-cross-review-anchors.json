@@ -1,0 +1,112 @@
+[
+  {
+    "path": "mempool/src/tx.rs",
+    "line": 32,
+    "text": "pub trait PoolTransaction: Clone + Send + Sync + 'static {"
+  },
+  {
+    "path": "Cargo.toml",
+    "line": 52,
+    "text": "nunchi-common = { version = \"2026.9.0-alpha.1\", path = \"common\" }"
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 96,
+    "text": "    pub fn admit_verified(&mut self, tx: T) -> Result<Digest, AdmissionError> {"
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 292,
+    "text": "    pub fn start_p2p<E, S, R>(self, context: E, p2p: (S, R)) -> Handle<()>"
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 64,
+    "text": "    pub async fn submit(&self, tx: T) -> Result<Digest, AdmissionError> {"
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 433,
+    "text": "    fn handle_with_gossip<S>(&mut self, message: Message<T>, sender: &mut S)"
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 473,
+    "text": "    fn handle_network<P>(&mut self, peer: P, mut bytes: commonware_runtime::IoBuf)"
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 478,
+    "text": "        match T::read_cfg(&mut bytes, &()) {"
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 81,
+    "text": "    pub fn check_stateless(tx: &T, config: &PoolConfig) -> Result<(), AdmissionError> {"
+  },
+  {
+    "path": "common/src/transaction.rs",
+    "line": 197,
+    "text": "impl Read for Authorization {"
+  },
+  {
+    "path": "common/src/transaction.rs",
+    "line": 11,
+    "text": "pub trait Operation: EncodeSize + Read<Cfg = ()> + Write {"
+  },
+  {
+    "path": "common/src/transaction.rs",
+    "line": 303,
+    "text": "impl<Operation: Read<Cfg = ()>> Read for Transaction<Operation> {"
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 444,
+    "text": "                    let sent = sender.send(Recipients::All, gossip.encode(), false);"
+  },
+  {
+    "path": "mempool/src/config.rs",
+    "line": 8,
+    "text": "    /// Maximum encoded byte size of a single transaction. This is a pool"
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 160,
+    "text": "    pub fn pending(&mut self, limit: usize) -> Vec<T> {"
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 190,
+    "text": "    /// Report a finalized block: the digests it included and each touched"
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 211,
+    "text": "    pub fn finalize("
+  },
+  {
+    "path": "chain/src/application.rs",
+    "line": 903,
+    "text": "        let applied = block"
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 304,
+    "text": "    fn committed_nonce(&self, account: &T::NonceKey) -> u64 {"
+  },
+  {
+    "path": "mempool/src/pool.rs",
+    "line": 267,
+    "text": "            let expired: Vec<(T::NonceKey, u64)> = self"
+  },
+  {
+    "path": "mempool/src/status.rs",
+    "line": 10,
+    "text": "    /// Included in a finalized block."
+  },
+  {
+    "path": "mempool/src/actor.rs",
+    "line": 94,
+    "text": "    pub async fn submit_many(&self, txs: Vec<T>) -> Vec<Result<Digest, AdmissionError>> {"
+  }
+]

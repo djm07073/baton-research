@@ -1,0 +1,161 @@
+{
+  "report_sha256": "7a7937286127d83b8f7e0d74d75e44ce37d0e3d482fdb57b5bec4bb0e6e9604d",
+  "anchors": [
+    {
+      "path": "consensus/src/multimmit/scheme/bls12381_threshold.rs",
+      "line": 293,
+      "text": "    pub fn certificate_verifier<D: Digest>(",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/types/tally.rs",
+      "line": 235,
+      "text": "    pub fn vote<V, H>(",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/types/tally.rs",
+      "line": 476,
+      "text": "    pub fn vote_body(&self, round: Round, config: CodecConfig) -> Result<VoteBody<D>, Error> {",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/machine/emission.rs",
+      "line": 17,
+      "text": "pub enum ViewProof<V: Variant, D: Digest> {",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/types/history.rs",
+      "line": 20,
+      "text": "impl<D: Digest> TipRecord<D> {",
+      "present": true
+    },
+    {
+      "path": "storage/src/archive/mod.rs",
+      "line": 116,
+      "text": "    fn next_gap(&self, index: u64) -> (Option<u64>, Option<u64>);",
+      "present": true
+    },
+    {
+      "path": "storage/src/archive/mod.rs",
+      "line": 163,
+      "text": "pub trait MultiArchive: Archive {",
+      "present": true
+    },
+    {
+      "path": "storage/src/journal/contiguous/variable.rs",
+      "line": 2164,
+      "text": "pub struct Journal<E: Context, V: Codec>(Box<Inner<E, V>>);",
+      "present": true
+    },
+    {
+      "path": "storage/src/journal/contiguous/mod.rs",
+      "line": 161,
+      "text": "pub trait Contiguous: Send + Sync {",
+      "present": true
+    },
+    {
+      "path": "storage/src/journal/contiguous/mod.rs",
+      "line": 233,
+      "text": "pub trait Mutable: Contiguous + Sized {",
+      "present": true
+    },
+    {
+      "path": "storage/src/metadata/storage.rs",
+      "line": 689,
+      "text": "    pub fn put(&mut self, key: K, value: V) -> Option<V> {",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/scheme/bls12381_threshold.rs",
+      "line": 115,
+      "text": "    pub fn verify(",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/scheme/bls12381_threshold.rs",
+      "line": 770,
+      "text": "    pub fn verify_vqc<H: Hasher<Digest = D>, D: Digest>(",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/scheme/bls12381_threshold.rs",
+      "line": 850,
+      "text": "    pub fn verify_lqc<H: Hasher<Digest = D>, D: Digest>(",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/types/activity.rs",
+      "line": 12,
+      "text": "pub enum Activity<V: Variant, D: Digest> {",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/actors/voter/actor.rs",
+      "line": 1659,
+      "text": "            let _ = self.reporter.report(activity);",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/actors/voter/actor.rs",
+      "line": 1861,
+      "text": "            let _ = self.reporter.report(activity);",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 536,
+      "text": "    pub async fn inspect(&self) -> Option<Inspection<D>> {",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/machine/state.rs",
+      "line": 450,
+      "text": "    pub fn finality(&self) -> &[FinalityFact<D>] {",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 572,
+      "text": "    pub async fn serve(&self, view: View) -> Option<ViewProof<V, D>> {",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/actors/resolver/actor.rs",
+      "line": 289,
+      "text": "            && floor.proof.view() >= view",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/mod.rs",
+      "line": 242,
+      "text": "pub use machine::{",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/actors/resolver/mod.rs",
+      "line": 1,
+      "text": "//! Best-effort checkpoint resolution for one fixed Multimmit epoch.",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/machine/admission.rs",
+      "line": 85,
+      "text": "impl<V: Variant, D: Digest> Artifact<V, D> {",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/machine/algebra/tips.rs",
+      "line": 336,
+      "text": "    pub(crate) fn from_pool<'a, H, V, I>(",
+      "present": true
+    },
+    {
+      "path": "consensus/src/multimmit/machine/finality.rs",
+      "line": 2082,
+      "text": "fn pool_evidence<H, V, D>(pool: &DirectPool<V, D>) -> D",
+      "present": true
+    }
+  ]
+}

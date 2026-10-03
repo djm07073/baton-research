@@ -1,0 +1,148 @@
+{
+  "successful_raw_files": 38,
+  "recorded_http_failures": 2,
+  "anchors": [
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/lib.rs",
+      "line": 8,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/mod.rs",
+      "line": 106,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 106,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 263,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "line": 260,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 53,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/unordered/fixed.rs",
+      "line": 24,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 485,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 291,
+      "valid": true
+    },
+    {
+      "revision": "v2026.9.0",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 295,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/mod.rs",
+      "line": 96,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/unordered/mod.rs",
+      "line": 65,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 726,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 256,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 110,
+      "valid": true
+    },
+    {
+      "revision": "v2026.9.0",
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 110,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 174,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2733,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2763,
+      "valid": true
+    },
+    {
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/db.rs",
+      "line": 776,
+      "valid": true
+    }
+  ],
+  "mcp": [
+    {
+      "receipt": "mcp-get-file-1.json",
+      "path": "glue/src/stateful/db/mod.rs",
+      "matching_source_lines": 45,
+      "sha256": "2341361f7f929128166095186f54a6484f94a15045fe1ae887e37708834e1f68"
+    },
+    {
+      "receipt": "mcp-get-file-2.json",
+      "path": "glue/src/stateful/db/any.rs",
+      "matching_source_lines": 60,
+      "sha256": "31a79b19924f497ef2fcb6e17cff5a4f6ef056aac11700d3adf81c3f533f32a6"
+    },
+    {
+      "receipt": "mcp-get-file-3.json",
+      "path": "storage/src/qmdb/any/mod.rs",
+      "matching_source_lines": 16,
+      "sha256": "42997256cb247132f8001568d4b6babfd9d5ad75870d8adbfc77bacbe6fdd4c0"
+    }
+  ],
+  "failures": [],
+  "report_sha256": "13c160a8f7225b0065291d5cc945101e89d30537064acf89560516997e60f572"
+}

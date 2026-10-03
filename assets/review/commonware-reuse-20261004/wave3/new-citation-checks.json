@@ -1,0 +1,407 @@
+[
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/codec/src/types/bytes.rs#L23",
+    "source_sha256": "01449e52ae5586d981169c37026430229e669fd25cc8e90701bbdbd86ea6fc93",
+    "source_lines": 140,
+    "anchor_line": 23,
+    "anchor_context": [
+      "}",
+      "",
+      "impl EncodeSize for Bytes {",
+      "    #[inline]",
+      "    fn encode_size(&self) -> usize {",
+      "        self.len().encode_size() + self.len()"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L293",
+    "source_sha256": "d7b7ed50b389726a9f0c4c09f1330a8ac660200372a0e8ed339280b429123317",
+    "source_lines": 2886,
+    "anchor_line": 293,
+    "anchor_context": [
+      "    /// This role verifies ordinary signatures, V-QCs, L-QCs, recovered DA certificates, and",
+      "    /// recovered nullifications. It cannot verify or recover threshold shares.",
+      "    pub fn certificate_verifier<D: Digest>(",
+      "        config: &Config<D>,",
+      "        roster: Roster<P, V>,",
+      "        da_identity: V::Public,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L889",
+    "source_sha256": "d7b7ed50b389726a9f0c4c09f1330a8ac660200372a0e8ed339280b429123317",
+    "source_lines": 2886,
+    "anchor_line": 889,
+    "anchor_context": [
+      "    /// signature is attributable evidence of misbehavior, so the optimistic path is the",
+      "    /// common case.",
+      "    pub fn verify_artifacts<R: CryptoRng, H: Hasher<Digest = D>, D: Digest>(",
+      "        &self,",
+      "        rng: &mut R,",
+      "        artifacts: &[Unverified<'_, V, D>],"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/history.rs#L20",
+    "source_sha256": "c5c4410900877c0896f7ff27e874e6ab350b7c0fda62cf2d4c794696dc275ff7",
+    "source_lines": 121,
+    "anchor_line": 20,
+    "anchor_context": [
+      "}",
+      "",
+      "impl<D: Digest> TipRecord<D> {",
+      "    /// Creates a history record extending `parent` with one tip per producer chain.",
+      "    pub fn new(parent: D, tips: Vec<BlockRef<D>>) -> Result<Self, Error> {",
+      "        if tips.is_empty()"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/tally.rs#L235",
+    "source_sha256": "962be11c0fa393cdddef013545a33bb7fb818a045a7f4e476936d86556fe6f0d",
+    "source_lines": 832,
+    "anchor_line": 235,
+    "anchor_context": [
+      "",
+      "    /// Expands one signer's exact vote body.",
+      "    pub fn vote<V, H>(",
+      "        &self,",
+      "        leader: &LeaderBlock<V, D>,",
+      "        signer: Participant,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs#L366",
+    "source_sha256": "c769b095b252d70cf2ae320ba5bc6284449670f6162b6638246754844a730d92",
+    "source_lines": 601,
+    "anchor_line": 366,
+    "anchor_context": [
+      "        // certificates, kept running.",
+      "        let quota = Quota::per_second(NZU32!(1_024));",
+      "        let data = network.register(0, quota, 256);",
+      "        let consensus = network.register(1, quota, 256);",
+      "        let certificates = network.register(2, quota, 256);",
+      "        let resolver = network.register(3, quota, 256);"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs#L110",
+    "source_sha256": "0e5e12492554098c2fe16c1ffd61c559390b99f8e4027a0c81caea4eb0371441",
+    "source_lines": 1007,
+    "anchor_line": 110,
+    "anchor_context": [
+      "    }",
+      "",
+      "    /// Read a value by key, falling back to applied state.",
+      "    pub async fn get(&self, key: &U::Key) -> Result<Option<U::Value>, Error<F>> {",
+      "        let db = self.db.read().await;",
+      "        self.batch.get(key, &db).await"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs#L174",
+    "source_sha256": "0e5e12492554098c2fe16c1ffd61c559390b99f8e4027a0c81caea4eb0371441",
+    "source_lines": 1007,
+    "anchor_line": 174,
+    "anchor_context": [
+      "}",
+      "",
+      "impl<F, E, C, I, H, U, S> Clone for AnyMerkleized<F, E, C, I, H, U, S>",
+      "where",
+      "    F: Family,",
+      "    E: Context,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L106",
+    "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+    "source_lines": 4730,
+    "anchor_line": 106,
+    "anchor_context": [
+      "const MAX_CHANNEL_DRAIN_PER_TICK: usize = 32;",
+      "",
+      "pub mod any;",
+      "pub mod current;",
+      "pub mod immutable;",
+      "pub mod keyless;"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L341",
+    "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+    "source_lines": 4730,
+    "anchor_line": 341,
+    "anchor_context": [
+      "/// gone: state that was not yet durable is discarded, but everything already on disk stays",
+      "/// recoverable.",
+      "pub trait ManagedDb<E>: Send + Sync + Sized {",
+      "    /// An in-progress batch of mutations that has not yet been merkleized.",
+      "    type Unmerkleized: Unmerkleized;",
+      ""
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/channels.rs#L51",
+    "source_sha256": "ab3e84314f16c17cc496ccaba6afeb6a06f093712499b5262a96784e23dde069",
+    "source_lines": 316,
+    "anchor_line": 51,
+    "anchor_context": [
+      "    type PublicKey = P;",
+      "",
+      "    fn send(",
+      "        &mut self,",
+      "        recipients: Recipients<Self::PublicKey>,",
+      "        message: impl Into<IoBufs> + Send,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/discovery/network.rs#L169",
+    "source_sha256": "6303cbe80cb21cc1af6c3aeb91e1b6654c0a2d8c1f47d8312a6cb0a8fed71582",
+    "source_lines": 291,
+    "anchor_line": 169,
+    "anchor_context": [
+      "    ///   without impacting the ability to process messages on other channels.",
+      "    #[allow(clippy::type_complexity)]",
+      "    pub fn register(",
+      "        &mut self,",
+      "        channel: Channel,",
+      "        rate: Quota,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L16",
+    "source_sha256": "5314eaf82f8f571170201f06aa5abefa3eaf9ff3ee108a5c4aefab1af2295e6c",
+    "source_lines": 865,
+    "anchor_line": 16,
+    "anchor_context": [
+      "",
+      "/// Wrap a [Sender] and [Receiver] with some [Codec].",
+      "pub const fn wrap<S: Sender, R: Receiver, V: Codec>(",
+      "    config: V::Cfg,",
+      "    pool: BufferPool,",
+      "    sender: S,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L169",
+    "source_sha256": "5314eaf82f8f571170201f06aa5abefa3eaf9ff3ee108a5c4aefab1af2295e6c",
+    "source_lines": 865,
+    "anchor_line": 169,
+    "anchor_context": [
+      "}",
+      "",
+      "pub struct WrappedBackgroundReceiver<E, P, B, R, V, T>",
+      "where",
+      "    E: Spawner,",
+      "    P: PublicKey,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/wire.rs#L109",
+    "source_sha256": "35dc4326bbcf53daefaf30de40c41b2abe5450b7bc61d073d9e30e372c337baa",
+    "source_lines": 255,
+    "anchor_line": 109,
+    "anchor_context": [
+      "}",
+      "",
+      "impl<Key: Span> EncodeSize for Payload<Key> {",
+      "    fn encode_size(&self) -> usize {",
+      "        1 + match self {",
+      "            Self::Request(key) => key.encode_size(),"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/mod.rs#L116",
+    "source_sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877",
+    "source_lines": 1293,
+    "anchor_line": 116,
+    "anchor_context": [
+      "    ///",
+      "    /// This is useful for driving backfill operations over the archive.",
+      "    fn next_gap(&self, index: u64) -> (Option<u64>, Option<u64>);",
+      "",
+      "    /// Returns up to `max` missing items starting from `start`.",
+      "    ///"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/contiguous/mod.rs#L161",
+    "source_sha256": "84119363a7903072adfcaead61674e4071adee83ec9520dfedd1e97a58b58a75",
+    "source_lines": 389,
+    "anchor_line": 161,
+    "anchor_context": [
+      "/// Maintains a monotonically increasing position counter where each appended item receives a unique",
+      "/// position starting from 0.",
+      "pub trait Contiguous: Send + Sync {",
+      "    /// The type of items stored in the journal.",
+      "    type Item: Send;",
+      ""
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/storage.rs#L689",
+    "source_sha256": "fc8c17ff7bbd07b65c30f94d4e1b3f0d2670b8948cfbcf67c6dfec8adfe54044",
+    "source_lines": 758,
+    "anchor_line": 689,
+    "anchor_context": [
+      "    /// value is returned. The value stored will not be persisted until [Self::sync]",
+      "    /// is called.",
+      "    pub fn put(&mut self, key: K, value: V) -> Option<V> {",
+      "        self.0.put(key, value)",
+      "    }",
+      ""
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2733",
+    "source_sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582",
+    "source_lines": 5040,
+    "anchor_line": 2733,
+    "anchor_context": [
+      "    /// [`Self::apply_batch`] runs the same validation but consumes the database when it",
+      "    /// fails; callers that want to reject a bad batch and keep the handle can check first.",
+      "    pub fn validate_batch(",
+      "        &self,",
+      "        batch: &MerkleizedBatch<F, H::Digest, U, S>,",
+      "    ) -> Result<(), crate::qmdb::Error<F>> {"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/db.rs#L776",
+    "source_sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e",
+    "source_lines": 1728,
+    "anchor_line": 776,
+    "anchor_context": [
+      "    /// [`Self::apply_batch`] runs the same validation but consumes the database when it",
+      "    /// fails; callers that want to reject a bad batch and keep the handle can check first.",
+      "    pub fn validate_batch(",
+      "        &self,",
+      "        batch: &super::batch::MerkleizedBatch<F, H::Digest, U, N, S>,",
+      "    ) -> Result<(), Error<F>> {"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/Cargo.toml#L61",
+    "source_sha256": "8c8d35af791227dfb050982fd193eac886df0a9d5eb01b9690723ba16afce8ad",
+    "source_lines": 119,
+    "anchor_line": 61,
+    "anchor_context": [
+      "nunchi-bridge-chain = { version = \"2026.9.0-alpha.1\", path = \"examples/bridge-chain\" }",
+      "nunchi-xtask = { version = \"2026.9.0-alpha.1\", package = \"xtask\", path = \"xtask\" }",
+      "commonware-actor = \"2026.9.0\"",
+      "commonware-codec = \"2026.9.0\"",
+      "commonware-coding = \"2026.9.0\"",
+      "commonware-consensus = \"2026.9.0\""
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/chain/src/application.rs#L264",
+    "source_sha256": "7e44491061c561242fae2423b57b2197e2d6fa5ad9cd75497762cc9ef7a797e6",
+    "source_lines": 933,
+    "anchor_line": 264,
+    "anchor_context": [
+      "",
+      "        let validate_start = timing.map(|(runtime_context, _)| runtime_context.current());",
+      "        for transaction in candidates {",
+      "            if included.len() == self.max_block_transactions {",
+      "                break;",
+      "            }"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L195",
+    "source_sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+    "source_lines": 500,
+    "anchor_line": 195,
+    "anchor_context": [
+      "    /// the next one (re-proposed finalized transactions fail the ledger nonce",
+      "    /// gate and are pruned then).",
+      "    pub fn finalized(",
+      "        &self,",
+      "        digests: Vec<Digest>,",
+      "        lane_nonces: Vec<(T::NonceKey, u64)>,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L258",
+    "source_sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+    "source_lines": 500,
+    "anchor_line": 258,
+    "anchor_context": [
+      "impl<T: PoolTransaction> Mempool<T> {",
+      "    /// Create the actor and its handle.",
+      "    pub fn new(config: PoolConfig) -> (Self, MempoolHandle<T>) {",
+      "        let (sender, receiver) = mpsc::channel(config.mailbox_size);",
+      "        let metrics = Arc::new(OnceLock::new());",
+      "        let mut pool = Pool::new(config.clone());"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L292",
+    "source_sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+    "source_lines": 500,
+    "anchor_line": 292,
+    "anchor_context": [
+      "    /// overlay. Transactions received from the overlay pass through the same",
+      "    /// admission checks, but are not re-broadcast.",
+      "    pub fn start_p2p<E, S, R>(self, context: E, p2p: (S, R)) -> Handle<()>",
+      "    where",
+      "        E: Spawner + RuntimeMetrics,",
+      "        S: Sender + 'static,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/pool.rs#L211",
+    "source_sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+    "source_lines": 429,
+    "anchor_line": 211,
+    "anchor_context": [
+      "    /// Apply a finalized block's effects: mark included digests, advance",
+      "    /// committed nonces, and expire transactions older than the TTL.",
+      "    pub fn finalize(",
+      "        &mut self,",
+      "        digests: Vec<Digest>,",
+      "        lane_nonces: Vec<(T::NonceKey, u64)>,"
+    ],
+    "verified": true
+  },
+  {
+    "url": "https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/tx.rs#L32",
+    "source_sha256": "1ca9f24f1906a58102cf87e53d5fc1b8e06ceac620c99782d86008af205a7833",
+    "source_lines": 72,
+    "anchor_line": 32,
+    "anchor_context": [
+      "/// Implemented for any [`nunchi_common::Transaction`] via the blanket impl",
+      "/// below; chains with custom transaction types implement it directly.",
+      "pub trait PoolTransaction: Clone + Send + Sync + 'static {",
+      "    /// The exact committed nonce sequence this transaction belongs to.",
+      "    type NonceKey: Clone + Ord + Hash + Debug + Send + Sync + 'static;",
+      "    /// Failure of the stateless validity check."
+    ],
+    "verified": true
+  }
+]

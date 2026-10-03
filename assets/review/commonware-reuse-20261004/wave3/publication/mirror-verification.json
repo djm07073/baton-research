@@ -1,0 +1,13 @@
+{
+  "baseline": "3c5ec96c91883dae892ee99832dee315c789eaee",
+  "scope": "Only this batch changed files and wave3 evidence",
+  "files": 241,
+  "conflicts": [],
+  "unrelated_mirror_changes_preserved": [
+    ".gitignore",
+    "assets/diagrams/diagram-06.png",
+    "assets/diagrams/diagram-12.svg",
+    "assets/diagrams/diagram-15.svg"
+  ],
+  "hash_mismatches": []
+}

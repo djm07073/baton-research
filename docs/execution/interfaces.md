@@ -12,6 +12,8 @@ Direction selection belongs to [Baton::plan](../baton/direction.md). Direction c
 
 `execute(block)` returns completed unsealed effects and outputs. Storage prepares a root only when a selected storage/signing boundary needs it. Upstream sealed-parent child batches can be reused directly; rootless children require the additional read/effects adapter described in [QMDB](qmdb.md#defer-roots-without-inventing-an-unsealed-parent-fork).
 
+Storage supplies [authorized concrete branch handles](qmdb.md#give-executor-concrete-branch-access) internally through existing batch creation/fork APIs. Executor uses their keyed methods; canonical Storage::read is not a pending-parent query. If ExecutionResult owns an upstream one-shot unsealed draft, prepare consumes it. Retain exact effects beforehand when the same rootless prefix must support another child or preparation; sealed material instead uses existing cheap clones and child forks.
+
 `commit(range)` validates irrevocable exact input and its canonical predecessor, completes missing work, and selects the matching execution path. It calls Storage to prepare/apply exact material, fences conflicts and logically prunes branches while retaining valid descendants. Storage controls physical reclamation after worker/query/result/sync/recovery references permit it. CommitResult means state, outputs, cursor and provenance are recoverably durable. Advisory cancellation cannot drop a canonical mutation future.
 
 | Proposed interface | Input | Responsibility | Successful result |

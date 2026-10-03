@@ -1,0 +1,9 @@
+{
+  "rust_source": "docs/assets/interfaces/baton.rs",
+  "rust_sha256": "cf43886aff0008c7a8d646f44899f8ab6ab3d0c5a6e59f0745bd6df276ee09a9",
+  "rust_size_bytes": 11493,
+  "reused_diagrams": 18,
+  "new_rust_upload_accepted": true,
+  "raw_file_bytes_verified": false,
+  "note": "Accepted upload metadata and local rendered assets verified; private remote bytes were not confirmed."
+}

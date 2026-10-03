@@ -1,0 +1,397 @@
+{
+  "fetched_at": "2026-10-03T20:33:34.768081+00:00",
+  "receipts": [
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/lib.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 335,
+      "sha256": "0f26fb9a05a1f6cd8597deec783c5fb742b365ad785e24942a4af019264d8e8f"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 17653,
+      "sha256": "b04821f6978cda1f4943cdb7cec2d30b38ca96bae9f1e14dc2856d4fd273bfec"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 175612,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 33453,
+      "sha256": "0e5e12492554098c2fe16c1ffd61c559390b99f8e4027a0c81caea4eb0371441"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/current.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/current.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 54515,
+      "sha256": "4d89df068cf9e3ce512e119d7cc984a45ed6d938645be96be8fdc69b5ae163d0"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 119054,
+      "sha256": "69e109648309ff7f7c68801f3d62b740bed2f1230c083f6d0ca75cc73ec3fbf9"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 207316,
+      "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 34959,
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 174518,
+      "sha256": "83fc416ba29d5d7eef86fd440b37c6d37eef2c789537148aa68c1257a784b83e"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/batch.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 76703,
+      "sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 15044,
+      "sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/Cargo.toml",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/Cargo.toml",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 2083,
+      "sha256": "b308b011c8412c44e6cd5267434ddb0ba981897138dfed87f1013b05d086ebb7"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "Cargo.toml",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/Cargo.toml",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 9447,
+      "sha256": "a6f32c206c57ed0be605cda7784ca2e2b3131163c069c77ac406949712bb7dae"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "glue/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/glue/src/lib.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 335,
+      "sha256": "0f26fb9a05a1f6cd8597deec783c5fb742b365ad785e24942a4af019264d8e8f"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "glue/src/stateful/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/glue/src/stateful/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 20118,
+      "sha256": "b166a67dd1c3ddc6cc026d541d1b37b29d42156081c812f335ccfc907f1ec8f6"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "glue/src/stateful/db/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/glue/src/stateful/db/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 177227,
+      "sha256": "96b0964a2bea28fc0ec9fd6edfd98d25b8c6fd58d1dda3b87950113bcf2315ba"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "glue/src/stateful/db/any.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/glue/src/stateful/db/any.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 33858,
+      "sha256": "791705abc2f3db68b079ebb5e781538eaa33af7f4567b445f6cec438906156c4"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "glue/src/stateful/db/current.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/glue/src/stateful/db/current.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 55466,
+      "sha256": "c84782d5833bab09c141226a8a6f1b538916f8e539d164d4e0b22100e97c078d"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/any/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/any/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 119213,
+      "sha256": "f3308ad9e178f7addfb97cb9e09b76027c1dca3cff7affe92a2992096ab0a89f"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/any/batch.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 236404,
+      "sha256": "11e318f5051c85a3ef54a28268a79b960fca64d4c4e5f2da83ac63422fa10d66"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/any/db.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/any/db.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 34959,
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/current/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/current/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 174795,
+      "sha256": "828db5aef5285572ccb263ddd50d6ba817f98961addc8e60c2bda1d4694cc376"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/current/batch.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/current/batch.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 77279,
+      "sha256": "b39c9868ce9eea2fa9bb4539c07956cb8bbf32bff07fa67bd4e4fdc92dd34970"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/batch_chain.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/batch_chain.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 15044,
+      "sha256": "9bdef186ced67babc192061569e35a52df9c41e994a5f3a173aa31b8926f95ee"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "glue/Cargo.toml",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/glue/Cargo.toml",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 2083,
+      "sha256": "b308b011c8412c44e6cd5267434ddb0ba981897138dfed87f1013b05d086ebb7"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "Cargo.toml",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/Cargo.toml",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 9714,
+      "sha256": "51892906fb135a9ff99073c4fcf383e4c63f6d7f5da270bb121475dc80af1cd8"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/unordered/fixed.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/unordered/fixed.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 75511,
+      "sha256": "d2bb3dc1ba3210f49b0430fa9909c5e6165b450a7e6b0ef044d42e5014a02bfd"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/unordered/variable.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/unordered/variable.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 61793,
+      "sha256": "72a13ea81a9245ba8f9237cf6e80f1456d1a5e7164fb6720780cbbb048537ae8"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/ordered/fixed.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/ordered/fixed.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 97055,
+      "sha256": "6e46d555590b092790dd61d997c7bfa40e07aa8e4d01f45eead2bac10e2cc8e6"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/unordered/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/unordered/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 2774,
+      "sha256": "95cbdd2150ee4443fb26efa6abbe0ec533686888fbac92c143199a2f04cd0456"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/db.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/db.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 69767,
+      "sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "version": "pin",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/operation/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/operation/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 9652,
+      "sha256": "e49215022d0e43df02b3727d0b70d9277ba6736a18c9fc8b1c0c172b7db3aa70"
+    },
+    {
+      "version": "pin",
+      "path": "storage/src/qmdb/any/operation/update.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/operation/update.rs",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/any/unordered/fixed.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/any/unordered/fixed.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 76711,
+      "sha256": "b86ae4e1b93e46ed6fa1d857a646df133adb0bf79d3cca47990d2876b763ba46"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/any/unordered/variable.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/any/unordered/variable.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 61887,
+      "sha256": "36bbdd1f6a049b3661d4e1ced75bd24edac5d37508c9bdb63842b99ee34f9b0c"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/any/ordered/fixed.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/any/ordered/fixed.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 97082,
+      "sha256": "c2948479818d7b534ea8c2a36bfaa716871fdd144b1639eb1eb8e9308a609dc2"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/any/unordered/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/any/unordered/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 2774,
+      "sha256": "95cbdd2150ee4443fb26efa6abbe0ec533686888fbac92c143199a2f04cd0456"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/current/db.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/current/db.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 70952,
+      "sha256": "5d2ce65b5b122a92d79de3f08d61dc81bd4950578d7f7ce9fdb284f415822c64"
+    },
+    {
+      "version": "release",
+      "revision": "v2026.9.0",
+      "path": "storage/src/qmdb/any/operation/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/any/operation/mod.rs",
+      "status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "bytes": 9652,
+      "sha256": "e49215022d0e43df02b3727d0b70d9277ba6736a18c9fc8b1c0c172b7db3aa70"
+    },
+    {
+      "version": "release",
+      "path": "storage/src/qmdb/any/operation/update.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/v2026.9.0/storage/src/qmdb/any/operation/update.rs",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}

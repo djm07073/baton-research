@@ -10,6 +10,26 @@ Rust declaration: [Orderer](../overview/rust-interfaces.md#orderer). The Rust in
 
 The trait combines public history retention, ordering interpretation, and delivery boundaries. Source-witness export and native policy adoption remain separate integration work on the existing owner. Orderer cannot authenticate or adopt native proposals on its own authority.
 
+## Reuse proof verification and storage
+
+**Orderer interprets exact order; Commonware supplies proof verification, encoding, archives and replay.** Keep original source witnesses and application bindings around those existing handles. No new general proof verifier, fetch engine or cursor database is needed.
+
+| Needed operation | Existing Commonware API | Remaining application connection |
+|---|---|---|
+| Verify complete native certificates | `Scheme::certificate_verifier`, `verify_vqc`, `verify_lqc`, `verify_da_certificate`, `verify_nullification` | Trusted epoch/config/committee provenance and exact parent/history/policy/source checks |
+| Reconstruct an aggregate transcript's vote body | `Tally::vote`, `ConflictingVote::vote_body` | Retain the original certificate; reconstruction does not recover a standalone vote signature |
+| Encode proofs and safe-tip history | `ViewProof` Codec, `TipRecord` Codec/commitment | Bounded envelope, exact keys and proof-backed history linkage |
+| Store and locate missing evidence | Archive gap APIs; MultiArchive for multiple same-view versions; generic resolver | Choose identity/index schema and serving/retention context |
+| Replay emitted ranges and retain a cursor | Contiguous variable Journal and Metadata | Exact predecessor/range/ACK records and recoverable linkage to Executor's durable result |
+
+The certificate-only constructor does not establish trusted epoch/DKG provenance or validate sharing thresholds. Verifying raw DA/nullification shares requires the full verifier with sharing material, including when using `verify_artifacts`; a certificate-only instance is insufficient. Ordinary-key proofs of possession also do not establish committee assignment. [Certificate verifier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L293), [batch verification](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L889).
+
+Use public aggregate-body reconstruction rather than exporting or reimplementing compact tally decoding. Original certificate provenance remains necessary. ViewProof and TipRecord have existing codecs; the native Artifact enum does not itself implement Codec, so `Archive<Artifact>` is not an unchanged storage recipe. Store supported typed records or a bounded application envelope for exact artifact variants. [Tally opening](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/tally.rs#L235), [history record](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/history.rs#L20).
+
+Archive gaps describe missing stored objects, not empty or unresolved protocol slots. An ordinary view-indexed Archive retains one value at an occupied index; use MultiArchive or unique export ordinals when retaining several same-view source revisions. Concrete layout remains open. [Archive/MultiArchive](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/mod.rs#L116).
+
+Journal replay and Metadata atomic updates are local storage guarantees. They do not automatically form a transaction with QMDB, another journal or retained witnesses. Preserve crash ordering and state/output/cursor/provenance linkage before delivery ACK. Native-selected witness export and private tip extraction still need the narrow owner bridge; public proof verification alone does not derive dense order. [Journal](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/contiguous/mod.rs#L161), [Metadata](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/storage.rs#L689).
+
 See the [normal native sequence](../e2e/native-consensus.md#normal-native-consensus-producer-da--leader-proposal--finality) for message flow.
 
 The existing native Core owns votes and finality. Producers disseminate signed headers containing application commitments on independent lanes; a separate leader chain gathers evidence about their order. Each view leader places an earlier V-QC parent and anchored per-lane paths into a transaction-free LeaderBlock. It need not await a DA certificate for every descendant: a locally DA-voted continuous suffix satisfying native conditions may be proposed. [Producer / leader chains](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L9), [Proposal / direct vote](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md#L309).

@@ -1,0 +1,12 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "# glue/src/stateful/db/mod.rs (v2026.9.0) [lines 281-325]\n\n```rust\n281:     async fn serve(\n282:         &self,\n283:         request: Request<Self::Family>,\n284:     ) -> Result<(Response<Self::Family, Self::Op, Self::Digest>, FeedbackTx), Self::Error> {\n285:         self.0.serve(request).await\n286:     }\n287: }\n288: \n289: /// Mutable batch state before merkleization.\n290: ///\n291: /// Concrete types provide key-value operations (`get`, `write`, `set`,\n292: /// `append`, etc.) as inherent methods; the generic wrapper only needs\n293: /// [`merkleize`](Self::merkleize).\n294: pub trait Unmerkleized: Sized + Send {\n295:     /// The merkleized batch produced by [`merkleize`](Self::merkleize).\n296:     type Merkleized: Merkleized;\n297: \n298:     /// The error type returned by fallible operations.\n299:     type Error: Send;\n300: \n301:     /// Resolve all mutations, compute the new state root, and produce a\n302:     /// merkleized batch.\n303:     fn merkleize(self) -> impl Future<Output = Result<Self::Merkleized, Self::Error>> + Send;\n304: }\n305: \n306: /// Sealed batch state with a computed root.\n307: ///\n308: /// The application uses [`root`](Self::root) in block headers, and the wrapper\n309: /// later applies this batch.\n310: pub trait Merkleized: Sized + Send + Sync {\n311:     /// The digest type used for the state root.\n312:     type Digest: Digest;\n313: \n314:     /// The unmerkleized batch type produced by [`new_batch`](Self::new_batch).\n315:     type Unmerkleized: Unmerkleized;\n316: \n317:     /// The canonical state root committed in block headers.\n318:     fn root(&self) -> Self::Digest;\n319: \n320:     /// Create a child unmerkleized batch that reads through this batch's\n321:     /// pending changes before falling back to the applied database state.\n322:     ///\n323:     /// In QMDB, this maps to `merkleized_batch.new_batch()`.\n324:     fn new_batch(&self) -> Self::Unmerkleized;\n325: }\n```"
+      }
+    ]
+  },
+  "jsonrpc": "2.0",
+  "id": 2
+}

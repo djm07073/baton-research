@@ -11,12 +11,13 @@
 | [Tempo consensus engine](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L207) | Buffered full-block broadcast, Marshal/backfill resolver, reporters and a separate execution attachment | Reuse generic buffer + resolver + archive; connect native Automaton/Relay/Reporter directly |
 | [Alto chain engine](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs#L177) | Full-block buffer, Deferred wrapper, immutable finalized archives | Copy handle ownership/startup composition; preserve Multimmit custody and order semantics |
 | [Constantinople pool](https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/webserver/actor.rs#L402) | Bounded queues, local digest dedup, byte packing, proposal/status tracking | Assess whole package first; adapt fixed tx/context and destructive selection/canonical outcome coupling |
+| [Nunchi pool](https://github.com/nunchi-labs/sdk/blob/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs#L258) | Public generic nonce-lane actor, non-destructive selection and Commonware P2P | Whole-actor candidate for matching SHA-256/nonce payloads; adapt byte packing, canonical refresh/restart and bounded ingress |
 | [Tempo node](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/node/src/node.rs#L772) | Reth pool, transaction network, maintenance and execution-aware payload builder | Whole-stack candidate only for an explicitly Ethereum-compatible backend; generic txs do not fit unchanged |
 | [Constantinople execution](https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/application/src/consensus/execution.rs) | Staged application computation, then state/history Merkleization | Executor emits changes; Storage performs selected preparation/root computation using QMDB |
 
 ### Body assembly to implement
 
-1. Start the existing authenticated network and register logical body-distribution and fetch channels. Use the chosen native revision's exact configuration/types.
+1. Create the existing authenticated network; register logical body-distribution and fetch channels before starting it. At the native pin use `Network::register(channel, quota)`, not the stale three-argument example call. Use the chosen revision's exact configuration/types and complete wire-message size bounds.
 2. Construct `commonware_broadcast::buffered::Engine`; share its Mailbox with the body attachment. It provides dissemination/cache/availability subscription, not durable storage or active missing-body fetch.
 3. Construct public `commonware_resolver::p2p::Engine` with archive-backed Producer and verifying Consumer. Use its keyed fetch, peer retry and subscriber lifecycle.
 4. Open existing archives and connect exact body/header/context lookup, covering sync and reference-aware retention. `Automaton::propose/verify` complete only at the required custody boundary.
@@ -30,7 +31,15 @@ That is the minimal BlockService role: codec/construction, identity/context chec
 
 Keep TxPool as the application admission/selection/static-policy seam in front of a selected backend. Do not build another pool beside a reused one. Constantinople's HTTP admission and fixed types are not a generic tx gossip protocol; a new ingress bridge must perform its own bounded decoding, subject/signature checks and identity alignment. Reth offers a larger complete pool/network/maintenance surface but brings Ethereum assumptions. [Candidate comparison and lifecycle](../tx/README.md#reuse-an-existing-pool-without-importing-the-wrong-lifecycle).
 
+For a custom SHA-256 nonce-lane workload, Nunchi offers a generic whole actor and Commonware P2P entry. Use its actual admission and non-destructive pending APIs, then connect linked durable Executor outcomes to reconciled nonce cleanup. Its fire-and-forget finalized notification, restart hydration, decode bounds and count-only selection need explicit integration. Do not adopt its chain builder's execution/merkleization lifecycle just to reuse its pool. [Nunchi connection](../tx/README.md#nunchi-whole-actor-connection).
+
 Use QMDB unmerkleized/sealed batches and database lifecycle directly beneath Storage. Do not require `glue::stateful::Application`: Executor returns completed effects, Storage prepares the selected commitment, then Executor may sign the full result. Rootless parent branching needs an application effects/read adapter; built-in `fork_batches` requires a sealed parent. Storage owns canonical access/flush/recovery; Executor owns exact input selection, certification, peer sync and delivery ACK. [Versioned storage recipe](../execution/qmdb.md#existing-apis-at-the-native-pin-and-indexed-release).
+
+Use public Shared-backed Any/Current wrappers for concrete branch reads/writes when that variant fits. Unsealed drafts are one-shot; preserve required exact effects before consuming them. Tuple batches need per-component sealing, and generic single-DB preparation needs the explicit reverse associated-type equality. Existing concrete validate_batch checks ancestry/floor applicability under the same canonical authority, alongside application checks. [Concrete batch connections](../execution/qmdb.md#give-executor-concrete-branch-access).
+
+### Orderer assembly
+
+Reuse native Scheme verification and public Tally body opening, ViewProof/TipRecord codecs, archive gap tracking and generic resolver. Keep original witness versions using the selected Archive/MultiArchive schema. Use existing Journal replay and Metadata for local delivery/cursor records; their durability does not form an automatic transaction with QMDB. Only native-selected witness handoff, private tip extraction access and exact policy/order interpretation require the native/application bridge. [Proof and storage recipe](../consensus/ordered-input.md#reuse-proof-verification-and-storage).
 
 ### Reference versions are not one compatible dependency graph
 
@@ -41,6 +50,7 @@ Use QMDB unmerkleized/sealed batches and database lifecycle directly beneath Sto
 | Tempo | `61c979a524f9af5de9c540a0088c429a44741e4c` | Uses Commonware `2026.9.0`; Reth `038edab20dfff017f7a7502e683c732e5628ad89` |
 | Alto | `1d87569348b5560699465a72d691d90f18affb9c` | Uses Commonware `2026.9.0`; Simplex assembly reference |
 | Constantinople | `3b6c92e76bf582855615844a4175b8304808f6a9` | Uses Commonware `92036f4beefedc9817f0954d98fb99e0b52431cb`; historical source example |
+| Nunchi SDK | `eea35ced709f68c15d6fbc8bcc754696a7e44374` | Declares Commonware `2026.9.0`; generic pool actor reference, not a confirmed registry artifact or native-pin build |
 
 These are pinned source inspections, not a compiled Baton assembly or a production/maturity assessment. Check selected imports/signatures against the adopted dependency graph before reuse. A successful MCP response is not source evidence if it contains homepage HTML or a guessed nonexistent path. [Tempo dependencies](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/Cargo.toml#L255), [Alto dependencies](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/Cargo.toml#L23), [Constantinople dependencies](https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/Cargo.toml#L51).
 

@@ -1,0 +1,57 @@
+// Source-derived illustrative wiring only. Not compiled, not a selected backend,
+// not an adopted wire/material format and not an implementation of Baton.
+// The generic lifecycle imports exist at native pin and v2026.9.0.
+use commonware_glue::stateful::db::{ManagedDb, Merkleized, Unmerkleized};
+
+// Storage's single-database sealing helper can use the actual upstream types.
+// ManagedDb by itself lacks the reverse associated-type equality in this bound.
+async fn seal_one<E, DB>(
+    draft: DB::Unmerkleized,
+) -> Result<DB::Merkleized, <DB::Unmerkleized as Unmerkleized>::Error>
+where
+    DB: ManagedDb<E>,
+    DB::Unmerkleized: Unmerkleized<Merkleized = DB::Merkleized>,
+{
+    draft.merkleize().await
+}
+
+fn selected_root<M: Merkleized>(sealed: &M) -> M::Digest {
+    sealed.root()
+}
+
+// Type-role explanation; these fields do not define a canonical codec/schema.
+// Completed owns its one-shot upstream draft. If exact prefix effects must be
+// extracted or shared among rootless children, retain them separately beforehand.
+struct Completed<Draft, Outputs, DirectEvidence> {
+    draft: Draft,
+    outputs: Outputs,
+    direct_evidence: DirectEvidence,
+}
+
+// Sealed material already cheaply clones in Any/Current upstream wrappers.
+// SharedSubject excludes local generations, access permits and retention tokens.
+// Imported material requires imported provenance, never own direct evidence.
+struct Prepared<Sealed, SharedSubject, Outputs, Provenance> {
+    sealed: Sealed,
+    subject: SharedSubject,
+    outputs: Outputs,
+    provenance: Provenance,
+}
+
+// Assembly events, intentionally not executable runtime/protocol code:
+// 1. Storage validates base under common clone-wide access authority.
+// 2. Single Shared<DB>.new_batches().await returns DB::Unmerkleized.
+//    Or DatabaseSet::fork_batches(&actual_sealed_parent) returns a child draft.
+// 3. Executor uses the concrete Any/Current wrapper get/get_many/write methods.
+//    Unmerkleized lifecycle trait alone exposes no generic keyed operations.
+// 4. Complete exact effects and outputs, retaining direct provenance.
+// 5. Storage calls seal_one on the selected one-shot draft (one per DB for tuples).
+// 6. Executor signs computed result only after exact irrevocable input/base checks.
+// 7. Canonical writer checks concrete DB.validate_batch(&sealed), with no mutation
+//    between validation and use from an uncontrolled Shared clone.
+// 8. Native: set.finalize(sealed).await -> barrier.durable().await.
+//    Release: set.apply(sealed).await; set.finalize().await -> barrier.durable().await.
+// 9. Storage additionally establishes recoverable state/output/cursor/provenance
+//    linkage, then Executor emits durable ACK and canonical TxPool outcome.
+// Rootless pending-parent forks additionally require retained application effects
+// and a branch read overlay. No upstream Unmerkleized::new_batch/clone is assumed.

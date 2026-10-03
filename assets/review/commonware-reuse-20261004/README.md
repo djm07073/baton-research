@@ -17,3 +17,9 @@ Current local checks cover 31 pages, 18 diagrams, five proposed application trai
 ## Published batch
 
 Change request #5 is published as `NY491pkJQdX6ny2Lyndj`. The [page verification](gitbook-verification.json) and [live revision comparison](gitbook-live-verification.json) cover 38 pages, 393 links, 18 Mermaid blocks, five proposed traits and all 79 previous heading anchors. [Attachment checks](assets-verification.json) confirm accepted upload IDs and sizes against local source; raw private downloads returned HTTP 403, so remote byte equality is unconfirmed. This batch publication does not complete the ongoing six-hour goal.
+
+## Third reviewed batch
+
+The third wave checked [network assembly](wave3/network/REPORT.md), [Orderer proof/storage reuse](wave3/orderer/REPORT.md), [concrete branch APIs](wave3/storage-types/REPORT.md), and [ecosystem pool candidates](wave3/ecosystem/REPORT.md), followed by independent source and reader cross-review. The [final resolution](wave3/DOCS_RESOLUTION.md) binds the eight edited page hashes. Nunchi supplies a conditional whole-pool actor candidate; its nonce refresh, restart, byte packing and ingress integration remain explicit requirements rather than chosen Baton policies.
+
+Change request #6 is published as `GltIqzIYvnV8QtVLNNNH`. Its [page verification](wave3/publication/gitbook-verification.json) covers 38 pages, 428 links and 89 preserved heading anchors. The [live comparison](wave3/publication/gitbook-live-verification.json) confirms the reviewed page identities, document IDs and file metadata. All 18 diagrams were reused, and the updated Rust comments were uploaded. The five traits and method signatures are unchanged. Upstream integration remains uncompiled and the six-hour goal remains active.

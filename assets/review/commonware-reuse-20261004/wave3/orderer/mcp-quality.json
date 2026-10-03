@@ -1,0 +1,26 @@
+[
+  {
+    "response": "storage__src__journal__contiguous__mod.rs-response.json",
+    "explicit_version": "v2026.9.0",
+    "accepted": true,
+    "html_rejected": false
+  },
+  {
+    "response": "consensus__src__multimmit__mod.rs-response.json",
+    "explicit_version": "v2026.9.0",
+    "accepted": false,
+    "html_rejected": true
+  },
+  {
+    "response": "storage__src__archive__mod.rs-response.json",
+    "explicit_version": "v2026.9.0",
+    "accepted": true,
+    "html_rejected": false
+  },
+  {
+    "response": "storage__src__metadata__mod.rs-response.json",
+    "explicit_version": "v2026.9.0",
+    "accepted": true,
+    "html_rejected": false
+  }
+]
