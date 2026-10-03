@@ -4,7 +4,7 @@ Updated 2026-10-03. This supersedes the current-state claims in [SESSION_HANDOFF
 
 ## 2026-10-03 구현 문서 재구성
 
-현재 구현 스펙은 [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) 한 파일이다. 사용자 지정 네 레이어(Tx-router / mempool, Native Multimmit, Baton, generic execution / QMDB)와 lifecycle sequence를 중심으로 새 개요를 작성하고 있으며 Bank는 현재 개발 범위에서 제외한다. 미결정 정책은 빈 결정 칸으로 보존한다. 아래 Google Docs revision 표와 상세 구현 계약은 이전 snapshot의 출처이며 새 개요와 자동 동기화하지 않는다. 문서 개선 작업 중이고 protocol 구현·E2E·benchmark 결과는 없다.
+현재 구현 스펙은 [IMPLEMENTATION_SPEC.md](IMPLEMENTATION_SPEC.md) 한 파일이다. 사용자 지정 네 레이어(Tx-router / mempool, Native Multimmit, Baton, generic execution / QMDB)와 lifecycle sequence를 중심으로 새 개요를 정리했으며 Bank는 현재 개발 범위에서 제외한다. 미결정 정책은 빈 결정 칸으로 보존한다. 아래 Google Docs revision 표와 상세 구현 계약은 이전 snapshot의 출처이며 새 개요와 자동 동기화하지 않는다. 구현 개요의 문서 검토를 마쳤으며 protocol 구현·E2E·benchmark 결과는 없다.
 
 ## Current document priority and historical document synchronization
 
