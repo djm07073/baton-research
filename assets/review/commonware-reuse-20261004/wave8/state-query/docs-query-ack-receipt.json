@@ -1,0 +1,101 @@
+{
+  "utc": "2026-10-03T23:13:21.876747+00:00",
+  "baseline": "99dc2c456c4b318fefb368cb39a145298f7d86b7",
+  "pages": {
+    "docs/execution/qmdb.md": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+    "docs/consensus/ordered-input.md": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720"
+  },
+  "new_citations": [
+    {
+      "page": "docs/execution/qmdb.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/unordered/db.rs",
+      "line": 58,
+      "line_text": "    pub fn verify_key_value_proof(",
+      "source_sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e"
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 144,
+      "line_text": "    pub fn verify_exclusion_proof(",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 204,
+      "line_text": "    pub async fn key_value_proof(",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 205,
+      "line_text": "impl<DB> Reader<DB> {",
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "line": 477,
+      "line_text": "    /// Returns a historical proof for `historical_size` operations, anchored at `start_loc`",
+      "source_sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 24,
+      "line_text": "pub trait Acknowledgement: Clone + Send + Sync + Debug + 'static {",
+      "source_sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 55,
+      "line_text": "    fn clone(&self) -> Self {",
+      "source_sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 1010,
+      "line_text": "",
+      "source_sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645"
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/core/acks.rs",
+      "line": 15,
+      "line_text": "pub(super) struct PendingAck<V: Variant, A: Acknowledgement> {",
+      "source_sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6"
+    }
+  ],
+  "compiled": false,
+  "docs/overview/rust-interfaces.md": {
+    "sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+    "byte_identical_baseline": true
+  },
+  "docs/assets/interfaces/baton.rs": {
+    "sha256": "cf43886aff0008c7a8d646f44899f8ab6ab3d0c5a6e59f0745bd6df276ee09a9",
+    "byte_identical_baseline": true
+  },
+  "review_sha256": "b2ed4c950d21902dc87a98c2dcb5cd3e23c429dc35843345525bd9b27ff81d13"
+}

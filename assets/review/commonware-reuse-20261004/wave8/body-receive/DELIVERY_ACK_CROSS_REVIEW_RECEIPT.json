@@ -1,0 +1,111 @@
+{
+  "report_sha256": "08ec5345f433483bb9aff0fe70c5dd3e12d18c2b89fdbd78bfdc93dd681f4d91",
+  "reader_delta_sha256": "6a2e0974eeebd77ac68a241c460c2642cbd5daf19a58f683e69e0f69f940e777",
+  "source_anchor_count": 11,
+  "anchors": [
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 24,
+      "own_source": "cross-review-sources/native/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "anchor_text": "pub trait Acknowledgement: Clone + Send + Sync + Debug + 'static {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/lib.rs",
+      "line": 207,
+      "own_source": "cross-review-sources/native/utils/src/lib.rs",
+      "sha256": "354ca15b533e9fe5ce784f7311f4012a1000c0c97c89ffb493adf23a644769ed",
+      "anchor_text": "    pub use acknowledgement::Acknowledgement;"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 100,
+      "own_source": "cross-review-sources/native/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "anchor_text": "        self.state.acknowledge();"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 55,
+      "own_source": "cross-review-sources/native/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "anchor_text": "    fn clone(&self) -> Self {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 137,
+      "own_source": "cross-review-sources/native/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "anchor_text": "impl ExactState {"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/ingress.rs",
+      "line": 201,
+      "own_source": "cross-review-sources/tempo/crates/consensus/src/executor/ingress.rs",
+      "sha256": "77d11aa78bdd62cf59574f1b18e11f5f64f3330d080a153ce0fdc95a2c66edaa",
+      "anchor_text": "impl Reporter for Mailbox {"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 1751,
+      "own_source": "cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "anchor_text": "struct FinalizedBlockRequest {"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 1010,
+      "own_source": "cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "anchor_text": ""
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/core/acks.rs",
+      "line": 15,
+      "own_source": "cross-review-sources/native/consensus/src/marshal/core/acks.rs",
+      "sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6",
+      "anchor_text": "pub(super) struct PendingAck<V: Variant, A: Acknowledgement> {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 1894,
+      "own_source": "sources/release/consensus/src/marshal/core/actor.rs",
+      "sha256": "f470f22add69fc987611bbbdee7270893e5d5347b56083e15523bdac768fe7d2",
+      "anchor_text": "            let (ack, ack_waiter) = A::handle();"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 2366,
+      "own_source": "sources/release/consensus/src/marshal/core/actor.rs",
+      "sha256": "f470f22add69fc987611bbbdee7270893e5d5347b56083e15523bdac768fe7d2",
+      "anchor_text": "    /// Buffers a processed height update in memory and metrics. Does NOT sync"
+    }
+  ],
+  "actual_MCP_lines_matched": 82,
+  "MCP_numbering": "zero-based",
+  "MCP_failures": [],
+  "native_release_ack_byte_identical": true,
+  "remaining_material_issues": []
+}

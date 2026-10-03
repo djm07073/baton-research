@@ -1,0 +1,10 @@
+{
+  "version": "v2026.9.0",
+  "indexed_revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+  "file": "runtime/src/utils/handle.rs",
+  "mcp_numbering": "0-indexed",
+  "checked_lines": 91,
+  "content_matches_fresh_release_blob": true,
+  "native_identical": true,
+  "mcp_sha256": "7a30cebc286f0ce65e73fc94bdc3c15438a99c7ef756bd4cf87ed0524aac9acd"
+}

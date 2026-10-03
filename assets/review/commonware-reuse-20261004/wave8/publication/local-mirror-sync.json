@@ -1,0 +1,1211 @@
+{
+  "baseline": "99dc2c456c4b318fefb368cb39a145298f7d86b7",
+  "copied_files": 300,
+  "checked_files": 300,
+  "conflicts": [],
+  "byte_exact": true,
+  "unrelated_mirror_files_preserved": true,
+  "files": [
+    {
+      "path": "BATON_HANDOFF.md",
+      "sha256": "7e17288383e809d74a16b86d33fe19ea852fe4e1c814325550db670f7c5a1925"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/README.md",
+      "sha256": "2125aca38fb1710c448362f9a6e5cc16e46a6f4b87bceaa37a960f548962508c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/run.json",
+      "sha256": "f83ef15edbe737c1b0cd6d480e56331b644a414c6942510894aee8738b73d3c5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/DOCS_RESOLUTION.md",
+      "sha256": "9ef6406aab96acaebbc3e07531064079ee827c4e4d106c35b149469412f114b0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/DELIVERY_ACK_CROSS_REVIEW.md",
+      "sha256": "e617c9461a86254374b671de24c5227e3f519e2256ada90ec9a8f2e581bd6bf7"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/DELIVERY_ACK_CROSS_REVIEW_RECEIPT.json",
+      "sha256": "7aef325acb600fa54421736b863ba1bcbc9eaa8383220a048eb1f1ccb94d35a6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/DOCS_BODY_WORKER_ACK_RECEIPT.json",
+      "sha256": "215c8a7c65f6354b8c730bd2a10b1a0bf5b010a683571c5b37114aaf02bb8a52"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/DOCS_BODY_WORKER_ACK_REVIEW.md",
+      "sha256": "b42867b67577d0f30bc21fc939df1b7ea4ee72bbd49ee5fb8e0a4816359fa447"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/EXECUTION_WORKERS_CROSS_REVIEW.md",
+      "sha256": "c209041476a153429fdc6fc8f08832ab366fa6b69e2946c414af1f4f1313787f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/EXECUTION_WORKERS_CROSS_REVIEW_RECEIPT.json",
+      "sha256": "2591b8b94519e31d8dc2d20eec34fda66feeaba68a7a0d465d63dca1e99c94dd"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/MCP_CONTENT_CHECK.json",
+      "sha256": "cfb1917bf4b9f919eb0bfda07b3eb6d2188f1797b376d98401d0eccc8a99d424"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/READER_DELTA.md",
+      "sha256": "5b07a2b8bf7cee2eb9b67fc36720e8195f64e9c26904dfdf16d6011143817667"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/REPORT.md",
+      "sha256": "d94655809905c022262cf662aab72a5059de8c316447a138f7d2a80ec0b9a8d6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/alto-tree.json",
+      "sha256": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/constantinople-tree.json",
+      "sha256": "8dae791561997d9f158765d659da528f260ed9016dffd3cfb09d199be57f232e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-source-manifest.json",
+      "sha256": "b978cc0678ff009d6b75b9388b2adc0a745270928b7ebcc7488ea788c7868a77"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/constantinople/crates/application/src/consensus/execution.rs",
+      "sha256": "33f25de08c1999a022ff074b098d5c9de02f3776d55579ba24a886e0d9e1c2e4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/consensus/src/marshal/core/acks.rs",
+      "sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/consensus/src/multimmit/actors/voter/executor.rs",
+      "sha256": "780e2723d917711ef7800a20de1aadd79048d32904ce38bcf2463994115aacea"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/glue/src/stateful/actor/core/verifications.rs",
+      "sha256": "bda479d159b1cb1100ca3277ea95ce46a30658cac53949dbb00a4a87dd1ab097"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/parallel/src/lib.rs",
+      "sha256": "52a45191faa76acaf0cf724eb04804390fd57b9743435c7de6e82898447c213b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/runtime/src/lib.rs",
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/runtime/src/tokio/runtime.rs",
+      "sha256": "855b836b353b553a0bc24389abe850a985ebcd76cb960b6fedbf5e3d2508c192"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/runtime/src/utils/cell.rs",
+      "sha256": "1993e75c2d8fed26f221043aa1e5e9f17f75b9c398f61cfb8837e9bd293f8a61"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/runtime/src/utils/mod.rs",
+      "sha256": "2f5e34408dee8d159cdc298bc3eb84b06cfe31af8261e6436e1a37d88707296a"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/runtime/src/utils/supervision.rs",
+      "sha256": "8b534c8f374c33bab1861dcda9d7f8d8b60c3785182b5b35406f66ffa5b9eac0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/utils/src/channel/reservation.rs",
+      "sha256": "eb745970d9c1efc8c6d9d048f43f3dd9daacf6f1aed19f4f8348e943779d83df"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/utils/src/futures.rs",
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/native/utils/src/lib.rs",
+      "sha256": "354ca15b533e9fe5ce784f7311f4012a1000c0c97c89ffb493adf23a644769ed"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/release/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/release/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/release/utils/src/futures.rs",
+      "sha256": "659dfafa285ca496ee615adf1b6695530914350c6e57d424fa686d054a27d82f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/tempo/crates/consensus/src/executor/ingress.rs",
+      "sha256": "77d11aa78bdd62cf59574f1b18e11f5f64f3330d080a153ce0fdc95a2c66edaa"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/cross-review-sources/tempo/crates/consensus/src/utils.rs",
+      "sha256": "0f3ef3bf1144bbb3f58d71d36c3bcd2df812ee21bb8885d422796bdde5364b9b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/mcp-release-buffer-request.json",
+      "sha256": "878b35648d82f89cd43e93f4f755473cefb5751515dc6dbc94121bf0791bdeee"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/mcp-release-buffer-response.json",
+      "sha256": "91e880d2188f97e5e2e6ca8f7b757027ae23b6c392c794577df188a6c49b9efe"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/native-tree.json",
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/release-tree.json",
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/source-anchor-receipts.json",
+      "sha256": "2fb486b6f4b77e3499acb3b23546c58a572e282942ff71c28cb6fd61cda820b8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/source-manifest.json",
+      "sha256": "c90dedbca3595c73b05107a0f4b53e3776cc0eef0a4f6555ae9d1de4df6b4c22"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/alto/chain/src/application.rs",
+      "sha256": "a35e1e8cc30ae7a6b6aa94196a3300f4a1362279fd5913b94493450737f03860"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/alto/chain/src/engine.rs",
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/alto/types/src/block.rs",
+      "sha256": "ae3060b5a942b7354732d20f35ef8777d6ca4a627f469ea80b6fe435dd4aabe0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/broadcast/src/buffered/config.rs",
+      "sha256": "49c3e076394e7d5360e5291dd4a16953c6c7fc3cee64d9fabee6d957c3df75f4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/broadcast/src/buffered/engine.rs",
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/broadcast/src/buffered/ingress.rs",
+      "sha256": "6e740792e66aeb9c51e6cb02f5ba671cd8dd72e044ee4adf8631c35fa5394d19"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/broadcast/src/buffered/mod.rs",
+      "sha256": "7970ab2ca47246a89dac66650d921e39a87f9c50585b02b9f264fe916c178d74"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/consensus/src/multimmit/engine.rs",
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/p2p/src/utils/codec.rs",
+      "sha256": "5314eaf82f8f571170201f06aa5abefa3eaf9ff3ee108a5c4aefab1af2295e6c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/resolver/src/lib.rs",
+      "sha256": "3f490165744ec253b4b6a1e10a51a34192c62ece9008bdb6a1c1f315d80764bb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/resolver/src/p2p/engine.rs",
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/resolver/src/p2p/ingress.rs",
+      "sha256": "9d51ca80f3498775db38d76b78454fd83afa38fb9e958c30ff18d69fb38d7b8c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/resolver/src/p2p/mod.rs",
+      "sha256": "62ed3e53099f0a081956c97a9d2341e50b0159b6c3af4783c6fa989d553e2597"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/resolver/src/p2p/wire.rs",
+      "sha256": "35dc4326bbcf53daefaf30de40c41b2abe5450b7bc61d073d9e30e372c337baa"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/release/broadcast/src/buffered/engine.rs",
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/release/consensus/src/marshal/core/actor.rs",
+      "sha256": "f470f22add69fc987611bbbdee7270893e5d5347b56083e15523bdac768fe7d2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/release/consensus/src/marshal/core/subscriptions.rs",
+      "sha256": "6afd3c9b74b14bad4212113c48de6454561569ecdce1f50972cd665a4f100e86"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/release/consensus/src/marshal/resolver/handler.rs",
+      "sha256": "642841704b6a6b901cc99f4b85cb20abd55aa207be3961bec690e043552d6959"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/release/consensus/src/marshal/standard/deferred.rs",
+      "sha256": "cac042241624a550d4bb5cd3c3e30ac3e9927a19cf7e81dd0b9fd2a09edc6157"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/release/consensus/src/marshal/standard/inline.rs",
+      "sha256": "7a3ced4896dfd46469bb75a4222dbbb7d2737947c12e8eec49e68be8dcc11a9d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/release/consensus/src/marshal/standard/variant.rs",
+      "sha256": "27e619cc2f74b2ba318d5e2fa669d58f45bbb53c9cfb95cd7549a72e8e50638d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/tempo/crates/consensus/src/alias.rs",
+      "sha256": "3cab895e0f42a507f6a9e93c9edfbada3c95c8d05a9053916777e93ebe587aa0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/tempo/crates/consensus/src/consensus/application/mod.rs",
+      "sha256": "b21dc2a3aac3a5f831794d9bad0f5aeb49712fda0ebcc87aed55e1f0b1d16082"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/tempo/crates/consensus/src/consensus/block.rs",
+      "sha256": "ff3156309bb5285507a60778ed4ea6afbc9cf64d4d9a3d47f6754a01836d80b9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/tempo/crates/consensus/src/consensus/engine.rs",
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/tempo-tree.json",
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/body-receive/verification.json",
+      "sha256": "77a0271d392eb5a1c4d146e5f845f930843124dfe0930cafe046394a4f8b92be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/browser/architecture-desktop.png",
+      "sha256": "ca1a14810b45093e2dcdb7af4606d61358bcdc8ee6d2b17b2cca2c8f20cb6bac"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/browser/body-receive-desktop.png",
+      "sha256": "7e3bd1bbeee4a61642fedff649a293fb1cecaf4ea378379a6e73920b6b427639"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/browser/browser-verification.json",
+      "sha256": "6e062eefd5f5cbe9300a97b98b79dbf0cef33ccd8683d5b639a08717f166de72"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/browser/execution-interfaces-mobile.png",
+      "sha256": "4bd57a4acd35b5039fabc032851752d2aa95400142b668db4a82fe43d1b34f09"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/browser/rust-interfaces-desktop.png",
+      "sha256": "1e3194cbb1077f3f0c205eb4c80325d3da08a049cc3d5526b76c08195d6cff86"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/canonical-preservation-checks.json",
+      "sha256": "bea8be2c69401036640dce071e6ee8d8b500e50bb1247f14466fb4ec3f06e150"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs",
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/acks.rs",
+      "sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs",
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs",
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs",
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs",
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs",
+      "sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/unordered/db.rs",
+      "sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/tree.json",
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/futures.rs",
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/tempoxyz-tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/citation-sources/tempoxyz-tempo/61c979a524f9af5de9c540a0088c429a44741e4c/tree.json",
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/READER_DELTA.md",
+      "sha256": "6a2e0974eeebd77ac68a241c460c2642cbd5daf19a58f683e69e0f69f940e777"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/REPORT.md",
+      "sha256": "08ec5345f433483bb9aff0fe70c5dd3e12d18c2b89fdbd78bfdc93dd681f4d91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/citation-checks.json",
+      "sha256": "6ac61639f8328ee13be85d2b13610b34a37fe1214abafe9a3d1d7e03cd67ee59"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/mcp-content-checks.json",
+      "sha256": "7878c553843704db78076a13916fc9ceeaa2420050f6b8140105759f0b0d8932"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/mcp-release-ack.json",
+      "sha256": "d150d474bfc718e70c77591b7ddd2cccdfcbe20e0bb2681b142239ffa7736043"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/native-tree.json",
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/release-tree.json",
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/source-manifest.json",
+      "sha256": "1ca0f5f41d55dfccc354f07cc331151ad578745868fc214bfee9b64fc3412bb2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/native/consensus/src/lib.rs",
+      "sha256": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/native/consensus/src/marshal/core/acks.rs",
+      "sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/native/consensus/src/marshal/core/delivery.rs",
+      "sha256": "07121d64ca186ebbe0070c91c5afce199c87609e1b5188a76da8dbb602cfb94b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/native/glue/src/stateful/actor/processor/mod.rs",
+      "sha256": "0591c898cea77efef7fb57fbfe93f906613578d6296cf99f7399c9fae3f175e3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/native/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/native/utils/src/lib.rs",
+      "sha256": "354ca15b533e9fe5ce784f7311f4012a1000c0c97c89ffb493adf23a644769ed"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/release/consensus/src/marshal/core/acks.rs",
+      "sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/release/consensus/src/marshal/core/actor.rs",
+      "sha256": "f470f22add69fc987611bbbdee7270893e5d5347b56083e15523bdac768fe7d2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/release/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/tempo/crates/consensus/src/consensus/engine.rs",
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/sources/tempo/crates/consensus/src/executor/ingress.rs",
+      "sha256": "77d11aa78bdd62cf59574f1b18e11f5f64f3330d080a153ce0fdc95a2c66edaa"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/delivery-ack/tempo-tree.json",
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/BODY_RECEIVE_CROSS_REVIEW.md",
+      "sha256": "6d11d5e6b43ea1a4530bf0ce053b59db2d2e74d847382515c387bb5efcf32077"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/CROSS_REVIEW_RECEIPT.json",
+      "sha256": "38341c39071227276d1d78ef81d767e4cef624d0043e2fa69bb82ae419f54ff5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/DOCS_GLOBAL_REVIEW.md",
+      "sha256": "227303ddf9a5812df2f4a02b9642f8ed4382cc9ccbe24c16832fb379ce6d3b68"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/DOCS_GLOBAL_REVIEW_RECEIPT.json",
+      "sha256": "7e9eaded31b82258c0d726fd2ebdb93a3c0f062e669d998d1e27a0cf12334bb5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/READER_DELTA.md",
+      "sha256": "0459d07442836ade34843fb6e010b84ad4d7f7075090ec99f4fe56bf949ffb4c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/REPORT.md",
+      "sha256": "841e9cda433be0692860660727ceb06f360aceb478043792c83ef154bd4fdfcc"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/STATE_QUERY_CROSS_REVIEW.md",
+      "sha256": "6082681eb6a4c8ca0f68fe13ef0e07e4b24258a46d24a755a940d70bcc28d491"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/check_global.py",
+      "sha256": "29c7db0abf14918ae8f4df658a357ef5e28e78d119889ed61707c1ea5fe81d91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/constantinople-tree.json",
+      "sha256": "8dae791561997d9f158765d659da528f260ed9016dffd3cfb09d199be57f232e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/fetch_cross_reviews.py",
+      "sha256": "9a69eb8a2d02b7dcbe8f5fb980678538885ec8d97b96c3b4be13b26fe7b28075"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/fetch_sources.py",
+      "sha256": "538a8c5e88763e87ce5eeaf623b9a332ff6039fcb480fd48b53c75d1b62050eb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/global-review/docs-check.json",
+      "sha256": "5f6ab9711cc0917e1d4d759a068417541e3baef8ae5ef911a4944b5050102667"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/global-review/receipt.json",
+      "sha256": "4078602a136d150291ee5752b1d92d3364e4a09a9a148666cebaccf3bdeff39d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/global-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/acks.rs",
+      "sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/global-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/commonwarexyz__alto__1d87569348b5560699465a72d691d90f18affb9c-tree.json",
+      "sha256": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/commonwarexyz__constantinople__3b6c92e76bf582855615844a4175b8304808f6a9-tree.json",
+      "sha256": "8dae791561997d9f158765d659da528f260ed9016dffd3cfb09d199be57f232e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/commonwarexyz__monorepo__534af0ede48affd35b2111522527547b4cc9bf72-tree.json",
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/commonwarexyz__monorepo__d476a2361ce6840d2b9d0aa6fb30a924429046d4-tree.json",
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/source-manifest.json",
+      "sha256": "96f08cf9ed4d9de4b588808c930c52d6f7a42e86b2b122d57ca6cee841cf4e68"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs",
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/bin/validator/src/run.rs",
+      "sha256": "4f1654551125935c886ddcbdc1e6ee4c0fe788a26b67c4063b45f607cd7a745c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/bin/validator/src/state_reader.rs",
+      "sha256": "0decb36f94031975a5cf2ae7dfd907257c1703a7ff37a4da642ec26c6372a7bf"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/engine/src/types.rs",
+      "sha256": "9c9ab55c18ff748d45e90512e1b8206ff06d4347d52d18bc7f668cde134baad2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/indexer/src/publisher/qmdb.rs",
+      "sha256": "08d3c1fd21c97e5cd429fc4a7dc53a3016b38d30a956872b7113deb1bca60947"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/webserver/http.rs",
+      "sha256": "19bbcd374b6b915a918a0b0148a3a86f6e9a9354a157528e311a339983bdef20"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs",
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/ingress.rs",
+      "sha256": "6e740792e66aeb9c51e6cb02f5ba671cd8dd72e044ee4adf8631c35fa5394d19"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs",
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs",
+      "sha256": "5314eaf82f8f571170201f06aa5abefa3eaf9ff3ee108a5c4aefab1af2295e6c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/lib.rs",
+      "sha256": "3f490165744ec253b4b6a1e10a51a34192c62ece9008bdb6a1c1f315d80764bb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs",
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs",
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/db.rs",
+      "sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs",
+      "sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/mod.rs",
+      "sha256": "ec2c12e4add27f558273257b9cfc0b3dfb588575482697a2824657afb2cca875"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/proof/mod.rs",
+      "sha256": "21525e8d32cbb70b9e3a0bc30d27867cee781360d160cb921a28d679874be3a9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/unordered/db.rs",
+      "sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/core/actor.rs",
+      "sha256": "f470f22add69fc987611bbbdee7270893e5d5347b56083e15523bdac768fe7d2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/core/subscriptions.rs",
+      "sha256": "6afd3c9b74b14bad4212113c48de6454561569ecdce1f50972cd665a4f100e86"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/resolver/handler.rs",
+      "sha256": "642841704b6a6b901cc99f4b85cb20abd55aa207be3961bec690e043552d6959"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/standard/inline.rs",
+      "sha256": "7a3ced4896dfd46469bb75a4222dbbb7d2737947c12e8eec49e68be8dcc11a9d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/standard/variant.rs",
+      "sha256": "27e619cc2f74b2ba318d5e2fa669d58f45bbb53c9cfb95cd7549a72e8e50638d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/sources/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs",
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/independent-cross-review/tempoxyz__tempo__61c979a524f9af5de9c540a0088c429a44741e4c-tree.json",
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/mcp-content-check.json",
+      "sha256": "70307718274a01255a852c015f47da2871c65175ba1b21bdee4e889ee42e807e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/mcp-futures-content-check.json",
+      "sha256": "b77209cefadc8b38bc695c8b33ee8503cdaf906810929095e02eebc486cdd040"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/mcp-initialize.json",
+      "sha256": "7b7cbe32066b0c00f0f32f7d7abd94a89a75351511ab0d7525359497414385c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/mcp-release-futures.json",
+      "sha256": "0dfad06b09cf6aa0b8eb9f67c9da1f4247e148aeed6655d68ac4bfd3955f1ccb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/mcp-release-futures.sse",
+      "sha256": "f5c587fd5f08df88f0146a3aea8a35c1eb81a717cd6dbc506817578b5adc184f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/mcp-release-handle.json",
+      "sha256": "7a30cebc286f0ce65e73fc94bdc3c15438a99c7ef756bd4cf87ed0524aac9acd"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/mcp-release-handle.sse",
+      "sha256": "8d10f1841096ca1cc8f209281d67d96043a079538d75b9cf820ebe376dfd5d7e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/mcp-tools.json",
+      "sha256": "6a3d6a485929116a54947cf02e6fd8f7f25631b028878cb106450092be6fce27"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/native-tree.json",
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/release-tree.json",
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/review-receipt.json",
+      "sha256": "f611c1e5e7016ac373898eabf6dc2cecfd8b91d66bcda8d7d454d511c8ff63e2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/source-manifest.json",
+      "sha256": "269066b1b3649946490ce3ee8233415e1e6ecb2aac89f6fe89a5387402c238eb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/constantinople/crates/application/src/consensus/db.rs",
+      "sha256": "275c1d3c10b3d325fe65d5b2db14a205448505023b11f914635da6d69ffab998"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/constantinople/crates/application/src/consensus/execution.rs",
+      "sha256": "33f25de08c1999a022ff074b098d5c9de02f3776d55579ba24a886e0d9e1c2e4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/constantinople/crates/application/src/consensus/glue.rs",
+      "sha256": "7e5f8d8c8e651c8cf298de0c9cf2c9a4e05ba74c12c3fb1fa1cbef8967cfcee9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/consensus/src/multimmit/actors/voter/executor.rs",
+      "sha256": "780e2723d917711ef7800a20de1aadd79048d32904ce38bcf2463994115aacea"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/glue/src/stateful/actor/core/verifications.rs",
+      "sha256": "bda479d159b1cb1100ca3277ea95ce46a30658cac53949dbb00a4a87dd1ab097"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/glue/src/stateful/actor/processor/mod.rs",
+      "sha256": "0591c898cea77efef7fb57fbfe93f906613578d6296cf99f7399c9fae3f175e3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/macros/src/lib.rs",
+      "sha256": "274c70751ff1bbd08da72574043582cc340faaffdafe2acf8077e7c9fd2562a2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/parallel/src/lib.rs",
+      "sha256": "52a45191faa76acaf0cf724eb04804390fd57b9743435c7de6e82898447c213b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/runtime/src/lib.rs",
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/runtime/src/tokio/runtime.rs",
+      "sha256": "855b836b353b553a0bc24389abe850a985ebcd76cb960b6fedbf5e3d2508c192"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/runtime/src/utils/cell.rs",
+      "sha256": "1993e75c2d8fed26f221043aa1e5e9f17f75b9c398f61cfb8837e9bd293f8a61"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/runtime/src/utils/signal.rs",
+      "sha256": "30349b19075c0e7fe5367fda27bdef75980caf81beb2e30c915841af917b24fb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/runtime/src/utils/supervision.rs",
+      "sha256": "8b534c8f374c33bab1861dcda9d7f8d8b60c3785182b5b35406f66ffa5b9eac0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/utils/src/channel/mod.rs",
+      "sha256": "780ced6da92ad0a4fc08169bb0e5c6a0ad541519987fcfa19ebb3fb4aa267586"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/utils/src/channel/reservation.rs",
+      "sha256": "eb745970d9c1efc8c6d9d048f43f3dd9daacf6f1aed19f4f8348e943779d83df"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/native/utils/src/futures.rs",
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/release/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/release/utils/src/futures.rs",
+      "sha256": "659dfafa285ca496ee615adf1b6695530914350c6e57d424fa686d054a27d82f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/tempo/crates/consensus/src/consensus/engine.rs",
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/tempo/crates/consensus/src/executor/ingress.rs",
+      "sha256": "77d11aa78bdd62cf59574f1b18e11f5f64f3330d080a153ce0fdc95a2c66edaa"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/tempo/crates/consensus/src/lib.rs",
+      "sha256": "d09cb17ecedce40656a4d752748204fcba8077f61fabebfc6a0e981697b7fabc"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/tempo/crates/consensus/src/utils.rs",
+      "sha256": "0f3ef3bf1144bbb3f58d71d36c3bcd2df812ee21bb8885d422796bdde5364b9b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/sources/tempo/crates/payload/builder/src/lib.rs",
+      "sha256": "61568290e08cc06416190b67a271acaf22abedb0132acc629980067dcff87121"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/tempo-tree.json",
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/write_global_review.py",
+      "sha256": "a79faa733cdd7a87b5fea4d337c5c3d9a1b003c0358488e6e634932b94d71489"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/execution-workers/write_report.py",
+      "sha256": "64266603fec3f5225b703826a49cee90938759b07af58fd6d8e4250555b8580d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/fetch_new_citations.py",
+      "sha256": "bd17f2836d9d4ea8a8a5b9ab7db97624b79d08a0bfbaf1d053a704d26dd3d59d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/final-page-hashes.json",
+      "sha256": "c42ee060f5ea291f2199574e73cbaf5d3d2e54b5fef95e595570c2a52e9792e1"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/new-citation-checks.json",
+      "sha256": "08a2035069422f761cd68b3569305e3d3cd92a1a795e216409359d3f61ed1bca"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/new-citation-inputs.json",
+      "sha256": "1afb9156fa70cbf095b2df57b31bfbf87dbbaa3281893d2fb6971652a05107c3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/publication/assets-reuse-verification.json",
+      "sha256": "fb2ea0a07ffe58188f91c1db44d2abef44cf26153a4fd843127909d1db4d67b6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/publication/gitbook-anchor-checks.json",
+      "sha256": "cbc1656fa9768596dd7afeaf1b24db08847829718fd6bd7126cfa8f84a53217c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/publication/gitbook-live-verification.json",
+      "sha256": "eafa1c9a6a7074e1b3fccb19ec1f45b7ba57096ae057189189d41f3d71a0f07c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/publication/gitbook-map.json",
+      "sha256": "18707147a29c053fcecdb9b4b00aa0dd2cb9987d918e95df070f8ba063eae8b1"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/publication/gitbook-verification.json",
+      "sha256": "a5416199c257796b1287577a88e87ad196a34806883b4bde8675de4f29cd510e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/publication/pre-sync-safety.json",
+      "sha256": "af8b33f08a1b13ec8cf098e376db456e9fd7694cca42bc3c6bf6cc7e62f1bf4d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/BODY_RECEIVE_CROSS_REVIEW.md",
+      "sha256": "7c85d7221dad53103863f02ec3c74299aac8aaeb34b4f5559cfe3d36f85d72cb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/DELIVERY_ACK_CROSS_REVIEW.md",
+      "sha256": "bd2179f0f38528e5c7bdbd08109ddb3c85105aebcb21db379ad05a0ea724ad27"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/DOCS_QUERY_ACK_REVIEW.md",
+      "sha256": "b2ed4c950d21902dc87a98c2dcb5cd3e23c429dc35843345525bd9b27ff81d13"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/READER_DELTA.md",
+      "sha256": "c0708b1abce8d6650b941ccc3cd24b671fdfc50122b7800cf13a5ee7e890a06f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/REPORT.md",
+      "sha256": "fa3c6980e2c53c9ae2f7fee798d419653085c13588cfd29d14dd5224748e4885"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/constantinople-tree.json",
+      "sha256": "fbacce140362086b0f417a67e9859fd045313076514d87995ba3c7a47d99647a"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-alto-tree.json",
+      "sha256": "0e589066e2193fab5becdcfb7d8c801cd3b37766cf9b3fefa482391d7ba658a5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-native-tree.json",
+      "sha256": "02f4df922a37f9c8642649ada181294c53b59266a8f32d8e280c8103cd88add6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-release-tree.json",
+      "sha256": "ff2aa4e3c2840555f2085cf292b8a9cc9a5f2c6ae0cae7b38d82a0be7f7938fb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-source-manifest.json",
+      "sha256": "9413fbf9480c76f046d8b63240d50e3ba391087c6c1184f4a5363df11c0901e7"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/alto/chain/src/application.rs",
+      "sha256": "a35e1e8cc30ae7a6b6aa94196a3300f4a1362279fd5913b94493450737f03860"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/alto/chain/src/engine.rs",
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/alto/types/src/block.rs",
+      "sha256": "ae3060b5a942b7354732d20f35ef8777d6ca4a627f469ea80b6fe435dd4aabe0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/broadcast/src/buffered/config.rs",
+      "sha256": "49c3e076394e7d5360e5291dd4a16953c6c7fc3cee64d9fabee6d957c3df75f4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/broadcast/src/buffered/engine.rs",
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/broadcast/src/buffered/ingress.rs",
+      "sha256": "6e740792e66aeb9c51e6cb02f5ba671cd8dd72e044ee4adf8631c35fa5394d19"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/broadcast/src/buffered/mod.rs",
+      "sha256": "7970ab2ca47246a89dac66650d921e39a87f9c50585b02b9f264fe916c178d74"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/consensus/src/lib.rs",
+      "sha256": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/consensus/src/marshal/core/acks.rs",
+      "sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/consensus/src/marshal/core/delivery.rs",
+      "sha256": "07121d64ca186ebbe0070c91c5afce199c87609e1b5188a76da8dbb602cfb94b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/consensus/src/multimmit/engine.rs",
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/glue/src/stateful/actor/processor/mod.rs",
+      "sha256": "0591c898cea77efef7fb57fbfe93f906613578d6296cf99f7399c9fae3f175e3"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/p2p/src/utils/codec.rs",
+      "sha256": "5314eaf82f8f571170201f06aa5abefa3eaf9ff3ee108a5c4aefab1af2295e6c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/resolver/src/lib.rs",
+      "sha256": "3f490165744ec253b4b6a1e10a51a34192c62ece9008bdb6a1c1f315d80764bb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/resolver/src/p2p/engine.rs",
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/resolver/src/p2p/ingress.rs",
+      "sha256": "9d51ca80f3498775db38d76b78454fd83afa38fb9e958c30ff18d69fb38d7b8c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/resolver/src/p2p/mod.rs",
+      "sha256": "62ed3e53099f0a081956c97a9d2341e50b0159b6c3af4783c6fa989d553e2597"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/resolver/src/p2p/wire.rs",
+      "sha256": "35dc4326bbcf53daefaf30de40c41b2abe5450b7bc61d073d9e30e372c337baa"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/native/utils/src/lib.rs",
+      "sha256": "354ca15b533e9fe5ce784f7311f4012a1000c0c97c89ffb493adf23a644769ed"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/release/broadcast/src/buffered/engine.rs",
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/release/consensus/src/marshal/core/acks.rs",
+      "sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/release/consensus/src/marshal/core/actor.rs",
+      "sha256": "f470f22add69fc987611bbbdee7270893e5d5347b56083e15523bdac768fe7d2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/release/consensus/src/marshal/core/subscriptions.rs",
+      "sha256": "6afd3c9b74b14bad4212113c48de6454561569ecdce1f50972cd665a4f100e86"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/release/consensus/src/marshal/resolver/handler.rs",
+      "sha256": "642841704b6a6b901cc99f4b85cb20abd55aa207be3961bec690e043552d6959"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/release/consensus/src/marshal/standard/deferred.rs",
+      "sha256": "cac042241624a550d4bb5cd3c3e30ac3e9927a19cf7e81dd0b9fd2a09edc6157"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/release/consensus/src/marshal/standard/inline.rs",
+      "sha256": "7a3ced4896dfd46469bb75a4222dbbb7d2737947c12e8eec49e68be8dcc11a9d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/release/consensus/src/marshal/standard/variant.rs",
+      "sha256": "27e619cc2f74b2ba318d5e2fa669d58f45bbb53c9cfb95cd7549a72e8e50638d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/release/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/tempo/crates/consensus/src/alias.rs",
+      "sha256": "3cab895e0f42a507f6a9e93c9edfbada3c95c8d05a9053916777e93ebe587aa0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/tempo/crates/consensus/src/consensus/application/mod.rs",
+      "sha256": "b21dc2a3aac3a5f831794d9bad0f5aeb49712fda0ebcc87aed55e1f0b1d16082"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/tempo/crates/consensus/src/consensus/block.rs",
+      "sha256": "ff3156309bb5285507a60778ed4ea6afbc9cf64d4d9a3d47f6754a01836d80b9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/tempo/crates/consensus/src/consensus/engine.rs",
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-sources/tempo/crates/consensus/src/executor/ingress.rs",
+      "sha256": "77d11aa78bdd62cf59574f1b18e11f5f64f3330d080a153ce0fdc95a2c66edaa"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-tempo-tree.json",
+      "sha256": "52b92568d0b493a0d12febbd935a1ca7282a711f97eb92c67402883e4ebab91b"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/cross-review-verification.json",
+      "sha256": "af36b65d398ac127fdcafe7b2e9d5e6abf17a324286ab97ca7d28b8ccc2dcdfc"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/docs-query-ack-receipt.json",
+      "sha256": "80f5b9d4e6bd1b485295cef43ae93884b3535c844ea13e20253683f9c7aa9669"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/fetch_cross_reviews.py",
+      "sha256": "d1d56c1dca14c1ac029ae74c0cd201a26051cdabcc940fd9dd6390bbff8a9592"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/fetch_sources.py",
+      "sha256": "a59b885708ffb61789bd76cb50fcb292984e0c4753b3369f701345aa64f96cab"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/native-tree.json",
+      "sha256": "02f4df922a37f9c8642649ada181294c53b59266a8f32d8e280c8103cd88add6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/release-key-value-command.json",
+      "sha256": "4650f55b92cdbb8dfe2463528503f688e37be20215f7da0b9e44f3e7ab38aef9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/release-key-value-mcp.json",
+      "sha256": "4e444687c5c34ce9d8c603e22fe420bd8eccd6555ee984060d5c79d5aa047d7e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/release-tag.json",
+      "sha256": "0e30193d63efefc64eaa8004736d5757bee990e862872561435074b72c3053ef"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/release-tree.json",
+      "sha256": "ff2aa4e3c2840555f2085cf292b8a9cc9a5f2c6ae0cae7b38d82a0be7f7938fb"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/reviewed-docs/docs/consensus/ordered-input.md",
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/reviewed-docs/docs/execution/qmdb.md",
+      "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/source-manifest.json",
+      "sha256": "c7e93839881aca4cfbbbaa583e01143bfb85885a06fafcefccec26e46be35b33"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/bin/validator/src/run.rs",
+      "sha256": "4f1654551125935c886ddcbdc1e6ee4c0fe788a26b67c4063b45f607cd7a745c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/bin/validator/src/state_reader.rs",
+      "sha256": "0decb36f94031975a5cf2ae7dfd907257c1703a7ff37a4da642ec26c6372a7bf"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/crates/application/src/consensus/db.rs",
+      "sha256": "275c1d3c10b3d325fe65d5b2db14a205448505023b11f914635da6d69ffab998"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/crates/application/src/consensus/glue.rs",
+      "sha256": "7e5f8d8c8e651c8cf298de0c9cf2c9a4e05ba74c12c3fb1fa1cbef8967cfcee9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/crates/engine/src/types.rs",
+      "sha256": "9c9ab55c18ff748d45e90512e1b8206ff06d4347d52d18bc7f668cde134baad2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/crates/indexer/src/publisher/block.rs",
+      "sha256": "170dc1289a71e997eefb21ed63ba3352b1bd3007ec1bed89d4e75140d05d3bb1"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/crates/indexer/src/publisher/qmdb.rs",
+      "sha256": "08d3c1fd21c97e5cd429fc4a7dc53a3016b38d30a956872b7113deb1bca60947"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/crates/mempool/src/webserver/account_reader.rs",
+      "sha256": "0ea4565098c94d3e8a05e78fd56ce11fc1e06c77536d12daca8d2125213061a8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/crates/mempool/src/webserver/actor.rs",
+      "sha256": "96ff6fd243372b0fb891102a6cab1d0c25204b9600b2efd6732266f6dcfdccd5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/crates/mempool/src/webserver/http.rs",
+      "sha256": "19bbcd374b6b915a918a0b0148a3a86f6e9a9354a157528e311a339983bdef20"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/constantinople/crates/mempool/src/webserver/mailbox.rs",
+      "sha256": "6424f5f8002533827d7709132b11e4f012872f2febe6ebf31cfcce8e83895ec5"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/glue/src/stateful/db/any.rs",
+      "sha256": "0e5e12492554098c2fe16c1ffd61c559390b99f8e4027a0c81caea4eb0371441"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/glue/src/stateful/db/current.rs",
+      "sha256": "4d89df068cf9e3ce512e119d7cc984a45ed6d938645be96be8fdc69b5ae163d0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/glue/src/stateful/db/mod.rs",
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/merkle/proof.rs",
+      "sha256": "1368bcd078916aa4333701ec79c8214ad0acba6bd26412ac6a348bf45187d3e8"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/any/batch.rs",
+      "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/any/db.rs",
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/any/ordered/mod.rs",
+      "sha256": "f5e260c62dff0082387fecc67b341b5c98cee9c71ecc5da2c46ff3c1ba88c0a9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/any/unordered/mod.rs",
+      "sha256": "95cbdd2150ee4443fb26efa6abbe0ec533686888fbac92c143199a2f04cd0456"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/current/batch.rs",
+      "sha256": "a99092f9fbe94c6e22cfbb1ccc94e5d2655c3acdd2e178438ffa274453e967df"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/current/db.rs",
+      "sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/current/ordered/db.rs",
+      "sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/current/ordered/mod.rs",
+      "sha256": "ec2c12e4add27f558273257b9cfc0b3dfb588575482697a2824657afb2cca875"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/current/proof/mod.rs",
+      "sha256": "21525e8d32cbb70b9e3a0bc30d27867cee781360d160cb921a28d679874be3a9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/current/unordered/db.rs",
+      "sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/current/unordered/mod.rs",
+      "sha256": "51d7746db5a8105cb4a944067d10261757041274da39ffc159669a7a66b3eb7c"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/native/storage/src/qmdb/mod.rs",
+      "sha256": "1b7642aac2ec22e50fd426fd0af05824aeee4363ae5eaf6e5c6652c5a437adfa"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/release/storage/src/qmdb/current/ordered/db.rs",
+      "sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/release/storage/src/qmdb/current/proof/mod.rs",
+      "sha256": "21525e8d32cbb70b9e3a0bc30d27867cee781360d160cb921a28d679874be3a9"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/sources/release/storage/src/qmdb/current/unordered/db.rs",
+      "sha256": "faf5e6956e3e6fbaebb4c42f13cbf5455b1f7f46b2477739cde22bc4b1155f62"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/verification.json",
+      "sha256": "fdd2db113ff08fea0d8da4c2435337e9666f0ba3e9dbe96087e9bed521af6f68"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave8/state-query/write_report.py",
+      "sha256": "00f9aec32cb2ea08c7e9014062bc908593f6d38b9703c66118283500af310a60"
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e"
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863"
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf"
+    }
+  ],
+  "synced_at_utc": "2026-10-03T23:23:07.210956+00:00"
+}

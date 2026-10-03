@@ -1,0 +1,18 @@
+{
+  "response_headers": {
+    "Date": "Sat, 03 Oct 2026 23:02:09 GMT",
+    "Content-Type": "text/event-stream",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Access-Control-Allow-Origin": "*",
+    "Cache-Control": "no-cache",
+    "Access-Control-Allow-Headers": "Content-Type, Accept, mcp-session-id, mcp-protocol-version",
+    "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
+    "Access-Control-Expose-Headers": "mcp-session-id",
+    "Access-Control-Max-Age": "86400",
+    "mcp-session-id": "4da9c6785a0996b6289f1e5a1c22b68063fb2afb7b2047796339efb301643758",
+    "Server": "cloudflare",
+    "CF-RAY": "a44f92a0599eea15-ICN"
+  },
+  "body": "event: message\ndata: {\"result\":{\"protocolVersion\":\"2025-03-26\",\"capabilities\":{\"tools\":{\"listChanged\":true}},\"serverInfo\":{\"name\":\"commonware-library\",\"version\":\"0.0.5\"}},\"jsonrpc\":\"2.0\",\"id\":1}\n\n"
+}

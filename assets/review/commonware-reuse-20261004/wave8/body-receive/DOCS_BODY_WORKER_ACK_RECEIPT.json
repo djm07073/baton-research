@@ -1,0 +1,120 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "reviewed_at_utc": "2026-10-03T23:15:26.146276+00:00",
+  "baseline": "99dc2c456c4b318fefb368cb39a145298f7d86b7",
+  "pages": {
+    "docs/consensus/block-body.md": {
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "baseline_sha256": "2b214a3e446a03214868abd64beeb9b04827692c17f49bc7310b75a6f57a142e",
+      "headings_preserved": true,
+      "scope": "source-checked final reader review",
+      "unrelated_baseline_lines_preserved": true
+    },
+    "docs/consensus/ordered-input.md": {
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+      "baseline_sha256": "f760f5b05aae5f3000babdcf1e63a0d988bc72b454169b4434aec315544942d9",
+      "headings_preserved": true,
+      "scope": "source-checked final reader review",
+      "unrelated_baseline_lines_preserved": true
+    },
+    "docs/execution/README.md": {
+      "sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+      "baseline_sha256": "0827e8c86b8b04788cced1062efea579eb46298aeb2792cdb67ae30294c7c5f2",
+      "headings_preserved": true,
+      "scope": "source-checked final reader review",
+      "unrelated_baseline_lines_preserved": true
+    },
+    "docs/execution/qmdb.md": {
+      "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+      "baseline_sha256": "f5b3d5a15130829fcd02cafcd21a0855ccf592f4cdd0599639dd029d5e0e1207",
+      "headings_preserved": true,
+      "scope": "bound coherent draft hash; state-query specialist review separate",
+      "unrelated_baseline_lines_preserved": true
+    }
+  },
+  "new_scoped_citations": [
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L251",
+      "own_source": "sources/native/broadcast/src/buffered/engine.rs",
+      "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+      "anchor_text": "    /// Handles a `subscribe` request from the application."
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L279",
+      "own_source": "sources/native/broadcast/src/buffered/engine.rs",
+      "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+      "anchor_text": "            InsertMessageResult::Inserted => {"
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs#L405",
+      "own_source": "sources/native/resolver/src/p2p/engine.rs",
+      "source_sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+      "anchor_text": "    /// Handle a network response from a peer."
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/acks.rs#L15",
+      "own_source": "cross-review-sources/native/consensus/src/marshal/core/acks.rs",
+      "source_sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6",
+      "anchor_text": "pub(super) struct PendingAck<V: Variant, A: Acknowledgement> {"
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L24",
+      "own_source": "cross-review-sources/native/utils/src/acknowledgement.rs",
+      "source_sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "anchor_text": "pub trait Acknowledgement: Clone + Send + Sync + Debug + 'static {"
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L55",
+      "own_source": "cross-review-sources/native/utils/src/acknowledgement.rs",
+      "source_sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "anchor_text": "    fn clone(&self) -> Self {"
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor.rs#L1010",
+      "own_source": "cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "source_sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "anchor_text": ""
+    },
+    {
+      "page": "docs/execution/README.md",
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs#L357",
+      "own_source": "cross-review-sources/native/runtime/src/lib.rs",
+      "source_sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+      "anchor_text": "    /// Interface that runtimes implement to provide parallel execution strategies."
+    },
+    {
+      "page": "docs/execution/README.md",
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L28",
+      "own_source": "cross-review-sources/native/runtime/src/utils/handle.rs",
+      "source_sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "anchor_text": "/// Handles returned by [`crate::Spawner::spawn`] abort the spawned task. Completion handles only"
+    },
+    {
+      "page": "docs/execution/README.md",
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/futures.rs#L150",
+      "own_source": "cross-review-sources/native/utils/src/futures.rs",
+      "source_sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973",
+      "anchor_text": ""
+    }
+  ],
+  "new_scoped_citation_count": 10,
+  "traits_exactly_baseline": true,
+  "public_trait_names": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "mermaid_diagram_count": 18,
+  "empty_open_decision_count": 39,
+  "remaining_material_issues": [],
+  "native_build_or_protocol_run": false
+}

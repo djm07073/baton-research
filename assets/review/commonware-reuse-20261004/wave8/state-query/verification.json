@@ -1,0 +1,316 @@
+{
+  "utc": "2026-10-03T23:08:49.031868+00:00",
+  "sources": 30,
+  "all_blob_matches": true,
+  "report_sha256": "fa3c6980e2c53c9ae2f7fee798d419653085c13588cfd29d14dd5224748e4885",
+  "reader_delta_sha256": "c0708b1abce8d6650b941ccc3cd24b671fdfc50122b7800cf13a5ee7e890a06f",
+  "release_mcp_sha256": "4e444687c5c34ce9d8c603e22fe420bd8eccd6555ee984060d5c79d5aa047d7e",
+  "mcp_numbered_lines_verified": 77,
+  "anchors": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "line": 204,
+      "line_text": "    pub async fn get(&self, key: &U::Key) -> Result<Option<U::Value>, crate::qmdb::Error<F>> {",
+      "source_sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/unordered/db.rs",
+      "line": 52,
+      "line_text": "    pub async fn get(&self, key: &K) -> Result<Option<V::Value>, Error<F>> {",
+      "source_sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/unordered/db.rs",
+      "line": 91,
+      "line_text": "    pub async fn key_value_proof(",
+      "source_sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 103,
+      "line_text": "    pub async fn get(&self, key: &K) -> Result<Option<V::Value>, Error<F>> {",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 144,
+      "line_text": "    pub fn verify_exclusion_proof(",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 204,
+      "line_text": "    pub async fn key_value_proof(",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/unordered/db.rs",
+      "line": 36,
+      "line_text": "// Shared read-only functionality.",
+      "source_sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/unordered/db.rs",
+      "line": 69,
+      "line_text": "",
+      "source_sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 87,
+      "line_text": "// Shared read-only functionality.",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 182,
+      "line_text": "",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/proof/mod.rs",
+      "line": 577,
+      "line_text": "    pub fn verify<H: Hasher<Digest = D>, O: Codec>(&self, operation: O, root: &D) -> bool {",
+      "source_sha256": "21525e8d32cbb70b9e3a0bc30d27867cee781360d160cb921a28d679874be3a9"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/mod.rs",
+      "line": 29,
+      "line_text": "/// Proof that a key has no assigned value in the database.",
+      "source_sha256": "ec2c12e4add27f558273257b9cfc0b3dfb588575482697a2824657afb2cca875"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/proof/mod.rs",
+      "line": 593,
+      "line_text": "impl<F: Graftable, D: Digest, const N: usize> Write for OperationProof<F, D, N> {",
+      "source_sha256": "21525e8d32cbb70b9e3a0bc30d27867cee781360d160cb921a28d679874be3a9"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 35,
+      "line_text": "    fn write(&self, buf: &mut impl BufMut) {",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/mod.rs",
+      "line": 98,
+      "line_text": "    Update<K, V>: Read,",
+      "source_sha256": "ec2c12e4add27f558273257b9cfc0b3dfb588575482697a2824657afb2cca875"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/db.rs",
+      "line": 338,
+      "line_text": "    /// Returns a proof for the operation at `loc`.",
+      "source_sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/proof/mod.rs",
+      "line": 553,
+      "line_text": "    pub async fn new<H: Hasher<Digest = D>, S: Storage<F, Digest = D>>(",
+      "source_sha256": "21525e8d32cbb70b9e3a0bc30d27867cee781360d160cb921a28d679874be3a9"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 187,
+      "line_text": "}",
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 205,
+      "line_text": "impl<DB> Reader<DB> {",
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 751,
+      "line_text": "    }",
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/db.rs",
+      "line": 329,
+      "line_text": "    /// Create a new speculative batch of operations with this database as its parent.",
+      "source_sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 142,
+      "line_text": "    /// Acquire shared read access to the database.",
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "line": 477,
+      "line_text": "    /// Returns a historical proof for `historical_size` operations, anchored at `start_loc`",
+      "source_sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "line": 501,
+      "line_text": "    pub async fn historical_proof(",
+      "source_sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/db.rs",
+      "line": 376,
+      "line_text": "    pub async fn range_proof(",
+      "source_sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/db.rs",
+      "line": 241,
+      "line_text": "    pub fn verify_range_proof(",
+      "source_sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/db.rs",
+      "line": 410,
+      "line_text": "    /// Returns an ops-level historical proof for the specified range.",
+      "source_sha256": "37051f6a59cb23be8e7e649cf0362416df5565002f3a8db272cbae12dc8de06e"
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/engine/src/types.rs",
+      "line": 102,
+      "line_text": "pub type StateSyncDb<E, H, T> = Shared<StateDb<E, H, T>>;",
+      "source_sha256": "9c9ab55c18ff748d45e90512e1b8206ff06d4347d52d18bc7f668cde134baad2"
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "bin/validator/src/state_reader.rs",
+      "line": 33,
+      "line_text": "impl<E, H, T> AccountReader for StateDbReader<E, H, T>",
+      "source_sha256": "0decb36f94031975a5cf2ae7dfd907257c1703a7ff37a4da642ec26c6372a7bf"
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "bin/validator/src/run.rs",
+      "line": 957,
+      "line_text": "        // Install the account reader as soon as the stateful actor attaches",
+      "source_sha256": "4f1654551125935c886ddcbdc1e6ee4c0fe788a26b67c4063b45f607cd7a745c"
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/http.rs",
+      "line": 392,
+      "line_text": "    let Some(reader) = state.account_reader.get() else {",
+      "source_sha256": "19bbcd374b6b915a918a0b0148a3a86f6e9a9354a157528e311a339983bdef20"
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/indexer/src/publisher/qmdb.rs",
+      "line": 1342,
+      "line_text": "",
+      "source_sha256": "08d3c1fd21c97e5cd429fc4a7dc53a3016b38d30a956872b7113deb1bca60947"
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/indexer/src/publisher/qmdb.rs",
+      "line": 1428,
+      "line_text": "    state: &commonware_storage::qmdb::any::unordered::fixed::Db<",
+      "source_sha256": "08d3c1fd21c97e5cd429fc4a7dc53a3016b38d30a956872b7113deb1bca60947"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/unordered/db.rs",
+      "line": 58,
+      "line_text": "    pub fn verify_key_value_proof(",
+      "source_sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 144,
+      "line_text": "    pub fn verify_exclusion_proof(",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/current/ordered/db.rs",
+      "line": 204,
+      "line_text": "    pub async fn key_value_proof(",
+      "source_sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 205,
+      "line_text": "impl<DB> Reader<DB> {",
+      "source_sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/db.rs",
+      "line": 477,
+      "line_text": "    /// Returns a historical proof for `historical_size` operations, anchored at `start_loc`",
+      "source_sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d"
+    }
+  ],
+  "compiled": false
+}

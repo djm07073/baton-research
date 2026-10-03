@@ -1,0 +1,93 @@
+{
+  "anchors": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 24,
+      "line_text": "pub trait Acknowledgement: Clone + Send + Sync + Debug + 'static {",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/lib.rs",
+      "line": 207,
+      "line_text": "    pub use acknowledgement::Acknowledgement;",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 100,
+      "line_text": "        self.state.acknowledge();",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 55,
+      "line_text": "    fn clone(&self) -> Self {",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "line": 137,
+      "line_text": "impl ExactState {",
+      "blob_verified": true
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/ingress.rs",
+      "line": 201,
+      "line_text": "impl Reporter for Mailbox {",
+      "blob_verified": true
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 1751,
+      "line_text": "struct FinalizedBlockRequest {",
+      "blob_verified": true
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 1010,
+      "line_text": "",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/core/acks.rs",
+      "line": 15,
+      "line_text": "pub(super) struct PendingAck<V: Variant, A: Acknowledgement> {",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 1894,
+      "line_text": "            let (ack, ack_waiter) = A::handle();",
+      "blob_verified": true
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 2366,
+      "line_text": "    /// Buffers a processed height update in memory and metrics. Does NOT sync",
+      "blob_verified": true
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,218 @@
+{
+  "baseline": "99dc2c4",
+  "pages_checked": 32,
+  "checks": [
+    {
+      "path": "docs/README.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/SUMMARY.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/baton/README.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/baton/interfaces.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/consensus/README.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/e2e/canonical.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/e2e/leader.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/e2e/native-consensus.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/e2e/reschedule.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/e2e/results.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/e2e/state-sync.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/execution/README.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/execution/state-sync.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/overview/glossary.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/overview/networking.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/reference/sources.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/reference/verification.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/tx/README.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "headings_unchanged": true,
+      "old_external_urls_preserved": true,
+      "rust_mermaid_unchanged": true
+    }
+  ],
+  "non_md_assets_unchanged": 56,
+  "modified_pages": [
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e"
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863"
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf"
+    }
+  ],
+  "failures": []
+}

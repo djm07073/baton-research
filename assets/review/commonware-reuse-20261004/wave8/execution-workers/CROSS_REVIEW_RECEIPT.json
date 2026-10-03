@@ -1,0 +1,25 @@
+{
+  "checked_at_utc": "2026-10-03T23:16:07.963205+00:00",
+  "result": "pass_no_actionable_corrections",
+  "source_manifest_sha256": "96f08cf9ed4d9de4b588808c930c52d6f7a42e86b2b122d57ca6cee841cf4e68",
+  "fresh_raw_files": 24,
+  "fresh_complete_trees": 5,
+  "anchors_by_report": {
+    "body-receive": 26,
+    "state-query": 33
+  },
+  "peer_reports": {
+    "body-receive": "d94655809905c022262cf662aab72a5059de8c316447a138f7d2a80ec0b9a8d6",
+    "state-query": "fa3c6980e2c53c9ae2f7fee798d419653085c13588cfd29d14dd5224748e4885"
+  },
+  "peer_reader_deltas": {
+    "body-receive": "5b07a2b8bf7cee2eb9b67fc36720e8195f64e9c26904dfdf16d6011143817667",
+    "state-query": "c0708b1abce8d6650b941ccc3cd24b671fdfc50122b7800cf13a5ee7e890a06f"
+  },
+  "own_reviews": {
+    "BODY_RECEIVE_CROSS_REVIEW.md": "6d11d5e6b43ea1a4530bf0ce053b59db2d2e74d847382515c387bb5efcf32077",
+    "STATE_QUERY_CROSS_REVIEW.md": "6082681eb6a4c8ca0f68fe13ef0e07e4b24258a46d24a755a940d70bcc28d491"
+  },
+  "canonical_edits": false,
+  "implementation_or_build": false
+}

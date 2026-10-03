@@ -1,0 +1,294 @@
+{
+  "report_sha256": "841e9cda433be0692860660727ceb06f360aceb478043792c83ef154bd4fdfcc",
+  "delta_sha256": "0459d07442836ade34843fb6e010b84ad4d7f7075090ec99f4fe56bf949ffb4c",
+  "report_anchor_count": 30,
+  "anchors": [
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "line": 261,
+      "source": "cross-review-sources/native/runtime/src/lib.rs",
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+      "anchor_text": "    pub trait Spawner: Supervisor {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "line": 357,
+      "source": "cross-review-sources/native/runtime/src/lib.rs",
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+      "anchor_text": "    /// Interface that runtimes implement to provide parallel execution strategies."
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/tokio/runtime.rs",
+      "line": 657,
+      "source": "cross-review-sources/native/runtime/src/tokio/runtime.rs",
+      "sha256": "855b836b353b553a0bc24389abe850a985ebcd76cb960b6fedbf5e3d2508c192",
+      "anchor_text": "impl crate::Strategizer for Context {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/cell.rs",
+      "line": 6,
+      "source": "cross-review-sources/native/runtime/src/utils/cell.rs",
+      "sha256": "1993e75c2d8fed26f221043aa1e5e9f17f75b9c398f61cfb8837e9bd293f8a61",
+      "anchor_text": "/// Spawn a task using a [`Cell`] by taking its context, restoring the context synchronously"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 16,
+      "source": "cross-review-sources/native/utils/src/futures.rs",
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973",
+      "anchor_text": "///"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 77,
+      "source": "cross-review-sources/native/utils/src/futures.rs",
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973",
+      "anchor_text": "/// When the aborter is dropped, the associated future is aborted."
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 150,
+      "source": "cross-review-sources/native/utils/src/futures.rs",
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973",
+      "anchor_text": ""
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 28,
+      "source": "cross-review-sources/native/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "anchor_text": "/// Handles returned by [`crate::Spawner::spawn`] abort the spawned task. Completion handles only"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 156,
+      "source": "cross-review-sources/native/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "anchor_text": ""
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 189,
+      "source": "cross-review-sources/native/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "anchor_text": "    /// Waits for the first handle to complete and aborts all handles before returning."
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 185,
+      "source": "cross-review-sources/native/utils/src/futures.rs",
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973",
+      "anchor_text": "impl<F: Future> Future for OptionFuture<F> {"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 219,
+      "source": "cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "anchor_text": "    /// The single execution task. A build owns the slot from fetching its parent"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/utils.rs",
+      "line": 26,
+      "source": "cross-review-sources/tempo/crates/consensus/src/utils.rs",
+      "sha256": "0f3ef3bf1144bbb3f58d71d36c3bcd2df812ee21bb8885d422796bdde5364b9b",
+      "anchor_text": "/// A vendored version of [`commonware_utils::futures::OptionFuture`] to implement"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 54,
+      "source": "cross-review-sources/native/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "anchor_text": "/// Aborts every owned handle when a group is no longer supervised."
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "parallel/src/lib.rs",
+      "line": 800,
+      "source": "cross-review-sources/native/parallel/src/lib.rs",
+      "sha256": "52a45191faa76acaf0cf724eb04804390fd57b9743435c7de6e82898447c213b",
+      "anchor_text": "        fn spawn<F, T>(&self, f: F) -> impl core::future::Future<Output = T> + Send + 'static"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "parallel/src/lib.rs",
+      "line": 1019,
+      "source": "cross-review-sources/native/parallel/src/lib.rs",
+      "sha256": "52a45191faa76acaf0cf724eb04804390fd57b9743435c7de6e82898447c213b",
+      "anchor_text": "        fn spawn<F, T>(&self, f: F) -> impl core::future::Future<Output = T> + Send + 'static"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/tokio/runtime.rs",
+      "line": 574,
+      "source": "cross-review-sources/native/runtime/src/tokio/runtime.rs",
+      "sha256": "855b836b353b553a0bc24389abe850a985ebcd76cb960b6fedbf5e3d2508c192",
+      "anchor_text": "    fn spawn<F, Fut, T>(mut self, f: F) -> Handle<T>"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 125,
+      "source": "cross-review-sources/native/runtime/src/utils/handle.rs",
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "anchor_text": ""
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/supervision.rs",
+      "line": 144,
+      "source": "cross-review-sources/native/runtime/src/utils/supervision.rs",
+      "sha256": "8b534c8f374c33bab1861dcda9d7f8d8b60c3785182b5b35406f66ffa5b9eac0",
+      "anchor_text": "    /// Aborts the task and all descendants rooted at this node."
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 541,
+      "source": "cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "anchor_text": "    fn set_execution_task(&mut self, mut task: ExecutionTask) {"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 464,
+      "source": "cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "anchor_text": "            self.metrics.observe("
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 1533,
+      "source": "cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "anchor_text": "    /// then pending-head convergence. One FCU may commit several finalized"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 2079,
+      "source": "cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "anchor_text": "            _aborter: fetches.push(async move { (owner, receiver.await.ok()) }),"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 2550,
+      "source": "cross-review-sources/tempo/crates/consensus/src/executor/actor.rs",
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "anchor_text": "/// consensus engine cancelled the proposal request that triggered the"
+    },
+    {
+      "repository": "commonwarexyz/constantinople",
+      "revision": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/application/src/consensus/execution.rs",
+      "line": 159,
+      "source": "cross-review-sources/constantinople/crates/application/src/consensus/execution.rs",
+      "sha256": "33f25de08c1999a022ff074b098d5c9de02f3776d55579ba24a886e0d9e1c2e4",
+      "anchor_text": "#[tracing::instrument(name = \"application.execute.compute\", level = \"info\", skip_all)]"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/voter/executor.rs",
+      "line": 37,
+      "source": "cross-review-sources/native/consensus/src/multimmit/actors/voter/executor.rs",
+      "sha256": "780e2723d917711ef7800a20de1aadd79048d32904ce38bcf2463994115aacea",
+      "anchor_text": "    /// Returns one affine capacity permit to Core. Prior-generation permits are stale completions,"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/actor/core/verifications.rs",
+      "line": 158,
+      "source": "cross-review-sources/native/glue/src/stateful/actor/core/verifications.rs",
+      "sha256": "bda479d159b1cb1100ca3277ea95ce46a30658cac53949dbb00a4a87dd1ab097",
+      "anchor_text": ""
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/channel/reservation.rs",
+      "line": 74,
+      "source": "cross-review-sources/native/utils/src/channel/reservation.rs",
+      "sha256": "eb745970d9c1efc8c6d9d048f43f3dd9daacf6f1aed19f4f8348e943779d83df",
+      "anchor_text": "    /// Returns:"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 224,
+      "source": "cross-review-sources/native/utils/src/futures.rs",
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973",
+      "anchor_text": "    fn split(self) -> (T, (A, B)) {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 252,
+      "source": "cross-review-sources/native/utils/src/futures.rs",
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973",
+      "anchor_text": ""
+    }
+  ],
+  "actual_MCP_content_checks": [
+    {
+      "file": "mcp-release-handle.json",
+      "matched_numbered_lines": 91,
+      "failures": [],
+      "own_fresh_release_source": "runtime/src/utils/handle.rs"
+    },
+    {
+      "file": "mcp-release-futures.json",
+      "matched_numbered_lines": 50,
+      "failures": [],
+      "own_fresh_release_source": "utils/src/futures.rs"
+    }
+  ],
+  "handle_native_release_identical": true,
+  "futures_native_release_identical": false,
+  "remaining_material_issues": []
+}

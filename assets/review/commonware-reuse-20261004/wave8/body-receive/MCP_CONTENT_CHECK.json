@@ -1,0 +1,8 @@
+{
+  "explicit_release": "v2026.9.0",
+  "numbered_lines_matched": 81,
+  "failures": [],
+  "native_release_buffer_engine_identical": true,
+  "MCP_numbering": "zero-based",
+  "fresh_release_source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8"
+}

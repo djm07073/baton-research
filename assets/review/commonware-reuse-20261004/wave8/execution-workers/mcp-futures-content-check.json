@@ -1,0 +1,10 @@
+{
+  "version": "v2026.9.0",
+  "indexed_revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+  "file": "utils/src/futures.rs",
+  "mcp_numbering": "0-indexed",
+  "checked_lines": 50,
+  "content_matches_fresh_release_blob": true,
+  "native_file_identical": false,
+  "mcp_sha256": "0dfad06b09cf6aa0b8eb9f67c9da1f4247e148aeed6655d68ac4bfd3955f1ccb"
+}

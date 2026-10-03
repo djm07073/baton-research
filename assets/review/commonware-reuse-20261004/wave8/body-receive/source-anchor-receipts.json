@@ -1,0 +1,210 @@
+[
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 122,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": "        let (mailbox_sender, mailbox_receiver) ="
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "p2p/src/utils/codec.rs",
+    "line": 111,
+    "source_sha256": "5314eaf82f8f571170201f06aa5abefa3eaf9ff3ee108a5c4aefab1af2295e6c",
+    "anchor_text": "    config: V::Cfg,"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 207,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": "                let (peer, msg) = match msg {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 279,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": "            InsertMessageResult::Inserted => {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 330,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": "        digest: M::Digest,"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 236,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": "    /// Handles a `broadcast` request from the application."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 367,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": "        // If the cache is full..."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 296,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": ""
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 379,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": "    fn update_latest_primary_peers(&mut self, peers: Set<P>) {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/ingress.rs",
+    "line": 99,
+    "source_sha256": "6e740792e66aeb9c51e6cb02f5ba671cd8dd72e044ee4adf8631c35fa5394d19",
+    "anchor_text": ""
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 251,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": "    /// Handles a `subscribe` request from the application."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/engine.rs",
+    "line": 396,
+    "source_sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+    "anchor_text": "    /// Remove all waiters that have dropped receivers."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "broadcast/src/buffered/ingress.rs",
+    "line": 99,
+    "source_sha256": "6e740792e66aeb9c51e6cb02f5ba671cd8dd72e044ee4adf8631c35fa5394d19",
+    "anchor_text": ""
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "resolver/src/p2p/engine.rs",
+    "line": 405,
+    "source_sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+    "anchor_text": "    /// Handle a network response from a peer."
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "resolver/src/p2p/engine.rs",
+    "line": 235,
+    "source_sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+    "anchor_text": "                        for FetchKey {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "resolver/src/lib.rs",
+    "line": 149,
+    "source_sha256": "3f490165744ec253b4b6a1e10a51a34192c62ece9008bdb6a1c1f315d80764bb",
+    "anchor_text": ""
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+    "path": "resolver/src/p2p/engine.rs",
+    "line": 426,
+    "source_sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+    "anchor_text": "    /// Handle completed delivery to the consumer."
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/consensus/engine.rs",
+    "line": 207,
+    "source_sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5",
+    "anchor_text": "        let (broadcast, broadcast_mailbox) = buffered::Engine::new("
+  },
+  {
+    "repository": "tempoxyz/tempo",
+    "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+    "path": "crates/consensus/src/consensus/engine.rs",
+    "line": 526,
+    "source_sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5",
+    "anchor_text": "        let broadcast = self.broadcast.start(broadcast_channel);"
+  },
+  {
+    "repository": "commonwarexyz/alto",
+    "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+    "path": "chain/src/engine.rs",
+    "line": 462,
+    "source_sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18",
+    "anchor_text": "        let buffer_handle = self.buffer.start(broadcast);"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "path": "consensus/src/marshal/standard/variant.rs",
+    "line": 90,
+    "source_sha256": "27e619cc2f74b2ba318d5e2fa669d58f45bbb53c9cfb95cd7549a72e8e50638d",
+    "anchor_text": "impl<B, K> Buffer<Standard<B>> for buffered::Mailbox<K, B>"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "path": "consensus/src/marshal/core/actor.rs",
+    "line": 1081,
+    "source_sha256": "f470f22add69fc987611bbbdee7270893e5d5347b56083e15523bdac768fe7d2",
+    "anchor_text": "    async fn handle_subscribe<Buf: Buffer<V>>("
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "path": "consensus/src/marshal/core/subscriptions.rs",
+    "line": 93,
+    "source_sha256": "6afd3c9b74b14bad4212113c48de6454561569ecdce1f50972cd665a4f100e86",
+    "anchor_text": "        &mut self,"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "path": "consensus/src/marshal/standard/inline.rs",
+    "line": 430,
+    "source_sha256": "7a3ced4896dfd46469bb75a4222dbbb7d2737947c12e8eec49e68be8dcc11a9d",
+    "anchor_text": ""
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "path": "consensus/src/marshal/resolver/handler.rs",
+    "line": 131,
+    "source_sha256": "642841704b6a6b901cc99f4b85cb20abd55aa207be3961bec690e043552d6959",
+    "anchor_text": "impl<D: Digest> Receiver<D> {"
+  },
+  {
+    "repository": "commonwarexyz/monorepo",
+    "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+    "path": "consensus/src/marshal/core/actor.rs",
+    "line": 1254,
+    "source_sha256": "f470f22add69fc987611bbbdee7270893e5d5347b56083e15523bdac768fe7d2",
+    "anchor_text": "    /// Notifies subscribers of a validated block and applies it to any"
+  }
+]

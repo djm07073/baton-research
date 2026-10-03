@@ -1,0 +1,173 @@
+{
+  "retrieved_at_utc": "2026-10-03T23:12:23.857675+00:00",
+  "unique_sources": 12,
+  "complete_trees": 2,
+  "citations": [
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L279",
+      "line": 279,
+      "line_text": "            InsertMessageResult::Inserted => {",
+      "bytes": 15647,
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+      "git_blob": "61dade3853d98706e1556369ae72165d20e7e6b3",
+      "tree_blob": "61dade3853d98706e1556369ae72165d20e7e6b3",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L251",
+      "line": 251,
+      "line_text": "    /// Handles a `subscribe` request from the application.",
+      "bytes": 15647,
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+      "git_blob": "61dade3853d98706e1556369ae72165d20e7e6b3",
+      "tree_blob": "61dade3853d98706e1556369ae72165d20e7e6b3",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs#L405",
+      "line": 405,
+      "line_text": "    /// Handle a network response from a peer.",
+      "bytes": 20856,
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+      "git_blob": "c90994bec8cc3b30dbe56be5fef39123b7f7aee4",
+      "tree_blob": "c90994bec8cc3b30dbe56be5fef39123b7f7aee4",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L24",
+      "line": 24,
+      "line_text": "pub trait Acknowledgement: Clone + Send + Sync + Debug + 'static {",
+      "bytes": 6095,
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "git_blob": "97cc19442c657257c2c5a335c864c39c2b6994ab",
+      "tree_blob": "97cc19442c657257c2c5a335c864c39c2b6994ab",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L55",
+      "line": 55,
+      "line_text": "    fn clone(&self) -> Self {",
+      "bytes": 6095,
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "git_blob": "97cc19442c657257c2c5a335c864c39c2b6994ab",
+      "tree_blob": "97cc19442c657257c2c5a335c864c39c2b6994ab",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs"
+    },
+    {
+      "url": "https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor.rs#L1010",
+      "line": 1010,
+      "line_text": "",
+      "bytes": 106987,
+      "sha256": "5c0e16a0df3a143eb77378c0664b8d15b7dbb505d8e6afff854f47101fb89645",
+      "git_blob": "b53e34b7610163fce3e79cc6686873ab4a579dd9",
+      "tree_blob": "b53e34b7610163fce3e79cc6686873ab4a579dd9",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/tempoxyz-tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/acks.rs#L15",
+      "line": 15,
+      "line_text": "pub(super) struct PendingAck<V: Variant, A: Acknowledgement> {",
+      "bytes": 6704,
+      "sha256": "fda79897e7852146e1c7c35b000c2ff1cd3ec28d36029aa89eaa8dcf5039bfc6",
+      "git_blob": "b9df4f0262839e5f96a99cd3483bba9d99c1d980",
+      "tree_blob": "b9df4f0262839e5f96a99cd3483bba9d99c1d980",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/acks.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/futures.rs#L150",
+      "line": 150,
+      "line_text": "",
+      "bytes": 20255,
+      "sha256": "782f2ff116c7e25b4472ba4b7fa5145c08d6bc4711426a47d55900c9e3fed973",
+      "git_blob": "69dc2efc6541d8242911c54be0509b0a7116e0de",
+      "tree_blob": "69dc2efc6541d8242911c54be0509b0a7116e0de",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/futures.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs#L357",
+      "line": 357,
+      "line_text": "    /// Interface that runtimes implement to provide parallel execution strategies.",
+      "bytes": 125207,
+      "sha256": "bacb6553a3186170effa6dabb46644c1c9e5310a9edef1cd5ad5a24e3204e0be",
+      "git_blob": "139a63a62b07caaadb799d3f4b1cfa4a8cd37fca",
+      "tree_blob": "139a63a62b07caaadb799d3f4b1cfa4a8cd37fca",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L28",
+      "line": 28,
+      "line_text": "/// Handles returned by [`crate::Spawner::spawn`] abort the spawned task. Completion handles only",
+      "bytes": 20715,
+      "sha256": "cbe48ac3f8ae7a9bb9b297c226431d36191f4c6b03a563e35bb624d672a2171e",
+      "git_blob": "efd0782b46d254a82f94edc11d6ed2d4ce137ddf",
+      "tree_blob": "efd0782b46d254a82f94edc11d6ed2d4ce137ddf",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/unordered/db.rs#L58",
+      "line": 58,
+      "line_text": "    pub fn verify_key_value_proof(",
+      "bytes": 3103,
+      "sha256": "a2dddb295f51a8cb292408e8a8359cc32d200f68bcfae7af9d37775f979e2c9e",
+      "git_blob": "fc805eb9630e51a41bcb005c4c79d839156c2f22",
+      "tree_blob": "fc805eb9630e51a41bcb005c4c79d839156c2f22",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/unordered/db.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs#L144",
+      "line": 144,
+      "line_text": "    pub fn verify_exclusion_proof(",
+      "bytes": 8943,
+      "sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce",
+      "git_blob": "b440c81b11ca988c671f59475e1f789a67bd0756",
+      "tree_blob": "b440c81b11ca988c671f59475e1f789a67bd0756",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs#L204",
+      "line": 204,
+      "line_text": "    pub async fn key_value_proof(",
+      "bytes": 8943,
+      "sha256": "88961487a8e4144beb4f2a43bd0c8e9b97d22384fc97d277af7712ce58080dce",
+      "git_blob": "b440c81b11ca988c671f59475e1f789a67bd0756",
+      "tree_blob": "b440c81b11ca988c671f59475e1f789a67bd0756",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L205",
+      "line": 205,
+      "line_text": "impl<DB> Reader<DB> {",
+      "bytes": 175612,
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "git_blob": "917f4783d7b2878cadfdbb61ad80a2dc1ee7a01a",
+      "tree_blob": "917f4783d7b2878cadfdbb61ad80a2dc1ee7a01a",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs"
+    },
+    {
+      "url": "https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs#L477",
+      "line": 477,
+      "line_text": "    /// Returns a historical proof for `historical_size` operations, anchored at `start_loc`",
+      "bytes": 34959,
+      "sha256": "5bca8337f8af52aa4c31333326e3be7955571971ea749733dad98921cf25594d",
+      "git_blob": "0e130462aec6c9537fb270129d826a703c67ec99",
+      "tree_blob": "0e130462aec6c9537fb270129d826a703c67ec99",
+      "blob_verified": true,
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave8/citation-sources/commonwarexyz-monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs"
+    }
+  ],
+  "failures": []
+}

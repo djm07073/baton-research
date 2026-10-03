@@ -1,0 +1,18 @@
+[
+  {
+    "path": "docs/consensus/block-body.md",
+    "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e"
+  },
+  {
+    "path": "docs/consensus/ordered-input.md",
+    "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720"
+  },
+  {
+    "path": "docs/execution/README.md",
+    "sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863"
+  },
+  {
+    "path": "docs/execution/qmdb.md",
+    "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf"
+  }
+]

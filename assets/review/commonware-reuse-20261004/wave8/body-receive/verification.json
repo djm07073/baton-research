@@ -1,0 +1,18 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "created_at_utc": "2026-10-03T23:07:24.688602+00:00",
+  "local_git_HEAD": "99dc2c456c4b318fefb368cb39a145298f7d86b7",
+  "report_sha256": "d94655809905c022262cf662aab72a5059de8c316447a138f7d2a80ec0b9a8d6",
+  "reader_delta_sha256": "5b07a2b8bf7cee2eb9b67fc36720e8195f64e9c26904dfdf16d6011143817667",
+  "source_count": 25,
+  "complete_tree_count": 4,
+  "reader_page_hashes": {
+    "docs/consensus/block-body.md": "2b214a3e446a03214868abd64beeb9b04827692c17f49bc7310b75a6f57a142e",
+    "docs/overview/networking.md": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+    "docs/e2e/block-body.md": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+    "docs/e2e/recovery.md": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4"
+  },
+  "MCP_actual_numbered_lines_matched": 81,
+  "native_release_buffer_engine_byte_identical": true,
+  "verified_report_source_anchor_count": 26
+}

@@ -1,0 +1,289 @@
+{
+  "checked_at_utc": "2026-10-03T23:09:56.322127+00:00",
+  "baseline": "99dc2c456c4b318fefb368cb39a145298f7d86b7",
+  "sources": 25,
+  "complete_trees": 4,
+  "anchors": [
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "line": 261,
+      "line_text": "    pub trait Spawner: Supervisor {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "line": 357,
+      "line_text": "    /// Interface that runtimes implement to provide parallel execution strategies."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/tokio/runtime.rs",
+      "line": 657,
+      "line_text": "impl crate::Strategizer for Context {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/cell.rs",
+      "line": 6,
+      "line_text": "/// Spawn a task using a [`Cell`] by taking its context, restoring the context synchronously"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 16,
+      "line_text": "///"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 77,
+      "line_text": "/// When the aborter is dropped, the associated future is aborted."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 150,
+      "line_text": ""
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 28,
+      "line_text": "/// Handles returned by [`crate::Spawner::spawn`] abort the spawned task. Completion handles only"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 156,
+      "line_text": ""
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 189,
+      "line_text": "    /// Waits for the first handle to complete and aborts all handles before returning."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 185,
+      "line_text": "impl<F: Future> Future for OptionFuture<F> {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 219,
+      "line_text": "    /// The single execution task. A build owns the slot from fetching its parent"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/utils.rs",
+      "line": 26,
+      "line_text": "/// A vendored version of [`commonware_utils::futures::OptionFuture`] to implement"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 54,
+      "line_text": "/// Aborts every owned handle when a group is no longer supervised."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "parallel/src/lib.rs",
+      "line": 800,
+      "line_text": "        fn spawn<F, T>(&self, f: F) -> impl core::future::Future<Output = T> + Send + 'static"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "parallel/src/lib.rs",
+      "line": 1019,
+      "line_text": "        fn spawn<F, T>(&self, f: F) -> impl core::future::Future<Output = T> + Send + 'static"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/tokio/runtime.rs",
+      "line": 574,
+      "line_text": "    fn spawn<F, Fut, T>(mut self, f: F) -> Handle<T>"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 125,
+      "line_text": ""
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/supervision.rs",
+      "line": 144,
+      "line_text": "    /// Aborts the task and all descendants rooted at this node."
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 541,
+      "line_text": "    fn set_execution_task(&mut self, mut task: ExecutionTask) {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 464,
+      "line_text": "            self.metrics.observe("
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 1533,
+      "line_text": "    /// then pending-head convergence. One FCU may commit several finalized"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 2079,
+      "line_text": "            _aborter: fetches.push(async move { (owner, receiver.await.ok()) }),"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/executor/actor.rs",
+      "line": 2550,
+      "line_text": "/// consensus engine cancelled the proposal request that triggered the"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/application/src/consensus/execution.rs",
+      "line": 159,
+      "line_text": "#[tracing::instrument(name = \"application.execute.compute\", level = \"info\", skip_all)]"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/voter/executor.rs",
+      "line": 37,
+      "line_text": "    /// Returns one affine capacity permit to Core. Prior-generation permits are stale completions,"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/actor/core/verifications.rs",
+      "line": 158,
+      "line_text": ""
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/channel/reservation.rs",
+      "line": 74,
+      "line_text": "    /// Returns:"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 224,
+      "line_text": "    fn split(self) -> (T, (A, B)) {"
+    },
+    {
+      "document": "REPORT.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 252,
+      "line_text": ""
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/futures.rs",
+      "line": 150,
+      "line_text": ""
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/lib.rs",
+      "line": 357,
+      "line_text": "    /// Interface that runtimes implement to provide parallel execution strategies."
+    },
+    {
+      "document": "READER_DELTA.md",
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "runtime/src/utils/handle.rs",
+      "line": 28,
+      "line_text": "/// Handles returned by [`crate::Spawner::spawn`] abort the spawned task. Completion handles only"
+    }
+  ],
+  "files": {
+    "REPORT.md": "841e9cda433be0692860660727ceb06f360aceb478043792c83ef154bd4fdfcc",
+    "READER_DELTA.md": "0459d07442836ade34843fb6e010b84ad4d7f7075090ec99f4fe56bf949ffb4c",
+    "source-manifest.json": "269066b1b3649946490ce3ee8233415e1e6ecb2aac89f6fe89a5387402c238eb",
+    "mcp-content-check.json": "70307718274a01255a852c015f47da2871c65175ba1b21bdee4e889ee42e807e",
+    "mcp-futures-content-check.json": "b77209cefadc8b38bc695c8b33ee8503cdaf906810929095e02eebc486cdd040"
+  },
+  "reader_hashes": {
+    "docs/execution/README.md": "0827e8c86b8b04788cced1062efea579eb46298aeb2792cdb67ae30294c7c5f2",
+    "docs/execution/interfaces.md": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+    "docs/execution/state-sync.md": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+    "docs/e2e/canonical.md": "000c1e19afa1403a5e0717e2ebc266fe6df4febd5d31498a113b5461f1b934c8",
+    "docs/e2e/recovery.md": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+    "docs/overview/rust-interfaces.md": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36"
+  },
+  "canonical_edits": false,
+  "implementation_build_native_test": false
+}
