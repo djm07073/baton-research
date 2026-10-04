@@ -4,7 +4,7 @@
   "review_window_end_utc": "2026-10-04T01:29:14Z",
   "baseline_git_sha": "38f64555e27fb88feb2a1f4be6ae2c133c6082e7",
   "baseline_gitbook_revision": "TBVjJb5b1ideu6YEBXIq",
-  "status": "review_complete_final_shipping",
+  "status": "complete",
   "requirements": [
     "Survey real Commonware chains and extract source-pinned assembly recipes.",
     "Replace redundant custom infrastructure in existing layer docs, Rust contracts and diagrams; retain only necessary application adapters.",
@@ -831,7 +831,11 @@
     "requested_window": "passed",
     "clock": "2026-10-04 01:30:53 UTC",
     "final_gitbook_revision": "v2bpTwguXjQyojxMG9z7",
-    "final_exact_git_shipping": "verify_after_commit_push"
+    "final_exact_git_shipping": {
+      "status": "verified",
+      "commit": "d3aa168c364d85c48837f0f8ff7eb5e2a157f173",
+      "receipt": "wave15/FINAL_SHIPMENT_RECEIPT.json"
+    }
   },
   "local_verification": {
     "content_pages": 31,
@@ -867,7 +871,7 @@
     "verification": "wave15/final-publication/gitbook-verification.json",
     "live_verification": "wave15/final-publication/publication-verification.json"
   },
-  "updated_at_utc": "2026-10-04T01:30:53+00:00",
+  "updated_at_utc": "2026-10-04T01:32:20.615235+00:00",
   "publication_history": [
     {
       "change_request_id": "OTFc0W01ZQvv2f4uiiU8",
@@ -1077,5 +1081,5 @@
       "live_verification": "wave15/final-publication/publication-verification.json"
     }
   ],
-  "github_baseline_verified_sha": "1212e680e8e8f1316b9557a16b2e5b5acfe1ea8a"
+  "github_baseline_verified_sha": "d3aa168c364d85c48837f0f8ff7eb5e2a157f173"
 }
