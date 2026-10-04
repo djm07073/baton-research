@@ -1,0 +1,10 @@
+{
+  "changedPage": "overview/rust-interfaces.md",
+  "commentVisible": true,
+  "oldCommentAbsent": true,
+  "traits": 5,
+  "english": true,
+  "rustDownloadMatchesLocal": true,
+  "errors": [],
+  "scope": "Changed-page smoke check; prior full31page browser checks not rerun"
+}

@@ -1,0 +1,40 @@
+{
+  "changeRequest": {
+    "object": "change-request",
+    "id": "bWtMTdRGMzUuYdSK6luo",
+    "status": "draft",
+    "subject": "Clarify candidate selection and canonical retirement",
+    "number": 14,
+    "space": "pvyFEde12m2tVRjI8TRw",
+    "revision": "lvrNqtmo4vDJevqEsCJc",
+    "revisionInitial": "SKpBMBP5bB8nbXs83CtR",
+    "outdated": false,
+    "comments": 0,
+    "createdBy": {
+      "object": "user",
+      "id": "ED8ThzQyZ1Mq0E2SwQjAgh47LHi1",
+      "displayName": "suha jin",
+      "email": "djm07073@korea.ac.kr",
+      "photoURL": "https://avatars.githubusercontent.com/u/89185836?v=4",
+      "urls": {
+        "location": "/users/ED8ThzQyZ1Mq0E2SwQjAgh47LHi1"
+      }
+    },
+    "createdAt": "2026-10-04T00:31:32.195Z",
+    "updatedAt": "2026-10-04T00:32:33.103Z",
+    "urls": {
+      "app": "https://app.gitbook.com/o/Z5g7kwPjokG0jEOyXNu6/s/pvyFEde12m2tVRjI8TRw/~/changes/bWtMTdRGMzUuYdSK6luo/",
+      "location": "/spaces/pvyFEde12m2tVRjI8TRw/change-requests/14"
+    }
+  },
+  "changes": [],
+  "insertedFiles": [
+    {
+      "id": "EcDo8rQwTs29tI0UGQyT",
+      "name": "baton.rs",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FnyAtjFF7gc380o6GcSvo%2Fbaton.rs?alt=media",
+      "contentType": "text/plain",
+      "size": 11490
+    }
+  ]
+}

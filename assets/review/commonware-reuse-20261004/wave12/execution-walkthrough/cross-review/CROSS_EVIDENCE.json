@@ -1,0 +1,95 @@
+{
+  "utc": "2026-10-04T00:29:22.661315+00:00",
+  "reports": [
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave12/pool-walkthrough/REPORT.md",
+      "sha256": "8c7324b80584009ef8eece36a75b4caa143b0e09e4ed0e1216d3f20be1ac5a4f"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave12/pool-walkthrough/READER_DELTA.md",
+      "sha256": "6a521ed8cf6b63276f5064ea4186b9be971d20cec3fabb05ba2d23785c665405"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave12/body-walkthrough/REPORT.md",
+      "sha256": "0973b00917914aff3919c4d0d4b8dfdda779901ed4d9ae70840307cac20a3dc2"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave12/body-walkthrough/READER_DELTA.md",
+      "sha256": "ae521a6219f73335abd5e23d5d90b3204c8f8613545b2c2f6bf3134be38b6e7b"
+    }
+  ],
+  "pages": [
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+      "matches_d491": true
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049",
+      "matches_d491": true
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+      "matches_d491": true
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "matches_d491": true
+    },
+    {
+      "path": "docs/overview/networking.md",
+      "sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+      "matches_d491": true
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "matches_d491": true
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+      "matches_d491": true
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "matches_d491": true
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "matches_d491": true
+    }
+  ],
+  "sources": [
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/webserver/actor.rs",
+      "sha256": "96ff6fd243372b0fb891102a6cab1d0c25204b9600b2efd6732266f6dcfdccd5",
+      "git_blob": "557f5ea4fa827efcd698134799a6e8cdda781cd0",
+      "tree_blob": "557f5ea4fa827efcd698134799a6e8cdda781cd0",
+      "matched": true,
+      "utc": "2026-10-04T00:29:22.577830+00:00"
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/mailbox.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/webserver/mailbox.rs",
+      "sha256": "6424f5f8002533827d7709132b11e4f012872f2febe6ebf31cfcce8e83895ec5",
+      "git_blob": "ef6ee912ba3fdd5e2546122e991ac8a6bfbe6ac2",
+      "tree_blob": "ef6ee912ba3fdd5e2546122e991ac8a6bfbe6ac2",
+      "matched": true,
+      "utc": "2026-10-04T00:29:22.572365+00:00"
+    }
+  ],
+  "source_scope": "Two independently fresh decisive files and a fresh complete tree; retained own native/body receipts are separate prior source checks",
+  "canonical_mutation": false,
+  "compile_build_or_execution": false
+}

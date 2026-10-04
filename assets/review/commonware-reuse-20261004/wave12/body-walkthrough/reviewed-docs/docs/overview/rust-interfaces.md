@@ -57,7 +57,7 @@ pub trait TxPool: Send {
     fn classify(&self, features: &Self::Features) -> Result<Self::Decision, Self::Error>;
 
     /// Select a bounded candidate batch under the supplied selection policy.
-    /// Selection alone does not establish canonical retirement.
+    /// Selection alone does not retire transactions from the pool.
     fn select(
         &mut self,
         request: Self::Selection,

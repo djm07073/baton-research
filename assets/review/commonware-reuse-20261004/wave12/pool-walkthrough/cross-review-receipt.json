@@ -1,0 +1,45 @@
+{
+  "baseline_docs": "d4915b310c0fd071d6c49b12754fd556f6879981",
+  "actual_head": "a0fd3394b4a6c81e4abdcc4fb1f0865fc1c64970",
+  "reviewed_reports": {
+    "execution-walkthrough/REPORT.md": "512b59dc00c583606bcb70edc9dc67f19a0cc1765fd5a78b1f83d5f2deb90fb7",
+    "execution-walkthrough/READER_DELTA.md": "4044ce103d2719f2381ebdf0302c53f9a50e7a64be800472832c26ade7463234",
+    "body-walkthrough/REPORT.md": "0973b00917914aff3919c4d0d4b8dfdda779901ed4d9ae70840307cac20a3dc2",
+    "body-walkthrough/READER_DELTA.md": "ae521a6219f73335abd5e23d5d90b3204c8f8613545b2c2f6bf3134be38b6e7b",
+    "pool-walkthrough/REPORT.md": "8c7324b80584009ef8eece36a75b4caa143b0e09e4ed0e1216d3f20be1ac5a4f",
+    "pool-walkthrough/READER_DELTA.md": "6a521ed8cf6b63276f5064ea4186b9be971d20cec3fabb05ba2d23785c665405"
+  },
+  "reviewed_pages": {
+    "docs/overview/rust-interfaces.md": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+    "docs/overview/interfaces.md": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+    "docs/consensus/block-body.md": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+    "docs/consensus/ordered-input.md": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+    "docs/execution/README.md": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+    "docs/execution/interfaces.md": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+    "docs/execution/qmdb.md": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+    "docs/execution/state-sync.md": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+    "docs/e2e/normal.md": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+    "docs/e2e/block-body.md": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+    "docs/e2e/canonical.md": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+    "docs/e2e/recovery.md": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+    "docs/e2e/state-sync.md": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+    "docs/e2e/results.md": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+    "docs/overview/networking.md": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+    "docs/reference/integration.md": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad"
+  },
+  "comment_proposal": {
+    "old": "    /// Selection alone does not retire transactions from the pool.",
+    "new": "    /// Selection alone does not establish canonical retirement.",
+    "one_occurrence": true,
+    "declared_signature_lines_unchanged": true,
+    "headings_URL_occurrences_unchanged": true,
+    "canonical_or_export_mutated": false
+  },
+  "source_basis": "own wave11 complete-tree/blob checked sources and own fresh wave12 decisive Constantinople source receipt; no new broad fetch",
+  "source_receipt_sha256": "ae75cb65d953bb055f7094f8ad71e2b0388082e2615bf2de47b994d899be1f66",
+  "prior_source_manifest_sha256": "e079bb35fe3e4cb301cf70a51b8a2698dd2f6663185284128ec5e758df6001ca",
+  "prior_cross_source_manifest_sha256": "dd91a8897353a84511e0ca2860c75074ae74b30effb229e122600db273e58195",
+  "native_test_build_implementation": false,
+  "window_end": "2026-10-04T01:29:14Z",
+  "goal_status": "active"
+}

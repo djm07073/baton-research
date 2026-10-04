@@ -1,0 +1,265 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "checked_at_utc": "2026-10-04T00:26:09.453152+00:00",
+  "reader_baseline": "d4915b310c0fd071d6c49b12754fd556f6879981",
+  "actual_head": "d4915b310c0fd071d6c49b12754fd556f6879981",
+  "pages": [
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/consensus/README.md",
+      "sha256": "4f1044c2d71bee357ff800604565e737dfae97003a87299c93533560aa021f65",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/overview/networking.md",
+      "sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "sha256": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/overview/glossary.md",
+      "sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "matches_reader_baseline": true
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "matches_reader_baseline": true
+    }
+  ],
+  "route": [
+    {
+      "id": "W1",
+      "page": "docs/reference/integration.md",
+      "heading": "### Body assembly to implement",
+      "line": 18
+    },
+    {
+      "id": "W2",
+      "page": "docs/reference/integration.md",
+      "heading": "### Reference versions are not one compatible dependency graph",
+      "line": 46
+    },
+    {
+      "id": "W3",
+      "page": "docs/overview/networking.md",
+      "heading": "## Reuse the existing network handles",
+      "line": 21
+    },
+    {
+      "id": "W4",
+      "page": "docs/consensus/block-body.md",
+      "heading": "## Reuse the same body components as Tempo",
+      "line": 11
+    },
+    {
+      "id": "W5",
+      "page": "docs/e2e/block-body.md",
+      "heading": "## Block lifecycle: mempool \u2192 propose \u2192 body dissemination",
+      "line": 5
+    },
+    {
+      "id": "W6",
+      "page": "docs/e2e/block-body.md",
+      "heading": "## Body lookup, verification, and missing-content handling",
+      "line": 39
+    },
+    {
+      "id": "W7",
+      "page": "docs/consensus/block-body.md",
+      "heading": "## Body dissemination, lookup, and custody",
+      "line": 105
+    },
+    {
+      "id": "W8",
+      "page": "docs/e2e/recovery.md",
+      "heading": "## Startup: prepare custody before native recovery",
+      "line": 5
+    },
+    {
+      "id": "W9",
+      "page": "docs/e2e/recovery.md",
+      "heading": "## Own service lifetimes and durable shutdown",
+      "line": 58
+    },
+    {
+      "id": "W10",
+      "page": "docs/e2e/normal.md",
+      "heading": "## Full E2E: transaction input to canonical state",
+      "line": 5
+    }
+  ],
+  "diagrams": [
+    {
+      "page": "docs/consensus/README.md",
+      "source": "docs/assets/diagrams/diagram-16.mmd",
+      "sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "source": "docs/assets/diagrams/diagram-17.mmd",
+      "sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "source": "docs/assets/diagrams/diagram-18.mmd",
+      "sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/overview/architecture.md",
+      "source": "docs/assets/diagrams/diagram-01.mmd",
+      "sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "source": "docs/assets/diagrams/diagram-08.mmd",
+      "sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "source": "docs/assets/diagrams/diagram-09.mmd",
+      "sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/state-sync.md",
+      "source": "docs/assets/diagrams/diagram-14.mmd",
+      "sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/leader.md",
+      "source": "docs/assets/diagrams/diagram-06.mmd",
+      "sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/leader.md",
+      "source": "docs/assets/diagrams/diagram-12.mmd",
+      "sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "source": "docs/assets/diagrams/diagram-13.mmd",
+      "sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "source": "docs/assets/diagrams/diagram-10.mmd",
+      "sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/results.md",
+      "source": "docs/assets/diagrams/diagram-11.mmd",
+      "sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/native-consensus.md",
+      "source": "docs/assets/diagrams/diagram-15.mmd",
+      "sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/normal.md",
+      "source": "docs/assets/diagrams/diagram-02.mmd",
+      "sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/normal.md",
+      "source": "docs/assets/diagrams/diagram-03.mmd",
+      "sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/reschedule.md",
+      "source": "docs/assets/diagrams/diagram-07.mmd",
+      "sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/block-body.md",
+      "source": "docs/assets/diagrams/diagram-04.mmd",
+      "sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20",
+      "inline_equal": true,
+      "baseline_equal": true
+    },
+    {
+      "page": "docs/e2e/block-body.md",
+      "source": "docs/assets/diagrams/diagram-05.mmd",
+      "sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f",
+      "inline_equal": true,
+      "baseline_equal": true
+    }
+  ],
+  "reader_pages_excluding_summary": 31,
+  "blank_decisions": 39,
+  "public_traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "no_reader_edits": true,
+  "final_checked_head": "a0fd3394b4a6c81e4abdcc4fb1f0865fc1c64970",
+  "final_checked_at_utc": "2026-10-04T00:28:45.999118+00:00"
+}

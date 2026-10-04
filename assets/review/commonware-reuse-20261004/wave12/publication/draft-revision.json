@@ -1,0 +1,2198 @@
+{
+  "object": "revision",
+  "id": "t7GpdLiXW3bI2mCwWPXd",
+  "parents": [
+    "4OmJZfDONJIArftmc91Q"
+  ],
+  "pages": [
+    {
+      "id": "ddouvFyMOwIKI10ltCCC",
+      "title": "Baton Docs",
+      "linkTitle": "Start here",
+      "kind": "sheet",
+      "type": "document",
+      "urls": {
+        "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/start"
+      },
+      "path": "start",
+      "slug": "start",
+      "pages": [],
+      "layout": {
+        "cover": true,
+        "coverMask": "none",
+        "coverSize": "full",
+        "width": "default",
+        "title": true,
+        "description": true,
+        "tableOfContents": true,
+        "outline": true,
+        "pagination": true,
+        "metadata": true,
+        "tags": true,
+        "actions": true,
+        "anchors": true
+      },
+      "documentId": "8FKaimnviA4VLUDe7EF6",
+      "tags": []
+    },
+    {
+      "id": "P25eDmatPnfIRCBq5W82",
+      "title": "Overview",
+      "linkTitle": "Overview",
+      "kind": "sheet",
+      "type": "document",
+      "urls": {
+        "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview"
+      },
+      "path": "overview",
+      "slug": "overview",
+      "pages": [
+        {
+          "id": "eqtTh7bULw0VNqUvDgBd",
+          "title": "Architecture",
+          "linkTitle": "Architecture",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/architecture"
+          },
+          "path": "overview/architecture",
+          "slug": "architecture",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "FVzzypqTVASMtlXso5GD",
+          "tags": []
+        },
+        {
+          "id": "lLdHXsL8PlIMymXDLxbI",
+          "title": "Roles and terminology",
+          "linkTitle": "Roles and terminology",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/glossary"
+          },
+          "path": "overview/glossary",
+          "slug": "glossary",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "tzohFLZB1c2PxdbuTZYa",
+          "tags": []
+        },
+        {
+          "id": "xcDDH0AA03iU2slbiHNo",
+          "title": "Rust interfaces",
+          "linkTitle": "Rust interfaces",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces"
+          },
+          "path": "overview/rust-interfaces",
+          "slug": "rust-interfaces",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "DCaDppHOaiRlkwsXo7JL",
+          "tags": []
+        },
+        {
+          "id": "UXwv4d2aDxhnRXCCOeFA",
+          "title": "P2P and message paths",
+          "linkTitle": "P2P and message paths",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/networking"
+          },
+          "path": "overview/networking",
+          "slug": "networking",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "PxeORJDZbUWa2KCVYCto",
+          "tags": []
+        },
+        {
+          "id": "VY7nIvWFRnoJHzGoBqNF",
+          "title": "Reading the interfaces",
+          "linkTitle": "Reading the interfaces",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/interfaces"
+          },
+          "path": "overview/interfaces",
+          "slug": "interfaces",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "k9bU1VeCfS1XCTyglAGA",
+          "tags": []
+        }
+      ],
+      "layout": {
+        "cover": true,
+        "coverMask": "none",
+        "coverSize": "full",
+        "width": "default",
+        "title": true,
+        "description": true,
+        "tableOfContents": true,
+        "outline": true,
+        "pagination": true,
+        "metadata": true,
+        "tags": true,
+        "actions": true,
+        "anchors": true
+      },
+      "documentId": "IQzG5cO4wZPodkVsr3nw",
+      "tags": []
+    },
+    {
+      "id": "IniAvgnSA9K4bnpio0xc",
+      "title": "Tx layer",
+      "linkTitle": "Tx layer",
+      "kind": "sheet",
+      "type": "document",
+      "urls": {
+        "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/tx"
+      },
+      "path": "tx",
+      "slug": "tx",
+      "pages": [
+        {
+          "id": "BAILspeefeHw6iLY0rX3",
+          "title": "Tx layer: roles and flow",
+          "linkTitle": "Tx: roles and flow",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/tx/roles"
+          },
+          "path": "tx/roles",
+          "slug": "roles",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "qzwrEFC3MdENyxHorQW8",
+          "tags": []
+        },
+        {
+          "id": "UPR1SCpuf5zUoUetIAkq",
+          "title": "Tx interfaces",
+          "linkTitle": "Tx interfaces",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/tx/interfaces"
+          },
+          "path": "tx/interfaces",
+          "slug": "interfaces",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "fiSBvW6UAIEE23cTKYGR",
+          "tags": []
+        }
+      ],
+      "layout": {
+        "cover": true,
+        "coverMask": "none",
+        "coverSize": "full",
+        "width": "default",
+        "title": true,
+        "description": true,
+        "tableOfContents": true,
+        "outline": true,
+        "pagination": true,
+        "metadata": true,
+        "tags": true,
+        "actions": true,
+        "anchors": true
+      },
+      "documentId": "WUuhLCERZvCRsUkyVxFd",
+      "tags": []
+    },
+    {
+      "id": "FcmlwGE5FVX125FcMkCJ",
+      "title": "Consensus layer",
+      "linkTitle": "Consensus layer",
+      "kind": "sheet",
+      "type": "document",
+      "urls": {
+        "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus"
+      },
+      "path": "consensus",
+      "slug": "consensus",
+      "pages": [
+        {
+          "id": "g1kO3la0qYnPmndON23S",
+          "title": "Consensus: roles and native structure",
+          "linkTitle": "Consensus: native structure",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus/roles"
+          },
+          "path": "consensus/roles",
+          "slug": "roles",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "EL1ze5Wr3hxe1uz2Hlg9",
+          "tags": []
+        },
+        {
+          "id": "UziPYQpfWeuCyLtuWpWx",
+          "title": "Block construction and body exchange",
+          "linkTitle": "Block construction and body exchange",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus/block-body"
+          },
+          "path": "consensus/block-body",
+          "slug": "block-body",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "OBYDGOyw0LoS2qB8nhzX",
+          "tags": []
+        },
+        {
+          "id": "Lfyz1AbF29ql5e9ZQ1g2",
+          "title": "Delivering finalized execution order",
+          "linkTitle": "Finalized ordered input",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus/ordered-input"
+          },
+          "path": "consensus/ordered-input",
+          "slug": "ordered-input",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "7zh7RgYFuxcdkDjkShPm",
+          "tags": []
+        },
+        {
+          "id": "sJc2FOUl8KF8ky9r1EKm",
+          "title": "Consensus open decisions",
+          "linkTitle": "Consensus open decisions",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus/decisions"
+          },
+          "path": "consensus/decisions",
+          "slug": "decisions",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "h6chAYmsq7AGFYrpcI9O",
+          "tags": []
+        }
+      ],
+      "layout": {
+        "cover": true,
+        "coverMask": "none",
+        "coverSize": "full",
+        "width": "default",
+        "title": true,
+        "description": true,
+        "tableOfContents": true,
+        "outline": true,
+        "pagination": true,
+        "metadata": true,
+        "tags": true,
+        "actions": true,
+        "anchors": true
+      },
+      "documentId": "PXXKDk9ijwIeIlEW7dqi",
+      "tags": []
+    },
+    {
+      "id": "BXfAElB8ATQH7dbpqmgm",
+      "title": "Baton layer",
+      "linkTitle": "Baton layer",
+      "kind": "sheet",
+      "type": "document",
+      "urls": {
+        "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baton"
+      },
+      "path": "baton",
+      "slug": "baton",
+      "pages": [
+        {
+          "id": "3OvyWTKM5uWJ1JTktps0",
+          "title": "Baton: roles and reports",
+          "linkTitle": "Baton: roles and reports",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baton/roles"
+          },
+          "path": "baton/roles",
+          "slug": "roles",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "OO1lVJZH69rVLhB5jS5i",
+          "tags": []
+        },
+        {
+          "id": "3pjcORUOr509g17x4ygJ",
+          "title": "Choosing direction and executing branches",
+          "linkTitle": "Direction and branch execution",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baton/direction"
+          },
+          "path": "baton/direction",
+          "slug": "direction",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "8yf7zbV7XqpMUEzABmyh",
+          "tags": []
+        },
+        {
+          "id": "Eg5KQi4bDlaWjPFmWxfG",
+          "title": "Baton interfaces and local progress notifications",
+          "linkTitle": "Baton interfaces",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baton/interfaces"
+          },
+          "path": "baton/interfaces",
+          "slug": "interfaces",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "NLJpGEnNiHaS5MIo3tMj",
+          "tags": []
+        }
+      ],
+      "layout": {
+        "cover": true,
+        "coverMask": "none",
+        "coverSize": "full",
+        "width": "default",
+        "title": true,
+        "description": true,
+        "tableOfContents": true,
+        "outline": true,
+        "pagination": true,
+        "metadata": true,
+        "tags": true,
+        "actions": true,
+        "anchors": true
+      },
+      "documentId": "hl2d8KqiMBSrcMzf4MZS",
+      "tags": []
+    },
+    {
+      "id": "eMU7vCkb44e071a5q2ok",
+      "title": "Execution layer",
+      "linkTitle": "Execution layer",
+      "kind": "sheet",
+      "type": "document",
+      "urls": {
+        "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution"
+      },
+      "path": "execution",
+      "slug": "execution",
+      "pages": [
+        {
+          "id": "q3033aajDjJ5aLB9dVHY",
+          "title": "Execution: roles and responsibilities",
+          "linkTitle": "Execution: responsibilities",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution/roles"
+          },
+          "path": "execution/roles",
+          "slug": "roles",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "wCFK4H9Gt17Md8cDBIkB",
+          "tags": []
+        },
+        {
+          "id": "R1krejCUjwtwoXNGZs9o",
+          "title": "Executor interfaces and result certification",
+          "linkTitle": "Executor and certification interfaces",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution/interfaces"
+          },
+          "path": "execution/interfaces",
+          "slug": "interfaces",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "XlmyJRbnwqOrXGMsFTmn",
+          "tags": []
+        },
+        {
+          "id": "BytJ0SideZZqJsRObbha",
+          "title": "QMDB branches, reuse, and state application",
+          "linkTitle": "QMDB branches and canonical application",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution/qmdb"
+          },
+          "path": "execution/qmdb",
+          "slug": "qmdb",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "2tnKlyMJkZCMXeXsuisP",
+          "tags": []
+        },
+        {
+          "id": "iQBCvg8IQLSupkQb0IHv",
+          "title": "State sync from certified execution results",
+          "linkTitle": "State sync from certified results",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution/state-sync"
+          },
+          "path": "execution/state-sync",
+          "slug": "state-sync",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "2wK6oDG9U56xaSm7ubSb",
+          "tags": []
+        }
+      ],
+      "layout": {
+        "cover": true,
+        "coverMask": "none",
+        "coverSize": "full",
+        "width": "default",
+        "title": true,
+        "description": true,
+        "tableOfContents": true,
+        "outline": true,
+        "pagination": true,
+        "metadata": true,
+        "tags": true,
+        "actions": true,
+        "anchors": true
+      },
+      "documentId": "RClavT8k5utazKsKaUbl",
+      "tags": []
+    },
+    {
+      "id": "c9nXu7RW1sNCXRrgROwR",
+      "title": "E2E cases",
+      "linkTitle": "E2E cases",
+      "kind": "sheet",
+      "type": "document",
+      "urls": {
+        "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e"
+      },
+      "path": "e2e",
+      "slug": "e2e",
+      "pages": [
+        {
+          "id": "R8VpBC3WCkOHQSS72ZW0",
+          "title": "Normal flow: transaction to applied state",
+          "linkTitle": "Normal flow: transaction to state",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/normal"
+          },
+          "path": "e2e/normal",
+          "slug": "normal",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "DYIancytTafB6RLORFaO",
+          "tags": []
+        },
+        {
+          "id": "iq9PIQIBNvy7xCPMyirI",
+          "title": "Block body send, fetch, and receive",
+          "linkTitle": "Block body exchange",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/block-body"
+          },
+          "path": "e2e/block-body",
+          "slug": "block-body",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "I2rgoMRir1EQrbgerVzv",
+          "tags": []
+        },
+        {
+          "id": "Y08WMfgwxDqQJjt7MtZV",
+          "title": "Block proposal, DA, and cut finality",
+          "linkTitle": "Native proposal, DA, and finality",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/native-consensus"
+          },
+          "path": "e2e/native-consensus",
+          "slug": "native-consensus",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "7f9i6AYQl70qmDHN7vjx",
+          "tags": []
+        },
+        {
+          "id": "NB3v1H0iYHZGYfodw8ZR",
+          "title": "Leader reports, direction, and proposal races",
+          "linkTitle": "Leader reports and proposal races",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/leader"
+          },
+          "path": "e2e/leader",
+          "slug": "leader",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "cyv6W7eolULCrYXVzYOS",
+          "tags": []
+        },
+        {
+          "id": "jrZyeYzHpxdxIAIbtu55",
+          "title": "Receiving direction and executing branches",
+          "linkTitle": "Direction receipt and branch execution",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/reschedule"
+          },
+          "path": "e2e/reschedule",
+          "slug": "reschedule",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "qp5RwAxObDqlpcbpY8lQ",
+          "tags": []
+        },
+        {
+          "id": "fSMOy1CruvdxuFZHij62",
+          "title": "Finalized order and canonical state application",
+          "linkTitle": "Finalized order and canonical application",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/canonical"
+          },
+          "path": "e2e/canonical",
+          "slug": "canonical",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "3Nxu2oUr6850nLZ1NWRr",
+          "tags": []
+        },
+        {
+          "id": "g3dEfSE7zFEsEDo4DNIN",
+          "title": "Startup, restart, and history recovery",
+          "linkTitle": "Startup, restart, and recovery",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/recovery"
+          },
+          "path": "e2e/recovery",
+          "slug": "recovery",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "PYimCwSActFE8XRLuLzs",
+          "tags": []
+        },
+        {
+          "id": "s6ipwmMRaN2lx6vZ8sRW",
+          "title": "Executor result certification and queries",
+          "linkTitle": "Executor certification and queries",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/results"
+          },
+          "path": "e2e/results",
+          "slug": "results",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "L6SPgiMOEx5649ovPC2T",
+          "tags": []
+        },
+        {
+          "id": "KtJEkG5v13LtRxPCWiSF",
+          "title": "State sync from certified execution results",
+          "linkTitle": "State sync from certified results",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/state-sync"
+          },
+          "path": "e2e/state-sync",
+          "slug": "state-sync",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "IxQGopvhYyAyo0BkAVJd",
+          "tags": []
+        }
+      ],
+      "layout": {
+        "cover": true,
+        "coverMask": "none",
+        "coverSize": "full",
+        "width": "default",
+        "title": true,
+        "description": true,
+        "tableOfContents": true,
+        "outline": true,
+        "pagination": true,
+        "metadata": true,
+        "tags": true,
+        "actions": true,
+        "anchors": true
+      },
+      "documentId": "lbq76LriXCet57dFcMLC",
+      "tags": []
+    },
+    {
+      "id": "bA4mHdZsclI94Hr8FxuV",
+      "title": "Development and references",
+      "linkTitle": "Development and references",
+      "kind": "sheet",
+      "type": "document",
+      "urls": {
+        "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/reference"
+      },
+      "path": "reference",
+      "slug": "reference",
+      "pages": [
+        {
+          "id": "BCmTHrj1KjxTAW9qz9Ok",
+          "title": "Commonware integration and development order",
+          "linkTitle": "Commonware integration and development order",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/reference/integration"
+          },
+          "path": "reference/integration",
+          "slug": "integration",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "hofs3DOfHw0YveBiGGm8",
+          "tags": []
+        },
+        {
+          "id": "UJWZyWmmBoyCoLneEByT",
+          "title": "Cases to verify",
+          "linkTitle": "Cases to verify",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/reference/verification"
+          },
+          "path": "reference/verification",
+          "slug": "verification",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "xFNuHIuFz2HIRPrnI11y",
+          "tags": []
+        },
+        {
+          "id": "Ez5tuxtb6aajszo2mj9U",
+          "title": "Sources and document status",
+          "linkTitle": "Sources and document status",
+          "kind": "sheet",
+          "type": "document",
+          "urls": {
+            "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/reference/sources"
+          },
+          "path": "reference/sources",
+          "slug": "sources",
+          "pages": [],
+          "layout": {
+            "cover": true,
+            "coverMask": "none",
+            "coverSize": "full",
+            "width": "default",
+            "title": true,
+            "description": true,
+            "tableOfContents": true,
+            "outline": true,
+            "pagination": true,
+            "metadata": true,
+            "tags": true,
+            "actions": true,
+            "anchors": true
+          },
+          "documentId": "GhHHZA3Rp3bSragMWtW4",
+          "tags": []
+        }
+      ],
+      "layout": {
+        "cover": true,
+        "coverMask": "none",
+        "coverSize": "full",
+        "width": "default",
+        "title": true,
+        "description": true,
+        "tableOfContents": true,
+        "outline": true,
+        "pagination": true,
+        "metadata": true,
+        "tags": true,
+        "actions": true,
+        "anchors": true
+      },
+      "documentId": "4H4ZFaPjUEeJuewC2Rfm",
+      "tags": []
+    }
+  ],
+  "files": [
+    {
+      "id": "xYJn49F19lZ0rA7WtPJz",
+      "name": "diagram-01.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F7irhVgpgRdD39aIHZlWG%2Fdiagram-01.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 34835,
+      "dimensions": {
+        "width": 997,
+        "height": 862
+      }
+    },
+    {
+      "id": "jdCTY5F6KKyXDY7Mx6fG",
+      "name": "diagram-02.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FR8p8I5yVd0WkNdZ4ljmY%2Fdiagram-02.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36218,
+      "dimensions": {
+        "width": 1081,
+        "height": 1420
+      }
+    },
+    {
+      "id": "OGtItdWu85vUeEoe9W4X",
+      "name": "diagram-03.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FT2NNDsyG81iAOY8bqfxa%2Fdiagram-03.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36189,
+      "dimensions": {
+        "width": 1278,
+        "height": 1431
+      }
+    },
+    {
+      "id": "hdfSqFUG3Xs39nZou9vP",
+      "name": "diagram-04.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FHHwtp6dXrzpDTWeKjTx4%2Fdiagram-04.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 31964,
+      "dimensions": {
+        "width": 1286,
+        "height": 789
+      }
+    },
+    {
+      "id": "q6pvomVlQRCSIy22Bz8O",
+      "name": "diagram-05.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FNKqvZf6SbxMjbcneqkZf%2Fdiagram-05.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 43576,
+      "dimensions": {
+        "width": 1286,
+        "height": 1999
+      }
+    },
+    {
+      "id": "LVbQ4HmpW0XpL4do27Sj",
+      "name": "diagram-06.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FIPIvSPeL0hM9ecfeKsAF%2Fdiagram-06.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 37274,
+      "dimensions": {
+        "width": 1091,
+        "height": 1632
+      }
+    },
+    {
+      "id": "QlF8FexGDnYcX9sot8SO",
+      "name": "diagram-07.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FhIY39e2Hy3xLc6DVWNEm%2Fdiagram-07.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 31922,
+      "dimensions": {
+        "width": 871,
+        "height": 1248
+      }
+    },
+    {
+      "id": "igwWCzjwSwXb1VE1K6L9",
+      "name": "diagram-08.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FK0qwqg7LUabs4va04M1w%2Fdiagram-08.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 34309,
+      "dimensions": {
+        "width": 669,
+        "height": 1633
+      }
+    },
+    {
+      "id": "ab13naqrpA8obrj8jKO9",
+      "name": "diagram-09.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F2I22Qn2AV5rYt2mfYVBH%2Fdiagram-09.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 41972,
+      "dimensions": {
+        "width": 1074,
+        "height": 2084
+      }
+    },
+    {
+      "id": "QzTqqvU307XUnAbmimDZ",
+      "name": "diagram-10.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FT7zudsg46H4WN7vxy4Ur%2Fdiagram-10.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 28946,
+      "dimensions": {
+        "width": 851,
+        "height": 880
+      }
+    },
+    {
+      "id": "qcPb3d2rW7OeBFpefCFQ",
+      "name": "diagram-11.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F8ki6aVNIxNPC4sktIiSn%2Fdiagram-11.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 33816,
+      "dimensions": {
+        "width": 871,
+        "height": 1335
+      }
+    },
+    {
+      "id": "dtMhLf7qlEVPcf0R61gn",
+      "name": "diagram-12.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FFW3C6ijetKVwJaLTcMe9%2Fdiagram-12.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 35853,
+      "dimensions": {
+        "width": 862,
+        "height": 1603
+      }
+    },
+    {
+      "id": "UzsIrNzCvqOj9u1Em3pA",
+      "name": "diagram-13.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fs8EQzMY0aMwjaIcnx7Ds%2Fdiagram-13.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 40530,
+      "dimensions": {
+        "width": 1277,
+        "height": 1661
+      }
+    },
+    {
+      "id": "bbTWXaXT355oDv7US11B",
+      "name": "diagram-14.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F4MOz75IzOXrR34nrFO8R%2Fdiagram-14.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 42147,
+      "dimensions": {
+        "width": 851,
+        "height": 2097
+      }
+    },
+    {
+      "id": "sHAoTJ86AEGObSPZZovo",
+      "name": "diagram-15.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FxHhSxJtIleVnXyLHPuXK%2Fdiagram-15.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 43352,
+      "dimensions": {
+        "width": 1101,
+        "height": 2029
+      }
+    },
+    {
+      "id": "a5ixbSbbSmGS5oJGo4D4",
+      "name": "diagram-16.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FNPXDnmHAmoyNLD6sFW7X%2Fdiagram-16.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 26400,
+      "dimensions": {
+        "width": 1095,
+        "height": 910
+      }
+    },
+    {
+      "id": "fuuuW8JbAj4sNZEOAjVc",
+      "name": "diagram-17.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FmkELTswTc5gAOK4wzdkU%2Fdiagram-17.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 37529,
+      "dimensions": {
+        "width": 1607,
+        "height": 1384
+      }
+    },
+    {
+      "id": "tlqGyczCzYv5ClXTpU74",
+      "name": "diagram-18.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FqajAOjKFriF6w7Yki9a1%2Fdiagram-18.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 16918,
+      "dimensions": {
+        "width": 1065,
+        "height": 210
+      }
+    },
+    {
+      "id": "7jy0p9ccTLflugY4lYjT",
+      "name": "baton.rs",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F1X5WuIq94uhNEXvIguxK%2Fbaton.rs?alt=media",
+      "contentType": "text/plain; charset=utf-8",
+      "size": 6314
+    },
+    {
+      "id": "DG3chYIj329hO9ZlxJYi",
+      "name": "diagram-01.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FwbWamhBhB79IsenuG1JY%2Fdiagram-01.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 34855,
+      "dimensions": {
+        "width": 997,
+        "height": 886
+      }
+    },
+    {
+      "id": "qBY8Bp4T4rCstOkv2KIX",
+      "name": "diagram-02.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FdlNYFpHA9LH0dRWQtKUM%2Fdiagram-02.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36196,
+      "dimensions": {
+        "width": 1081,
+        "height": 1420
+      }
+    },
+    {
+      "id": "S70jMd5kYCKKQibQ16JE",
+      "name": "diagram-03.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F6jX9jtfUangdgPmrTM6P%2Fdiagram-03.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36756,
+      "dimensions": {
+        "width": 1278,
+        "height": 1432
+      }
+    },
+    {
+      "id": "70JlGNSzNTOWIvWFbXMM",
+      "name": "diagram-04.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fw6t8RkyQB3TasbL6K1Cg%2Fdiagram-04.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 31973,
+      "dimensions": {
+        "width": 1286,
+        "height": 789
+      }
+    },
+    {
+      "id": "1cMdDdxPUnagFcZsWbM5",
+      "name": "diagram-05.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FF87LoOwT7caEqkUOaTbv%2Fdiagram-05.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 43538,
+      "dimensions": {
+        "width": 1286,
+        "height": 1999
+      }
+    },
+    {
+      "id": "fJupFpZJqhp1f95nsES2",
+      "name": "diagram-06.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FwWMS0AF6Hq9WvZmaRAFA%2Fdiagram-06.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 37522,
+      "dimensions": {
+        "width": 1091,
+        "height": 1649
+      }
+    },
+    {
+      "id": "01z6d0JESYCcLN6Ev8Zf",
+      "name": "diagram-07.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FW8J8gO3t4QczlbMl8MpH%2Fdiagram-07.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 31898,
+      "dimensions": {
+        "width": 871,
+        "height": 1249
+      }
+    },
+    {
+      "id": "jCJUDaEngyw5hzaneDQc",
+      "name": "diagram-08.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fe2bCwBSxB8k1wm53XtFq%2Fdiagram-08.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 33894,
+      "dimensions": {
+        "width": 669,
+        "height": 1599
+      }
+    },
+    {
+      "id": "LemKDYs6oSI4D6CzeMsg",
+      "name": "diagram-09.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F00k39uWysyrp3AlLH04U%2Fdiagram-09.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 41690,
+      "dimensions": {
+        "width": 1074,
+        "height": 2067
+      }
+    },
+    {
+      "id": "xThDnJbqUHjzwsnzqaZf",
+      "name": "diagram-10.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FTYe4Npy04ayEIJcMqaAL%2Fdiagram-10.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 28909,
+      "dimensions": {
+        "width": 851,
+        "height": 880
+      }
+    },
+    {
+      "id": "Y0k5tWxrPmscYwfsVb2G",
+      "name": "diagram-11.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FzcsJ0kfjIXyMQBz3wHQ9%2Fdiagram-11.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 34354,
+      "dimensions": {
+        "width": 871,
+        "height": 1335
+      }
+    },
+    {
+      "id": "1btElU71NvQIZAgwlxA7",
+      "name": "diagram-12.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FPEIl3wGDqrf8chYUWXys%2Fdiagram-12.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 35849,
+      "dimensions": {
+        "width": 862,
+        "height": 1603
+      }
+    },
+    {
+      "id": "haoaD08witENw2JAVuuY",
+      "name": "diagram-13.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fblf3i8wRy1YgorFmvwuF%2Fdiagram-13.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 40498,
+      "dimensions": {
+        "width": 1277,
+        "height": 1661
+      }
+    },
+    {
+      "id": "aLj7ePyKrLFfsZaHdETr",
+      "name": "diagram-14.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FAG6pryOP3u3ZADDS8Apb%2Fdiagram-14.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 41846,
+      "dimensions": {
+        "width": 851,
+        "height": 2079
+      }
+    },
+    {
+      "id": "41dFb3JpaJUb1IxGCdc7",
+      "name": "diagram-15.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F2ilBpTG8u0Ie6RiOjMgT%2Fdiagram-15.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 43526,
+      "dimensions": {
+        "width": 1100,
+        "height": 2046
+      }
+    },
+    {
+      "id": "ZbyjRy0odcG0xoHsJ0u4",
+      "name": "diagram-16.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F25kE6ZjuNh7MFXLc2PG8%2Fdiagram-16.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 26411,
+      "dimensions": {
+        "width": 1095,
+        "height": 910
+      }
+    },
+    {
+      "id": "sq1RVppfMoFJiqLV33lc",
+      "name": "diagram-17.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FalwKK3puUDWIye7akD9B%2Fdiagram-17.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 37529,
+      "dimensions": {
+        "width": 1607,
+        "height": 1384
+      }
+    },
+    {
+      "id": "TvaHpXfmeL3BZMFKId0I",
+      "name": "diagram-18.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FzOSFm5ElcMf2iZgzCjIc%2Fdiagram-18.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 16946,
+      "dimensions": {
+        "width": 1073,
+        "height": 234
+      }
+    },
+    {
+      "id": "Wu0ZQvqbFjjhXqJgdHyE",
+      "name": "diagram-01.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fk7hQ4E02ny3auRbIPsUf%2Fdiagram-01.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 33054,
+      "dimensions": {
+        "width": 997,
+        "height": 910
+      }
+    },
+    {
+      "id": "sGOq9LY3GjtYjlSAczpW",
+      "name": "diagram-02.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FiN0WdE4c9vZMFbMOHpQ7%2Fdiagram-02.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36453,
+      "dimensions": {
+        "width": 1081,
+        "height": 1437
+      }
+    },
+    {
+      "id": "L1F6sy4vI8U1e7KHxXoP",
+      "name": "diagram-03.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FLvnnPoKqKwYFc45wwfED%2Fdiagram-03.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36756,
+      "dimensions": {
+        "width": 1278,
+        "height": 1432
+      }
+    },
+    {
+      "id": "kGQ01WblsVmIJmiBYiXI",
+      "name": "diagram-04.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FytlpZqIvc26oowO1mciL%2Fdiagram-04.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 31973,
+      "dimensions": {
+        "width": 1286,
+        "height": 789
+      }
+    },
+    {
+      "id": "QlnLKYbKfpJAMU0chqqq",
+      "name": "diagram-05.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FaLyeUp4kXqDbuQAGOrMG%2Fdiagram-05.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 43538,
+      "dimensions": {
+        "width": 1286,
+        "height": 1999
+      }
+    },
+    {
+      "id": "oYLqy1lOUDl6tuW33pgo",
+      "name": "diagram-06.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FplSt2c3I1ReWWmCnaD74%2Fdiagram-06.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 37581,
+      "dimensions": {
+        "width": 1091,
+        "height": 1650
+      }
+    },
+    {
+      "id": "WhzTQoCvfAkPK86jMVeo",
+      "name": "diagram-07.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FXl9RNhuipYLYfb5gJEDD%2Fdiagram-07.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 32397,
+      "dimensions": {
+        "width": 871,
+        "height": 1287
+      }
+    },
+    {
+      "id": "bdORmAZFFf0M1vaQE7Zp",
+      "name": "diagram-08.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FfapWIfTFe6Tu8pZw9wvv%2Fdiagram-08.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 33894,
+      "dimensions": {
+        "width": 669,
+        "height": 1599
+      }
+    },
+    {
+      "id": "0MXI6znEeZTyvhrQ5uXR",
+      "name": "diagram-09.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F7aO0mP5biNEeOEZftx0c%2Fdiagram-09.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 42687,
+      "dimensions": {
+        "width": 1074,
+        "height": 2175
+      }
+    },
+    {
+      "id": "FIkuKgb9Jh8JQPMsHhPR",
+      "name": "diagram-10.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fr2KESPllGGUjNUFN9U9s%2Fdiagram-10.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 28909,
+      "dimensions": {
+        "width": 851,
+        "height": 880
+      }
+    },
+    {
+      "id": "ra9ixKNiNzPnZstmmXkF",
+      "name": "diagram-11.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F7mPATbcBaWP2KQ0QAwvJ%2Fdiagram-11.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 34354,
+      "dimensions": {
+        "width": 871,
+        "height": 1335
+      }
+    },
+    {
+      "id": "WK1xHpg2axfhnQN6GCqG",
+      "name": "diagram-12.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FWQBGSXY2x9HGZOS3beQy%2Fdiagram-12.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 35824,
+      "dimensions": {
+        "width": 862,
+        "height": 1609
+      }
+    },
+    {
+      "id": "CRkJqfVSqdpfMQnKEsSt",
+      "name": "diagram-13.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FYR2t7Hc8Z1DBrV1a6r9N%2Fdiagram-13.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 40498,
+      "dimensions": {
+        "width": 1277,
+        "height": 1661
+      }
+    },
+    {
+      "id": "oKqZYPGR73FwJJUSFMMZ",
+      "name": "diagram-14.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FZJ30YBvZox5WeI9MvFxo%2Fdiagram-14.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 41846,
+      "dimensions": {
+        "width": 851,
+        "height": 2079
+      }
+    },
+    {
+      "id": "QfOOeDQTL9VPm8tCxBhh",
+      "name": "diagram-15.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FkuT1PELvVHfJdLRzuJiL%2Fdiagram-15.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 43526,
+      "dimensions": {
+        "width": 1100,
+        "height": 2046
+      }
+    },
+    {
+      "id": "hVTaYFxsatX6LjJRxJt4",
+      "name": "diagram-16.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FRS1KKNRHNJTKNBsLgg7b%2Fdiagram-16.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 26422,
+      "dimensions": {
+        "width": 1095,
+        "height": 910
+      }
+    },
+    {
+      "id": "uATCT8pIzrx06YuqAWUQ",
+      "name": "diagram-17.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FST6eaO1ECHHRWGkwqPa7%2Fdiagram-17.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 37545,
+      "dimensions": {
+        "width": 1607,
+        "height": 1384
+      }
+    },
+    {
+      "id": "7gcH0rptY2odTIKGhNFs",
+      "name": "diagram-18.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F87u6dI7vNbwXAkLq6Cfr%2Fdiagram-18.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 16979,
+      "dimensions": {
+        "width": 1073,
+        "height": 264
+      }
+    },
+    {
+      "id": "rNxdpq5mto0bVmyMHz6h",
+      "name": "baton.rs",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FYVTdQO1FTBEK11Mp3m2X%2Fbaton.rs?alt=media",
+      "contentType": "text/plain",
+      "size": 11231
+    },
+    {
+      "id": "RnEzkuMHtCIAsCJFxYZW",
+      "name": "diagram-01.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FWo6BSBIAnCMBT8JGolsB%2Fdiagram-01.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 30051,
+      "dimensions": {
+        "width": 926,
+        "height": 934
+      }
+    },
+    {
+      "id": "XCsAvLmFEFe7JenTtSaR",
+      "name": "diagram-02.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FnLGgVte50PufB8ZNGmK9%2Fdiagram-02.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36453,
+      "dimensions": {
+        "width": 1081,
+        "height": 1437
+      }
+    },
+    {
+      "id": "YyvohwrMBK6fNwK9zXin",
+      "name": "diagram-03.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FLxF40REvIJmKXh2vzSvX%2Fdiagram-03.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36876,
+      "dimensions": {
+        "width": 1068,
+        "height": 1614
+      }
+    },
+    {
+      "id": "noAu0VI3eHNUeSfKkr6b",
+      "name": "diagram-04.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FfNw9Yp6m0B4hvCeV3zJK%2Fdiagram-04.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 31973,
+      "dimensions": {
+        "width": 1286,
+        "height": 789
+      }
+    },
+    {
+      "id": "1A5FJgz863TRg5VPZPeg",
+      "name": "diagram-05.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fq5lcE5tuEGJHAv0SWbUa%2Fdiagram-05.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 43538,
+      "dimensions": {
+        "width": 1286,
+        "height": 1999
+      }
+    },
+    {
+      "id": "lbDOEsWLuK7aD9pzKY2i",
+      "name": "diagram-06.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FKr8ZDhjjVuBKREa3MVOO%2Fdiagram-06.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 37579,
+      "dimensions": {
+        "width": 1091,
+        "height": 1650
+      }
+    },
+    {
+      "id": "uFr4rg1L1F5N3vY2hftF",
+      "name": "diagram-07.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F1JQmgGojfdVzmY7Vau9k%2Fdiagram-07.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 32418,
+      "dimensions": {
+        "width": 871,
+        "height": 1287
+      }
+    },
+    {
+      "id": "Vm1bFrTQHK1VKrx0Khv9",
+      "name": "diagram-08.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FkRcHRDlk2DonbDwZ4TrF%2Fdiagram-08.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 33894,
+      "dimensions": {
+        "width": 669,
+        "height": 1599
+      }
+    },
+    {
+      "id": "CE72daB6rdZrvxUeVTKx",
+      "name": "diagram-09.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FhwdfxIbVHqFdxnVm8oGY%2Fdiagram-09.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 41783,
+      "dimensions": {
+        "width": 864,
+        "height": 2195
+      }
+    },
+    {
+      "id": "C1yEjKVmM3kt9jHQmsvL",
+      "name": "diagram-10.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F86qXnBXJUlibuep8CpQh%2Fdiagram-10.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 28909,
+      "dimensions": {
+        "width": 851,
+        "height": 880
+      }
+    },
+    {
+      "id": "mmjrkAEWEn5g5ee3xNcT",
+      "name": "diagram-11.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FEX98GAHZHUP02NxQmx9I%2Fdiagram-11.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 34495,
+      "dimensions": {
+        "width": 661,
+        "height": 1575
+      }
+    },
+    {
+      "id": "mhIRDZroYeSR97JhdoMy",
+      "name": "diagram-12.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FfEzSmaSgdIhcRHhwtoUU%2Fdiagram-12.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 35828,
+      "dimensions": {
+        "width": 862,
+        "height": 1609
+      }
+    },
+    {
+      "id": "tu2iSt3naCkiI2Y4Mbw9",
+      "name": "diagram-13.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fhg1RWLv7lazBNAlfIn34%2Fdiagram-13.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 40498,
+      "dimensions": {
+        "width": 1277,
+        "height": 1661
+      }
+    },
+    {
+      "id": "kx8QDhvWAfwSFJOa1hzn",
+      "name": "diagram-14.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FZgL7ytWrnBD799saa4NC%2Fdiagram-14.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 41846,
+      "dimensions": {
+        "width": 851,
+        "height": 2079
+      }
+    },
+    {
+      "id": "9VnEDl6gqecVz4pqtDMf",
+      "name": "diagram-15.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FfI8gqBcwoB9HcOzos5jU%2Fdiagram-15.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 43526,
+      "dimensions": {
+        "width": 1100,
+        "height": 2046
+      }
+    },
+    {
+      "id": "WyZdXJUnZpI4hdC9I5lj",
+      "name": "diagram-16.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F3Yw2xCA6f0Zt6mxczIRf%2Fdiagram-16.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 26410,
+      "dimensions": {
+        "width": 1095,
+        "height": 910
+      }
+    },
+    {
+      "id": "mz56iqe5FrVMLOixetr5",
+      "name": "diagram-17.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FnvjqiXb1vaZHIs1UKkgP%2Fdiagram-17.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 35615,
+      "dimensions": {
+        "width": 1607,
+        "height": 1280
+      }
+    },
+    {
+      "id": "qcXfbHuOMirbzHRdg3De",
+      "name": "diagram-18.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FhJh3XIhWPon5NJ2iC3BF%2Fdiagram-18.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 16979,
+      "dimensions": {
+        "width": 1073,
+        "height": 264
+      }
+    },
+    {
+      "id": "GIv633UCRDSdqZzsou44",
+      "name": "baton.rs",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fss9xOAu9rb5rlzOneqnM%2Fbaton.rs?alt=media",
+      "contentType": "text/plain",
+      "size": 10649
+    },
+    {
+      "id": "IMepYvG6OWV7za2cILOO",
+      "name": "diagram-01.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FhZeFCbKgwAdF2PdsCCJ3%2Fdiagram-01.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 33284,
+      "dimensions": {
+        "width": 1123,
+        "height": 1134
+      }
+    },
+    {
+      "id": "qbQkhn0BQQgpeISVzfJs",
+      "name": "diagram-02.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FK9T5eMFD0IGXyqiV0njW%2Fdiagram-02.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 38689,
+      "dimensions": {
+        "width": 1290,
+        "height": 1573
+      }
+    },
+    {
+      "id": "zvCQUzrKNabWicu40NTs",
+      "name": "diagram-03.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FKkEW3g2177K3k8hEdUwk%2Fdiagram-03.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36878,
+      "dimensions": {
+        "width": 1068,
+        "height": 1614
+      }
+    },
+    {
+      "id": "eaPOsOx1t2nbqGMj93FU",
+      "name": "diagram-04.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FOvSKGk73JqCq0WgJTmSn%2Fdiagram-04.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 33892,
+      "dimensions": {
+        "width": 1286,
+        "height": 1018
+      }
+    },
+    {
+      "id": "YIKhFyYeRIgr6BiG0obA",
+      "name": "diagram-05.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FHdPTYMoUlRJXtpUZyhe0%2Fdiagram-05.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 45522,
+      "dimensions": {
+        "width": 1286,
+        "height": 2016
+      }
+    },
+    {
+      "id": "w9Igrr4BB8or5Cn9xw0r",
+      "name": "diagram-06.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FhmKVushCIjiC4yHvwbXG%2Fdiagram-06.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 37579,
+      "dimensions": {
+        "width": 1091,
+        "height": 1650
+      }
+    },
+    {
+      "id": "xvaGC7074dsnzbejMJ9T",
+      "name": "diagram-07.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FawyxhB4nyXG1oCzul3uw%2Fdiagram-07.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 32418,
+      "dimensions": {
+        "width": 871,
+        "height": 1287
+      }
+    },
+    {
+      "id": "iJmESSGzJFFFu5mLdD0f",
+      "name": "diagram-08.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FSQkhYejnqxLwyOpXcACO%2Fdiagram-08.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 35980,
+      "dimensions": {
+        "width": 864,
+        "height": 1658
+      }
+    },
+    {
+      "id": "T4xyWmfF2biCWZuEouFU",
+      "name": "diagram-09.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FJQA1HbszYyGcVwd1RXBT%2Fdiagram-09.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 41337,
+      "dimensions": {
+        "width": 878,
+        "height": 2182
+      }
+    },
+    {
+      "id": "oG8obzAo5v1Zcqpm7t7B",
+      "name": "diagram-10.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FvBDCv5AOUHfGMn0cmWAH%2Fdiagram-10.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 29183,
+      "dimensions": {
+        "width": 851,
+        "height": 897
+      }
+    },
+    {
+      "id": "xSdWevP0oz6ZQztGSkHE",
+      "name": "diagram-11.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FqAxlBUQUN4bFlnUoZn76%2Fdiagram-11.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 36171,
+      "dimensions": {
+        "width": 874,
+        "height": 1625
+      }
+    },
+    {
+      "id": "moDLRZuj5jgjhnNDMzU5",
+      "name": "diagram-12.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FgxGmkN2BW6XYi6AZC0Y7%2Fdiagram-12.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 35828,
+      "dimensions": {
+        "width": 862,
+        "height": 1609
+      }
+    },
+    {
+      "id": "yN0x6NNORqZlPBKwwBG6",
+      "name": "diagram-13.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FtoOy3njK2RlSInAbqVaa%2Fdiagram-13.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 40529,
+      "dimensions": {
+        "width": 1277,
+        "height": 1661
+      }
+    },
+    {
+      "id": "pFF9b5zgNR72bAGlOU1R",
+      "name": "diagram-14.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FDxqmGYZfeKwZ3lrAu2UV%2Fdiagram-14.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 42078,
+      "dimensions": {
+        "width": 854,
+        "height": 2130
+      }
+    },
+    {
+      "id": "XnDwSxdk52uMqOIYgdEQ",
+      "name": "diagram-15.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FIHTA3exUpIGrXOV4pBeP%2Fdiagram-15.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 43526,
+      "dimensions": {
+        "width": 1100,
+        "height": 2046
+      }
+    },
+    {
+      "id": "fOekhY4WT7LqtMiWLq46",
+      "name": "diagram-16.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FbeutZEZD98rstdOqYUE3%2Fdiagram-16.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 26410,
+      "dimensions": {
+        "width": 1095,
+        "height": 910
+      }
+    },
+    {
+      "id": "IcHsW8e35w2wRO0wjYV2",
+      "name": "diagram-17.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F76HhNdCWv9KQUxT91UHc%2Fdiagram-17.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 40407,
+      "dimensions": {
+        "width": 1269,
+        "height": 1584
+      }
+    },
+    {
+      "id": "pSGz4DUitmteipj3xyz5",
+      "name": "diagram-18.svg",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2Fjkn5fwW04saQQ472znKN%2Fdiagram-18.svg?alt=media",
+      "contentType": "image/svg+xml",
+      "size": 16979,
+      "dimensions": {
+        "width": 1073,
+        "height": 264
+      }
+    },
+    {
+      "id": "0s196WEyBA6JhCQnxUce",
+      "name": "baton.rs",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2F2OA6fQUqRb8PbgTx1Jvr%2Fbaton.rs?alt=media",
+      "contentType": "text/plain",
+      "size": 11282
+    },
+    {
+      "id": "KJRa3LWtKiKJXWNWEo89",
+      "name": "baton.rs",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FvhrCEsjZuXdaF21RfIym%2Fbaton.rs?alt=media",
+      "contentType": "text/plain",
+      "size": 11493
+    },
+    {
+      "id": "EcDo8rQwTs29tI0UGQyT",
+      "name": "baton.rs",
+      "downloadURL": "https://3848330736-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FpvyFEde12m2tVRjI8TRw%2Fuploads%2FnyAtjFF7gc380o6GcSvo%2Fbaton.rs?alt=media",
+      "contentType": "text/plain",
+      "size": 11490
+    }
+  ],
+  "reusableContents": [],
+  "variables": {},
+  "tags": [],
+  "urls": {
+    "app": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/~/revisions/t7GpdLiXW3bI2mCwWPXd/"
+  },
+  "createdAt": "2026-10-04T00:33:18.170Z",
+  "type": "edits"
+}

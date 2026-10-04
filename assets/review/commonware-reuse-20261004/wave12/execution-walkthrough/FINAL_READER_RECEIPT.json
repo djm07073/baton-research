@@ -1,0 +1,691 @@
+{
+  "utc": "2026-10-04T00:34:23.493400+00:00",
+  "baseline": "d4915b310c0fd071d6c49b12754fd556f6879981",
+  "current_head": "a0fd3394b4a6c81e4abdcc4fb1f0865fc1c64970",
+  "files": [
+    {
+      "path": "docs/README.md",
+      "sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/SUMMARY.md",
+      "sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.mmd",
+      "sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.png",
+      "sha256": "2f54aae5f2633cbeea568251cf6c7409ef80f585f26183108ea804037363079e",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.svg",
+      "sha256": "1cc2f73798aebe66e0df5340e9b8c08089b0584ee7548f2945260905acac8559",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.mmd",
+      "sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.png",
+      "sha256": "bc2ce63537f9600d30ea186adefe20e4e58d435fd2b46bdbcf40c665a2ab1926",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.svg",
+      "sha256": "471643b14f453a36226a53e4f2bd585aefc29c3d7ec88f0f6b75fa6a392aefec",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.mmd",
+      "sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.png",
+      "sha256": "faff8a15ba7700cc4bb2ab29f3956f11161a6551631da10e18ed4be56b3dc0c1",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.svg",
+      "sha256": "43236514d36d4a482938ab1b5c07cceb56fd46d573cf74f0865aee5f936815b9",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.mmd",
+      "sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.png",
+      "sha256": "053067d50300713115c622a7222560e65aaf84621e2aba39271ab3075d9bacd3",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.svg",
+      "sha256": "f434320b7787129fd370cc6dbe4313470c3eaac18a60d806c8893b13e9510f97",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.mmd",
+      "sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.png",
+      "sha256": "6617b91dfa54c021e017ac74a7de277df4b8b4ce3705f17926295fdf9c323855",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.svg",
+      "sha256": "e62e69a588c1bf8ab6826c148f5460a70c6bd78cd6482dfd54907620107f28ef",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.mmd",
+      "sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.png",
+      "sha256": "bbc69603dfa192de7416752205e0d6187fd57e8a490013511074bb0a24dfb303",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.svg",
+      "sha256": "9be4f7d669f013df97b47eef920b99100dcf7c4b2b9daa704c3f61b817c8a3a6",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.mmd",
+      "sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.png",
+      "sha256": "b06a4a47f6163bd164e1d3ba02972fe700f88d6b7a29db9442f9f47f561d80f0",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.svg",
+      "sha256": "a4197537a07c462855a651bc55ebaec28dfc09ce2d09d71c8d36e37e1b8529cb",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.mmd",
+      "sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.png",
+      "sha256": "d04375ec071ed99d39728347c835151ccfd6ac5f694e0a6f4e03f8dfa6de5868",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.svg",
+      "sha256": "184c85b990f2fbfb2f977c01b16399acdfa2a184970a6ccb0848743b93bdc93a",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.mmd",
+      "sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.png",
+      "sha256": "7d3e5e98749bc3a1128c724ca9c270724d5b398e84649d3d5b9ef6ca373ae796",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.svg",
+      "sha256": "61745836f1fa617c1beec94554690bf7e6cbc23e60944bf09845aab846e4cd75",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.mmd",
+      "sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.png",
+      "sha256": "8e351bbf8bbd0e7fbfd6db806357b074cde971da89b3933b4e33d7b8b8dbc3c5",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.svg",
+      "sha256": "0ac9ed66c95d13fdded7fa061856d320dc86cc4fc9125445bc5f7953dfb3308d",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.mmd",
+      "sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.png",
+      "sha256": "a039b18312ca983b6b4492e4cfb5eaa6bb63874689b01feaf8b9c30c643dbb9c",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.svg",
+      "sha256": "e0859f3d552cb117790ba65b3c61c5b0735b8e5a4ea22e8ec7713e14650e58f3",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.mmd",
+      "sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.png",
+      "sha256": "cc90ab29bf71ea3d5e457d1650080be4730b8bf67226b1e603281e195524af47",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.svg",
+      "sha256": "8ffeb31d72c057e91004e0674e74ed964afbbba170c4cb31673e18ce9a6b4fb9",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.mmd",
+      "sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.png",
+      "sha256": "e977f58945e3715ae68b7e945a9b2f0af26e2822c5097c433ff38752a1680df2",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.svg",
+      "sha256": "0ca441e6c0202ccd6b8d71a4b38fa386a11ad391b4043724744484f65568849a",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.mmd",
+      "sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.png",
+      "sha256": "313eb544752267cf05e50913175c48848914146e5948b19feeeb439ec9fed67b",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.svg",
+      "sha256": "109065a5b3be43bcb661809e1754cc05cf721759a74c09c655f7a99202ff2948",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.mmd",
+      "sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.png",
+      "sha256": "0f0b547b25e59a3f7f4014cca8ea36325bd0ebc29383c8b13b7a4822dbd711b9",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.svg",
+      "sha256": "957cbfc54b6c53c341eba4619f31838811f3681f2813a1ee56560dde412583f0",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.mmd",
+      "sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.png",
+      "sha256": "cb0eddc63d110e5afb6e29a54bbbf3a0e909d01e7f10ef69bf742274511ec9ce",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.svg",
+      "sha256": "2f77191f2bfef52bec24c217353e1f2b3bc88841d0c3c6003c9667b1b1a1ebaa",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.mmd",
+      "sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.png",
+      "sha256": "057dcf929dd9f1f838ddc956014a4f2fdf31250fa858942a00a72763b87a9cd2",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.svg",
+      "sha256": "6db0e1fd7e04031a2b66c42891e289ae85ac981e28f13ab1df3f1508b618fbcd",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.mmd",
+      "sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.png",
+      "sha256": "4e01e4fa9e2c5360bca37b4679f4b08e767c3d55d7d3c0301f8fbfc9f4b2bfc9",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.svg",
+      "sha256": "6dce7bb98004ab0f970b4d66e24ce3ace964b645222f2b010e1f9c0c754a69c9",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/render-manifest.json",
+      "sha256": "ccbcfa2d198d721e6dbda01ed1a923b4e9cd27cdbb10def0c74c296a982980c7",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/interfaces/baton.rs",
+      "sha256": "91481bfad6d4cdadca4dfd22835fd8d597079e151f2a36d18f02c09f13dd73f5",
+      "matches_baseline": false,
+      "exact_single_comment_change": true
+    },
+    {
+      "path": "docs/baton/README.md",
+      "sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/baton/interfaces.md",
+      "sha256": "c383302c0acc6817d136a7829a8dccc3962d94669af5223f8776bc168d31986b",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/consensus/README.md",
+      "sha256": "4f1044c2d71bee357ff800604565e737dfae97003a87299c93533560aa021f65",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "sha256": "5cd5d25894a485829ba0fb65ded031b15589cd4312ba15931dfcb8e5577c0adf",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/e2e/canonical.md",
+      "sha256": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/e2e/leader.md",
+      "sha256": "2d54bce6f941631004ee2244c1a872c045a8651ae26b8a0d0686d1899096608e",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/e2e/native-consensus.md",
+      "sha256": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/e2e/reschedule.md",
+      "sha256": "f1916ed2e4ed591587e14a2148bf675d6be0d3835b1becc1665b895f1822e4eb",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/e2e/results.md",
+      "sha256": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/e2e/state-sync.md",
+      "sha256": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/execution/state-sync.md",
+      "sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/overview/glossary.md",
+      "sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "sha256": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/overview/networking.md",
+      "sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "0dfb0fd427edbc031e1ba30a4ab3c3dd5ab3e9958dde7fe5bead690a2360fb42",
+      "matches_baseline": false,
+      "exact_single_comment_change": true
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/reference/sources.md",
+      "sha256": "716b76900efc341dc8ef49601e2c8c4e64159b22a720d66a49654d87e46d67b8",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/reference/verification.md",
+      "sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    }
+  ],
+  "changed": [
+    "docs/assets/interfaces/baton.rs",
+    "docs/overview/rust-interfaces.md"
+  ],
+  "other_files_unchanged": 86,
+  "rust_export_exact": true,
+  "traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "methods": [
+    "admit",
+    "analyze",
+    "classify",
+    "select",
+    "on_proposal",
+    "on_commit",
+    "record",
+    "next_range",
+    "acknowledge",
+    "recover",
+    "plan",
+    "on_block",
+    "on_context",
+    "on_report",
+    "on_direction",
+    "on_execution",
+    "on_planned",
+    "on_commit",
+    "prepared_policy",
+    "execute",
+    "commit",
+    "recover",
+    "sign_result",
+    "collect_result",
+    "verify_result",
+    "result_certificate",
+    "prepare",
+    "apply",
+    "recover",
+    "read"
+  ],
+  "diagrams": [
+    {
+      "path": "docs/assets/diagrams/diagram-01.mmd",
+      "sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.mmd",
+      "sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.mmd",
+      "sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.mmd",
+      "sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.mmd",
+      "sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.mmd",
+      "sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.mmd",
+      "sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.mmd",
+      "sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.mmd",
+      "sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.mmd",
+      "sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.mmd",
+      "sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.mmd",
+      "sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.mmd",
+      "sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.mmd",
+      "sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.mmd",
+      "sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.mmd",
+      "sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.mmd",
+      "sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.mmd",
+      "sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d",
+      "matches_baseline": true,
+      "exact_single_comment_change": false
+    }
+  ],
+  "scope": "Fresh exact-byte reader/source-export ACK; no build/test/implementation or cloud publication verification performed by reviewer"
+}

@@ -1,0 +1,90 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "0973b00917914aff3919c4d0d4b8dfdda779901ed4d9ae70840307cac20a3dc2"
+    },
+    {
+      "path": "READER_DELTA.md",
+      "sha256": "ae521a6219f73335abd5e23d5d90b3204c8f8613545b2c2f6bf3134be38b6e7b"
+    },
+    {
+      "path": "CURRENT_READER_RECEIPT.json",
+      "sha256": "d1bf461d03275c1daa1f8636a7c7ae2f0d0c1b40550ef11707051b68913de47c"
+    },
+    {
+      "path": "SOURCE_LINEAGE_RECEIPT.json",
+      "sha256": "2493bdbc7cd68d4866e12a21d8ba12e69d2370ce7634830bf9ceb19fa317e060"
+    }
+  ],
+  "report_source_anchors": [
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/tempo/crates/consensus/src/consensus/engine.rs",
+      "line": 207,
+      "source_line": "        let (broadcast, broadcast_mailbox) = buffered::Engine::new("
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/tempo/crates/consensus/src/consensus/engine.rs",
+      "line": 526,
+      "source_line": "        let broadcast = self.broadcast.start(broadcast_channel);"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/alto/chain/src/engine.rs",
+      "line": 177,
+      "source_line": "        let (buffer, buffer_mailbox) = buffered::Engine::new("
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/release/consensus/src/marshal/standard/relay.rs",
+      "line": 21,
+      "source_line": "pub(super) fn broadcast<S, B>("
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/release/consensus/src/marshal/core/actor.rs",
+      "line": 649,
+      "source_line": "            Message::Forward {"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/release/consensus/src/marshal/standard/variant.rs",
+      "line": 115,
+      "source_line": "    fn send(&self, _round: Round, block: Arc<B>, recipients: Recipients<K>) {"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/native/consensus/src/multimmit/engine.rs",
+      "line": 600,
+      "source_line": "pub struct Engine<E, H, P, V, A, R, F, T, B>"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/native/consensus/src/marshal/mod.rs",
+      "line": 61,
+      "source_line": "//! ## Limitations and Future Work"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/native/consensus/src/marshal/resolver/handler.rs",
+      "line": 118,
+      "source_line": "/// Receiver for resolver handler messages."
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/native/broadcast/src/buffered/ingress.rs",
+      "line": 95,
+      "source_line": "impl<P: PublicKey, M: Digestible + Codec> Mailbox<P, M> {"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/native/resolver/src/p2p/engine.rs",
+      "line": 405,
+      "source_line": "    /// Handle a network response from a peer."
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/native/p2p/src/authenticated/discovery/network.rs",
+      "line": 192,
+      "source_line": "    pub fn start(mut self) -> Handle<()> {"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/native/consensus/src/multimmit/engine.rs",
+      "line": 723,
+      "source_line": "            verify_recovered_payloads("
+    }
+  ],
+  "no_new_primary_retrieval_claim": true,
+  "canonical_edits": false,
+  "compiled_or_executed": false
+}

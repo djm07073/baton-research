@@ -1,0 +1,13 @@
+from pathlib import Path
+import urllib.request,subprocess,json,hashlib,datetime,concurrent.futures
+root=Path.cwd();out=root/'assets/review/commonware-reuse-20261004/wave12/execution-walkthrough/cross-review';out.mkdir(parents=True,exist_ok=True);repo='commonwarexyz/constantinople';pin='3b6c92e76bf582855615844a4175b8304808f6a9';sha=lambda b:hashlib.sha256(b).hexdigest();blob=lambda b:hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+raw=subprocess.check_output(['gh','api','--method','GET',f'repos/{repo}/git/trees/{pin}','-f','recursive=1']);tree=json.loads(raw);assert tree['sha']==pin and tree['truncated'] is False;(out/'constantinople-tree.json').write_bytes(raw);idx={r['path']:r['sha'] for r in tree['tree'] if r['type']=='blob'}
+def fetch(p):
+ url=f'https://raw.githubusercontent.com/{repo}/{pin}/{p}';b=urllib.request.urlopen(url,timeout=60).read();assert blob(b)==idx[p];dst=out/'sources'/p;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(b);return {'repo':repo,'pin':pin,'path':p,'url':url,'sha256':sha(b),'git_blob':blob(b),'tree_blob':idx[p],'matched':True,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:rows=list(ex.map(fetch,['crates/mempool/src/webserver/actor.rs','crates/mempool/src/webserver/mailbox.rs']))
+(out/'source-manifest.json').write_text(json.dumps(rows,indent=2)+'\n')
+b=root/'assets/review/commonware-reuse-20261004/wave12'; reports=[]
+for p in ['pool-walkthrough/REPORT.md','pool-walkthrough/READER_DELTA.md','body-walkthrough/REPORT.md','body-walkthrough/READER_DELTA.md']:
+ reports.append({'path':str((b/p).relative_to(root)),'sha256':sha((b/p).read_bytes())})
+paths=['docs/overview/rust-interfaces.md','docs/tx/interfaces.md','docs/tx/README.md','docs/consensus/block-body.md','docs/overview/networking.md','docs/reference/integration.md','docs/e2e/normal.md','docs/e2e/block-body.md','docs/e2e/recovery.md']; pages=[{'path':p,'sha256':sha((root/p).read_bytes()),'matches_d491':(root/p).read_bytes()==subprocess.check_output(['git','show','d4915b310c0fd071d6c49b12754fd556f6879981:'+p])} for p in paths]
+(out/'CROSS_EVIDENCE.json').write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'reports':reports,'pages':pages,'sources':rows,'source_scope':'Two independently fresh decisive files and a fresh complete tree; retained own native/body receipts are separate prior source checks','canonical_mutation':False,'compile_build_or_execution':False},indent=2)+'\n');print(json.dumps({'sources':len(rows),'report_hashes':reports,'pages':len(pages)}))

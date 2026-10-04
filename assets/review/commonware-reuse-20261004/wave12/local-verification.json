@@ -1,0 +1,25 @@
+{
+  "baseline_git_sha": "a0fd3394b4a6c81e4abdcc4fb1f0865fc1c64970",
+  "changed_reader_files": {
+    "docs/assets/interfaces/baton.rs": "91481bfad6d4cdadca4dfd22835fd8d597079e151f2a36d18f02c09f13dd73f5",
+    "docs/overview/rust-interfaces.md": "0dfb0fd427edbc031e1ba30a4ab3c3dd5ab3e9958dde7fe5bead690a2360fb42"
+  },
+  "only_exact_comment_replacement": true,
+  "all_other_reader_files_byte_equal": 86,
+  "traits_methods_types_signatures_unchanged": true,
+  "all_18_diagrams_byte_unchanged": true,
+  "old_headings_and_external_url_occurrences_unchanged": true,
+  "policy_cells_unchanged": true,
+  "build": {
+    "pages": 31,
+    "diagrams": 18,
+    "rust_blocks": 5,
+    "passed": true
+  },
+  "migration_check": {
+    "links": 257,
+    "blank_application_policy_cells": 39,
+    "failures": []
+  },
+  "protocol_tests_run": false
+}

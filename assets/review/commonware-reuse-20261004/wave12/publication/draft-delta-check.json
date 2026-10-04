@@ -1,0 +1,16 @@
+{
+  "baseline_revision": "SKpBMBP5bB8nbXs83CtR",
+  "reviewed_draft_revision": "t7GpdLiXW3bI2mCwWPXd",
+  "pages": 38,
+  "updated_documents": 1,
+  "unchanged_documents": 37,
+  "preserved_page_identities_paths_titles": true,
+  "old_file_metadata_unchanged": 95,
+  "new_rust_file": {
+    "id": "EcDo8rQwTs29tI0UGQyT",
+    "name": "baton.rs",
+    "size": 11490
+  },
+  "all_18_diagrams_reused": true,
+  "raw_remote_attachment_bytes_verified": false
+}
