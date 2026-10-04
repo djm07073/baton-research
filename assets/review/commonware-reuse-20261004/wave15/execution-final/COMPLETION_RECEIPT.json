@@ -1,0 +1,572 @@
+{
+  "reviewer": "/root/reuse_storage_types_v3",
+  "checked_at_utc": "2026-10-04T01:17:03.680236+00:00",
+  "baseline": "1212e680e8e8f1316b9557a16b2e5b5acfe1ea8a",
+  "all88_equal_baseline_mirror": true,
+  "docs": [
+    {
+      "path": "docs/README.md",
+      "sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4"
+    },
+    {
+      "path": "docs/SUMMARY.md",
+      "sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.mmd",
+      "sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.png",
+      "sha256": "2f54aae5f2633cbeea568251cf6c7409ef80f585f26183108ea804037363079e"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.svg",
+      "sha256": "1cc2f73798aebe66e0df5340e9b8c08089b0584ee7548f2945260905acac8559"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.mmd",
+      "sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.png",
+      "sha256": "bc2ce63537f9600d30ea186adefe20e4e58d435fd2b46bdbcf40c665a2ab1926"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.svg",
+      "sha256": "471643b14f453a36226a53e4f2bd585aefc29c3d7ec88f0f6b75fa6a392aefec"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.mmd",
+      "sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.png",
+      "sha256": "faff8a15ba7700cc4bb2ab29f3956f11161a6551631da10e18ed4be56b3dc0c1"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.svg",
+      "sha256": "43236514d36d4a482938ab1b5c07cceb56fd46d573cf74f0865aee5f936815b9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.mmd",
+      "sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.png",
+      "sha256": "053067d50300713115c622a7222560e65aaf84621e2aba39271ab3075d9bacd3"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.svg",
+      "sha256": "f434320b7787129fd370cc6dbe4313470c3eaac18a60d806c8893b13e9510f97"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.mmd",
+      "sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.png",
+      "sha256": "6617b91dfa54c021e017ac74a7de277df4b8b4ce3705f17926295fdf9c323855"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.svg",
+      "sha256": "e62e69a588c1bf8ab6826c148f5460a70c6bd78cd6482dfd54907620107f28ef"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.mmd",
+      "sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.png",
+      "sha256": "bbc69603dfa192de7416752205e0d6187fd57e8a490013511074bb0a24dfb303"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.svg",
+      "sha256": "9be4f7d669f013df97b47eef920b99100dcf7c4b2b9daa704c3f61b817c8a3a6"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.mmd",
+      "sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.png",
+      "sha256": "b06a4a47f6163bd164e1d3ba02972fe700f88d6b7a29db9442f9f47f561d80f0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.svg",
+      "sha256": "a4197537a07c462855a651bc55ebaec28dfc09ce2d09d71c8d36e37e1b8529cb"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.mmd",
+      "sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.png",
+      "sha256": "d04375ec071ed99d39728347c835151ccfd6ac5f694e0a6f4e03f8dfa6de5868"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.svg",
+      "sha256": "184c85b990f2fbfb2f977c01b16399acdfa2a184970a6ccb0848743b93bdc93a"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.mmd",
+      "sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.png",
+      "sha256": "7d3e5e98749bc3a1128c724ca9c270724d5b398e84649d3d5b9ef6ca373ae796"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.svg",
+      "sha256": "61745836f1fa617c1beec94554690bf7e6cbc23e60944bf09845aab846e4cd75"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.mmd",
+      "sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.png",
+      "sha256": "8e351bbf8bbd0e7fbfd6db806357b074cde971da89b3933b4e33d7b8b8dbc3c5"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.svg",
+      "sha256": "0ac9ed66c95d13fdded7fa061856d320dc86cc4fc9125445bc5f7953dfb3308d"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.mmd",
+      "sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.png",
+      "sha256": "a039b18312ca983b6b4492e4cfb5eaa6bb63874689b01feaf8b9c30c643dbb9c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.svg",
+      "sha256": "e0859f3d552cb117790ba65b3c61c5b0735b8e5a4ea22e8ec7713e14650e58f3"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.mmd",
+      "sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.png",
+      "sha256": "cc90ab29bf71ea3d5e457d1650080be4730b8bf67226b1e603281e195524af47"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.svg",
+      "sha256": "8ffeb31d72c057e91004e0674e74ed964afbbba170c4cb31673e18ce9a6b4fb9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.mmd",
+      "sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.png",
+      "sha256": "e977f58945e3715ae68b7e945a9b2f0af26e2822c5097c433ff38752a1680df2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.svg",
+      "sha256": "0ca441e6c0202ccd6b8d71a4b38fa386a11ad391b4043724744484f65568849a"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.mmd",
+      "sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.png",
+      "sha256": "313eb544752267cf05e50913175c48848914146e5948b19feeeb439ec9fed67b"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.svg",
+      "sha256": "109065a5b3be43bcb661809e1754cc05cf721759a74c09c655f7a99202ff2948"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.mmd",
+      "sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.png",
+      "sha256": "0f0b547b25e59a3f7f4014cca8ea36325bd0ebc29383c8b13b7a4822dbd711b9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.svg",
+      "sha256": "957cbfc54b6c53c341eba4619f31838811f3681f2813a1ee56560dde412583f0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.mmd",
+      "sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.png",
+      "sha256": "cb0eddc63d110e5afb6e29a54bbbf3a0e909d01e7f10ef69bf742274511ec9ce"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.svg",
+      "sha256": "2f77191f2bfef52bec24c217353e1f2b3bc88841d0c3c6003c9667b1b1a1ebaa"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.mmd",
+      "sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.png",
+      "sha256": "057dcf929dd9f1f838ddc956014a4f2fdf31250fa858942a00a72763b87a9cd2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.svg",
+      "sha256": "6db0e1fd7e04031a2b66c42891e289ae85ac981e28f13ab1df3f1508b618fbcd"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.mmd",
+      "sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.png",
+      "sha256": "4e01e4fa9e2c5360bca37b4679f4b08e767c3d55d7d3c0301f8fbfc9f4b2bfc9"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.svg",
+      "sha256": "6dce7bb98004ab0f970b4d66e24ce3ace964b645222f2b010e1f9c0c754a69c9"
+    },
+    {
+      "path": "docs/assets/diagrams/render-manifest.json",
+      "sha256": "ccbcfa2d198d721e6dbda01ed1a923b4e9cd27cdbb10def0c74c296a982980c7"
+    },
+    {
+      "path": "docs/assets/interfaces/baton.rs",
+      "sha256": "91481bfad6d4cdadca4dfd22835fd8d597079e151f2a36d18f02c09f13dd73f5"
+    },
+    {
+      "path": "docs/baton/README.md",
+      "sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd"
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97"
+    },
+    {
+      "path": "docs/baton/interfaces.md",
+      "sha256": "c383302c0acc6817d136a7829a8dccc3962d94669af5223f8776bc168d31986b"
+    },
+    {
+      "path": "docs/consensus/README.md",
+      "sha256": "4f1044c2d71bee357ff800604565e737dfae97003a87299c93533560aa021f65"
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e"
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "sha256": "5cd5d25894a485829ba0fb65ded031b15589cd4312ba15931dfcb8e5577c0adf"
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720"
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b"
+    },
+    {
+      "path": "docs/e2e/canonical.md",
+      "sha256": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0"
+    },
+    {
+      "path": "docs/e2e/leader.md",
+      "sha256": "2d54bce6f941631004ee2244c1a872c045a8651ae26b8a0d0686d1899096608e"
+    },
+    {
+      "path": "docs/e2e/native-consensus.md",
+      "sha256": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba"
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c"
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4"
+    },
+    {
+      "path": "docs/e2e/reschedule.md",
+      "sha256": "f1916ed2e4ed591587e14a2148bf675d6be0d3835b1becc1665b895f1822e4eb"
+    },
+    {
+      "path": "docs/e2e/results.md",
+      "sha256": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289"
+    },
+    {
+      "path": "docs/e2e/state-sync.md",
+      "sha256": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799"
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863"
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4"
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf"
+    },
+    {
+      "path": "docs/execution/state-sync.md",
+      "sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8"
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a"
+    },
+    {
+      "path": "docs/overview/glossary.md",
+      "sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8"
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "sha256": "e3eb01b087a93f7814abdfda24f6261643d9d1bcfd8944402cf6d06abdd4ee2b"
+    },
+    {
+      "path": "docs/overview/networking.md",
+      "sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0"
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "0dfb0fd427edbc031e1ba30a4ab3c3dd5ab3e9958dde7fe5bead690a2360fb42"
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad"
+    },
+    {
+      "path": "docs/reference/sources.md",
+      "sha256": "716b76900efc341dc8ef49601e2c8c4e64159b22a720d66a49654d87e46d67b8"
+    },
+    {
+      "path": "docs/reference/verification.md",
+      "sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "dd3a1fa1b7286fd8719ffe4edd6888b996559312b97ebe87893a6ba8f3d723ba"
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049"
+    }
+  ],
+  "authority": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "27b8bd42e75f3020e3dfd53302774bdb808fa579827c259bf2dc712617ad947a"
+    },
+    {
+      "path": "README.md",
+      "sha256": "861d73faee57e85a98d1eecfa0c278ccde66801c37b856d09a1d088505bad0b9"
+    },
+    {
+      "path": "BATON_HANDOFF.md",
+      "sha256": "48c84796d492d7a8b6ea6ce866911a5d77fc681ef39f2124f599bf92de7bad18"
+    },
+    {
+      "path": "baton-paper.md",
+      "sha256": "f756eeb76c14159f314258aa16b02a23d9c8aa1d45260a0c06cdeeb6c5fb039d"
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4"
+    },
+    {
+      "path": "docs/SUMMARY.md",
+      "sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8"
+    }
+  ],
+  "progression14_records": [
+    {
+      "path": "storage-wave1/REPORT.md",
+      "sha256": "924be6a8fe80049889b43d799fd9e491186187fa0164683d7c1d17a60e5d1c31",
+      "lead": "# Execution and storage reuse: first source review\n\nThis review follows the latest conversation boundary: Executor computes transaction effects and orchestrates certification and normal-path state sync; Storage computes/manages commitments and applies/persists state. Baton selects direction. It does not adopt `commonware_glue::stateful::Application`, change dependencies, implement a protocol, or choose the open root/batch/signing policies.\n\n## Main finding\n\nQMDB already supports execution before Merkleization. A caller can accumulate writes in `UnmerkleizedBatch`, read them through `get`/`get_many`, or retain a staged read set and compute final values in its own execution overlay. Hashing is a separate call. Therefore root calculation need not occur after every transaction or every abandoned execution attempt.\n\nThe existing QMDB pending-parent tree is a **Merkleized-parent tree**. Both reviewed versions expose `DatabaseSet::fork_batches(&Merkleized)`; Any's internal `Base::Child` contains an `Arc<MerkleizedBatch>`. Neither reviewed API supplies an unsealed-parent fork. Root-deferred execution across several blocks is possible in an application overlay, but the resulting tree and it"
+    },
+    {
+      "path": "wave2/flow/RESOLUTION.md",
+      "sha256": "0e549f4d7972e52bb5c398cc1a00c798635c4196d694ce2b351a200aa72d38b4",
+      "lead": "# Wave-2 flow findings resolution\n\nIndependent reviewer: `/root/reuse_flow_review_v2`. Canonical repository: `/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research`. Resolution snapshot: 2026-10-03T20:14:03.411008+00:00.\n\nThis supplements [REPORT.md](REPORT.md), whose historical snapshots remain unchanged. Only this RESOLUTION.md was written. The five requested correction pages were independently re-read in full, and the latest inline Mermaid sources plus storage/public-return boundaries were checked. Reader documentation, interfaces/export, protocol code, renders and GitBook were not edited by this reviewer.\n\n## Resolution verdict\n\nAll three reported wording findings and the diagram signature precision point are resolved in the current bytes. No remaining contradiction was found in the corrected scope. The proposed `Storage::apply` public successful result consistently means recoverably durable CommitResult. Upstream native `DatabaseSet::finalize` still returns a durability Barrier rather than an application durable receipt; the adapter obligation remains explicit.\n\n| Original issue | Current location and independent resolution |\n|---|---|\n| F1: Executor direction select"
+    },
+    {
+      "path": "wave3/DOCS_RESOLUTION.md",
+      "sha256": "0e538751528d63022952ad8b122a74481e0cd3fa1b86431a6ab8cb5568615bd9",
+      "lead": "# Final reader-documentation resolution\n\nIndependent final readback, 2026-10-04. Baseline: `3c5ec96c91883dae892ee99832dee315c789eaee`. Scope: the eight uncommitted Markdown pages below, the generated Rust interface export, and the corrections requested by the three wave-three reader reviews. This reviewer changed only this report. Parent handles publication and the separate new-citation check.\n\n## Result\n\n**Pass: the requested precision corrections are resolved, and no remaining material documentation issue was found in this snapshot.** The pages form a consistent application attachment recipe: reuse existing Commonware network, broadcast, resolver, proof, archive and QMDB handles; keep native body/custody/order bindings, Executor/Storage authority and pool lifecycle adaptation explicit. Ecosystem candidates remain conditional references, not selected backends or a compiled dependency graph.\n\n| Final reviewed page | SHA-256 |\n|---|---|\n| docs/consensus/block-body.md | `c9141ddd44e2b21b084417e34a407b51561dd690de71ab42e9106508bd5d99ff` |\n| docs/consensus/ordered-input.md | `fd68183770be07817f76cca676e0d5db5d31ecbd0412472949ca29967724655e` |\n| docs/execution/interfaces.md | `fca62ea8e"
+    },
+    {
+      "path": "wave4/DOCS_RESOLUTION.md",
+      "sha256": "cc5e6cd20976c3c57ec5b614dec05e998c034e7d9fc087cc7f7168d8580572dd",
+      "lead": "# Fourth-wave reader resolution\n\nThe previous goal turn made progress: third-wave sources and documentation were independently reviewed, published as GitBook revision GltIqzIYvnV8QtVLNNNH, and pushed as cd9a0864cfa2171769bbe7f6d64fa3396ca878c6. The six-hour goal remains active.\n\nFourth-wave source and reader cross-reviews cover native startup/lifecycle, ecosystem pool-to-builder mapping, package identity/constructor compatibility and generic execution-result certificate reuse. Two reader precision fixes were applied and independently rechecked: try_submit returns a receiver for eventual status; excluding a predecessor requires exclusion/re-evaluation of dependent successors. No trait/method/signing/backend/configuration choice was made.\n\n| Canonical page | Independently reviewed SHA-256 |\n|---|---|\n| `docs/consensus/block-body.md` | `099084ff74c6910b4147febf3bcca5435bc9d8e80fe8140ab1d8d7555b64e6a3` |\n| `docs/e2e/block-body.md` | `e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b` |\n| `docs/e2e/recovery.md` | `6977d87f2b6e49e46f8bef81e36d7edfe3ef6bd25a94923fac19e09ebecf0ceb` |\n| `docs/execution/README.md` | `0827e8c86b8b04788cced1062efea579eb46298aeb2792cdb67ae30294c7"
+    },
+    {
+      "path": "wave5/DOCS_RESOLUTION.md",
+      "sha256": "83a68e310d9b641804c4a0876220acf024cf30e1aae92d33b04d4ef781194228",
+      "lead": "# Fifth-wave documentation resolution\n\nThe preceding goal turn confirmed the real Tempo dissemination path with fresh primary-source reads; this wave converts the continued source investigation into reviewed authoritative documentation and publication. The six-hour goal remains active; this is progress, not a completion audit.\n\n## Changes and independent review\n\n- Existing Archive/MultiArchive identifiers and async lookup, exact header/context/body binding, one store owner and Producer admission replace vague body-storage wiring. No new body engine, actor, schema or custody ACK is selected. [Body report](body-storage/REPORT.md) and [independent source review](pool-source/POOL_BODY_CROSS_REVIEW.md).\n- Retain the Nunchi actor/private kernel; isolate its localized SDK adapter or reconcile the retained SDK graph. Missing admission/canonical readiness hooks remain inside that owner. The independent review identified that nonce hydration also runs TTL; the author and reader docs now state admission/lifetime semantics remain open. [Pool report](pool-source/REPORT.md) and [final amendment review](branch-access/BRANCH_POOL_CROSS_REVIEW.md).\n- Plain drafts already read pending writes; staged"
+    },
+    {
+      "path": "wave6/DOCS_RESOLUTION.md",
+      "sha256": "73670a2ae7278edaaf657cc5b2fc2ce755e9e8cff0e77eba381a0bf30c800171",
+      "lead": "# Wave 6 reviewed documentation resolution\n\nBaseline `8b61492bbebdbf34dbc10e5d43c3117e19618377`. Previous turn was progress: fresh Tempo propagation evidence changed the explicit reader path and three wave6 reports moved to independent review. The requested six-hour window remains active; this is a batch publication record, not completion.\n\n## Changes and independent evidence\n\nEight canonical pages now map existing mechanisms to application responsibilities: exact Tempo Relay/Marshal/buffer propagation; a six-role reuse table; typed result exchange and optional buffer/collector limits; public repeated QMDB sync with progress-versus-verified completion; native safety storage versus missing recoverable exact-source history; and QMDB/Metadata/journal completion under the existing Storage owner.\n\nFour reports and their independent source cross-reviews are recorded below. Reader reviews bind exact final page hashes in `final-page-hashes.json`; the global review covers all eight changes and preserved Markdown/Rust/Mermaid/assets. Root applied the metadata completion-handle clarification and explicit DB P2P operation codec/thread bounds before final review and cloud readback. No remaining"
+    },
+    {
+      "path": "wave7/DOCS_RESOLUTION.md",
+      "sha256": "0e18f7a78181ef726962b65f1f04a2c6396b1e30666fbd0e286719235116e2b7",
+      "lead": "# Wave 7 reviewed documentation resolution\n\nBaseline `f2973dd98598eddac73d212c2b78e04cefb311c8`. The preceding turn made progress by publishing wave6 and verifying its GitHub/local synchronization. This wave is another reviewed batch inside the active six-hour window, not completion.\n\n## Changes and independent evidence\n\nFour canonical pages now identify existing body codec/digest/archive interfaces, optional local Reporter composition, QMDB prepared ancestor handle ownership and bounds/root distinction, and existing pool selection/filter semantics. The exact Tempo Relay \u2192 Marshal \u2192 buffer \u2192 P2P path remains explicit. No generic body codec/observer/tree/filter engine or new public trait was introduced.\n\nFour fresh source reports underwent independent cross-review. Reader reviews bind the final page hashes in `final-page-hashes.json`; the global review covers all four pages and preserved headings/URLs/Rust/Mermaid/assets. Root applied the body review's precise `Option<R>` where `R: Reporter` spelling. The earlier scoped tree/tx/observer receipt predates only that notation correction; final body and global reviews bind its final hash. No material editorial issue remains.\n\n- [body-cod"
+    },
+    {
+      "path": "wave8/DOCS_RESOLUTION.md",
+      "sha256": "9ef6406aab96acaebbc3e07531064079ee827c4e4d106c35b149469412f114b0",
+      "lead": "# Wave 8 reviewed documentation resolution\n\nBaseline `99dc2c456c4b318fefb368cb39a145298f7d86b7`. The preceding turn made progress by publishing wave7 and verifying GitHub/local synchronization. This wave is a further reviewed batch in the active six-hour window, not completion.\n\n## Changes and independent evidence\n\nFour canonical pages now identify existing body subscribe/receive handling, public Current active-value/absence proofs, optional local acknowledgement handles, and runtime/future/strategy helpers. These replace potential generic polling/proof/ACK/thread-pool plumbing with existing APIs while retaining exact context, selected root scheme and durable receipt checks. No new public trait, mandatory actor or default policy was added.\n\nFour fresh source reports underwent independent cross-review. Final reader reviews bind all four exact page hashes in `final-page-hashes.json`; the global review covers every change and old Markdown/Rust/Mermaid/assets. No material correction remained. The private Simplex pending-ACK tracker and Tempo private optional-future slot are reference patterns, not importable native helpers. Bare notification and DB proofs do not replace rich execution/"
+    },
+    {
+      "path": "wave9/DOCS_RESOLUTION.md",
+      "sha256": "e7a084d093bcca4cf3039d8c6cb8641bd8033db798313440d04fbc6038489a89",
+      "lead": "# Wave 9 documentation resolution\n\nBaseline `f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea`. Previous goal batch was progress: wave8 GitBook publication, exact GitHub SHA verification and local mirror synchronization. The user\u2019s Tempo propagation question was separately checked against actual source. The requested six-hour window remains active; this publication is a reviewed batch, not goal completion.\n\n## Adopted change\n\nOnly `docs/reference/verification.md` changes. It maps public deterministic runtime, simulated P2P and delayed-sync controls to future real application E2E, then shows Tempo\u2019s actual execution/channel assembly and Alto\u2019s two-run durable queue replay. Reuse public primitive handles and application callbacks instead of a new transport, test runtime or crash simulator. Native `multimmit::mocks::cluster::Cluster` is public with fixed mock attachments, so actual body custody, Orderer delivery and Executor/Storage require direct public Engine binding. No new public trait, production actor or default policy is added.\n\nFour source reports underwent independent cross-review. Final reviews resolve the exact Cluster path, the `Blob::start_sync` gate boundary and comparing Audito"
+    },
+    {
+      "path": "wave10/DOCS_RESOLUTION.md",
+      "sha256": "de1131d12742f1666f30267e1ac9ead15daa1f83bccbd6c344e5d3166a17b012",
+      "lead": "# Wave 10 documentation resolution\n\nBaseline `01cf73b41dedd81614237977e4edf150c7d19a81`. Previous goal turn was progress: wave9 GitBook publication, exact GitHub main verification and byte-identical selected-file synchronization to the local mirror. The requested six-hour window remains active; this is a coherence-review batch, not goal completion.\n\n## Findings and adopted changes\n\nIndependent body, pool and Storage audits compared current module/interface/E2E/diagram boundaries to actual pinned sources. No redundant mandatory body engine/trait/receiver, parallel pool/dispatcher, database or full Stateful dependency was found. Existing Commonware primitive connections remain sufficient; adding another reader inventory would repeat the recipe. Two audits therefore confirm no structural delta.\n\nFour prose lines needed precision: architecture and normal E2E name Executor computation versus Storage root/canonical application/durability; canonical E2E names Executor as delivery ACK sender after Storage\u2019s recoverable state/output/cursor/provenance; Tx interfaces identifies its existing Nunchi adaptation paragraph rather than pointing ambiguously to the preceding Reth discussion. The last"
+    },
+    {
+      "path": "wave11/DOCS_RESOLUTION.md",
+      "sha256": "18fe65e1538f2abae758ae9257a1bd9597c54fed283486e1022d99e7bb4230ff",
+      "lead": "# Wave 11 \u2014 requirement coverage resolution\n\n**Adopt the independently reviewed no-reader-delta conclusions.** This batch audits the original six-hour Commonware reuse research/documentation objective, including actual-chain assembly, module responsibilities, commented Rust contracts and E2E flows. It does not narrow completion to the latest diff or artifact integrity.\n\nBody, pool/Orderer and execution/Storage agents checked concrete existing-owner connections and cross-reviewed all final reports. Root separately checked presentation, full requirement coverage and delivery. The pool/execution report wording was clarified before cross-review: identifying engineering/proof obligations belongs to research; implementing/proving them is outside this documentation request. The original concrete assembly, repeated six-hour independent review and verified publication/synchronization remain required.\n\nNo additional actor, generic transport/cache/fetch/pool/proof/read-view engine or public trait is warranted by these findings. Existing Commonware primitives remain under necessary application/native adapters. Native pin, no-wait cut behavior, exact order, eligible full-subject f+1 and direct/"
+    },
+    {
+      "path": "wave12/DOCS_RESOLUTION.md",
+      "sha256": "70ec26e90f084a66a2fca56d1c090e3140ed85b8ff2970f85111f23011cb9c2b",
+      "lead": "# Wave 12 \u2014 adversarial developer walkthrough resolution\n\n**Adopt one precise TxPool method comment; retain the existing body and execution assembly.** Three agents followed the existing real-chain/Commonware component routes and attempted concrete misreadings, then cross-reviewed actual source and final reader bytes. No generic body/pool/read-view engine, extra actor or public trait was needed.\n\nThe old selection comment could imply that moving candidates out of a queue is prohibited even when a selected existing backend uses a destructive pop. It now says: `Selection alone does not establish canonical retirement.` Actual Constantinople source supports this distinction. Existing retained material, cancellation/reselection ownership and durable canonical processing obligations remain intact. No backend, destructive-selection default, return type or method signature is selected or changed. The single Rust export was regenerated from its canonical fences.\n\n## Bound source and reader reviews\n\n- [ROOT_REVIEW.md](ROOT_REVIEW.md): `a0d034551ba382d14226ff97204c801d8e6c179283be616fe8ff159328c8f73a`.\n- [body-walkthrough/REPORT.md](body-walkthrough/REPORT.md): `0973b00917914aff3919c4d0d4b8df"
+    },
+    {
+      "path": "wave13/DOCS_RESOLUTION.md",
+      "sha256": "588bdd892e4aa339d39ce8feb21b752423f5734b8e357bef7708f6a106ba25d2",
+      "lead": "# Wave 13 \u2014 reused-owner seam resolution\n\n**Adopt two precise prose clarifications; retain existing body/execution primitives and interfaces.** Three agents trace identity, selected material, ownership, durable outcomes and recovery across adjacent reused owners, then independently cross-review source fit and final reader bytes. No responsibility requires another generic service, actor or public trait.\n\nThe Nunchi lead now names the direct durable Executor\u2192TxPool\u2192existing actor outcome path, avoiding confusion between the project and Baton scheduling module. The associated-type guide states that owned CommitResult delivery to several consumers needs concrete cloneable receipt handles or copies recovered from the same immutable receipt. Send/type equality alone do not duplicate a value. Neither selects a backend/schema/completion policy or adds a public Clone bound. Exact durable identity, per-consumer processing/recovery and optional Baton outside delivery ACK remain intact.\n\n## Bound final reviews\n\n- [ROOT_REVIEW.md](ROOT_REVIEW.md): `729fa9ec424e63433b8f99817139406d20a6f25ed9e5f0f880f46f14656b306c`.\n- [body-seams/REPORT.md](body-seams/REPORT.md): `8f9183ac887c4b8ed66c112db7648d1c"
+    },
+    {
+      "path": "wave14/DOCS_RESOLUTION.md",
+      "sha256": "bd232fb6e62bf8e27127213ba9c916ce1e55faf802ec5a7ca30c0d7ed1d4e1a6",
+      "lead": "# Wave 14 \u2014 original-requirement audit resolution\n\n**No reader delta.** Three full-domain audits and independent cross-reviews assess the entire original Commonware/actual-chain architecture, roles, commented Rust inputs/outputs, layer/E2E and publication scope. They do not redefine success as recent prose changes or checksums. The root independently reviews role-first leads, central contracts/ownership, diagrams and assembly evidence, and verifies current delivery identity.\n\nCurrent docs retain concrete existing pool candidates; Tempo/Alto body buffer/resolver/archive/P2P composition with native callbacks; narrow exact-source/Orderer integration; direct lower QMDB Executor/Storage boundary; full-subject f+1 certification and normal-path Executor peer sync without Baton gates. Source/version/private APIs, rootless multi-child access, canonical writer/receipt and native protected-prefix proofs remain explicit engineering follow-ups. Implementing/proving them is outside this documentation completion gate.\n\n## Bound final reports\n\n- [ROOT_REQUIREMENTS_AUDIT.md](ROOT_REQUIREMENTS_AUDIT.md): `a71107fdeaa525eac5d96438f239394e821121bf0fa5b9d810981d3ef81fc38a`.\n- [body-requirements/REQUIRE"
+    }
+  ],
+  "traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "method_count": 30,
+  "rust_sha256": "91481bfad6d4cdadca4dfd22835fd8d597079e151f2a36d18f02c09f13dd73f5",
+  "all18_diagram_sources": [
+    {
+      "path": "docs/assets/diagrams/diagram-01.mmd",
+      "sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.mmd",
+      "sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.mmd",
+      "sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.mmd",
+      "sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.mmd",
+      "sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.mmd",
+      "sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.mmd",
+      "sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.mmd",
+      "sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.mmd",
+      "sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.mmd",
+      "sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.mmd",
+      "sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.mmd",
+      "sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.mmd",
+      "sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.mmd",
+      "sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.mmd",
+      "sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.mmd",
+      "sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.mmd",
+      "sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb"
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.mmd",
+      "sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d"
+    }
+  ],
+  "retained_primary_scope": "Pinned primary/treeblob/API receipt lineage from wave14 execution receipt and independently reviewed full layers; no new source retrieval, no compilation or native test.",
+  "wave14_execution_receipt_sha256": "54cb54b0edbd7405cf570b34448afac6c7fcd339e357c70f2c314bb0f557e6ba",
+  "wave14_root_cross_review_sha256": "16fafe1fab5d086b2d8e919c888075870024a06ed8d62379c931d0e611cf7378",
+  "window_end_utc": "2026-10-04T01:29:14Z",
+  "elapsed_window_complete": false,
+  "cloud_identity_checked_by_this_capture": false,
+  "completion_gate": "Original documentary research/repeated independent review/publication/sync; implementation and proofs outside gate.",
+  "decisive_retained_primary_reread": [
+    {
+      "path": "glue/src/stateful/db/mod.rs",
+      "retained_local": "assets/review/commonware-reuse-20261004/wave11/execution-coverage/sources/glue/src/stateful/db/mod.rs",
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "git_blob": "917f4783d7b2878cadfdbb61ad80a2dc1ee7a01a",
+      "tree_blob_match": true
+    },
+    {
+      "path": "glue/src/stateful/db/any.rs",
+      "retained_local": "assets/review/commonware-reuse-20261004/wave11/execution-coverage/sources/glue/src/stateful/db/any.rs",
+      "sha256": "0e5e12492554098c2fe16c1ffd61c559390b99f8e4027a0c81caea4eb0371441",
+      "git_blob": "7011d7689eb1ceb1bfbdba3c4549e7568cc5ba37",
+      "tree_blob_match": true
+    },
+    {
+      "path": "storage/src/qmdb/sync/engine.rs",
+      "retained_local": "assets/review/commonware-reuse-20261004/wave11/execution-coverage/sources/storage/src/qmdb/sync/engine.rs",
+      "sha256": "73f439f8a10f7bc5915367487066dd86804918ae354887de225f456f981bae36",
+      "git_blob": "7c6f602408b522ecd636e4ac640bdd809593eb54",
+      "tree_blob_match": true
+    }
+  ],
+  "retained_tree_sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca"
+}

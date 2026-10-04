@@ -1,0 +1,58 @@
+{
+  "utc": "2026-10-04T01:20:43.335869+00:00",
+  "baseline": "1212e680e8e8f1316b9557a16b2e5b5acfe1ea8a",
+  "qualified_readiness_report_sha256": "900a05f6de1ecc4a05b19bf64d7b994996860b3814daaeb0ff72d34139bcc9a2",
+  "reader_pages": [
+    {
+      "path": "docs/reference/verification.md",
+      "sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b"
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "0dfb0fd427edbc031e1ba30a4ab3c3dd5ab3e9958dde7fe5bead690a2360fb42"
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "dd3a1fa1b7286fd8719ffe4edd6888b996559312b97ebe87893a6ba8f3d723ba"
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049"
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b"
+    }
+  ],
+  "retained_decisive_sources": [
+    {
+      "source": "nunchi",
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave11/pool-orderer-coverage/sources/nunchi/mempool/src/pool.rs",
+      "sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+      "git_blob": "90fab9253f40757e49ae39472683e187d821e25e",
+      "complete_tree_path": "assets/review/commonware-reuse-20261004/wave11/pool-orderer-coverage/nunchi-tree.json",
+      "complete_tree_sha256": "98f98973fae46c0b4166b574e0b539e1dd79d6e6d395d80670ed5ec67ea9b0b4",
+      "retained_blob_recheck": true
+    },
+    {
+      "source": "constantinople",
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "local": "/Users/leojin/Documents/Codex/2026-09-30/task/overpass-research/assets/review/commonware-reuse-20261004/wave11/pool-orderer-coverage/sources/constantinople/crates/mempool/src/webserver/actor.rs",
+      "sha256": "96ff6fd243372b0fb891102a6cab1d0c25204b9600b2efd6732266f6dcfdccd5",
+      "git_blob": "557f5ea4fa827efcd698134799a6e8cdda781cd0",
+      "complete_tree_path": "assets/review/commonware-reuse-20261004/wave11/pool-orderer-coverage/constantinople-tree.json",
+      "complete_tree_sha256": "8dae791561997d9f158765d659da528f260ed9016dffd3cfb09d199be57f232e",
+      "retained_blob_recheck": true
+    }
+  ],
+  "old_exact_row": "| Tx / pool | New, duplicate, structurally invalid; proposal cancellation; no cleanup before canonical outcome | Not run |",
+  "proposed_exact_row": "| Tx / pool | New, duplicate, structurally invalid; proposal cancellation; selection/proposal is not canonical retirement | Not run |",
+  "canonical_edit": false,
+  "native_test_or_implementation": false,
+  "goal_complete": false
+}

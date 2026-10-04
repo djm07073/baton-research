@@ -1,0 +1,784 @@
+{
+  "utc": "2026-10-04T01:22:48.422626+00:00",
+  "baseline": "1212e680e8e8f1316b9557a16b2e5b5acfe1ea8a",
+  "peers": [
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave15/execution-final/COMPLETION_READINESS.md",
+      "sha256": "f98b1f76c51f0038f75153b64ce342fd6b6dafaa2bb8270d95bed62155eb20e6"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave15/body-final/COMPLETION_READINESS.md",
+      "sha256": "9ed68d6b1094c57da38885f48e3ae54ca7eae22761c9133fc2fc25d8297aafb4"
+    }
+  ],
+  "current_docs": [
+    {
+      "path": "docs/README.md",
+      "sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/SUMMARY.md",
+      "sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.mmd",
+      "sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.png",
+      "sha256": "2f54aae5f2633cbeea568251cf6c7409ef80f585f26183108ea804037363079e",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-01.svg",
+      "sha256": "1cc2f73798aebe66e0df5340e9b8c08089b0584ee7548f2945260905acac8559",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.mmd",
+      "sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.png",
+      "sha256": "bc2ce63537f9600d30ea186adefe20e4e58d435fd2b46bdbcf40c665a2ab1926",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-02.svg",
+      "sha256": "471643b14f453a36226a53e4f2bd585aefc29c3d7ec88f0f6b75fa6a392aefec",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.mmd",
+      "sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.png",
+      "sha256": "faff8a15ba7700cc4bb2ab29f3956f11161a6551631da10e18ed4be56b3dc0c1",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-03.svg",
+      "sha256": "43236514d36d4a482938ab1b5c07cceb56fd46d573cf74f0865aee5f936815b9",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.mmd",
+      "sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.png",
+      "sha256": "053067d50300713115c622a7222560e65aaf84621e2aba39271ab3075d9bacd3",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-04.svg",
+      "sha256": "f434320b7787129fd370cc6dbe4313470c3eaac18a60d806c8893b13e9510f97",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.mmd",
+      "sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.png",
+      "sha256": "6617b91dfa54c021e017ac74a7de277df4b8b4ce3705f17926295fdf9c323855",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-05.svg",
+      "sha256": "e62e69a588c1bf8ab6826c148f5460a70c6bd78cd6482dfd54907620107f28ef",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.mmd",
+      "sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.png",
+      "sha256": "bbc69603dfa192de7416752205e0d6187fd57e8a490013511074bb0a24dfb303",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-06.svg",
+      "sha256": "9be4f7d669f013df97b47eef920b99100dcf7c4b2b9daa704c3f61b817c8a3a6",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.mmd",
+      "sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.png",
+      "sha256": "b06a4a47f6163bd164e1d3ba02972fe700f88d6b7a29db9442f9f47f561d80f0",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-07.svg",
+      "sha256": "a4197537a07c462855a651bc55ebaec28dfc09ce2d09d71c8d36e37e1b8529cb",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.mmd",
+      "sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.png",
+      "sha256": "d04375ec071ed99d39728347c835151ccfd6ac5f694e0a6f4e03f8dfa6de5868",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-08.svg",
+      "sha256": "184c85b990f2fbfb2f977c01b16399acdfa2a184970a6ccb0848743b93bdc93a",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.mmd",
+      "sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.png",
+      "sha256": "7d3e5e98749bc3a1128c724ca9c270724d5b398e84649d3d5b9ef6ca373ae796",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-09.svg",
+      "sha256": "61745836f1fa617c1beec94554690bf7e6cbc23e60944bf09845aab846e4cd75",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.mmd",
+      "sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.png",
+      "sha256": "8e351bbf8bbd0e7fbfd6db806357b074cde971da89b3933b4e33d7b8b8dbc3c5",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-10.svg",
+      "sha256": "0ac9ed66c95d13fdded7fa061856d320dc86cc4fc9125445bc5f7953dfb3308d",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.mmd",
+      "sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.png",
+      "sha256": "a039b18312ca983b6b4492e4cfb5eaa6bb63874689b01feaf8b9c30c643dbb9c",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-11.svg",
+      "sha256": "e0859f3d552cb117790ba65b3c61c5b0735b8e5a4ea22e8ec7713e14650e58f3",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.mmd",
+      "sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.png",
+      "sha256": "cc90ab29bf71ea3d5e457d1650080be4730b8bf67226b1e603281e195524af47",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-12.svg",
+      "sha256": "8ffeb31d72c057e91004e0674e74ed964afbbba170c4cb31673e18ce9a6b4fb9",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.mmd",
+      "sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.png",
+      "sha256": "e977f58945e3715ae68b7e945a9b2f0af26e2822c5097c433ff38752a1680df2",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-13.svg",
+      "sha256": "0ca441e6c0202ccd6b8d71a4b38fa386a11ad391b4043724744484f65568849a",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.mmd",
+      "sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.png",
+      "sha256": "313eb544752267cf05e50913175c48848914146e5948b19feeeb439ec9fed67b",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-14.svg",
+      "sha256": "109065a5b3be43bcb661809e1754cc05cf721759a74c09c655f7a99202ff2948",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.mmd",
+      "sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.png",
+      "sha256": "0f0b547b25e59a3f7f4014cca8ea36325bd0ebc29383c8b13b7a4822dbd711b9",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-15.svg",
+      "sha256": "957cbfc54b6c53c341eba4619f31838811f3681f2813a1ee56560dde412583f0",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.mmd",
+      "sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.png",
+      "sha256": "cb0eddc63d110e5afb6e29a54bbbf3a0e909d01e7f10ef69bf742274511ec9ce",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-16.svg",
+      "sha256": "2f77191f2bfef52bec24c217353e1f2b3bc88841d0c3c6003c9667b1b1a1ebaa",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.mmd",
+      "sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.png",
+      "sha256": "057dcf929dd9f1f838ddc956014a4f2fdf31250fa858942a00a72763b87a9cd2",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-17.svg",
+      "sha256": "6db0e1fd7e04031a2b66c42891e289ae85ac981e28f13ab1df3f1508b618fbcd",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.mmd",
+      "sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.png",
+      "sha256": "4e01e4fa9e2c5360bca37b4679f4b08e767c3d55d7d3c0301f8fbfc9f4b2bfc9",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/diagram-18.svg",
+      "sha256": "6dce7bb98004ab0f970b4d66e24ce3ace964b645222f2b010e1f9c0c754a69c9",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/diagrams/render-manifest.json",
+      "sha256": "ccbcfa2d198d721e6dbda01ed1a923b4e9cd27cdbb10def0c74c296a982980c7",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/assets/interfaces/baton.rs",
+      "sha256": "91481bfad6d4cdadca4dfd22835fd8d597079e151f2a36d18f02c09f13dd73f5",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/baton/README.md",
+      "sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/baton/interfaces.md",
+      "sha256": "c383302c0acc6817d136a7829a8dccc3962d94669af5223f8776bc168d31986b",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/consensus/README.md",
+      "sha256": "4f1044c2d71bee357ff800604565e737dfae97003a87299c93533560aa021f65",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "sha256": "5cd5d25894a485829ba0fb65ded031b15589cd4312ba15931dfcb8e5577c0adf",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/canonical.md",
+      "sha256": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/leader.md",
+      "sha256": "2d54bce6f941631004ee2244c1a872c045a8651ae26b8a0d0686d1899096608e",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/native-consensus.md",
+      "sha256": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/reschedule.md",
+      "sha256": "f1916ed2e4ed591587e14a2148bf675d6be0d3835b1becc1665b895f1822e4eb",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/results.md",
+      "sha256": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/state-sync.md",
+      "sha256": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/execution/state-sync.md",
+      "sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/overview/glossary.md",
+      "sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "sha256": "e3eb01b087a93f7814abdfda24f6261643d9d1bcfd8944402cf6d06abdd4ee2b",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/overview/networking.md",
+      "sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "0dfb0fd427edbc031e1ba30a4ab3c3dd5ab3e9958dde7fe5bead690a2360fb42",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/reference/sources.md",
+      "sha256": "716b76900efc341dc8ef49601e2c8c4e64159b22a720d66a49654d87e46d67b8",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/reference/verification.md",
+      "sha256": "d40795e4134e242714ba18f63e6e15f734fef26039a4ebb3c01948a23b79851b",
+      "baseline_equal": false
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "dd3a1fa1b7286fd8719ffe4edd6888b996559312b97ebe87893a6ba8f3d723ba",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049",
+      "baseline_equal": true
+    }
+  ],
+  "only_reader_change": {
+    "path": "docs/reference/verification.md",
+    "sha256": "d40795e4134e242714ba18f63e6e15f734fef26039a4ebb3c01948a23b79851b",
+    "old_clause": "no cleanup before canonical outcome",
+    "new_clause": "selection/proposal alone does not establish canonical retirement",
+    "exact_single_literal_replacement": true
+  },
+  "addendum_sha256": "d8f4b857e872581085a7990745b5a97b79723ab37c59bdd723f1360b4d5e952a",
+  "addendum_receipt_sha256": "d29db60279235d0b98f0d0629a62ef2c6223d41dd9cebe9448785ab110f7b044",
+  "prior_own_requirements_semantic_receipt_sha256": "6f94fa323a41e987e35adccf6119c20abbc5f85311f695e981d5a14db878e790",
+  "root_fresh38_publication_readbacks": [
+    {
+      "source": "README.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-README.md.json",
+      "response_sha256": "a922b196140cb7714b2a945a21db9e9d951636e00a3c1a30b8eb617e7d6e9263",
+      "documentId": "8FKaimnviA4VLUDe7EF6",
+      "markdown_sha256": "79d5d15da0a53da68e4c27b171d40e4b0a96dfc4366b85a1bf22d3a747f8353f",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "overview/architecture.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-overview__architecture.md.json",
+      "response_sha256": "1346a3c154041216a0e1008c00f63931865c2422523b41f3b38264817e5993c8",
+      "documentId": "FVzzypqTVASMtlXso5GD",
+      "markdown_sha256": "bb14c2509d09ec573eccdc33054e487610832dcef37f3c90824b25ff4e459ef7",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "overview/glossary.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-overview__glossary.md.json",
+      "response_sha256": "0e3e1c4eca1ad7de65cac0933a2cfe91b4881e16983d72a522ba3ce77a390cd2",
+      "documentId": "tzohFLZB1c2PxdbuTZYa",
+      "markdown_sha256": "432432cf54f5529f3dd39580bd210308bd881cd2690ed38716368c422be2701e",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "overview/rust-interfaces.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-overview__rust-interfaces.md.json",
+      "response_sha256": "0953040ca768fde44480ba2e6855432410860a42735d73992998831711c51101",
+      "documentId": "DCaDppHOaiRlkwsXo7JL",
+      "markdown_sha256": "c6a1e31e2237c0f3b1878b359bd48074aeb56bcc98ae4ee6f54f0e6d1f8c4b29",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "overview/networking.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-overview__networking.md.json",
+      "response_sha256": "afde736cfd5143fe639eb5854234e18c7258c624117bc76700a282b8a892dbd6",
+      "documentId": "PxeORJDZbUWa2KCVYCto",
+      "markdown_sha256": "4768b86c749dbb3df6f206f472b20e2218c5ce06aee2378234cddc1fbfd4894e",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "overview/interfaces.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-overview__interfaces.md.json",
+      "response_sha256": "15de4cb2656247b709fbf371db57337e4d8fbe576ed377b458e75f29c4df5a46",
+      "documentId": "DKtjxxM4butMH1ARmowq",
+      "markdown_sha256": "9d51d3152cb4f0599f3529d32f24ebd42f3cba3319e5e14f75f1765dddf25b16",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "tx/README.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-tx__README.md.json",
+      "response_sha256": "41b61a9a26c6d3a0bb813108e0a20c6465b8ec9dd2b754296326f9c1e3bd3563",
+      "documentId": "6qiy5KJ9DlPWX08nIP5o",
+      "markdown_sha256": "fbcf3dcf8ba762bc9fc70fd1233d9f246e3baad64517843a576e423aa2b54871",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "tx/interfaces.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-tx__interfaces.md.json",
+      "response_sha256": "7c6fce1dd5d5e0d91eea7341d2038da17ac392018a44f9336a7fd8441536c0b3",
+      "documentId": "fiSBvW6UAIEE23cTKYGR",
+      "markdown_sha256": "25572cababb14b2d4bb219f3a8fce2fbcf6a56f288204204c20b2c47fa427b21",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "consensus/README.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-consensus__README.md.json",
+      "response_sha256": "036c2a4f7fd50b3a661fcbdd70509995546b6d7af87992ffd19e5b38162623d9",
+      "documentId": "EL1ze5Wr3hxe1uz2Hlg9",
+      "markdown_sha256": "6bf5b6958d86ee0a686b99fb7d2778f44757478ea21e00de73056baf6370b48f",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "consensus/block-body.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-consensus__block-body.md.json",
+      "response_sha256": "d026b3ec04bda2f8a86571ec20c84be20204f08b140ee194a159094c39606bb9",
+      "documentId": "OBYDGOyw0LoS2qB8nhzX",
+      "markdown_sha256": "dfe8e3c506a41ecc4ef2f6ea668562dd7fc8812699962a381c4827a03156421d",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "consensus/ordered-input.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-consensus__ordered-input.md.json",
+      "response_sha256": "ec90179bef0d92a0e4dfb203227a99bd749e9ed7260519336fd26d2a76952bb7",
+      "documentId": "7zh7RgYFuxcdkDjkShPm",
+      "markdown_sha256": "4810e5df3fdd6eb58a00bbcda38a1130d4c37f002cd2c2eba1ea1d5c5dc79382",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "consensus/decisions.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-consensus__decisions.md.json",
+      "response_sha256": "6de69b1eb69549ee1d145312c69d550cb20afb8faf55f1f8188d8d9761db8af2",
+      "documentId": "h6chAYmsq7AGFYrpcI9O",
+      "markdown_sha256": "1380feb5153265725140dfda3eaa06f17f70d0ad2d6e9f54ecaf71b9bea56d8f",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "baton/README.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-baton__README.md.json",
+      "response_sha256": "34f9fa3991b58b4d9d596c450d4433d9aab6ff40db5493eb514eee00305e5c69",
+      "documentId": "OO1lVJZH69rVLhB5jS5i",
+      "markdown_sha256": "393c70c4a094d05912fe15a5a5f12bf72036fc9406b93ce80b99910fd258008b",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "baton/direction.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-baton__direction.md.json",
+      "response_sha256": "75b51d9997a402d2a9b142b563b757b155a19b4a8163cf61c0718178b4c28474",
+      "documentId": "8yf7zbV7XqpMUEzABmyh",
+      "markdown_sha256": "fac07c47b3b48e6d9e94f302909982348e17b0cedcc45485a64f7cda07e12778",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "baton/interfaces.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-baton__interfaces.md.json",
+      "response_sha256": "4a682aec7c54895a1dc3029b0544118a9cfe80965a11e28e95f24047b12c1875",
+      "documentId": "NLJpGEnNiHaS5MIo3tMj",
+      "markdown_sha256": "f1b4a492084e56bf539edec7ca326eb7b081f48c0dde5a4646c6d6f14eb665bf",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "execution/README.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-execution__README.md.json",
+      "response_sha256": "8ff25eb6478db1a465899cdec5f236396a1ec7b3fd98573c8956aee758336288",
+      "documentId": "wCFK4H9Gt17Md8cDBIkB",
+      "markdown_sha256": "cf48dc6bbd0b815b44100c071503e3e1b60feb6a0bc1dd4d903ce817a9096e7f",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "execution/interfaces.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-execution__interfaces.md.json",
+      "response_sha256": "1de48839507698dab606816737e605a6a02addf58768a0d46125e164a5973519",
+      "documentId": "XlmyJRbnwqOrXGMsFTmn",
+      "markdown_sha256": "592a5c740a3535fc61a795aa4f99c15ae75f197b051772d23c0b9500866b8302",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "execution/qmdb.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-execution__qmdb.md.json",
+      "response_sha256": "270b101b01edb619e9022e888a18afe77ca45cd3ddcdf172636441a9cb0f486c",
+      "documentId": "2tnKlyMJkZCMXeXsuisP",
+      "markdown_sha256": "6977eecc79cdce2c6230a56a0d1e59b2c9d6abb8b514cd892dfa53720616de28",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "execution/state-sync.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-execution__state-sync.md.json",
+      "response_sha256": "2110d6af57d81dd9c76912be08cd0b4c23f547723003334c952a7e966dd483a2",
+      "documentId": "2wK6oDG9U56xaSm7ubSb",
+      "markdown_sha256": "a752682d2fb04bb4c53d7d3abafb74a002762103e854b6722cec0cc805998ea0",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "e2e/normal.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-e2e__normal.md.json",
+      "response_sha256": "865b2e152def5fe359b69588cc63dd40eadc1fdcf2b1b383c01b1d70fce469a1",
+      "documentId": "DYIancytTafB6RLORFaO",
+      "markdown_sha256": "e7998d7121aaeb5d028d71c4be4fd0a38eb7abb7524fb59b5437ddcf8c29f752",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "e2e/block-body.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-e2e__block-body.md.json",
+      "response_sha256": "24b55ec92aac314b16e9d2eda555e62b3828940987a1753532aff3d094015616",
+      "documentId": "I2rgoMRir1EQrbgerVzv",
+      "markdown_sha256": "bec2e76e023ab0b92b39f9ca5441f59f5e741fd69873e1d0447a4271591edaee",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "e2e/native-consensus.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-e2e__native-consensus.md.json",
+      "response_sha256": "43522c05dc61c75ff30fbfa219cf644036ddfce13d8396dc8b82d0e573157963",
+      "documentId": "7f9i6AYQl70qmDHN7vjx",
+      "markdown_sha256": "fa99f0bade858717324c1cd745b5516009f0d930b314999324844944e98a9faf",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "e2e/leader.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-e2e__leader.md.json",
+      "response_sha256": "ea16a022a8d1994d34b103a289f388b703d53a5679ac109eb00c8f3e55725d8f",
+      "documentId": "cyv6W7eolULCrYXVzYOS",
+      "markdown_sha256": "4df3cfa445f3fc6bc051a671d58f6fee667c5ca442d57b9126fb44c9b962cd5d",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "e2e/reschedule.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-e2e__reschedule.md.json",
+      "response_sha256": "c8d05723e2d8d1adf5998837347a9aabd0f94cc5b759f4bc16a3ac76d54b0bf0",
+      "documentId": "qp5RwAxObDqlpcbpY8lQ",
+      "markdown_sha256": "3b5d8a4d40deff160409af3a877e0b41b3568213f683ebfa6b13b5a8ae6e10eb",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "e2e/canonical.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-e2e__canonical.md.json",
+      "response_sha256": "c8c81a933037bfafa874cb79d99cfe4a14c1a152b465d3921f6b8b6220b7b226",
+      "documentId": "3Nxu2oUr6850nLZ1NWRr",
+      "markdown_sha256": "689dc9c66c695f9766764edc13cd7d1ea5a0133e4a09ebbf4fd01b1e1d092929",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "e2e/recovery.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-e2e__recovery.md.json",
+      "response_sha256": "5a112b8f7140a4a22b440c5f1504252bcf79e70bc643e1cff3f3a19758213540",
+      "documentId": "PYimCwSActFE8XRLuLzs",
+      "markdown_sha256": "b34a182e8defa11761f5ff75927dfcc41425b562ab00f11165a1bc7a7a76e558",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "e2e/results.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-e2e__results.md.json",
+      "response_sha256": "a8433ed11f4870d0464d8569cc68a7356174ce3e25b1213eabd8a2e346c19d24",
+      "documentId": "L6SPgiMOEx5649ovPC2T",
+      "markdown_sha256": "87536c852ecfeeaaffd446887bee4fca4979f5fd24373edd56e00197064436c8",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "e2e/state-sync.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-e2e__state-sync.md.json",
+      "response_sha256": "7d4f6400977c6d41416a2c6bc0667a5801d91ba9f44c892ed771fc034b1e7c90",
+      "documentId": "IxQGopvhYyAyo0BkAVJd",
+      "markdown_sha256": "5150df5264706b3bfcd00b8079395be3e2873c65eff0ab1ba25ec9865b04f2ef",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "reference/integration.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-reference__integration.md.json",
+      "response_sha256": "9f5ac0cd9281f32301f5ca94de58540c58d388d5f1eaff1bb3325b02e5b59d9d",
+      "documentId": "hofs3DOfHw0YveBiGGm8",
+      "markdown_sha256": "8b922299d9da27126a0e776b798d49f6c01dd90d5043277f60333d29a350e79b",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "reference/verification.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-reference__verification.md.json",
+      "response_sha256": "77ee61da2f5a09525e94b2c4a1f53b88d68b39ca7dcc158a7305fd7cad3321d2",
+      "documentId": "xFNuHIuFz2HIRPrnI11y",
+      "markdown_sha256": "99d7a6d2390c9acc6f5b3b79fcca841f9fa91aebf19d029dcdbf014f1d5e0e3e",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "reference/sources.md",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-reference__sources.md.json",
+      "response_sha256": "8806cc01ae22d5692ef8bcacada5965cb894e8df5e161261712b389453e639c7",
+      "documentId": "GhHHZA3Rp3bSragMWtW4",
+      "markdown_sha256": "a7168d0489d8004cb27cdca55900b914a7b1c0fbf89934d41880643960dbbb87",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "@overview",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-group-overview.json",
+      "response_sha256": "dcdc57e85e1c8402a977f73bbc77cd4dee4a1b086a004960aec7035727c2491c",
+      "documentId": "IQzG5cO4wZPodkVsr3nw",
+      "markdown_sha256": "700c2b6824a6e9625d36a94bfdee00244d7197fbe08c45689f4a9a96c19cb312",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "@tx",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-group-tx.json",
+      "response_sha256": "4ff658810358c699bd03b337c3e50af883236ca63d3014c3f2ffe496ae915487",
+      "documentId": "WUuhLCERZvCRsUkyVxFd",
+      "markdown_sha256": "fb2ba6963df2c20a2ec2e37c5ecdebdf33a0d093e39007140236c5c348fe5359",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "@consensus",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-group-consensus.json",
+      "response_sha256": "7780d5d33f19aeb0d7d8a2eb71c708dcb2e7cff3cf58b3b7b4f643851cd8c487",
+      "documentId": "PXXKDk9ijwIeIlEW7dqi",
+      "markdown_sha256": "625cc5024a86fe77b8fe0f241b0668554f390635edb75e6d25aebc9bcfd8beac",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "@baton",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-group-baton.json",
+      "response_sha256": "1acf17d65b38de50f36708ace0710bb84806bad98d5827b6a5824fdabf211ec3",
+      "documentId": "hl2d8KqiMBSrcMzf4MZS",
+      "markdown_sha256": "46d377bd77b326381a54b613b1d2ef1890bc2bc7bb087006c4a136580e9ac89a",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "@execution",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-group-execution.json",
+      "response_sha256": "b240f0cbf3861715acaac0271ab93e3b9a4f1c318862b7d081abeb7b684a00f6",
+      "documentId": "RClavT8k5utazKsKaUbl",
+      "markdown_sha256": "91579d40a0d622395374997f8c9130e8286b7fee240b14cad9e9d6220be67108",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "@e2e",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-group-e2e.json",
+      "response_sha256": "f4bd9b5b6b300277201bc84760bed1d5a509022af67356fe6c0572fcea938568",
+      "documentId": "lbq76LriXCet57dFcMLC",
+      "markdown_sha256": "f8c8f5bf5fe34543355c4b555deac73b77a647841f641c3984f3aa1dd6b2cbdd",
+      "equals_independently_semantically_checked_prior_payload": true
+    },
+    {
+      "source": "@reference",
+      "saved_fresh_response_file": "assets/review/commonware-reuse-20261004/wave15/publication/baton-wave15-gitbook-readback-group-reference.json",
+      "response_sha256": "7c2faa63ea9f760485b1ac97dc305de8f92bb19a97f4a984bb8e7eda0d7bf9d5",
+      "documentId": "4H4ZFaPjUEeJuewC2Rfm",
+      "markdown_sha256": "0d5bc2ac9a33b8c1937fce039ae4e7f1cd265254769ed418ee815f5ee1df0555",
+      "equals_independently_semantically_checked_prior_payload": true
+    }
+  ],
+  "readback_counts": {
+    "pages": 38,
+    "links": 580,
+    "mermaid": 18
+  },
+  "root_fresh_verification_file_sha256": "c22bc4581d21273b6a01418a1b952f41a53efd39cb8e0c3a94553f2aace3b13d",
+  "publication_summary_sha256": "b44931a8d939b98ee96b934205f96b84ee16353513ba2ee12308963f2bed305f",
+  "publication_scope": "Root fresh38 published CR15 readbacks independently compared with prior semantic/fence/link/anchor-verified payloads; current one-row canonical correction not yet represented by these pre-change cloud responses. Root preparing CR16; final changed-page publication verification pending. No fresh remote request or raw private attachment byte claim by this reviewer",
+  "window_end": "2026-10-04T01:29:14Z",
+  "window_and_final_goal_review_pending": true,
+  "canonical_edits_by_reviewer": false,
+  "native_tests_implementation": false
+}

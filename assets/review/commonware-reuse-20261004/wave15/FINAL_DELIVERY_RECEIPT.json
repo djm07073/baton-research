@@ -1,0 +1,23 @@
+{
+  "clock": {
+    "current_time": "2026-10-04 01:30:53 UTC"
+  },
+  "requested_end": "2026-10-04 01:29:14 UTC",
+  "window_passed": true,
+  "original_documentary_requirements_audit": "ROOT_COMPLETION_AUDIT.md",
+  "baseline_git_sha": "1212e680e8e8f1316b9557a16b2e5b5acfe1ea8a",
+  "changed_reader_files": [
+    "docs/reference/verification.md"
+  ],
+  "other87_reader_files_byte_identical": true,
+  "prior_named_reports_verified": 161,
+  "final_published_revision": "v2bpTwguXjQyojxMG9z7",
+  "fresh_postpublication_readbacks": 38,
+  "links": 580,
+  "mermaid": 18,
+  "anchors": 98,
+  "raw_remote_attachment_bytes_verified": false,
+  "protocol_implementation_tests_proofs_completed": false,
+  "final_git_push_gate": "pending exact post-commit query",
+  "mirror_gate": "pending baseline-safe selected copy"
+}

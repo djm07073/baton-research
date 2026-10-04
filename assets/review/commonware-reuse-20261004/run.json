@@ -4,7 +4,7 @@
   "review_window_end_utc": "2026-10-04T01:29:14Z",
   "baseline_git_sha": "38f64555e27fb88feb2a1f4be6ae2c133c6082e7",
   "baseline_gitbook_revision": "TBVjJb5b1ideu6YEBXIq",
-  "status": "active",
+  "status": "review_complete_final_shipping",
   "requirements": [
     "Survey real Commonware chains and extract source-pinned assembly recipes.",
     "Replace redundant custom infrastructure in existing layer docs, Rust contracts and diagrams; retain only necessary application adapters.",
@@ -772,9 +772,67 @@
       "reader_baseline_sha": "8c75c0486e1adb6e81dda9f50558fa75d2a5510b",
       "fresh_live_revision": "N5MBB3QLtVnlpTUcJESb",
       "reader_changes": 0
+    },
+    {
+      "wave": 15,
+      "status": "reviewed_and_published",
+      "reports": [
+        {
+          "path": "wave15/DOCS_RESOLUTION.md",
+          "sha256": "c76a67cf37a280d7a3498ad583c65f0da7c12f975cc25db38054b3fa5559dee4"
+        },
+        {
+          "path": "wave15/ROOT_COMPLETION_AUDIT.md",
+          "sha256": "4228fc04563a005b69635d1d1cc7efe3c2a68819c70dcb4a9ffac14f947a89e4"
+        },
+        {
+          "path": "wave15/body-final/COMPLETION_READINESS.md",
+          "sha256": "9ed68d6b1094c57da38885f48e3ae54ca7eae22761c9133fc2fc25d8297aafb4"
+        },
+        {
+          "path": "wave15/body-final/FINAL_CROSSREVIEW.md",
+          "sha256": "6147aa006a5a2abd37d51969d8c5814e016752ac6b97b6ec9abe6c284d2195f5"
+        },
+        {
+          "path": "wave15/execution-final/COMPLETION_READINESS.md",
+          "sha256": "f98b1f76c51f0038f75153b64ce342fd6b6dafaa2bb8270d95bed62155eb20e6"
+        },
+        {
+          "path": "wave15/execution-final/FINAL_CROSSREVIEW.md",
+          "sha256": "cd5452471374f117c712808bb9448d9521936da856d8d6aa80210b49e76a50c1"
+        },
+        {
+          "path": "wave15/execution-final/FINAL_DELIVERY_REVIEW.md",
+          "sha256": "8884f131c01d82e2dd2cb17867de8cbd78e4375b83799f0cd3e4b599fb931264"
+        },
+        {
+          "path": "wave15/pool-orderer-final/ADDENDUM.md",
+          "sha256": "d8f4b857e872581085a7990745b5a97b79723ab37c59bdd723f1360b4d5e952a"
+        },
+        {
+          "path": "wave15/pool-orderer-final/COMPLETION_READINESS.md",
+          "sha256": "900a05f6de1ecc4a05b19bf64d7b994996860b3814daaeb0ff72d34139bcc9a2"
+        },
+        {
+          "path": "wave15/pool-orderer-final/FINAL_CROSSREVIEW.md",
+          "sha256": "b92032a77d1f0bff03cd9bee362a4f081576f98bf79a3661ec3d83aeb14eecdf"
+        }
+      ],
+      "final_page_hashes": {
+        "docs/reference/verification.md": "d40795e4134e242714ba18f63e6e15f734fef26039a4ebb3c01948a23b79851b"
+      },
+      "requested_window_end_observed": "2026-10-04 01:30:53 UTC"
     }
   ],
-  "completion_audit": null,
+  "completion_audit": {
+    "path": "wave15/ROOT_COMPLETION_AUDIT.md",
+    "independent_review": "wave15/execution-final/FINAL_DELIVERY_REVIEW.md",
+    "documentation_requirements": "passed",
+    "requested_window": "passed",
+    "clock": "2026-10-04 01:30:53 UTC",
+    "final_gitbook_revision": "v2bpTwguXjQyojxMG9z7",
+    "final_exact_git_shipping": "verify_after_commit_push"
+  },
   "local_verification": {
     "content_pages": 31,
     "diagrams": 18,
@@ -789,27 +847,27 @@
     "browser": "wave10/browser/browser-verification.json",
     "protocol_implemented": false,
     "local_links": 257,
-    "changed_page_browser": "wave13/browser/browser-verification.json"
+    "changed_page_browser": "wave15/browser/browser-verification.json"
   },
   "publication": {
-    "change_request_id": "hTz381fjN1xu4jIJXkES",
-    "change_request_number": 15,
+    "change_request_id": "TKH5ihBPeoJryVXCkH4I",
+    "change_request_number": 16,
     "status": "published",
-    "published_revision": "N5MBB3QLtVnlpTUcJESb",
-    "reviewed_draft_revision": "1EoiDH92ZcEe9NCT2v6T",
+    "published_revision": "v2bpTwguXjQyojxMG9z7",
+    "reviewed_draft_revision": "qJJKaHd1BfCKQ5eWREcP",
     "pages": 38,
-    "updated_pages": 2,
-    "unchanged_documents": 36,
+    "updated_pages": 1,
+    "unchanged_documents": 37,
     "links": 580,
     "preserved_heading_anchors": 98,
     "reused_diagrams": 18,
     "reused_rust_file": true,
     "new_uploads": 0,
     "raw_file_bytes_verified": false,
-    "verification": "wave13/publication/gitbook-verification.json",
-    "live_verification": "wave13/publication/gitbook-live-verification.json"
+    "verification": "wave15/final-publication/gitbook-verification.json",
+    "live_verification": "wave15/final-publication/publication-verification.json"
   },
-  "updated_at_utc": "2026-10-04T01:13:44.785192+00:00",
+  "updated_at_utc": "2026-10-04T01:30:53+00:00",
   "publication_history": [
     {
       "change_request_id": "OTFc0W01ZQvv2f4uiiU8",
@@ -999,7 +1057,25 @@
       "raw_file_bytes_verified": false,
       "verification": "wave13/publication/gitbook-verification.json",
       "live_verification": "wave13/publication/gitbook-live-verification.json"
+    },
+    {
+      "change_request_id": "TKH5ihBPeoJryVXCkH4I",
+      "change_request_number": 16,
+      "status": "published",
+      "published_revision": "v2bpTwguXjQyojxMG9z7",
+      "reviewed_draft_revision": "qJJKaHd1BfCKQ5eWREcP",
+      "pages": 38,
+      "updated_pages": 1,
+      "unchanged_documents": 37,
+      "links": 580,
+      "preserved_heading_anchors": 98,
+      "reused_diagrams": 18,
+      "reused_rust_file": true,
+      "new_uploads": 0,
+      "raw_file_bytes_verified": false,
+      "verification": "wave15/final-publication/gitbook-verification.json",
+      "live_verification": "wave15/final-publication/publication-verification.json"
     }
   ],
-  "github_baseline_verified_sha": "8c75c0486e1adb6e81dda9f50558fa75d2a5510b"
+  "github_baseline_verified_sha": "1212e680e8e8f1316b9557a16b2e5b5acfe1ea8a"
 }

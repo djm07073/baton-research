@@ -20,7 +20,7 @@ Native channel registration takes `register(channel, quota)`. The public Cluster
 
 | Component | Cases to verify | Execution status |
 |---|---|---|
-| Tx / pool | New, duplicate, structurally invalid; proposal cancellation; no cleanup before canonical outcome | Not run |
+| Tx / pool | New, duplicate, structurally invalid; proposal cancellation; selection/proposal alone does not establish canonical retirement | Not run |
 | Builder / custody | Digest mismatch, missing body/parent, durability failure, late build completion | Not run |
 | Native / delivery | Unresolved gap, authenticated empty, extension, missing history, preserved emitted prefix after restart | Not run |
 | Leader Baton | Threshold/deadline race, duplicate identity, stale context, incomplete Baton planning, cut ready first | Not run |
