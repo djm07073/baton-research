@@ -1,0 +1,17 @@
+from pathlib import Path
+import json,hashlib,datetime,re
+root=Path.cwd();out=root/'assets/review/commonware-reuse-20261004/wave14/body-requirements';sha=lambda b:hashlib.sha256(b).hexdigest();b=root/'assets/review/commonware-reuse-20261004/wave14';record={'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'scope':'Independent full requirements/source-fit review; retained receipts and primary bytes, no new source download/build/runtime/live remote claim','bound_reports':[]}
+for f in ['pool-orderer-requirements/REQUIREMENTS_AUDIT.md','pool-orderer-requirements/requirements-receipt.json','execution-requirements/REQUIREMENTS_AUDIT.md','execution-requirements/REQUIREMENTS_RECEIPT.json']:
+ p=b/f;record['bound_reports'].append({'path':str(p.relative_to(root)),'sha256':sha(p.read_bytes())})
+pool=json.loads((b/'pool-orderer-requirements/requirements-receipt.json').read_text());exe=json.loads((b/'execution-requirements/REQUIREMENTS_RECEIPT.json').read_text());record['peer_reader_hash_checks']=[]
+for subject,records in [('pool-orderer',pool['all_tracked_docs']),('execution',exe['tracked_docs'])]:
+ for e in records:
+  assert sha((root/e['path']).read_bytes())==e['sha256'];record['peer_reader_hash_checks'].append({'subject':subject,'path':e['path'],'sha256':e['sha256']})
+trees={'native':'wave11/body-coverage/trees/native.json','nunchi':'wave10/body-coherence/independent-cross-review/trees/nunchi.json','reth':'wave10/body-coherence/independent-cross-review/trees/reth.json','constantinople':'wave10/body-coherence/independent-cross-review/trees/constantinople.json','tempo':'wave10/body-coherence/trees/tempo.json','alto':'wave10/body-coherence/trees/alto.json','release':'wave10/body-coherence/trees/release.json'};record['peer_source_checks']=[]
+for e in pool['retained_source_rechecks']:
+ treepath=root/'assets/review/commonware-reuse-20261004'/trees[e['source']];tree=json.loads(treepath.read_text());assert not tree['truncated'];idx={t['path']:t['sha'] for t in tree['tree']};source=Path(e['local']);raw=source.read_bytes();blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest();assert sha(raw)==e['sha256'] and blob==idx[e['path']]==e['git_blob'];record['peer_source_checks'].append({'local':str(source.relative_to(root)),'path':e['path'],'pin':e['pin'],'sha256':sha(raw),'git_blob':blob,'own_complete_tree':str(treepath.relative_to(root)),'own_complete_tree_sha256':sha(treepath.read_bytes()),'scope':'Retained primary/tree independently rehashed; not a new fetch'})
+record['peer_review_lineage_checks']=[]
+for e in exe['retained_review_lineage']:
+ p=root/e['path'];assert sha(p.read_bytes())==e['sha256'];record['peer_review_lineage_checks'].append(e)
+record['own_current_requirements_receipt']={'path':str((out/'REQUIREMENTS_RECEIPT.json').relative_to(root)),'sha256':sha((out/'REQUIREMENTS_RECEIPT.json').read_bytes())};own=json.loads((out/'REQUIREMENTS_RECEIPT.json').read_text());record['preserved_traits']=own['traits'];record['blank_choices']=own['blank_choices'];record['own_saved_publication_counts']=own['saved_publication_counts'];record['goal_end']='2026-10-04T01:29:14Z';record['goal_complete']=False
+(out/'REQUIREMENTS_CROSSREVIEW_RECEIPT.json').write_text(json.dumps(record,indent=2)+'\n');print(json.dumps({'reports':record['bound_reports'],'reader_checks':len(record['peer_reader_hash_checks']),'source_checks':len(record['peer_source_checks']),'review_lineage':len(record['peer_review_lineage_checks']),'receipt_sha256':sha((out/'REQUIREMENTS_CROSSREVIEW_RECEIPT.json').read_bytes())},indent=2))

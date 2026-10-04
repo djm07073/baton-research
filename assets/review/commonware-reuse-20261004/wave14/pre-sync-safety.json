@@ -1,0 +1,162 @@
+{
+  "baseline_git_sha": "8c75c0486e1adb6e81dda9f50558fa75d2a5510b",
+  "checked_at_utc": "2026-10-04T01:13:54.436199+00:00",
+  "files": [
+    {
+      "path": "BATON_HANDOFF.md",
+      "source_sha256": "48c84796d492d7a8b6ea6ce866911a5d77fc681ef39f2124f599bf92de7bad18",
+      "mirror_status": "baseline_safe_to_replace"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/README.md",
+      "source_sha256": "f14b268ff4c15ae47cd071e392a41d38f06ce5f7acc4d4fd806e30b0aa344231",
+      "mirror_status": "baseline_safe_to_replace"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/run.json",
+      "source_sha256": "8e762f6da4a656887e893f38b4d2f2db95e26f9eb44782d3da5a7ad93811af08",
+      "mirror_status": "baseline_safe_to_replace"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/DOCS_RESOLUTION.md",
+      "source_sha256": "bd232fb6e62bf8e27127213ba9c916ce1e55faf802ec5a7ca30c0d7ed1d4e1a6",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/ROOT_REQUIREMENTS_AUDIT.md",
+      "source_sha256": "a71107fdeaa525eac5d96438f239394e821121bf0fa5b9d810981d3ef81fc38a",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/ROOT_REQUIREMENTS_RECEIPT.json",
+      "source_sha256": "87a993f3b38367f0478df14551e9189d2950927a8db944fd1c357e57c7593c24",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/body-requirements/REQUIREMENTS_AUDIT.md",
+      "source_sha256": "a5375fc2f15f8a17088b514f861403f9abf2f1f92ba47f2fbb65177ba3aad0fe",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/body-requirements/REQUIREMENTS_CROSSREVIEW.md",
+      "source_sha256": "27863923c067feda8ec94209a0367e8b0413d884cf39d30f620c0bde9f6fea6f",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/body-requirements/REQUIREMENTS_CROSSREVIEW_RECEIPT.json",
+      "source_sha256": "5fc6ecd7efa6b314afdd255fc047d399ae688b1241bcdbdbbe865b4ace6d6bc4",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/body-requirements/REQUIREMENTS_RECEIPT.json",
+      "source_sha256": "74c329dacaa8eae521ef68a7cef666af7bdb0a49c0df83ea13f875daa51be3f0",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/body-requirements/SAVED_PUBLICATION_PAIRS.json",
+      "source_sha256": "a3f823a89cf12235f3cb0b241a9ea53af20e98a34e903cb862dd1261f5bf516b",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/body-requirements/capture.py",
+      "source_sha256": "5e13971bf9a21e9271c929fbd7a0349b1f581dc77ed98bd4ef0de0b7ce000e66",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/body-requirements/cross_capture.py",
+      "source_sha256": "2c78ea66be126b70c3a06aca2bc4a094120999ba37770c996a8d8c370df21d31",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/body-requirements/saved_publication_capture.mjs",
+      "source_sha256": "281531582b876e5e50e1f16b78f309479ae7f8809543d655adec1b245e333854",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/body-requirements/verification.json",
+      "source_sha256": "3dd94da92111d28a4f733a59fca12c77d332f941d1f2ac89d93a353ddef57104",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/current-published-revision.json",
+      "source_sha256": "3e2b4202de16dd8cb3e1f0bd563d442b4037625f3b60bc244a8095ad52d96dc1",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/execution-requirements/POOL_CROSS_RECEIPT.json",
+      "source_sha256": "ad73c420bc36fda3a3f2c75012a3565954e2267ba1a68017b7c4bc8d63431c1b",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/execution-requirements/POOL_REQUIREMENTS_CROSSREVIEW.md",
+      "source_sha256": "a310006b05e9e1b6e08f0eecc2f6c133d7c337461ff37ab24b5bb7619e6f6a1e",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/execution-requirements/READER_DELTA.md",
+      "source_sha256": "9c6925759f3abed2de4c5e3219e3ec9f2592e80eee10eb9662c44ebcc12dcd2d",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/execution-requirements/REQUIREMENTS_AUDIT.md",
+      "source_sha256": "942897af9f299fb4b565a415bc3a7cec0a514c6aafb29871890742a4f108a701",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/execution-requirements/REQUIREMENTS_RECEIPT.json",
+      "source_sha256": "54cb54b0edbd7405cf570b34448afac6c7fcd339e357c70f2c314bb0f557e6ba",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/execution-requirements/ROOT_CROSS_RECEIPT.json",
+      "source_sha256": "54f23cd35e3f9e23880c1ba497c8c4409bc8a62158b08b234a59ef5b0f2e079f",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/execution-requirements/ROOT_REQUIREMENTS_CROSSREVIEW.md",
+      "source_sha256": "16fafe1fab5d086b2d8e919c888075870024a06ed8d62379c931d0e611cf7378",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/execution-requirements/capture.py",
+      "source_sha256": "26692677b4db5bb6636654c4402d6270469025b702f7c84c02e13b0f6c5fe610",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/execution-requirements/pool_cross_capture.py",
+      "source_sha256": "2944a1812a32a02d828c9e672834789701283efe1cbccd8bed5e021327117096",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/pool-orderer-requirements/BODY_REQUIREMENTS_CROSSREVIEW.md",
+      "source_sha256": "60fe739167842a84a75131f5a3fd9bac4683180b7ba0ca890fd573e64754fc0a",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/pool-orderer-requirements/EXECUTION_REQUIREMENTS_CROSSREVIEW.md",
+      "source_sha256": "bd2f3c3c04afb3510ddd13ef81def1d0c873db95953134dc8df0c263b7d646d1",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/pool-orderer-requirements/READER_DELTA.md",
+      "source_sha256": "038e61a1a82e2f930bf4f94611197d302856f839bcd259d278dcc35ceaeef7a4",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/pool-orderer-requirements/REQUIREMENTS_AUDIT.md",
+      "source_sha256": "31e30126a6d05257110efcfcc1967e9c2c827b4d76dd5d2163e44c7dbf2d35cc",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/pool-orderer-requirements/requirements-crossreview-receipt.json",
+      "source_sha256": "6f94fa323a41e987e35adccf6119c20abbc5f85311f695e981d5a14db878e790",
+      "mirror_status": "new"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave14/pool-orderer-requirements/requirements-receipt.json",
+      "source_sha256": "95b20f167d1d69b8a187f284987535cd70e0b5e3b35434b80380f11466d48c1f",
+      "mirror_status": "new"
+    }
+  ],
+  "unrelated_mirror_changes_preserved": true
+}
