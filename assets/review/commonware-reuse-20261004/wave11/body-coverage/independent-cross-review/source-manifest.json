@@ -1,0 +1,59 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "fetched_at_utc": "2026-10-04T00:16:16.911622+00:00",
+  "fresh_files": 5,
+  "fresh_complete_trees": 1,
+  "tree_sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca",
+  "sources": [
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/resolver/actor.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/resolver/actor.rs",
+      "sha256": "2671df7aedaa0474434ec3fbc91ba15b69206276a82cdb6d76d6d0e7253aebb1",
+      "git_blob": "38ad7ff1fc7e73057603029684b4dee6a453859c",
+      "tree_blob": "38ad7ff1fc7e73057603029684b4dee6a453859c",
+      "status": "fresh-independent-wave11-cross-review-blob-matched"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/durability.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/durability.rs",
+      "sha256": "e598ad620b40842c3198b2f748a4c1d8b07b4e56c5d1352e6eb1493c71a3e2d8",
+      "git_blob": "0f74c201df825e62929d600d405defb4b8922448",
+      "tree_blob": "0f74c201df825e62929d600d405defb4b8922448",
+      "status": "fresh-independent-wave11-cross-review-blob-matched"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/reducer.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/reducer.rs",
+      "sha256": "f1a0876072f4f061bf6e889f3cff060855f87a4b07b0f386daf9c74b7076fc8f",
+      "git_blob": "123bd7f7cba52d330f7be2d9dbe55d0e0f3a4f8d",
+      "tree_blob": "123bd7f7cba52d330f7be2d9dbe55d0e0f3a4f8d",
+      "status": "fresh-independent-wave11-cross-review-blob-matched"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/algebra/tips.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/algebra/tips.rs",
+      "sha256": "8d406b47b48b0d025dd02637763bf4dda08b4ec99cac652119dc5d1361c797d1",
+      "git_blob": "0fedf6fb07566314891fb99cc88d608872782304",
+      "tree_blob": "0fedf6fb07566314891fb99cc88d608872782304",
+      "status": "fresh-independent-wave11-cross-review-blob-matched"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "git_blob": "97cc19442c657257c2c5a335c864c39c2b6994ab",
+      "tree_blob": "97cc19442c657257c2c5a335c864c39c2b6994ab",
+      "status": "fresh-independent-wave11-cross-review-blob-matched"
+    }
+  ]
+}

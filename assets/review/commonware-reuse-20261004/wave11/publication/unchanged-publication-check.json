@@ -1,0 +1,10 @@
+{
+  "checked_at_utc": "2026-10-04T00:25:38.466493+00:00",
+  "baseline_git_sha": "d4915b310c0fd071d6c49b12754fd556f6879981",
+  "published_revision": "SKpBMBP5bB8nbXs83CtR",
+  "live_pages_files_equal_previous_verified_revision": true,
+  "canonical_reader_files": 88,
+  "all_reader_files_equal_committed_baseline_and_local_mirror": true,
+  "new_change_request_needed": false,
+  "raw_remote_attachment_bytes_verified": false
+}

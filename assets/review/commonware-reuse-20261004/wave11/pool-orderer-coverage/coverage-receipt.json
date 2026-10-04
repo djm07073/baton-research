@@ -1,0 +1,320 @@
+{
+  "baseline": "d4915b310c0fd071d6c49b12754fd556f6879981",
+  "reviewed_pages": {
+    "docs/README.md": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4",
+    "docs/SUMMARY.md": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8",
+    "docs/overview/architecture.md": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+    "docs/overview/interfaces.md": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+    "docs/overview/rust-interfaces.md": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+    "docs/overview/glossary.md": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+    "docs/overview/networking.md": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+    "docs/tx/README.md": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+    "docs/tx/interfaces.md": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049",
+    "docs/consensus/block-body.md": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+    "docs/consensus/ordered-input.md": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+    "docs/consensus/decisions.md": "5cd5d25894a485829ba0fb65ded031b15589cd4312ba15931dfcb8e5577c0adf",
+    "docs/reference/integration.md": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+    "docs/reference/verification.md": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b",
+    "docs/e2e/normal.md": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+    "docs/e2e/block-body.md": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+    "docs/e2e/native-consensus.md": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba",
+    "docs/e2e/canonical.md": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+    "docs/e2e/recovery.md": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+    "docs/execution/README.md": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+    "docs/baton/direction.md": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97"
+  },
+  "source_manifest_sha256": "e079bb35fe3e4cb301cf70a51b8a2698dd2f6663185284128ec5e758df6001ca",
+  "fresh_files": 24,
+  "complete_trees": 5,
+  "source_identities": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "Cargo.toml",
+      "sha256": "a6f32c206c57ed0be605cda7784ca2e2b3131163c069c77ac406949712bb7dae",
+      "git_blob": "ff495b37d56570a6a2b11f45920120acace92e40"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/lib.rs",
+      "sha256": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470",
+      "git_blob": "c57526d2084d4150d9b6c69494313aa8e47db577"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "sha256": "07ea171008ba6ddac67f68e6878f9ec4cc1c8cded9eedc6aad80a8cf11ed5bc3",
+      "git_blob": "3d6193cbc9350d5fe563aa3d84f28d312685dfa6"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/durability.rs",
+      "sha256": "e598ad620b40842c3198b2f748a4c1d8b07b4e56c5d1352e6eb1493c71a3e2d8",
+      "git_blob": "0f74c201df825e62929d600d405defb4b8922448"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/reducer.rs",
+      "sha256": "f1a0876072f4f061bf6e889f3cff060855f87a4b07b0f386daf9c74b7076fc8f",
+      "git_blob": "123bd7f7cba52d330f7be2d9dbe55d0e0f3a4f8d"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/finality.rs",
+      "sha256": "00c1b5b4d7e114b6d3f7654b61ba3bfe9a228adb3bb94ceac1f1b71878eb81a0",
+      "git_blob": "f67cf7eda996fd6a2860e0cc62520d5625c797e1"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/algebra/tips.rs",
+      "sha256": "8d406b47b48b0d025dd02637763bf4dda08b4ec99cac652119dc5d1361c797d1",
+      "git_blob": "0fedf6fb07566314891fb99cc88d608872782304"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/resolver/actor.rs",
+      "sha256": "2671df7aedaa0474434ec3fbc91ba15b69206276a82cdb6d76d6d0e7253aebb1",
+      "git_blob": "38ad7ff1fc7e73057603029684b4dee6a453859c"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "sha256": "f5f5f5ce4a43944e7a54467c6f796bd988c1bba0a8ff5e793dbf2c757827de34",
+      "git_blob": "f7bb8ca46d8224b735b652aa0d668fc5aaf95f30"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/history.rs",
+      "sha256": "c5c4410900877c0896f7ff27e874e6ab350b7c0fda62cf2d4c794696dc275ff7",
+      "git_blob": "f3a2e7b0c6e31b67f262b0c27303203bbb81c5e9"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "git_blob": "97cc19442c657257c2c5a335c864c39c2b6994ab"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/mod.rs",
+      "sha256": "cbd060766dafdcee549826b92529bb0a865f56e04c6e9db7d1b50ba9ebe58877",
+      "git_blob": "51cec09eace51b01c1b313090007579a38f5dc2b"
+    },
+    {
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/actor.rs",
+      "sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+      "git_blob": "becd1fd372cf61a11a388d1528dd1be2d4243316"
+    },
+    {
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+      "git_blob": "90fab9253f40757e49ae39472683e187d821e25e"
+    },
+    {
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/Cargo.toml",
+      "sha256": "2eff13e932d0b752716fdd2e191de5ed1bf544dea7a7df65404ed48b2697cd5f",
+      "git_blob": "415d0178ff84d004972f8b21ce736e36a262ea3a"
+    },
+    {
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "Cargo.toml",
+      "sha256": "8c8d35af791227dfb050982fd193eac886df0a9d5eb01b9690723ba16afce8ad",
+      "git_blob": "bc97e1da17e589679cc5b95a6f94ef6f44c46b28"
+    },
+    {
+      "repo": "commonwarexyz/constantinople",
+      "pin": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "sha256": "96ff6fd243372b0fb891102a6cab1d0c25204b9600b2efd6732266f6dcfdccd5",
+      "git_blob": "557f5ea4fa827efcd698134799a6e8cdda781cd0"
+    },
+    {
+      "repo": "paradigmxyz/reth",
+      "pin": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/traits.rs",
+      "sha256": "8d2550da48835784874f9e4e31894e40f713b3369eda145e9e33b9e8e471cb4e",
+      "git_blob": "ef4d74953fb96ceae93ed407dbe4ed9518667141"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/payload/builder/src/lib.rs",
+      "sha256": "61568290e08cc06416190b67a271acaf22abedb0132acc629980067dcff87121",
+      "git_blob": "58c491944db4c7b486e7b93efd362cfdf915e54c"
+    },
+    {
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "Cargo.lock",
+      "sha256": "c1827622a850b60a157d203edb657bd37bf33476f941a3bca8cea17f5b4bc177",
+      "git_blob": "e3f8ea208bfb675dc283086cc5638f2f605becec"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "Cargo.lock",
+      "sha256": "5b71c9a3e69cfa5eda42df214a8e35600b062c2d75c7b25c94b95c6966a013e8",
+      "git_blob": "d06bd4e455414df794115864aad79e0f4b45c2f3"
+    },
+    {
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/tx.rs",
+      "sha256": "1ca9f24f1906a58102cf87e53d5fc1b8e06ceac620c99782d86008af205a7833",
+      "git_blob": "a870a59297f4cbd448597471f3c921b735ada1e6"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/journal/contiguous/mod.rs",
+      "sha256": "84119363a7903072adfcaead61674e4071adee83ec9520dfedd1e97a58b58a75",
+      "git_blob": "48c32fb4c76aedafb24690dc5766db4e551484e7"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/metadata/storage.rs",
+      "sha256": "fc8c17ff7bbd07b65c30f94d4e1b3f0d2670b8948cfbcf67c6dfec8adfe54044",
+      "git_blob": "2b52ade1d0cf2da049204ba95cf0f636523cbe6c"
+    }
+  ],
+  "diagrams": [
+    {
+      "page": "docs/consensus/README.md",
+      "diagram": "diagram-16",
+      "mmd_sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93",
+      "svg_sha256": "2f77191f2bfef52bec24c217353e1f2b3bc88841d0c3c6003c9667b1b1a1ebaa"
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "diagram": "diagram-17",
+      "mmd_sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb",
+      "svg_sha256": "6db0e1fd7e04031a2b66c42891e289ae85ac981e28f13ab1df3f1508b618fbcd"
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "diagram": "diagram-18",
+      "mmd_sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d",
+      "svg_sha256": "6dce7bb98004ab0f970b4d66e24ce3ace964b645222f2b010e1f9c0c754a69c9"
+    },
+    {
+      "page": "docs/overview/architecture.md",
+      "diagram": "diagram-01",
+      "mmd_sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f",
+      "svg_sha256": "1cc2f73798aebe66e0df5340e9b8c08089b0584ee7548f2945260905acac8559"
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "diagram": "diagram-08",
+      "mmd_sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff",
+      "svg_sha256": "184c85b990f2fbfb2f977c01b16399acdfa2a184970a6ccb0848743b93bdc93a"
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "diagram": "diagram-09",
+      "mmd_sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed",
+      "svg_sha256": "61745836f1fa617c1beec94554690bf7e6cbc23e60944bf09845aab846e4cd75"
+    },
+    {
+      "page": "docs/e2e/state-sync.md",
+      "diagram": "diagram-14",
+      "mmd_sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c",
+      "svg_sha256": "109065a5b3be43bcb661809e1754cc05cf721759a74c09c655f7a99202ff2948"
+    },
+    {
+      "page": "docs/e2e/leader.md",
+      "diagram": "diagram-06",
+      "mmd_sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2",
+      "svg_sha256": "9be4f7d669f013df97b47eef920b99100dcf7c4b2b9daa704c3f61b817c8a3a6"
+    },
+    {
+      "page": "docs/e2e/leader.md",
+      "diagram": "diagram-12",
+      "mmd_sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e",
+      "svg_sha256": "8ffeb31d72c057e91004e0674e74ed964afbbba170c4cb31673e18ce9a6b4fb9"
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "diagram": "diagram-13",
+      "mmd_sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff",
+      "svg_sha256": "0ca441e6c0202ccd6b8d71a4b38fa386a11ad391b4043724744484f65568849a"
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "diagram": "diagram-10",
+      "mmd_sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c",
+      "svg_sha256": "0ac9ed66c95d13fdded7fa061856d320dc86cc4fc9125445bc5f7953dfb3308d"
+    },
+    {
+      "page": "docs/e2e/results.md",
+      "diagram": "diagram-11",
+      "mmd_sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda",
+      "svg_sha256": "e0859f3d552cb117790ba65b3c61c5b0735b8e5a4ea22e8ec7713e14650e58f3"
+    },
+    {
+      "page": "docs/e2e/native-consensus.md",
+      "diagram": "diagram-15",
+      "mmd_sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0",
+      "svg_sha256": "957cbfc54b6c53c341eba4619f31838811f3681f2813a1ee56560dde412583f0"
+    },
+    {
+      "page": "docs/e2e/normal.md",
+      "diagram": "diagram-02",
+      "mmd_sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66",
+      "svg_sha256": "471643b14f453a36226a53e4f2bd585aefc29c3d7ec88f0f6b75fa6a392aefec"
+    },
+    {
+      "page": "docs/e2e/normal.md",
+      "diagram": "diagram-03",
+      "mmd_sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80",
+      "svg_sha256": "43236514d36d4a482938ab1b5c07cceb56fd46d573cf74f0865aee5f936815b9"
+    },
+    {
+      "page": "docs/e2e/reschedule.md",
+      "diagram": "diagram-07",
+      "mmd_sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5",
+      "svg_sha256": "a4197537a07c462855a651bc55ebaec28dfc09ce2d09d71c8d36e37e1b8529cb"
+    },
+    {
+      "page": "docs/e2e/block-body.md",
+      "diagram": "diagram-04",
+      "mmd_sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20",
+      "svg_sha256": "f434320b7787129fd370cc6dbe4313470c3eaac18a60d806c8893b13e9510f97"
+    },
+    {
+      "page": "docs/e2e/block-body.md",
+      "diagram": "diagram-05",
+      "mmd_sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f",
+      "svg_sha256": "e62e69a588c1bf8ab6826c148f5460a70c6bd78cd6482dfd54907620107f28ef"
+    }
+  ],
+  "traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "methods": 30,
+  "blank_application_choices": 39,
+  "native_execution_or_build": false,
+  "canonical_edits_by_reviewer": false
+}

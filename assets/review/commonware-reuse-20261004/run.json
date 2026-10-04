@@ -551,6 +551,46 @@
         "docs/overview/architecture.md": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
         "docs/tx/interfaces.md": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049"
       }
+    },
+    {
+      "wave": 11,
+      "status": "reviewed_no_reader_delta",
+      "reports": [
+        {
+          "path": "wave11/DOCS_RESOLUTION.md",
+          "sha256": "18fe65e1538f2abae758ae9257a1bd9597c54fed283486e1022d99e7bb4230ff"
+        },
+        {
+          "path": "wave11/goal-coverage/COVERAGE_AUDIT.md",
+          "sha256": "08b7022ba85d5bddb070e8582b1ef4e3710c53cc41be83c8732cefdf4d602a63"
+        },
+        {
+          "path": "wave11/body-coverage/COVERAGE_AUDIT.md",
+          "sha256": "cc3a82ee988074ffa8142586aa74341b73211a2c2408aa73d117aacff0bf7460"
+        },
+        {
+          "path": "wave11/body-coverage/COVERAGE_CROSS_REVIEW.md",
+          "sha256": "5164272071ee015a4865eef994961db3059954cee2cf0de17221dc4ba067a61b"
+        },
+        {
+          "path": "wave11/pool-orderer-coverage/COVERAGE_AUDIT.md",
+          "sha256": "02c4d329ab763d108fdaceb7209f85ed7275eced18ad06164f276d172f71470f"
+        },
+        {
+          "path": "wave11/pool-orderer-coverage/COVERAGE_CROSS_REVIEW.md",
+          "sha256": "bc4d18bfbbcca0b12bc2cf5524c6db4820a8b09f8d495ea6e41a93e195600a54"
+        },
+        {
+          "path": "wave11/execution-coverage/COVERAGE_AUDIT.md",
+          "sha256": "6810a597678a41ea15edf8656ddcf0398955d1ebf2d5800ef81f3d41dc354db0"
+        },
+        {
+          "path": "wave11/execution-coverage/COVERAGE_CROSS_REVIEW.md",
+          "sha256": "3f06193a1a5cb10f93cea2a9185a4b69464e2c9639f8e40ccc7bb7f64fabbb39"
+        }
+      ],
+      "reader_baseline_git_sha": "d4915b310c0fd071d6c49b12754fd556f6879981",
+      "publication_unchanged_check": "wave11/publication/unchanged-publication-check.json"
     }
   ],
   "completion_audit": null,
@@ -587,7 +627,7 @@
     "verification": "wave10/publication/gitbook-verification.json",
     "live_verification": "wave10/publication/gitbook-live-verification.json"
   },
-  "updated_at_utc": "2026-10-04T00:04:44.420961+00:00",
+  "updated_at_utc": "2026-10-04T00:25:38.466493+00:00",
   "publication_history": [
     {
       "change_request_id": "OTFc0W01ZQvv2f4uiiU8",
@@ -744,5 +784,5 @@
       "live_verification": "wave10/publication/gitbook-live-verification.json"
     }
   ],
-  "github_baseline_verified_sha": "01cf73b41dedd81614237977e4edf150c7d19a81"
+  "github_baseline_verified_sha": "d4915b310c0fd071d6c49b12754fd556f6879981"
 }

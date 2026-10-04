@@ -1,0 +1,1478 @@
+{
+  "utc": "2026-10-04T00:13:42.730680+00:00",
+  "head": "d4915b310c0fd071d6c49b12754fd556f6879981",
+  "scope": "Read-only canonical source/hash/diagram equality audit; no build, Rust compile, E2E or visual rendering",
+  "pages": [
+    {
+      "path": "README.md",
+      "sha256": "861d73faee57e85a98d1eecfa0c278ccde66801c37b856d09a1d088505bad0b9",
+      "lines": 34,
+      "anchors": []
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "27b8bd42e75f3020e3dfd53302774bdb808fa579827c259bf2dc712617ad947a",
+      "lines": 40,
+      "anchors": []
+    },
+    {
+      "path": "BATON_HANDOFF.md",
+      "sha256": "98037b88034e7e95c14a70f2ed75d89e99144b6bbe575d938eed18fce08d34f2",
+      "lines": 150,
+      "anchors": []
+    },
+    {
+      "path": "baton-paper.md",
+      "sha256": "f756eeb76c14159f314258aa16b02a23d9c8aa1d45260a0c06cdeeb6c5fb039d",
+      "lines": 285,
+      "anchors": []
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4",
+      "lines": 35,
+      "anchors": []
+    },
+    {
+      "path": "docs/SUMMARY.md",
+      "sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8",
+      "lines": 54,
+      "anchors": []
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+      "lines": 92,
+      "anchors": []
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+      "lines": 352,
+      "anchors": [
+        {
+          "needle": "The five application declarations",
+          "hits": [
+            {
+              "line": 5,
+              "text": "The five application declarations propose integration, not implemented crates. The separately labelled Commonware signature excerpts are existing upstream APIs, not new Baton declarations. Concrete associated-type fields, codecs, channels, errors, and worker placement remain undecided. These interfaces adopt no new wire schema or policy and do not require one actor or crate per role."
+            }
+          ]
+        },
+        {
+          "needle": "Canonical call order:",
+          "hits": [
+            {
+              "line": 22,
+              "text": "**Canonical call order:** Client \u2192 `TxPool::admit` \u2192 upstream `Automaton::propose` \u2192 native consensus \u2192 `Orderer::next_range` \u2192 `Executor::commit` \u2192 `Storage::prepare/apply` \u2192 `Orderer::acknowledge` / `TxPool::on_commit`. Baton chooses direction through `Baton::plan` and requests `Executor::execute(block)` for undecided inputs. Executor returns completed effects without requiring a root for every speculative attempt; Storage prepares the selected commitment before result signing. No separate Planner, Runtime, ResultService, or reschedule interface is required. Static analysis belongs to TxPool."
+            }
+          ]
+        },
+        {
+          "needle": "pub trait Executor",
+          "hits": [
+            {
+              "line": 220,
+              "text": "pub trait Executor: Send {"
+            }
+          ]
+        },
+        {
+          "needle": "pub trait Storage",
+          "hits": [
+            {
+              "line": 295,
+              "text": "pub trait Storage: Send {"
+            }
+          ]
+        },
+        {
+          "needle": "fn execute(",
+          "hits": [
+            {
+              "line": 239,
+              "text": "    fn execute("
+            }
+          ]
+        },
+        {
+          "needle": "fn commit(",
+          "hits": [
+            {
+              "line": 247,
+              "text": "    fn commit("
+            }
+          ]
+        },
+        {
+          "needle": "fn prepare(",
+          "hits": [
+            {
+              "line": 313,
+              "text": "    fn prepare("
+            }
+          ]
+        },
+        {
+          "needle": "fn apply(",
+          "hits": [
+            {
+              "line": 323,
+              "text": "    fn apply("
+            }
+          ]
+        },
+        {
+          "needle": "fn on_execution(",
+          "hits": [
+            {
+              "line": 193,
+              "text": "    fn on_execution(&mut self, result: Self::ExecutionResult) -> Result<(), Self::Error>;"
+            }
+          ]
+        },
+        {
+          "needle": "fn on_commit(",
+          "hits": [
+            {
+              "line": 72,
+              "text": "    fn on_commit("
+            },
+            {
+              "line": 203,
+              "text": "    fn on_commit(&mut self, result: Self::CommitResult) -> Result<(), Self::Error>;"
+            }
+          ]
+        },
+        {
+          "needle": "Never sign imported material",
+          "hits": [
+            {
+              "line": 260,
+              "text": "    /// Never sign imported material as own execution or sign before the commitment exists."
+            }
+          ]
+        },
+        {
+          "needle": "Return a certificate once f+1",
+          "hits": [
+            {
+              "line": 266,
+              "text": "    /// Return a certificate once f+1 signatures match the full subject; fewer returns None."
+            }
+          ]
+        },
+        {
+          "needle": "PreparedResult is a retained/cloneable",
+          "hits": [
+            {
+              "line": 344,
+              "text": "PreparedResult is a retained/cloneable material handle so signing and application can share the same sealed result; use upstream retained batches rather than copying a second database. Batch creation, sealed-parent forks, pruning, sync sources and barrier observation use the upstream handles described in [QMDB](../execution/qmdb.md). This facade does not hide the crucial limit: `DatabaseSet::fork_batches` accepts a merkleized parent. Continuing one unsealed batch can defer roots; rootless branching across completed blocks requires an application read/effects adapter. A local generation, writer permit or retention coordinate must not become part of the cross-validator signing subject merely because it appears in a local binding record."
+            }
+          ]
+        },
+        {
+          "needle": "The concrete Storage attachment",
+          "hits": [
+            {
+              "line": 346,
+              "text": "The concrete Storage attachment also supplies authorized branch handles internally: upstream new_batches at an applied base, fork_batches at a sealed parent, or conditional replay/materialization or an application overlay for a rootless parent. Executor reads/writes through those concrete handles. Storage::read cannot substitute for pending-parent access. The inspected Any/Current unsealed/staged handles are one-shot and non-Clone; retain required effects before preparing them. See [concrete branch access](../execution/qmdb.md#give-executor-concrete-branch-access) for production wrapper and generic type constraints."
+            }
+          ]
+        },
+        {
+          "needle": "These declarations do not claim a complete state-sync API",
+          "hits": [
+            {
+              "line": 352,
+              "text": "`Executor::commit` returns after Storage proves durable local completion. Complete direct effects \u2192 Storage preparation/root \u2192 Executor full-subject signing \u2192 verified f+1 certificate is the certification path. Direct canonical application may progress independently of peer collection once exact order/base hold. Imported application additionally requires a verified certificate and applicable material before stopping local work. Concrete peer codec, material requests, verification and switching remain undecided. These declarations do not claim a complete state-sync API. See [State sync](../execution/state-sync.md) and [Execution responsibilities](../execution/README.md)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/overview/glossary.md",
+      "sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+      "lines": 63,
+      "anchors": []
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+      "lines": 72,
+      "anchors": [
+        {
+          "needle": "Executor computes transaction changes",
+          "hits": [
+            {
+              "line": 3,
+              "text": "**Executor computes transaction changes; Storage calculates roots and makes selected changes durable.** Executor manages execution-tree paths, certifies results with peer Executors and orchestrates normal-path state sync. Storage owns QMDB, canonical mutation, queries, physical retention and recovery. Both roles can share an implementation without becoming separate actors."
+            }
+          ]
+        },
+        {
+          "needle": "Executor peer communication",
+          "hits": [
+            {
+              "line": 15,
+              "text": "| Executor peer communication | Exchange signatures, certificates, change sets, and outputs; query, retry, and serve | Executor \u2194 Executor over Commonware P2P, without Baton relay or approval |"
+            }
+          ]
+        },
+        {
+          "needle": "Completion delivery",
+          "hits": [
+            {
+              "line": 18,
+              "text": "| Completion delivery | Durable delivery ACK to Orderer; canonical tx outcomes to TxPool; execution results / optional progress notice to Baton | No Baton response or approval required for certification, sync, application, or ACK |"
+            }
+          ]
+        },
+        {
+          "needle": "Do not require",
+          "hits": [
+            {
+              "line": 30,
+              "text": "Do not require `commonware_glue::stateful::Application`. Its propose/verify/apply outputs are merkleized; using that lifecycle for every speculative attempt can force a commitment before it is useful. Reuse the lower-level batch/database primitives directly. **Root calculation is deferred until preparation needs it, but always precedes full-result signatures.** Continuing one unsealed batch is supported; branching from an unsealed completed parent still requires an application overlay or another compatible API. [QMDB paths and source versions](qmdb.md#existing-apis-at-the-native-pin-and-indexed-release)."
+            }
+          ]
+        },
+        {
+          "needle": "Root calculation is deferred",
+          "hits": [
+            {
+              "line": 30,
+              "text": "Do not require `commonware_glue::stateful::Application`. Its propose/verify/apply outputs are merkleized; using that lifecycle for every speculative attempt can force a commitment before it is useful. Reuse the lower-level batch/database primitives directly. **Root calculation is deferred until preparation needs it, but always precedes full-result signatures.** Continuing one unsealed batch is supported; branching from an unsealed completed parent still requires an application overlay or another compatible API. [QMDB paths and source versions](qmdb.md#existing-apis-at-the-native-pin-and-indexed-release)."
+            }
+          ]
+        },
+        {
+          "needle": "Fencing covers",
+          "hits": [
+            {
+              "line": 32,
+              "text": "Keep speculative and canonical state separate. Execute produces changes without canonical commit authority. Commit and state sync use Storage only for results bound to proven exact input and the correct predecessor. They share the same canonical writer. An arriving sync result cannot drop an ongoing mutation or bypass it through another cloned DB handle. Fencing covers execution, lazy reads, staged expansion, materialization and Merkleization wherever live database access remains. Switching, race and failure contracts remain open."
+            }
+          ]
+        },
+        {
+          "needle": "## Open decisions",
+          "hits": [
+            {
+              "line": 34,
+              "text": "## Open decisions"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+      "lines": 72,
+      "anchors": [
+        {
+          "needle": "execute(block)` returns completed",
+          "hits": [
+            {
+              "line": 13,
+              "text": "`execute(block)` returns completed unsealed effects and outputs. Storage prepares a root only when a selected storage/signing boundary needs it. Upstream sealed-parent child batches can be reused directly; rootless children require the additional read/effects adapter described in [QMDB](qmdb.md#defer-roots-without-inventing-an-unsealed-parent-fork)."
+            }
+          ]
+        },
+        {
+          "needle": "If ExecutionResult owns",
+          "hits": [
+            {
+              "line": 15,
+              "text": "Storage supplies [authorized concrete branch handles](qmdb.md#give-executor-concrete-branch-access) internally through existing batch creation/fork APIs. Executor uses their keyed methods; canonical Storage::read is not a pending-parent query. If ExecutionResult owns an upstream one-shot unsealed draft, prepare consumes it. Retain exact effects beforehand when the same rootless prefix must support another child or preparation; sealed material instead uses existing cheap clones and child forks."
+            }
+          ]
+        },
+        {
+          "needle": "commit(range)` validates",
+          "hits": [
+            {
+              "line": 17,
+              "text": "`commit(range)` validates irrevocable exact input and its canonical predecessor, completes missing work, and selects the matching execution path. It calls Storage to prepare/apply exact material, fences conflicts and logically prunes branches while retaining valid descendants. Storage controls physical reclamation after worker/query/result/sync/recovery references permit it. CommitResult means state, outputs, cursor and provenance are recoverably durable. Advisory cancellation cannot drop a canonical mutation future."
+            }
+          ]
+        },
+        {
+          "needle": "Complete effects",
+          "hits": [
+            {
+              "line": 44,
+              "text": "`sign_result` uses a Storage-prepared commitment plus Executor-retained own direct execution/validation evidence. Preparation preserves the selected rule and exact input/base/result/outputs binding; it cannot turn an imported result into direct execution. Complete effects \u2192 Storage root preparation \u2192 full statement \u2192 signature is the order. Advisory speculative order alone cannot be signed. Correctness and local durability remain separate. Per-block/per-chunk boundaries and root/encoding choices remain open; retain statement/provenance obligations through recovery."
+            }
+          ]
+        },
+        {
+          "needle": "The result threshold remains f+1",
+          "hits": [
+            {
+              "line": 70,
+              "text": "**The result threshold remains f+1.** Built-in `N5f1` certificate schemes use `n-f`, which is `4f+1` when `n=5f+1`; they cannot be copied unchanged for execution results. Existing `N5f1::f_plus_one` supplies the arithmetic for the same full authenticated committee. If a generic certificate wrapper is selected, its result-quorum adapter must enforce f+1 consistently during assembly and verification. Lower-level signature/batch/bitmap APIs can be reused while that choice is open. This does not alter native consensus quorums. [Quorum delegation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/ordered.rs#L274), [fault model and f+1](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/faults.rs#L62)."
+            }
+          ]
+        },
+        {
+          "needle": "assemble` is not signature validation",
+          "hits": [
+            {
+              "line": 72,
+              "text": "An upstream attestation contains a signer index and signature, and its certificate representation contains signature data; neither supplies our execution statement. Keep a bounded, versioned subject envelope and collect by its exact full identity. `assemble` is not signature validation. Duplicate input to scheme batch/assembly APIs is unsupported, and `Signers::from` can panic on duplicate or invalid indices. Validate before construction, and use roster-bounded certificate decoding on peer input. BLS multisig additionally requires caller-verified proofs of possession; non-attributable threshold BLS cannot be assumed to retain the required original signer evidence. These are conditional reuse requirements, not a selected key or certificate format. [Scheme caller contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L346), [signer codec](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L509), [scheme distinctions](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L10)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+      "lines": 223,
+      "anchors": [
+        {
+          "needle": "Executor produces changes",
+          "hits": [
+            {
+              "line": 3,
+              "text": "**Executor produces changes; Storage prepares their roots and applies the selected canonical result through QMDB.** A checkpoint marks reusable completed work and need not imply hashing every abandoned attempt. QMDB supplies batch, authentication and persistence algorithms. Readable state and durable completion are separate milestones."
+            }
+          ]
+        },
+        {
+          "needle": "Reuse guarded reads",
+          "hits": [
+            {
+              "line": 79,
+              "text": "**Reuse guarded reads and existing QMDB proof APIs for state queries.** If Current fits the chosen root scheme, ordered/unordered `key_value_proof` authenticates an active value against its canonical root; ordered also supplies `exclusion_proof`. Their verifiers and bounded codecs already exist. Capture value, proof and root under the same valid DB read authority, then bind the retained canonical checkpoint and readiness metadata through Storage. Local `None` and historical operation inclusion do not prove current absence. A DB proof does not supply the full f+1 execution certificate, order/runtime checks or local durability; certificate queries stay in Executor. Reader handles are guarded access, not arbitrary historical snapshots. [Current value verifier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/unordered/db.rs#L58), [Ordered absence verifier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs#L144), [Proof generation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs#L204), [Reader guard](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L205), [Historical operation scope](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs#L477)."
+            }
+          ]
+        },
+        {
+          "needle": "DatabaseSet has no single root",
+          "hits": [
+            {
+              "line": 75,
+              "text": "Merkleize each database's batch and compute its root. DatabaseSet has no single root/merkleize operation. Binding multiple database roots and outputs into one result is an open adapter contract. The names above refer to [database lifecycle traits](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L508); distinguish generic execution commands from upstream methods."
+            }
+          ]
+        },
+        {
+          "needle": "Storage supplies a valid working batch",
+          "hits": [
+            {
+              "line": 101,
+              "text": "**Storage supplies a valid working batch; Executor uses it to read and compute changes.** At the applied canonical base, use `DatabaseSet::new_batches`. At a sealed pending parent, use `fork_batches` or the sealed batch's `new_batch`. The concrete attachment passes that authorized handle internally to Executor; this does not require another public application trait or Storage method. `Storage::read` remains a canonical query boundary, not a pending-parent reader."
+            }
+          ]
+        },
+        {
+          "needle": "Generic Unmerkleized only",
+          "hits": [
+            {
+              "line": 105,
+              "text": "AnyUnmerkleized provides inherent `get`, `get_many`, owned `write` and `stage`; Current has corresponding methods. Generic Unmerkleized only provides merkleize, and DatabaseSet's unsealed output is merely Send. The production keyed path therefore uses the chosen concrete wrapper, not an assumed generic get/write trait. `qmdb::any::traits` is test/test-traits gated. `Reader` reads the applied DB and adds no pending-parent overlay. [Any wrapper methods](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs#L110)."
+            }
+          ]
+        },
+        {
+          "needle": "owned, non-Clone",
+          "hits": [
+            {
+              "line": 109,
+              "text": "The inspected Any/Current unsealed and staged wrappers are owned, non-Clone handles; merkleize consumes them and their mutation maps are private. Retain exact application effects separately before consuming the only draft if AB must support multiple rootless children or later selected-prefix preparation. Otherwise retain the sealed AB and use its existing child fork, or reexecute missing effects. A sealed Any wrapper cheaply clones its Arc and matching Shared handle, which can supply PreparedResult's cloneable material. [Sealed clone](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs#L174). These options preserve the open checkpoint/root policy."
+            }
+          ]
+        },
+        {
+          "needle": "Keep existing prepared handles",
+          "hits": [
+            {
+              "line": 111,
+              "text": "**Keep existing prepared handles for each still-needed unapplied ancestor.** A child draft retains its immediate sealed parent strongly, while sealed parent links are Weak. Keeping only the leaf does not preserve every ancestor object needed for later reads, forks and merkleization. Reuse the existing handle ownership rather than duplicating QMDB's ancestor diffs; Executor still associates those handles with exact execution context. Release unused handles separately from Storage's durable-history pruning. [Child retention contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2587), [Weak sealed parent](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L338)."
+            }
+          ]
+        },
+        {
+          "needle": "Public `bounds()`",
+          "hits": [
+            {
+              "line": 113,
+              "text": "Public `bounds()` exposes storage commitments and ancestor bounds, not live parent handles or execution-node identity. Current's bounds carry the ops-only root; its `root()` returns the canonical root. Use concrete DB applicability checks alongside the exact-context association and shared access fence. Public bounds do not replace that validation or determine the application result-root scheme. [Public bounds](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L65), [Current root distinction](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/batch.rs#L1052)."
+            }
+          ]
+        },
+        {
+          "needle": "Before taking the canonical DB",
+          "hits": [
+            {
+              "line": 115,
+              "text": "Before taking the canonical DB for by-value mutation, reuse concrete Any/Current `validate_batch` under the same writer/access authority as application. It checks authenticated ancestry/floors, not arbitrary material validity, exact application input or provenance. It does not prevent later I/O, grafted-state or cancellation failures. Preserve the existing fencing and recoverable commit contract. [Any preflight](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2733), [Current preflight](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/db.rs#L776)."
+            }
+          ]
+        },
+        {
+          "needle": "A separate generic read-view",
+          "hits": [
+            {
+              "line": 129,
+              "text": "**A separate generic read-view engine is not required for every rootless branch.** Plain concrete Any/Current drafts already read their own pending `write` values. For rootless AB with children C and D, a conditional alternative is to retain Storage-ready mutations for the exact AB prefix, create independent existing drafts at the same valid applied/sealed anchor, replay those mutations, then execute C or D through each draft's existing `get`/`write`. This is materialization using existing batches, not `fork_batches` on an unsealed parent or cloning private mutations. The path is unavailable without valid retained effects and anchor access. [Concrete reads/writes](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs#L93), [sealed-parent fork and applied-base capture](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2603)."
+            }
+          ]
+        },
+        {
+          "needle": "Replay must use base-bound",
+          "hits": [
+            {
+              "line": 131,
+              "text": "Replay must use base-bound keyed mutations under the chosen deterministic normalization, not arbitrary logical ChangeSet merging. A fresh applied batch cannot rewind an advanced DB to an earlier state. Retain outputs and direct-execution evidence separately, and preserve writer/read fencing during replay and hashing. Flattening several prefixes into one batch need not preserve the operations root of separately sealed intermediate batches. Replay and an application overlay remain alternatives; neither chooses the root or checkpoint policy."
+            }
+          ]
+        },
+        {
+          "needle": "Flattening several prefixes",
+          "hits": [
+            {
+              "line": 131,
+              "text": "Replay must use base-bound keyed mutations under the chosen deterministic normalization, not arbitrary logical ChangeSet merging. A fresh applied batch cannot rewind an advanced DB to an earlier state. Retain outputs and direct-execution evidence separately, and preserve writer/read fencing during replay and hashing. Flattening several prefixes into one batch need not preserve the operations root of separately sealed intermediate batches. Replay and an application overlay remain alternatives; neither chooses the root or checkpoint policy."
+            }
+          ]
+        },
+        {
+          "needle": "result commitment must exist",
+          "hits": [
+            {
+              "line": 137,
+              "text": "Deferral is not permission to change authenticated operation history independently at each node. Storage materializes the exact selected prefix under the chosen deterministic boundary/normalization rule. That rule and the complete input/base/result/output binding survive preparation and signing. The result commitment must exist before signatures; abandoned attempts need not be hashed. A rootless overlay may preserve AB effects without sealing AB, but cannot promise that a previously sealed ABC batch remains a child of a newly prepared, different AB commitment."
+            }
+          ]
+        },
+        {
+          "needle": "exact predecessor state",
+          "hits": [
+            {
+              "line": 147,
+              "text": "The execution branch tree is a **parent-linked prefix tree of execution orders**, separate from producer-header ancestry. Each execute(block) input identifies its block hash and parent block hash; Executor resolves the parent to a valid execution checkpoint before linking and running the child. Hash identity must bind the exact predecessor state, runtime, and ordered inputs. A producer payload occurring after different execution prefixes needs distinct execution-node identity even when its body/header hash is unchanged. Concrete encoding remains open. All branches in this example start from the same canonical state S0."
+            }
+          ]
+        },
+        {
+          "needle": "Fencing worker access",
+          "hits": [
+            {
+              "line": 175,
+              "text": "Invalidating a generation revokes **result adoption**. Fencing worker access blocks **reads, forks, and application against an invalid parent state**. Canonical DB may change after an owner checks the base but before it obtains access. Keep validation and use within acquired database-access authority through execution, lazy reads, stage/expand, materialization and merkleize. This fence must cover every shared/cloned database handle, not just one facade instance. The concrete [fencing protocol remains open](README.md#open-decisions)."
+            }
+          ]
+        },
+        {
+          "needle": "Canonical promotion is more",
+          "hits": [
+            {
+              "line": 192,
+              "text": "Canonical promotion is more than changing a branch pointer. Executor selects and authorizes the canonical path; Storage applies/syncs QMDB writes and makes outputs, metadata, AppliedCursor and direct/imported provenance consistently recoverable after a crash. Logical pruning is part of commit: conflicting branches lose live-tree membership and result-adoption authority. Physical deletion releases batches/checkpoints only after worker references and required retention are clear. GC scheduling remains open and separate from durable state/output/cursor completion. Active-access fencing and required retention always remain necessary."
+            }
+          ]
+        },
+        {
+          "needle": "Metadata already implements",
+          "hits": [
+            {
+              "line": 203,
+              "text": "Metadata already implements versioned two-copy/checksum recovery and can commit several pending entries together. `put_sync` commits all pending metadata changes, not only its supplied key. Dropping the `start_sync` completion handle does not cancel the sync or erase its recorded failure. These guarantees apply within Metadata; they do not atomically commit QMDB plus an output journal. Storage connects the selected stores under its existing owner and validates exact recovered identities before issuing CommitResult. No record layout, sync ordering or recovery policy is selected here. [Metadata atomic scope](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/mod.rs#L1), [public updates and completion](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/storage.rs#L683), [Journal ownership/replay](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/contiguous/variable.rs#L2160)."
+            }
+          ]
+        },
+        {
+          "needle": "Do not connect it as a durable-completion callback",
+          "hits": [
+            {
+              "line": 211,
+              "text": "As a reference only, existing glue Application::finalized may run once the database is readable while flush is still pending; our Executor does not depend on that trait. [Finalized callback](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs#L308). Do not connect it as a durable-completion callback. Check the Barrier::durable result from DatabaseSet::finalize and satisfy the selected state/output/cursor commit contract before reporting completion. [DatabaseSet / Barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L558), [Stateful delivery ACK](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/processing.rs#L307)."
+            }
+          ]
+        },
+        {
+          "needle": "No ACK before",
+          "hits": [
+            {
+              "line": 217,
+              "text": "| Applied database with flush pending | Readable, without confirmed durability | No ACK before barrier and state/output/cursor linkage complete |"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/execution/state-sync.md",
+      "sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+      "lines": 42,
+      "anchors": [
+        {
+          "needle": "normal validator path",
+          "hits": [
+            {
+              "line": 7,
+              "text": "Certified execution-result sync is an option on the **normal validator path**, not only restart or lag recovery. A validator already executing can reduce remaining work when certified results and applicable change sets become ready first. Responsibility and peer communication are adopted requirements; transition policy, material format, verification, persistence, and safety/liveness validation remain implementation work. The requirement does not force replacement of direct execution or waiting for certificates. Executor orchestrates switching; Storage owns target/material validation, canonical mutation and recovery under [the storage durability contract](qmdb.md#commit-a-branch-to-canonical-state). Certificate and material verification are separate, as shown below. QMDB sync-target verification does not automatically authenticate native order or execution-certificate provenance."
+            }
+          ]
+        },
+        {
+          "needle": "f+1 distinct eligible",
+          "hits": [
+            {
+              "line": 11,
+              "text": "| Certificate | f+1 distinct eligible epoch validators on the same statement; exact native range, input state, runtime, result | Verified target statement |"
+            },
+            {
+              "line": 28,
+              "text": "| Executor certificate exchange | Existing authenticated P2P and signature primitives | Full f+1 distinct eligible signatures, exact input-state chain and direct/imported provenance remain application checks |"
+            }
+          ]
+        },
+        {
+          "needle": "ImportedVerified",
+          "hits": [
+            {
+              "line": 16,
+              "text": "The import commit contract also binds ImportedVerified provenance to canonical-checkpoint recovery. If recovery cannot restore direct-execution evidence for a range, the node cannot produce its own signature for that range. Verifying and applying imported material cannot become an own `DirectExecuted` signature. The receiver may relay or serve the original signers' certificate. It may sign the **next range** after directly executing that range from the adopted canonical base. A correctness certificate does not establish material retention, dissemination, or availability; serving and retention need separate contracts. Delta/checkpoint format, root type, signer boundary, import codec, and crash recovery remain open."
+            }
+          ]
+        },
+        {
+          "needle": "public sync engine can be reused",
+          "hits": [
+            {
+              "line": 34,
+              "text": "**The public sync engine can be reused for repeated certified targets without Application.** `qmdb::sync::sync(Config<DB, Source>)` returns a reconstructed DB. Its configuration accepts the existing Source and DB configuration, optional target updates, a finish request and reached-target notifications. Invoke it again for a selected target or advance compatible targets within a session; neither policy is selected here. A continuing session does not return a usable DB at every progress notification. `StateSyncDb::sync_db` publicly delegates to this same engine, independently of the Application trait. [Public entry point](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/sync/mod.rs#L41), [Config fields](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/sync/engine.rs#L99), [Public DB helper](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L611), [One-time set coordination](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L699)."
+            }
+          ]
+        },
+        {
+          "needle": "Reached-target is progress",
+          "hits": [
+            {
+              "line": 36,
+              "text": "**Reached-target is progress, not verified import completion.** The engine reports it before syncing/reconstructing the database, checking its operations root and completing persistence. Do not stop execution, publish a usable state or acknowledge delivery on that notification. Storage must receive the completed candidate, verify the exact certificate-authorized result/output binding and recoverable canonical linkage. With target updates, retain the final target/certificate identity rather than relying on an old notification. [Notification order](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/sync/engine.rs#L724), [Rebuild, root check and persist](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/sync/engine.rs#L777)."
+            }
+          ]
+        },
+        {
+          "needle": "OpsRootWitness",
+          "hits": [
+            {
+              "line": 32,
+              "text": "**If Current is selected, reuse `current::proof::OpsRootWitness` for this root connection.** The existing DB `ops_root_witness()` supplies it, and `witness.verify::<H>(&ops_root, &canonical_root)` checks whether the operation root belongs to the trusted Current canonical root. Its codec is already implemented. Storage verifies the witness against the result root authorized by the execution certificate; it does not need to invent another proof format. The Current sync engine deliberately leaves this check to its caller. This is a conditional recipe, not a choice of Current or a substitute for f+1/order/base verification. [Witness API](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/proof/mod.rs#L57), [DB witness](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/db.rs#L292), [sync caller obligation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/sync/mod.rs#L6)."
+            }
+          ]
+        },
+        {
+          "needle": "Two handles pointing",
+          "hits": [
+            {
+              "line": 38,
+              "text": "The constructor opens configured storage; it does not accept the live DB handle. Journal initialization may prune, rewind or clear those partitions. Preparing a candidate concurrently with direct execution therefore requires separate storage ownership; an exclusive same-store handoff requires a fence before mutation. Two handles pointing to the same live partitions do not provide isolation. For Current, the retained range must start at or below `sync_boundary()`; the next execution interval is not that storage-log bound. Candidate placement and switching remain open. [Journal reopen contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/sync/journal.rs#L23), [Current boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/db.rs#L431)."
+            }
+          ]
+        },
+        {
+          "needle": "attach_database",
+          "hits": [
+            {
+              "line": 40,
+              "text": "For compatible operation proofs, use the existing DB P2P Actor and its Source mailbox directly. The adapter requires `Op<DB>: Codec<Cfg=()> + Send + Clone + 'static`; using its mailbox as Source additionally requires `Sync`. Check the chosen native operation type against these bounds and adapt only that codec boundary if needed. Requests contain numeric operation size/start/count, not the trusted root or execution statement; sessions must retain compatible authenticated history and separately bind outputs/certificates. `attach_database` enqueues replacement and does not acknowledge processed serving readiness or writer handoff. The actor's local Source feedback ends after proof validation; it must not wait for result collection or canonical apply. [Adapter bounds](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/p2p/actor.rs#L93), [Numeric request](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/sync/source.rs#L21), [Enqueued DB attachment](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/p2p/mailbox.rs#L124), [Local proof feedback](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/p2p/actor.rs#L275)."
+            }
+          ]
+        },
+        {
+          "needle": "both certificate and applicable material",
+          "hits": [
+            {
+              "line": 42,
+              "text": "The existing Stateful bootstrap lifecycle does not provide repeated normal-path certified-result switching. Executor continues direct work until both certificate and applicable material are ready; Storage then uses the same canonical authority as local execution. Partial local writes cannot become the base of a delta meant for another checkpoint. Root/material codecs, switch policy and storage replacement protocol remain open."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/baton/README.md",
+      "sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd",
+      "lines": 36,
+      "anchors": []
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97",
+      "lines": 77,
+      "anchors": [
+        {
+          "needle": "Never await this background future",
+          "hits": [
+            {
+              "line": 9,
+              "text": "`ReportSnapshot` is a once-closed set of distinct, same-context original reports. `Candidates` is a bounded set of admissible full candidates. Return `Some` only when evaluation of that set has completed and the selection is valid. Incomplete evaluation or absence of valid candidates cannot be published as prepared policy. Never await this background future on the native cut path. Tail selection, budgets, adoption, and continuation remain open."
+            }
+          ]
+        },
+        {
+          "needle": "4f+1",
+          "hits": [
+            {
+              "line": 17,
+              "text": "| Close snapshot | First `4f+1` admissions or fixed deadline | Close once; arrivals do not extend the deadline | `m\u22644f+1` frozen reports |"
+            }
+          ]
+        },
+        {
+          "needle": "2f+1",
+          "hits": [
+            {
+              "line": 19,
+              "text": "| Primary selection | Same-context original reports | Maximize the length of a valid nonempty entire prefix shared by `2f+1` reports | Full candidate containing the selected prefix |"
+            },
+            {
+              "line": 24,
+              "text": "Let `\u2113\u1d62(P)=|LCP(P,R\u1d62)|`. The fallback score is `\u03a3\u1d62\u2113\u1d62(P)`. Filtering or completing reports must not manufacture support. An unfinished candidate search cannot establish a completed longest-prefix selection. Support from `2f+1` reports leaves at least `f+1` honest **intentions** under the fault assumption; it does not establish finished work, reuse, or native inclusion."
+            },
+            {
+              "line": 26,
+              "text": "A prefix of length k has `2f+1` support when at least that many original reports match **all of the candidate's first k inputs in the same order**. This is neither a sum of separate supporters per block nor a requirement that the complete full candidate match every report."
+            }
+          ]
+        },
+        {
+          "needle": "no direction-receipt vote",
+          "hits": [
+            {
+              "line": 53,
+              "text": "There is no direction-receipt vote, ACK, or Ready quorum. Once the leader-local collection, selection, and dissemination cycle closes, the next cycle may start for new work or context. It does not wait for every node to finish the previous direction."
+            }
+          ]
+        },
+        {
+          "needle": "A cut does not wait",
+          "hits": [
+            {
+              "line": 37,
+              "text": "How to choose the tail after an equally long supported prefix, including any secondary score, remains undecided. A cut does not wait for reports, timers, or Baton planning. Distinguish using a valid base before a candidate is prepared from preserving an already authenticated protected prefix. Native prefix adoption and exact continuation remain unimplemented and unproved."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+      "lines": 74,
+      "anchors": [
+        {
+          "needle": "durable",
+          "hits": [
+            {
+              "line": 3,
+              "text": "**Orderer converts authenticated consensus history into an exact sequence for Executor.** It retains the evidence needed to explain that sequence, pauses at unresolved gaps, and tracks durable delivery acknowledgements. Native sparse finality and continuous execution order are separate outputs."
+            },
+            {
+              "line": 9,
+              "text": "`Evidence` binds exact authenticated source witnesses to policy/history interpretation. Storing a notice or normalized projection alone does not retain the witness. `next_range` returns only continuous irrevocable input; an unresolved gap requires backfill or pending work. Missing included bodies are not empty slots. `acknowledge` advances the application delivery cursor after verifying a durable CommitResult for that exact range. It is neither a native vote acknowledgement nor a body-release request."
+            },
+            {
+              "line": 15,
+              "text": "**Reuse matching native retained proofs; add a recoverable exact-source handoff.** Native safety storage retains selected local artifacts, forwarded view exits, signing floors and outbox obligations. Its Snapshot does not retain every remote vote or direct-pool/source-selection revision, the ordering snapshot payload is empty, and recovery replay emits no newly-ready notices. Exposing that journal alone cannot recover exact previously delivered order. Preserve missing selected source/opening material through the existing owner and existing Journal/Archive/Metadata/resolver mechanisms; record placement and retention remain open. A public `serve(view)` call can supply a matching retained proof, including a covering L-QC, but not arbitrary historical source identity. [Durable state](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/durability.rs#L1584), [Empty ordering payload](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/durability.rs#L1970), [Silent replay](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/reducer.rs#L1306), [Public serving](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L568)."
+            },
+            {
+              "line": 25,
+              "text": "| Replay emitted ranges and retain a cursor | Contiguous variable Journal and Metadata | Exact predecessor/range/ACK records and recoverable linkage to Executor's durable result |"
+            },
+            {
+              "line": 35,
+              "text": "**Reuse existing local completion handles when delivery needs a waiter.** `commonware_utils::acknowledgement::Exact` supplies a handle/future pair, as used between Tempo's Marshal and Executor. Associate it with the immutable range and signal only after verifying that range's durable CommitResult. All cloned handles must acknowledge; dropping an unacknowledged clone cancels the waiter. The token itself carries no range/result or durable replay. Keep optional Baton observation outside this completion condition; cancellation leaves delivery pending/recoverable instead of advancing its cursor. The Simplex Marshal's pending-ack tracker is private, so reuse the public handle and ownership pattern. Existing context-bound oneshot plumbing is also sufficient; no additional waiter or ACK engine is mandatory. [Acknowledgement handle](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L24), [Clone/drop semantics](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L55), [Tempo completion](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor.rs#L1010), [Private pending tracker](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/acks.rs#L15)."
+            },
+            {
+              "line": 61,
+              "text": "| Native `Reporter::report(Activity)` | Activity notices, including accepted artifacts | Durable witness handoff, cursor, retention; a separate domain from Baton reports |"
+            }
+          ]
+        },
+        {
+          "needle": "export",
+          "hits": [
+            {
+              "line": 11,
+              "text": "The trait combines public history retention, ordering interpretation, and delivery boundaries. Source-witness export and native policy adoption remain separate integration work on the existing owner. Orderer cannot authenticate or adopt native proposals on its own authority."
+            },
+            {
+              "line": 29,
+              "text": "Use public aggregate-body reconstruction rather than exporting or reimplementing compact tally decoding. Original certificate provenance remains necessary. ViewProof and TipRecord have existing codecs; the native Artifact enum does not itself implement Codec, so `Archive<Artifact>` is not an unchanged storage recipe. Store supported typed records or a bounded application envelope for exact artifact variants. [Tally opening](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/tally.rs#L235), [history record](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/history.rs#L20)."
+            },
+            {
+              "line": 31,
+              "text": "Archive gaps describe missing stored objects, not empty or unresolved protocol slots. An ordinary view-indexed Archive retains one value at an occupied index; use MultiArchive or unique export ordinals when retaining several same-view source revisions. Concrete layout remains open. [Archive/MultiArchive](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/mod.rs#L116)."
+            },
+            {
+              "line": 33,
+              "text": "Journal replay and Metadata atomic updates are local storage guarantees. They do not automatically form a transaction with QMDB, another journal or retained witnesses. Preserve crash ordering and state/output/cursor/provenance linkage before delivery ACK. Native-selected witness export and private tip extraction still need the narrow owner bridge; public proof verification alone does not derive dense order. [Journal](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/contiguous/mod.rs#L161), [Metadata](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/storage.rs#L689)."
+            },
+            {
+              "line": 57,
+              "text": "Orderer verifies and retains the exact witness selected by the native owner and the original policy/history, then computes continuous input. A resumable owner export supplying this material is new integration. Sparse tip certificates do not provide a body stream, past policy, or dense cursor. Simplex marshal compatibility with Multimmit also needs separate review. [Native application boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md)."
+            },
+            {
+              "line": 64,
+              "text": "| Proposed exact owner export | New handoff of selected source and immutable context | Verify / retain original witnesses \u2192 interpret terminal slots \u2192 emit continuous OrderedRange |"
+            },
+            {
+              "line": 72,
+              "text": "Identical tips can have different sources, evidence, or settledness. Immutable export must therefore track the owner's exact source-selection transition. [Evidence commitment](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L2082), [Aggregate row provenance](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L1681), [Pool revision](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L1865)."
+            }
+          ]
+        },
+        {
+          "needle": "Exact",
+          "hits": [
+            {
+              "line": 3,
+              "text": "**Orderer converts authenticated consensus history into an exact sequence for Executor.** It retains the evidence needed to explain that sequence, pauses at unresolved gaps, and tracks durable delivery acknowledgements. Native sparse finality and continuous execution order are separate outputs."
+            },
+            {
+              "line": 9,
+              "text": "`Evidence` binds exact authenticated source witnesses to policy/history interpretation. Storing a notice or normalized projection alone does not retain the witness. `next_range` returns only continuous irrevocable input; an unresolved gap requires backfill or pending work. Missing included bodies are not empty slots. `acknowledge` advances the application delivery cursor after verifying a durable CommitResult for that exact range. It is neither a native vote acknowledgement nor a body-release request."
+            },
+            {
+              "line": 15,
+              "text": "**Reuse matching native retained proofs; add a recoverable exact-source handoff.** Native safety storage retains selected local artifacts, forwarded view exits, signing floors and outbox obligations. Its Snapshot does not retain every remote vote or direct-pool/source-selection revision, the ordering snapshot payload is empty, and recovery replay emits no newly-ready notices. Exposing that journal alone cannot recover exact previously delivered order. Preserve missing selected source/opening material through the existing owner and existing Journal/Archive/Metadata/resolver mechanisms; record placement and retention remain open. A public `serve(view)` call can supply a matching retained proof, including a covering L-QC, but not arbitrary historical source identity. [Durable state](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/durability.rs#L1584), [Empty ordering payload](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/durability.rs#L1970), [Silent replay](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/reducer.rs#L1306), [Public serving](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L568)."
+            },
+            {
+              "line": 17,
+              "text": "**Orderer interprets exact order; Commonware supplies proof verification, encoding, archives and replay.** Keep original source witnesses and application bindings around those existing handles. No new general proof verifier, fetch engine or cursor database is needed."
+            },
+            {
+              "line": 21,
+              "text": "| Verify complete native certificates | `Scheme::certificate_verifier`, `verify_vqc`, `verify_lqc`, `verify_da_certificate`, `verify_nullification` | Trusted epoch/config/committee provenance and exact parent/history/policy/source checks |"
+            },
+            {
+              "line": 23,
+              "text": "| Encode proofs and safe-tip history | `ViewProof` Codec, `TipRecord` Codec/commitment | Bounded envelope, exact keys and proof-backed history linkage |"
+            },
+            {
+              "line": 25,
+              "text": "| Replay emitted ranges and retain a cursor | Contiguous variable Journal and Metadata | Exact predecessor/range/ACK records and recoverable linkage to Executor's durable result |"
+            },
+            {
+              "line": 29,
+              "text": "Use public aggregate-body reconstruction rather than exporting or reimplementing compact tally decoding. Original certificate provenance remains necessary. ViewProof and TipRecord have existing codecs; the native Artifact enum does not itself implement Codec, so `Archive<Artifact>` is not an unchanged storage recipe. Store supported typed records or a bounded application envelope for exact artifact variants. [Tally opening](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/tally.rs#L235), [history record](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/history.rs#L20)."
+            },
+            {
+              "line": 35,
+              "text": "**Reuse existing local completion handles when delivery needs a waiter.** `commonware_utils::acknowledgement::Exact` supplies a handle/future pair, as used between Tempo's Marshal and Executor. Associate it with the immutable range and signal only after verifying that range's durable CommitResult. All cloned handles must acknowledge; dropping an unacknowledged clone cancels the waiter. The token itself carries no range/result or durable replay. Keep optional Baton observation outside this completion condition; cancellation leaves delivery pending/recoverable instead of advancing its cursor. The Simplex Marshal's pending-ack tracker is private, so reuse the public handle and ownership pattern. Existing context-bound oneshot plumbing is also sufficient; no additional waiter or ACK engine is mandatory. [Acknowledgement handle](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L24), [Clone/drop semantics](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L55), [Tempo completion](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor.rs#L1010), [Private pending tracker](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/acks.rs#L15)."
+            },
+            {
+              "line": 53,
+              "text": "DA uses a threshold certificate. V-QC and L-QC combine ordinary signatures in a complete attributed transcript. A local sticky vote pool reaches finality at n\u2212f independently of L-QC creation. Exact merged execution order may be shorter than individually fixed producer prefixes, so connect sparse finality to [ordered delivery](../e2e/canonical.md#cut-commit--ordered-range--execution-commit). [DA / certificates](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L147), [View / local finality](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md#L350), [Chain-local finality and exact placement](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L210)."
+            },
+            {
+              "line": 55,
+              "text": "These native DA/view votes differ from [Baton intended-order reports](../baton/direction.md#leader-choose-direction-from-reports) and [direct-execution result signatures](../e2e/results.md#result-endpoint-direct-execution-and-f1-certification). Direction adds no separate approval quorum. Binding selected prefix and policy to actual parent, history, and frontier at proposal authentication still needs development and validation. Preserve the exact leading sequence, not merely membership of its blocks."
+            },
+            {
+              "line": 57,
+              "text": "Orderer verifies and retains the exact witness selected by the native owner and the original policy/history, then computes continuous input. A resumable owner export supplying this material is new integration. Sparse tip certificates do not provide a body stream, past policy, or dense cursor. Simplex marshal compatibility with Multimmit also needs separate review. [Native application boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md)."
+            },
+            {
+              "line": 63,
+              "text": "| `Running::serve(view)` | Retained useful native ViewProof | Preserve exact historical interpretation; a higher covering L-QC may be returned and old proofs pruned |"
+            },
+            {
+              "line": 64,
+              "text": "| Proposed exact owner export | New handoff of selected source and immutable context | Verify / retain original witnesses \u2192 interpret terminal slots \u2192 emit continuous OrderedRange |"
+            },
+            {
+              "line": 70,
+              "text": "An evidence hash identifies a witness commitment; it is not signature-verification material. A selected row reconstructed from an aggregate V-QC may lack a standalone raw vote artifact. Retain the signed vote or source certificate authenticating that row and material needed to reproduce extraction/opening. Do not replace the native-selected exact body for an identity with a conflicting body or an arbitrary quorum subset."
+            },
+            {
+              "line": 72,
+              "text": "Identical tips can have different sources, evidence, or settledness. Immutable export must therefore track the owner's exact source-selection transition. [Evidence commitment](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L2082), [Aggregate row provenance](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L1681), [Pool revision](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/finality.rs#L1865)."
+            }
+          ]
+        },
+        {
+          "needle": "oneshot",
+          "hits": [
+            {
+              "line": 35,
+              "text": "**Reuse existing local completion handles when delivery needs a waiter.** `commonware_utils::acknowledgement::Exact` supplies a handle/future pair, as used between Tempo's Marshal and Executor. Associate it with the immutable range and signal only after verifying that range's durable CommitResult. All cloned handles must acknowledge; dropping an unacknowledged clone cancels the waiter. The token itself carries no range/result or durable replay. Keep optional Baton observation outside this completion condition; cancellation leaves delivery pending/recoverable instead of advancing its cursor. The Simplex Marshal's pending-ack tracker is private, so reuse the public handle and ownership pattern. Existing context-bound oneshot plumbing is also sufficient; no additional waiter or ACK engine is mandatory. [Acknowledgement handle](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L24), [Clone/drop semantics](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/acknowledgement.rs#L55), [Tempo completion](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/executor/actor.rs#L1010), [Private pending tracker](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/core/acks.rs#L15)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+      "lines": 82,
+      "anchors": []
+    },
+    {
+      "path": "docs/e2e/canonical.md",
+      "sha256": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+      "lines": 79,
+      "anchors": [
+        {
+          "needle": "Executor acknowledges delivery",
+          "hits": [
+            {
+              "line": 3,
+              "text": "**Orderer delivers exact input; Executor selects its effects; Storage makes them durable.** Executor selects matching completed work, executes missing work or authorizes verified peer material; Storage prepares roots and applies it. Executor acknowledges delivery only after Storage has made canonical state, outputs, cursor and provenance recoverably durable."
+            }
+          ]
+        },
+        {
+          "needle": "OrderedRange(predecessor",
+          "hits": [
+            {
+              "line": 19,
+              "text": "        M-->>E: OrderedRange(predecessor, inputs, evidence)"
+            }
+          ]
+        },
+        {
+          "needle": "prepare / apply exact",
+          "hits": [
+            {
+              "line": 28,
+              "text": "        E->>S: prepare / apply exact authorized material"
+            }
+          ]
+        },
+        {
+          "needle": "Durable CommitResult after",
+          "hits": [
+            {
+              "line": 29,
+              "text": "        S-->>E: Durable CommitResult after state/output/cursor/provenance linkage"
+            }
+          ]
+        },
+        {
+          "needle": "Completed ExecutionResult, hashing",
+          "hits": [
+            {
+              "line": 51,
+              "text": "    E-->>B: Completed ExecutionResult, hashing may be deferred"
+            }
+          ]
+        },
+        {
+          "needle": "Physically reclaim",
+          "hits": [
+            {
+              "line": 69,
+              "text": "            S->>S: Physically reclaim unreferenced material"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/e2e/results.md",
+      "sha256": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+      "lines": 42,
+      "anchors": [
+        {
+          "needle": "Computed commitment",
+          "hits": [
+            {
+              "line": 17,
+              "text": "    S-->>E: Computed commitment + bound outputs/material"
+            }
+          ]
+        },
+        {
+          "needle": "full ExecutionStatement",
+          "hits": [
+            {
+              "line": 20,
+              "text": "    E-->>P: Signature on stable full ExecutionStatement"
+            }
+          ]
+        },
+        {
+          "needle": "No Baton gate",
+          "hits": [
+            {
+              "line": 33,
+              "text": "    Note over E,P: No Baton gate, imported range receives no own direct-execution signature"
+            }
+          ]
+        },
+        {
+          "needle": "Do not aggregate signatures",
+          "hits": [
+            {
+              "line": 38,
+              "text": "Do not aggregate signatures merely because their state root values match. The statement must bind the same exact input range, canonical predecessor, runtime, and full result. An imported certificate or synced result cannot become the receiver's own direct-execution signature. Common signing boundary and wire schema remain undecided. Compare full statements bound to the same [root kind/version and operation/batch-boundary interpretation](../execution/qmdb.md#qmdb-state-and-reuse-boundaries)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/e2e/state-sync.md",
+      "sha256": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+      "lines": 49,
+      "anchors": [
+        {
+          "needle": "normal validator path",
+          "hits": [
+            {
+              "line": 7,
+              "text": "This sequence illustrates state sync as an option on the **normal validator path**. The receiving Executor verifies and applies certified results and material from a peer Executor. No Baton-to-Baton exchange or separate catch-up coordinator is added. It shares the single writer, access fencing, and durability contract of [canonical application](../execution/qmdb.md#commit-a-branch-to-canonical-state). Responsibility and path are adopted, while wire format, switching, storage, and validation remain unimplemented."
+            }
+          ]
+        },
+        {
+          "needle": "Applicable target and material verified",
+          "hits": [
+            {
+              "line": 27,
+              "text": "        else Applicable target and material verified"
+            }
+          ]
+        },
+        {
+          "needle": "Fence unfinished work",
+          "hits": [
+            {
+              "line": 28,
+              "text": "            E->>E: Fence unfinished work at a safe boundary"
+            }
+          ]
+        },
+        {
+          "needle": "Preserve imported provenance",
+          "hits": [
+            {
+              "line": 33,
+              "text": "                E->>E: Preserve imported provenance and original certificate"
+            }
+          ]
+        },
+        {
+          "needle": "No own direct-execution signature",
+          "hits": [
+            {
+              "line": 44,
+              "text": "    Note over P,E: No own direct-execution signature for imported range"
+            }
+          ]
+        },
+        {
+          "needle": "certificate alone does not stop",
+          "hits": [
+            {
+              "line": 49,
+              "text": "Relaying the original certificate, establishing state finalization, and achieving durable local readiness are different events. A certificate alone does not stop remaining execution; verified applicable material must also be available. Do not append a canonical-base delta to partially executed state. Material format, checkpoint switching, root verification, and import commit remain undecided. The next range can use the existing execution interface for direct execution from the correct canonical base."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "lines": 107,
+      "anchors": [
+        {
+          "needle": "State / outputs / AppliedCursor / provenance",
+          "hits": [
+            {
+              "line": 83,
+              "text": "    Q-->>S: State / outputs / AppliedCursor / provenance"
+            }
+          ]
+        },
+        {
+          "needle": "Existing matching durable CommitResult",
+          "hits": [
+            {
+              "line": 91,
+              "text": "    E-->>M: Existing matching durable CommitResult / delivery ACK"
+            }
+          ]
+        },
+        {
+          "needle": "Delivery acknowledgement alone",
+          "hits": [
+            {
+              "line": 103,
+              "text": "These coordinates cannot be compared by numeric magnitude. Witness coverage and exact identity connect archive, ordered input, and applied commit. Delivery acknowledgement alone does not justify deleting source material or guarantee permanent serving availability. Retention handoff, export lag, and bounded-buffering policy remain open. No separate archive quorum is added to native cut waits."
+            }
+          ]
+        },
+        {
+          "needle": "Native checkpoint compaction",
+          "hits": [
+            {
+              "line": 105,
+              "text": "Native checkpoint compaction and view retirement do not consult Executor's applied receipt. Exact exported witnesses and their interpretation must survive the chosen recoverable handoff; native recovery alone does not replay the external delivery history. [Native recovery compaction](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L175), [View retirement](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/reducer.rs#L3840)."
+            }
+          ]
+        },
+        {
+          "needle": "Idempotence verifies exact commit identity",
+          "hits": [
+            {
+              "line": 107,
+              "text": "Recovered state, outputs, and cursor follow the chosen application recovery-adapter contract; QMDB alone does not guarantee automatic atomicity across them. The sequence handles lost acknowledgements and unacknowledged ranges using recovered execution state and history. Native custody and readiness follow the [separate startup sequence](recovery.md#startup-prepare-custody-before-native-recovery). Idempotence verifies exact commit identity and recoverable outputs/cursor, not merely equality of state roots."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "lines": 155,
+      "anchors": []
+    },
+    {
+      "path": "docs/reference/verification.md",
+      "sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b",
+      "lines": 35,
+      "anchors": [
+        {
+          "needle": "completion_delayed",
+          "hits": [
+            {
+              "line": 15,
+              "text": "**Control the failure boundary rather than sleeping and assuming it happened.** `PendingSyncs` controls `Blob::start_sync`: the default parks its completion future before inner sync; native `completion_delayed()` starts inner sync and gates observation of completion. Observe the gate and actual inner progress separately: starting sync alone does not prove durability. This permits unsynced restart and durable-but-unobserved completion cases. A lost delivery ACK is a separate case after the full application receipt is durable. Consume `Runner::start_and_recover`'s checkpoint in `Runner::from(checkpoint)` and reopen stores/services; neither live tasks nor old writer authority carry over. The panic path does not return a checkpoint. These controls model runtime storage, not arbitrary filesystem/device failure. `completion_delayed()` is absent from the inspected registry release; use the adopted native API. [Sync ordering and controls](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs#L633), [completion gate](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/mocks.rs#L749), [runtime recovery](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L567)."
+            }
+          ]
+        },
+        {
+          "needle": "Auditor::state",
+          "hits": [
+            {
+              "line": 17,
+              "text": "**Copy real-chain assembly patterns, then assert Baton outcomes.** Tempo's E2E support wires simulated consensus channels to a separate execution runtime. Alto's chain fixture reopens a runtime checkpoint without relinking peers and checks durable queued-work replay. Use those shapes with public Commonware handles; Alto's private cfg(test) helpers and Simplex certificates are source examples. Comparing runtime `Auditor::state()` fingerprints checks trace repeatability; it does not assert exact order, custody, f+1 certification or linked application state. External VM/thread/I/O work does not automatically inherit deterministic scheduling. Keep each application assertion explicit and every case below **Not run** until that integration is actually executed. [Tempo setup](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs#L247), [Tempo channel wiring](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs#L352), [Alto replay fixture](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1317), [Alto recovery without relinking](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1487), [Auditor](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L174), [external work boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L7)."
+            }
+          ]
+        },
+        {
+          "needle": "Not run",
+          "hits": [
+            {
+              "line": 17,
+              "text": "**Copy real-chain assembly patterns, then assert Baton outcomes.** Tempo's E2E support wires simulated consensus channels to a separate execution runtime. Alto's chain fixture reopens a runtime checkpoint without relinking peers and checks durable queued-work replay. Use those shapes with public Commonware handles; Alto's private cfg(test) helpers and Simplex certificates are source examples. Comparing runtime `Auditor::state()` fingerprints checks trace repeatability; it does not assert exact order, custody, f+1 certification or linked application state. External VM/thread/I/O work does not automatically inherit deterministic scheduling. Keep each application assertion explicit and every case below **Not run** until that integration is actually executed. [Tempo setup](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/lib.rs#L247), [Tempo channel wiring](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/e2e/src/testing_node.rs#L352), [Alto replay fixture](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1317), [Alto recovery without relinking](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/lib.rs#L1487), [Auditor](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L174), [external work boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/deterministic.rs#L7)."
+            },
+            {
+              "line": 23,
+              "text": "| Tx / pool | New, duplicate, structurally invalid; proposal cancellation; no cleanup before canonical outcome | Not run |"
+            },
+            {
+              "line": 24,
+              "text": "| Builder / custody | Digest mismatch, missing body/parent, durability failure, late build completion | Not run |"
+            },
+            {
+              "line": 25,
+              "text": "| Native / delivery | Unresolved gap, authenticated empty, extension, missing history, preserved emitted prefix after restart | Not run |"
+            },
+            {
+              "line": 26,
+              "text": "| Leader Baton | Threshold/deadline race, duplicate identity, stale context, incomplete Baton planning, cut ready first | Not run |"
+            },
+            {
+              "line": 27,
+              "text": "| Non-leader Baton | Missed/late direction, missing body, order change, separated producer/executor roles | Not run |"
+            },
+            {
+              "line": 28,
+              "text": "| Execution | Prefix reuse, input-state/runtime mismatch, canceled-job completion, partial-prefix commit | Not run |"
+            },
+            {
+              "line": 29,
+              "text": "| Storage / QMDB | Sealed-parent forks vs rootless overlay; exact-prefix preparation; root/boundary determinism; valid-access fences through merkleize | Not run |"
+            },
+            {
+              "line": 30,
+              "text": "| QMDB recovery | Crash during commit, lost ACK, same-range redelivery, state/output/cursor/provenance linkage and retained-checkpoint recovery | Not run |"
+            },
+            {
+              "line": 31,
+              "text": "| Primitive adapters | Occupied/below-floor archive puts; local feedback vs custody; resolver cancellation; collector invalid-first-response slot and distinct validated signatures | Not run |"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "docs/assets/interfaces/baton.rs",
+      "sha256": "cf43886aff0008c7a8d646f44899f8ab6ab3d0c5a6e59f0745bd6df276ee09a9",
+      "lines": 238,
+      "anchors": []
+    },
+    {
+      "path": "docs/overview/networking.md",
+      "sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+      "lines": 38,
+      "anchors": []
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "sha256": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+      "lines": 49,
+      "anchors": []
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+      "lines": 98,
+      "anchors": []
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049",
+      "lines": 40,
+      "anchors": []
+    },
+    {
+      "path": "docs/consensus/README.md",
+      "sha256": "4f1044c2d71bee357ff800604565e737dfae97003a87299c93533560aa021f65",
+      "lines": 83,
+      "anchors": []
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "lines": 137,
+      "anchors": []
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "sha256": "5cd5d25894a485829ba0fb65ded031b15589cd4312ba15931dfcb8e5577c0adf",
+      "lines": 16,
+      "anchors": []
+    },
+    {
+      "path": "docs/baton/interfaces.md",
+      "sha256": "c383302c0acc6817d136a7829a8dccc3962d94669af5223f8776bc168d31986b",
+      "lines": 30,
+      "anchors": []
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "lines": 89,
+      "anchors": []
+    },
+    {
+      "path": "docs/e2e/native-consensus.md",
+      "sha256": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba",
+      "lines": 52,
+      "anchors": []
+    },
+    {
+      "path": "docs/e2e/leader.md",
+      "sha256": "2d54bce6f941631004ee2244c1a872c045a8651ae26b8a0d0686d1899096608e",
+      "lines": 79,
+      "anchors": []
+    },
+    {
+      "path": "docs/e2e/reschedule.md",
+      "sha256": "f1916ed2e4ed591587e14a2148bf675d6be0d3835b1becc1665b895f1822e4eb",
+      "lines": 36,
+      "anchors": []
+    },
+    {
+      "path": "docs/reference/sources.md",
+      "sha256": "716b76900efc341dc8ef49601e2c8c4e64159b22a720d66a49654d87e46d67b8",
+      "lines": 11,
+      "anchors": []
+    }
+  ],
+  "diagrams": [
+    {
+      "name": "diagram-01",
+      "title": "Four layers",
+      "width": 1172,
+      "height": 1186,
+      "source_sha256": "432d40eac8f8556c659419915e638d6ac010540cf28ffbb43f9326528a2b2446",
+      "canonical_match": {
+        "page": "docs/overview/architecture.md",
+        "line": 11
+      },
+      "mmd_sha256": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f",
+      "svg_sha256": "1cc2f73798aebe66e0df5340e9b8c08089b0584ee7548f2945260905acac8559",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-02",
+      "title": "Full E2E: transaction input to canonical state",
+      "width": 1338,
+      "height": 1625,
+      "source_sha256": "4c6f189d22c32bfc4dc621abbb30d548509f25659cba59ea7538ff5e08a22ec2",
+      "canonical_match": {
+        "page": "docs/e2e/normal.md",
+        "line": 7
+      },
+      "mmd_sha256": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66",
+      "svg_sha256": "471643b14f453a36226a53e4f2bd585aefc29c3d7ec88f0f6b75fa6a392aefec",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-03",
+      "title": "Tx lifecycle: new, duplicate, and invalid transactions",
+      "width": 1116,
+      "height": 1666,
+      "source_sha256": "55fd749b7dbc5c4567c0bcf3783600a71cb480d035ebf02ff94e1fe7ca451c6e",
+      "canonical_match": {
+        "page": "docs/e2e/normal.md",
+        "line": 45
+      },
+      "mmd_sha256": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80",
+      "svg_sha256": "43236514d36d4a482938ab1b5c07cceb56fd46d573cf74f0865aee5f936815b9",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-04",
+      "title": "Block lifecycle: mempool \u2192 propose \u2192 body dissemination",
+      "width": 1334,
+      "height": 1070,
+      "source_sha256": "7f95598b976911f947839b5942061337af2991edd660246801881a0029b9dda8",
+      "canonical_match": {
+        "page": "docs/e2e/block-body.md",
+        "line": 7
+      },
+      "mmd_sha256": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20",
+      "svg_sha256": "f434320b7787129fd370cc6dbe4313470c3eaac18a60d806c8893b13e9510f97",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-05",
+      "title": "Body lookup, verification, and missing-content handling",
+      "width": 1334,
+      "height": 2068,
+      "source_sha256": "fcf64a78c6ef20617a61b31ef29248b6ceb9747d423f9a06491700f45e25bf0d",
+      "canonical_match": {
+        "page": "docs/e2e/block-body.md",
+        "line": 41
+      },
+      "mmd_sha256": "dcc1a12f9d21a823ecbea0b971b554b02ee7f78007b39082e4b5a7b69179f36f",
+      "svg_sha256": "e62e69a588c1bf8ab6826c148f5460a70c6bd78cd6482dfd54907620107f28ef",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-06",
+      "title": "Leader lifecycle: collect reports and disseminate direction",
+      "width": 1139,
+      "height": 1702,
+      "source_sha256": "46d3917011d291db4dfdfd769893c3fd86020e2df4728c2175b29c6d0df492bd",
+      "canonical_match": {
+        "page": "docs/e2e/leader.md",
+        "line": 7
+      },
+      "mmd_sha256": "88de04405687c27bae88585a3e73acb3b7b1c87b507fdfaf23ef4994fd2421e2",
+      "svg_sha256": "9be4f7d669f013df97b47eef920b99100dcf7c4b2b9daa704c3f61b817c8a3a6",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-07",
+      "title": "Non-leader lifecycle: direction and branch execution",
+      "width": 919,
+      "height": 1339,
+      "source_sha256": "a5c4df363c5e4b3bdb8a4233cd3b99b4d388ccebcd231c52bbd9ebaa18e2182d",
+      "canonical_match": {
+        "page": "docs/e2e/reschedule.md",
+        "line": 9
+      },
+      "mmd_sha256": "1197ec8338219eccd6e583cd6c3f1e4c93d91108eca4c5d73aa292ccdace45b5",
+      "svg_sha256": "a4197537a07c462855a651bc55ebaec28dfc09ce2d09d71c8d36e37e1b8529cb",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-08",
+      "title": "Cut commit \u2192 ordered range \u2192 execution commit",
+      "width": 912,
+      "height": 1710,
+      "source_sha256": "4309330438cbf20f3ae2cfb41435a42b2cea0b255fd399822a6dea3d187d935b",
+      "canonical_match": {
+        "page": "docs/e2e/canonical.md",
+        "line": 7
+      },
+      "mmd_sha256": "5b5b5d80f08f1b57b185baa8a1778d48c0654fcddf500848bb71ae02147adfff",
+      "svg_sha256": "184c85b990f2fbfb2f977c01b16399acdfa2a184970a6ccb0848743b93bdc93a",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-09",
+      "title": "Execution lifecycle: QMDB branches and canonical promotion",
+      "width": 926,
+      "height": 2234,
+      "source_sha256": "cd361561d9c5ef609114450c1819f67caf4e42dc17ca4a169b5b75ec33333cd7",
+      "canonical_match": {
+        "page": "docs/e2e/canonical.md",
+        "line": 40
+      },
+      "mmd_sha256": "619d5e1a1e014153a5142239963134b6c5be87a3b1da4afaa6277731651e40ed",
+      "svg_sha256": "61745836f1fa617c1beec94554690bf7e6cbc23e60944bf09845aab846e4cd75",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-10",
+      "title": "Restart and backfill",
+      "width": 899,
+      "height": 949,
+      "source_sha256": "9569c6af7ea91d67268d0ebcf582f4e78f42db2ec83f96277e5fec61d54796eb",
+      "canonical_match": {
+        "page": "docs/e2e/recovery.md",
+        "line": 76
+      },
+      "mmd_sha256": "521cc67f721db5f352020a502b5405732aa1ec0ee593ae52a1f7b19c4f1fec3c",
+      "svg_sha256": "0ac9ed66c95d13fdded7fa061856d320dc86cc4fc9125445bc5f7953dfb3308d",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-11",
+      "title": "Result endpoint: direct execution and f+1 certification",
+      "width": 922,
+      "height": 1677,
+      "source_sha256": "9b3b280543653674c266228b23048d84fb7bf3c2e518334282928142b3476c36",
+      "canonical_match": {
+        "page": "docs/e2e/results.md",
+        "line": 9
+      },
+      "mmd_sha256": "f89aa647b8ed4a3464dd4332c995490b1924e48ec143eb659477fa6d2a4bedda",
+      "svg_sha256": "e0859f3d552cb117790ba65b3c61c5b0735b8e5a4ea22e8ec7713e14650e58f3",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-12",
+      "title": "Planning completion versus proposal freeze",
+      "width": 910,
+      "height": 1661,
+      "source_sha256": "7008971e6dd05621f815d6994ae474f6f3366ac6b0dcf8982d7542c717fc0612",
+      "canonical_match": {
+        "page": "docs/e2e/leader.md",
+        "line": 46
+      },
+      "mmd_sha256": "f1f3fc970bc1d1164b4357946814d8d08dac24dd24c1539bc5c82525859ba13e",
+      "svg_sha256": "8ffeb31d72c057e91004e0674e74ed964afbbba170c4cb31673e18ce9a6b4fb9",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-13",
+      "title": "Startup: prepare custody before native recovery",
+      "width": 1325,
+      "height": 1713,
+      "source_sha256": "717987e5bc233231b68df9575b2faf9f5adf3f305cb0050825417f068d95030e",
+      "canonical_match": {
+        "page": "docs/e2e/recovery.md",
+        "line": 7
+      },
+      "mmd_sha256": "25970c75e1a6c4b0579407fdcc64672de5e38161371a3278bec4376f5feec8ff",
+      "svg_sha256": "0ca441e6c0202ccd6b8d71a4b38fa386a11ad391b4043724744484f65568849a",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-14",
+      "title": "State sync from certified execution results",
+      "width": 902,
+      "height": 2182,
+      "source_sha256": "26955fef169e5e9a8b98423a82cef5706c725a4164559ad128f67588f0e1b959",
+      "canonical_match": {
+        "page": "docs/e2e/state-sync.md",
+        "line": 9
+      },
+      "mmd_sha256": "f08ca48d44a6b8cf6edb55cc823eafe36166abe3ebffd918b76b372054c0e83c",
+      "svg_sha256": "109065a5b3be43bcb661809e1754cc05cf721759a74c09c655f7a99202ff2948",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-15",
+      "title": "Normal native consensus: producer DA \u2192 leader proposal \u2192 finality",
+      "width": 1148,
+      "height": 2098,
+      "source_sha256": "b40391445e9174c8a0399165c4c027850b783f4521566cbcae4eccb8bf4ba908",
+      "canonical_match": {
+        "page": "docs/e2e/native-consensus.md",
+        "line": 9
+      },
+      "mmd_sha256": "71c81d894487b251e3dd191d177364291761151ac5f0fa2d8f7ca3ad31e64ac0",
+      "svg_sha256": "957cbfc54b6c53c341eba4619f31838811f3681f2813a1ee56560dde412583f0",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-16",
+      "title": "Native actors and source layout",
+      "width": 1143,
+      "height": 962,
+      "source_sha256": "74051c5b53ede03729f50d6183109e1170a3003bdb3c885ad6e10b0b65303062",
+      "canonical_match": {
+        "page": "docs/consensus/README.md",
+        "line": 17
+      },
+      "mmd_sha256": "8f43cb4ef3587b81658ff35807ef118346bee4e78f94d1e11398efccfa3fcd93",
+      "svg_sha256": "2f77191f2bfef52bec24c217353e1f2b3bc88841d0c3c6003c9667b1b1a1ebaa",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-17",
+      "title": "QMDB state and reuse boundaries",
+      "width": 1318,
+      "height": 1636,
+      "source_sha256": "69645e1f40c0aee8ca63708abce75156c4a72c2d6cd833d53a7031d94b98f66c",
+      "canonical_match": {
+        "page": "docs/execution/qmdb.md",
+        "line": 19
+      },
+      "mmd_sha256": "63d976a491db0618a9cc42ff29ab71f3b859d44a78dd763a37f06de5132040cb",
+      "svg_sha256": "6db0e1fd7e04031a2b66c42891e289ae85ac981e28f13ab1df3f1508b618fbcd",
+      "source_equal": true,
+      "render_inspected": false
+    },
+    {
+      "name": "diagram-18",
+      "title": "Manage the branch tree for execution requests",
+      "width": 1121,
+      "height": 316,
+      "source_sha256": "6aee5f77fc56c2db08868e5deac1a8c2fdfbf12e6c165e96ec9c0aa0821a93f9",
+      "canonical_match": {
+        "page": "docs/execution/qmdb.md",
+        "line": 149
+      },
+      "mmd_sha256": "3589b4c68dc0c3ad260c8c4479bfb3c1f5245dbe1be3a25798b91e3db681652d",
+      "svg_sha256": "6dce7bb98004ab0f970b4d66e24ce3ace964b645222f2b010e1f9c0c754a69c9",
+      "source_equal": true,
+      "render_inspected": false
+    }
+  ],
+  "rust_export_exact": true,
+  "application_traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ]
+}

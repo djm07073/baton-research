@@ -1,0 +1,37 @@
+[
+  {
+    "path": "assets/review/commonware-reuse-20261004/wave5/branch-access/REPORT.md",
+    "sha256": "1c8dea6dbba1571b410d4081d29db3078646b769c133ceb90ffb7e78cca5e030",
+    "scope": "Previously source-checked evidence; not claimed freshly refetched in wave11"
+  },
+  {
+    "path": "assets/review/commonware-reuse-20261004/wave6/repeated-sync/REPORT.md",
+    "sha256": "0aeb60ce1d1d502e06b281899cd1d68112de2d6147cf90fa3a3180d96bbb588f",
+    "scope": "Previously source-checked evidence; not claimed freshly refetched in wave11"
+  },
+  {
+    "path": "assets/review/commonware-reuse-20261004/wave7/execution-tree/REPORT.md",
+    "sha256": "83dede50fa097a80c325b968419949c1e1618c8ff5c86741bb759c98798d2bfc",
+    "scope": "Previously source-checked evidence; not claimed freshly refetched in wave11"
+  },
+  {
+    "path": "assets/review/commonware-reuse-20261004/wave8/state-query/REPORT.md",
+    "sha256": "fa3c6980e2c53c9ae2f7fee798d419653085c13588cfd29d14dd5224748e4885",
+    "scope": "Previously source-checked evidence; not claimed freshly refetched in wave11"
+  },
+  {
+    "path": "assets/review/commonware-reuse-20261004/wave9/storage-fixtures/REPORT.md",
+    "sha256": "ca96c73745e96d3c59b885a8bb4c30ed29c7a0afb0d6805b77471ffe92b45ebc",
+    "scope": "Previously source-checked evidence; not claimed freshly refetched in wave11"
+  },
+  {
+    "path": "assets/review/commonware-reuse-20261004/wave4/compatibility/CERTIFICATION_CROSS_REVIEW.md",
+    "sha256": "77c2f6bc4692976f367666eac5d7953cb50bd8287999cb9377e8505bcf4f0d61",
+    "scope": "Previously source-checked evidence; not claimed freshly refetched in wave11"
+  },
+  {
+    "path": "assets/review/commonware-reuse-20261004/wave10/storage-coherence/REPORT.md",
+    "sha256": "da956dc0676eb8484ac4b16dc87838d54b6bf6550ebe5a5e50e1aa21ba5bd4be",
+    "scope": "Previously source-checked evidence; not claimed freshly refetched in wave11"
+  }
+]

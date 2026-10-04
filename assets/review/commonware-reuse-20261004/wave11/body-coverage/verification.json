@@ -1,0 +1,144 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "files": [
+    {
+      "path": "COVERAGE_AUDIT.md",
+      "sha256": "cc3a82ee988074ffa8142586aa74341b73211a2c2408aa73d117aacff0bf7460"
+    },
+    {
+      "path": "READER_DELTA.md",
+      "sha256": "4a9b09e15f8dbfcda27a11b73da378a9bf0801d89bcdb9209631575ed4d52161"
+    },
+    {
+      "path": "CURRENT_DOCS_RECEIPT.json",
+      "sha256": "9c05dcefe223253e32fbca84cb7a84d039849857451959aee15221aedf2b30c6"
+    },
+    {
+      "path": "PRIOR_ASSEMBLY_RECEIPTS.json",
+      "sha256": "d40ef84174f5103ccab8c93b78970cf514cd3ff921363671ac83b6baf02e7961"
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "79e1acad70b5a8f748aa48122e5892dd0372aea15e9c2d485d96fc3a32fbdb83"
+    }
+  ],
+  "primary_source_anchors": [
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "line": 207,
+      "source_line": "        let (broadcast, broadcast_mailbox) = buffered::Engine::new(",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/tempo/crates/consensus/src/consensus/engine.rs"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "line": 526,
+      "source_line": "        let broadcast = self.broadcast.start(broadcast_channel);",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/tempo/crates/consensus/src/consensus/engine.rs"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/standard/relay.rs",
+      "line": 21,
+      "source_line": "pub(super) fn broadcast<S, B>(",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/release/consensus/src/marshal/standard/relay.rs"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 649,
+      "source_line": "            Message::Forward {",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/release/consensus/src/marshal/core/actor.rs"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/standard/variant.rs",
+      "line": 115,
+      "source_line": "    fn send(&self, _round: Round, block: Arc<B>, recipients: Recipients<K>) {",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/release/consensus/src/marshal/standard/variant.rs"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "line": 177,
+      "source_line": "        let (buffer, buffer_mailbox) = buffered::Engine::new(",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/alto/chain/src/engine.rs"
+    },
+    {
+      "repository": "commonwarexyz/alto",
+      "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "line": 462,
+      "source_line": "        let buffer_handle = self.buffer.start(broadcast);",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave10/body-coherence/sources/alto/chain/src/engine.rs"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 600,
+      "source_line": "pub struct Engine<E, H, P, V, A, R, F, T, B>",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/native/consensus/src/multimmit/engine.rs"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 272,
+      "source_line": "pub(crate) async fn verify_recovered_payloads<A, D>(",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/native/consensus/src/multimmit/engine.rs"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/engine.rs",
+      "line": 723,
+      "source_line": "            verify_recovered_payloads(",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/native/consensus/src/multimmit/engine.rs"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/authenticated/discovery/network.rs",
+      "line": 169,
+      "source_line": "    pub fn register(",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/native/p2p/src/authenticated/discovery/network.rs"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "p2p/src/authenticated/router/ingress.rs",
+      "line": 203,
+      "source_line": "        // Treat sends before the router is bound as sends with no connected peers. Nothing can",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/native/p2p/src/authenticated/router/ingress.rs"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/mod.rs",
+      "line": 137,
+      "source_line": "    fn sync(self) -> impl Future<Output = Result<Self, Error>> + Send;",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/native/storage/src/archive/mod.rs"
+    },
+    {
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/storage/hybrid/mod.rs",
+      "line": 360,
+      "source_line": "    /// Drops blocks below the execution layer's finalized watermark.",
+      "receipt_path": "assets/review/commonware-reuse-20261004/wave11/body-coverage/sources/tempo/crates/consensus/src/storage/hybrid/mod.rs"
+    }
+  ],
+  "fresh_files": 5,
+  "fresh_complete_trees": 2,
+  "prior_own_source_bytes_rehashed": 13,
+  "canonical_edits": false,
+  "build_or_protocol_execution": false
+}
