@@ -1,0 +1,15 @@
+{
+  "reviewer": "/root/reuse_storage_types_v3",
+  "utc": "2026-10-03T23:59:57.290977+00:00",
+  "report_sha256": {
+    "pool-coherence": "337849808bdb3f305ef423a4c4e52a159bb6c4c55989b17d4c585d3155aab028",
+    "body-coherence": "9106d87b81e5af78b8b792ef13e72c8d198db7a83a48bcf8ba25c0177caf4c53",
+    "intro-coherence": "51da6051bdaa62de48b70c8c414d7952b60f9e96528a87c9ececc33018c5037f"
+  },
+  "review_sha256": "ab61869655f365de585a95cfff87ba36b28003f3cd7c9730f626e218ca7b5fd3",
+  "fresh_primary_files": 13,
+  "fresh_complete_trees": 4,
+  "all_git_blobs_match": true,
+  "scope": "narrow independent source/prose coherence, no compilation/test/proof",
+  "verdict": "pass"
+}

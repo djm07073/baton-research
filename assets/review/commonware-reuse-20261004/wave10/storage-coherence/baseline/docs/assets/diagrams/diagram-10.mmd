@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant S as Startup owner
+    participant Q as Storage / QMDB / commit metadata
+    participant M as Orderer
+    participant E as Executor
+    S->>Q: Recover last durable applied commit
+    Q-->>S: State / outputs / AppliedCursor / provenance
+    Note over S,M: Body custody follows the separate startup sequence
+    S->>M: Recover archive and delivery cursors
+    M->>M: Fetch missing authenticated history / bodies
+    S->>E: Open recovered canonical checkpoint
+    Note over E: Reconstruct speculative branches from durable canonical state
+    M-->>E: Redeliver unacknowledged exact range
+    E->>E: Idempotent commit(range)
+    E-->>M: Existing matching durable CommitResult / delivery ACK

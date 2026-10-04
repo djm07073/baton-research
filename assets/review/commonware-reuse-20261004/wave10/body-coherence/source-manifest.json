@@ -1,0 +1,185 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "fetched_at_utc": "2026-10-03T23:54:34.473164+00:00",
+  "fresh_complete_trees": 4,
+  "sources": [
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/engine.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs",
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+      "git_blob_sha1": "61dade3853d98706e1556369ae72165d20e7e6b3",
+      "bytes": 15647,
+      "lines": 460,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/ingress.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/ingress.rs",
+      "sha256": "6e740792e66aeb9c51e6cb02f5ba671cd8dd72e044ee4adf8631c35fa5394d19",
+      "git_blob_sha1": "d04cdd61e4729bfadbc30b4cc5aa91d9abb980d3",
+      "bytes": 4422,
+      "lines": 145,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/engine.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/engine.rs",
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+      "git_blob_sha1": "c90994bec8cc3b30dbe56be5fef39123b7f7aee4",
+      "bytes": 20856,
+      "lines": 528,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/resolver/src/p2p/mod.rs",
+      "sha256": "62ed3e53099f0a081956c97a9d2341e50b0159b6c3af4783c6fa989d553e2597",
+      "git_blob_sha1": "211778603556a37e62e186b7ae2324a3954d8489",
+      "bytes": 154183,
+      "lines": 4129,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/mod.rs",
+      "sha256": "5a42466794a9484623a063d53ba10e55deee2a87559c7dda7a2f9e0f10150db4",
+      "git_blob_sha1": "a9320adee36b69902c7c70de671e6a79fc04a3b4",
+      "bytes": 6570,
+      "lines": 153,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/resolver/handler.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/resolver/handler.rs",
+      "sha256": "6b775c121a05a6b76ccd4132795863067f1d29672667d7b4619e69122c09f08d",
+      "git_blob_sha1": "481937af60af57625b1e6ca645e916609d2fde0f",
+      "bytes": 32083,
+      "lines": 989,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/standard/inline.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/marshal/standard/inline.rs",
+      "sha256": "e6342d8ac669d74121edeb8689e55a451c6d7e92a23426e1e500e564212e2adc",
+      "git_blob_sha1": "7592f8848b9d0d19828a50cf9b6da4b02d7094a9",
+      "bytes": 68598,
+      "lines": 1684,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/lib.rs",
+      "sha256": "fa8d210fd35444cfe10ba5926083147db3baffd9a2ca2e32d6fd405fa52e9470",
+      "git_blob_sha1": "c57526d2084d4150d9b6c69494313aa8e47db577",
+      "bytes": 16208,
+      "lines": 342,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "release",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/standard/relay.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/standard/relay.rs",
+      "sha256": "48deaeb8b9f739254726b27287238b118f2dc6e0bed3698b12dde5c55133034c",
+      "git_blob_sha1": "727b1135a3419c091fcc6f8f40f4dcc14a40d609",
+      "bytes": 1501,
+      "lines": 41,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "release",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/core/actor.rs",
+      "sha256": "f470f22add69fc987611bbbdee7270893e5d5347b56083e15523bdac768fe7d2",
+      "git_blob_sha1": "5b33f63841712a6396086b651284b6528cf95b5f",
+      "bytes": 106683,
+      "lines": 2536,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "release",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/standard/variant.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/d476a2361ce6840d2b9d0aa6fb30a924429046d4/consensus/src/marshal/standard/variant.rs",
+      "sha256": "27e619cc2f74b2ba318d5e2fa669d58f45bbb53c9cfb95cd7549a72e8e50638d",
+      "git_blob_sha1": "60281aecd0590ca42614159e63e87794f3a7c3ec",
+      "bytes": 3972,
+      "lines": 141,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "tempo",
+      "repository": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "url": "https://raw.githubusercontent.com/tempoxyz/tempo/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs",
+      "sha256": "b3c98927d4776f7a697aba61637b97556ce9d068e147e6daf3bd99757a5496d5",
+      "git_blob_sha1": "58a843e1cbd0dcb289a2752034f08ae6494b81d7",
+      "bytes": 20899,
+      "lines": 588,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    },
+    {
+      "kind": "alto",
+      "repository": "commonwarexyz/alto",
+      "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/alto/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs",
+      "sha256": "42f960d9fba98a1f44f6bc5d401ddc0c5f51ae2d3da01a1ab53bf8c37cb57e18",
+      "git_blob_sha1": "dbc2f2309f2804c6be48fe1f45399f36c2b465fa",
+      "bytes": 19385,
+      "lines": 518,
+      "status": "fresh-own-wave10-complete-tree-blob-matched"
+    }
+  ],
+  "tree_receipts": [
+    {
+      "kind": "native",
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca",
+      "entries": 1943
+    },
+    {
+      "kind": "release",
+      "sha256": "566822196299e9213dd8fd273262b238e45480dce5ea1d0cba77c05239b7cd91",
+      "entries": 1835
+    },
+    {
+      "kind": "tempo",
+      "sha256": "fd70edc972c2b10ee52c7f7e0bfcc3adcf82513f588bb716b212ec49dc6aec1e",
+      "entries": 1179
+    },
+    {
+      "kind": "alto",
+      "sha256": "0fd7253a77282096ea501daf34a1d0d3409c1a96f6abf210cecd4072497b4439",
+      "entries": 150
+    }
+  ]
+}

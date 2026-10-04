@@ -1,0 +1,149 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "fetched_at_utc": "2026-10-03T23:59:13.703026+00:00",
+  "fresh_complete_trees": 4,
+  "sources": [
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs",
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "git_blob_sha1": "917f4783d7b2878cadfdbb61ad80a2dc1ee7a01a",
+      "bytes": 175612,
+      "lines": 4730,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    },
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs",
+      "sha256": "0e5e12492554098c2fe16c1ffd61c559390b99f8e4027a0c81caea4eb0371441",
+      "git_blob_sha1": "7011d7689eb1ceb1bfbdba3c4549e7568cc5ba37",
+      "bytes": 33453,
+      "lines": 1007,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    },
+    {
+      "kind": "native",
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/monorepo/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs",
+      "sha256": "35b1c70f82cf9f0de607f13908b272b15c6f5aed6b1e06491c6b7ac51ff0d582",
+      "git_blob_sha1": "df9c35a43fda0f248135ff379e5c14ac13ec9981",
+      "bytes": 207316,
+      "lines": 5040,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    },
+    {
+      "kind": "nunchi",
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/actor.rs",
+      "url": "https://raw.githubusercontent.com/nunchi-labs/sdk/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/actor.rs",
+      "sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+      "git_blob_sha1": "becd1fd372cf61a11a388d1528dd1be2d4243316",
+      "bytes": 17292,
+      "lines": 500,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    },
+    {
+      "kind": "nunchi",
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "url": "https://raw.githubusercontent.com/nunchi-labs/sdk/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/pool.rs",
+      "sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+      "git_blob_sha1": "90fab9253f40757e49ae39472683e187d821e25e",
+      "bytes": 15385,
+      "lines": 429,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    },
+    {
+      "kind": "nunchi",
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/lib.rs",
+      "url": "https://raw.githubusercontent.com/nunchi-labs/sdk/eea35ced709f68c15d6fbc8bcc754696a7e44374/mempool/src/lib.rs",
+      "sha256": "92b0cd637a14289526ec3cf639c7f1146c1e0c456205d3d2d12813a51c3f7427",
+      "git_blob_sha1": "471e964a4bcd35b546e602961d600df5f5067037",
+      "bytes": 910,
+      "lines": 28,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    },
+    {
+      "kind": "reth",
+      "repository": "paradigmxyz/reth",
+      "revision": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/traits.rs",
+      "url": "https://raw.githubusercontent.com/paradigmxyz/reth/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/traits.rs",
+      "sha256": "8d2550da48835784874f9e4e31894e40f713b3369eda145e9e33b9e8e471cb4e",
+      "git_blob_sha1": "ef4d74953fb96ceae93ed407dbe4ed9518667141",
+      "bytes": 86752,
+      "lines": 2257,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    },
+    {
+      "kind": "reth",
+      "repository": "paradigmxyz/reth",
+      "revision": "038edab20dfff017f7a7502e683c732e5628ad89",
+      "path": "crates/transaction-pool/src/pool/best.rs",
+      "url": "https://raw.githubusercontent.com/paradigmxyz/reth/038edab20dfff017f7a7502e683c732e5628ad89/crates/transaction-pool/src/pool/best.rs",
+      "sha256": "10e0b93f0d0cb64b6933a5c6ce55d115108e4b9d55da81f963f2a22c7fde0575",
+      "git_blob_sha1": "5468a71a0c9228d4fcc5352fbfe38975a647c537",
+      "bytes": 48152,
+      "lines": 1259,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    },
+    {
+      "kind": "constantinople",
+      "repository": "commonwarexyz/constantinople",
+      "revision": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/mailbox.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/webserver/mailbox.rs",
+      "sha256": "6424f5f8002533827d7709132b11e4f012872f2febe6ebf31cfcce8e83895ec5",
+      "git_blob_sha1": "ef6ee912ba3fdd5e2546122e991ac8a6bfbe6ac2",
+      "bytes": 6631,
+      "lines": 224,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    },
+    {
+      "kind": "constantinople",
+      "repository": "commonwarexyz/constantinople",
+      "revision": "3b6c92e76bf582855615844a4175b8304808f6a9",
+      "path": "crates/mempool/src/webserver/actor.rs",
+      "url": "https://raw.githubusercontent.com/commonwarexyz/constantinople/3b6c92e76bf582855615844a4175b8304808f6a9/crates/mempool/src/webserver/actor.rs",
+      "sha256": "96ff6fd243372b0fb891102a6cab1d0c25204b9600b2efd6732266f6dcfdccd5",
+      "git_blob_sha1": "557f5ea4fa827efcd698134799a6e8cdda781cd0",
+      "bytes": 52261,
+      "lines": 1541,
+      "status": "fresh-independent-wave10-tree-blob-matched"
+    }
+  ],
+  "tree_receipts": [
+    {
+      "kind": "native",
+      "sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca",
+      "entries": 1943
+    },
+    {
+      "kind": "nunchi",
+      "sha256": "98f98973fae46c0b4166b574e0b539e1dd79d6e6d395d80670ed5ec67ea9b0b4",
+      "entries": 424
+    },
+    {
+      "kind": "reth",
+      "sha256": "445fc69e42733e48051e2f44f8279fd1200b2897df0eb3255b3c17ed493500dd",
+      "entries": 2449
+    },
+    {
+      "kind": "constantinople",
+      "sha256": "8dae791561997d9f158765d659da528f260ed9016dffd3cfb09d199be57f232e",
+      "entries": 190
+    }
+  ]
+}

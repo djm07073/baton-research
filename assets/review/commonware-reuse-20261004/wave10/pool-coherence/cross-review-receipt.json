@@ -1,0 +1,218 @@
+{
+  "reports": {
+    "body-coherence/REPORT.md": "9106d87b81e5af78b8b792ef13e72c8d198db7a83a48bcf8ba25c0177caf4c53",
+    "body-coherence/READER_DELTA.md": "0f8c3ed3b80a6551b356a8900e34f2748d6083e073d032ad8aba938d3765632e",
+    "storage-coherence/REPORT.md": "da956dc0676eb8484ac4b16dc87838d54b6bf6550ebe5a5e50e1aa21ba5bd4be",
+    "storage-coherence/READER_DELTA.md": "60bb6195802d0eb5f206f890f6ed5b217c73180e6e95d074483df90e6415f046",
+    "intro-coherence/REPORT.md": "51da6051bdaa62de48b70c8c414d7952b60f9e96528a87c9ececc33018c5037f"
+  },
+  "source_manifest_sha256": "c06969cfd82f184c3fdbb6da03022226455a23ece787a478603db121033b2809",
+  "fresh_files": 14,
+  "fresh_complete_trees": 4,
+  "body_report_anchors": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/standard/relay.rs",
+      "line": 21,
+      "source_line": "pub(super) fn broadcast<S, B>(",
+      "git_blob": "727b1135a3419c091fcc6f8f40f4dcc14a40d609"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 649,
+      "source_line": "            Message::Forward {",
+      "git_blob": "5b33f63841712a6396086b651284b6528cf95b5f"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/standard/variant.rs",
+      "line": 115,
+      "source_line": "    fn send(&self, _round: Round, block: Arc<B>, recipients: Recipients<K>) {",
+      "git_blob": "60281aecd0590ca42614159e63e87794f3a7c3ec"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "line": 207,
+      "source_line": "        let (broadcast, broadcast_mailbox) = buffered::Engine::new(",
+      "git_blob": "58a843e1cbd0dcb289a2752034f08ae6494b81d7"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "pin": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "line": 526,
+      "source_line": "        let broadcast = self.broadcast.start(broadcast_channel);",
+      "git_blob": "58a843e1cbd0dcb289a2752034f08ae6494b81d7"
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "pin": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "line": 177,
+      "source_line": "        let (buffer, buffer_mailbox) = buffered::Engine::new(",
+      "git_blob": "dbc2f2309f2804c6be48fe1f45399f36c2b465fa"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/ingress.rs",
+      "line": 95,
+      "source_line": "impl<P: PublicKey, M: Digestible + Codec> Mailbox<P, M> {",
+      "git_blob": "d04cdd61e4729bfadbc30b4cc5aa91d9abb980d3"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/engine.rs",
+      "line": 251,
+      "source_line": "    /// Handles a `subscribe` request from the application.",
+      "git_blob": "61dade3853d98706e1556369ae72165d20e7e6b3"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/engine.rs",
+      "line": 279,
+      "source_line": "            InsertMessageResult::Inserted => {",
+      "git_blob": "61dade3853d98706e1556369ae72165d20e7e6b3"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/engine.rs",
+      "line": 405,
+      "source_line": "    /// Handle a network response from a peer.",
+      "git_blob": "c90994bec8cc3b30dbe56be5fef39123b7f7aee4"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/mod.rs",
+      "line": 103,
+      "source_line": "",
+      "git_blob": "211778603556a37e62e186b7ae2324a3954d8489"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/mod.rs",
+      "line": 61,
+      "source_line": "//! ## Limitations and Future Work",
+      "git_blob": "a9320adee36b69902c7c70de671e6a79fc04a3b4"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/standard/inline.rs",
+      "line": 223,
+      "source_line": "impl<E, S, A, B, ES> Automaton for Inline<E, S, A, B, ES>",
+      "git_blob": "7592f8848b9d0d19828a50cf9b6da4b02d7094a9"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/resolver/handler.rs",
+      "line": 118,
+      "source_line": "/// Receiver for resolver handler messages.",
+      "git_blob": "481937af60af57625b1e6ca645e916609d2fde0f"
+    }
+  ],
+  "inline_diagrams": [
+    {
+      "page": "docs/consensus/README.md",
+      "diagram": "diagram-16",
+      "matches": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "diagram": "diagram-17",
+      "matches": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "diagram": "diagram-18",
+      "matches": true
+    },
+    {
+      "page": "docs/overview/architecture.md",
+      "diagram": "diagram-01",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "diagram": "diagram-08",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "diagram": "diagram-09",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/state-sync.md",
+      "diagram": "diagram-14",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/leader.md",
+      "diagram": "diagram-06",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/leader.md",
+      "diagram": "diagram-12",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "diagram": "diagram-13",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "diagram": "diagram-10",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/results.md",
+      "diagram": "diagram-11",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/native-consensus.md",
+      "diagram": "diagram-15",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/normal.md",
+      "diagram": "diagram-02",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/normal.md",
+      "diagram": "diagram-03",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/reschedule.md",
+      "diagram": "diagram-07",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/block-body.md",
+      "diagram": "diagram-04",
+      "matches": true
+    },
+    {
+      "page": "docs/e2e/block-body.md",
+      "diagram": "diagram-05",
+      "matches": true
+    }
+  ]
+}

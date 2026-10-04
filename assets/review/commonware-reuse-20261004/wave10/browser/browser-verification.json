@@ -1,0 +1,163 @@
+{
+  "checkedPages": 31,
+  "traits": 5,
+  "searchResults": 22,
+  "errors": [],
+  "checks": [
+    {
+      "page": "README.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "overview/architecture.md",
+      "english": true,
+      "images": 1
+    },
+    {
+      "page": "overview/glossary.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "overview/rust-interfaces.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "overview/networking.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "overview/interfaces.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "tx/README.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "tx/interfaces.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "consensus/README.md",
+      "english": true,
+      "images": 1
+    },
+    {
+      "page": "consensus/block-body.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "consensus/ordered-input.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "consensus/decisions.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "baton/README.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "baton/direction.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "baton/interfaces.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "execution/README.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "execution/interfaces.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "execution/qmdb.md",
+      "english": true,
+      "images": 2
+    },
+    {
+      "page": "execution/state-sync.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "e2e/normal.md",
+      "english": true,
+      "images": 2
+    },
+    {
+      "page": "e2e/block-body.md",
+      "english": true,
+      "images": 2
+    },
+    {
+      "page": "e2e/native-consensus.md",
+      "english": true,
+      "images": 1
+    },
+    {
+      "page": "e2e/leader.md",
+      "english": true,
+      "images": 2
+    },
+    {
+      "page": "e2e/reschedule.md",
+      "english": true,
+      "images": 1
+    },
+    {
+      "page": "e2e/canonical.md",
+      "english": true,
+      "images": 2
+    },
+    {
+      "page": "e2e/recovery.md",
+      "english": true,
+      "images": 2
+    },
+    {
+      "page": "e2e/results.md",
+      "english": true,
+      "images": 1
+    },
+    {
+      "page": "e2e/state-sync.md",
+      "english": true,
+      "images": 1
+    },
+    {
+      "page": "reference/integration.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "reference/verification.md",
+      "english": true,
+      "images": 0
+    },
+    {
+      "page": "reference/sources.md",
+      "english": true,
+      "images": 0
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+# Wave 10 — introductory responsibility consistency
+
+Baseline `01cf73b41dedd81614237977e4edf150c7d19a81`; documentation audit only. Root inspected every current Markdown lead and the central Rust contracts, architecture role table, normal E2E sequence and execution roles. The existing reuse contracts are the authority; this audit adds no upstream capability claim or source URL and does not claim fresh external source verification.
+
+Two introductory sentences still attributed durable application directly to Executor without naming Storage. This can obscure the user’s adopted execution/storage split despite accurate detailed sections. Architecture now names Executor’s transaction changes and Storage’s root preparation/durable canonical apply. Normal E2E names body packaging through existing primitives, Executor changes and Storage apply/persistence. The central traits and both diagrams already have these boundaries and need no change. These are role clarifications, not changing Executor::commit control or moving certification/sync/ACK authority.
+
+The canonical E2E lead also had an ambiguous “It acknowledges delivery” following a Storage clause. The independent storage audit confirmed this meaningful precision change: name Executor as the delivery ACK sender, after Storage has made state, outputs, cursor and provenance recoverably durable. No new responsibility is proposed. All actual receipts, f+1 signing, direct/imported provenance, no-wait behavior, open policies and native integration obligations remain the same.
+
+Independent body, TxPool and Storage coherence audits are running. Candidate prose needs independent review before publication. No implementation, compile, native tests or benchmarks were run. The six-hour goal remains active. Evidence: reader-lead-inventory.json and the current minimal diff.

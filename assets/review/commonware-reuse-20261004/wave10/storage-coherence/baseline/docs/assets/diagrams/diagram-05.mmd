@@ -1,0 +1,43 @@
+sequenceDiagram
+    participant N as Native engine
+    participant A as BlockService: Automaton adapter
+    participant S as Commonware Archive / buffer / resolver
+    participant P as Peer resolver / archive-backed Producer
+    participant I as Baton: block intake
+    participant B as Baton: scheduling
+    N->>A: Automaton::verify(Context from native header, payload)
+    A->>S: Lookup body and required parent
+    alt Required body / parent missing
+        S->>P: Generic resolver fetch by exact key
+        P-->>S: Response bytes
+        S->>S: Validate expected digest and context
+        opt Correct response for exact expected reference
+            S-->>A: Expected body / parent bytes
+        end
+        Note over A,S: Missing / bad peer response keeps request pending
+    else Already stored
+        S-->>A: Stored bytes
+    end
+    alt Required bytes remain unresolved
+        A->>A: Keep receiver pending, resolver retries / buffer subscription waits
+        Note over N,A: No true / false result returned for this request yet
+    else Expected bytes are available
+        alt Expected payload is structurally invalid
+            A-->>N: verify(false)
+        else Structurally valid expected payload
+            A->>S: Store / sync custody
+            alt Covering durable custody succeeds
+                S-->>A: Durable body reference
+                A-->>N: verify(true)
+                A-->>I: StoredBody(durable body, producer context)
+                alt Matching authenticated header observation is available
+                    I->>I: Match exact body / header identity and source provenance
+                    I-->>B: CandidateBlock(block_ref, body, context)
+                else Header observation or matching context remains unresolved
+                    Note over I,B: Candidate join stays pending, native verify completion above is independent
+                end
+            else Local storage / sync failure
+                Note over N,S: No custody success, distinct from peer invalidity
+            end
+        end
+    end

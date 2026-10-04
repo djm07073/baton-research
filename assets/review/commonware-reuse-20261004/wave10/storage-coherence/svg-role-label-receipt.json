@@ -1,0 +1,135 @@
+[
+  {
+    "diagram": 1,
+    "ownership_labels": [
+      "bytes / fetch / durability",
+      "completed changes / selected commit",
+      "batch / merkleize / apply / sync",
+      "signatures / certificates / change sets",
+      "Executor: tree, execution and certification",
+      "Storage: roots / canonical writer / recovery",
+      "Commonware QMDB",
+      "Peer Executor"
+    ],
+    "review": "SVG label text only; no rendered visual QA"
+  },
+  {
+    "diagram": 2,
+    "ownership_labels": [
+      "Storage / QMDB",
+      "Executor",
+      "Storage / QMDB",
+      "Executor",
+      "Root exists before direct-result",
+      "Completed changes / outputs,",
+      "no root required per attempt",
+      "prepare(completed changes,",
+      "apply(authorized canonical",
+      "input, prepared material)",
+      "QMDB apply/flush +",
+      "Delivery ACK after durability",
+      "approval/ACK"
+    ],
+    "review": "SVG label text only; no rendered visual QA"
+  },
+  {
+    "diagram": 8,
+    "ownership_labels": [
+      "Storage / QMDB",
+      "Executor",
+      "Storage / QMDB",
+      "Executor",
+      "and apply material at",
+      "prepare / apply exact authorized",
+      "CommitResult / delivery ACK",
+      "after durability"
+    ],
+    "review": "SVG label text only; no rendered visual QA"
+  },
+  {
+    "diagram": 9,
+    "ownership_labels": [
+      "Storage / QMDB",
+      "Executor",
+      "Storage / QMDB",
+      "Executor",
+      "No CommitResult/ACK, recover",
+      "authoritative durable state",
+      "Unsealed batch or rootless",
+      "transaction changes",
+      "prepare(exact selected prefix,",
+      "Prepared material, root and",
+      "apply(authorized canonical",
+      "range, prepared result)",
+      "Barrier::durable +",
+      "Durable delivery ACK",
+      "No successful durable"
+    ],
+    "review": "SVG label text only; no rendered visual QA"
+  },
+  {
+    "diagram": 10,
+    "ownership_labels": [
+      "Executor",
+      "Storage / QMDB /",
+      "Executor",
+      "Storage / QMDB /",
+      "from durable",
+      "Recover last durable applied",
+      "Existing matching durable",
+      "CommitResult / delivery ACK"
+    ],
+    "review": "SVG label text only; no rendered visual QA"
+  },
+  {
+    "diagram": 11,
+    "ownership_labels": [
+      "Executor",
+      "Storage / QMDB",
+      "Validator Executor",
+      "Executor",
+      "Storage / QMDB",
+      "Validator Executor",
+      "durable local application is",
+      "prepare(exact completed range,",
+      "sign_result(prepared"
+    ],
+    "review": "SVG label text only; no rendered visual QA"
+  },
+  {
+    "diagram": 14,
+    "ownership_labels": [
+      "Storage / QMDB",
+      "Executor",
+      "Executor",
+      "Storage / QMDB",
+      "Executor",
+      "Executor",
+      "Request matching change set /",
+      "apply(authorized range, verified",
+      "prepared material)",
+      "QMDB apply / Barrier",
+      "durability /",
+      "Complete delivery ACK",
+      "Applied progress only, no approval / ACK required"
+    ],
+    "review": "SVG label text only; no rendered visual QA"
+  },
+  {
+    "diagram": 17,
+    "ownership_labels": [
+      "optional rootless pending-parent path",
+      "prepare selected commitment",
+      "apply_batch",
+      "apply_batch",
+      "durable CommitResult / ACK",
+      "Executor: execution tree and transaction effects",
+      "Storage: prepare / canonical writer / recovery",
+      "Commonware Merkleized batch / root and ancestry",
+      "Merkle-family structure / ops root",
+      "Bitmap grafted structure / Current root",
+      "Commonware Barrier / durability observation"
+    ],
+    "review": "SVG label text only; no rendered visual QA"
+  }
+]

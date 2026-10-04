@@ -1,0 +1,192 @@
+[
+  {
+    "source": "README.md",
+    "preserved_heading_anchors": 12,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "overview/architecture.md",
+    "preserved_heading_anchors": 4,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "overview/glossary.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "overview/rust-interfaces.md",
+    "preserved_heading_anchors": 8,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "overview/networking.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "overview/interfaces.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "tx/README.md",
+    "preserved_heading_anchors": 6,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "tx/interfaces.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "consensus/README.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "consensus/block-body.md",
+    "preserved_heading_anchors": 4,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "consensus/ordered-input.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "consensus/decisions.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "baton/README.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "baton/direction.md",
+    "preserved_heading_anchors": 4,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "baton/interfaces.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "execution/README.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "execution/interfaces.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "execution/qmdb.md",
+    "preserved_heading_anchors": 6,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "execution/state-sync.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/normal.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/block-body.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/native-consensus.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/leader.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/reschedule.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/canonical.md",
+    "preserved_heading_anchors": 2,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/recovery.md",
+    "preserved_heading_anchors": 3,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/results.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "e2e/state-sync.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "reference/integration.md",
+    "preserved_heading_anchors": 11,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "reference/verification.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "reference/sources.md",
+    "preserved_heading_anchors": 1,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@overview",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@tx",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@consensus",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@baton",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@execution",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@e2e",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  },
+  {
+    "source": "@reference",
+    "preserved_heading_anchors": 0,
+    "new_heading_anchors": []
+  }
+]

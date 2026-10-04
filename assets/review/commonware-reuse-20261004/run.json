@@ -487,6 +487,70 @@
       "final_page_hashes": {
         "docs/reference/verification.md": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b"
       }
+    },
+    {
+      "wave": 10,
+      "status": "reviewed_and_published",
+      "reports": [
+        {
+          "path": "wave10/DOCS_RESOLUTION.md",
+          "sha256": "de1131d12742f1666f30267e1ac9ead15daa1f83bccbd6c344e5d3166a17b012"
+        },
+        {
+          "path": "wave10/body-coherence/DOCS_FOUR_PAGE_ACK.md",
+          "sha256": "53cb95041b988fafd6c8a224d352d845d95bfe3123815ee47ebeaeaf93a60c5b"
+        },
+        {
+          "path": "wave10/body-coherence/DOCS_READER_ACK.md",
+          "sha256": "c49a55328813de7d8d713997eda3207939014f002cf321994e860157cf73dc62"
+        },
+        {
+          "path": "wave10/body-coherence/REPORT.md",
+          "sha256": "9106d87b81e5af78b8b792ef13e72c8d198db7a83a48bcf8ba25c0177caf4c53"
+        },
+        {
+          "path": "wave10/body-coherence/STORAGE_POOL_CROSS_REVIEW.md",
+          "sha256": "5bfee9b06c5d52b13e0b687d5f852b4765b257db5a85df4f2314528bc1541ba0"
+        },
+        {
+          "path": "wave10/intro-coherence/REPORT.md",
+          "sha256": "51da6051bdaa62de48b70c8c414d7952b60f9e96528a87c9ececc33018c5037f"
+        },
+        {
+          "path": "wave10/pool-coherence/BODY_STORAGE_INTRO_CROSS_REVIEW.md",
+          "sha256": "eda6b005800e014daac9bf93f19e12243c7faf63bc4553e5b373d374d8beb05a"
+        },
+        {
+          "path": "wave10/pool-coherence/DOCS_GLOBAL_REVIEW.md",
+          "sha256": "8a67f0f46344564d76248489c2d4e7ce6c5f9f0b99ad45b08bb88a9774e05309"
+        },
+        {
+          "path": "wave10/pool-coherence/REPORT.md",
+          "sha256": "337849808bdb3f305ef423a4c4e52a159bb6c4c55989b17d4c585d3155aab028"
+        },
+        {
+          "path": "wave10/storage-coherence/BODY_POOL_CROSS_REVIEW.md",
+          "sha256": "ab61869655f365de585a95cfff87ba36b28003f3cd7c9730f626e218ca7b5fd3"
+        },
+        {
+          "path": "wave10/storage-coherence/DOCS_OWNERSHIP_REVIEW.md",
+          "sha256": "09a903dac8d45d5ead5dddfac1a97766e1ea070b0ee5d1e9e861ea065fc9d0fe"
+        },
+        {
+          "path": "wave10/storage-coherence/DOCS_STORAGE_TX_ACK.md",
+          "sha256": "f9aca2837c99b3b499083b07e789ca78394f71ddb67bc9c817cbde03aeb20325"
+        },
+        {
+          "path": "wave10/storage-coherence/REPORT.md",
+          "sha256": "da956dc0676eb8484ac4b16dc87838d54b6bf6550ebe5a5e50e1aa21ba5bd4be"
+        }
+      ],
+      "final_page_hashes": {
+        "docs/e2e/normal.md": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+        "docs/e2e/canonical.md": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+        "docs/overview/architecture.md": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+        "docs/tx/interfaces.md": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049"
+      }
     }
   ],
   "completion_audit": null,
@@ -501,29 +565,29 @@
       "Storage"
     ],
     "blank_policy_cells": 39,
-    "browser": "wave9/browser/browser-verification.json",
+    "browser": "wave10/browser/browser-verification.json",
     "protocol_implemented": false,
     "local_links": 257
   },
   "publication": {
-    "change_request_id": "O83KZMexKQYIp2XEzHmj",
-    "change_request_number": 12,
+    "change_request_id": "bGFPLALFL7LTFBWj7oIU",
+    "change_request_number": 13,
     "status": "published",
-    "published_revision": "36O47tlujxrEW9C1xjfX",
-    "reviewed_draft_revision": "dcd53ylFybyBc9OzY7qb",
+    "published_revision": "SKpBMBP5bB8nbXs83CtR",
+    "reviewed_draft_revision": "xcVLhfzD2uJkYE9M25xV",
     "pages": 38,
-    "updated_pages": 1,
-    "unchanged_documents": 37,
+    "updated_pages": 4,
+    "unchanged_documents": 34,
     "links": 580,
     "preserved_heading_anchors": 98,
     "reused_diagrams": 18,
     "reused_rust_file": true,
     "new_uploads": 0,
     "raw_file_bytes_verified": false,
-    "verification": "wave9/publication/gitbook-verification.json",
-    "live_verification": "wave9/publication/gitbook-live-verification.json"
+    "verification": "wave10/publication/gitbook-verification.json",
+    "live_verification": "wave10/publication/gitbook-live-verification.json"
   },
-  "updated_at_utc": "2026-10-03T23:48:19.480030+00:00",
+  "updated_at_utc": "2026-10-04T00:04:44.420961+00:00",
   "publication_history": [
     {
       "change_request_id": "OTFc0W01ZQvv2f4uiiU8",
@@ -660,7 +724,25 @@
       "raw_file_bytes_verified": false,
       "verification": "wave9/publication/gitbook-verification.json",
       "live_verification": "wave9/publication/gitbook-live-verification.json"
+    },
+    {
+      "change_request_id": "bGFPLALFL7LTFBWj7oIU",
+      "change_request_number": 13,
+      "status": "published",
+      "published_revision": "SKpBMBP5bB8nbXs83CtR",
+      "reviewed_draft_revision": "xcVLhfzD2uJkYE9M25xV",
+      "pages": 38,
+      "updated_pages": 4,
+      "unchanged_documents": 34,
+      "links": 580,
+      "preserved_heading_anchors": 98,
+      "reused_diagrams": 18,
+      "reused_rust_file": true,
+      "new_uploads": 0,
+      "raw_file_bytes_verified": false,
+      "verification": "wave10/publication/gitbook-verification.json",
+      "live_verification": "wave10/publication/gitbook-live-verification.json"
     }
   ],
-  "github_baseline_verified_sha": "f29c8c9e98cb9f3e9f1d90a1860ae96d52cbd2ea"
+  "github_baseline_verified_sha": "01cf73b41dedd81614237977e4edf150c7d19a81"
 }

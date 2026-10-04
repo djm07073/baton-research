@@ -1,0 +1,35 @@
+flowchart TB
+    B[Baton / execute block requests] --> E[Executor: execution tree and transaction effects]
+    ORDER[Orderer / irrevocable OrderedRange] --> E
+    E -->|branch access / selected effects| S[Storage: prepare / canonical writer / recovery]
+    S -->|valid read and write handles| U[Commonware Unmerkleized batch]
+    E -->|optional rootless pending-parent path| O[Application effects chain / working read overlay]
+    O -->|selected exact prefix materialization| S
+    U -->|selected concrete merkleize call| K[Commonware Merkleized batch / root and ancestry]
+    S -->|prepare selected commitment| K
+    K -->|authorized canonical material| D[Commonware DatabaseSet / ManagedDb]
+    subgraph Q[Any keyed DB: illustration]
+        I[Key to latest operation location index]
+        L[Authenticated operations journal]
+        M[Merkle-family structure / ops root]
+        A[Active-operation bitmap / floor metadata]
+        I -->|resolve actual op| L
+        L --- M
+        A --- L
+    end
+    D -->|apply_batch| I
+    D -->|apply_batch| L
+    U -. valid read-through .-> I
+    U -. valid read-through .-> L
+    Q -. optional Current layer .-> C[Bitmap grafted structure / Current root]
+    D -->|start_sync handles| F[Commonware Barrier / durability observation]
+    F -->|successful observation| S
+    S -->|recoverable state-output-cursor-provenance linkage| E
+    E -->|durable CommitResult / ACK| ORDER
+    E -. optional progress .-> B
+    classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
+    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
+    classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
+    class U,K,D,I,L,M,A,C,F reuse;
+    class S adapt;
+    class B,ORDER,E,O fresh;

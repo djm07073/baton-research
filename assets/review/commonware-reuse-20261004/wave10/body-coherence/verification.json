@@ -1,0 +1,126 @@
+{
+  "files": [
+    {
+      "path": "REPORT.md",
+      "sha256": "9106d87b81e5af78b8b792ef13e72c8d198db7a83a48bcf8ba25c0177caf4c53"
+    },
+    {
+      "path": "READER_DELTA.md",
+      "sha256": "0f8c3ed3b80a6551b356a8900e34f2748d6083e073d032ad8aba938d3765632e"
+    },
+    {
+      "path": "DOCS_READER_ACK.md",
+      "sha256": "c49a55328813de7d8d713997eda3207939014f002cf321994e860157cf73dc62"
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "5c46bac8837fbd8a8c32e3866a0501cce8826e2f1cde012fdfbb448d00461101"
+    },
+    {
+      "path": "docs-receipts.json",
+      "sha256": "0f3c03dcba7ba6eaedb8a286666915bfcd99b653d869a7af0aed2422f7bfb349"
+    }
+  ],
+  "report_anchors": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/standard/relay.rs",
+      "line": 21,
+      "source_line": "pub(super) fn broadcast<S, B>("
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/core/actor.rs",
+      "line": 649,
+      "source_line": "            Message::Forward {"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "d476a2361ce6840d2b9d0aa6fb30a924429046d4",
+      "path": "consensus/src/marshal/standard/variant.rs",
+      "line": 115,
+      "source_line": "    fn send(&self, _round: Round, block: Arc<B>, recipients: Recipients<K>) {"
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "line": 207,
+      "source_line": "        let (broadcast, broadcast_mailbox) = buffered::Engine::new("
+    },
+    {
+      "repo": "tempoxyz/tempo",
+      "revision": "61c979a524f9af5de9c540a0088c429a44741e4c",
+      "path": "crates/consensus/src/consensus/engine.rs",
+      "line": 526,
+      "source_line": "        let broadcast = self.broadcast.start(broadcast_channel);"
+    },
+    {
+      "repo": "commonwarexyz/alto",
+      "revision": "1d87569348b5560699465a72d691d90f18affb9c",
+      "path": "chain/src/engine.rs",
+      "line": 177,
+      "source_line": "        let (buffer, buffer_mailbox) = buffered::Engine::new("
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/ingress.rs",
+      "line": 95,
+      "source_line": "impl<P: PublicKey, M: Digestible + Codec> Mailbox<P, M> {"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/engine.rs",
+      "line": 251,
+      "source_line": "    /// Handles a `subscribe` request from the application."
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/engine.rs",
+      "line": 279,
+      "source_line": "            InsertMessageResult::Inserted => {"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/engine.rs",
+      "line": 405,
+      "source_line": "    /// Handle a network response from a peer."
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/mod.rs",
+      "line": 103,
+      "source_line": ""
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/mod.rs",
+      "line": 61,
+      "source_line": "//! ## Limitations and Future Work"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/standard/inline.rs",
+      "line": 223,
+      "source_line": "impl<E, S, A, B, ES> Automaton for Inline<E, S, A, B, ES>"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/marshal/resolver/handler.rs",
+      "line": 118,
+      "source_line": "/// Receiver for resolver handler messages."
+    }
+  ],
+  "all_sources_fresh_blob_matched": true,
+  "canonical_edits_by_reviewer": false
+}

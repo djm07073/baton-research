@@ -1,0 +1,27 @@
+{
+  "baseline": "01cf73b41dedd81614237977e4edf150c7d19a81",
+  "reviewed_files": {
+    "docs/tx/README.md": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+    "docs/tx/interfaces.md": "a3a339b998a7d6c04a8953229933d1500c5cd0d57b7c1b41b36540bdcd21f331",
+    "docs/overview/architecture.md": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+    "docs/overview/rust-interfaces.md": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+    "docs/reference/integration.md": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+    "docs/consensus/block-body.md": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+    "docs/e2e/normal.md": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+    "docs/e2e/block-body.md": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+    "docs/assets/diagrams/diagram-01.mmd": "b9872275adca1d1833aa3e18869ce3270c69be15d13c5792ab84715c7b7b576f",
+    "docs/assets/diagrams/diagram-01.svg": "1cc2f73798aebe66e0df5340e9b8c08089b0584ee7548f2945260905acac8559",
+    "docs/assets/diagrams/diagram-02.mmd": "d368ef467c115e89e344b06eb831351404a3c10ffc01c1382cff2518c9e5bf66",
+    "docs/assets/diagrams/diagram-02.svg": "471643b14f453a36226a53e4f2bd585aefc29c3d7ec88f0f6b75fa6a392aefec",
+    "docs/assets/diagrams/diagram-03.mmd": "bcc458524e8aeb32bf0f60563a870fe25942431fd2b6f04f8631085017350b80",
+    "docs/assets/diagrams/diagram-03.svg": "43236514d36d4a482938ab1b5c07cceb56fd46d573cf74f0865aee5f936815b9",
+    "docs/assets/diagrams/diagram-04.mmd": "a23e0c69a4b5ab643b6c75fe2303b8192142d0addbcc0c93a2df1c25955cfe20",
+    "docs/assets/diagrams/diagram-04.svg": "f434320b7787129fd370cc6dbe4313470c3eaac18a60d806c8893b13e9510f97"
+  },
+  "source_manifest_sha256": "9bf45933842278bef14b6f77b427cd80f59b5ae3a4781dc47ec452327917abeb",
+  "fresh_sources": 17,
+  "complete_trees": 5,
+  "canonical_mutations_by_reviewer": false,
+  "native_execution": false,
+  "only_proposed_delta": "Nunchi antecedent in tx/interfaces.md"
+}

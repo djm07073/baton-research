@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant E as Validator Executor
+    participant S as Storage / QMDB
+    participant P as Peer Validator Executor
+    participant R as Certified result consumer
+    E->>E: Complete direct execution, verify exact irrevocable input/base
+    E->>S: prepare(exact completed range, selected storage rule)
+    S-->>E: Computed commitment + bound outputs/material
+    E->>E: sign_result(prepared result) with own direct provenance
+    E->>E: Retain statement/provenance under chosen recovery contract
+    E-->>P: Signature on stable full ExecutionStatement
+    P-->>E: Matching signatures or original certificate
+    E->>E: Validate full subject, eligible distinct signers and context
+    alt At least f+1 matching eligible signatures verified
+        E->>E: Result certificate verified
+        Note over E,S: State finalization established, durable local application is separate
+        E-->>P: Original certificate, material on request
+        E-->>R: Certificate + exact input/base/result identity
+        R->>R: Verify certificate, order and input-state chain
+    else Insufficient validated signatures
+        E->>E: Continue valid local execution, retain/reprovide statements
+    end
+    Note over E,P: Collector may support pull requests, its raw count is not this certificate
+    Note over E,P: No Baton gate, imported range receives no own direct-execution signature

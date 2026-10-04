@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant C as Client
+    participant T as TxPool
+    participant N as Multimmit / body attachment / Orderer
+    participant B as Baton
+    participant E as Executor
+    participant S as Storage / QMDB
+    C->>T: admit(tx)
+    T-->>C: Admission result
+    N->>T: TxPool::select(producer context, limits)
+    T-->>N: Candidate tx batch
+    N->>N: Body codec + Archive sync, Relay uses buffered broadcast
+    N-->>B: CandidateBlock(exact authenticated header + retained body)
+    B->>E: execute(block, execution-parent hash, exact context)
+    E-->>B: Completed changes / outputs, no root required per attempt
+    Note over N,E: Native consensus and Baton reports/directions proceed in parallel
+    N-->>E: Orderer delivers irrevocable OrderedRange
+    E->>E: commit(range): reuse exact prefix / finish missing work
+    E->>S: prepare(completed changes, selected boundary/rule)
+    S-->>E: Prepared material + result commitment
+    Note over E,S: Root exists before direct-result signing, peer collection does not gate native cut
+    E->>S: apply(authorized canonical input, prepared material)
+    S->>S: QMDB apply/flush + recoverable metadata linkage
+    S-->>E: Durable CommitResult
+    E-->>N: Delivery ACK after durability
+    E-->>T: Canonical tx outcomes
+    opt Optional scheduling notification
+        E-->>B: Applied progress, no approval/ACK
+    end

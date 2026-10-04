@@ -1,0 +1,85 @@
+{
+  "new_reviews": [
+    {
+      "path": "STORAGE_POOL_CROSS_REVIEW.md",
+      "sha256": "5bfee9b06c5d52b13e0b687d5f852b4765b257db5a85df4f2314528bc1541ba0"
+    },
+    {
+      "path": "DOCS_FOUR_PAGE_ACK.md",
+      "sha256": "53cb95041b988fafd6c8a224d352d845d95bfe3123815ee47ebeaeaf93a60c5b"
+    }
+  ],
+  "report_anchors": [
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/lib.rs",
+      "line": 15,
+      "source_line": "mod pool;"
+    },
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/actor.rs",
+      "line": 177,
+      "source_line": "    pub async fn pending(&self, limit: usize) -> Vec<T> {"
+    },
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/actor.rs",
+      "line": 414,
+      "source_line": "            Message::Finalized {"
+    },
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "line": 211,
+      "source_line": "    pub fn finalize("
+    },
+    {
+      "repository": "nunchi-labs/sdk",
+      "revision": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "line": 258,
+      "source_line": "        if height > self.last_height {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 341,
+      "source_line": "pub trait ManagedDb<E>: Send + Sync + Sized {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 469,
+      "source_line": "    /// Resolves `true` once every deferred flush is durable."
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/mod.rs",
+      "line": 508,
+      "source_line": "pub trait DatabaseSet<E>: Clone + Send + Sync + 'static {"
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "glue/src/stateful/db/any.rs",
+      "line": 110,
+      "source_line": "    /// Read a value by key, falling back to applied state."
+    },
+    {
+      "repository": "commonwarexyz/monorepo",
+      "revision": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/qmdb/any/batch.rs",
+      "line": 2587,
+      "source_line": "{"
+    }
+  ],
+  "completed_body_report_delta_receipts_unchanged": true
+}

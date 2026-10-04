@@ -1,0 +1,28 @@
+{
+  "reviewer": "/root/reuse_network_v3",
+  "recorded_at_utc": "2026-10-04T00:01:15.976939+00:00",
+  "baseline": "01cf73b41dedd81614237977e4edf150c7d19a81",
+  "bound_reports": {
+    "assets/review/commonware-reuse-20261004/wave10/pool-coherence/REPORT.md": "337849808bdb3f305ef423a4c4e52a159bb6c4c55989b17d4c585d3155aab028",
+    "assets/review/commonware-reuse-20261004/wave10/storage-coherence/REPORT.md": "da956dc0676eb8484ac4b16dc87838d54b6bf6550ebe5a5e50e1aa21ba5bd4be",
+    "assets/review/commonware-reuse-20261004/wave10/intro-coherence/REPORT.md": "51da6051bdaa62de48b70c8c414d7952b60f9e96528a87c9ececc33018c5037f"
+  },
+  "bound_pages": {
+    "docs/e2e/normal.md": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+    "docs/e2e/canonical.md": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+    "docs/overview/architecture.md": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+    "docs/tx/interfaces.md": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049"
+  },
+  "headings_urls_rust_mermaid_unchanged": true,
+  "central_trait_bytes_unchanged": true,
+  "traits": [
+    "TxPool",
+    "Orderer",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "blank_decisions": 39,
+  "diagrams": 18,
+  "reader_pages_excluding_summary": 31
+}

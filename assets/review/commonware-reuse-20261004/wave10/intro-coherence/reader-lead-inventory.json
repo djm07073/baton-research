@@ -1,0 +1,262 @@
+{
+  "baseline": "01cf73b41dedd81614237977e4edf150c7d19a81",
+  "pages": [
+    {
+      "page": "docs/README.md",
+      "baseline_sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4",
+      "current_sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4",
+      "lead": "**Baton connects transaction handling, consensus, speculative scheduling, and execution on Commonware Multimmit.** Each module page starts with its role and responsibility, then explains Rust inputs/outputs, call flow, and detailed completion conditions. Edit the Markdown in this docs folder as the source of truth.",
+      "reviewed_sha256": "36f3b4711d09fd81a296153c3dfa2a87b6384f883cfb1c68948a3e1b80736ff4",
+      "reviewed_lead": "**Baton connects transaction handling, consensus, speculative scheduling, and execution on Commonware Multimmit.** Each module page starts with its role and responsibility, then explains Rust inputs/outputs, call flow, and detailed completion conditions. Edit the Markdown in this docs folder as the source of truth."
+    },
+    {
+      "page": "docs/SUMMARY.md",
+      "baseline_sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8",
+      "current_sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8",
+      "lead": "* [Start here](README.md)",
+      "reviewed_sha256": "48624939af1dd13321694376f1a07af2bbb978a2417f30bd6f4bc3f628b5e5a8",
+      "reviewed_lead": "* [Start here](README.md)"
+    },
+    {
+      "page": "docs/baton/README.md",
+      "baseline_sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd",
+      "current_sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd",
+      "lead": "**Baton decides what speculative work to start or change.** It manages intended-order reports and advisory directions so Executors can begin useful work before order is final. Executor owns state finalization and state sync.",
+      "reviewed_sha256": "c768b51940aa34448747592ec120dc2da4be226243acc708c7c04ea3b89b92bd",
+      "reviewed_lead": "**Baton decides what speculative work to start or change.** It manages intended-order reports and advisory directions so Executors can begin useful work before order is final. Executor owns state finalization and state sync."
+    },
+    {
+      "page": "docs/baton/direction.md",
+      "baseline_sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97",
+      "current_sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97",
+      "lead": "**Baton chooses and shares a promising order; Executor manages its execution tree.** The leader evaluates original reports, chooses a valid candidate, and shares advisory direction. Each receiving Baton adjusts its speculative schedule without introducing a direction-approval quorum.",
+      "reviewed_sha256": "d723b6bcd87cc960e02dd88109eaee50aeafbb8b54b9f0e1814a2ebc13afed97",
+      "reviewed_lead": "**Baton chooses and shares a promising order; Executor manages its execution tree.** The leader evaluates original reports, chooses a valid candidate, and shares advisory direction. Each receiving Baton adjusts its speculative schedule without introducing a direction-approval quorum."
+    },
+    {
+      "page": "docs/baton/interfaces.md",
+      "baseline_sha256": "c383302c0acc6817d136a7829a8dccc3962d94669af5223f8776bc168d31986b",
+      "current_sha256": "c383302c0acc6817d136a7829a8dccc3962d94669af5223f8776bc168d31986b",
+      "lead": "**Baton requests execution; Executor owns completion.** Baton handlers admit blocks and scheduling messages and plan direction inside Baton or request parent-linked execute work. Applied progress is an optional local notification and does not require a reply before execution can proceed.",
+      "reviewed_sha256": "c383302c0acc6817d136a7829a8dccc3962d94669af5223f8776bc168d31986b",
+      "reviewed_lead": "**Baton requests execution; Executor owns completion.** Baton handlers admit blocks and scheduling messages and plan direction inside Baton or request parent-linked execute work. Applied progress is an optional local notification and does not require a reply before execution can proceed."
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "baseline_sha256": "4f1044c2d71bee357ff800604565e737dfae97003a87299c93533560aa021f65",
+      "current_sha256": "4f1044c2d71bee357ff800604565e737dfae97003a87299c93533560aa021f65",
+      "lead": "**Multimmit agrees on native ordering facts; the application attachment supplies bodies and execution inputs.** Reuse its producer lanes, availability checks, voting, finality, and recovery. BlockService provides real transaction bodies, and Orderer turns authenticated history into finalized input for Executor.",
+      "reviewed_sha256": "4f1044c2d71bee357ff800604565e737dfae97003a87299c93533560aa021f65",
+      "reviewed_lead": "**Multimmit agrees on native ordering facts; the application attachment supplies bodies and execution inputs.** Reuse its producer lanes, availability checks, voting, finality, and recovery. BlockService provides real transaction bodies, and Orderer turns authenticated history into finalized input for Executor."
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "baseline_sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "current_sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "lead": "**BlockService connects producer bodies to Commonware's existing distribution, fetch and storage primitives.** It defines the body format, binds bytes to native context/header identity, and establishes durable custody. Executor decides application transaction outcomes during ordered execution. No new generic broadcast, cache or retry engine is needed.",
+      "reviewed_sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "reviewed_lead": "**BlockService connects producer bodies to Commonware's existing distribution, fetch and storage primitives.** It defines the body format, binds bytes to native context/header identity, and establishes durable custody. Executor decides application transaction outcomes during ordered execution. No new generic broadcast, cache or retry engine is needed."
+    },
+    {
+      "page": "docs/consensus/decisions.md",
+      "baseline_sha256": "5cd5d25894a485829ba0fb65ded031b15589cd4312ba15931dfcb8e5577c0adf",
+      "current_sha256": "5cd5d25894a485829ba0fb65ded031b15589cd4312ba15931dfcb8e5577c0adf",
+      "lead": "**The responsibilities are defined; the integration contracts still need decisions.** Wire formats, policy adoption, and recovery details below remain blank until reviewed.",
+      "reviewed_sha256": "5cd5d25894a485829ba0fb65ded031b15589cd4312ba15931dfcb8e5577c0adf",
+      "reviewed_lead": "**The responsibilities are defined; the integration contracts still need decisions.** Wire formats, policy adoption, and recovery details below remain blank until reviewed."
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "baseline_sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+      "current_sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+      "lead": "**Orderer converts authenticated consensus history into an exact sequence for Executor.** It retains the evidence needed to explain that sequence, pauses at unresolved gaps, and tracks durable delivery acknowledgements. Native sparse finality and continuous execution order are separate outputs.",
+      "reviewed_sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+      "reviewed_lead": "**Orderer converts authenticated consensus history into an exact sequence for Executor.** It retains the evidence needed to explain that sequence, pauses at unresolved gaps, and tracks durable delivery acknowledgements. Native sparse finality and continuous execution order are separate outputs."
+    },
+    {
+      "page": "docs/e2e/block-body.md",
+      "baseline_sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "current_sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "lead": "**BlockService makes block contents available and keeps them recoverable.** A producer builds and distributes the body; receiving nodes fetch missing bytes, verify the expected content, and establish durable custody. Native consensus handles the header and ordering separately.",
+      "reviewed_sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "reviewed_lead": "**BlockService makes block contents available and keeps them recoverable.** A producer builds and distributes the body; receiving nodes fetch missing bytes, verify the expected content, and establish durable custody. Native consensus handles the header and ordering separately."
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "baseline_sha256": "000c1e19afa1403a5e0717e2ebc266fe6df4febd5d31498a113b5461f1b934c8",
+      "current_sha256": "000c1e19afa1403a5e0717e2ebc266fe6df4febd5d31498a113b5461f1b934c8",
+      "lead": "**Orderer delivers exact input; Executor selects its effects; Storage makes them durable.** Executor selects matching completed work, executes missing work or authorizes verified peer material; Storage prepares roots and applies it. It acknowledges delivery only after canonical application is recoverably durable.",
+      "reviewed_sha256": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+      "reviewed_lead": "**Orderer delivers exact input; Executor selects its effects; Storage makes them durable.** Executor selects matching completed work, executes missing work or authorizes verified peer material; Storage prepares roots and applies it. Executor acknowledges delivery only after Storage has made canonical state, outputs, cursor and provenance recoverably durable."
+    },
+    {
+      "page": "docs/e2e/leader.md",
+      "baseline_sha256": "2d54bce6f941631004ee2244c1a872c045a8651ae26b8a0d0686d1899096608e",
+      "current_sha256": "2d54bce6f941631004ee2244c1a872c045a8651ae26b8a0d0686d1899096608e",
+      "lead": "**Leader Baton prepares an execution suggestion while native consensus keeps moving.** It closes a report window, uses Baton::plan to choose a valid direction, and disseminates the result. Native Core may freeze a proposal before Baton planning finishes.",
+      "reviewed_sha256": "2d54bce6f941631004ee2244c1a872c045a8651ae26b8a0d0686d1899096608e",
+      "reviewed_lead": "**Leader Baton prepares an execution suggestion while native consensus keeps moving.** It closes a report window, uses Baton::plan to choose a valid direction, and disseminates the result. Native Core may freeze a proposal before Baton planning finishes."
+    },
+    {
+      "page": "docs/e2e/native-consensus.md",
+      "baseline_sha256": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba",
+      "current_sha256": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba",
+      "lead": "**Multimmit establishes availability and native ordering evidence.** Follow producer custody through header signing, DA, leader proposal, votes, and finality. Orderer later interprets the exact execution order in the canonical case.",
+      "reviewed_sha256": "39c8acaa0b594d7ec7049b68dd28892e40b7dc710796c0a5c238a2d0e7e620ba",
+      "reviewed_lead": "**Multimmit establishes availability and native ordering evidence.** Follow producer custody through header signing, DA, leader proposal, votes, and finality. Orderer later interprets the exact execution order in the canonical case."
+    },
+    {
+      "page": "docs/e2e/normal.md",
+      "baseline_sha256": "6040a0f865462b96deec8f79d2c7b3541d44769991972ef602df490556542d5d",
+      "current_sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+      "lead": "**A transaction moves from a candidate to a block, then to an ordered input and durable state.** TxPool admits it, BlockService packages it through existing body primitives, consensus fixes the order, Executor computes the changes, and Storage applies and persists them. The sequences below show the normal path and transaction-admission cases.",
+      "reviewed_sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+      "reviewed_lead": "**A transaction moves from a candidate to a block, then to an ordered input and durable state.** TxPool admits it, BlockService packages it through existing body primitives, consensus fixes the order, Executor computes the changes, and Storage applies and persists them. The sequences below show the normal path and transaction-admission cases."
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "baseline_sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "current_sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "lead": "**Recovery reconnects stored bodies, authenticated history, and durable application state.** Startup prepares custody and native readiness. Restart restores state and cursors and redelivers exact ranges whose acknowledgements were lost.",
+      "reviewed_sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "reviewed_lead": "**Recovery reconnects stored bodies, authenticated history, and durable application state.** Startup prepares custody and native readiness. Restart restores state and cursors and redelivers exact ranges whose acknowledgements were lost."
+    },
+    {
+      "page": "docs/e2e/reschedule.md",
+      "baseline_sha256": "f1916ed2e4ed591587e14a2148bf675d6be0d3835b1becc1665b895f1822e4eb",
+      "current_sha256": "f1916ed2e4ed591587e14a2148bf675d6be0d3835b1becc1665b895f1822e4eb",
+      "lead": "**Non-leader Baton submits the new path; Executor links and executes its branches.** Baton verifies the leader and context, resolves required inputs, and sends parent-linked blocks through execute(block). Only a completed prefix with the same execution context is reusable.",
+      "reviewed_sha256": "f1916ed2e4ed591587e14a2148bf675d6be0d3835b1becc1665b895f1822e4eb",
+      "reviewed_lead": "**Non-leader Baton submits the new path; Executor links and executes its branches.** Baton verifies the leader and context, resolves required inputs, and sends parent-linked blocks through execute(block). Only a completed prefix with the same execution context is reusable."
+    },
+    {
+      "page": "docs/e2e/results.md",
+      "baseline_sha256": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+      "current_sha256": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+      "lead": "**Executor certifies results signed by eligible validators.** It exchanges signatures directly with peer Executors. A verified f+1 certificate establishes a certified result; local durability is a separate milestone.",
+      "reviewed_sha256": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+      "reviewed_lead": "**Executor certifies results signed by eligible validators.** It exchanges signatures directly with peer Executors. A verified f+1 certificate establishes a certified result; local durability is a separate milestone."
+    },
+    {
+      "page": "docs/e2e/state-sync.md",
+      "baseline_sha256": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+      "current_sha256": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+      "lead": "**A validator can import a verified peer result while still executing.** Its Executor checks the certificate and exact context, asks Storage to validate applicable material, then fences unfinished work and uses the shared canonical writer at the correct base.",
+      "reviewed_sha256": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+      "reviewed_lead": "**A validator can import a verified peer result while still executing.** Its Executor checks the certificate and exact context, asks Storage to validate applicable material, then fences unfinished work and uses the shared canonical writer at the correct base."
+    },
+    {
+      "page": "docs/execution/README.md",
+      "baseline_sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+      "current_sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+      "lead": "**Executor computes transaction changes; Storage calculates roots and makes selected changes durable.** Executor manages execution-tree paths, certifies results with peer Executors and orchestrates normal-path state sync. Storage owns QMDB, canonical mutation, queries, physical retention and recovery. Both roles can share an implementation without becoming separate actors.",
+      "reviewed_sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+      "reviewed_lead": "**Executor computes transaction changes; Storage calculates roots and makes selected changes durable.** Executor manages execution-tree paths, certifies results with peer Executors and orchestrates normal-path state sync. Storage owns QMDB, canonical mutation, queries, physical retention and recovery. Both roles can share an implementation without becoming separate actors."
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "baseline_sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+      "current_sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+      "lead": "**Executor owns execution paths and result certification; Storage owns roots and durable state.** Executor links children to valid parents, computes completed changes, selects the canonical path and certifies or imports results. Baton owns direction selection.",
+      "reviewed_sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+      "reviewed_lead": "**Executor owns execution paths and result certification; Storage owns roots and durable state.** Executor links children to valid parents, computes completed changes, selects the canonical path and certifies or imports results. Baton owns direction selection."
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "baseline_sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+      "current_sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+      "lead": "**Executor produces changes; Storage prepares their roots and applies the selected canonical result through QMDB.** A checkpoint marks reusable completed work and need not imply hashing every abandoned attempt. QMDB supplies batch, authentication and persistence algorithms. Readable state and durable completion are separate milestones.",
+      "reviewed_sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+      "reviewed_lead": "**Executor produces changes; Storage prepares their roots and applies the selected canonical result through QMDB.** A checkpoint marks reusable completed work and need not imply hashing every abandoned attempt. QMDB supplies batch, authentication and persistence algorithms. Readable state and durable completion are separate milestones."
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "baseline_sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+      "current_sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+      "lead": "**Executor may finish a range by importing a verified peer result.** When a matching certificate and usable change set arrive before local execution finishes, it can safely stop remaining work and apply that result. Executors communicate directly. Switching and storage details remain open.",
+      "reviewed_sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+      "reviewed_lead": "**Executor may finish a range by importing a verified peer result.** When a matching certificate and usable change set arrive before local execution finishes, it can safely stop remaining work and apply that result. Executors communicate directly. Switching and storage details remain open."
+    },
+    {
+      "page": "docs/overview/architecture.md",
+      "baseline_sha256": "1e9a61fc4830cef9ff5e70710416bfd9cc7c5411411e8548d443ba0bbbee41db",
+      "current_sha256": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+      "lead": "**The system collects transactions, agrees on their order, and applies their results to state.** Four layers share this work. TxPool prepares candidates, consensus fixes the order, Baton schedules work ahead of consensus, Executor computes transaction changes, and Storage prepares roots and durably applies canonical state. Read the responsibilities first, then follow the interfaces below.",
+      "reviewed_sha256": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+      "reviewed_lead": "**The system collects transactions, agrees on their order, and applies their results to state.** Four layers share this work. TxPool prepares candidates, consensus fixes the order, Baton schedules work ahead of consensus, Executor computes transaction changes, and Storage prepares roots and durably applies canonical state. Read the responsibilities first, then follow the interfaces below."
+    },
+    {
+      "page": "docs/overview/glossary.md",
+      "baseline_sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+      "current_sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+      "lead": "**Each module has one main job.** TxPool manages transaction candidates, BlockService manages block bodies, Orderer delivers the agreed order, Baton schedules speculative work, Executor controls execution paths, effects and certification; Storage manages roots and durable state. The tables below define their exact responsibilities and the facts each result establishes.",
+      "reviewed_sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+      "reviewed_lead": "**Each module has one main job.** TxPool manages transaction candidates, BlockService manages block bodies, Orderer delivers the agreed order, Baton schedules speculative work, Executor controls execution paths, effects and certification; Storage manages roots and durable state. The tables below define their exact responsibilities and the facts each result establishes."
+    },
+    {
+      "page": "docs/overview/interfaces.md",
+      "baseline_sha256": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+      "current_sha256": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+      "lead": "**The traits show who calls whom and what each call establishes.** Read the complete declarations in [Rust interfaces](rust-interfaces.md). These are proposed application contracts; distinguish them from APIs that already exist in Commonware.",
+      "reviewed_sha256": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+      "reviewed_lead": "**The traits show who calls whom and what each call establishes.** Read the complete declarations in [Rust interfaces](rust-interfaces.md). These are proposed application contracts; distinguish them from APIs that already exist in Commonware."
+    },
+    {
+      "page": "docs/overview/networking.md",
+      "baseline_sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+      "current_sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+      "lead": "**Commonware P2P carries the messages between nodes.** Logical channels separate transactions, bodies, native consensus, Baton scheduling, and execution results while sharing the same network.",
+      "reviewed_sha256": "fb6abeef514bd9bcaf99383a92d47ee218124c5d79a2b7794d6a655e13bcb2d0",
+      "reviewed_lead": "**Commonware P2P carries the messages between nodes.** Logical channels separate transactions, bodies, native consensus, Baton scheduling, and execution results while sharing the same network."
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "baseline_sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+      "current_sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+      "lead": "**The interfaces show what each module receives, does, and returns.** TxPool, Orderer, Baton, Executor, and Storage have proposed application traits. BlockService is the body attachment built by implementing existing Commonware callbacks; it needs no second trait that repeats them. Layer pages explain completion conditions.",
+      "reviewed_sha256": "20fee85bb12a433ca4a42f66084b6a0a6fdfef0f4faf6f7c7f3a74c1073c5d36",
+      "reviewed_lead": "**The interfaces show what each module receives, does, and returns.** TxPool, Orderer, Baton, Executor, and Storage have proposed application traits. BlockService is the body attachment built by implementing existing Commonware callbacks; it needs no second trait that repeats them. Layer pages explain completion conditions."
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "baseline_sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "current_sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "lead": "**Start with the native example, then attach one application responsibility at a time.** This page maps existing Commonware code to the bridges needed for bodies, ordered delivery, execution, and Baton. The stages are a development plan, not implementation results.",
+      "reviewed_sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "reviewed_lead": "**Start with the native example, then attach one application responsibility at a time.** This page maps existing Commonware code to the bridges needed for bodies, ordered delivery, execution, and Baton. The stages are a development plan, not implementation results."
+    },
+    {
+      "page": "docs/reference/sources.md",
+      "baseline_sha256": "716b76900efc341dc8ef49601e2c8c4e64159b22a720d66a49654d87e46d67b8",
+      "current_sha256": "716b76900efc341dc8ef49601e2c8c4e64159b22a720d66a49654d87e46d67b8",
+      "lead": "**Current requirements and pinned source determine this design.** Research drafts and earlier snapshots supply provenance. Their historical claims do not override the latest user decisions or current documentation.",
+      "reviewed_sha256": "716b76900efc341dc8ef49601e2c8c4e64159b22a720d66a49654d87e46d67b8",
+      "reviewed_lead": "**Current requirements and pinned source determine this design.** Research drafts and earlier snapshots supply provenance. Their historical claims do not override the latest user decisions or current documentation."
+    },
+    {
+      "page": "docs/reference/verification.md",
+      "baseline_sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b",
+      "current_sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b",
+      "lead": "**Validation should exercise each responsibility at its failure boundary.** The plan covers normal flow, missing input, stale completion, cancellation, crashes, and recovery. These cases are planned, not executed test results.",
+      "reviewed_sha256": "fcb5f87d3fe5b6ed98259b406004f54c26619d9974fde95c4c14df658062231b",
+      "reviewed_lead": "**Validation should exercise each responsibility at its failure boundary.** The plan covers normal flow, missing input, stale completion, cancellation, crashes, and recovery. These cases are planned, not executed test results."
+    },
+    {
+      "page": "docs/tx/README.md",
+      "baseline_sha256": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+      "current_sha256": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+      "lead": "**TxPool manages the transactions available for the next block.** It accepts candidates, keeps them available, supplies bounded batches to BlockService, and updates their lifecycle after canonical results. TxPool also supplies static payload analysis and policy hooks; whether it runs in a router or during block packing remains undecided.",
+      "reviewed_sha256": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+      "reviewed_lead": "**TxPool manages the transactions available for the next block.** It accepts candidates, keeps them available, supplies bounded batches to BlockService, and updates their lifecycle after canonical results. TxPool also supplies static payload analysis and policy hooks; whether it runs in a router or during block packing remains undecided."
+    },
+    {
+      "page": "docs/tx/interfaces.md",
+      "baseline_sha256": "a3a339b998a7d6c04a8953229933d1500c5cd0d57b7c1b41b36540bdcd21f331",
+      "current_sha256": "a3a339b998a7d6c04a8953229933d1500c5cd0d57b7c1b41b36540bdcd21f331",
+      "lead": "**TxPool owns candidate lifecycle and payload-based classification.** Admission makes a transaction available for selection. A canonical result determines its eventual lifecycle update. The detailed contract keeps these events separate.",
+      "reviewed_sha256": "a3a339b998a7d6c04a8953229933d1500c5cd0d57b7c1b41b36540bdcd21f331",
+      "reviewed_lead": "**TxPool owns candidate lifecycle and payload-based classification.** Admission makes a transaction available for selection. A canonical result determines its eventual lifecycle update. The detailed contract keeps these events separate."
+    }
+  ],
+  "source_scope": "Current canonical Markdown; no fresh upstream retrieval or runtime execution by root in this audit"
+}

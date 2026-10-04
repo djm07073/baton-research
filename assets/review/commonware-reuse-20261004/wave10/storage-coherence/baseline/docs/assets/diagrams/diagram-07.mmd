@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant L as Leader Baton
+    participant B as Non-leader Baton
+    participant S as BlockService: storage / fetch
+    participant E as Executor
+    L-->>B: Direction(context, order, prefix)
+    B->>B: Check leader / epoch / view / parent / frontier / wire freshness
+    alt Stale or different context
+        B->>B: Discard advisory update
+    else Valid for current context
+        B->>S: Resolve required bodies
+        alt Body or base state unavailable
+            B->>B: Keep local work pending, native cut path continues
+        else Execution input ready
+            B->>B: Assemble block hash / execution-parent hash / exact context
+            B->>E: execute(block)
+            E->>E: Resolve valid parent checkpoint / link child in execution tree
+            E->>E: Reuse matching completed child or compute its transaction effects inside Executor
+            E-->>B: ExecutionResult (completed prefix of new request)
+        end
+    end
+    Note over L,B: No round waiting for execution results or direction approval

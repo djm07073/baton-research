@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant S as Node startup
+    participant W as Commonware network
+    participant A as BlockService: Automaton adapter
+    participant N as Native Engine
+    participant E as Executor
+    participant B as Orderer / Executor integration
+    S->>W: Register native and application logical channels
+    S->>A: Open body storage / parent lookup, start service
+    S->>W: Start authenticated network service
+    par Native startup / context intake
+        S->>N: Engine::start(native planes)
+        N->>N: Replay native durable journal / signing history
+        loop Required recovered payload contexts
+            N->>A: Automaton::verify(recovered Context, payload)
+            A->>A: Lookup / fetch exact body and required parent, sync custody
+            A-->>N: Valid durable custody
+        end
+        N->>N: Construct actors and resume native obligations
+        N-->>S: Running handle, readiness initially pending
+        S->>N: Await Running::ready()
+        N-->>S: Native readiness true or false
+        opt Context / evidence intake service ready
+            S->>B: Start authenticated intake / retention / history backfill
+        end
+    and Execution recovery
+        S->>E: Recover execution base through Storage, with applied metadata/provenance
+        E-->>S: Execution state readiness / recovery status
+    end
+    alt Execution state and exact input ready
+        S->>B: Resume state-dependent Execute / Commit delivery
+    else Input state unresolved or required execution service failed
+        Note over S,B: Execution delivery pending / recovering, evidence retention proceeds separately
+    end
+    Note over N,E: Native startup adds no application QMDB recovery prerequisite
+    Note over S,B: Resume from recovered canonical state and authenticated history, rebuild transient direction

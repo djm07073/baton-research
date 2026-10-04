@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant N as Native Multimmit
+    participant M as Orderer
+    participant E as Executor
+    participant S as Storage / QMDB
+    N-->>M: Authenticated finality / extension evidence
+    M->>M: Recover exact history / frozen policy / slot evidence
+    alt Earlier slot or history unresolved
+        M->>M: Backfill and stop dense emission at the gap
+        Note over N,M: Native protocol continues under its own rules
+    else Next continuous exact range is irrevocable
+        M-->>E: OrderedRange(predecessor, inputs, evidence)
+        E->>E: commit(range, expected canonical predecessor)
+        alt Matching completed speculative prefix exists
+            E->>E: Select exact committed prefix, keep compatible suffix pending
+        else Applicable peer certificate and material verified
+            E->>E: Fence unfinished work and apply material at matching base
+        else Local work / peer material unavailable
+            E->>E: Execute from canonical base / repair suffix, peer sync in parallel
+        end
+        E->>S: prepare / apply exact authorized material
+        S-->>E: Durable CommitResult after state/output/cursor/provenance linkage
+        E-->>M: CommitResult / delivery ACK after durability
+    end
