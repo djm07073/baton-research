@@ -1,0 +1,215 @@
+{
+  "utc": "2026-10-04T00:50:58.739365+00:00",
+  "baseline": "78d5f2eca347b0fc04b7f7d31ff858cc2a69bee4",
+  "reports": [
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave13/body-seams/REPORT.md",
+      "sha256": "8f9183ac887c4b8ed66c112db7648d1c3a0b0e071535cabe73822cec2610a253"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave13/body-seams/READER_DELTA.md",
+      "sha256": "725df7a178157005bbfba252c1a7c16b9fe7ddbc418edabad5dd63f708067491"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave13/pool-orderer-seams/REPORT.md",
+      "sha256": "73efe0965391d7b6cca264a5ca6a0aaa7ca55af5bf85a0d099eb588ebe20a3a4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave13/pool-orderer-seams/READER_DELTA.md",
+      "sha256": "d1722b1197762b14bcf609e1910a074fa95340969eb71c83f5771b4c916fd3c0"
+    }
+  ],
+  "pages": [
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "dd3a1fa1b7286fd8719ffe4edd6888b996559312b97ebe87893a6ba8f3d723ba",
+      "baseline_equal": false,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049",
+      "baseline_equal": true,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "sha256": "e3eb01b087a93f7814abdfda24f6261643d9d1bcfd8944402cf6d06abdd4ee2b",
+      "baseline_equal": false,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+      "baseline_equal": true,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "0dfb0fd427edbc031e1ba30a4ab3c3dd5ab3e9958dde7fe5bead690a2360fb42",
+      "baseline_equal": true,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "baseline_equal": true,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+      "baseline_equal": true,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+      "baseline_equal": true,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "baseline_equal": true,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/e2e/canonical.md",
+      "sha256": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+      "baseline_equal": true,
+      "exact_proposed_draft": true
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "baseline_equal": true,
+      "exact_proposed_draft": true
+    }
+  ],
+  "sources": [
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave7/body-codec/sources/native/consensus/src/multimmit/types/block.rs",
+      "sha256": "f5f5f5ce4a43944e7a54467c6f796bd988c1bba0a8ff5e793dbf2c757827de34",
+      "git_blob": "f7bb8ca46d8224b735b652aa0d668fc5aaf95f30",
+      "tree_blob": "f7bb8ca46d8224b735b652aa0d668fc5aaf95f30",
+      "matched": true,
+      "scope": "Retained primary bytes independently rehashed against own retained complete authenticated native tree, not new retrieval"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/admission.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave7/body-codec/sources/native/consensus/src/multimmit/machine/admission.rs",
+      "sha256": "c3877fff858e5de73c6858128555466fcc8dc60eb386684ccf848ec75c94f313",
+      "git_blob": "050b245ffc2e41ee453479c96e84a7cf52f29df2",
+      "tree_blob": "050b245ffc2e41ee453479c96e84a7cf52f29df2",
+      "matched": true,
+      "scope": "Retained primary bytes independently rehashed against own retained complete authenticated native tree, not new retrieval"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/types/activity.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave7/body-codec/cross-review-sources/native/consensus/src/multimmit/types/activity.rs",
+      "sha256": "be265a860b63d0bfbc4718056bdbf3630481db174392809411514f497434d465",
+      "git_blob": "de6145f871733deeb87c94c84112fac644c87756",
+      "tree_blob": "de6145f871733deeb87c94c84112fac644c87756",
+      "matched": true,
+      "scope": "Retained primary bytes independently rehashed against own retained complete authenticated native tree, not new retrieval"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/actors/voter/actor.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave7/body-codec/cross-review-sources/native/consensus/src/multimmit/actors/voter/actor.rs",
+      "sha256": "7dc0b0fd04eb3706d6dc4a3873ae5615c2356d859a5102f998e7949c670036bc",
+      "git_blob": "f2850e31a9cfaad56779665d62816a4c8e902344",
+      "tree_blob": "f2850e31a9cfaad56779665d62816a4c8e902344",
+      "matched": true,
+      "scope": "Retained primary bytes independently rehashed against own retained complete authenticated native tree, not new retrieval"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "consensus/src/multimmit/machine/reducer.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave11/body-coverage/independent-cross-review/sources/consensus/src/multimmit/machine/reducer.rs",
+      "sha256": "f1a0876072f4f061bf6e889f3cff060855f87a4b07b0f386daf9c74b7076fc8f",
+      "git_blob": "123bd7f7cba52d330f7be2d9dbe55d0e0f3a4f8d",
+      "tree_blob": "123bd7f7cba52d330f7be2d9dbe55d0e0f3a4f8d",
+      "matched": true,
+      "scope": "Retained primary bytes independently rehashed against own retained complete authenticated native tree, not new retrieval"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "broadcast/src/buffered/engine.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/broadcast/src/buffered/engine.rs",
+      "sha256": "c095cb76a52dba9d253d88fc6d3c38122d93ce515eb1c19d4928bd52a88fc8a8",
+      "git_blob": "61dade3853d98706e1556369ae72165d20e7e6b3",
+      "tree_blob": "61dade3853d98706e1556369ae72165d20e7e6b3",
+      "matched": true,
+      "scope": "Retained primary bytes independently rehashed against own retained complete authenticated native tree, not new retrieval"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "resolver/src/p2p/engine.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave8/body-receive/sources/native/resolver/src/p2p/engine.rs",
+      "sha256": "bdb6aa683a70d62f99bc668329fbf8160e6ae8b04084c11030df119b7eac6903",
+      "git_blob": "c90994bec8cc3b30dbe56be5fef39123b7f7aee4",
+      "tree_blob": "c90994bec8cc3b30dbe56be5fef39123b7f7aee4",
+      "matched": true,
+      "scope": "Retained primary bytes independently rehashed against own retained complete authenticated native tree, not new retrieval"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/prunable/storage.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave5/body-storage/sources/native/storage/src/archive/prunable/storage.rs",
+      "sha256": "befa1532590be4fc4b4530919008bed8cb6089d13328076681bdbbd706e91f7d",
+      "git_blob": "63a42c059c6cbcd34d65e4dad8107bdd4c6bbf4c",
+      "tree_blob": "63a42c059c6cbcd34d65e4dad8107bdd4c6bbf4c",
+      "matched": true,
+      "scope": "Retained primary bytes independently rehashed against own retained complete authenticated native tree, not new retrieval"
+    },
+    {
+      "repo": "commonwarexyz/monorepo",
+      "pin": "534af0ede48affd35b2111522527547b4cc9bf72",
+      "path": "storage/src/archive/immutable/storage.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave5/body-storage/sources/native/storage/src/archive/immutable/storage.rs",
+      "sha256": "a92d48f6e9ae4c6bb150aff6a3e9b80f9fae27ca3240f572727180e4b5d63b1e",
+      "git_blob": "ce3f72708b986503f939e2c385f30956c01a29c9",
+      "tree_blob": "ce3f72708b986503f939e2c385f30956c01a29c9",
+      "matched": true,
+      "scope": "Retained primary bytes independently rehashed against own retained complete authenticated native tree, not new retrieval"
+    },
+    {
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/actor.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave11/execution-coverage/cross-review/sources/nunchi/mempool/src/actor.rs",
+      "sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+      "git_blob": "becd1fd372cf61a11a388d1528dd1be2d4243316",
+      "tree_blob": "becd1fd372cf61a11a388d1528dd1be2d4243316",
+      "matched": true,
+      "scope": "Prior own independently fetched and now reread/rehashed primary bytes; not new retrieval"
+    },
+    {
+      "repo": "nunchi-labs/sdk",
+      "pin": "eea35ced709f68c15d6fbc8bcc754696a7e44374",
+      "path": "mempool/src/pool.rs",
+      "local": "assets/review/commonware-reuse-20261004/wave11/execution-coverage/cross-review/sources/nunchi/mempool/src/pool.rs",
+      "sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+      "git_blob": "90fab9253f40757e49ae39472683e187d821e25e",
+      "tree_blob": "90fab9253f40757e49ae39472683e187d821e25e",
+      "matched": true,
+      "scope": "Prior own independently fetched and now reread/rehashed primary bytes; not new retrieval"
+    }
+  ],
+  "fresh_downloads": 0,
+  "scope": "Independent source/doc seam review using retained blob-checked primary evidence; no canonical edits/compile/tests/protocol execution/default choices"
+}

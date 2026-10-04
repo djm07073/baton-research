@@ -28,8 +28,6 @@ Connect the associated types below to the same concrete types during assembly. M
 | `Storage::CommitResult = Executor::CommitResult` | Recoverably durable application → canonical promotion and delivery handoff |
 | `Executor::CommitResult = Baton::CommitResult = Orderer::CommitResult = TxPool::CommitResult` | Durable completion → delivery acknowledgement and tx lifecycle; Baton receives only an optional notification |
 
-`CommitResult` is passed by value: use concrete cloneable receipt handles or recover copies of the same immutable receipt for multiple consumers; type equality and `Send` do not duplicate an owned value.
-
 `Executor::Block` is assembled from authenticated CandidateBlock inputs plus their execution-parent hash and exact context. A CandidateBlock or a producer-header parent alone is not the execution-tree input. The concrete hash encoding remains open.
 
 `&mut self` describes Rust ownership of the call handle. It does not serialize all branch computations or automatically enforce a database single writer. Shared handles, worker concurrency, canonical writer authority, and fencing need implementation. `impl Future + Send` follows a declaration style similar to Commonware callbacks; async runtime, dynamic dispatch, and boxing remain undecided.

@@ -1,0 +1,11 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"id\":\"sJc2FOUl8KF8ky9r1EKm\",\"title\":\"Consensus open decisions\",\"linkTitle\":\"Consensus open decisions\",\"kind\":\"sheet\",\"type\":\"document\",\"urls\":{\"app\":\"https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus/decisions\"},\"path\":\"consensus/decisions\",\"slug\":\"decisions\",\"pages\":[],\"layout\":{\"cover\":true,\"coverMask\":\"none\",\"coverSize\":\"full\",\"width\":\"default\",\"title\":true,\"description\":true,\"tableOfContents\":true,\"outline\":true,\"pagination\":true,\"metadata\":true,\"tags\":true,\"actions\":true,\"anchors\":true},\"documentId\":\"h6chAYmsq7AGFYrpcI9O\",\"tags\":[],\"markdown\":\"# Consensus open decisions\\n\\n**The responsibilities are defined; the integration contracts still need decisions.** Wire formats, policy adoption, and recovery details below remain blank until reviewed.\\n\\n## Open decisions <a href=\\\"#section-001\\\" id=\\\"section-001\\\"></a>\\n\\n| Item                                                                   | Decision |\\n| ---------------------------------------------------------------------- | -------- |\\n| Body format / size limit / archive layout                              |          |\\n| Body transport adapter / fetch protocol                                |          |\\n| Targeted retry / fallback / pending want, subscriber, and byte budgets |          |\\n| Evidence export schema / retention handoff                             |          |\\n| Ordering policy codec / availability                                   |          |\\n| Protected-prefix adoption conditions                                   |          |\\n| Exact continuation / extension / view recovery integration             |          |\\n| Backfill / checkpoint / GC                                             |          |\\n\"}"
+      }
+    ],
+    "isError": false
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "baseline_git_sha": "78d5f2eca347b0fc04b7f7d31ff858cc2a69bee4",
+  "changed_reader_files": {
+    "docs/overview/interfaces.md": "e3eb01b087a93f7814abdfda24f6261643d9d1bcfd8944402cf6d06abdd4ee2b",
+    "docs/tx/README.md": "dd3a1fa1b7286fd8719ffe4edd6888b996559312b97ebe87893a6ba8f3d723ba"
+  },
+  "only_exact_approved_prose_changes": true,
+  "all_other_reader_files_byte_equal": 86,
+  "rust_export_traits_methods_signatures_unchanged": true,
+  "all18_diagrams_unchanged": true,
+  "old_headings_external_urls_policy_cells_unchanged": true,
+  "build": {
+    "pages": 31,
+    "diagrams": 18,
+    "rust_blocks": 5,
+    "passed": true
+  },
+  "protocol_tests_run": false
+}

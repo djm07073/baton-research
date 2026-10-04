@@ -1,0 +1,17 @@
+{
+  "changedPages": 2,
+  "checks": [
+    {
+      "route": "overview/interfaces.html",
+      "newTextPresent": true,
+      "english": true
+    },
+    {
+      "route": "tx/README.html",
+      "newTextPresent": true,
+      "english": true
+    }
+  ],
+  "errors": [],
+  "scope": "Two changed prose pages; unchanged Rust/diagrams/full31page browser QA not rerun"
+}

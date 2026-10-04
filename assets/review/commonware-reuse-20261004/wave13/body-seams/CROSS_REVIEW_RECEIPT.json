@@ -1,0 +1,159 @@
+{
+  "utc": "2026-10-04T00:48:31.234418+00:00",
+  "baseline": "78d5f2eca347b0fc04b7f7d31ff858cc2a69bee4",
+  "fresh_downloads": 0,
+  "scope": "Independent reread/rehashed source and proposed contract fit, no compilation or runtime proof",
+  "reports": [
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave13/pool-orderer-seams/REPORT.md",
+      "sha256": "73efe0965391d7b6cca264a5ca6a0aaa7ca55af5bf85a0d099eb588ebe20a3a4"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave13/pool-orderer-seams/READER_DELTA.md",
+      "sha256": "d1722b1197762b14bcf609e1910a074fa95340969eb71c83f5771b4c916fd3c0"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave13/execution-seams/REPORT.md",
+      "sha256": "c4280a6e683e4904dd32b4d04329c13415c7549436f8c9cf07c9a9ce6ce1ea3e"
+    },
+    {
+      "path": "assets/review/commonware-reuse-20261004/wave13/execution-seams/READER_DELTA.md",
+      "sha256": "71977ab39e80ea8dadc87f9f7b733bd486f1c13605bf6ad889b6440385dfb044"
+    }
+  ],
+  "page_checks": [
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "f7f3709d54bc32a80df739fe652672ea6a106d0fcbb28a3849719daf5c55442f",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "0bd4a0297aefacdb7b4df9d62f4f14e0f78e656883b10cdc511a5d4baf8c0049",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "0dfb0fd427edbc031e1ba30a4ab3c3dd5ab3e9958dde7fe5bead690a2360fb42",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "sha256": "75186da2c22d034800d490ea83f8775b5492d1756ca12afd1c52a62340f6df5b",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "e21a290167bcf338ed6649fe444f7c84e9a450c0c9a1c68795739677a309531a",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/overview/glossary.md",
+      "sha256": "389591cf7463deb23e5724e7893b923e00ebc53baed2dd911ffa54bb11f339d8",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "0cfcc294617e815554166765ec92615a1ad69cdcbaee87c8e4eb4941048bf7ad",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "1125bac9b144d897fd30970349b980a674a1a8f9de2d783d923b2a713a1f748e",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "76ef44424a04306c5e89d863ff02243c1f6f8e4990a7ddbeeeb660d2320c2720",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "da22c9d489975d03e96ca58ac9ede56c97e1391041182d7f8f67c4cfc2bf4e8c",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "e2ab8a122245fff340403dc0a3157945b1036986aad43ac05d328d6141ebd04b",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/canonical.md",
+      "sha256": "fc5ca24ed8010cd3aa9f873ead571a85da423b39132e53de3f827fb738f351e0",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "b721fa48c1dfde23c18b8c2724b8bd238ad0af6391e510dd3ba9b0439d89f2a4",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "a295253e38e5bdc4134a3f1e68f842bf10385d1d4e82ac8da4b6d2ab01d2b863",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "sha256": "68cddffcad9cb36b285ceb550245356bf3072a8d5aeb270c4e042be3623f41b4",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/execution/state-sync.md",
+      "sha256": "43d98720e4abfda32c1310fb22cbd191d813e1ca826ac6a054191ac3383205e8",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "cd32194a2eb62a41ca33954dc8ca97d8a984727338dd8c95dcd08f86e8abeecf",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/results.md",
+      "sha256": "7e40080b7b65ec05a9a7e6cb28bbb607932f2dda47cb8850e16ace4b45c3a289",
+      "baseline_equal": true
+    },
+    {
+      "path": "docs/e2e/state-sync.md",
+      "sha256": "9b5dee130a7b6fe17734c4f56fde070fe408e7cd969615507333195921b6b799",
+      "baseline_equal": true
+    }
+  ],
+  "source_checks": [
+    {
+      "path": "mempool/src/actor.rs",
+      "retained_source": "assets/review/commonware-reuse-20261004/wave10/body-coherence/independent-cross-review/sources/nunchi/mempool/src/actor.rs",
+      "sha256": "16565587ca03737c35ecbc3469ff8e59e55bc90c5be31026a793f8713472690f",
+      "git_blob": "becd1fd372cf61a11a388d1528dd1be2d4243316",
+      "tree": "assets/review/commonware-reuse-20261004/wave10/body-coherence/independent-cross-review/trees/nunchi.json",
+      "tree_sha256": "98f98973fae46c0b4166b574e0b539e1dd79d6e6d395d80670ed5ec67ea9b0b4",
+      "scope": "Retained independently pinned primary bytes/complete tree, reread/rehashed not fresh retrieval"
+    },
+    {
+      "path": "mempool/src/pool.rs",
+      "retained_source": "assets/review/commonware-reuse-20261004/wave10/body-coherence/independent-cross-review/sources/nunchi/mempool/src/pool.rs",
+      "sha256": "6de4c1387e43ebf2624e640c5fe9840160dec61973e4e516847b47c330d92e24",
+      "git_blob": "90fab9253f40757e49ae39472683e187d821e25e",
+      "tree": "assets/review/commonware-reuse-20261004/wave10/body-coherence/independent-cross-review/trees/nunchi.json",
+      "tree_sha256": "98f98973fae46c0b4166b574e0b539e1dd79d6e6d395d80670ed5ec67ea9b0b4",
+      "scope": "Retained independently pinned primary bytes/complete tree, reread/rehashed not fresh retrieval"
+    },
+    {
+      "path": "glue/src/stateful/db/mod.rs",
+      "retained_source": "assets/review/commonware-reuse-20261004/wave11/execution-coverage/sources/glue/src/stateful/db/mod.rs",
+      "sha256": "36036c705fc5e2b78cf3bae2bed816d25481f612f624ef93abfac1b3c4a39201",
+      "git_blob": "917f4783d7b2878cadfdbb61ad80a2dc1ee7a01a",
+      "tree": "assets/review/commonware-reuse-20261004/wave11/body-coverage/trees/native.json",
+      "tree_sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca",
+      "scope": "Retained independently pinned primary bytes/complete tree, reread/rehashed not fresh retrieval"
+    },
+    {
+      "path": "storage/src/qmdb/sync/engine.rs",
+      "retained_source": "assets/review/commonware-reuse-20261004/wave11/execution-coverage/sources/storage/src/qmdb/sync/engine.rs",
+      "sha256": "73f439f8a10f7bc5915367487066dd86804918ae354887de225f456f981bae36",
+      "git_blob": "7c6f602408b522ecd636e4ac640bdd809593eb54",
+      "tree": "assets/review/commonware-reuse-20261004/wave11/body-coverage/trees/native.json",
+      "tree_sha256": "ece8355edc12b1eca94867f5eaa39f97f935174bb0a8c454871a3e341759bbca",
+      "scope": "Retained independently pinned primary bytes/complete tree, reread/rehashed not fresh retrieval"
+    }
+  ]
+}
