@@ -3,22 +3,21 @@ flowchart TB
     T -->|candidate batch| B[BlockService: body / custody adapter]
     B <-->|bytes / fetch / durability| BP[Commonware buffer / resolver / archive]
     B -->|payload / custody| N[commonware_consensus::multimmit]
-    N -->|exact evidence / history| M[Orderer]
-    B -->|StoredBody| O[Baton: reports and direction selection]
+    N -->|exact evidence / history| O[Baton: direction and confirmed-order delivery]
+    B -->|StoredBody| O
     N -. Reporter artifact .-> O
-    M -->|OrderedRange| E
     O -. PreparedPolicy .-> H[Native policy hook]
     H -. recheck / freeze .-> N
     O -->|Direction| PE[Peer Baton]
-    O <-->|execute / results| E[Executor: tree, execution and certification]
+    O <-->|execute / commit / results| E[Executor: tree, execution and certification]
     E -->|completed changes / selected commit| S[Storage: roots / canonical writer / recovery]
     S -->|batch / merkleize / apply / sync| Q[Commonware QMDB]
     E <-->|signatures / certificates / change sets| V[Peer Executor]
-    E -->|CommitResult| T
+    E -->|canonical tx outcomes to internal maintenance| T
     NET[Commonware P2P: shared by all planes] --- N
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef new fill:#dcfce7,stroke:#16a34a,color:#14532d;
     class N,NET,BP,Q reuse;
     class T,B,H,S adapt;
-    class M,O,PE,E,V new;
+    class O,PE,E,V new;

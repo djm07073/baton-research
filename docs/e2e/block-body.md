@@ -32,9 +32,9 @@ sequenceDiagram
 
 Native Core owns producer-header signing authority. The builder creates a body and returns its digest. Application code does not call the native header signer in Core's place.
 
-Local cancellation flows through `TxPool::on_proposal` for attachment-owned correlation. Non-destructive selection needs no generic unselect/reinsert engine solely to undo a build; destructive backend selection needs its chosen ownership/reselection integration. Cancellation does not undo retained native custody or establish canonical deletion.
+TxPool selection retains candidates, so local proposal cancellation needs no public pool callback or generic reinsertion step. A destructively selecting backend requires internal retention/reselection integration to meet this contract. Cancellation does not undo retained native custody or establish canonical deletion.
 
-Canonical lifecycle is a later, independent path: **durable Executor CommitResult → TxPool::on_commit → selected backend refresh/reconciliation**. It includes applicable certified imports and uses actual transaction outcomes/next canonical nonces. Body publication, accepted-header observation and native ordering alone cannot substitute for those results. A backend's lossy notification is not processed completion and adds no native cut/direction gate. [Backend completion contract](../tx/interfaces.md#connect-the-trait-to-one-existing-backend).
+Canonical lifecycle is a later, independent path: **durable Executor outcomes → internal pool maintenance → selected backend refresh/reconciliation**. It includes applicable certified imports and uses actual transaction outcomes/next canonical nonces. Body publication, accepted-header observation and native ordering alone cannot substitute for those results. A backend's lossy notification is not processed completion and adds no native cut/direction gate. [Backend completion contract](../tx/interfaces.md#connect-the-trait-to-one-existing-backend).
 
 ## Body lookup, verification, and missing-content handling
 

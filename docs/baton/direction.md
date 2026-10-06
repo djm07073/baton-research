@@ -2,6 +2,26 @@
 
 **Baton chooses and shares a promising order; Executor manages its execution tree.** The leader evaluates original reports, chooses a valid candidate, and shares advisory direction. Each receiving Baton adjusts its speculative schedule without introducing a direction-approval quorum.
 
+## Global rule for local execution and reports
+
+**Keep the order of work already started; sort only work that has not started.** Global rule G orders eligible pending blocks in ordinary local speculation. For one valid local path, let F be its completed sequence plus the currently executing block, and S_pending the known authenticated eligible blocks not yet started, after the immutable ordering frontier and within the chosen horizon. The intended order is `F ++ sort_G(S_pending)`. These are explanatory symbols, not new Rust types. The rule preserves required ancestry/dependencies; comparator, tie-break and identity encoding remain open. Arrival time is not a pending-queue tie-break.
+
+Baton sorts pending candidates on admission and rechecks before dispatch. While the preceding block runs, admission only updates the queue: it does not start the next state-dependent block, cancel current work, or rebuild the started prefix. After the valid predecessor checkpoint is ready, dispatch the first eligible pending block with that exact parent. Starting a block fixes its position on this path. Unsent requests may be rebuilt; completed and in-flight work are outside this sorting operation. Executor owns checkpoints, branches and completion validation.
+
+| Event with G = A → B → C | Intended order / next action |
+|---|---|
+| A is executing | F = A; preserve its execution position |
+| C is admitted while A runs | Pending = C; only sort the queue |
+| B is admitted before C starts | Pending = B → C; keep A unchanged |
+| A completes and its valid checkpoint is ready | Execute B on A, then C on AB; path/report = ABC |
+| C starts on A before B is admitted | F = AC; eligible B becomes pending; path/report = ACB |
+
+Reports use the same fixed-prefix-plus-sorted-pending sequence as dispatch. The prefix records actual local execution order and the suffix describes intended work; the combined report is still an intention, not proof of completion or progress. Sign a stable original snapshot. Later arrivals do not mutate submitted reports or the leader's once-closed snapshot. The leader scores original signed sequences without re-sorting F or inserting missing blocks to manufacture support.
+
+A late B does not turn started AC into ABC merely because G prefers B before C. Preserve AC and append eligible B; do not reexecute C solely to sort an arrival. This assumes B is valid after AC: ancestry and input constraints still apply. If only A and C are known, AC may be dispatched/reported without waiting for hypothetical missing B. Confirmed native order differing from speculation still requires exact-parent reuse/repair through Executor::commit; this local rule does not prohibit that repair or make F canonical. Conflicting advisory direction precedence remains an unresolved policy.
+
+Equal rule, authenticated context, fixed local prefix F and pending set produce equal intended order. Equal total known blocks alone are insufficient: a node already on AC and a node still on A with B/C pending can report ACB and ABC. Pending sorting reduces queue-order differences but cannot erase differences in started execution. It is neither native finality nor a progress proof and changes no report threshold, deadline, or cut no-wait condition.
+
 ## Leader: choose direction from reports
 
 Rust declaration: [Baton::plan](../overview/rust-interfaces.md#baton). The Rust interfaces page owns the complete declaration.
@@ -24,6 +44,8 @@ The snapshot owner admits verified reports; packet observation or worker complet
 Let `ℓᵢ(P)=|LCP(P,Rᵢ)|`. The fallback score is `Σᵢℓᵢ(P)`. Filtering or completing reports must not manufacture support. An unfinished candidate search cannot establish a completed longest-prefix selection. Support from `2f+1` reports leaves at least `f+1` honest **intentions** under the fault assumption; it does not establish finished work, reuse, or native inclusion.
 
 A prefix of length k has `2f+1` support when at least that many original reports match **all of the candidate's first k inputs in the same order**. This is neither a sum of separate supporters per block nor a requirement that the complete full candidate match every report.
+
+The scoring fixture below is synthetic arithmetic, not an honest global-rule report-generation trace. Actual scenarios must generate reports from the shared G, each fixed local prefix and each pending snapshot, then validate the admissible candidate set.
 
 For an illustrative calculation, take `f=1,n=6` and five distinct identities in the same context: `R1=[A,B,C,D]`, `R2=R3=[A,B,D,C]`, and `R4=R5=[A,C,B,D]`. Assume evaluation has completed over the two bounded admissible candidates below and that both candidates and their tested prefixes are valid. This is an analytical example, not an executed native trace.
 
@@ -66,7 +88,7 @@ Executor owns parent lookup, child linking, task priority, duplicate-work reuse,
 |---|---|
 | Window announcement / report / direction message codec | |
 | Report / direction logical channels and quotas | |
-| Intended-order construction rule | |
+| Concrete global comparator / deterministic tie-break / rule identity | |
 | Candidate set / horizon / finite work budget | |
 | Conflicting reports within one window | |
 | Tail selection / hysteresis for the same supported prefix | |

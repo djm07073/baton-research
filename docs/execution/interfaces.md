@@ -2,6 +2,8 @@
 
 **Executor owns execution paths and result certification; Storage owns roots and durable state.** Executor links children to valid parents, computes completed changes, selects the canonical path and certifies or imports results. Baton owns direction selection.
 
+Ordinary speculative requests preserve completed/current execution and follow the global rule only for pending work. Executor resolves supplied parents; a new arrival does not re-sort or cancel the started prefix. A state-dependent child starts when its valid predecessor checkpoint is ready. Native confirmed-order commit still requires exact-prefix reuse/repair: an AC result cannot supply ABC if that different order is finalized. Canonical state and protected ordering remain fixed. [Dispatch/report rule](../baton/direction.md#global-rule-for-local-execution-and-reports).
+
 ## Interface overview
 
 Rust declarations: [Executor](../overview/rust-interfaces.md#executor) and [Storage](../overview/rust-interfaces.md#storage). Each async application method returns a Future with `Result<SuccessType, Self::Error>` as its output. These are integration boundaries, not replacements for QMDB algorithms or separate deployment requirements.

@@ -1,8 +1,8 @@
 # Rust interfaces
 
-**The interfaces show what each module receives, does, and returns.** TxPool, Orderer, Baton, Executor, and Storage have proposed application traits. BlockService is the body attachment built by implementing existing Commonware callbacks; it needs no second trait that repeats them. Layer pages explain completion conditions.
+**The interfaces show what each module receives, does, and returns.** TxPool, Baton, Executor, and Storage have proposed application traits. BlockService is the body attachment built by implementing existing Commonware callbacks; it needs no second trait that repeats them. Layer pages explain completion conditions.
 
-The five application declarations propose integration, not implemented crates. The separately labelled Commonware signature excerpts are existing upstream APIs, not new Baton declarations. Concrete associated-type fields, codecs, channels, errors, and worker placement remain undecided. These interfaces adopt no new wire schema or policy and do not require one actor or crate per role.
+The four application declarations propose integration, not implemented crates. The separately labelled Commonware signature excerpts are existing upstream APIs, not new Baton declarations. The separate [Pre-cut baseline](../baselines/precut.md#inputs-and-rust-connection-points) has its own local attachment excerpts and reuses Executor/Storage; it does not instantiate Baton. Concrete associated-type fields, codecs, channels, errors, and worker placement remain undecided. These interfaces adopt no new wire schema or policy and do not require one actor or crate per role.
 
 When connecting upstream handles, use types from the same resolved Commonware dependency graph. Matching import names or encoded hash bytes do not make a registry-release Sender, codec trait or digest equal to its native git counterpart. [Version and constructor checklist](../reference/integration.md#reference-versions-are-not-one-compatible-dependency-graph).
 
@@ -12,14 +12,13 @@ When connecting upstream handles, use types from the same resolved Commonware de
 
 | Module | Methods | Reuse and application responsibility | Detailed contract |
 |---|---|---|---|
-| [TxPool](#txpool) | `admit`, `analyze`, `classify`, `select`, `on_proposal`, `on_commit` | Candidate lifecycle and static policy in one module; selected pool reuse still needs integration | [Tx contracts](../tx/interfaces.md) |
+| [TxPool](#txpool) | `admit`, `select` | Candidate lifecycle and static policy in one module; selected pool reuse still needs integration | [Tx contracts](../tx/interfaces.md) |
 | [BlockService](#blockservice) | Upstream `Automaton::propose/verify`, `Relay::broadcast`, `Reporter::report`; buffer/resolver/archive handles | Body codec, native header/body join, durable custody and retention glue; reuse dissemination, cache and retry engines | [Body contracts and primitives](../consensus/block-body.md) |
-| [Orderer](#orderer) | `record`, `next_range`, `acknowledge`, `recover` | Native evidence/history reuse plus new continuous ordered-delivery integration | [Ordered input](../consensus/ordered-input.md) |
-| [Baton](#baton) | `plan`, `on_block`, `on_context`, `on_report`, `on_direction`, `on_execution`, `on_planned`, `on_commit`, `prepared_policy` | Intended-order reports, bounded direction selection, dissemination, prepared-policy cache | [Direction selection](../baton/direction.md) |
+| [Baton](#baton) | `plan`, `on_block`, `on_context`, `on_report`, `on_direction`, `on_finality`, `on_execution`, `on_planned`, `on_commit`, `prepared_policy` | Reports/direction plus native evidence/history interpretation and recoverable exact-order delivery | [Direction selection](../baton/direction.md) |
 | [Executor](#executor) | `execute`, `commit`, `recover`, `sign_result`, `collect_result`, `verify_result`, `result_certificate` | Execution-tree control, completed unsealed effects, certification and peer sync orchestration | [Execution and certification](../execution/interfaces.md) |
 | [Storage](#storage) | `prepare`, `apply`, `recover`, `read` | QMDB batch/root preparation, canonical writer, durable state and physical retention; no transaction execution or result signing | [Storage lifecycle](../execution/qmdb.md) |
 
-**Canonical call order:** Client → `TxPool::admit` → upstream `Automaton::propose` → native consensus → `Orderer::next_range` → `Executor::commit` → `Storage::prepare/apply` → `Orderer::acknowledge` / `TxPool::on_commit`. Baton chooses direction through `Baton::plan` and requests `Executor::execute(block)` for undecided inputs. Executor returns completed effects without requiring a root for every speculative attempt; Storage prepares the selected commitment before result signing. No separate Planner, Runtime, ResultService, or reschedule interface is required. Static analysis belongs to TxPool.
+**Canonical call order:** Client → `TxPool::admit` → upstream `Automaton::propose` → native consensus → `Baton::on_finality` → internal exact-order delivery → `Executor::commit` → `Storage::prepare/apply` → Baton internal delivery completion; pool maintenance consumes canonical outcomes internally. Baton chooses direction through `Baton::plan` and requests `Executor::execute(block)` for undecided inputs. Executor returns completed effects without requiring a root for every speculative attempt; Storage prepares the selected commitment before result signing. No separate Planner, Runtime, ResultService, or reschedule interface is required. Static analysis belongs to TxPool.
 
 Reuse Commonware Automaton, Relay, and Reporter rather than adding a separate Consensus trait. [Block construction and body contracts](../consensus/block-body.md) identify upstream attachment points. [Reading the interfaces](interfaces.md) explains type equality and call semantics.
 
@@ -27,7 +26,7 @@ Reuse Commonware Automaton, Relay, and Reporter rather than adding a separate Co
 
 ## TxPool
 
-**TxPool manages transaction candidates and static payload policy.** `admit` receives Tx and Source and returns Admission. `select` receives Selection and returns a candidate Batch. `on_proposal` tracks local proposal outcomes; `on_commit` updates lifecycle from a durable CommitResult. [Detailed contract](../tx/interfaces.md).
+**TxPool exposes two actions: admit and select.** `admit` validates RPC/peer input and uses internal static payload policy to retain it as selected or unselected, or drop invalid input. `select` receives Selection and returns a bounded Batch from selected candidates. Analysis, classification and canonical maintenance are internal responsibilities, without separate public methods. [Detailed contract](../tx/interfaces.md).
 
 ```rust
 use std::future::Future;
@@ -35,44 +34,29 @@ use std::future::Future;
 pub trait TxPool: Send {
     type Tx: Send;
     type Source: Send;
-    type Features;
-    type Decision;
     type Admission: Send;
     type Selection: Send;
     type Batch: Send;
-    type ProposalOutcome: Send;
-    type CommitResult: Send;
     type Error: Send;
 
-    /// Check and retain a transaction from its source; return its admission outcome.
+    /// Validate and insert a transaction received through RPC or a peer.
+    /// Internal payload policy classifies retained candidates as selected or unselected.
+    /// Selected candidates may enter local batches; unselected candidates remain
+    /// available for the chosen P2P retention/propagation policy. Invalid input is dropped.
     /// Admission does not establish block inclusion or canonical execution.
     fn admit(
         &mut self,
         tx: Self::Tx,
         source: Self::Source,
     ) -> impl Future<Output = Result<Self::Admission, Self::Error>> + Send;
-    /// Extract static features from the transaction payload without executing state changes.
-    fn analyze(&self, tx: &Self::Tx) -> Result<Self::Features, Self::Error>;
-    /// Evaluate selection or routing policy against the extracted static features.
-    fn classify(&self, features: &Self::Features) -> Result<Self::Decision, Self::Error>;
 
-    /// Select a bounded candidate batch under the supplied selection policy.
-    /// Selection alone does not establish canonical retirement.
+    /// Build a bounded candidate batch from the selected candidates only.
+    /// Selection preserves retained candidates; it does not establish canonical retirement.
+    /// Full-body packing and any backend dependency rules still apply.
     fn select(
         &mut self,
         request: Self::Selection,
     ) -> impl Future<Output = Result<Self::Batch, Self::Error>> + Send;
-    /// Record a local proposal outcome for candidate lifecycle tracking.
-    /// A proposal outcome is not a canonical commit.
-    fn on_proposal(
-        &mut self,
-        outcome: Self::ProposalOutcome,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-    /// Update transaction lifecycle from a recoverably durable canonical result.
-    fn on_commit(
-        &mut self,
-        result: Self::CommitResult,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
 }
 ```
 
@@ -111,48 +95,13 @@ fn report(&mut self, activity: Self::Activity) -> Feedback;
 
 Use `buffered::Mailbox::{broadcast_shared,get,subscribe}` for dissemination and local cached availability, and generic resolver `fetch` plus `Producer`/`Consumer` for active peer lookup and validation. The body type implements upstream codec and `Digestible`; archives provide writes, reads and sync. Implement body format, exact context/header correspondence, custody and retention handoffs. Do not add parallel generic cache, network retry or broadcast implementations. Native retirement is a separate lifecycle bridge; Relay has no `on_retire` method. See [the real-chain assembly recipe](../reference/integration.md#copy-the-assembly-from-real-chains).
 
-## Orderer
-
-**Orderer delivers the exact finalized execution sequence.** `record` receives Evidence; `next_range` returns OrderedRange. `acknowledge` receives Executor's durable CommitResult, and `recover` restores the delivery/history state described by Recovery. [Detailed contract](../consensus/ordered-input.md).
-
-```rust
-use std::future::Future;
-
-pub trait Orderer: Send {
-    type Evidence: Send;
-    type OrderedRange: Send;
-    type CommitResult: Send;
-    type Recovery: Send;
-    type Error: Send;
-
-    /// Verify and retain native evidence and its authenticated history interpretation.
-    fn record(
-        &mut self,
-        evidence: Self::Evidence,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-    /// Return the next continuous, irrevocable range of exact execution inputs.
-    /// Do not skip an unresolved slot or treat a missing body as an empty slot.
-    fn next_range(
-        &mut self,
-    ) -> impl Future<Output = Result<Self::OrderedRange, Self::Error>> + Send;
-    /// Advance delivery bookkeeping from Executor's durable CommitResult.
-    fn acknowledge(
-        &mut self,
-        result: Self::CommitResult,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-    /// Restore verified history and delivery cursors without reversing emitted decisions.
-    fn recover(
-        &mut self,
-        recovery: Self::Recovery,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-}
-```
+<a id="orderer"></a>
 
 <a id="planner"></a>
 
 ## Baton
 
-**Baton chooses and shares the intended execution order.** Its handlers receive CandidateBlock, Context, Report, Direction, and local completion results. `plan` evaluates a frozen report snapshot over bounded admissible candidates and returns an optional completed PreparedPolicy. The handlers return local admission/scheduling success or Error. `prepared_policy` immediately returns an optional completed PreparedPolicy. These returns are not state-finalization approval or remote direction ACKs. [Detailed contract](../baton/interfaces.md).
+**Baton chooses advisory direction and delivers consensus-confirmed execution order.** Its handlers receive CandidateBlock, Context, Report, Direction, native Evidence, and local completion results. Native consensus remains the finality authority; Baton verifies/retains exact history and internally delivers continuous OrderedRange inputs to Executor. History recovery and durable delivery tracking are internal responsibilities, with no public record/next_range/acknowledge/recover methods. The former Orderer role is absorbed into Baton. `plan` evaluates a frozen report snapshot over bounded admissible candidates and returns an optional completed PreparedPolicy. The handlers return local admission/scheduling success or Error. `prepared_policy` immediately returns an optional completed PreparedPolicy. These returns are not state-finalization approval or remote direction ACKs. [Detailed contract](../baton/interfaces.md).
 
 ```rust
 use std::future::Future;
@@ -164,6 +113,7 @@ pub trait Baton: Send {
     type Candidates: Send;
     type Report;
     type Direction;
+    type Evidence: Send;
     type ExecutionResult;
     type CommitResult;
     type PreparedPolicy: Send;
@@ -179,15 +129,28 @@ pub trait Baton: Send {
         candidates: Self::Candidates,
     ) -> impl Future<Output = Result<Option<Self::PreparedPolicy>, Self::Error>> + Send;
 
-    /// Admit an authenticated header/body pair and request parent-linked speculative execution.
+    /// Admit an authenticated header/body pair and sort eligible not-yet-started candidates.
+    /// Preserve completed/current execution order; arrival does not rebuild the started prefix.
+    /// While the predecessor runs, only sort pending; dispatch after its valid completion.
+    /// Dispatch/reports use the fixed prefix plus the same rule-sorted pending snapshot.
+    /// Native confirmed-order commit may separately require exact-parent repair.
     fn on_block(&mut self, block: Self::CandidateBlock) -> Result<(), Self::Error>;
     /// Admit the current leader context and manage its report window and immutable frontier.
     fn on_context(&mut self, context: Self::Context) -> Result<(), Self::Error>;
-    /// Authenticate a same-context report and count each eligible identity once.
+    /// Authenticate a same-context original intended-order report and count each identity once.
+    /// Honest construction preserves the local started prefix and sorts only pending candidates.
+    /// This intention is not a progress proof; reception never reconstructs missing inputs
+    /// or rewrites the original signed sequence.
     fn on_report(&mut self, report: Self::Report) -> Result<(), Self::Error>;
     /// Authenticate leader direction and submit its parent-linked blocks through Executor::execute.
     /// This local handler adds no direction vote, receipt ACK, or Ready quorum.
     fn on_direction(&mut self, direction: Self::Direction) -> Result<(), Self::Error>;
+    /// Admit native finality/history evidence for independent exact-order processing.
+    /// Internally verify and retain the exact source; deliver only continuous irrevocable
+    /// ranges to Executor::commit and track its durable result for recovery/redelivery.
+    /// Local admission is not finality proof or durable completion. This path never waits
+    /// for advisory reports, direction, planning, or optional on_commit handling.
+    fn on_finality(&mut self, evidence: Self::Evidence) -> Result<(), Self::Error>;
     /// Accept a completed execution result only for a matching context.
     /// Executor retains ownership of branch links, checkpoints, and worker lifetimes.
     fn on_execution(&mut self, result: Self::ExecutionResult) -> Result<(), Self::Error>;
@@ -199,7 +162,7 @@ pub trait Baton: Send {
         policy: Option<Self::PreparedPolicy>,
     ) -> Result<(), Self::Error>;
     /// Optionally observe durable applied progress to avoid scheduling canonical inputs.
-    /// Executor application, result certification, and delivery ACK do not await this handler.
+    /// Executor application, result certification, and internal delivery tracking do not await this handler.
     fn on_commit(&mut self, result: Self::CommitResult) -> Result<(), Self::Error>;
     /// Immediately return the currently prepared valid policy, if any.
     /// The native owner still rechecks actual proposal context; cut never waits for Some.

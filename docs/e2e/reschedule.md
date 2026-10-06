@@ -2,6 +2,12 @@
 
 **Non-leader Baton submits the new path; Executor links and executes its branches.** Baton verifies the leader and context, resolves required inputs, and sends parent-linked blocks through execute(block). Only a completed prefix with the same execution context is reusable.
 
+## Local execution: A executing, C then B arrive
+
+For a shared global rule A → B → C, preserve A while it executes. Register C and then B as eligible pending candidates and sort only that queue to B → C. Until A finishes with a valid checkpoint, admission only sorts; no next state-dependent block starts. Then execute B on A and C on AB, and report ABC from the same fixed prefix plus sorted pending work.
+
+If C starts on A before B arrives, preserve AC and place eligible B after it: ordinary execution/report is ACB. Global sorting does not rebuild ABC or reexecute C solely for an arrival. Do not wait for unknown B. If native confirmed input later requires ABC, Executor::commit handles exact-parent repair separately. Local started order is not finality, and signed reports/closed snapshots remain unchanged. [Detailed rule and snapshot boundary](../baton/direction.md#global-rule-for-local-execution-and-reports).
+
 <a id="non-leader-lifecycle-direction-and-rescheduling"></a>
 
 ## Non-leader lifecycle: direction and branch execution

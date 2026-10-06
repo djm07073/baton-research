@@ -2,9 +2,11 @@
 
 **Executor computes transaction changes; Storage calculates roots and makes selected changes durable.** Executor manages execution-tree paths, certifies results with peer Executors and orchestrates normal-path state sync. Storage owns QMDB, canonical mutation, queries, physical retention and recovery. Both roles can share an implementation without becoming separate actors.
 
+Baton preserves completed/current execution and sorts only pending requests by the shared global rule. Executor follows exact parent links. With G = ABC, C then B admitted while A runs and before C starts yields ABC; after C starts on A, late eligible B yields ACB without arrival-driven reexecution. Native confirmed order may still require ABC: an AC result cannot be relabeled as C on AB. See [global-rule scheduling](../baton/direction.md#global-rule-for-local-execution-and-reports).
+
 ## Roles and responsibilities
 
-Executor receives parent-linked execute(block) inputs from Baton and finalized commit(range) inputs directly from Orderer. Baton owns direction planning; there is no reschedule API. Executor produces completed changes/batches and outputs. Storage supplies valid branch access and prepares the selected QMDB commitment. Executors communicate directly to certify or import results. The Bank balance and nonce model is outside the current scope.
+Executor receives parent-linked execute(block) inputs from Baton and finalized commit(range) inputs directly from Baton. Baton owns direction planning; there is no reschedule API. Executor produces completed changes/batches and outputs. Storage supplies valid branch access and prepares the selected QMDB commitment. Executors communicate directly to certify or import results. The Bank balance and nonce model is outside the current scope.
 
 | Responsibility | Executor owns | Boundary and completion condition |
 |---|---|---|
@@ -15,7 +17,7 @@ Executor receives parent-linked execute(block) inputs from Baton and finalized c
 | Executor peer communication | Exchange signatures, certificates, change sets, and outputs; query, retry, and serve | Executor ↔ Executor over Commonware P2P, without Baton relay or approval |
 | Switching to state sync | Stop remaining execution and apply verified material when certificate and usable material are ready first | Matching base, safe cancellation, writer fence; a certificate alone is insufficient to stop execution |
 | Canonical application orchestration | Validate exact input/base; select direct or verified imported material; call Storage | Storage owns apply/flush and recoverable state/output/cursor/provenance linkage |
-| Completion delivery | Durable delivery ACK to Orderer; canonical tx outcomes to TxPool; execution results / optional progress notice to Baton | No Baton response or approval required for certification, sync, application, or ACK |
+| Completion delivery | Durable result to internal Baton delivery tracking; tx outcomes to pool maintenance; execution results / optional advisory progress to Baton | No advisory Baton response or approval required for certification, sync, application, or durable delivery completion |
 
 Executor owns signing, collection, certificate verification and peer result/sync control. Storage owns roots, material validation against the authorized target, physical application, persistence and storage recovery. This path is separate from Baton reports and directions. Continue direct execution while certificate or material is unavailable; do not add a peer barrier before starting work. A certificate arriving before local ordered input stays pending or triggers history recovery. It cannot settle unresolved order.
 

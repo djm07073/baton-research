@@ -1,6 +1,6 @@
 # Block proposal, DA, and cut finality
 
-**Multimmit establishes availability and native ordering evidence.** Follow producer custody through header signing, DA, leader proposal, votes, and finality. Orderer later interprets the exact execution order in the canonical case.
+**Multimmit establishes availability and native ordering evidence.** Follow producer custody through header signing, DA, leader proposal, votes, and finality. Baton later interprets the exact execution order in the canonical case.
 
 ## Normal native consensus: producer DA → leader proposal → finality
 

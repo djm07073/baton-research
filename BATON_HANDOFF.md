@@ -2,6 +2,26 @@
 
 Updated 2026-10-04. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
 
+## 2026-10-06 GitBook documentation update
+
+Published change request #17 (`eTFJaT4GhUXBQh5qg0G5`) as `yeCmkzCMDjJLNtSq9qKG`. Fresh immutable-revision readback verifies 40 pages: 32 content pages and eight section indexes, 601 links, 19 Mermaid diagrams, four public application traits and 98 preserved heading anchors. All five existing comment records/statuses are preserved. The separate [Pre-cut baseline](https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baselines/precut), admit/select simplification, Baton confirmed-order ownership, pending-only sorting and cut-proposal TODO are live. Twelve changed/new attachments were uploaded; raw remote bytes remain independently unverified. See [publication evidence](assets/review/baton-update-20261006/README.md). Baseline repair trigger and conflicting advisory direction policy remain open; this is documentation publication, not runtime implementation or benchmarking.
+
+## Separate Pre-cut baseline implementation
+
+The user requested a dedicated implementation section for a chain that speculates without Baton. docs/baselines/precut.md records its local attachment, real body/native assembly, pending-only global scheduling, confirmed-order delivery and incremental exact-parent reuse/repair. It shares Executor/Storage, certification/state sync and matched benchmark resources/endpoints with Baton, but has no report/direction or prefix-policy coordination. New continuous irrevocable input is the working repair trigger; repairing on unfinalized proposals remains awaiting clarification. Source export/base ordering and all runtime checks/benchmarks remain open or Not run. The local docs now contain 32 content pages and 19 diagrams; publication is separate.
+
+## Latest global-rule execution and report decision
+
+The user clarified that ordinary sorting affects only work not yet started. Preserve completed/current execution order F and dispatch/report F ++ sort_G(S_pending). A running with C then B admitted before C starts yields ABC; after C starts, late eligible B yields ACB without arrival-driven reexecution. Admission while the predecessor runs only sorts the queue; dispatch follows a valid checkpoint. Identical total inputs can yield different reports when local F differs. Reports remain intentions, not progress proofs. Native exact-order commit may still require repair; F is not canonical finality. Thresholds/deadlines/raw scoring/no-wait and original signed snapshots remain. Comparator/tie-break/encoding and conflicting advisory direction precedence remain open. Research §3.1 and current implementation pages record the clarification; no runtime implementation is claimed.
+
+## Latest Baton module decision
+
+The user merged the proposed Orderer role into Baton because it is new application integration rather than an existing Commonware module. There are four public application traits: TxPool, Baton, Executor and Storage. Baton on_finality admits native exact evidence/history; independent internal processing retains/verifies witnesses, reconstructs continuous irrevocable input, backfills gaps, calls Executor commit and records its durable completion for recovery/redelivery. No public record/next_range/acknowledge/recover actions are added. Native consensus retains voting/finality authority; advisory reports/planning/progress cannot gate confirmed delivery or Executor certification/state sync/Storage apply. Historical Orderer references below are superseded; native source-export and integration/proof work remain open.
+
+## Latest TxPool interface decision
+
+The public TxPool contract now has only `admit` and `select`. Admission validates RPC/peer transactions and uses internal static payload policy to retain selected candidates for local batch creation, retain unselected candidates for the chosen P2P policy, or drop invalid input. Selection reads selected candidates without canonical retirement. Selected/unselected are logical classes; physical backend/overlay, policy and retention details remain open. Static analysis/classification and canonical backend maintenance are internal, with no public analyze/classify/on_proposal/on_commit methods. This supersedes earlier TxPool method listings below. The six-hour review described in earlier entries is complete; this is a subsequent user interface correction.
+
 ## 2026-10-04 Active six-hour Commonware reuse review
 
 The user requested six hours of repeated multi-agent investigation and review to maximize Commonware reuse in the current Baton GitBook, with actual Commonware-based chains as assembly references. The active window is 2026-10-03 19:29:14 UTC through 2026-10-04 01:29:14 UTC (2026-10-04 04:29:14–10:29:14 Asia/Seoul). Current requirements and wave evidence are tracked in [the reuse review](assets/review/commonware-reuse-20261004/README.md). This is ongoing, not a completion report.

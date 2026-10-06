@@ -1,7 +1,7 @@
 sequenceDiagram
     participant S as Startup owner
     participant Q as Storage / QMDB / commit metadata
-    participant M as Orderer
+    participant M as Baton
     participant E as Executor
     S->>Q: Recover last durable applied commit
     Q-->>S: State / outputs / AppliedCursor / provenance

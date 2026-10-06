@@ -6,73 +6,29 @@ use std::future::Future;
 pub trait TxPool: Send {
     type Tx: Send;
     type Source: Send;
-    type Features;
-    type Decision;
     type Admission: Send;
     type Selection: Send;
     type Batch: Send;
-    type ProposalOutcome: Send;
-    type CommitResult: Send;
     type Error: Send;
 
-    /// Check and retain a transaction from its source; return its admission outcome.
+    /// Validate and insert a transaction received through RPC or a peer.
+    /// Internal payload policy classifies retained candidates as selected or unselected.
+    /// Selected candidates may enter local batches; unselected candidates remain
+    /// available for the chosen P2P retention/propagation policy. Invalid input is dropped.
     /// Admission does not establish block inclusion or canonical execution.
     fn admit(
         &mut self,
         tx: Self::Tx,
         source: Self::Source,
     ) -> impl Future<Output = Result<Self::Admission, Self::Error>> + Send;
-    /// Extract static features from the transaction payload without executing state changes.
-    fn analyze(&self, tx: &Self::Tx) -> Result<Self::Features, Self::Error>;
-    /// Evaluate selection or routing policy against the extracted static features.
-    fn classify(&self, features: &Self::Features) -> Result<Self::Decision, Self::Error>;
 
-    /// Select a bounded candidate batch under the supplied selection policy.
-    /// Selection alone does not establish canonical retirement.
+    /// Build a bounded candidate batch from the selected candidates only.
+    /// Selection preserves retained candidates; it does not establish canonical retirement.
+    /// Full-body packing and any backend dependency rules still apply.
     fn select(
         &mut self,
         request: Self::Selection,
     ) -> impl Future<Output = Result<Self::Batch, Self::Error>> + Send;
-    /// Record a local proposal outcome for candidate lifecycle tracking.
-    /// A proposal outcome is not a canonical commit.
-    fn on_proposal(
-        &mut self,
-        outcome: Self::ProposalOutcome,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-    /// Update transaction lifecycle from a recoverably durable canonical result.
-    fn on_commit(
-        &mut self,
-        result: Self::CommitResult,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-}
-
-pub trait Orderer: Send {
-    type Evidence: Send;
-    type OrderedRange: Send;
-    type CommitResult: Send;
-    type Recovery: Send;
-    type Error: Send;
-
-    /// Verify and retain native evidence and its authenticated history interpretation.
-    fn record(
-        &mut self,
-        evidence: Self::Evidence,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-    /// Return the next continuous, irrevocable range of exact execution inputs.
-    /// Do not skip an unresolved slot or treat a missing body as an empty slot.
-    fn next_range(
-        &mut self,
-    ) -> impl Future<Output = Result<Self::OrderedRange, Self::Error>> + Send;
-    /// Advance delivery bookkeeping from Executor's durable CommitResult.
-    fn acknowledge(
-        &mut self,
-        result: Self::CommitResult,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
-    /// Restore verified history and delivery cursors without reversing emitted decisions.
-    fn recover(
-        &mut self,
-        recovery: Self::Recovery,
-    ) -> impl Future<Output = Result<(), Self::Error>> + Send;
 }
 
 pub trait Baton: Send {
@@ -82,6 +38,7 @@ pub trait Baton: Send {
     type Candidates: Send;
     type Report;
     type Direction;
+    type Evidence: Send;
     type ExecutionResult;
     type CommitResult;
     type PreparedPolicy: Send;
@@ -97,15 +54,28 @@ pub trait Baton: Send {
         candidates: Self::Candidates,
     ) -> impl Future<Output = Result<Option<Self::PreparedPolicy>, Self::Error>> + Send;
 
-    /// Admit an authenticated header/body pair and request parent-linked speculative execution.
+    /// Admit an authenticated header/body pair and sort eligible not-yet-started candidates.
+    /// Preserve completed/current execution order; arrival does not rebuild the started prefix.
+    /// While the predecessor runs, only sort pending; dispatch after its valid completion.
+    /// Dispatch/reports use the fixed prefix plus the same rule-sorted pending snapshot.
+    /// Native confirmed-order commit may separately require exact-parent repair.
     fn on_block(&mut self, block: Self::CandidateBlock) -> Result<(), Self::Error>;
     /// Admit the current leader context and manage its report window and immutable frontier.
     fn on_context(&mut self, context: Self::Context) -> Result<(), Self::Error>;
-    /// Authenticate a same-context report and count each eligible identity once.
+    /// Authenticate a same-context original intended-order report and count each identity once.
+    /// Honest construction preserves the local started prefix and sorts only pending candidates.
+    /// This intention is not a progress proof; reception never reconstructs missing inputs
+    /// or rewrites the original signed sequence.
     fn on_report(&mut self, report: Self::Report) -> Result<(), Self::Error>;
     /// Authenticate leader direction and submit its parent-linked blocks through Executor::execute.
     /// This local handler adds no direction vote, receipt ACK, or Ready quorum.
     fn on_direction(&mut self, direction: Self::Direction) -> Result<(), Self::Error>;
+    /// Admit native finality/history evidence for independent exact-order processing.
+    /// Internally verify and retain the exact source; deliver only continuous irrevocable
+    /// ranges to Executor::commit and track its durable result for recovery/redelivery.
+    /// Local admission is not finality proof or durable completion. This path never waits
+    /// for advisory reports, direction, planning, or optional on_commit handling.
+    fn on_finality(&mut self, evidence: Self::Evidence) -> Result<(), Self::Error>;
     /// Accept a completed execution result only for a matching context.
     /// Executor retains ownership of branch links, checkpoints, and worker lifetimes.
     fn on_execution(&mut self, result: Self::ExecutionResult) -> Result<(), Self::Error>;
@@ -117,7 +87,7 @@ pub trait Baton: Send {
         policy: Option<Self::PreparedPolicy>,
     ) -> Result<(), Self::Error>;
     /// Optionally observe durable applied progress to avoid scheduling canonical inputs.
-    /// Executor application, result certification, and delivery ACK do not await this handler.
+    /// Executor application, result certification, and internal delivery tracking do not await this handler.
     fn on_commit(&mut self, result: Self::CommitResult) -> Result<(), Self::Error>;
     /// Immediately return the currently prepared valid policy, if any.
     /// The native owner still rechecks actual proposal context; cut never waits for Some.

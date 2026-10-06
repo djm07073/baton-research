@@ -1,20 +1,24 @@
 # Delivering finalized execution order
 
-**Orderer converts authenticated consensus history into an exact sequence for Executor.** It retains the evidence needed to explain that sequence, pauses at unresolved gaps, and tracks durable delivery acknowledgements. Native sparse finality and continuous execution order are separate outputs.
+**Baton converts authenticated consensus history into an exact sequence for Executor.** It retains the evidence needed to explain that sequence, pauses at unresolved gaps, and tracks durable delivery acknowledgements. Native sparse finality and continuous execution order are separate outputs.
 
 ## Consensus and Baton integration
 
-Rust declaration: [Orderer](../overview/rust-interfaces.md#orderer). The Rust interfaces page owns the complete declaration.
+Rust declaration: [Baton](../overview/rust-interfaces.md#baton). The Rust interfaces page owns the complete declaration.
 
-`Evidence` binds exact authenticated source witnesses to policy/history interpretation. Storing a notice or normalized projection alone does not retain the witness. `next_range` returns only continuous irrevocable input; an unresolved gap requires backfill or pending work. Missing included bodies are not empty slots. `acknowledge` advances the application delivery cursor after verifying a durable CommitResult for that exact range. It is neither a native vote acknowledgement nor a body-release request.
+`Baton::on_finality` accepts the native evidence/history handoff for independent processing. `Evidence` binds exact authenticated source witnesses to frozen policy/history interpretation; a normalized notice alone is insufficient. Inside Baton, retain and verify that material, reconstruct continuous irrevocable input, and call `Executor::commit(range)`. Pause delivery at unresolved gaps and backfill; missing included bodies are not empty slots.
 
-The trait combines public history retention, ordering interpretation, and delivery boundaries. Source-witness export and native policy adoption remain separate integration work on the existing owner. Orderer cannot authenticate or adopt native proposals on its own authority.
+Observe the matching durable `CommitResult` directly from Executor before advancing the internal delivery cursor. Persist/recover exact history and cursors, and redeliver unacknowledged ranges idempotently. These are internal Baton responsibilities, without public `record`, `next_range`, `acknowledge` or `recover` methods. Optional advisory `on_commit` handling is separate from this bookkeeping.
+
+The former proposed Orderer trait is removed. Baton combines advisory order coordination with confirmed-order delivery, while native consensus retains proposal authentication, voting and finality authority. The source-witness export/adoption bridge still needs integration; combining module ownership does not implement that bridge. Confirmed delivery never waits for reports, a direction reply or planning, and does not route Executor peer certification/state sync through Baton.
+
+The native proposal does not yet carry Baton prefix/policy. See [the cut-proposal integration TODO](decisions.md#todo-bind-baton-prefix-and-policy-to-cut-proposals) for authenticated binding, pre-vote checks and exact-order recovery work. This is required development, not an existing Reporter capability.
 
 ## Reuse proof verification and storage
 
 **Reuse matching native retained proofs; add a recoverable exact-source handoff.** Native safety storage retains selected local artifacts, forwarded view exits, signing floors and outbox obligations. Its Snapshot does not retain every remote vote or direct-pool/source-selection revision, the ordering snapshot payload is empty, and recovery replay emits no newly-ready notices. Exposing that journal alone cannot recover exact previously delivered order. Preserve missing selected source/opening material through the existing owner and existing Journal/Archive/Metadata/resolver mechanisms; record placement and retention remain open. A public `serve(view)` call can supply a matching retained proof, including a covering L-QC, but not arbitrary historical source identity. [Durable state](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/durability.rs#L1584), [Empty ordering payload](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/durability.rs#L1970), [Silent replay](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/reducer.rs#L1306), [Public serving](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L568).
 
-**Orderer interprets exact order; Commonware supplies proof verification, encoding, archives and replay.** Keep original source witnesses and application bindings around those existing handles. No new general proof verifier, fetch engine or cursor database is needed.
+**Baton interprets exact order; Commonware supplies proof verification, encoding, archives and replay.** Keep original source witnesses and application bindings around those existing handles. No new general proof verifier, fetch engine or cursor database is needed.
 
 | Needed operation | Existing Commonware API | Remaining application connection |
 |---|---|---|
@@ -54,7 +58,7 @@ DA uses a threshold certificate. V-QC and L-QC combine ordinary signatures in a 
 
 These native DA/view votes differ from [Baton intended-order reports](../baton/direction.md#leader-choose-direction-from-reports) and [direct-execution result signatures](../e2e/results.md#result-endpoint-direct-execution-and-f1-certification). Direction adds no separate approval quorum. Binding selected prefix and policy to actual parent, history, and frontier at proposal authentication still needs development and validation. Preserve the exact leading sequence, not merely membership of its blocks.
 
-Orderer verifies and retains the exact witness selected by the native owner and the original policy/history, then computes continuous input. A resumable owner export supplying this material is new integration. Sparse tip certificates do not provide a body stream, past policy, or dense cursor. Simplex marshal compatibility with Multimmit also needs separate review. [Native application boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md).
+Baton verifies and retains the exact witness selected by the native owner and the original policy/history, then computes continuous input. A resumable owner export supplying this material is new integration. Sparse tip certificates do not provide a body stream, past policy, or dense cursor. Simplex marshal compatibility with Multimmit also needs separate review. [Native application boundary](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md).
 
 | Existing attachment / query | Supplies | New adapter responsibility |
 |---|---|---|
@@ -63,7 +67,7 @@ Orderer verifies and retains the exact witness selected by the native owner and 
 | `Running::serve(view)` | Retained useful native ViewProof | Preserve exact historical interpretation; a higher covering L-QC may be returned and old proofs pruned |
 | Proposed exact owner export | New handoff of selected source and immutable context | Verify / retain original witnesses → interpret terminal slots → emit continuous OrderedRange |
 
-These responsibilities can live in one consensus application attachment. No separate Orderer server or mandatory multi-actor deployment has been chosen. [Reporter trait](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/lib.rs#L246), [Inspection / serving](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L530), [Retained proof selection](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/resolver/actor.rs#L245).
+These responsibilities now live inside Baton. They reuse the same native attachment and storage/resolver handles; no separate order-delivery module or mandatory additional actor has been chosen. [Reporter trait](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/lib.rs#L246), [Inspection / serving](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L530), [Retained proof selection](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/actors/resolver/actor.rs#L245).
 
 FinalityFact is a normalized projection of leader, tips, positions, settledness, and evidence identity. It is not the witness archive.
 

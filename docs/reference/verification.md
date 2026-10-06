@@ -2,7 +2,7 @@
 
 **Validation should exercise each responsibility at its failure boundary.** The plan covers normal flow, missing input, stale completion, cancellation, crashes, and recovery. These cases are planned, not executed test results.
 
-**Assemble future E2E tests with Commonware's existing runtime, network and storage controls.** Use the same public Sender/Receiver interfaces as deployment, with simulated links controlling delivery. Attach the selected TxPool, body buffer/resolver/archive, native callbacks, Orderer, Executor and Storage; a second transport or crash simulator is unnecessary.
+**Assemble future E2E tests with Commonware's existing runtime, network and storage controls.** Use the same public Sender/Receiver interfaces as deployment, with simulated links controlling delivery. Attach the selected TxPool, body buffer/resolver/archive, native callbacks, Baton, Executor and Storage; a second transport or crash simulator is unnecessary.
 
 | Existing support | Responsibility in a future test | Connection still needed |
 |---|---|---|
@@ -23,8 +23,9 @@ Native channel registration takes `register(channel, quota)`. The public Cluster
 | Tx / pool | New, duplicate, structurally invalid; proposal cancellation; selection/proposal alone does not establish canonical retirement | Not run |
 | Builder / custody | Digest mismatch, missing body/parent, durability failure, late build completion | Not run |
 | Native / delivery | Unresolved gap, authenticated empty, extension, missing history, preserved emitted prefix after restart | Not run |
+| Pre-cut baseline | Separate [baseline implementation](../baselines/precut.md): pending-only global sorting, no report/direction, exact native continuous input, incremental reuse/repair, gap/extension/restart recovery, matching certification/state-sync configuration and deterministic outputs | Not run |
 | Leader Baton | Threshold/deadline race, duplicate identity, stale context, incomplete Baton planning, cut ready first | Not run |
-| Non-leader Baton | Missed/late direction, missing body, order change, separated producer/executor roles | Not run |
+| Non-leader Baton | Missed/late direction, missing body, order change, separated producer/executor roles; global rule ABC with A running and C then B admitted before dispatch must execute/report ABC; late eligible B after C starts preserves AC and yields ACB without arrival-driven reexecution; admission during predecessor execution only sorts pending; identical input sets with different started prefixes can differ; native ABC commit still requires exact-parent repair; stable report snapshot and rule mismatch | Not run |
 | Execution | Prefix reuse, input-state/runtime mismatch, canceled-job completion, partial-prefix commit | Not run |
 | Storage / QMDB | Sealed-parent forks vs rootless overlay; exact-prefix preparation; root/boundary determinism; valid-access fences through merkleize | Not run |
 | QMDB recovery | Crash during commit, lost ACK, same-range redelivery, state/output/cursor/provenance linkage and retained-checkpoint recovery | Not run |

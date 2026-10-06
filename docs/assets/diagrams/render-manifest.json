@@ -1,28 +1,28 @@
 {
-  "specification": "baton-reuse-diagrams.md",
-  "specification_sha256": "eff3ca4e65838ac64d6b1a5ae209d241184f0dce27aea8a63270e22046bbed92",
+  "specification": "Baton docs Mermaid sources",
+  "specification_sha256": "4aa1a98c3f0cf17c0ef2375ac62b59db708b78a8f6362815fb181994e323d7a0",
   "renderer": "mermaid 11.12.0",
   "diagrams": [
     {
       "name": "diagram-01",
       "title": "Four layers",
-      "width": 1172,
+      "width": 1221,
       "height": 1186,
-      "source_sha256": "432d40eac8f8556c659419915e638d6ac010540cf28ffbb43f9326528a2b2446"
+      "source_sha256": "07149714394daad5050def127a40e7fd33171bcadf72a44fca176f337cceafb2"
     },
     {
       "name": "diagram-02",
       "title": "Full E2E: transaction input to canonical state",
       "width": 1338,
-      "height": 1625,
-      "source_sha256": "4c6f189d22c32bfc4dc621abbb30d548509f25659cba59ea7538ff5e08a22ec2"
+      "height": 1828,
+      "source_sha256": "a9079aa4792e9ef62adaf972124fd9cd3cfac2b4786d1ec0ba32523bebd29116"
     },
     {
       "name": "diagram-03",
       "title": "Tx lifecycle: new, duplicate, and invalid transactions",
-      "width": 1116,
-      "height": 1666,
-      "source_sha256": "55fd749b7dbc5c4567c0bcf3783600a71cb480d035ebf02ff94e1fe7ca451c6e"
+      "width": 898,
+      "height": 1391,
+      "source_sha256": "dcf2f2683ae41bd7fc77971007ad44d6b4d6006582c92cceeba2db4629129f7e"
     },
     {
       "name": "diagram-04",
@@ -43,7 +43,7 @@
       "title": "Leader lifecycle: collect reports and disseminate direction",
       "width": 1139,
       "height": 1702,
-      "source_sha256": "46d3917011d291db4dfdfd769893c3fd86020e2df4728c2175b29c6d0df492bd"
+      "source_sha256": "3366172ceadb9b8dfd9baccfdc0586c51e584cbd14428b75e7d102d84cd6667d"
     },
     {
       "name": "diagram-07",
@@ -57,21 +57,21 @@
       "title": "Cut commit \u2192 ordered range \u2192 execution commit",
       "width": 912,
       "height": 1710,
-      "source_sha256": "4309330438cbf20f3ae2cfb41435a42b2cea0b255fd399822a6dea3d187d935b"
+      "source_sha256": "b07f6e7c080d2ce5e865feeff1a5c904b298b37fa13d5cad9ef319b14e0fc5c4"
     },
     {
       "name": "diagram-09",
       "title": "Execution lifecycle: QMDB branches and canonical promotion",
-      "width": 926,
-      "height": 2234,
-      "source_sha256": "cd361561d9c5ef609114450c1819f67caf4e42dc17ca4a169b5b75ec33333cd7"
+      "width": 716,
+      "height": 2282,
+      "source_sha256": "5c19d5298f9a7bcc71d493116b4940687b6cd2224bb283dbf6bdaf29486c6b94"
     },
     {
       "name": "diagram-10",
       "title": "Restart and backfill",
       "width": 899,
       "height": 949,
-      "source_sha256": "9569c6af7ea91d67268d0ebcf582f4e78f42db2ec83f96277e5fec61d54796eb"
+      "source_sha256": "a656d5fa56d11b3d142a6ca0b59a7688c09604a1c9f9c54ab47c9a77168a0936"
     },
     {
       "name": "diagram-11",
@@ -92,7 +92,7 @@
       "title": "Startup: prepare custody before native recovery",
       "width": 1325,
       "height": 1713,
-      "source_sha256": "717987e5bc233231b68df9575b2faf9f5adf3f305cb0050825417f068d95030e"
+      "source_sha256": "2cf310df990e3eaa22efbbb9bf2fd98476d181240306352f054a78a46b0736dd"
     },
     {
       "name": "diagram-14",
@@ -112,15 +112,15 @@
       "name": "diagram-16",
       "title": "Native actors and source layout",
       "width": 1143,
-      "height": 962,
-      "source_sha256": "74051c5b53ede03729f50d6183109e1170a3003bdb3c885ad6e10b0b65303062"
+      "height": 1010,
+      "source_sha256": "b7d41499def2536585b873bb27993c0c214183094fe8716424975a3e2751d164"
     },
     {
       "name": "diagram-17",
       "title": "QMDB state and reuse boundaries",
-      "width": 1318,
-      "height": 1636,
-      "source_sha256": "69645e1f40c0aee8ca63708abce75156c4a72c2d6cd833d53a7031d94b98f66c"
+      "width": 1263,
+      "height": 1660,
+      "source_sha256": "954c7faf37f073dcb42e43c560acded928bda57d15ef3d9c107a8cfd66fb3033"
     },
     {
       "name": "diagram-18",
@@ -128,6 +128,13 @@
       "width": 1121,
       "height": 316,
       "source_sha256": "6aee5f77fc56c2db08868e5deac1a8c2fdfbf12e6c165e96ec9c0aa0821a93f9"
+    },
+    {
+      "name": "diagram-19",
+      "title": "Pre-cut execution without Baton",
+      "width": 638,
+      "height": 954,
+      "source_sha256": "7b9d815cb7af744975b081e3bca4dd7bc0e6adcf58d19ff3c499fc75c3282a09"
     }
   ],
   "origin_snapshot_sha256": "79d5a7109a685d8b8c968bcc92b135fad290a70dc62a8c95f064128c919ff74b",
@@ -149,6 +156,7 @@
     "e2e/native-consensus.md",
     "consensus/README.md",
     "execution/qmdb.md",
-    "execution/qmdb.md"
+    "execution/qmdb.md",
+    "baselines/precut.md"
   ]
 }

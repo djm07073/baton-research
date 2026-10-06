@@ -8,7 +8,7 @@ sequenceDiagram
         N-->>L: Read-only leader planning context
         L-->>V: Authenticated window context
         loop Valid reports arriving before closure, possibly none
-            V->>V: Build intended order from known inputs
+            V->>V: Keep started prefix, sort pending by global rule
             V-->>L: Signed IntendedOrderReport
             L->>L: Same-context validation / distinct identity admission
         end

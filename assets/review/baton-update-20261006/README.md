@@ -1,0 +1,9 @@
+# Baton documentation publication — 2026-10-06
+
+Published GitBook change request #17 as revision `yeCmkzCMDjJLNtSq9qKG` in the existing Baton space. The update carries TxPool admit/select, Orderer merged into Baton, pending-only global sorting, the cut-proposal prefix/policy TODO, and the separate Pre-cut execution implementation. Research-paper corrections are preserved in the Git source; the GitBook upload covers implementation docs.
+
+The 40 published pages (32 content, eight section indexes) were fetched from the merged immutable revision. Semantic text, fenced code, all 601 links and all 98 existing generated heading anchors passed comparison. Mermaid count is 19; the application export retains TxPool, Baton, Executor and Storage. Existing page IDs and all five prior comment records/statuses were preserved. One older Orderer heading anchor has a compatibility explanation; the public trait is removed. The live verification-page correction to transaction retirement was already reflected in local source and preserved.
+
+Twelve changed/new files were uploaded with accepted file IDs and linked from the updated pages. Raw remote attachment bytes were not independently downloaded or hash-verified. `asset-manifest.json` records local bytes/hashes; `page-map.json` records uploaded references. Source Markdown remains canonical; Git Sync is not enabled. Repair-on-unfinalized-proposal and conflicting advisory-direction precedence remain undecided.
+
+Checks validate documents and declarations, not the protocol. No native prefix-policy implementation, E2E execution or benchmark result is claimed. `receipt.json`, `verification.json`, `expected-markdown.json` and `published-readback.json` bind publication and readback. Preparation/verification scripts describe the local transformations; temporary upload payloads and authentication data are excluded.

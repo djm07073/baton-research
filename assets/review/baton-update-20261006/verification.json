@@ -1,0 +1,417 @@
+{
+  "verified_pages": 40,
+  "content_pages": 32,
+  "section_indexes": 8,
+  "links": 601,
+  "mermaid_diagrams": 19,
+  "traits": [
+    "TxPool",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "old_heading_anchors_preserved": 98,
+  "checks": [
+    {
+      "source": "README.md",
+      "pageId": "ddouvFyMOwIKI10ltCCC",
+      "documentId": "W6xiSvZ04X1SXAptZReC",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/start",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "f43c763edc488607b6f16f656f17b401f75df8c6363d3a99cc6638b8702ebb74"
+    },
+    {
+      "source": "overview/architecture.md",
+      "pageId": "eqtTh7bULw0VNqUvDgBd",
+      "documentId": "JkeE3sWAAHLZwQmFAUUT",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/architecture",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "836663367f83749094dd1b8a9a90daffe6ca01e3db0dad89b30927a14d076786"
+    },
+    {
+      "source": "overview/glossary.md",
+      "pageId": "lLdHXsL8PlIMymXDLxbI",
+      "documentId": "idJ8UVXLLcvr5rPNJdvJ",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/glossary",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "cea257124c73a29a98e40d5582ce91dcef193f2157bfff9aa3cb6e84ef7bf776"
+    },
+    {
+      "source": "overview/rust-interfaces.md",
+      "pageId": "xcDDH0AA03iU2slbiHNo",
+      "documentId": "LqiirklOmGq6sxaISsja",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "517073b98504aaf0e3a4fa8064c4791ed8c55b71ba366f4757535e9b2cea0216"
+    },
+    {
+      "source": "overview/networking.md",
+      "pageId": "UXwv4d2aDxhnRXCCOeFA",
+      "documentId": "y3QO3QW5Y9jjFFJpERsd",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/networking",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "4768b86c749dbb3df6f206f472b20e2218c5ce06aee2378234cddc1fbfd4894e"
+    },
+    {
+      "source": "overview/interfaces.md",
+      "pageId": "VY7nIvWFRnoJHzGoBqNF",
+      "documentId": "8lSRBWaJLjBzBxVjckH1",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/interfaces",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "94bf9ec0b87b4678a9b4bcfb6583185f7fb0d6849ecd7a5b408f76f8060a1586"
+    },
+    {
+      "source": "tx/README.md",
+      "pageId": "BAILspeefeHw6iLY0rX3",
+      "documentId": "7DLZlWm3sucpF2WO429X",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/tx/roles",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "16e9fbf7db8ecbb94889e0d0f76c7a6188f203a4922d56aecc4e55057e3ea84b"
+    },
+    {
+      "source": "tx/interfaces.md",
+      "pageId": "UPR1SCpuf5zUoUetIAkq",
+      "documentId": "d1Us5d2TkRMxpEbqRoNr",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/tx/interfaces",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "7f3580c8c45cea1dcf5c0c17a704b401c7366ac9759fdda13553a1e7d90c98c8"
+    },
+    {
+      "source": "consensus/README.md",
+      "pageId": "g1kO3la0qYnPmndON23S",
+      "documentId": "UIj9JKybPUt3wJUf35Mc",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus/roles",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "82751f95c74e03d0bba368f8abef9556a916ee08ee7a2a9334bb53db25938a0e"
+    },
+    {
+      "source": "consensus/block-body.md",
+      "pageId": "UziPYQpfWeuCyLtuWpWx",
+      "documentId": "CQErH4wxhgxrPygZQ3ti",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus/block-body",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "e99b69f99457a829aad010a2f2f4829f8f10a478c947881b2b911dfee1dae34b"
+    },
+    {
+      "source": "consensus/ordered-input.md",
+      "pageId": "Lfyz1AbF29ql5e9ZQ1g2",
+      "documentId": "c3xtyhps0jTe5FwX48oS",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus/ordered-input",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "bfc132cbd61241e43853fb0b10890fe65687c036b969be9b212303d9ec9f08bb"
+    },
+    {
+      "source": "consensus/decisions.md",
+      "pageId": "sJc2FOUl8KF8ky9r1EKm",
+      "documentId": "Uq4b5zoyMJcxqK6wN6UU",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus/decisions",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "b0dd998b0163cbfdc7c1d02d1f680358f8af0272c2c5e33316a83028f424acb2"
+    },
+    {
+      "source": "baton/README.md",
+      "pageId": "3OvyWTKM5uWJ1JTktps0",
+      "documentId": "tNlKEBFsbzpA2B0ml1Mr",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baton/roles",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "391c7783f4f300ea3651f8e5137fb4dcc83247a88fd3e4000a03b805af0f330b"
+    },
+    {
+      "source": "baton/direction.md",
+      "pageId": "3pjcORUOr509g17x4ygJ",
+      "documentId": "XgmEXj6C2Ffc7ufWTV1x",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baton/direction",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "ab021ca720c6d3f49f9ee2a1f449693fc40901eda7bf3f1945d341385b601948"
+    },
+    {
+      "source": "baton/interfaces.md",
+      "pageId": "Eg5KQi4bDlaWjPFmWxfG",
+      "documentId": "I80AbMh5u2HaRbh7DB5t",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baton/interfaces",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "8216e93028df90de044364ae75bb814036256b0aeb8a7d40ed99a4c43b016bb7"
+    },
+    {
+      "source": "execution/README.md",
+      "pageId": "q3033aajDjJ5aLB9dVHY",
+      "documentId": "N6AmLT5aQ4P4qS2A0HSJ",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution/roles",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "a371a772a1f8f540043905c2e773b6971fa0ce3fe9e4c60fbbf003795ed6c4e2"
+    },
+    {
+      "source": "execution/interfaces.md",
+      "pageId": "R1krejCUjwtwoXNGZs9o",
+      "documentId": "Z4C6eMvBYE4XJYfwPZhJ",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution/interfaces",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "ed1094b1eaf8717ef6dd08918be8ead7be4366e33bd69d2b234db214841f9388"
+    },
+    {
+      "source": "execution/qmdb.md",
+      "pageId": "BytJ0SideZZqJsRObbha",
+      "documentId": "rurWMSwneitXOjmiCIw0",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution/qmdb",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "e2b49248753e39358708be843de155406f17897fa7929f840e0579240a1165cc"
+    },
+    {
+      "source": "execution/state-sync.md",
+      "pageId": "iQBCvg8IQLSupkQb0IHv",
+      "documentId": "PFAnF2Kkot7T3dgLW9Ye",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution/state-sync",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "a752682d2fb04bb4c53d7d3abafb74a002762103e854b6722cec0cc805998ea0"
+    },
+    {
+      "source": "e2e/normal.md",
+      "pageId": "R8VpBC3WCkOHQSS72ZW0",
+      "documentId": "VDdd7zvRl3tTvVXXEKHV",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/normal",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "195357025e1bb50cbf488627160f1a88dac625c1303ee09f2bc5a6a042703e6a"
+    },
+    {
+      "source": "e2e/block-body.md",
+      "pageId": "iq9PIQIBNvy7xCPMyirI",
+      "documentId": "m0gf1UxlY5fmEzEoGYxC",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/block-body",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "da33e115f9dab9b0613553c1e02e4801198983c31ab8da8e4fdf11c6a24e3033"
+    },
+    {
+      "source": "e2e/native-consensus.md",
+      "pageId": "Y08WMfgwxDqQJjt7MtZV",
+      "documentId": "rCgZl0K5NQMPvG6VnHRE",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/native-consensus",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "6b5a2873edf8ae597b81580aed9695909f99abdf531fa339d7c68cf2133e6aba"
+    },
+    {
+      "source": "e2e/leader.md",
+      "pageId": "NB3v1H0iYHZGYfodw8ZR",
+      "documentId": "G9IZDZf5jOjuDPZfVvqA",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/leader",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "bb0d57b83fd68b4a78d11d506cd58a7dd3eacbc2adee86ccff317724830d2e11"
+    },
+    {
+      "source": "e2e/reschedule.md",
+      "pageId": "jrZyeYzHpxdxIAIbtu55",
+      "documentId": "iEIHDt2FNR0r0xzsdro6",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/reschedule",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "6a9d695b9a31ae4b82beba9cea08d274518132a3b64c8a3ab818c7dc77db2785"
+    },
+    {
+      "source": "e2e/canonical.md",
+      "pageId": "fSMOy1CruvdxuFZHij62",
+      "documentId": "7yC1hgrrvNyJgD3xWl7o",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/canonical",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "b98169f92c736cf9c7dd17b82a237a93256a4a315d82295cf125bfc1eb9bb44c"
+    },
+    {
+      "source": "e2e/recovery.md",
+      "pageId": "g3dEfSE7zFEsEDo4DNIN",
+      "documentId": "YoSE5b11IsHhojD3y6J4",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/recovery",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "897b6f09107a4cf66055ca53049f01066539cb5286759b9b5b1537c090a6429e"
+    },
+    {
+      "source": "e2e/results.md",
+      "pageId": "s6ipwmMRaN2lx6vZ8sRW",
+      "documentId": "inKWTVYA5wt1BXy1SfXd",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/results",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "87536c852ecfeeaaffd446887bee4fca4979f5fd24373edd56e00197064436c8"
+    },
+    {
+      "source": "e2e/state-sync.md",
+      "pageId": "KtJEkG5v13LtRxPCWiSF",
+      "documentId": "hSBcez0BcxP4iwqb34WU",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e/state-sync",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "5150df5264706b3bfcd00b8079395be3e2873c65eff0ab1ba25ec9865b04f2ef"
+    },
+    {
+      "source": "baselines/precut.md",
+      "pageId": "mXuxTv0nZFD2mSKwYVev",
+      "documentId": "uzmm8nhcOAXPoZ0EEdPv",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baselines/precut",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "143b3b2c92e3133c50711307eb6d1ecfc4510869231bcee6e70d5da1b10b463e"
+    },
+    {
+      "source": "reference/integration.md",
+      "pageId": "BCmTHrj1KjxTAW9qz9Ok",
+      "documentId": "MRc2Ex5KAiXrzE8cxpbp",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/reference/integration",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "f187ef52a0e82b26651bc88a005c39b9f494758788b4770ad448dbb3a034b022"
+    },
+    {
+      "source": "reference/verification.md",
+      "pageId": "UJWZyWmmBoyCoLneEByT",
+      "documentId": "poacT6V42Yz9iWbVghAY",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/reference/verification",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "0b026f8958ebb3e160e793de7ea825b6701ffa6127b84db611771700b8894456"
+    },
+    {
+      "source": "reference/sources.md",
+      "pageId": "Ez5tuxtb6aajszo2mj9U",
+      "documentId": "YcewFqnskAjxSoGWD4r7",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/reference/sources",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "a7168d0489d8004cb27cdca55900b914a7b1c0fbf89934d41880643960dbbb87"
+    },
+    {
+      "source": "@overview",
+      "pageId": "P25eDmatPnfIRCBq5W82",
+      "documentId": "HYTuDJMNeCOCM3Hiq9FJ",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "700c2b6824a6e9625d36a94bfdee00244d7197fbe08c45689f4a9a96c19cb312"
+    },
+    {
+      "source": "@tx",
+      "pageId": "IniAvgnSA9K4bnpio0xc",
+      "documentId": "QR6we9tO38jKzTO9PneE",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/tx",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "fb2ba6963df2c20a2ec2e37c5ecdebdf33a0d093e39007140236c5c348fe5359"
+    },
+    {
+      "source": "@consensus",
+      "pageId": "FcmlwGE5FVX125FcMkCJ",
+      "documentId": "vl4u9i74ngYAC6hdX6bP",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/consensus",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "625cc5024a86fe77b8fe0f241b0668554f390635edb75e6d25aebc9bcfd8beac"
+    },
+    {
+      "source": "@baton",
+      "pageId": "BXfAElB8ATQH7dbpqmgm",
+      "documentId": "7XaRhz0dVkCFo6KvtjVi",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baton",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "46d377bd77b326381a54b613b1d2ef1890bc2bc7bb087006c4a136580e9ac89a"
+    },
+    {
+      "source": "@execution",
+      "pageId": "eMU7vCkb44e071a5q2ok",
+      "documentId": "ADfHseHCDIKHJiefPU7M",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/execution",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "91579d40a0d622395374997f8c9130e8286b7fee240b14cad9e9d6220be67108"
+    },
+    {
+      "source": "@e2e",
+      "pageId": "c9nXu7RW1sNCXRrgROwR",
+      "documentId": "KJCoYtXEx89sRv6Nz1Ed",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/e2e",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "f8c8f5bf5fe34543355c4b555deac73b77a647841f641c3984f3aa1dd6b2cbdd"
+    },
+    {
+      "source": "@baselines",
+      "pageId": "40KgVChGEQswiCMrq5cu",
+      "documentId": "3K89ftw7M3UTkFO6oNio",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baselines",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "4aa1728d02541cbd8c8f37aa64909eaaa9f9aa8c8c7d9dc4d85bf7d587f2ea97"
+    },
+    {
+      "source": "@reference",
+      "pageId": "bA4mHdZsclI94Hr8FxuV",
+      "documentId": "imG5V1V8rdQRh88L4ge4",
+      "url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/reference",
+      "text_preserved": true,
+      "fences_preserved": true,
+      "links_preserved": true,
+      "markdown_sha256": "0d5bc2ac9a33b8c1937fce039ae4e7f1cd265254769ed418ee815f5ee1df0555"
+    }
+  ],
+  "failures": []
+}

@@ -1,13 +1,13 @@
 # Finalized order and canonical state application
 
-**Orderer delivers exact input; Executor selects its effects; Storage makes them durable.** Executor selects matching completed work, executes missing work or authorizes verified peer material; Storage prepares roots and applies it. Executor acknowledges delivery only after Storage has made canonical state, outputs, cursor and provenance recoverably durable.
+**Baton delivers exact input; Executor selects its effects; Storage makes them durable.** Executor selects matching completed work, executes missing work or authorizes verified peer material; Storage prepares roots and applies it. Executor acknowledges delivery only after Storage has made canonical state, outputs, cursor and provenance recoverably durable.
 
 ## Cut commit → ordered range → execution commit
 
 ```mermaid
 sequenceDiagram
     participant N as Native Multimmit
-    participant M as Orderer
+    participant M as Baton
     participant E as Executor
     participant S as Storage / QMDB
     N-->>M: Authenticated finality / extension evidence
@@ -40,7 +40,6 @@ The first native leader-finality notice does not immediately establish the compl
 ```mermaid
 sequenceDiagram
     participant B as Baton
-    participant M as Orderer
     participant E as Executor
     participant S as Storage / QMDB
     B->>E: execute(block, execution-parent hash, exact context)
@@ -49,28 +48,28 @@ sequenceDiagram
     S-->>E: Unsealed batch or rootless read/effects adapter
     E->>E: Compute ordered transaction changes and outputs
     E-->>B: Completed ExecutionResult, hashing may be deferred
-    M-->>E: OrderedRange(irrevocable input, canonical predecessor)
+    B-->>E: OrderedRange(irrevocable input, canonical predecessor)
     E->>E: commit(range): select exact completed prefix
     E->>E: Finish missing work, fence incompatible/unknown workers
     E->>S: prepare(exact selected prefix, storage rule)
     S->>S: Materialize / concrete merkleize with valid read-access fence
     S-->>E: Prepared material, root and exact result/output binding
     E->>S: apply(authorized canonical range, prepared result)
-    S->>S: Native DatabaseSet::finalize(matching sealed batches)
+    S->>S: DatabaseSet::finalize(sealed batches)
     S->>S: Observe Barrier::durable + metadata/provenance linkage
     alt Durable barrier and recoverable linkage succeed
         S-->>E: Durable CommitResult
         E->>E: Promote canonical path, logically prune conflicts
-        E-->>M: Durable delivery ACK
+        E-->>B: Durable result to internal delivery tracking
         opt Optional scheduling notification
-            E-->>B: Applied progress only
+            E-->>B: Optional advisory progress only
         end
         opt References and serving obligations permit release
             S->>S: Physically reclaim unreferenced material
         end
     else Failed flush / shutdown / incomplete linkage
         S-->>E: No successful durable completion
-        Note over M,E: No CommitResult/ACK, recover authoritative durable state
+        Note over B,E: No CommitResult/ACK, recover authoritative durable state
     end
 ```
 

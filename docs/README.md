@@ -10,7 +10,7 @@
 |---|---|---|
 | 1 | [Architecture](overview/architecture.md) | Four layers and the data, control, and canonical paths |
 | 2 | [Roles and terminology](overview/glossary.md) | Module responsibilities and completion conditions |
-| 3 | [Rust interfaces](overview/rust-interfaces.md) | Five application traits, existing body callbacks, and one Rust export |
+| 3 | [Rust interfaces](overview/rust-interfaces.md) | Four application traits, existing body callbacks, and one Rust export |
 | 4 | [Normal E2E](e2e/normal.md) | Transaction → block → execution result → durable state |
 | 5 | [Execution responsibilities](execution/README.md) | Executor-owned state finalization and state sync |
 
@@ -22,13 +22,14 @@
 - **Baton:** reports, direction selection/authentication/dissemination, speculative block requests.
 - **Execution:** execution tree and effects, Storage/QMDB roots and application, certification, state sync and recovery.
 - **E2E:** normal flow, body exchange, native consensus, leader planning, reexecution, canonical application, restart, certification, state sync.
+- **Benchmark baselines:** [Pre-cut execution without Baton](baselines/precut.md), a separate implementation using shared execution/storage components.
 - **Development and references:** Commonware integration anchors and development/verification plans.
 
 The [table of contents](SUMMARY.md) lists every page. Layer pages define responsibilities and interfaces. E2E pages explain message sequences and event order.
 
 ## Adopted responsibilities
 
-Finalized input travels directly **Orderer → Executor**. **Executor ↔ Executor** exchanges execution signatures, certificates and change sets and owns state finalization and state-sync control. **Storage** prepares selected roots and owns canonical database application, queries, durability and recovery. Baton coordinates reports, direction, and speculative work. It does not approve or gate result certification or state application.
+In the Baton implementation, finalized input travels directly **Baton → Executor**. **Executor ↔ Executor** exchanges execution signatures, certificates and change sets and owns state finalization and state-sync control. **Storage** prepares selected roots and owns canonical database application, queries, durability and recovery. Baton coordinates reports, direction and speculative work, and internally interprets native evidence to deliver confirmed input with recoverable history/cursors. It does not approve or gate result certification or state application.
 
 ## Document status
 

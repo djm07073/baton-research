@@ -7,13 +7,13 @@ flowchart TB
     V <-->|events / typed capabilities| C[CoreState / private semantic owner]
     V <-->|append / sync / covering ACK| J[Native journal / checkpoints]
     V <-->|payload callbacks / accepted-artifact notices| A[BlockService / Automaton]
-    C -. new planning / policy bridge .-> P[Baton: direction planning]
+    C -. new planning / policy bridge .-> P[Baton: direction and confirmed-order delivery]
     P -. prepared matching candidate .-> C
-    C -. new exact evidence export .-> D[Orderer]
-    D --> E[Executor]
+    C -. new exact evidence export .-> P
+    P -->|confirmed exact range| E[Executor]
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
     class W,B,K,V,R,C,J reuse;
     class A adapt;
-    class P,D,E fresh;
+    class P,E fresh;

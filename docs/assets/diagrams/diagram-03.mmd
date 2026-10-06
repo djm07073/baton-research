@@ -1,30 +1,23 @@
 sequenceDiagram
     participant C as Client / Tx peer
-    participant A as TxPool: admission
-    participant P as TxPool: candidate storage
+    participant P as TxPool
     participant B as BlockService
-    participant O as Executor
-    C->>A: Tx bytes
-    A->>A: Decode / domain / signature / size checks
-    alt Structurally invalid transaction
-        A-->>C: Rejected
-    else Valid transaction
-        opt Static analysis placed at admission
-            A->>A: TxPool::analyze / classify(tx payload) → static policy input
-        end
-        A->>P: Admit(tx_id, tx, optional metadata)
-        alt Same tx_id already retained
-            P-->>A: Existing admission
-        else New transaction
-            P-->>A: New admission
-        end
-        A-->>C: Admission result
-        B->>P: TxPool::select(context, limits)
-        opt Static analysis placed at packing
-            P->>P: TxPool::analyze / classify → filter candidates
-        end
-        P-->>B: Candidate batch
-        Note over P,B: Selection / proposal cancellation / reselection policy is open
-        O-->>P: Durable canonical outcome
-        P->>P: Reconcile lifecycle using canonical outcome
+    participant E as Executor
+    C->>P: admit(tx, source)
+    P->>P: Stateless validation and internal payload policy
+    alt Invalid input
+        P-->>C: Admission: dropped
+    else Valid selected candidate
+        P->>P: Deduplicate and retain as selected
+        P-->>C: Admission: selected
+    else Valid unselected candidate
+        P->>P: Deduplicate and retain as unselected
+        P-->>C: Admission: unselected
+        Note over C,P: Retained for chosen P2P policy, excluded from local batches
     end
+    B->>P: select(producer context, limits)
+    P->>P: Read selected candidates, preserve dependency and size limits
+    P-->>B: Candidate batch, candidates remain retained
+    Note over P,B: Proposal cancellation needs no public pool callback
+    E-->>P: Durable canonical tx outcomes to internal maintenance
+    P->>P: Reconcile retained candidates through existing backend

@@ -1,0 +1,247 @@
+[
+  {
+    "source": "README.md",
+    "preserved_anchors": 12,
+    "new_anchors": 1,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "overview/architecture.md",
+    "preserved_anchors": 4,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "overview/glossary.md",
+    "preserved_anchors": 1,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "overview/rust-interfaces.md",
+    "preserved_anchors": 8,
+    "new_anchors": 0,
+    "compatibility_aliases": [
+      [
+        "orderer",
+        "section-005"
+      ]
+    ]
+  },
+  {
+    "source": "overview/networking.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "overview/interfaces.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "tx/README.md",
+    "preserved_anchors": 6,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "tx/interfaces.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "consensus/README.md",
+    "preserved_anchors": 3,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "consensus/block-body.md",
+    "preserved_anchors": 4,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "consensus/ordered-input.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "consensus/decisions.md",
+    "preserved_anchors": 1,
+    "new_anchors": 1,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "baton/README.md",
+    "preserved_anchors": 3,
+    "new_anchors": 1,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "baton/direction.md",
+    "preserved_anchors": 4,
+    "new_anchors": 1,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "baton/interfaces.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "execution/README.md",
+    "preserved_anchors": 3,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "execution/interfaces.md",
+    "preserved_anchors": 3,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "execution/qmdb.md",
+    "preserved_anchors": 6,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "execution/state-sync.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "e2e/normal.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "e2e/block-body.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "e2e/native-consensus.md",
+    "preserved_anchors": 1,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "e2e/leader.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "e2e/reschedule.md",
+    "preserved_anchors": 1,
+    "new_anchors": 1,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "e2e/canonical.md",
+    "preserved_anchors": 2,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "e2e/recovery.md",
+    "preserved_anchors": 3,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "e2e/results.md",
+    "preserved_anchors": 1,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "e2e/state-sync.md",
+    "preserved_anchors": 1,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "baselines/precut.md",
+    "preserved_anchors": 0,
+    "new_anchors": 7,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "reference/integration.md",
+    "preserved_anchors": 11,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "reference/verification.md",
+    "preserved_anchors": 1,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "reference/sources.md",
+    "preserved_anchors": 1,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "@overview",
+    "preserved_anchors": 0,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "@tx",
+    "preserved_anchors": 0,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "@consensus",
+    "preserved_anchors": 0,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "@baton",
+    "preserved_anchors": 0,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "@execution",
+    "preserved_anchors": 0,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "@e2e",
+    "preserved_anchors": 0,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "@baselines",
+    "preserved_anchors": 0,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  },
+  {
+    "source": "@reference",
+    "preserved_anchors": 0,
+    "new_anchors": 0,
+    "compatibility_aliases": []
+  }
+]

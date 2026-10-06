@@ -1,0 +1,74 @@
+[
+  {
+    "source": "assets/diagrams/diagram-01.svg",
+    "bytes": 31905,
+    "sha256": "36eae7b4fc810ba994c0d9987782a5c90ba32b893ce459ea0fd414609f6ed10a",
+    "action": "asset-00.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-02.svg",
+    "bytes": 40804,
+    "sha256": "8ec1a4bc20cf500829eaa3296f46e7b030dbdeaa3678506b365f1804d6d076da",
+    "action": "asset-01.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-03.svg",
+    "bytes": 32170,
+    "sha256": "8af4c1d0fc30c4ae6676a5d62536d7065567f2764d5b5c18a12cfd73d48f6179",
+    "action": "asset-02.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-06.svg",
+    "bytes": 37579,
+    "sha256": "71da731b524aa485c9c8f50d2449c6f42e212c7ca9247722cf6cc610dcfad48e",
+    "action": "asset-03.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-08.svg",
+    "bytes": 35968,
+    "sha256": "587995b090161e221e77fdfc743a8e8b1dfd7075b0afd3034bf12ef32953ca1d",
+    "action": "asset-04.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-09.svg",
+    "bytes": 41058,
+    "sha256": "8a83130553a89c04d5572df4c6ba50656ae4e5aeefbcbe46c656720724ae2957",
+    "action": "asset-05.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-10.svg",
+    "bytes": 29179,
+    "sha256": "fe2732eda7165482cdf34392f31bab0b97b246937c56f3109ea110990c88469c",
+    "action": "asset-06.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-13.svg",
+    "bytes": 40525,
+    "sha256": "a6c8548055b0ac14b468dabbdc3597d977b0244a9323b8801ffdee26338fb26a",
+    "action": "asset-07.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-16.svg",
+    "bytes": 25855,
+    "sha256": "e97ee210b10a62f945a847c051547540fb1106e30e9ba1a4a6c3518e18afd962",
+    "action": "asset-08.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-17.svg",
+    "bytes": 39883,
+    "sha256": "b16642d1770e107c88628947047bee3e0312ec1f404cf763595257ffcc247c5f",
+    "action": "asset-09.json"
+  },
+  {
+    "source": "assets/interfaces/baton.rs",
+    "bytes": 10991,
+    "sha256": "fcd5a16fa553cba9ab7833a843eea90e29c59e52f99f6dc77f2608fa66b95fcf",
+    "action": "asset-10.json"
+  },
+  {
+    "source": "assets/diagrams/diagram-19.svg",
+    "bytes": 20378,
+    "sha256": "26c8783041a909a4b742ca88d5d1134f87b9017a6472cbbfecc58023ac9fa419",
+    "action": "asset-11.json"
+  }
+]

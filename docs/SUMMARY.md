@@ -47,6 +47,10 @@
 * [Executor certification and queries](e2e/results.md)
 * [State sync from certified results](e2e/state-sync.md)
 
+## Benchmark baselines
+
+* [Pre-cut execution without Baton](baselines/precut.md)
+
 ## Development and references
 
 * [Commonware integration and development order](reference/integration.md)

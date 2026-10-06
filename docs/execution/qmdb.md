@@ -18,8 +18,8 @@ An unmerkleized batch retains pending writes and its parent branch before applic
 
 ```mermaid
 flowchart TB
-    B[Baton / execute block requests] --> E[Executor: execution tree and transaction effects]
-    ORDER[Orderer / irrevocable OrderedRange] --> E
+    B[Baton / execute blocks and confirmed ranges] --> E[Executor: execution tree and transaction effects]
+    B -->|irrevocable OrderedRange| E
     E -->|branch access / selected effects| S[Storage: prepare / canonical writer / recovery]
     S -->|valid read and write handles| U[Commonware Unmerkleized batch]
     E -->|optional rootless pending-parent path| O[Application effects chain / working read overlay]
@@ -44,14 +44,14 @@ flowchart TB
     D -->|start_sync handles| F[Commonware Barrier / durability observation]
     F -->|successful observation| S
     S -->|recoverable state-output-cursor-provenance linkage| E
-    E -->|durable CommitResult / ACK| ORDER
+    E -->|durable result to internal delivery tracking| B
     E -. optional progress .-> B
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
     class U,K,D,I,L,M,A,C,F reuse;
     class S adapt;
-    class B,ORDER,E,O fresh;
+    class B,E,O fresh;
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-17.svg)

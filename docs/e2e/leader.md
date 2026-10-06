@@ -15,7 +15,7 @@ sequenceDiagram
         N-->>L: Read-only leader planning context
         L-->>V: Authenticated window context
         loop Valid reports arriving before closure, possibly none
-            V->>V: Build intended order from known inputs
+            V->>V: Keep started prefix, sort pending by global rule
             V-->>L: Signed IntendedOrderReport
             L->>L: Same-context validation / distinct identity admission
         end
@@ -36,6 +36,8 @@ sequenceDiagram
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-06.svg)
+
+Each validator signs its fixed completed/current local prefix followed by a stable global-rule-sorted pending snapshot. Equal rule/context, fixed prefix and pending sets yield equal intended order; different availability or already-started paths can still yield different reports. The leader does not globally re-sort signed sequences. Later arrivals do not mutate an original submitted report or a closed leader snapshot.
 
 Window announcement and binding prepared policy to an actual proposal require integration adapters. The diagram does not imply those APIs already exist or prefix adoption has been proved. Closing a local cycle does not wait for all nodes' execution or the native cut branch to finish.
 

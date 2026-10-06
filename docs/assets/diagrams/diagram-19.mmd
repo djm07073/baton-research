@@ -1,0 +1,16 @@
+flowchart TB
+    T[TxPool: admit / select] --> B[Body attachment: Automaton / Relay]
+    B --> N[Native Multimmit: producer / DA / ordering]
+    B -->|stored valid body| A[Baseline attachment: candidate scheduling / confirmed input]
+    N -->|authenticated header notice| A
+    N -->|exact finality / history handoff| A
+    A -->|execute with exact parent / commit exact range| E[Executor: changes / branch reuse / repair / result certification]
+    E --> S[Storage: selected roots / canonical apply / durability]
+    E <-->|execution signatures / certified state sync| P[Peer Executors]
+    E -->|completion / durable delivery result| A
+    classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
+    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
+    classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
+    class N reuse;
+    class B adapt;
+    class T,A,E,S,P fresh;

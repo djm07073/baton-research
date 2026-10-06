@@ -1,6 +1,7 @@
 # Baton: Execution-Aware Ordering for Autobahn
 
 > [Google Doc 원문](https://docs.google.com/document/d/1PtUpMGMNMkyo1UEY2bNciJD3oIiGLRf407PW_T3Er5I/edit) · [동반 문서](IMPLEMENTATION_SPEC.md) · 2026-09-30 수동 동기화. 이후 사용자 결정과 Google Doc의 최신 revision이 이 snapshot에 우선한다.
+> 2026-10-04 사용자 결정 추가: §3.1의 global-rule 실행/report 구성과 §5.1의 동일 baseline 조건은 이 로컬 연구 문서에 반영했다.
 
 한국어 리뷰 초안 · 연구 설계 및 평가 계획
 
@@ -70,6 +71,18 @@ Producer는 block 생성·전파를 계속하고 validator는 수신·sync한 �
 
 Report는 같은 epoch/view·ordering 이력·canonical parent·rule·window와 exact ordered references에 결속되고 identity당 하나만 센다. 다른 문맥을 섞지 않으며, report는 현재 실행 의도의 관측 입력이다. Result proof나 direction 승인 서명으로 해석하지 않는다.
 
+#### Global rule에 따른 실행 의도와 report 생성
+
+Validator는 이미 실행한 순서를 유지하고 아직 실행을 시작하지 않은 pending blocks만 공통 global rule G로 정렬한다. 같은 인증 문맥·canonical parent·불변 ordering frontier·rule·horizon에서 유효 로컬 경로의 완료 prefix와 현재 실행 중인 block을 F, 알려진 유효 미실행 후보 snapshot을 S_pending이라 두면 `intended_order = F ++ sort_G(S_pending)`이다. F는 로컬 실행 순서를 고정하는 개념이며 canonical finality나 새 Rust 타입이 아니다. 필수 producer ancestry와 predecessor 제약은 계속 검사하고 comparator·동률 규칙·rule identity 표현은 미결정이다. 도착 시각은 pending의 동률 규칙이 아니다.
+
+G가 A→B→C이고 A 실행 중 C, 이어 B가 C의 실행 시작 전에 인증·접수되면 대기열만 B→C로 정렬한다. A가 진행 중일 때 다음 state-dependent 실행을 시작하거나 A의 순서를 바꾸지 않는다. A의 유효 checkpoint가 준비되면 B를 A 상태에서, C를 AB 상태에서 실행하므로 ABC가 된다. Baton은 pending 정렬과 report 구성, Executor는 정확한 부모·가지 실행·완료 검증을 담당한다. Dispatch 직전에 pending 순서를 다시 확인하고 아직 보내지 않은 요청의 parent link만 갱신한다.
+
+반대로 C가 이미 A 뒤에서 실행을 시작했거나 완료했다면 B 도착만으로 C를 AB 뒤로 옮기지 않는다. 유효 경로 F=AC를 유지하고 미실행 B를 뒤에 놓아 ACB를 실행·report한다. 이는 B가 AC 뒤에 유효한 독립 입력인 경우이며 필수 ancestry 위반을 허용하지 않는다. Global rule에 맞춘다는 이유만으로 기존 작업을 재실행하지 않는다. 실제 native 확정 순서가 speculation과 다를 때의 Executor::commit 기반 재검증·재실행은 별개의 필요 절차다. 완료한 로컬 speculation을 canonical로 간주하지 않는다.
+
+Report는 F와 정렬된 pending을 합친 현재 실행 의도다. 실제 로컬 순서가 포함되어도 report 전체는 완료 이력·progress proof·승인 투표가 아니다. 서명 시점의 original snapshot을 고정하고 이후 입력으로 제출 report나 leader의 닫힌 snapshot을 덮어쓰지 않는다. Leader는 original signed sequence를 그대로 평가하며 누락 입력 삽입이나 F 재정렬로 prefix 지지를 만들지 않는다. B가 없으면 유효 ancestry 아래 AC를 실행·report할 수 있고 미래 입력을 기다리는 barrier를 추가하지 않는다.
+
+같은 G·인증 문맥·고정 로컬 prefix F·pending 집합이면 정상 validator의 intended order가 같다. 전체 보유 block 집합만 같아도 F가 다르면 ABC와 ACB가 남을 수 있다. Pending 정렬은 아직 시작하지 않은 작업의 차이를 줄일 뿐 기존 실행 차이를 없애지 않는다. 기존 4f+1-or-deadline, cut no-wait, 2f+1 전체-prefix 우선 및 raw sum-LCP 규칙은 유지한다. 유효한 leader direction이 고정 로컬 prefix와 충돌할 때의 정책은 별도 미결정이며 자동 override를 채택하지 않는다. 이는 요구의 기록이며 구현·성능 결과나 native 통합 증명이 아니다.
+
 ### 3.2 2f+1 공통 prefix 우선 direction 선택
 
 고정 snapshot R과 bounded 유효 full candidates P를 같은 인증 문맥·frontier·horizon에서 비교한다. 원점은 불변 inherited ordering frontier 뒤의 새 재정렬 가능 segment 시작이다. Prefix p의 support는 그 원점에서 p 전체를 처음부터 정확히 포함하는 distinct original reports의 수다. 위치마다 다른 지지자를 모아 하나의 공통 prefix로 세지 않는다.
@@ -81,6 +94,8 @@ Score(P; R) = Σᵢ |LCP(P, Rᵢ)|
 후보는 reported order와 incumbent에서 출발하며 필수 predecessor·ancestry·actual-parent 유효성을 검사한다. 원본 report를 삭제·삽입·renumber해 지지를 만들지 않는다. Candidate completion의 보충분도 원본 support나 LCP에 넣지 않는다. 유효성이 미확인인 후보를 높은 score만으로 채택하지 않는다.
 
 동일 snapshot에서의 prefix 유일성은 닫을 수 있다. Identity당 exact report 하나이고 m=|R|≤4f+1이면, support≥2f+1인 두 prefix는 서로 prefix 관계다. 두 prefix가 갈라지면 하나의 exact report가 양쪽을 지지할 수 없어 지지 집합은 disjoint이고 최소 4f+2명이 필요하므로 모순이다. 따라서 유효 후보 집합에 존재하는 최장 supported prefix p*의 문자열은 유일하다. 남는 candidate tie는 같은 p* 뒤의 tail 선택이다. 이는 m≤4f+1인 report 집합 R 안의 사실이며 다른 snapshot·window·leader의 선택이나 canonical uniqueness/finality를 보장하지 않는다. Native recovery의 n−f..n vote pool은 별개이며 이를 더 큰 R로 대입해 이 유일성을 주장하지 않는다.
+
+다음 report 배열은 점수 규칙의 산술 예시이며, 이번 global-rule 생성 경로에서 정상 validator가 만든 실행 trace라고 주장하지 않는다. 실제 사례에서는 공유 G, 각 노드의 고정 실행 prefix F·pending snapshot과 필수 제약으로부터 보고를 생성하고 허용된 후보만 비교해야 한다.
 
 R1: A → B → C    R2: A → B → D    R3: A → B → E
 
@@ -194,7 +209,7 @@ Direction 회신이 필요하지 않은 이유는 advisory direction 자체가 c
 
 (1) Original: 대상 입력의 irrevocable exact order를 도출한 뒤 application execution을 시작한다. (2) Pre-cut execution: 각 validator가 실제 수신한 blocks를 기존 ordering rule에 따라 사전 실행한다. 늦은 predecessor나 final cut의 입력·순서와 달라진 부분은 재검증·재실행한다. Leader의 별도 사전 direction 전파나 intended-order 수집은 추가하지 않으며, 아직 알려지지 않은 block이나 final cut의 완전한 순서를 미리 안다고 가정하지 않는다. (3) Baton: 동일한 pre-cut execution 기반에 validator들의 intended-order 수집과 2f+1 공통-prefix 우선·sum-LCP fallback direction 선택·전파와 해당 prefix를 보존하는 cut 구성·검증을 추가한다. Leader-local direction 또는 early proposal을 별도 baseline으로 두지 않는다.
 
-동일 committee, consensus profile, application semantics, execution backend와 자원 budget을 사용한다. 새로운 backend 자체의 성능을 Baton의 이득으로 세지 않는다. 채택한 기반은 Native Multimmit이며 tip 추출·extension을 유지한다. Ordering policy 인증·ordered delivery adapter에서 무엇을 유지하거나 변경했는지 명시하고, 미구현 변경이나 기존 toy model 결과를 Baton의 E2E 결과라고 부르지 않는다. 세 주 비교군과 별도로 Baton 내부의 prefix 선택·변경 억제 및 timer-only / strict 4f+1 / 4f+1-or-deadline을 ablation으로 비교한다. Cut 빈도 변화는 Pre-cut execution과 Baton에 적용하는 보조 실험으로 구분한다.
+동일 committee, consensus profile, application semantics, execution backend와 자원 budget을 사용한다. Pre-cut execution과 Baton의 기본 로컬 실행에는 같은 global rule과 후보 eligibility를 적용하며, 도착 순서 FIFO를 baseline으로 삼아 규칙 변경의 효과를 Baton direction의 이득으로 합산하지 않는다. 새로운 backend 자체의 성능을 Baton의 이득으로 세지 않는다. 채택한 기반은 Native Multimmit이며 tip 추출·extension을 유지한다. Ordering policy 인증·ordered delivery adapter에서 무엇을 유지하거나 변경했는지 명시하고, 미구현 변경이나 기존 toy model 결과를 Baton의 E2E 결과라고 부르지 않는다. 세 주 비교군과 별도로 Baton 내부의 prefix 선택·변경 억제 및 timer-only / strict 4f+1 / 4f+1-or-deadline을 ablation으로 비교한다. Cut 빈도 변화는 Pre-cut execution과 Baton에 적용하는 보조 실험으로 구분한다.
 
 ### 5.2 Workload와 측정 지표
 

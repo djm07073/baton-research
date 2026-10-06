@@ -13,8 +13,8 @@ The traits are **Rust design drafts for new application integration**. They are 
 | Peer body → custody / lookup | Upstream `Automaton::verify` → buffer/resolver/archive handles |
 | Authenticated candidate → speculative execution | `Baton::on_block` → `Executor::execute` → internal transaction computation |
 | Reports → direction → execution plan change | `Baton::on_report` → `Baton::plan` → `Baton::on_direction` → `Executor::execute(block)` |
-| Native evidence → finalized order → local state application | `Orderer::record` / `next_range` → `Executor::commit` → `Storage::prepare/apply` |
-| Durable completion → delivery acknowledgement and pool update | Executor → `Orderer::acknowledge` + `TxPool::on_commit`; Baton notification is optional |
+| Native evidence → finalized order → local state application | `Baton::on_finality` → internal exact-order delivery` → `Executor::commit` → `Storage::prepare/apply` |
+| Durable completion → delivery acknowledgement and pool update | Executor commit result → internal Baton delivery tracking; pool maintenance consumes canonical tx outcomes; advisory progress notification is optional |
 | Executor's directly executed result → signature and certified query | `Executor::sign_result` / `collect_result` / `result_certificate`; peer transport is Executor ↔ Executor |
 
 Connect the associated types below to the same concrete types during assembly. Matching trait names do not connect them automatically in Rust. Receivers must still validate context, identity, and evidence.
@@ -22,11 +22,11 @@ Connect the associated types below to the same concrete types during assembly. M
 | Type connection | Meaning |
 |---|---|
 | `Baton::Context` / `Baton::PreparedPolicy` | Same-context selection inside Baton → native actual-context recheck hook |
-| `Orderer::OrderedRange = Executor::OrderedRange` | Finalized order → direct commit request |
+| `Executor::OrderedRange` | Baton internally builds and delivers continuous finalized input; no extra public Baton range type |
 | `Executor::ExecutionResult = Baton::ExecutionResult = Storage::ExecutionResult` | Completed changes/outputs → local context checks or selected root preparation |
 | `Storage::PreparedResult = Executor::PreparedResult` | Computed commitment and binding → own direct-result signing after irrevocable-order checks |
 | `Storage::CommitResult = Executor::CommitResult` | Recoverably durable application → canonical promotion and delivery handoff |
-| `Executor::CommitResult = Baton::CommitResult = Orderer::CommitResult = TxPool::CommitResult` | Durable completion → delivery acknowledgement and tx lifecycle; Baton receives only an optional notification |
+| `Executor::CommitResult = Baton::CommitResult` | Durable completion → internal delivery tracking; advisory on_commit is optional. Pool maintenance uses the backend outcome mapping internally |
 
 `CommitResult` is passed by value: use concrete cloneable receipt handles or recover copies of the same immutable receipt for multiple consumers; type equality and `Send` do not duplicate an owned value.
 
@@ -34,7 +34,7 @@ Connect the associated types below to the same concrete types during assembly. M
 
 `&mut self` describes Rust ownership of the call handle. It does not serialize all branch computations or automatically enforce a database single writer. Shared handles, worker concurrency, canonical writer authority, and fencing need implementation. `impl Future + Send` follows a declaration style similar to Commonware callbacks; async runtime, dynamic dispatch, and boxing remain undecided.
 
-`Baton::on_*` and upstream `Relay::broadcast` establish local admission or scheduling boundaries. Native Reporter and Relay synchronous callbacks must not wait for slow I/O through these methods. Futures describe application work, without adding native cut waits for reports, planning, or direction replies. `Executor::commit` orchestrates canonical selection; Storage owns the shared canonical mutation, which must not be canceled like an advisory job. Baton planning runs from an admitted snapshot in background workers; its future cannot block the immediate prepared-policy query or native cut. Executor tree handling proceeds independently through execute/commit.
+`Baton::on_*` and upstream `Relay::broadcast` establish local admission or scheduling boundaries. Native Reporter and Relay synchronous callbacks must not wait for slow I/O through these methods. Baton finality intake schedules independent evidence/history and delivery work; it never waits for report-window closure or planning. Internal delivery observes Executor commit completion directly, regardless of the optional advisory on_commit handler. Futures describe application work, without adding native cut waits for reports, planning, or direction replies. `Executor::commit` orchestrates canonical selection; Storage owns the shared canonical mutation, which must not be canceled like an advisory job. Baton planning runs from an admitted snapshot in background workers; its future cannot block the immediate prepared-policy query or native cut. Executor tree handling proceeds independently through execute/commit.
 
 ## Finding calls in E2E cases
 

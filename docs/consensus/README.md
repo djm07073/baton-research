@@ -1,6 +1,6 @@
 # Consensus: roles and native structure
 
-**Multimmit agrees on native ordering facts; the application attachment supplies bodies and execution inputs.** Reuse its producer lanes, availability checks, voting, finality, and recovery. BlockService provides real transaction bodies, and Orderer turns authenticated history into finalized input for Executor.
+**Multimmit agrees on native ordering facts; the application attachment supplies bodies and execution inputs.** Reuse its producer lanes, availability checks, voting, finality, and recovery. BlockService provides real transaction bodies, and Baton turns authenticated history into finalized input for Executor.
 
 ## Roles and responsibilities
 
@@ -24,16 +24,16 @@ flowchart TB
     V <-->|events / typed capabilities| C[CoreState / private semantic owner]
     V <-->|append / sync / covering ACK| J[Native journal / checkpoints]
     V <-->|payload callbacks / accepted-artifact notices| A[BlockService / Automaton]
-    C -. new planning / policy bridge .-> P[Baton: direction planning]
+    C -. new planning / policy bridge .-> P[Baton: direction and confirmed-order delivery]
     P -. prepared matching candidate .-> C
-    C -. new exact evidence export .-> D[Orderer]
-    D --> E[Executor]
+    C -. new exact evidence export .-> P
+    P -->|confirmed exact range| E[Executor]
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
     class W,B,K,V,R,C,J reuse;
     class A adapt;
-    class P,D,E fresh;
+    class P,E fresh;
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-16.svg)
@@ -68,7 +68,7 @@ Direct proposal validation and V-QC rescue / view recovery do not simply repeat 
 
 ## Commonware primitives in the consensus layer
 
-**Reuse the native consensus engine and generic body services; develop the adapters that connect them to application bodies and exact ordered input.** BlockService is the logical attachment over upstream callbacks; Orderer is the proposed exact-order contract. Neither name denotes a ready-made upstream primitive.
+**Reuse the native consensus engine and generic body services; develop the adapters that connect them to application bodies and exact ordered input.** BlockService is the logical attachment over upstream callbacks. Baton owns the new exact-order interpretation/delivery integration internally; it is not a ready-made upstream primitive. Native evidence export remains an application bridge.
 
 | Primitive | Where it connects | Application responsibility |
 |---|---|---|

@@ -21,7 +21,7 @@
 2. Construct `commonware_broadcast::buffered::Engine`; share its Mailbox with the body attachment. It provides dissemination/cache/availability subscription, not durable storage or active missing-body fetch.
 3. Construct public `commonware_resolver::p2p::Engine` with archive-backed Producer and verifying Consumer. Use its keyed fetch, peer retry and subscriber lifecycle.
 4. Open existing archives and connect exact body/header/context lookup through `Identifier::Key/Index`, optionally prunable `MultiArchive::has_at`. Bind authenticated header ID → context/body commitment → retained bytes; a lane height or digest hit alone is insufficient. Keep one archive owner behind resolver Producer/Consumer handles, with serving admission and covering sync. `Automaton::propose/verify` complete only at the required custody boundary.
-5. Implement `Relay::broadcast(digest, ())` by scheduling retained-body lookup and `buffered::Mailbox::broadcast_shared`. Implement Reporter for opportunistic accepted-header/body joining. Orderer's durable evidence export remains separate.
+5. Implement `Relay::broadcast(digest, ())` by scheduling retained-body lookup and `buffered::Mailbox::broadcast_shared`. Implement Reporter for opportunistic accepted-header/body joining. Baton's durable evidence export remains separate.
 
 That is the minimal BlockService role: codec/construction, identity/context checks, custody and retention glue. It does not require a second public body trait, a new generic fetch/broadcast engine or a new actor for each task. [Detailed body contracts](../consensus/block-body.md#reuse-the-same-body-components-as-tempo).
 
@@ -33,13 +33,15 @@ Keep TxPool as the application admission/selection/static-policy seam in front o
 
 For a custom SHA-256 nonce-lane workload, Nunchi offers a generic whole actor and Commonware P2P entry. Use its actual admission and non-destructive pending APIs, then connect linked durable Executor outcomes to reconciled nonce cleanup. Its fire-and-forget finalized notification, restart hydration, decode bounds and count-only selection need explicit integration. Do not adopt its chain builder's execution/merkleization lifecycle just to reuse its pool. [Nunchi connection](../tx/README.md#nunchi-whole-actor-connection).
 
-Retain that actor/kernel source and adapt only its payload boundary, package graph and missing owner hooks if it fits. SDK imports are localized in `tx.rs`; custom payload extraction updates its adapter/export/manifest together. Retaining SDK types instead requires checking inherited Commonware identities and default state features across dependencies. Source-aware ingress, canonical responders and hydration use the existing actor; no new generic dispatcher or pool reconciler is implied. The detailed [Tx connection](../tx/README.md#nunchi-whole-actor-connection) keeps both routes and filtering placement open.
+Retain that actor/kernel source and adapt only its payload boundary, package graph and missing owner hooks if it fits. SDK imports are localized in `tx.rs`; custom payload extraction updates its adapter/export/manifest together. Retaining SDK types instead requires checking inherited Commonware identities and default state features across dependencies. Source-aware ingress, canonical responders and hydration use the existing actor; no new generic dispatcher or pool reconciler is implied. The detailed [Tx connection](../tx/README.md#nunchi-whole-actor-connection) keeps backend/source adaptation open, with internal admission classification and selected-only batch creation.
 
 Use QMDB unmerkleized/sealed batches and database lifecycle directly beneath Storage. Do not require `glue::stateful::Application`: Executor returns completed effects, Storage prepares the selected commitment, then Executor may sign the full result. Rootless parent branching needs an application effects/read adapter; built-in `fork_batches` requires a sealed parent. Storage owns canonical access/flush/recovery; Executor owns exact input selection, certification, peer sync and delivery ACK. [Versioned storage recipe](../execution/qmdb.md#existing-apis-at-the-native-pin-and-indexed-release).
 
 Use public Shared-backed Any/Current wrappers for concrete branch reads/writes when that variant fits. Unsealed drafts are one-shot; preserve required exact effects before consuming them. Tuple batches need per-component sealing, and generic single-DB preparation needs the explicit reverse associated-type equality. Existing concrete validate_batch checks ancestry/floor applicability under the same canonical authority, alongside application checks. [Concrete batch connections](../execution/qmdb.md#give-executor-concrete-branch-access).
 
-### Orderer assembly
+<a id="orderer-assembly"></a>
+
+### Baton confirmed-order assembly
 
 Reuse native Scheme verification and public Tally body opening, ViewProof/TipRecord codecs, matching native retained proofs, archive gap tracking and generic resolver. Keep original witness versions using the selected Archive/MultiArchive schema. Use existing Journal replay and Metadata for local delivery/cursor records; their durability does not form an automatic transaction with QMDB. Add the missing durable exact-source handoff, private tip extraction access and application policy/order bindings: the native safety snapshot and replay do not already preserve complete external delivery history. [Proof and storage recipe](../consensus/ordered-input.md#reuse-proof-verification-and-storage).
 
@@ -116,15 +118,15 @@ The pinned [reshare validator assembly](https://github.com/commonwarexyz/monorep
 |---|---|---|
 | 1 | Pin existing Multimmit example and dependencies | Native producer / DA / consensus |
 | 2 | TxPool / BlockService | Tx admission and body exchange, without requiring an application runtime |
-| 3 | Orderer / native evidence export | Sparse native finality → continuous exact input; gap backfill |
+| 3 | Baton / native evidence export | Sparse native finality → continuous exact input; gap backfill |
 | 4 | Executor / Storage over QMDB | Completed effects, selected roots before signing, canonical ranges, result certification, peer sync and durable application |
 | 5 | Baton candidate intake / parent-linked block requests | Exact-prefix reuse and suffix reexecution |
 | 6 | Baton reports / candidate selection / direction | No reports, late reports, leader change, cut preemption |
-| 7 | Native policy adoption / continuation / recovery | Selected-prefix inclusion, exact leading order, no-wait behavior |
+| 7 | [Native prefix/policy proposal binding, validation, continuation and recovery TODO](../consensus/decisions.md#todo-bind-baton-prefix-and-policy-to-cut-proposals) | Authenticated policy, pre-vote checks, selected-prefix inclusion, exact leading order, no-wait behavior |
 
 Without stage-7 adoption and continuation proofs, advisory scheduling and protected-prefix Baton integration are different completion states. Choose test workloads after deciding application semantics. The plan does not prescribe building a Bank module first.
 
-Stage 4 connects stage-3 canonical input directly through [Orderer → Executor::commit](../consensus/ordered-input.md#consensus-and-baton-integration). Stage 5 then adds candidate intake and speculative execution-tree branches. [Direct-result signing / collection / queries](../e2e/results.md#result-endpoint-direct-execution-and-f1-certification) and [Executor peer state sync](../e2e/state-sync.md#state-sync-from-certified-execution-results) also belong to stage 4 inside Executor, rather than result transport through Baton. Implement concrete signature boundaries, roots, codecs, and key bindings after reviewing their open decisions.
+Stage 4 connects stage-3 canonical input directly through [Baton → Executor::commit](../consensus/ordered-input.md#consensus-and-baton-integration). Stage 5 then adds advisory reports/direction and candidate-driven speculative execution-tree branches; Baton confirmed-order delivery already exists in stage 3. [Direct-result signing / collection / queries](../e2e/results.md#result-endpoint-direct-execution-and-f1-certification) and [Executor peer state sync](../e2e/state-sync.md#state-sync-from-certified-execution-results) also belong to stage 4 inside Executor, rather than result transport through Baton. Implement concrete signature boundaries, roots, codecs, and key bindings after reviewing their open decisions.
 
 ## Primitive reuse catalog
 

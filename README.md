@@ -1,11 +1,12 @@
 # Baton
 
-Read and edit the implementation design in **[Baton Docs](docs/README.md)**. The [table of contents](docs/SUMMARY.md) organizes 31 pages by layer and E2E case. Each module starts with its responsibility, then explains its Rust inputs/outputs, flow, and detailed contracts.
+Read and edit the implementation design in **[Baton Docs](docs/README.md)**. The [table of contents](docs/SUMMARY.md) organizes 32 pages by layer, E2E case and separate benchmark implementation. Each module starts with its responsibility, then explains its Rust inputs/outputs, flow, and detailed contracts.
 
 | Start here | Covers |
 |---|---|
 | [Implementation docs](docs/README.md) · [Contents](docs/SUMMARY.md) | Four layers, module responsibilities, Commonware source mapping, E2E sequences, open decisions |
-| [Rust interfaces](docs/overview/rust-interfaces.md) · [Single Rust file](docs/assets/interfaces/baton.rs) | Five application traits plus existing body callbacks; arguments, outputs and completion conditions |
+| [Rust interfaces](docs/overview/rust-interfaces.md) · [Single Rust file](docs/assets/interfaces/baton.rs) | Four application traits plus existing body callbacks; arguments, outputs and completion conditions |
+| [Pre-cut baseline implementation](docs/baselines/precut.md) · [GitBook](https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baselines/precut) | Separate chain without Baton: speculation, native ordering and incremental repair |
 | [Research paper draft](baton-paper.md) | Algorithm, conditional safety/reuse arguments, native integration obligations, evaluation plan |
 
 The [GitBook Baton space](https://app.gitbook.com/o/Z5g7kwPjokG0jEOyXNu6/s/pvyFEde12m2tVRjI8TRw/) is private within Beaker. [Rust interfaces](https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/overview/rust-interfaces) is a direct entry point. Markdown in docs/ remains canonical. Git Sync and automatic Google Docs synchronization are not configured.

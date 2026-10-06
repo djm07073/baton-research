@@ -1,0 +1,25 @@
+{
+  "verified_at_utc": "2026-10-06T01:52:48.975264+00:00",
+  "space_id": "pvyFEde12m2tVRjI8TRw",
+  "change_request_id": "eTFJaT4GhUXBQh5qg0G5",
+  "change_request_number": 17,
+  "previous_revision": "v2bpTwguXjQyojxMG9z7",
+  "published_revision": "yeCmkzCMDjJLNtSq9qKG",
+  "verified_pages": 40,
+  "content_pages": 32,
+  "section_indexes": 8,
+  "links": 601,
+  "diagrams": 19,
+  "rust_traits": [
+    "TxPool",
+    "Baton",
+    "Executor",
+    "Storage"
+  ],
+  "preserved_heading_anchors": 98,
+  "preserved_comment_records": 5,
+  "uploaded_changed_files": 12,
+  "raw_remote_file_bytes_verified": false,
+  "baseline_url": "https://app.gitbook.com/s/pvyFEde12m2tVRjI8TRw/baselines/precut",
+  "runtime_or_benchmark_validation": false
+}

@@ -11,7 +11,7 @@ sequenceDiagram
     participant A as BlockService: Automaton adapter
     participant N as Native Engine
     participant E as Executor
-    participant B as Orderer / Executor integration
+    participant B as Baton / Executor integration
     S->>W: Register native and application logical channels
     S->>A: Open body storage / parent lookup, start service
     S->>W: Start authenticated network service
@@ -64,7 +64,7 @@ Reuse existing Archive initialization to reopen its committed checkpoint, then e
 | `Running::ready` | Remembered native startup milestone; once true it remains true | Retain lifecycle ownership separately; this is not an ongoing service health check |
 | `Handle::select` | First selected task exit or selection drop aborts the owned group | Choose the shared teardown boundary; no automatic restart or archive/QMDB flush |
 | `Spawner::stopped/stop` | Cooperative global shutdown and held-signal release | Keep required cleanup ownership through real storage completion |
-| Native `Running::abort/join` | Upstream documented engine lifecycle API | Body, Orderer and Storage shutdown/flush still have independent ownership |
+| Native `Running::abort/join` | Upstream documented engine lifecycle API | Body, Baton and Storage shutdown/flush still have independent ownership |
 | Archive sync / selected Storage barrier | Covering storage completion under its specific contract | Check exact custody or state/output/cursor/provenance linkage before publishing completion |
 
 Tempo starts its network before the consensus service and retains mandatory services in `Handle::select`. Alto starts body handling before consensus to avoid restart queues blocking, but its `try_join_all` waits for all successful exits and returns early on error. Copy the intended ownership pattern with its actual API semantics. [Tempo startup](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/lib.rs#L148), [Tempo task selection](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L524), [Alto startup/wait](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs#L465), [runtime supervision](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs#L281), [owned selection](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L189).
@@ -77,7 +77,7 @@ The native join documentation promises all engine children have stopped, while i
 sequenceDiagram
     participant S as Startup owner
     participant Q as Storage / QMDB / commit metadata
-    participant M as Orderer
+    participant M as Baton
     participant E as Executor
     S->>Q: Recover last durable applied commit
     Q-->>S: State / outputs / AppliedCursor / provenance
@@ -96,8 +96,8 @@ sequenceDiagram
 | Progress coordinate | Owner and advancement condition | Relationship to the next stage |
 |---|---|---|
 | Native journal cursor | Native owner receives a durable domain-event prefix acknowledgement | Does not establish application evidence retention or state application |
-| Proposed ArchiveCursor | Orderer recoverably stores exact source witnesses and interpretation | Evidence, policy, and history for emitted ranges must remain recoverable |
-| Proposed OrderedCursor | Orderer appends exact continuous input from terminal slots | Range identity, predecessor, and interpretation bind to applied commit |
+| Proposed ArchiveCursor | Baton recoverably stores exact source witnesses and interpretation | Evidence, policy, and history for emitted ranges must remain recoverable |
+| Proposed OrderedCursor | Baton appends exact continuous input from terminal slots | Range identity, predecessor, and interpretation bind to applied commit |
 | Proposed AppliedCursor | Storage proves durable state/output/cursor/provenance linkage; Executor delivers its receipt | Lost acknowledgement for the same range can be recovered idempotently |
 
 These coordinates cannot be compared by numeric magnitude. Witness coverage and exact identity connect archive, ordered input, and applied commit. Delivery acknowledgement alone does not justify deleting source material or guarantee permanent serving availability. Retention handoff, export lag, and bounded-buffering policy remain open. No separate archive quorum is added to native cut waits.

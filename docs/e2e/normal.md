@@ -8,7 +8,7 @@
 sequenceDiagram
     participant C as Client
     participant T as TxPool
-    participant N as Multimmit / body attachment / Orderer
+    participant N as Multimmit / body attachment
     participant B as Baton
     participant E as Executor
     participant S as Storage / QMDB
@@ -21,7 +21,9 @@ sequenceDiagram
     B->>E: execute(block, execution-parent hash, exact context)
     E-->>B: Completed changes / outputs, no root required per attempt
     Note over N,E: Native consensus and Baton reports/directions proceed in parallel
-    N-->>E: Orderer delivers irrevocable OrderedRange
+    N-->>B: Native exact finality / history evidence
+    B->>B: Independently verify and retain continuous irrevocable input
+    B-->>E: OrderedRange to Executor::commit
     E->>E: commit(range): reuse exact prefix / finish missing work
     E->>S: prepare(completed changes, selected boundary/rule)
     S-->>E: Prepared material + result commitment
@@ -29,7 +31,7 @@ sequenceDiagram
     E->>S: apply(authorized canonical input, prepared material)
     S->>S: QMDB apply/flush + recoverable metadata linkage
     S-->>E: Durable CommitResult
-    E-->>N: Delivery ACK after durability
+    E-->>B: Durable result to internal delivery tracking
     E-->>T: Canonical tx outcomes
     opt Optional scheduling notification
         E-->>B: Applied progress, no approval/ACK
@@ -45,38 +47,31 @@ This diagram shows one arrival order where speculative work finishes first. If c
 ```mermaid
 sequenceDiagram
     participant C as Client / Tx peer
-    participant A as TxPool: admission
-    participant P as TxPool: candidate storage
+    participant P as TxPool
     participant B as BlockService
-    participant O as Executor
-    C->>A: Tx bytes
-    A->>A: Decode / domain / signature / size checks
-    alt Structurally invalid transaction
-        A-->>C: Rejected
-    else Valid transaction
-        opt Static analysis placed at admission
-            A->>A: TxPool::analyze / classify(tx payload) → static policy input
-        end
-        A->>P: Admit(tx_id, tx, optional metadata)
-        alt Same tx_id already retained
-            P-->>A: Existing admission
-        else New transaction
-            P-->>A: New admission
-        end
-        A-->>C: Admission result
-        B->>P: TxPool::select(context, limits)
-        opt Static analysis placed at packing
-            P->>P: TxPool::analyze / classify → filter candidates
-        end
-        P-->>B: Candidate batch
-        Note over P,B: Selection / proposal cancellation / reselection policy is open
-        O-->>P: Durable canonical outcome
-        P->>P: Reconcile lifecycle using canonical outcome
+    participant E as Executor
+    C->>P: admit(tx, source)
+    P->>P: Stateless validation and internal payload policy
+    alt Invalid input
+        P-->>C: Admission: dropped
+    else Valid selected candidate
+        P->>P: Deduplicate and retain as selected
+        P-->>C: Admission: selected
+    else Valid unselected candidate
+        P->>P: Deduplicate and retain as unselected
+        P-->>C: Admission: unselected
+        Note over C,P: Retained for chosen P2P policy, excluded from local batches
     end
+    B->>P: select(producer context, limits)
+    P->>P: Read selected candidates, preserve dependency and size limits
+    P-->>B: Candidate batch, candidates remain retained
+    Note over P,B: Proposal cancellation needs no public pool callback
+    E-->>P: Durable canonical tx outcomes to internal maintenance
+    P->>P: Reconcile retained candidates through existing backend
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-03.svg)
 
-The two optional branches show alternative static-analysis placements. They do not require analysis at both admission and packing. A separate router versus an inclusion adapter above the pool remains undecided.
+RPC and peer transactions enter through the same `admit` contract. Static analysis and classification are internal. Selected/unselected are logical candidate classes in one reused pool; their physical representation and the chosen policy remain open. Duplicate admission preserves the retained candidate identity rather than creating a second entry. Invalid input differs from a valid unselected candidate.
 
 Several producers may include the same transaction in their bodies. Local pool duplicate detection and canonical duplicate execution semantics are separate contracts; admission deduplication does not establish global exactly-once behavior. Do not permanently delete a transaction merely because it entered an unagreed body. Concrete semantics and cleanup remain open in the Tx decisions.
