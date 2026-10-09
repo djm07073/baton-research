@@ -1,28 +1,29 @@
 sequenceDiagram
-    participant N as Native owner / proposed planning bridge
-    participant L as Leader Baton
-    participant V as Validator Baton
-    participant P as Baton: planning task
-    participant X as Producer / Executor Baton peers
-    par Report window / Baton planning
-        N-->>L: Read-only leader planning context
-        L-->>V: Authenticated window context
-        loop Valid reports arriving before closure, possibly none
-            V->>V: Keep started prefix, sort pending by global rule
-            V-->>L: Signed IntendedOrderReport
-            L->>L: Same-context validation / distinct identity admission
+    participant N as Native leader context / proposed policy integration
+    participant L as Leader App / Baton scheduler
+    participant V as Validator App / Baton scheduler
+    participant P as App bounded planning task
+    par Report collection and planning
+        N-->>L: Exact leader window context through proposed integration
+        L-->>V: Authenticated window announcement
+        loop Valid reports before snapshot closure
+            V->>V: Preserve started prefix F and sort eligible pending
+            V-->>L: Signed intended order for exact context
+            L->>L: Validate and admit each identity at most once
         end
-        L->>L: Close once at first 4f+1 OR fixed deadline
-        L->>P: Frozen snapshot + bounded admissible candidates
-        P-->>L: Evaluated selection or incomplete
-        opt Valid direction prepared
-            L-->>X: Direction(context, order, selected prefix)
-            X->>X: Submit parent-linked blocks to local Executor
+        L->>L: Close once at first 4f+1 admissions or fixed deadline
+        alt No reports admitted
+            L->>L: No prepared candidate from empty snapshot
+        else Nonempty report snapshot
+            L->>P: Frozen original reports and bounded admissible candidate set
+            P-->>L: Completed evaluation or unfinished result
+            opt Valid evaluated direction prepared
+                L-->>V: Authenticated advisory direction
+                V->>V: Validate and update permitted scheduling decisions
+            end
         end
-        Note over L,X: No direction vote / ACK / Ready quorum
-        L->>L: Local cycle closes, fresh work / context starts next cycle
-    and Native cut path
-        N->>N: Prepared matching policy or valid NativeBase
-        Note over N,L: Cut does not wait for report count / deadline / Baton planning completion
-        N->>N: Freeze authenticated proposal policy, native votes
+        Note over L,V: No direction vote / ACK / Ready quorum
+    and Native cut
+        N->>N: Continue native proposal processing
+        Note over N,L: Never wait for report count, deadline or planning
     end

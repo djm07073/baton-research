@@ -1,107 +1,94 @@
 # Startup, restart, and history recovery
 
-**Recovery reconnects stored bodies, authenticated history, and durable application state.** Startup prepares custody and native readiness. Restart restores state and cursors and redelivers exact ranges whose acknowledgements were lost.
+**Start body custody and the App callback path before opening native Multimmit.** Native recovery can call `Automaton::verify` from `Engine::open`. Marshal separately restores its finalized output and delivery cursor, while the App restores its durable state and applied identity.
 
 ## Startup: prepare custody before native recovery
 
+For a fresh deployment, initialize the configured deterministic App genesis state/runtime and its initial applied-prefix binding. Marshal output index zero represents stream genesis and is never delivered; the first ordinary Update is index one. Do not wait for an index-zero Update or use a producer genesis-header digest as the App state checkpoint. On restart recover the binding; checkpoint startup must authenticate the corresponding floor-to-state relation. The actual App genesis contents remain an application choice. [Output index contract](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L55)
+
 ```mermaid
 sequenceDiagram
-    participant S as Node startup
+    participant O as Node assembly
     participant W as Commonware network
-    participant A as BlockService: Automaton adapter
-    participant N as Native Engine
-    participant E as Executor
-    participant B as Baton / Executor integration
-    S->>W: Register native and application logical channels
-    S->>A: Open body storage / parent lookup, start service
-    S->>W: Start authenticated network service
-    par Native startup / context intake
-        S->>N: Engine::start(native planes)
-        N->>N: Replay native durable journal / signing history
-        loop Required recovered payload contexts
-            N->>A: Automaton::verify(recovered Context, payload)
-            A->>A: Lookup / fetch exact body and required parent, sync custody
-            A-->>N: Valid durable custody
-        end
-        N->>N: Construct actors and resume native obligations
-        N-->>S: Running handle, readiness initially pending
-        S->>N: Await Running::ready()
-        N-->>S: Native readiness true or false
-        opt Context / evidence intake service ready
-            S->>B: Start authenticated intake / retention / history backfill
-        end
-    and Execution recovery
-        S->>E: Recover execution base through Storage, with applied metadata/provenance
-        E-->>S: Execution state readiness / recovery status
+    participant M as Marshal / buffer / resolver
+    participant A as App
+    participant N as Multimmit Engine
+    O->>W: Register native 4 planes plus Marshal broadcast / resolver
+    O->>W: Start network
+    O->>A: Create Automaton and Update reporter handles
+    O->>M: Open service with existing buffered mailbox
+    O->>M: Start resolver bridge, verifier and delivery to App
+    O->>A: Start App with Marshal mailbox, recover applied state
+    O->>N: Engine::open(Config with Automaton, Relay, native Reporter)
+    N->>N: Recover native durable state
+    loop Required recovered payloads
+        N->>A: Automaton::verify(recovered Context, body digest)
+        A->>M: Establish exact valid durable custody
+        M-->>A: Retained complete block
+        A-->>N: Verification receiver resolves true
     end
-    alt Execution state and exact input ready
-        S->>B: Resume state-dependent Execute / Commit delivery
-    else Input state unresolved or required execution service failed
-        Note over S,B: Execution delivery pending / recovering, evidence retention proceeds separately
-    end
-    Note over N,E: Native startup adds no application QMDB recovery prerequisite
-    Note over S,B: Resume from recovered canonical state and authenticated history, rebuild transient direction
+    N->>N: Wire native actors
+    N-->>O: Opened Engine
+    O->>N: start(Planes)
+    N-->>O: Running handle
+    O->>N: running.ready().await
+    N-->>O: Ok(()) or Stopped error
+    A->>A: On ready success and valid App base, re-evaluate candidates and schedule
+    Note over A,N: Native custody checks do not require speculative transaction execution
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-13.svg)
 
-**Prepare local custody first; make peer fetch usable before native recovery requests it.** The diagram's early body-service start may construct/open the attachment and idle intake. Network binding must precede its first actual outbound publication/fetch: pre-bind network submissions can return accepted feedback while discarding bytes. Start the separate public body buffer/resolver without waiting for Native Running or native readiness. `Engine::start` may already be waiting for recovered body verification, so a body resolver that depends on that returned handle would create an initialization cycle. This is a local dependency order, with no peer Ready/ACK round. [Network binding](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/discovery/network.rs#L192), [pre-bind send](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/router/ingress.rs#L204), [pre-running verification](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L700).
+Follow the current [node assembly](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242) and [Marshal assembly](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126). They create buffered broadcast, `Service`, the generic resolver with `BackfillBridge`, the existing Relay and `SchemeVerifier`. Start the App with Marshal access before `Engine::open(...).await`; waiting for native readiness before making body lookup usable would create a recovery dependency cycle.
 
-This sequence assumes recovered-payload verification succeeds. A false verification result or closed receiver makes `Engine::start` fail with `OpenError::RecoveredPayloadUnverified`. That differs from `ready=false` after a Running handle exists. [Pre-running custody fence](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L272).
+`Engine::open` derives the profile, recovers safety state and verifies required recovered payloads, then wires actors. `start(Planes)` spawns them. `Running::ready().await` returns `Result<(), Stopped>` after the native startup milestone; it does not certify App state readiness or remain a live health check. A false or closed recovered verification causes open failure, which is distinct from a stopped running engine. [Engine lifecycle](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L446)
 
-`Engine::start` returns a Running handle with readiness initially pending. `Running::ready().await` returns true after native startup/recovery durability work and initial producer-wake submission; engine failure before readiness returns false. [Running readiness](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L549).
-
-A Running handle does not prove every service is ready. Body-service, native-engine, ordered-delivery, and execution-state readiness are separate. Native startup cannot be reported successful before required recovered-payload verification resolves true. Startup dependencies do not add a report or direction approval round.
-
-Reuse existing Archive initialization to reopen its committed checkpoint, then existing covering sync completion for newly admitted body custody. An opened archive or returned task handle alone does not establish that those writes are durable. In-memory body caches start empty; retained archives and actual requests reconstruct required availability. Native journal recovery remains tied to its safety partition and epoch-key provenance: the native fresh-start path is restricted to a never-active epoch key and a new partition prefix. [Archive initialization](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/immutable/storage.rs#L110), [archive sync](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/archive/mod.rs#L137), [native recovery identity](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L306).
+Recovered verify is a custody recheck, not a new peer arrival. Keep an App lifecycle phase or equivalent internal request context so scheduling deduplicates recovered input and skips already applied blocks. The existing `verify(Context, digest)` signature has no caller-origin field; the App must not pretend it can infer every source solely from the arguments. App state-dependent dispatch waits for a valid recovered canonical base; body validity/custody handling can remain available independently where application semantics permit. When the App enters live scheduling, re-evaluate its retained candidate facts against the current applied identity and eligibility instead of waiting for another successful verification callback. The same state-based wakeup handles newly available worker capacity; candidates deliberately discarded under the speculation budget may remain unexecuted until canonical Update.
 
 ## Own service lifetimes and durable shutdown
 
-**Use existing runtime task ownership; keep storage completion explicit.** `Supervisor`/`Spawner` provide descendant ownership, and `Handle::select` can group services that should terminate together. Do not place the canonical writer beneath a short-lived advisory task. Cancellation and durability have separate completion conditions.
+Use Commonware runtime task ownership for network, Marshal and App workers. Stop consumers before their dependencies, preserve pending durable work and release references after workers are fenced. The [example teardown](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L343) aborts and joins Engine and App before stopping Marshal and network; a transaction App must also implement its storage completion and recovery contract.
 
-| Existing handle | Establishes | Application connection |
-|---|---|---|
-| `Running::ready` | Remembered native startup milestone; once true it remains true | Retain lifecycle ownership separately; this is not an ongoing service health check |
-| `Handle::select` | First selected task exit or selection drop aborts the owned group | Choose the shared teardown boundary; no automatic restart or archive/QMDB flush |
-| `Spawner::stopped/stop` | Cooperative global shutdown and held-signal release | Keep required cleanup ownership through real storage completion |
-| Native `Running::abort/join` | Upstream documented engine lifecycle API | Body, Baton and Storage shutdown/flush still have independent ownership |
-| Archive sync / selected Storage barrier | Covering storage completion under its specific contract | Check exact custody or state/output/cursor/provenance linkage before publishing completion |
-
-Tempo starts its network before the consensus service and retains mandatory services in `Handle::select`. Alto starts body handling before consensus to avoid restart queues blocking, but its `try_join_all` waits for all successful exits and returns early on error. Copy the intended ownership pattern with its actual API semantics. [Tempo startup](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/lib.rs#L148), [Tempo task selection](https://github.com/tempoxyz/tempo/blob/61c979a524f9af5de9c540a0088c429a44741e4c/crates/consensus/src/consensus/engine.rs#L524), [Alto startup/wait](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/engine.rs#L465), [runtime supervision](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs#L281), [owned selection](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L189).
-
-The native join documentation promises all engine children have stopped, while its implementation awaits the root task and runtime completion requests descendant abort. This source inspection does not prove the stricter child/signing-material quiescence needed for authority transfer, and observes no executed race. Retain the documented lifecycle recipe without treating root completion as a proven signing-authority handoff or storage durability barrier. That integration postcondition remains unverified. [Native join](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L588), [runtime completion](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L125).
+A task handle, native ready milestone, or cancelled worker does not establish storage durability. Native signing authority, body retention, application writer lifetime and scheduler task lifetime have different obligations. Do not place the canonical writer under an advisory report-window task or use a direction change to revoke recovery material.
 
 ## Restart and backfill
 
 ```mermaid
 sequenceDiagram
-    participant S as Startup owner
-    participant Q as Storage / QMDB / commit metadata
-    participant M as Baton
-    participant E as Executor
-    S->>Q: Recover last durable applied commit
-    Q-->>S: State / outputs / AppliedCursor / provenance
-    Note over S,M: Body custody follows the separate startup sequence
-    S->>M: Recover archive and delivery cursors
-    M->>M: Fetch missing authenticated history / bodies
-    S->>E: Open recovered canonical checkpoint
-    Note over E: Reconstruct speculative branches from durable canonical state
-    M-->>E: Redeliver unacknowledged exact range
-    E->>E: Idempotent commit(range)
-    E-->>M: Existing matching durable CommitResult / delivery ACK
+    participant O as Startup owner
+    participant M as Multimmit Marshal
+    participant A as App
+    participant S as App storage / QMDB
+    O->>S: Recover state, outputs, applied position and provenance
+    S-->>A: Authoritative durable applied record
+    O->>M: Reopen catalog, bodies and delivery cursor
+    M->>M: Recover / fetch missing native history and blocks
+    M-->>A: Redeliver Update after durable Marshal cursor
+    A->>A: Check exact index and block against applied record
+    alt Same input already durably applied
+        A-->>M: Acknowledge without duplicate effects
+    else Next unapplied input
+        A->>A: Reuse or execute from recovered canonical base
+        A->>S: Apply and persist exact result / metadata
+        S-->>A: Durable completion
+        A-->>M: Acknowledge
+    else Identity conflict or gap
+        A->>A: Stop advancement and reconcile / recover
+    end
+    M->>M: Persist acknowledged continuous prefix
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-10.svg)
 
-| Progress coordinate | Owner and advancement condition | Relationship to the next stage |
-|---|---|---|
-| Native journal cursor | Native owner receives a durable domain-event prefix acknowledgement | Does not establish application evidence retention or state application |
-| Proposed ArchiveCursor | Baton recoverably stores exact source witnesses and interpretation | Evidence, policy, and history for emitted ranges must remain recoverable |
-| Proposed OrderedCursor | Baton appends exact continuous input from terminal slots | Range identity, predecessor, and interpretation bind to applied commit |
-| Proposed AppliedCursor | Storage proves durable state/output/cursor/provenance linkage; Executor delivers its receipt | Lost acknowledgement for the same range can be recovered idempotently |
+| Progress coordinate | Owner and meaning |
+|---|---|
+| Native safety journal | Engine safety and signing recovery; does not describe applied transaction state |
+| Marshal finalized output/catalog progress | Durable ordinary native ordered blocks and retained recovery evidence |
+| Marshal acknowledged cursor | Its durable record of the continuous application-ACK prefix |
+| App applied position and identity | Durable application state/output/provenance linkage for exactly applied Updates |
 
-These coordinates cannot be compared by numeric magnitude. Witness coverage and exact identity connect archive, ordered input, and applied commit. Delivery acknowledgement alone does not justify deleting source material or guarantee permanent serving availability. Retention handoff, export lag, and bounded-buffering policy remain open. No separate archive quorum is added to native cut waits.
+The App may be ahead of Marshal's acknowledged cursor after a crash between apply and cursor sync. Replaying those Updates must verify identity and produce no duplicate effects. A state-root comparison alone is insufficient; output identity and applied position must also be recoverable.
 
-Native checkpoint compaction and view retirement do not consult Executor's applied receipt. Exact exported witnesses and their interpretation must survive the chosen recoverable handoff; native recovery alone does not replay the external delivery history. [Native recovery compaction](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/engine.rs#L175), [View retirement](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/reducer.rs#L3840).
+Use Marshal's existing `floor_at`, `install_floor`, `prune` and `progress` operations for its retained history. An installed Marshal floor does not by itself install App execution state; state-sync must bind the imported state to the same output prefix before claiming local readiness. The App owns a serialized floor/import lifecycle that fences old work and reconciles retained old Updates before processing beyond the imported prefix. Marshal can reset its pending window on a floor change while those old Updates remain in App memory; the per-window ACK bound does not bound that overlap. The Update carries no generation field, so the App must use its own transition ownership and exact index/block/applied-state checks. Marshal protects unacknowledged outputs from pruning, but App query, result-serving and worker references may require additional retention. These remain App/storage responsibilities, not a new shared cursor service. [Marshal retention API](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L452)
 
-Recovered state, outputs, and cursor follow the chosen application recovery-adapter contract; QMDB alone does not guarantee automatic atomicity across them. The sequence handles lost acknowledgements and unacknowledged ranges using recovered execution state and history. Native custody and readiness follow the [separate startup sequence](recovery.md#startup-prepare-custody-before-native-recovery). Idempotence verifies exact commit identity and recoverable outputs/cursor, not merely equality of state roots.
+Baton report windows and advisory work can be rebuilt after recovery. Any future authenticated Baton proposal policy must preserve its original interpretation through native and Marshal recovery; this protocol extension remains [unimplemented](../consensus/decisions.md).

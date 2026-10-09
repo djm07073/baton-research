@@ -1,0 +1,1027 @@
+{
+  "checked_at": "2026-10-09T09:44:39.111Z",
+  "pages": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "source_sha256": "f3fcb23974477d9f7a064b1b9acf1fc36372175f43524746f8c95480175fdefa",
+      "html_sha256": "9d730e8a966c8f18a887eaa8f7d8b42acc5b90549ee49c22f3b9c2d77f037807",
+      "title": "Start here · Baton",
+      "h1": "Baton Docs",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "overview/architecture.html",
+      "status": 200,
+      "source_sha256": "f8a49ffb411a9885371dcf02f7ca3eddf03bf61598c716b9bddaf278f254bea2",
+      "html_sha256": "a27a26381a59ce16e70f1703f4539fe1bec334c19dd8d8cce73af1736b429db3",
+      "title": "Architecture · Baton",
+      "h1": "Architecture",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-01.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "overview/glossary.html",
+      "status": 200,
+      "source_sha256": "8fa8e852906f61a3baf8ea97039492ca6751b59981526b573568a55f8dee19d0",
+      "html_sha256": "ab8941522076e53a8acf8af7a1f787a52f21b112057c8a17f18bbedad8d7fef5",
+      "title": "Roles and terminology · Baton",
+      "h1": "Roles and terminology",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "overview/rust-interfaces.html",
+      "status": 200,
+      "source_sha256": "ac24f4baa5ab56efb58d7ea1d0c16749458ea8309b5e19018d9d1fe90223acd2",
+      "html_sha256": "4a2c424e6c1ec1914ef578b81f01407c8cbea0b5dfb3dde5f35b8bb03861430a",
+      "title": "Rust interfaces · Baton",
+      "h1": "Rust connection points",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "overview/networking.html",
+      "status": 200,
+      "source_sha256": "9b6f40ebf53c6b7c83a8e01c63d3daab0c5d71fcdb8c8b2971af484600a7176f",
+      "html_sha256": "17d56deaa392aa15e203fecf7de4b3bd73e0fc78f7a319082ee68abb54c869f1",
+      "title": "P2P and message paths · Baton",
+      "h1": "P2P and message paths",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "overview/interfaces.html",
+      "status": 200,
+      "source_sha256": "c3aa4c34cb39ba0506b3dd040df63ec30c9f387ad1d0de70c3f7061f77ceb26c",
+      "html_sha256": "ef3b27915997babcb80177d3c8631bd001a14cfdd9bd0cee5b8ae275bd77240b",
+      "title": "Reading the interfaces · Baton",
+      "h1": "Reading the application connections",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "tx/interfaces.html",
+      "status": 200,
+      "source_sha256": "000d26910db81d098c24bb15bde475a83561c0474e462718a2226767a728a7c2",
+      "html_sha256": "a5e82b67374998b7bc962b198c81a57ccfa378a751aeeb2b011be213ae0b9790",
+      "title": "Transaction admission and selection · Baton",
+      "h1": "Transaction admission and selection",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "tx/README.html",
+      "status": 200,
+      "source_sha256": "124ffa9fcac7060ccff9d2614ad40d871345a77e01d60e9be444beda98b8b510",
+      "html_sha256": "0cea2a8feeb428f7fc30e152eb697856bf28d5af9671e7d342333d2031040774",
+      "title": "Pool backend survey · Baton",
+      "h1": "Transaction pool inside the application",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "consensus/README.html",
+      "status": 200,
+      "source_sha256": "94d5b0e0a1f5cec6d0d492261018d426d7411d1f820d8e8a6bdc09a0c8337fa0",
+      "html_sha256": "45065d84f37fba7df9e2892bcf6fe4c3d3bb89f6e2cff4c5c6eaa6ea5062db85",
+      "title": "Consensus: native structure · Baton",
+      "h1": "Consensus: roles and native structure",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-16.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "consensus/block-body.html",
+      "status": 200,
+      "source_sha256": "07a300c13e0719f56dd6d44f118371ee43bbdd595007875b2ab453a42ccaad79",
+      "html_sha256": "69245f15a6405b7ed896a2cca65a39a8ca2221d34f2309febe72b32f0e71f995",
+      "title": "Block construction and body exchange · Baton",
+      "h1": "Block construction and body exchange",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "consensus/ordered-input.html",
+      "status": 200,
+      "source_sha256": "8fb5fb111c1da587c2968e82c61c0f0ceb6214e1f6f641e7b85613f20ae7ef04",
+      "html_sha256": "8436facdc6190d86fd1f1b2c5778d409bf4c5bcb0d594b650431ea84de206280",
+      "title": "Finalized ordered input · Baton",
+      "h1": "Delivering finalized execution order",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "consensus/decisions.html",
+      "status": 200,
+      "source_sha256": "ae57166bbab81443de014003fb01bcfececc90eb330205647a7881cf0c5a4f56",
+      "html_sha256": "e2546080cbf6503ad5e51c01b2a374a1aec3e4c62117bfe1766fde764fe30221",
+      "title": "Consensus open decisions · Baton",
+      "h1": "Consensus open decisions",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "baton/README.html",
+      "status": 200,
+      "source_sha256": "bfd48640fe6b7b2d0599e9c8780eac38046804253b221617db5c8265632dfd82",
+      "html_sha256": "fe549f34538a9f4c8ccaa63704eeea3cd643e1f6f85b94693848c33afe0b3067",
+      "title": "App and Multimmit · Baton",
+      "h1": "Connect the application to Multimmit",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "baton/direction.html",
+      "status": 200,
+      "source_sha256": "c2bf3f623226c3ac8936a1ca2f2f59e1053992f47c595e20b191dd8d07345e35",
+      "html_sha256": "c9cabaa19aec52f6280de2fdbbe7759815dae4c4138e6236952d7080723a206e",
+      "title": "Pre-cut and Baton scheduling · Baton",
+      "h1": "Pre-cut and Baton scheduling inside App",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "baton/interfaces.html",
+      "status": 200,
+      "source_sha256": "6749e395b567dfecaf98f367271cd6d5a8df76e29fc6536e0279d516d2fb4755",
+      "html_sha256": "1eb3762bb342fa3481c11602d29c3bdb68fdd1bbcc7653abcadea2c8290f133e",
+      "title": "App callback behavior · Baton",
+      "h1": "Application callbacks and scheduler behavior",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "execution/README.html",
+      "status": 200,
+      "source_sha256": "7ed0be32734248b825e50e4de88f9185937aaf56cf369de0e90c535200fc4be6",
+      "html_sha256": "a8512982f5d2a8fa0d559007389732f2cb2ae01207472174fadf1b0d4212376a",
+      "title": "Execution: responsibilities · Baton",
+      "h1": "Execution inside the application",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "execution/interfaces.html",
+      "status": 200,
+      "source_sha256": "733f5460b1facb14ebcba05e2f28d5840c5fdb0d97dbf7e1d3097b61c9a75538",
+      "html_sha256": "7ceecdc8ebe8cccd6e3f4a364994035b89480393e4d8306ea5c90ac3544c0b41",
+      "title": "App execution and certification · Baton",
+      "h1": "App execution and result certification",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "execution/qmdb.html",
+      "status": 200,
+      "source_sha256": "ed8eaf8444a2e2c6013118586984824f6b4222c6f2b3992c55a776a57748ccda",
+      "html_sha256": "24b4a5337ff480a143c2913f67fb36e21959b9665a549a174d9c7f6ed156c8e3",
+      "title": "QMDB branches and canonical application · Baton",
+      "h1": "QMDB branches, reuse, and state application",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-17.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-18.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "execution/state-sync.html",
+      "status": 200,
+      "source_sha256": "7e5dac91af51a829e8b04bac1bd411844f82c821f007bb8ae511e5832d1aad21",
+      "html_sha256": "a00c958567db1460ee605a5562a1f188f6458742836ad449f5bd4996a0199430",
+      "title": "State sync from certified results · Baton",
+      "h1": "State sync from certified execution results",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "e2e/normal.html",
+      "status": 200,
+      "source_sha256": "dd4e0784d237dad73ac7c311df670a24ed448b121e95ed98472ad3011a0e1ab2",
+      "html_sha256": "1618168d254dacfb35a21da17e662850333e93d762fab2487819176b9065769e",
+      "title": "Normal flow: transaction to state · Baton",
+      "h1": "Normal flow: transaction to applied state",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-02.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-03.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/block-body.html",
+      "status": 200,
+      "source_sha256": "d88e71e79fa2f09967f27de07907a81d1cf306eaa76281cd4cb14d8bfe2b4032",
+      "html_sha256": "46c816d2e9c8a07fe73290a9d4b3b564e55ec3673582408148dc5e0b3e0c9aaa",
+      "title": "Block body exchange · Baton",
+      "h1": "Block body send, fetch, and receive",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-04.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-05.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/native-consensus.html",
+      "status": 200,
+      "source_sha256": "81588b9a3d7949601d904fc6418841689ae574896a2011534edd738f76063446",
+      "html_sha256": "894178e89991275a8a4874e2375dd61bf918bfad56d83ab38f423e4f5c2b5d9d",
+      "title": "Native proposal, DA, and finality · Baton",
+      "h1": "Block proposal, DA, and cut finality",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-15.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/leader.html",
+      "status": 200,
+      "source_sha256": "a3ba754e7dac2cb554de5778adb28a9086c6b5ede0534bb7cef66d6ab2c86058",
+      "html_sha256": "8e51683e28fe4073ae28549bf5f560805dfb6596e1056f3e79f50cf06ab89b71",
+      "title": "Leader reports and proposal races · Baton",
+      "h1": "Leader reports, direction, and proposal races",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-06.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-12.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/reschedule.html",
+      "status": 200,
+      "source_sha256": "088fff708bf7739be5f7682069804b32aab5eaa1a5e1d5e5ffa78f9f933b9505",
+      "html_sha256": "dd7a3d1eca869032b482bb2925c3cf1bbebc9364e00538f8dda41e78ca99f7ba",
+      "title": "Direction receipt and branch execution · Baton",
+      "h1": "Receiving direction and executing branches",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-07.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/canonical.html",
+      "status": 200,
+      "source_sha256": "42d3bceeba8cfaf7d602c0ea3704ac73ad8ab2a084283895a661bf0c3282120e",
+      "html_sha256": "4f213fd224aa40c9912c767f93254d04cdcab9c706a7c78c1ccc4dfae9effda1",
+      "title": "Finalized order and canonical application · Baton",
+      "h1": "Finalized order and canonical state application",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-08.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-09.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/recovery.html",
+      "status": 200,
+      "source_sha256": "36f0bd8c96796301bbe1e978d6292a31d2911c4497253c346aecd7d0ce840be2",
+      "html_sha256": "78f70c086aa83b2c18ed10c09b0a79518106aa9aa44413c0b3447730688c78d3",
+      "title": "Startup, restart, and recovery · Baton",
+      "h1": "Startup, restart, and history recovery",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-13.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-10.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/results.html",
+      "status": 200,
+      "source_sha256": "fe48138a0ef55784eed6a27a724755f27fed0f1a1ea4a18ca17b9e45e1990edb",
+      "html_sha256": "9e0dcc6f1adbf98bf4c5ca0747eb7855c5ab2e4d7897b6f45607213999c36d9e",
+      "title": "App certification and queries · Baton",
+      "h1": "App result certification and queries",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-11.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/state-sync.html",
+      "status": 200,
+      "source_sha256": "c973fe80c48b6043ee256767d7a3622fec78edaea850279f27fffd40464ab07e",
+      "html_sha256": "5b5db8a71950323bd21eb5e7e9993712dc77c33680770e9c8743244f7414a4a2",
+      "title": "State sync from certified results · Baton",
+      "h1": "State sync from certified execution results",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-14.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "baselines/precut.html",
+      "status": 200,
+      "source_sha256": "6ca66de11a463c8b5e78c2793c0ff53665b45b2df0cddf90db72da865043e600",
+      "html_sha256": "36f936608e021d95b868ed9b41ceab600a5bd397fb93f88e7d5ccfdf6b0ce0bc",
+      "title": "Pre-cut execution without Baton · Baton",
+      "h1": "Pre-cut execution without Baton",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-19.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "reference/integration.html",
+      "status": 200,
+      "source_sha256": "2baf9044517a8f79e78c855277f01869f149deeba5550502c0ae482cc34da214",
+      "html_sha256": "956bb506998c597f39c1f92e0210abd0d0cd7742e3bdd8b5a90c7c75648f0863",
+      "title": "Commonware integration and development order · Baton",
+      "h1": "Commonware integration and development order",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "reference/verification.html",
+      "status": 200,
+      "source_sha256": "a3f7af1a89bb5415b368aa85989293fde565186010865525a43a5842fa42669f",
+      "html_sha256": "eaf1e786d034b947c7b9b35f9d9ae2b7e650732001bdb4e54cf3165295eb7a97",
+      "title": "Cases to verify · Baton",
+      "h1": "Cases to verify",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "reference/sources.html",
+      "status": 200,
+      "source_sha256": "553f14a9762e169ad9a7266054b3cf883498cd5a6588683962e6e01a74680507",
+      "html_sha256": "8eace2a0c1c7fe24b05cefb15073ec6bc90de123211665e54a6ae4254b54fb58",
+      "title": "Sources and document status · Baton",
+      "h1": "Sources and document status",
+      "images": [],
+      "nav": 32
+    }
+  ],
+  "local_targets": [
+    {
+      "target": "/baton/README.html",
+      "status": 200,
+      "sources": [
+        "index.html",
+        "overview/glossary.html",
+        "overview/interfaces.html",
+        "baton/interfaces.html",
+        "e2e/block-body.html"
+      ],
+      "fragments": [
+        "when-speculative-execution-begins"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/tx/interfaces.html",
+      "status": 200,
+      "sources": [
+        "index.html",
+        "overview/rust-interfaces.html",
+        "baton/README.html",
+        "e2e/normal.html",
+        "e2e/block-body.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/baton/interfaces.html",
+      "status": 200,
+      "sources": [
+        "index.html",
+        "overview/architecture.html",
+        "overview/rust-interfaces.html",
+        "overview/interfaces.html",
+        "tx/interfaces.html",
+        "tx/README.html",
+        "consensus/README.html",
+        "consensus/block-body.html",
+        "baton/README.html",
+        "baton/direction.html",
+        "execution/README.html",
+        "execution/interfaces.html",
+        "e2e/normal.html",
+        "e2e/block-body.html",
+        "e2e/canonical.html",
+        "baselines/precut.html"
+      ],
+      "fragments": [
+        "automatonverify-validity-custody-and-scheduling",
+        "marshal-reportupdate-canonical-input-and-ack",
+        "assemble-before-opening-the-engine"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/baton/direction.html",
+      "status": 200,
+      "sources": [
+        "index.html",
+        "overview/architecture.html",
+        "overview/rust-interfaces.html",
+        "overview/interfaces.html",
+        "baton/README.html",
+        "execution/README.html",
+        "execution/interfaces.html",
+        "e2e/reschedule.html"
+      ],
+      "fragments": [
+        "existing-callbacks-versus-the-native-policy-gap",
+        "global-rule-for-local-execution-and-reports"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/e2e/normal.html",
+      "status": 200,
+      "sources": [
+        "index.html",
+        "overview/interfaces.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/overview/architecture.html",
+      "status": 200,
+      "sources": [
+        "index.html",
+        "baton/README.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/overview/rust-interfaces.html",
+      "status": 200,
+      "sources": [
+        "index.html",
+        "overview/interfaces.html",
+        "tx/interfaces.html",
+        "baton/interfaces.html",
+        "execution/interfaces.html",
+        "baselines/precut.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/tx/README.html",
+      "status": 200,
+      "sources": [
+        "index.html",
+        "tx/interfaces.html",
+        "e2e/normal.html",
+        "reference/integration.html"
+      ],
+      "fragments": [
+        "reuse-an-existing-pool-without-importing-the-wrong-lifecycle"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/baselines/precut.html",
+      "status": 200,
+      "sources": [
+        "index.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/index.html",
+      "status": 200,
+      "sources": [
+        "index.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-01.svg",
+      "status": 200,
+      "sources": [
+        "overview/architecture.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/e2e/block-body.html",
+      "status": 200,
+      "sources": [
+        "overview/glossary.html",
+        "overview/networking.html",
+        "overview/interfaces.html",
+        "e2e/native-consensus.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/e2e/canonical.html",
+      "status": 200,
+      "sources": [
+        "overview/glossary.html",
+        "overview/interfaces.html",
+        "e2e/normal.html",
+        "e2e/block-body.html",
+        "e2e/state-sync.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/interfaces/baton.rs",
+      "status": 200,
+      "sources": [
+        "overview/rust-interfaces.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/reference/integration.html",
+      "status": 200,
+      "sources": [
+        "overview/rust-interfaces.html",
+        "tx/README.html",
+        "consensus/block-body.html",
+        "consensus/decisions.html",
+        "baton/interfaces.html",
+        "execution/README.html"
+      ],
+      "fragments": [
+        "reference-versions-are-not-one-compatible-dependency-graph",
+        "primitive-reuse-catalog",
+        "body-assembly-to-implement",
+        "service-lifetimes"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/execution/interfaces.html",
+      "status": 200,
+      "sources": [
+        "overview/rust-interfaces.html",
+        "overview/interfaces.html",
+        "baton/interfaces.html",
+        "execution/README.html",
+        "execution/state-sync.html",
+        "e2e/results.html",
+        "baselines/precut.html"
+      ],
+      "fragments": [
+        "result-certification-inside-executor"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/execution/qmdb.html",
+      "status": 200,
+      "sources": [
+        "overview/rust-interfaces.html",
+        "overview/interfaces.html",
+        "execution/README.html",
+        "execution/interfaces.html",
+        "execution/state-sync.html",
+        "e2e/canonical.html",
+        "e2e/results.html",
+        "baselines/precut.html",
+        "reference/integration.html"
+      ],
+      "fragments": [
+        "commit-a-branch-to-canonical-state",
+        "manage-the-branch-tree-for-execution-requests"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/execution/state-sync.html",
+      "status": 200,
+      "sources": [
+        "overview/rust-interfaces.html",
+        "overview/interfaces.html",
+        "baton/interfaces.html",
+        "execution/README.html",
+        "execution/interfaces.html",
+        "execution/qmdb.html",
+        "e2e/state-sync.html",
+        "baselines/precut.html"
+      ],
+      "fragments": [
+        "coordinate-the-app-checkpoint-with-marshal",
+        "state-sync-from-certified-execution-results"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/e2e/recovery.html",
+      "status": 200,
+      "sources": [
+        "overview/networking.html",
+        "overview/interfaces.html",
+        "reference/integration.html"
+      ],
+      "fragments": [
+        "startup-prepare-custody-before-native-recovery"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/overview/glossary.html",
+      "status": 200,
+      "sources": [
+        "overview/interfaces.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/e2e/native-consensus.html",
+      "status": 200,
+      "sources": [
+        "overview/interfaces.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/e2e/leader.html",
+      "status": 200,
+      "sources": [
+        "overview/interfaces.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/e2e/reschedule.html",
+      "status": 200,
+      "sources": [
+        "overview/interfaces.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/e2e/results.html",
+      "status": 200,
+      "sources": [
+        "overview/interfaces.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/e2e/state-sync.html",
+      "status": 200,
+      "sources": [
+        "overview/interfaces.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/overview/networking.html",
+      "status": 200,
+      "sources": [
+        "tx/README.html",
+        "e2e/block-body.html"
+      ],
+      "fragments": [
+        "p2p-connections-and-message-planes"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/reference/sources.html",
+      "status": 200,
+      "sources": [
+        "consensus/README.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-16.svg",
+      "status": 200,
+      "sources": [
+        "consensus/README.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/consensus/decisions.html",
+      "status": 200,
+      "sources": [
+        "consensus/README.html",
+        "consensus/ordered-input.html",
+        "e2e/normal.html",
+        "e2e/native-consensus.html",
+        "e2e/leader.html",
+        "e2e/recovery.html",
+        "reference/integration.html"
+      ],
+      "fragments": [
+        "todo-bind-baton-prefix-and-policy-to-cut-proposals"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/consensus/ordered-input.html",
+      "status": 200,
+      "sources": [
+        "consensus/README.html",
+        "reference/integration.html"
+      ],
+      "fragments": [
+        "delivery-backpressure-and-recovery",
+        "reuse-proof-verification-and-storage"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/reference/verification.html",
+      "status": 200,
+      "sources": [
+        "consensus/decisions.html",
+        "reference/sources.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/consensus/block-body.html",
+      "status": 200,
+      "sources": [
+        "baton/README.html",
+        "baton/interfaces.html"
+      ],
+      "fragments": [
+        "use-marshals-existing-body-apis"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/consensus/README.html",
+      "status": 200,
+      "sources": [
+        "baton/interfaces.html",
+        "e2e/native-consensus.html",
+        "reference/integration.html"
+      ],
+      "fragments": [
+        "native-activities"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/repository/assets/review/commonware-reuse-20261004/README.md",
+      "status": 200,
+      "sources": [
+        "execution/qmdb.html",
+        "reference/integration.html",
+        "reference/sources.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-17.svg",
+      "status": 200,
+      "sources": [
+        "execution/qmdb.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-18.svg",
+      "status": 200,
+      "sources": [
+        "execution/qmdb.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-02.svg",
+      "status": 200,
+      "sources": [
+        "e2e/normal.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-03.svg",
+      "status": 200,
+      "sources": [
+        "e2e/normal.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-04.svg",
+      "status": 200,
+      "sources": [
+        "e2e/block-body.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-05.svg",
+      "status": 200,
+      "sources": [
+        "e2e/block-body.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-15.svg",
+      "status": 200,
+      "sources": [
+        "e2e/native-consensus.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-06.svg",
+      "status": 200,
+      "sources": [
+        "e2e/leader.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-12.svg",
+      "status": 200,
+      "sources": [
+        "e2e/leader.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-07.svg",
+      "status": 200,
+      "sources": [
+        "e2e/reschedule.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/execution/README.html",
+      "status": 200,
+      "sources": [
+        "e2e/reschedule.html",
+        "baselines/precut.html"
+      ],
+      "fragments": [
+        "open-decisions"
+      ],
+      "missing_fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-08.svg",
+      "status": 200,
+      "sources": [
+        "e2e/canonical.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-09.svg",
+      "status": 200,
+      "sources": [
+        "e2e/canonical.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-13.svg",
+      "status": 200,
+      "sources": [
+        "e2e/recovery.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-10.svg",
+      "status": 200,
+      "sources": [
+        "e2e/recovery.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-11.svg",
+      "status": 200,
+      "sources": [
+        "e2e/results.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-14.svg",
+      "status": 200,
+      "sources": [
+        "e2e/state-sync.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/assets/diagrams/diagram-19.svg",
+      "status": 200,
+      "sources": [
+        "baselines/precut.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/repository/baton-paper.md",
+      "status": 200,
+      "sources": [
+        "reference/sources.html"
+      ],
+      "fragments": []
+    },
+    {
+      "target": "/repository/assets/review/app-scheduler-20261009/native-audit.md",
+      "status": 200,
+      "sources": [
+        "reference/sources.html"
+      ],
+      "fragments": []
+    }
+  ],
+  "downloads": [
+    {
+      "target": "/repository/baton-paper.md",
+      "filename": "baton-paper.md",
+      "bytes": 60575,
+      "sha256": "73030de6f907c59c5f16baa4388f3f46f167efb6af8940da94fc4165260cdf0c",
+      "matches_source": true
+    },
+    {
+      "target": "/repository/assets/review/app-scheduler-20261009/native-audit.md",
+      "filename": "native-audit.md",
+      "bytes": 9091,
+      "sha256": "6d131a1b579f84659fe39b59f547822c4f35b048597304d45908ce0559e0df18",
+      "matches_source": true
+    },
+    {
+      "target": "/repository/assets/review/commonware-reuse-20261004/README.md",
+      "filename": "README.md",
+      "bytes": 16536,
+      "sha256": "6ac4236755bd88c81890888d0265748cedd1297796cdc44bb936ef7fd5df0cae",
+      "matches_source": true
+    }
+  ],
+  "screenshots": [
+    "overview-architecture.html.png",
+    "baton-README.html.png",
+    "baton-interfaces.html.png",
+    "overview-rust-interfaces.html.png",
+    "baton-interfaces-mobile.png",
+    "baton-roles-390.png",
+    "baton-roles-1440.png"
+  ],
+  "failures": [],
+  "search_results": "Architecture\nOverview\nRoles and terminology\nOverview\nRust interfaces\nOverview\nP2P and message paths\nOverview\nReading the interfaces\nOverview\nTransaction admission and selection\nApp transactions\nPool backend survey\nApp transactions\nConsensus: native structure\nMultimmit and Marshal\nBlock construction and body exchange\nMultimmit and Marshal\nFinalized ordered input\nMultimmit and Marshal\nApp and Multimmit\nApp scheduling\nApp callback behavior\nApp scheduling\nApp execution and certification\nApp execution and storage\nNormal flow: transaction to state\nE2E cases\nBlock body exchange\nE2E cases\nStartup, restart, and recovery\nE2E cases\nPre-cut execution without Baton\nBenchmark baselines\nCommonware integration and development order\nDevelopment and references\nCases to verify\nDevelopment and references",
+  "mobile_menu": "true"
+}

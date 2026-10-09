@@ -1,81 +1,85 @@
 # Leader reports, direction, and proposal races
 
-**Leader Baton prepares an execution suggestion while native consensus keeps moving.** It closes a report window, uses Baton::plan to choose a valid direction, and disseminates the result. Native Core may freeze a proposal before Baton planning finishes.
+**Baton is one scheduler mode inside the App.** It gathers signed intended orders and prepares advisory direction while native consensus proceeds. Its report handling, bounded planning and worker dispatch are internal App operations; no public Baton or Executor trait is required.
 
 ## Leader lifecycle: collect reports and disseminate direction
 
+The report protocol below remains application work. Native leader-window context and authenticated proposal-policy adoption additionally require the [unfinished native extension](../consensus/decisions.md). Producer `Automaton::propose` and `verify` are not leader-cut callbacks.
+
 ```mermaid
 sequenceDiagram
-    participant N as Native owner / proposed planning bridge
-    participant L as Leader Baton
-    participant V as Validator Baton
-    participant P as Baton: planning task
-    participant X as Producer / Executor Baton peers
-    par Report window / Baton planning
-        N-->>L: Read-only leader planning context
-        L-->>V: Authenticated window context
-        loop Valid reports arriving before closure, possibly none
-            V->>V: Keep started prefix, sort pending by global rule
-            V-->>L: Signed IntendedOrderReport
-            L->>L: Same-context validation / distinct identity admission
+    participant N as Native leader context / proposed policy integration
+    participant L as Leader App / Baton scheduler
+    participant V as Validator App / Baton scheduler
+    participant P as App bounded planning task
+    par Report collection and planning
+        N-->>L: Exact leader window context through proposed integration
+        L-->>V: Authenticated window announcement
+        loop Valid reports before snapshot closure
+            V->>V: Preserve started prefix F and sort eligible pending
+            V-->>L: Signed intended order for exact context
+            L->>L: Validate and admit each identity at most once
         end
-        L->>L: Close once at first 4f+1 OR fixed deadline
-        L->>P: Frozen snapshot + bounded admissible candidates
-        P-->>L: Evaluated selection or incomplete
-        opt Valid direction prepared
-            L-->>X: Direction(context, order, selected prefix)
-            X->>X: Submit parent-linked blocks to local Executor
+        L->>L: Close once at first 4f+1 admissions or fixed deadline
+        alt No reports admitted
+            L->>L: No prepared candidate from empty snapshot
+        else Nonempty report snapshot
+            L->>P: Frozen original reports and bounded admissible candidate set
+            P-->>L: Completed evaluation or unfinished result
+            opt Valid evaluated direction prepared
+                L-->>V: Authenticated advisory direction
+                V->>V: Validate and update permitted scheduling decisions
+            end
         end
-        Note over L,X: No direction vote / ACK / Ready quorum
-        L->>L: Local cycle closes, fresh work / context starts next cycle
-    and Native cut path
-        N->>N: Prepared matching policy or valid NativeBase
-        Note over N,L: Cut does not wait for report count / deadline / Baton planning completion
-        N->>N: Freeze authenticated proposal policy, native votes
+        Note over L,V: No direction vote / ACK / Ready quorum
+    and Native cut
+        N->>N: Continue native proposal processing
+        Note over N,L: Never wait for report count, deadline or planning
     end
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-06.svg)
 
-Each validator signs its fixed completed/current local prefix followed by a stable global-rule-sorted pending snapshot. Equal rule/context, fixed prefix and pending sets yield equal intended order; different availability or already-started paths can still yield different reports. The leader does not globally re-sort signed sequences. Later arrivals do not mutate an original submitted report or a closed leader snapshot.
+A report is the fixed completed/current local prefix `F` followed by `sort_G(S_pending)`. It is an intention, not an execution proof. Equal context, `F`, rule and pending set produce equal intended order; equal total known inputs alone do not. Later arrivals do not change an already signed report or a closed snapshot.
 
-Window announcement and binding prepared policy to an actual proposal require integration adapters. The diagram does not imply those APIs already exist or prefix adoption has been proved. Closing a local cycle does not wait for all nodes' execution or the native cut branch to finish.
+The leader counts at most `4f+1` distinct valid original reports. It closes on the first threshold/deadline event processed, without extending the deadline. With a nonempty snapshot and fully evaluated bounded admissible candidate set, select the longest nonempty entire prefix with at least `2f+1` original same-context supporters; if no such prefix exists, use raw sum-LCP. Before protected adoption, no reports or no prepared valid choice means the actual-parent valid native base path. Incomplete search does not establish a longest-prefix result.
 
 <a id="planner-completion-versus-proposal-freeze"></a>
 
 ## Planning completion versus proposal freeze
 
+This is the **required future integration flow**, not an API present in current Multimmit:
+
 ```mermaid
 sequenceDiagram
-    participant L as Leader Baton
-    participant P as Baton: planning task
+    participant A as App Baton scheduler
+    participant P as App planning task
     participant N as Native leader proposal owner
     participant V as Native validators
-    L->>P: Frozen reports / exact planning context
-    alt Evaluated candidate reaches owner before proposal freeze
-        P-->>L: PreparedPolicy(context, validity material)
-        L-->>N: Cached prepared policy for actual-context recheck
-        N->>N: Recheck actual parent / history / frontier / request correlation
-        alt Recheck admits candidate for this actual proposal
-            N->>N: Freeze selected prefix and policy before signing
-        else Context or admissibility recheck fails
-            N->>N: Use actual-parent valid NativeBase before adoption
+    A->>P: Frozen nonempty report snapshot and exact context
+    alt Complete candidate is ready before proposal freeze
+        P-->>A: Prepared policy candidate
+        A-->>N: Candidate through future proposal-policy integration
+        N->>N: Recheck actual parent, history, frontier and admissibility
+        alt Valid and adoptable in actual proposal context
+            N->>N: Freeze selected prefix and interpretation in signed subject
+        else Recheck fails before adoption
+            N->>N: Use valid actual-parent native base
         end
-    else Candidate is stale, unavailable, or unfinished
-        N->>N: Use actual-parent valid NativeBase before adoption
+    else No valid prepared candidate
+        N->>N: Use valid actual-parent native base without waiting
     end
-    N-->>V: Authenticated native proposal with fixed interpretation
-    V-->>N: Native proposal votes
-    opt Late planning result / new report / larger native pool
-        P-->>L: Late prepared result
-        L-->>N: Current cache, no mutation of frozen proposal
-        N->>N: Do not mutate this proposal policy
+    N-->>V: Authenticated proposal with fixed interpretation
+    V->>V: Validate exact leading-prefix preservation
+    V-->>N: Native votes
+    opt Late report, completion or larger native pool
+        P-->>A: Future scheduling information
+        N->>N: Preserve this already authenticated proposal interpretation
     end
-    Note over L,V: Native votes are not a direction-reply quorum
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-12.svg)
 
-Native proposal can use the valid actual-parent base path even when no planning job exists. The diagram describes the completion race when a job has been started.
+Current `LeaderBlock` has no Baton policy field, and current Marshal uses the native order interpretation. Adding scheduling in `Automaton::verify` does not implement policy adoption, validator policy checks, exact leading-prefix preservation, continuation or recovery. The App cannot implement this by reordering finalized Updates after delivery.
 
-Availability for adopting a prepared result and exact-prefix preservation remain unresolved. This diagram identifies the required freeze boundary without adopting a particular ready-only policy variant. On view change, old reports and advisory work cannot enter the new context. Already authenticated, emitted, or applied history keeps its original interpretation.
+Before adoption, no reports or no prepared candidate permits the valid native base path. After authenticated adoption, the protected prefix cannot silently disappear or be reinterpreted as fallback. Context binding, availability/adoption, native sufficiency, cross-lane continuation and view recovery remain open proof and implementation obligations. The local report window closing is distinct from that still-unspecified protected-adoption point.

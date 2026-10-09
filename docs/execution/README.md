@@ -1,74 +1,61 @@
-# Execution: roles and responsibilities
+# Execution inside the application
 
-**Executor computes transaction changes; Storage calculates roots and makes selected changes durable.** Executor manages execution-tree paths, certifies results with peer Executors and orchestrates normal-path state sync. Storage owns QMDB, canonical mutation, queries, physical retention and recovery. Both roles can share an implementation without becoming separate actors.
+**The app owns transaction execution, its execution tree and durable state.** Its selected scheduler is either PreCut or Baton. Commonware `Automaton::propose/verify` and Marshal `Reporter<Update>` are the external entry points; they do not require public Executor or Storage traits. Names such as execution worker and storage below describe internal responsibilities and existing concrete handles.
 
-Baton preserves completed/current execution and sorts only pending requests by the shared global rule. Executor follows exact parent links. With G = ABC, C then B admitted while A runs and before C starts yields ABC; after C starts on A, late eligible B yields ACB without arrival-driven reexecution. Native confirmed order may still require ABC: an AC result cannot be relabeled as C on AB. See [global-rule scheduling](../baton/direction.md#global-rule-for-local-execution-and-reports).
+Native Multimmit's internal `AppExecutor` invokes local propose/verify jobs and tracks their completion. It does not interpret transactions or supply an application execution backend. The app must implement that work. See [the callback sequence](../baton/interfaces.md) and [execution connection](interfaces.md).
 
 ## Roles and responsibilities
 
-Executor receives parent-linked execute(block) inputs from Baton and finalized commit(range) inputs directly from Baton. Baton owns direction planning; there is no reschedule API. Executor produces completed changes/batches and outputs. Storage supplies valid branch access and prepares the selected QMDB commitment. Executors communicate directly to certify or import results. The Bank balance and nonce model is outside the current scope.
-
-| Responsibility | Executor owns | Boundary and completion condition |
+| App responsibility | Trigger | Completion condition |
 |---|---|---|
-| Execution tree | Resolve parent hashes, link children, track completed checkpoints, promote canonical path, prune conflicting branches | Parent is an execution predecessor; compatible canonical descendants remain pending |
-| Direct execution | Transaction computation, branch management, prefix reuse, suffix reexecution | Completed ExecutionResult; speculative work is not canonical application |
-| Result signing | Validate and sign its directly executed result through Executor::sign_result using Commonware cryptography | Bind finalized exact input, canonical input state, runtime, and full result; never sign an imported result as its own execution |
-| State finalization | Verify peer signatures / certificates; retain and disseminate the original certificate | f+1 distinct eligible signatures on one full statement, with irrevocable order and input-state chain verified |
-| Executor peer communication | Exchange signatures, certificates, change sets, and outputs; query, retry, and serve | Executor ↔ Executor over Commonware P2P, without Baton relay or approval |
-| Switching to state sync | Stop remaining execution and apply verified material when certificate and usable material are ready first | Matching base, safe cancellation, writer fence; a certificate alone is insufficient to stop execution |
-| Canonical application orchestration | Validate exact input/base; select direct or verified imported material; call Storage | Storage owns apply/flush and recoverable state/output/cursor/provenance linkage |
-| Completion delivery | Durable result to internal Baton delivery tracking; tx outcomes to pool maintenance; execution results / optional advisory progress to Baton | No advisory Baton response or approval required for certification, sync, application, or durable delivery completion |
+| Speculative scheduling | Valid, durably custodied and eligible candidate | Pending order updated; execution is dispatched separately |
+| Direct execution | Scheduler selects a block and its valid exact predecessor | Completed effects/outputs associated with exact base, runtime and input prefix |
+| Canonical reconciliation | Marshal `Update { index, block, acknowledgement }` | Reuse matching work, finish/repair missing work, or select verified applicable imported material |
+| Root preparation | A selected storage/signing boundary needs a commitment | Deterministic exact-prefix material and complete result/output binding |
+| Durable application | Canonical reconciliation has valid material | One writer makes state, outputs, applied identity and direct/imported provenance recoverable |
+| Delivery completion | Matching durable application established | App signals the Update ACK; Marshal persists its own delivery cursor separately |
+| Result certification | Direct or peer result statements | Irrevocable exact input/base plus `f+1` distinct eligible matching signatures |
+| Peer state sync | Valid certificate and applicable material available | Safe handoff through the same canonical writer; imported provenance retained |
+| Pool maintenance | Applicable durable outcomes | Backend candidates/nonces/status reconciled internally |
 
-Executor owns signing, collection, certificate verification and peer result/sync control. Storage owns roots, material validation against the authorized target, physical application, persistence and storage recovery. This path is separate from Baton reports and directions. Continue direct execution while certificate or material is unavailable; do not add a peer barrier before starting work. A certificate arriving before local ordered input stays pending or triggers history recovery. It cannot settle unresolved order.
+The [callback contract](../baton/interfaces.md) defines candidate admission, synchronous Update retention, replay and durable ACK. Both scheduler modes use the same exact-parent execution state and canonical writer: valid speculation is reusable only for matching input, parent and runtime, and a differing canonical path needs repair. Keep started work fixed on ordinary arrival and sort only eligible pending work under [the shared scheduling rule](../baton/direction.md#global-rule-for-local-execution-and-reports).
 
-| Storage responsibility | Existing Commonware work | Application integration |
-|---|---|---|
-| Valid branch access | QMDB unmerkleized reads/writes and sealed-parent batches | Exact execution base, live-DB access fence, optional rootless read/effects adapter |
-| Root preparation | Concrete batch `merkleize`, sealed root/ancestry | Selected deterministic storage/signing boundary and complete result/output binding |
-| Canonical writer | `DatabaseSet` / `ManagedDb` apply/finalize lifecycle | One authority across shared/cloned handles; no advisory cancellation of mutations |
-| Durability and recovery | Barrier, journal, metadata, rewind/prune APIs | Recoverable state, outputs, cursor and direct/imported provenance linkage |
-| Serving and retention | QMDB readers/sync source and storage primitives | Retained query/material scope and reference-aware physical reclamation |
+## Execution effects and storage roots
 
-Do not require `commonware_glue::stateful::Application`. Its propose/verify/apply outputs are merkleized; using that lifecycle for every speculative attempt can force a commitment before it is useful. Reuse the lower-level batch/database primitives directly. **Root calculation is deferred until preparation needs it, but always precedes full-result signatures.** Continuing one unsealed batch is supported; branching from an unsealed completed parent still requires an application overlay or another compatible API. [QMDB paths and source versions](qmdb.md#existing-apis-at-the-native-pin-and-indexed-release).
+Use concrete QMDB batches/database handles and Commonware runtime tasks. Transaction execution produces effects and outputs; prepare roots only when useful. Root calculation must precede full-result signing, but need not run for every abandoned speculative attempt. Existing sealed-parent forks are reusable; an unsealed-parent tree is still application integration. [QMDB recipes](qmdb.md).
 
-Keep speculative and canonical state separate. Execute produces changes without canonical commit authority. Commit and state sync use Storage only for results bound to proven exact input and the correct predecessor. They share the same canonical writer. An arriving sync result cannot drop an ongoing mutation or bypass it through another cloned DB handle. Fencing covers execution, lazy reads, staged expansion, materialization and Merkleization wherever live database access remains. Switching, race and failure contracts remain open.
+Do not require `commonware_glue::stateful::Application` or the full Stateful actor for this app. Its lifecycle is a reference; the app needs merged Multimmit input and deferred-root speculation. Its [mailbox](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/actor/core/mailbox.rs#L8) targets the block/ancestry `commonware_consensus::Application` and Simplex Marshal `Update` contracts; Multimmit uses a different callback boundary. Concrete `glue::stateful::db` utilities can be reused independently when their selected DB types fit.
+
+One canonical writer covers direct execution and verified imports. Stale worker generations prevent result adoption, while database-access fences prevent reads/forks/application from an invalid live base. Dropping a waiter does not necessarily stop submitted CPU work or storage I/O. Canonical mutations cannot be canceled by an advisory direction change. Retain all state still needed by workers, queries, recovery, result serving and sync.
+
+## Result certification and state sync
+
+Execution result messages travel directly between app peers over existing authenticated P2P. The Baton scheduler does not relay, approve or gate them. Check the full exact input/range, canonical input state, runtime/rule, result and chosen output/material commitments before counting distinct epoch validators. The threshold remains `f+1`; native consensus quorum types cannot be copied unchanged. [Certification](interfaces.md#result-certification-inside-executor).
+
+An app may import a certified result during normal execution after both the certificate and applicable material have been verified. Continue valid direct work while either is unavailable. An imported result cannot produce the node's own direct-execution signature; the node may relay the original certificate and directly execute/sign a later range. State finalization and local durable/read readiness remain separate endpoints. [State sync](state-sync.md).
 
 ## Open decisions
 
 | Item | Decision |
 |---|---|
 | Application transaction semantics | |
-| QMDB database variant / state encoding / root type | |
-| Canonical operations / batch-boundary derivation / logical-root integration | |
-| Root-deferred read/effects view / checkpoint sealing policy | |
-| Block / parent-hash encoding and binding / checkpoint granularity | |
-| Execution scheduling / cancellation / worker-fencing contract | |
-| Atomic commit of state / outputs / cursor | |
-| Branch pruning / memory / disk budget | |
-| Replay / checkpoint / state sync | |
-| Query interface / certified-result integration | |
+| QMDB variant / state encoding / result root | |
+| Deterministic canonical operation and batch boundaries | |
+| Root-deferred effects/read representation and checkpoint policy | |
+| Execution identity / parent binding / checkpoint granularity | |
+| Worker placement / cancellation / access-fencing contract | |
+| Recoverable linkage of state / outputs / applied position / provenance | |
+| Branch retention / memory / disk budgets | |
+| Query / result material / certified state-sync protocol | |
 
 ## Commonware primitives in the execution layer
 
-**Use existing storage and transport algorithms beneath the Executor/Storage boundary.** No public Runtime or ResultService module is required, and no full Stateful actor is adopted.
+| Reused mechanism | App responsibility still required |
+|---|---|
+| QMDB and concrete `glue::stateful::db` utilities | Transaction semantics, exact execution ancestry and deterministic selected commitment |
+| Runtime `Spawner`, `Strategizer`, existing future pools | Placement/work bounds and context-checked completion; a future pool alone does not bound work |
+| Crypto signatures/certificates and typed P2P | Full execution subject, eligible distinct signers, `f+1` and direct/imported provenance |
+| QMDB sync plus resolver | Trusted execution target, compatible material and active-validator writer handoff |
+| Existing journal/metadata/barriers | App state/output/applied-index crash consistency; Marshal separately owns its delivery cursor |
 
-| Primitive | Where it connects | Application responsibility |
-|---|---|---|
-| `commonware_storage::qmdb` and `commonware_glue::stateful::db` (`Unmerkleized`, `Merkleized`, `DatabaseSet`, `Barrier`) | Storage batch/read access, selected commitment preparation and canonical apply/flush | Exact base/ancestry, deterministic materialization, rootless overlay if needed, canonical writer and durable linkage |
-| `commonware_glue::stateful::{Stateful, Application}` (reference only) | Demonstrates sealed-parent lifecycle and startup sync | Do not make our Executor depend on this Application or full actor; Multimmit input and deferred-root requirements differ |
-| `commonware_cryptography::{Signer, Verifier}` and `commonware_codec::Codec` | `sign_result`, `verify_result` and certificate wire data | Full execution subject, epoch eligibility, distinct signer counting and direct-versus-imported provenance |
-| `commonware_cryptography::certificate::{Subject, Attestation, Scheme, Signers}` (conditional) | Existing indexed attestations, signer encoding, batch verification and certificate assembly | Selected execution scheme must preserve full-subject binding and f+1; built-in N5f1 certificate quorum is n-f |
-| `commonware_collector::p2p::Engine`; `Originator`, `Handler`, `Monitor` (candidate) | Request an execution attestation and collect responses within Executor | Validate every response before counting f+1 matching eligible signatures; bind request/response commitments and integrate unsolicited statements separately |
-| `commonware_resolver::p2p` and `commonware_storage::qmdb::sync::Source`; `commonware_glue::stateful::db::p2p` (candidate) | Obtain missing authenticated state operations/material from Executor peers | Certificate/range/base validation, applicable change-set verification, safe switch fencing and ongoing normal-path state sync |
-| `commonware_storage::{journal, metadata}` | Persist cursors and recover applied linkage | State/output/cursor/provenance crash consistency and readiness publication |
-| `runtime::{Spawner, Strategizer}`; `utils::futures::{Pool, AbortablePool, OptionFuture}` | Existing worker ownership, compatible Rayon construction and completion polling | Selected placement/work bounds, exact completion context and safe worker/access fencing; cancellation is not quiescence |
-
-**Reuse runtime and future helpers inside the existing worker owner.** Public `OptionFuture` keeps an empty active-work slot pending; its native implementation retains a completed future, so the owner must clear or replace that slot. `Strategizer::strategy` constructs the runtime-owned Rayon strategy without another thread-pool factory. Aborting a completion waiter does not stop separately spawned work; retain worker authority and canonical mutation ownership through actual completion. Placement, parallelism and cancellation policy remain open. [Optional future](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/futures.rs#L150), [Strategy factory](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/lib.rs#L357), [Task/completion distinction](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L28).
-
-Collector is a possible pull-attestation engine, not the f+1 certificate verifier. It marks a requested peer as seen before calling Monitor and counts responses sharing a commitment. Executor keeps its own map of full subjects to validated distinct eligible signatures. An invalid first response can consume a peer slot until cancel/reissue; unsolicited push responses are not accepted as arbitrary new requests. Use direct authenticated P2P for push statements/certificates and reuse collector where its pull lifecycle fits. [Collector response handling](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/collector/src/p2p/engine.rs).
-
-Reuse existing crypto collection/encoding work through the [certificate recipe](interfaces.md#reuse-certificate-building-blocks). Executor still owns validated distinct collection and application checks; a transport response count or an unchanged native consensus certificate threshold does not provide our execution certificate.
-
-The indexed Stateful actor documents a one-time bootstrap sync from a Marshal floor, followed by recovery on later startups. Our repeated validator-to-validator sync during normal execution is additional integration logic. Reusing its resolver/QMDB building blocks does not provide that lifecycle automatically. Stop unfinished execution only after both certificate and applicable state material are verified.
-
-See [QMDB lifecycle](qmdb.md), [state-sync contract](state-sync.md) and [versioned primitive evidence](../reference/integration.md#primitive-reuse-catalog).
+The [source catalog](../reference/integration.md#primitive-reuse-catalog) and [QMDB page](qmdb.md) distinguish current source from older reuse investigations. No transaction backend, result protocol, runnable scheduler or benchmark is implemented by this documentation.

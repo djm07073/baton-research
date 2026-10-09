@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-10-09T08:15:32.084986+00:00",
+  "native_commit": "6233438985d8249d2b2bc1204191d5d405652288",
+  "excerpt_sha256": "33a1028ebb501cf0d00c153b451c06d8e2918ec732d368d47be10191fb66eb2c",
+  "declarations": [
+    {
+      "name": "propose",
+      "source": "consensus/src/lib.rs",
+      "line": 155,
+      "matches_ignoring_whitespace": true
+    },
+    {
+      "name": "verify",
+      "source": "consensus/src/lib.rs",
+      "line": 179,
+      "matches_ignoring_whitespace": true
+    },
+    {
+      "name": "report",
+      "source": "consensus/src/lib.rs",
+      "line": 268,
+      "matches_ignoring_whitespace": true
+    },
+    {
+      "name": "stage_block",
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 337,
+      "matches_ignoring_whitespace": true
+    },
+    {
+      "name": "put_block",
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 354,
+      "matches_ignoring_whitespace": true
+    },
+    {
+      "name": "broadcast",
+      "source": "consensus/src/lib.rs",
+      "line": 254,
+      "matches_ignoring_whitespace": true
+    },
+    {
+      "name": "Update",
+      "source": "consensus/src/multimmit/marshal/types.rs",
+      "line": 130,
+      "matches_ignoring_whitespace_and_field_docs": true
+    }
+  ],
+  "scope": "Exact signature/field comparison against pinned Git blobs, not standalone Rust compilation or implementation validation"
+}

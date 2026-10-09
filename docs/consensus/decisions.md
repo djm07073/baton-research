@@ -1,30 +1,32 @@
 # Consensus open decisions
 
-**The responsibilities are defined; the integration contracts still need decisions.** Wire formats, policy adoption, and recovery details below remain blank until reviewed.
+**The base Engine/Marshal connection already exists.** Remaining application choices concern body validity/bounds, scheduling and state application. Full Baton's change to authenticated ordering requires native protocol work beyond those callbacks.
 
 ## TODO: bind Baton prefix and policy to cut proposals
 
-**Status: not implemented or proved.** The pinned native `LeaderBlock` contains `round`, `parent`, `history` and per-lane `proposals`. Each `ChainProposal` carries its lane anchor and payload commitments; neither type currently expresses Baton's selected cross-lane execution prefix or ordering policy. Public Automaton/Relay/Reporter callbacks alone cannot add this binding. This work requires changes at native proposal construction, validation and recovery boundaries. [Pinned LeaderBlock](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/types/block.rs#L563).
+**Status: not implemented or proved.** Current `LeaderBlock` contains `round`, `parent`, `history` and per-lane `proposals`. It carries no selected Baton cross-lane prefix or frozen policy. `Automaton::propose` constructs a producer body, not this leader proposal; `Reporter<Activity>` observes admitted activity and cannot validate proposals before voting. [Current LeaderBlock](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L802).
 
-- [ ] Define a bounded representation for the selected prefix and frozen ordering policy, bound to the actual proposal parent, history, immutable frontier, rule and execution context. Inline bytes versus a commitment to retrievable material remains an open choice; an unauthenticated side message is insufficient.
-- [ ] Connect completed Baton selection to native leader proposal construction. Bind the chosen representation into canonical encoding and the proposal digest authenticated by native signatures/votes. Recheck actual context and freeze it before signing; late reports/planning must not mutate that proposal.
-- [ ] Add validation before native proposal voting. Verify the available selection/authentication basis, exact context, producer ancestry and inherited ordering constraints. Validate the permitted exception to baseline global ordering and exact leading-prefix preservation, rather than accepting arbitrary reordering. Concrete proof material and validation interfaces remain open; Reporter is a post-admission observer, not this validation hook.
-- [ ] Connect policy interpretation to native tip extraction, continuation and extension. Show that every adopted prefix block is included and the irrevocable execution sequence starts with that exact prefix after the immutable frontier. Prefix membership or lane-tip inclusion alone is insufficient; adding a field does not prove this property. Preserve native tip extraction/extension and do not assume all proposed inputs become irrevocable immediately.
-- [ ] Preserve the authenticated policy, selected source witnesses and history through V-QC rescue, view recovery, retained evidence export and restart. Baton must reconstruct the same continuous order and deliver it through `on_finality` to `Executor::commit` without reinterpretation or duplicate canonical effects.
-- [ ] Keep cut no-wait behavior: before adoption, use an actual-parent valid base path when no valid policy is prepared; do not wait for report count, deadline, planning or a direction ACK quorum. After authenticated adoption, never silently drop the protected prefix as fallback. Adoption/availability and liveness conditions still require a concrete design and proof.
-- [ ] Implement and run checks for valid policy exceptions, missing/reordered prefix, invalid ancestry, wrong parent/history/rule, policy substitution after signing, late planning, unavailable policy material, same-tip evidence revisions, extension, view change and restart. Verify exact emitted order and no added report/direction barrier. These checks are planned, not run.
+- [ ] Define bounded policy/prefix representation bound to the actual proposal parent, history, immutable frontier, rule and execution context. Inline bytes versus a commitment to retrievable material remains undecided.
+- [ ] Connect the App's completed Baton selection to native leader construction. Recheck the actual context, freeze policy in canonical authenticated proposal encoding and preserve it after signing. Late reports/planning cannot change that proposal.
+- [ ] Validate the policy and ancestry before native voting, including exact leading-prefix preservation. Membership alone is insufficient. Authentication/proof material and the concrete hook remain open.
+- [ ] Preserve native tip extraction and extension while proving adopted-prefix inclusion and exact leading execution sequence after the immutable frontier. Continuation can defer unresolved output; policy cannot assume all proposed inputs immediately become irrevocable.
+- [ ] Preserve policy and interpretation through V-QC rescue, view changes, proof retention and restart. Extend existing Marshal history/order/recovery handling consistently so all nodes deliver the same output indices and block sequence. Do not add a second App-side final-order interpreter.
+- [ ] Keep cut no-wait behavior: before adoption use an actual-parent valid base path if no valid prepared policy exists; never wait for report count, deadline, optimizer or direction ACK. After authenticated adoption do not silently drop a protected prefix as fallback. Adoption/availability/liveness still need design and proof.
+- [ ] Test wrong parent/history/rule, omitted/reordered prefix, invalid ancestry, policy substitution, late planning, unavailable material, extension, same-tip evidence changes, view recovery and restart. These protocol tests are planned, not run.
 
-The ordinary local scheduling rule still preserves completed/current execution and sorts only pending blocks. Proposal-policy validation does not by itself adopt a conflicting advisory direction's precedence over that local path. If native confirmed order differs from speculation, Executor's existing exact-parent reuse/repair responsibility applies. Codec, policy availability, adoption, tail ordering and the concrete integration API remain undecided below.
+The App's ordinary local scheduler preserves completed/current order and sorts pending work only. Advisory direction precedence over a conflicting started path remains open. When canonical Updates differ from speculation, App performs exact-parent reuse/repair; it cannot change the finalized stream to match its local queue.
 
 ## Open decisions
 
 | Item | Decision |
 |---|---|
-| Body format / size limit / archive layout | |
-| Body transport adapter / fetch protocol | |
-| Targeted retry / fallback / pending want, subscriber, and byte budgets | |
-| Evidence export schema / retention handoff | |
+| Application body format, hash/domain, transaction/byte bounds and validity | |
+| App scheduling bounds, candidate retention and global-rule comparator/tie-break | |
+| Baton actual-leader-context / prepared-policy native hook | |
 | Ordering policy codec / availability | |
 | Protected-prefix adoption conditions | |
 | Exact continuation / extension / view recovery integration | |
-| Backfill / checkpoint / GC | |
+| Policy-specific Marshal interpretation, persistence and recovery | |
+| App state-sync/floor coordination and application retention | |
+
+Marshal's base body transport, backfill, catalog and ACK cursor are existing mechanisms. Configure their supplied bounds and APIs rather than treating them as new Baton layers. See [assembly](../reference/integration.md) and [verification cases](../reference/verification.md).

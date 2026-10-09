@@ -1,0 +1,37 @@
+# Round 19: verify, producer identity and candidate receipt
+
+Native source `6233438985d8249d2b2bc1204191d5d405652288`, 2026-10-09. Read current producer assignment, native admission/chain-plane validation, local custody, recovery and Marshal body lookup source against consensus/reference and core callback prose. This is source reasoning, not an executed protocol trace or runtime test.
+
+The user's proposed interpretation is usable as an App admission rule: successful live verification, the appropriate producer-lane classification, exact identity deduplication and current App eligibility can establish newly usable other-lane candidate work. It is not an equivalence between callback invocation and first network receipt. Current docs preserve that distinction correctly.
+
+## Exact identities
+
+`Context` binds epoch, producer chain, height and producer-header parent. `Context::header(body_digest)` restores the full header; `header.block_ref::<H>()` supplies the complete header identity plus chain/height (`types/block.rs:32–86,161–192`). Identical body bytes/digest in different contexts therefore remain different candidate identities. Body-digest-only deduplication would conflate lanes, heights or ancestry. The execution-state parent is separate from that producer-header parent.
+
+`Protocol::producer_chain(participant)` performs the epoch's producer assignment lookup; it can return None (`config/protocol.rs:146–163,197–209,325–331`). Participant indices and producer-lane indices need not match. A validator that produces no lane still runs one validation plane per producer chain; Observer runs none (`actors/voter/actor/chains.rs:114–180`). Added a compact producer-assignment sentence to consensus/block-body.md so implementers can express the user's lane condition using the existing API.
+
+## Receipt and callback paths
+
+| Situation | Actual native behavior and App implication |
+|---|---|
+| Duplicate signed artifact remains cached | `reducer/observe.rs:384–393` returns Duplicate by exact artifact identity; it does not schedule fresh cryptographic admission. Chain eligibility also deduplicates retained records by artifact ID (`eligibility.rs:235–253`). Do not use callback count as receipt count. This is a scoped retained-cache property, not lifetime exactly-once delivery. |
+| Different native artifacts name the same header | Artifact IDs hash encoded artifacts; BlockRef hashes the header (`machine/artifact.rs:41–64`, `types/block.rs:181–191`). App's candidate identity remains the exact contextual block, not the count of native attestations/observations. No assumption of a second execution for each admitted artifact is justified. |
+| Remote authenticated header | Native prechecks epoch, producer assignment, bounds and admissible position; signature verification precedes ready admission (`reducer/observe.rs:275–322`, `actors/verifier/verify.rs:92–145`, `scheme/bls12381_threshold/claims.rs:234–245`). The ready header records producer ancestry then enters its chain plane (`reducer/dependencies.rs:509–540`, `machine/chain.rs:202–239`). Body bytes may still be absent. |
+| Header arrives ahead of producer parent | A Ready record waits until its parent is the certified anchor or a retained Pending/Valid record; lower heights dispatch first (`eligibility.rs:259–323`). No callback is promised for every arrival, and dispatched child validation does not prove parent payload validation completed. The native eligible DA-vote run subsequently requires a contiguous valid path (`eligibility.rs:437–485`). |
+| Local proposal | AppExecutor derives the next lane context, calls propose, then a separate custody job calls verify before signing (`actor/app.rs:85–159`). Later admission of an exact locally signed retained header is marked custodied and becomes Valid without a second application check (`machine/producer.rs:606–610`, `machine/chain.rs:231–239`, `eligibility.rs:231–235`). Same-lane classification alone is not the native test for that shortcut. |
+| Recovery | The recovered obligation set is the deduplicated union of retained local producer headers and durable local DA choices (`machine/chain.rs:288–314`). Engine::open verifies that set before compaction and actors; every result must be Ok(true) (`storage/recovery.rs:228–235,473–495`). It is not a new peer arrival or a scan of all canonical blocks. |
+| Remote response closes | Chain-plane maps closure to Unavailable, and eligibility restores Ready so the same payload can be asked again (`chain_plane.rs:528–550`, `eligibility.rs:352–355`). This exception is not a portable retry API; current docs correctly retain temporary absence and deduplicate repeats. |
+| Late/canceled verification | Certified-anchor advance releases settled jobs; canceled work is discarded, and completion identity/generation checks reject stale outcomes (`eligibility.rs:326–350,371–393`; `chain_plane.rs:494–551`). Native fencing does not mutate App's candidate or worker state. App must recheck its current lifecycle/applied position after its asynchronous custody work and must not resurrect already-applied speculation. |
+| Observer or skipped speculation | Observer has no live per-chain validation. Canonical Marshal Update must work as first App encounter with a block; ordinary delivery cannot depend on an earlier callback or optional native observation. Current ordered-input.md states this explicitly. |
+
+`verify` carries only Context and body digest, with no source peer, origin, recovery flag, App generation or execution parent. Neither a header callback nor a complete body reveals which network peer originated the producer lane. Classify by authenticated producer context and configured role; keep App startup/current lifecycle explicitly.
+
+## Body availability is independent
+
+Marshal's subscription races buffered full-block ingress with existing backfill subscription, filters exact BlockRef and establishes custody before returning (`marshal/service/router.rs:330–395`). A received full body is not itself the signed producer-header admission that dispatches Automaton. Conversely, a signed eligible header can dispatch Automaton while App waits for the body. Backfill checks decoded body commitment, current epoch, producer chain and header digest; admitted results must match exact BlockRef (`marshal/actors/backfill/validate.rs:145–156`, `backfill/actor.rs:876–889`). These body paths neither synthesize an App network-receive callback nor change the configured lane identity.
+
+An existing local body or cached valid candidate may satisfy a repeat cheaply, but retained execution metadata is not by itself proof of current required durable custody. Candidate retirement, prior execution failure or already-applied status must not become a false payload verdict. Current App pseudocode appropriately completes honest custody while independently skipping or deferring speculative admission. A child's valid body also does not make an invalid producer parent eligible, and it does not choose the final cross-lane execution state.
+
+## Resolution
+
+Current core role table, callback pseudocode, consensus source map and verification acceptance cases cover the material distinctions. No new callback, receive adapter or BlockService is needed. The only reader edit is the producer-chain lookup sentence in the body guide. Root received the optional core suggestion to name `producer_chain`; otherwise no core correction is required. Focused whitespace/diff validation only; no native or runtime changes.

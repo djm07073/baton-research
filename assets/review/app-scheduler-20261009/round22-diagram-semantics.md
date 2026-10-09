@@ -1,0 +1,42 @@
+# Round 22: all current diagram guards and completion boundaries
+
+Reviewer: `/root/docs_alignment`. Reread all 19 current `.mmd` sources, their matching embedded Mermaid and adjacent explanations after the empty-report restoration. All **19 embedded blocks match their `.mmd` files exactly**. Existing rendered assets were not rerendered merely for another pass.
+
+## Finding: one adjacent heading still suggests serial native work
+
+`docs/e2e/native-consensus.md:5` said:
+
+```text
+Normal native consensus: producer DA → leader proposal → finality
+```
+
+That heading retains the old implication that DA certificate progress precedes leader proposal work. Diagram 15 now correctly uses separate parallel DA and native view/finality branches, with an explicit independence note; the adjacent prose says native view work may already run during producer validation. The heading should agree with that correction.
+
+Applied replacement is `## Native producer, DA and view/finality paths`, with the old generated heading ID `normal-native-consensus-producer-da--leader-proposal--finality` retained as an explicit compatibility anchor immediately above it. Root approved this owned E2E clarification. No Mermaid or asset change was needed.
+
+## Semantic sweep
+
+| Diagrams / pages | Guard and sequencing checks | Disposition |
+|---|---|---|
+| 01 architecture; 16 native source graph; 19 PreCut | Ownership/call graphs, not a mandated actor count or sequential execution program. Existing Marshal owns custody/order; App owns exact-parent work/writer. ACK edges explicitly follow durable apply. PreCut has no report/direction actor or replacement orderer. Future native Baton edge is labelled future. | Consistent; root-owned diagram 01 needs no change. |
+| 02 normal; 03 tx lifecycle; 04 local body | Stable retained selected bytes precede body commitment. Stage yields accepted work, local verify establishes durable custody, native signs afterward. Body/header digests and channels are separate. Eligible pending admission is separate from asynchronous exact-parent/capacity dispatch. Neither pool selection nor body publication retires transactions canonically. | Consistent. Normal prose permits speculative completion before or after Update; drawn successful publication is not a remote receipt guarantee. |
+| 05 remote body | Exact header/BlockRef precedes custody lookup. Active fetch is concurrent/optional; absence keeps a verdict pending. Permanent payload invalidity differs from unavailable bytes. True follows validity/custody, while eligible metadata/dispatch has its own conditions. | Consistent with linked handler, including fetched-byte custody when an earlier subscription no longer waits on backfill. No execution-completion gate is drawn. |
+| 06 report window | Empty snapshot explicitly yields no prepared candidate. Only nonempty original snapshots go to bounded evaluation; direction requires a valid completed choice. Native cut remains a parallel branch with no report/timer/planning wait. | Round 21 condition is visibly present and matches current prose. No all-zero empty sum-LCP choice remains. |
+| 07 advisory direction | Leader/context/freshness and immutable/started compatibility precede scheduling change. Unresolved conflict retains the current path; missing body or exact execution parent retains pending work. Dispatch is exact-parent work, not canonical adoption. | Consistent. Adjacent text supplies current-attempt completion checks and keeps direction precedence open. |
+| 08 canonical Update | Marshal holds a gap. App retains Update before synchronous Feedback, checks exact expected input and canonical predecessor, then either recognizes exact durable replay or completes new continuous work. New work persists state/output/applied identity/provenance before ACK. Pool maintenance is scheduled, not an approval wait. | Consistent. Adjacent text explicitly rejects ACK on identity/gap/predecessor conflict. No earlier verify/candidate entry is required. |
+| 09 execution/storage | Exact completed parent and valid branch access precede effects. Roots may be deferred; selected commitment is not durable state. Successful durable record precedes promotion; failed storage completion permits no ACK and requires recovery. Physical reclamation is conditional on retention/reference obligations. | Consistent. Canonical source text retains writer/predecessor/access checks inside the abstract prepare/apply steps; the diagram does not add a second Storage trait. |
+| 10 restart | Recovered App applied identity and Marshal cursor are separate. Same exact input can ACK without effects; next unapplied input requires durable completion; conflict/gap stops advancement. Later cursor persistence only covers acknowledged continuous progress. | Consistent; no path ACKs a gap or treats a root alone as replay identity. |
+| 11 result certification | Own completed direct work and selected full commitment precede signing. Full subject/epoch/distinct signer validation precedes f+1 certification. Insufficient signatures continue valid work. Imported certificates do not authorize a new own direct-execution signature. | Consistent. Result certification and local durability remain separately labelled; this certification scenario does not require rerunning an exact reusable speculative result or gate native cut. |
+| 12 future proposal adoption | Planning input is frozen and nonempty. Only a ready complete candidate proceeds to native actual-context/admissibility recheck. Missing/invalid preparation before adoption uses the base without waiting. Authenticated proposal interpretation survives late reports/completions. | Consistent with the explicit before/after-adoption prose. No late empty window can erase a protected prefix. |
+| 13 startup | Handles/body services precede Engine::open recovery verify. Open-time custody does not require speculative execution. The final activation step explicitly requires ready success and valid App base, and re-evaluates retained candidates. | Consistent. Adjacent lifecycle guidance covers failed startup and unexpected service completion; ready is not an App durability proof. |
+| 14 import | Unresolved irrevocable input/predecessor keeps certificate pending. Certificate plus applicable material precedes fencing/import. Only durable import advances base and ACKs retained Updates covered by that exact prefix. Failed completion does not ACK; imported provenance remains imported. | Consistent. Adjacent text forbids synthesizing ACK tokens, skipping unrelated deliveries or treating floor installation alone as App state readiness. |
+| 15 native DA/view | Validity/custody precedes the illustrated DA path. App speculation, DA and view/finality are parallel branches. DA threshold is native, votes broadcast to peers, and one representative native owner reports finality. | Mermaid and prose are consistent; the stale serial heading was corrected as described above. |
+| 17 QMDB composition; 18 execution tree | Completed effects/optional rootless representation feed selected preparation and the single writer; covering database durability joins App identity/output/provenance before ACK. The tree distinguishes A from S0 versus A after X, preserving exact execution parent identity. | Consistent with surrounding QMDB constraints. Graph arrows do not grant direct writer-to-ACK bypass around durability. |
+
+The sequence diagrams intentionally show logical request/completion or peer-observation events, not every immediate oneshot-handle return or every error variant. Their labels and adjacent contracts distinguish synchronous report handoff, asynchronous verdict, worker effects, selected commitments, durable application and ACK. Success branches remain conditional; omitted invalid-input error detail is not an instruction to continue through a failed check.
+
+## Scope and disposition
+
+No Mermaid source semantic defect remains in this sweep, and no layout change or rerender is requested. The applied heading correction aligns surrounding navigation language with an already corrected diagram and preserves its old fragment. No new protocol requirement, choice of open policy, extra actor or public trait is proposed. This is a source/prose consistency review, not an executed App/native protocol test.
+
+After that heading/anchor change, `docs:check` passed with 32 pages, 252 local links, 19 diagrams and 38 blank policy cells. `git diff --check` passed. The 19 Mermaid sources and render assets remain unchanged by this round.

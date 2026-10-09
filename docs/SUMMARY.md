@@ -10,28 +10,28 @@
 * [P2P and message paths](overview/networking.md)
 * [Reading the interfaces](overview/interfaces.md)
 
-## Tx layer
+## App transactions
 
-* [Tx: roles and flow](tx/README.md)
-* [Tx interfaces](tx/interfaces.md)
+* [Transaction admission and selection](tx/interfaces.md)
+* [Pool backend survey](tx/README.md)
 
-## Consensus layer
+## Multimmit and Marshal
 
 * [Consensus: native structure](consensus/README.md)
 * [Block construction and body exchange](consensus/block-body.md)
 * [Finalized ordered input](consensus/ordered-input.md)
 * [Consensus open decisions](consensus/decisions.md)
 
-## Baton layer
+## App scheduling
 
-* [Baton: roles and reports](baton/README.md)
-* [Direction and branch execution](baton/direction.md)
-* [Baton interfaces](baton/interfaces.md)
+* [App and Multimmit](baton/README.md)
+* [Pre-cut and Baton scheduling](baton/direction.md)
+* [App callback behavior](baton/interfaces.md)
 
-## Execution layer
+## App execution and storage
 
 * [Execution: responsibilities](execution/README.md)
-* [Executor and certification interfaces](execution/interfaces.md)
+* [App execution and certification](execution/interfaces.md)
 * [QMDB branches and canonical application](execution/qmdb.md)
 * [State sync from certified results](execution/state-sync.md)
 
@@ -44,7 +44,7 @@
 * [Direction receipt and branch execution](e2e/reschedule.md)
 * [Finalized order and canonical application](e2e/canonical.md)
 * [Startup, restart, and recovery](e2e/recovery.md)
-* [Executor certification and queries](e2e/results.md)
+* [App certification and queries](e2e/results.md)
 * [State sync from certified results](e2e/state-sync.md)
 
 ## Benchmark baselines

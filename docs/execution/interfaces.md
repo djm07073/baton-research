@@ -1,74 +1,81 @@
-# Executor interfaces and result certification
+# App execution and result certification
 
-**Executor owns execution paths and result certification; Storage owns roots and durable state.** Executor links children to valid parents, computes completed changes, selects the canonical path and certifies or imports results. Baton owns direction selection.
-
-Ordinary speculative requests preserve completed/current execution and follow the global rule only for pending work. Executor resolves supplied parents; a new arrival does not re-sort or cancel the started prefix. A state-dependent child starts when its valid predecessor checkpoint is ready. Native confirmed-order commit still requires exact-prefix reuse/repair: an AC result cannot supply ABC if that different order is finalized. Canonical state and protected ordering remain fixed. [Dispatch/report rule](../baton/direction.md#global-rule-for-local-execution-and-reports).
+**The existing consensus callbacks enter one app; execution and storage calls stay concrete and internal.** The app chooses PreCut or Baton scheduling, validates exact parents, computes transaction effects, reconciles canonical Updates and owns durable state. No separate Executor, Storage, Runtime or ResultService trait is required.
 
 ## Interface overview
 
-Rust declarations: [Executor](../overview/rust-interfaces.md#executor) and [Storage](../overview/rust-interfaces.md#storage). Each async application method returns a Future with `Result<SuccessType, Self::Error>` as its output. These are integration boundaries, not replacements for QMDB algorithms or separate deployment requirements.
+Use the [canonical callback contract](../baton/interfaces.md) for proposal, custody, scheduler admission and ordered delivery; the [Rust interface reference](../overview/rust-interfaces.md) contains the existing signatures and typed-handle wiring.
 
-`Executor::Block` carries a block hash, parent block hash, exact ordered body/input references, and execution context. The parent resolves an execution checkpoint with the same base, application rules, and exact preceding input; it is not simply a producer-header parent. `execute(block)` validates that parent, links the child, and computes its transaction effects on branch-scoped state. Missing or unfinished parents leave work pending or require recovery. Reuse requires identical completed work and context; a partial or canceled attempt is not successful ExecutionResult. Hash encoding and concrete fields remain open.
+Execution jobs carry the exact input block plus the execution checkpoint selected by the scheduler. A producer's `Context.parent` identifies that lane's previous header. It cannot identify the predecessor in the merged execution sequence. The same body after different prefixes needs different execution identity. Bind completed work to canonical base, application/runtime/rule version and exact prior inputs; the concrete encoding remains open.
 
-Direction selection belongs to [Baton::plan](../baton/direction.md). Direction changes submit parent-linked blocks through execute(block); task priority, reuse, and stale-result fencing remain internal to Executor. No separate planning, Runtime, ResultService, or reschedule interface is needed for tree handling.
+Candidate metadata identifies the exact block; an execution attempt also identifies its chosen path and parent. A duplicate candidate notification does not launch another copy of an active attempt. Repair on a different exact parent remains distinct work.
 
-`execute(block)` returns completed unsealed effects and outputs. Storage prepares a root only when a selected storage/signing boundary needs it. Upstream sealed-parent child batches can be reused directly; rootless children require the additional read/effects adapter described in [QMDB](qmdb.md#defer-roots-without-inventing-an-unsealed-parent-fork).
+Preserve completed/current `F` and sort only pending eligible inputs. A state-dependent child starts when the valid predecessor checkpoint is ready. Missing/unfinished parents leave work pending. A new arrival does not cancel or relabel started work; a new canonical Update may require exact-parent repair. [Scheduling rule](../baton/direction.md#global-rule-for-local-execution-and-reports).
 
-Storage supplies [authorized concrete branch handles](qmdb.md#give-executor-concrete-branch-access) internally through existing batch creation/fork APIs. Executor uses their keyed methods; canonical Storage::read is not a pending-parent query. If ExecutionResult owns an upstream one-shot unsealed draft, prepare consumes it. Retain exact effects beforehand when the same rootless prefix must support another child or preparation; sealed material instead uses existing cheap clones and child forks.
+## Internal execution and apply flow
 
-`commit(range)` validates irrevocable exact input and its canonical predecessor, completes missing work, and selects the matching execution path. It calls Storage to prepare/apply exact material, fences conflicts and logically prunes branches while retaining valid descendants. Storage controls physical reclamation after worker/query/result/sync/recovery references permit it. CommitResult means state, outputs, cursor and provenance are recoverably durable. Advisory cancellation cannot drop a canonical mutation future.
+```text
+on eligible candidate:
+    on App owner, refresh facts for the exact header/context
+    exclude already applied work; do not re-enqueue a claimed attempt
+    admit eligible pending work once
+    dispatch separately when the exact predecessor is ready
 
-| Proposed interface | Input | Responsibility | Successful result |
-|---|---|---|---|
-| `Executor::execute` | `Self::Block`: execution-parent hash, exact inputs/context | Link valid parent → compute or reuse completed changes/outputs without compulsory hashing | `Self::ExecutionResult` |
-| `Executor::commit` | `Self::OrderedRange`: exact input, predecessor, evidence | Select canonical path → Storage preparation/application → logical pruning | `Self::CommitResult` |
-| `Executor::recover` | `Self::Recovery` | Coordinate Storage recovery; rebuild only valid execution branches | `Self::Checkpoint` |
-| `Storage::prepare` | Completed `ExecutionResult`, selected `Preparation` | Materialize exact prefix, merkleize and bind rule/result/outputs/material | `Self::PreparedResult` |
-| `Storage::apply` | Authorized `CanonicalInput`, `PreparedResult` | Check applicability/writer; apply and complete durable linkage | `Self::CommitResult` |
-| `Storage::recover` / `read` | Recovery context / retained-version query | Restore durable bases/provenance / read readiness and outputs | `Self::Checkpoint` / `Self::ReadResult` |
-| `Executor::sign_result` | `Self::PreparedResult` | Require computed commitment, own direct provenance and irrevocable input before signing | `Self::SignedStatement` |
-| `Executor::collect_result` | `Self::SignedStatement` | Check full subject and eligible distinct identities; collect f+1 matches | `Option<Self::ResultCertificate>` |
-| `Executor::verify_result` | `Self::ResultCertificate` | Verify signatures, exact order, and canonical input-state chain | `Self::ExecutionStatement` |
-| `Executor::result_certificate` | `Self::ResultQuery` | Query retained certification for an exact subject | `Option<Self::ResultCertificate>` |
+on execution completion:
+    on App owner, accept the still-current execution attempt only once
+    reject canceled, retired, duplicate, stale-context or invalid-ancestry completion
+    retain completed effects, outputs and direct-execution provenance
+    advance the valid speculative path
 
-Application transaction rules execute inside Executor against Storage-provided valid branch access. Commonware task runtime drives jobs/I/O; QMDB provides batches, roots and persistence rather than transaction semantics. Partial or canceled work cannot be adopted as a completed result. Worker generations and storage writer/retention metadata are local authority fields, not shared execution-signature fields. The stable statement binds exact range/base/runtime/rule/result and chosen output/material commitments.
+on ordered Update:
+    retain index, complete block and ACK in canonical intake
+    if durable applied metadata already covers this exact index and identity:
+        acknowledge this redelivery; return
+    when the preceding canonical input is applied:
+        select valid exact-parent effects / complete or repair work /
+            use verified applicable imported material
+        prepare any required deterministic commitment
+        recheck current predecessor and writer authority before mutation
+        apply through the single canonical writer
+        establish recoverable state + outputs + applied identity + provenance
+        on App owner, reconcile durable completion with current applied identity
+        advance the canonical base once or recognize the already covered input
+        signal ACK for this exact durable Update
+```
 
-Startup calls recover; state callers use read. Check base-state identity, application version, exact input prefix, worker generation, and canonical cursor binding before reuse. A readable result and a certified result remain different milestones. See [result certification](../e2e/results.md#result-endpoint-direct-execution-and-f1-certification) and [state sync](state-sync.md#state-sync-from-certified-execution-results).
+These are local handler steps, not proposed public APIs. Actual database calls use the chosen QMDB/DB handles. Root preparation consumes some unsealed drafts; retain exact effects before consuming the only representation if another branch or later prefix still needs them. A readable applied DB is insufficient for ACK until covering durability and the app's recovery linkage are established. [QMDB](qmdb.md#commit-a-branch-to-canonical-state).
+
+Durable application and Marshal's ACK cursor are distinct stores. The app ACKs matching durable application; Marshal later syncs its cursor. Crash redelivery must validate exact index/block and avoid duplicate effects. A scheduler notification, pool cleanup completion or direction reply adds no approval gate. Pool maintenance can replay from durable outcomes under its backend contract.
 
 <a id="result-certification-trait"></a>
 
-## Result certification inside Executor
+<a id="result-certification-inside-executor"></a>
 
-Executor receives peer messages and handles them through `collect_result` / `verify_result`. Successful verification can establish state finalization or allow the state-sync material verification and application path to proceed. A successful certificate query does not establish material availability or local durable application. Reuse Commonware Signer / Verifier and authenticated P2P. Those primitives verify signatures and transport bytes; Executor must bind the application statement, validate its irrevocable input and eligible epoch identities, and enforce f+1 matching subjects. That application verification remains necessary, without a standalone ResultService module. Concrete peer codec, request/response, and sync-switching APIs remain open.
+## Result certification inside App
 
-Rust declaration: [Executor](../overview/rust-interfaces.md#executor). The Rust interfaces page owns the complete declaration.
+App result-message handlers use existing authenticated P2P and crypto directly. Baton report/direction handling does not relay or gate execution certificates, state sync or apply.
 
-`sign_result` uses a Storage-prepared commitment plus Executor-retained own direct execution/validation evidence. Preparation preserves the selected rule and exact input/base/result/outputs binding; it cannot turn an imported result into direct execution. Complete effects → Storage root preparation → full statement → signature is the order. Advisory speculative order alone cannot be signed. Correctness and local durability remain separate. Per-block/per-chunk boundaries and root/encoding choices remain open; retain statement/provenance obligations through recovery.
+A direct signer requires its own completed execution/validation evidence, a prepared full result commitment, irrevocable exact input and the correct canonical input state. Bind epoch, range, exact ordered inputs, canonical base, runtime/rule and selected result/output/material commitments. Local worker generations and writer permits are not stable shared signature fields. Advisory speculative order alone does not satisfy the signing condition.
 
-`collect_result` verifies the exact full statement and signatures from distinct eligible epoch identities. Fewer than f+1 produces `Ok(None)` and adds no barrier to subsequent execution or native cut. `verify_result` returns a statement only after checking signatures, irrevocable exact order, and canonical input-state chain. One primitive `Verifier::verify` call does not implement this full application verification. `result_certificate` returning `None` means no certified result is available yet, distinct from absent local state. Serving the original certificate and signing own direct work are separate paths. Key, domain, codec, root type, common boundary, and retention remain open.
+Collect signatures only after validating the full subject, eligible epoch identity and signature. Count each identity once. State finalization requires `f+1` distinct matching signatures plus verified irrevocable order and canonical input-state linkage. Eligible result signers need not belong to the particular ordering QC. Fewer signatures are an incomplete certificate, not a reason to pause native consensus or subsequent valid direct work. A root alone or transport response count is insufficient.
+
+An imported verified result retains imported provenance. The app may relay/serve the original certificate; it cannot issue its own direct-execution signature for work merely imported. It can directly execute and sign a subsequent range from the imported canonical checkpoint. Certification, material availability and local durable/read readiness remain separate milestones. [State sync](state-sync.md#state-sync-from-certified-execution-results).
+
+Per-block/per-chunk boundaries, statement codec/domain, result-root scheme, keys, serving/retention and result-switch policy remain open. A longer-range certificate cannot be sliced into a shorter-range certificate.
+
+Choose durability/batch boundaries that permit progress within Marshal's `max_pending_acks` window. If the App withholds every ACK until more Updates than that window can hold arrive, delivery waits forever. A signing range may be larger when valid durable application and ACK progress independently; this does not require per-block signing.
 
 ## Reuse certificate building blocks
 
-**Receive result messages through existing typed P2P; validate and collect them inside Executor.** `p2p::utils::codec::wrap` adapts the raw authenticated Sender/Receiver pair to typed messages. It supplies encoding/decoding and the transport peer identity; Executor checks the full execution subject and original eligible signers. Accepted sends do not prove remote receipt or result certification. [Typed wrapper](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L16).
-
-| Existing exchange component | Use | Application boundary |
+| Existing mechanism | Reuse | App check still required |
 |---|---|---|
-| Typed P2P sender/receiver | Receive signatures and certificates in the existing Executor owner | Bounded codec, exact statement, eligible original signer and signature checks |
-| Optional buffered broadcast | Share/cache an identified certificate or material artifact; get/subscribe by known digest | One object per digest; individual signers' different responses cannot all use only their shared statement digest as the cache key |
-| Conditional collector | Solicit request-bound responses using Handler/Monitor and separate request/response channels | Counts requested transport peers before application validation; count is not f+1 verified signers, and cancellation/reissue is explicit |
+| `p2p::utils::codec` typed wrappers | Encode/decode existing authenticated sender/receiver traffic | Bounded codec, full statement, original eligible signer identities |
+| Crypto `Subject`, `Attestation`, `Scheme`, `Signers` | Domain/message definition, signing, signature verification and packaging | Exact input/base/runtime/result interpretation and distinct eligible `f+1` |
+| Optional buffered broadcast | Share/cache an identified certificate or material object | Cache key identifies the object; different attestations cannot all overwrite one statement digest |
+| Optional collector | Solicit request-bound peer responses | Its count is transport responses before app validation, not valid signer count |
 
-The buffered cache is transient and has no arbitrary incoming-signature stream. Collector does not supply the resolver's timeout/retry loop. Neither replaces Executor's full-subject signer accumulator. These are conditional existing-handle recipes; message codec, solicitation, topology and budgets remain open. [Buffer cache identity](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/broadcast/src/buffered/engine.rs#L327), [Collector response counting](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/collector/src/p2p/engine.rs#L207), [Collector cancellation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/collector/src/lib.rs#L35).
+Current source: [certificate APIs](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/cryptography/src/certificate.rs), [typed transport](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/p2p/src/utils/codec.rs), [collector response handling](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/collector/src/p2p/engine.rs#L190).
 
-**Commonware can verify and package the signatures; Executor decides what they certify.** Reuse `cryptography::certificate::{Subject, Attestation, Scheme, Signers}` when the selected signing scheme fits. These are existing crypto APIs, distinct from Multimmit's protocol-specific Scheme. They can avoid another implementation of signer encoding, batch signature verification and cryptographic aggregation. Result-signing keys and scheme remain undecided. [Certificate APIs](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L178).
+`Scheme::assemble` packages supplied attestations; it does not replace signature verification. Validate and deduplicate roster indices before constructing signer sets. Decode peer certificates with the selected epoch verifier's bounded `certificate_codec_config`, not its unbounded trusted-storage configuration. Keep a bounded execution-statement envelope because primitive attestation/certificate data does not supply our exact execution context. Scheme-specific proof-of-possession and original-signature provenance requirements still apply.
 
-| Step | Existing API | Executor connection |
-|---|---|---|
-| Define what is signed | `Subject::namespace/message` | Full exact input/range, epoch, canonical base, runtime and result/output commitment |
-| Sign direct work | `Scheme::sign` or lower-level `Signer` | Require own direct execution evidence and the Storage-prepared commitment |
-| Verify peer signatures | `Scheme::verify_attestation/verify_attestations` | Use the authenticated epoch roster; validate indices and deduplicate before batch verification |
-| Package valid signatures | `Scheme::assemble`, existing signer/certificate codecs | Supply only verified distinct signatures for one full subject; enforce the result threshold |
-| Verify a received certificate | `certificate::Verifier::verify_certificate` | Also check irrevocable exact order, canonical base, runtime and the full application statement |
-
-**The result threshold remains f+1.** Built-in `N5f1` certificate schemes use `n-f`, which is `4f+1` when `n=5f+1`; they cannot be copied unchanged for execution results. Existing `N5f1::f_plus_one` supplies the arithmetic for the same full authenticated committee. If a generic certificate wrapper is selected, its result-quorum adapter must enforce f+1 consistently during assembly and verification. Lower-level signature/batch/bitmap APIs can be reused while that choice is open. This does not alter native consensus quorums. [Quorum delegation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/ordered.rs#L274), [fault model and f+1](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/utils/src/faults.rs#L62).
-
-An upstream attestation contains a signer index and signature, and its certificate representation contains signature data; neither supplies our execution statement. Keep a bounded, versioned subject envelope and collect by its exact full identity. `assemble` is not signature validation. Duplicate input to scheme batch/assembly APIs is unsupported, and `Signers::from` can panic on duplicate or invalid indices. Validate before construction, and use roster-bounded certificate decoding on peer input. BLS multisig additionally requires caller-verified proofs of possession; non-attributable threshold BLS cannot be assumed to retain the required original signer evidence. These are conditional reuse requirements, not a selected key or certificate format. [Scheme caller contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L346), [signer codec](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L509), [scheme distinctions](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/certificate.rs#L10).
+`N5f1::quorum(n)` computes `n-f`, or `4f+1` for `n=5f+1`; this is not the execution-result threshold. Multimmit also has distinct DA and nullification threshold sharings, not an existing `f+1` result-signing role. Select compatible certificate/key material and quorum handling, or use lower-level signature/bitmap primitives while enforcing `f+1` in app assembly and verification. A quorum adapter cannot lower an existing BLS sharing's polynomial threshold. No new native quorum or result-signing format is adopted. [Current fault model](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/utils/src/faults.rs), [native key roles](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/scheme/bls12381_threshold/mod.rs#L3), [BLS threshold compatibility](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/cryptography/src/bls12381/certificate/threshold/mod.rs#L92).

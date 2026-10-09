@@ -1,0 +1,85 @@
+{
+  "objective": "Rewrite docs/baton around app-owned TxPool, Pre-cut/Baton schedulers, Automaton verify and Marshal Update; simplify and independently verify for three hours",
+  "started_utc": "2026-10-09 06:57:26 UTC",
+  "minimum_end_utc": "2026-10-09 09:57:26 UTC",
+  "native_commit": "6233438985d8249d2b2bc1204191d5d405652288",
+  "research_baseline": "08cfe68b8b565fff4a0f8119cb36ec9b22062a31",
+  "status": "complete",
+  "rounds": [
+    {
+      "round": 1,
+      "observed_utc": "2026-10-09 07:10:58 UTC",
+      "work": "Current-source audit; complete first rewrite of 32 current reader pages; 19 diagram sources; four public app traits removed; generated excerpt format updated",
+      "validation": "Source inspections and local diff checks; final render/build/check pending"
+    },
+    {
+      "round": "2-5",
+      "observed_utc": "2026-10-09 07:27:15 UTC",
+      "work": "Independent callback/floor/custody/role/genesis/lifecycle audits; rendered and pixel-reviewed 19 diagrams; simplified architecture and canonical flow; browser checked32pages",
+      "validation": "docs:check/build and diff check pass; browser32pages/19images/search/mobile pass; event/retention/result reviews ongoing"
+    },
+    {
+      "round": "4-6",
+      "observed_utc": "2026-10-09 07:29:34 UTC",
+      "work": "Late completion current-owner checks; current execution-attempt once-only checks; native custody release separate from application retirement; interface route map simplified; final PreCut title rendered and directly viewed",
+      "validation": "docs check32pages233links19diagrams38blank passes; build and diff check pass; new source authority and boundedness reviews running"
+    },
+    {
+      "round": "5-7",
+      "observed_utc": "2026-10-09T07:46:59+00:00",
+      "work": "Reader duplication removed; pool contract moved before survey; callback/current-attempt and canonical-writer race checks; service lifetimes and first-seen Update clarified; diagrams02/08/09 rerendered and inspected",
+      "validation": "docs check32pages240links19diagrams38blank, build, diff and fresh browser32pages19images/search/mobile pass; 94 local pinned source references had valid file/line targets at earlier snapshot"
+    },
+    {
+      "round": "7-8",
+      "observed_utc": "2026-10-09T07:54:26+00:00",
+      "work": "Core startup shortened using existing authority links; normal Update/ACK milestones placed before floor transitions; one shared canonical apply recipe; stale planning completion correlation restored; source-backed QMDB/certificate/sync safeguards preserved",
+      "validation": "docs check32pages244links19diagrams38blank, diff check and build pass; diagrams unchanged since reviewed render; full native-policy and baseline requirement comparisons ongoing"
+    },
+    {
+      "round": "9-10",
+      "observed_utc": "2026-10-09T08:12:44.500601+00:00",
+      "work": "Native activity pressure, durable recovery boundaries, role walkthrough and diagram semantics checked; five diagrams rerendered and pixel-reviewed; actual Start::Floor.floor_generation requirement restored after root source correction",
+      "validation": "docs check32pages247links19diagrams38blank, build and diff pass; fresh browser32pages19images/search/mobile pass; mobile callbacks and desktop architecture screenshots directly inspected; further reader edits require later rebuild"
+    },
+    {
+      "round": "11-13",
+      "observed_utc": "2026-10-09T08:24:36.162492+00:00",
+      "work": "Source-verified floor authority/callback errors/event provenance; concrete App race/wakeup traces; shared clone ownership and current failed-attempt cleanup clarified; three companion prose cuts with fact maps; legacy anchors relocated semantically",
+      "validation": "docs check32pages250links19diagrams38blank, build and diff pass;7native API excerpts source-match; historical content unchanged; prior browser remains scoped to earlier snapshot"
+    },
+    {
+      "round": "14-16",
+      "observed_utc": "2026-10-09T08:41:13.973490+00:00",
+      "work": "Fair required-work progress clarified;2normal/startup diagrams corrected and rendered; live reader/multi-DB/ancestor API assumptions corrected; fetch-first custody alternative and distinct native/result key thresholds source-verified",
+      "validation": "docs check32pages250links19diagrams38blank, build and diff pass; browser32pages19images/search/mobile pass; updated mobile screenshot and two diagrams pixel-reviewed; taskstillactive"
+    },
+    {
+      "round": "17-21",
+      "observed_utc": "2026-10-09T09:07:42.407798+00:00",
+      "work": "Role-based verify table and direct assembly navigation; duplicate execution callback table removed; exact-parent effect reuse clarified; independent cross-review restored zero-report native base branch; Stateful contract mismatch made explicit;2diagrams rerendered and inspected",
+      "validation": "docs check32pages252links19diagrams38blank, build and diff pass; fresh browser32pages19images/search/mobile pass;121current native references across59files and7excerpts locally match pinned source; taskactive"
+    },
+    {
+      "round": "22-28",
+      "observed_utc": "2026-10-09T09:40:25.146583+00:00",
+      "work": "Final user-requirement, source-boundary and App-design challenges; preserved all open questions; removed mandatory optional reporter; shortened body API navigation; reproduced and repaired three standalone site reference 404s",
+      "validation": "docs check32pages253links19diagrams38blank; build3sourceattachments; browser32pages19images54localtargets24fragments/search/mobile;4isolated builder cases;121source references59files7declarations and19visual receipt bindings pass; taskactive"
+    },
+    {
+      "round": "final",
+      "observed_utc": "2026-10-09T09:57:55.110003+00:00",
+      "work": "Fresh root requirement audit, independent native-hook and App-race challenges, full minimum interval satisfied",
+      "validation": "32pages253links19diagrams38blank;54HTTPtargets24HTMLfragments3byte-exact downloads;4builder cases;121native references59files7declarations;19visual bindings; current browser source/HTML hashes match; no native/history changes"
+    }
+  ],
+  "scope_limits": [
+    "Documentation and tooling only",
+    "No protocol implementation, proof, benchmark or native runtime-test claim",
+    "No commits, pushes or external publication authorized"
+  ],
+  "completed_utc": "2026-10-09T09:57:55.110003+00:00",
+  "elapsed_seconds": 10829.110003,
+  "final_audit": "final-audit.md",
+  "final_snapshot": "final-checkpoint.json"
+}

@@ -1,36 +1,38 @@
 # Baton Docs
 
-**Baton connects transaction handling, consensus, speculative scheduling, and execution on Commonware Multimmit.** Each module page starts with its role and responsibility, then explains Rust inputs/outputs, call flow, and detailed completion conditions. Edit the Markdown in this docs folder as the source of truth.
-
-**For API review, start with [Rust interfaces](overview/rust-interfaces.md).** All traits are collected there, with a generated single Rust file.
+**Connect one App to the existing Multimmit Engine and Marshal.** The App owns TxPool, a Pre-cut or Baton scheduler, transaction execution and durable state. Existing `Automaton`, `Relay` and `Reporter` connections provide the native boundary; there is no required new BlockService, Orderer or public Executor trait.
 
 ## Read these pages first
 
 | Order | Page | Purpose |
 |---|---|---|
-| 1 | [Architecture](overview/architecture.md) | Four layers and the data, control, and canonical paths |
-| 2 | [Roles and terminology](overview/glossary.md) | Module responsibilities and completion conditions |
-| 3 | [Rust interfaces](overview/rust-interfaces.md) | Four application traits, existing body callbacks, and one Rust export |
-| 4 | [Normal E2E](e2e/normal.md) | Transaction → block → execution result → durable state |
-| 5 | [Execution responsibilities](execution/README.md) | Executor-owned state finalization and state sync |
+| 1 | [App and Multimmit](baton/README.md) | The composition and what the App must implement |
+| 2 | [Transaction admission and selection](tx/interfaces.md) | App pool operations, stable body packing and canonical maintenance |
+| 3 | [Callback behavior](baton/interfaces.md) | `Automaton::propose/verify` and Marshal `Reporter<Update>` |
+| 4 | [Scheduler behavior](baton/direction.md) | Pre-cut and Baton, candidate admission, dispatch and confirmed-order repair |
+| 5 | [Normal E2E](e2e/normal.md) | Transaction → block → speculative work → Update → durable state |
+
+Use [Architecture](overview/architecture.md) for the ownership diagram and [Rust interfaces](overview/rust-interfaces.md) for existing signatures. The [pool backend survey](tx/README.md) provides optional reuse evidence after the App pool contract.
 
 ## Documentation structure
 
-- **Overview:** architecture, terminology, Rust interfaces, P2P, interface-reading guide.
-- **Tx:** admission, mempool, static analysis, candidate selection.
-- **Consensus:** Multimmit, body exchange, finalized ordered input.
-- **Baton:** reports, direction selection/authentication/dissemination, speculative block requests.
-- **Execution:** execution tree and effects, Storage/QMDB roots and application, certification, state sync and recovery.
-- **E2E:** normal flow, body exchange, native consensus, leader planning, reexecution, canonical application, restart, certification, state sync.
-- **Benchmark baselines:** [Pre-cut execution without Baton](baselines/precut.md), a separate implementation using shared execution/storage components.
-- **Development and references:** Commonware integration anchors and development/verification plans.
+- **Overview:** ownership, terminology, existing interfaces and message paths.
+- **App transactions:** admission, retained candidates and body selection inside the App.
+- **Multimmit and Marshal:** native Engine, complete-block exchange and finalized ordered input.
+- **App scheduling:** callback integration, Pre-cut/Baton behavior and the remaining native Baton-policy extension.
+- **App execution and storage:** exact-parent work, QMDB, result certification, canonical apply and state sync.
+- **E2E:** concrete producer, verification, scheduling, Update/ACK and recovery sequences.
+- **Baselines:** [Pre-cut](baselines/precut.md) as a separate scheduler mode with no Baton instance or messages.
+- **References:** source anchors, implementation obligations and planned verification.
 
-The [table of contents](SUMMARY.md) lists every page. Layer pages define responsibilities and interfaces. E2E pages explain message sequences and event order.
+The [table of contents](SUMMARY.md) lists every page. Markdown is canonical; site assets and the single Rust export are generated from it.
 
 ## Adopted responsibilities
 
-In the Baton implementation, finalized input travels directly **Baton → Executor**. **Executor ↔ Executor** exchanges execution signatures, certificates and change sets and owns state finalization and state-sync control. **Storage** prepares selected roots and owns canonical database application, queries, durability and recovery. Baton coordinates reports, direction and speculative work, and internally interprets native evidence to deliver confirmed input with recoverable history/cursors. It does not approve or gate result certification or state application.
+The ordinary confirmed path is **Multimmit Activity → Marshal → App Update reporter → App canonical worker → durable state → ACK**. The App's selected scheduler registers valid eligible pre-cut work without waiting for its execution inside `verify`. When Update arrives, the App preserves that exact indexed order and reuses or repairs its speculative path.
+
+Baton mode adds reports and advisory direction within the App. Changing native agreed order still requires an authenticated proposal-policy extension with preservation, continuation and recovery proofs. The current callbacks and Marshal are reusable now; they do not provide that missing Baton protocol extension automatically.
 
 ## Document status
 
-These are implementation-design documents with pinned Commonware source references. Protocol implementation, native integration proofs, E2E execution, and performance results are not completed. Distinguish existing Commonware APIs from proposed application contracts. Open policy decisions remain blank. The Bank application model is outside the current scope.
+These pages describe a proposed transaction App connected to inspected existing native code. App implementation, modified Baton native integration, E2E execution and performance results are not complete. Current integration references use monorepo commit `6233438985d8249d2b2bc1204191d5d405652288`; older research sources remain identified separately. Backend, comparator, wire and resource policy decisions remain open. The Bank application model remains outside scope.

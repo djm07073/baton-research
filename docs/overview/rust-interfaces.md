@@ -1,315 +1,133 @@
-# Rust interfaces
+# Rust connection points
 
-**The interfaces show what each module receives, does, and returns.** TxPool, Baton, Executor, and Storage have proposed application traits. BlockService is the body attachment built by implementing existing Commonware callbacks; it needs no second trait that repeats them. Layer pages explain completion conditions.
+**Implement existing Commonware callbacks on application handles. Keep pool, scheduling, execution and state management as concrete App code.** No new public `Executor`, `Baton`, `TxPool`, `Storage` or `BlockService` trait is required by this design.
 
-The four application declarations propose integration, not implemented crates. The separately labelled Commonware signature excerpts are existing upstream APIs, not new Baton declarations. The separate [Pre-cut baseline](../baselines/precut.md#inputs-and-rust-connection-points) has its own local attachment excerpts and reuses Executor/Storage; it does not instantiate Baton. Concrete associated-type fields, codecs, channels, errors, and worker placement remain undecided. These interfaces adopt no new wire schema or policy and do not require one actor or crate per role.
-
-When connecting upstream handles, use types from the same resolved Commonware dependency graph. Matching import names or encoded hash bytes do not make a registry-release Sender, codec trait or digest equal to its native git counterpart. [Version and constructor checklist](../reference/integration.md#reference-versions-are-not-one-compatible-dependency-graph).
-
-**The application Rust blocks on this page are the source of truth.** The [single Rust file](../assets/interfaces/baton.rs) is generated from them. Existing-library excerpts marked `rust,ignore` stay out of that standalone export because they require the pinned Commonware dependencies. Syntax checking of the export is separate from checking upstream compatibility, implementing services, or verifying the protocol. Future-returning declarations need `use std::future::Future;`.
+These are existing API excerpts from [checkout 6233438](https://github.com/0xEyrie/monorepo/tree/6233438985d8249d2b2bc1204191d5d405652288), with surrounding generic bounds/imports omitted where stated. They are not standalone compilable declarations or a new application protocol. The [single Rust reference file](../assets/interfaces/baton.rs) is generated from this page; edit this source, then run `npm run docs:interfaces`.
 
 ## Modules and call flow
 
-| Module | Methods | Reuse and application responsibility | Detailed contract |
-|---|---|---|---|
-| [TxPool](#txpool) | `admit`, `select` | Candidate lifecycle and static policy in one module; selected pool reuse still needs integration | [Tx contracts](../tx/interfaces.md) |
-| [BlockService](#blockservice) | Upstream `Automaton::propose/verify`, `Relay::broadcast`, `Reporter::report`; buffer/resolver/archive handles | Body codec, native header/body join, durable custody and retention glue; reuse dissemination, cache and retry engines | [Body contracts and primitives](../consensus/block-body.md) |
-| [Baton](#baton) | `plan`, `on_block`, `on_context`, `on_report`, `on_direction`, `on_finality`, `on_execution`, `on_planned`, `on_commit`, `prepared_policy` | Reports/direction plus native evidence/history interpretation and recoverable exact-order delivery | [Direction selection](../baton/direction.md) |
-| [Executor](#executor) | `execute`, `commit`, `recover`, `sign_result`, `collect_result`, `verify_result`, `result_certificate` | Execution-tree control, completed unsealed effects, certification and peer sync orchestration | [Execution and certification](../execution/interfaces.md) |
-| [Storage](#storage) | `prepare`, `apply`, `recover`, `read` | QMDB batch/root preparation, canonical writer, durable state and physical retention; no transaction execution or result signing | [Storage lifecycle](../execution/qmdb.md) |
-
-**Canonical call order:** Client → `TxPool::admit` → upstream `Automaton::propose` → native consensus → `Baton::on_finality` → internal exact-order delivery → `Executor::commit` → `Storage::prepare/apply` → Baton internal delivery completion; pool maintenance consumes canonical outcomes internally. Baton chooses direction through `Baton::plan` and requests `Executor::execute(block)` for undecided inputs. Executor returns completed effects without requiring a root for every speculative attempt; Storage prepares the selected commitment before result signing. No separate Planner, Runtime, ResultService, or reschedule interface is required. Static analysis belongs to TxPool.
-
-Reuse Commonware Automaton, Relay, and Reporter rather than adding a separate Consensus trait. [Block construction and body contracts](../consensus/block-body.md) identify upstream attachment points. [Reading the interfaces](interfaces.md) explains type equality and call semantics.
-
-<a id="txpolicy"></a>
-
-## TxPool
-
-**TxPool exposes two actions: admit and select.** `admit` validates RPC/peer input and uses internal static payload policy to retain it as selected or unselected, or drop invalid input. `select` receives Selection and returns a bounded Batch from selected candidates. Analysis, classification and canonical maintenance are internal responsibilities, without separate public methods. [Detailed contract](../tx/interfaces.md).
-
-```rust
-use std::future::Future;
-
-pub trait TxPool: Send {
-    type Tx: Send;
-    type Source: Send;
-    type Admission: Send;
-    type Selection: Send;
-    type Batch: Send;
-    type Error: Send;
-
-    /// Validate and insert a transaction received through RPC or a peer.
-    /// Internal payload policy classifies retained candidates as selected or unselected.
-    /// Selected candidates may enter local batches; unselected candidates remain
-    /// available for the chosen P2P retention/propagation policy. Invalid input is dropped.
-    /// Admission does not establish block inclusion or canonical execution.
-    fn admit(
-        &mut self,
-        tx: Self::Tx,
-        source: Self::Source,
-    ) -> impl Future<Output = Result<Self::Admission, Self::Error>> + Send;
-
-    /// Build a bounded candidate batch from the selected candidates only.
-    /// Selection preserves retained candidates; it does not establish canonical retirement.
-    /// Full-body packing and any backend dependency rules still apply.
-    fn select(
-        &mut self,
-        request: Self::Selection,
-    ) -> impl Future<Output = Result<Self::Batch, Self::Error>> + Send;
-}
+```text
+client / tx peers -> App pool
+Multimmit -> App Automaton::propose -> pool selection -> Marshal.stage_block
+Multimmit -> App Automaton::verify -> Marshal custody -> scheduler admission
+Multimmit -> Marshal Relay + Reporter<Activity>
+Marshal -> App Reporter<Update> -> canonical worker -> durable apply -> ACK
+App scheduler -> exact-parent transaction workers -> retained effects/checkpoints
 ```
 
-## BlockService
+Both Pre-cut and Baton fit inside App. The shared canonical worker consumes Marshal's ordered-delivery contract in either mode. Baton report/direction logic has no authority to reorder the Update stream. The remaining native protected-prefix integration is described [separately](../baton/direction.md#existing-callbacks-versus-the-native-policy-gap).
 
-**BlockService connects Commonware's body primitives to Multimmit.** Implement the existing callbacks directly over `buffered::Mailbox`, generic resolver and archive handles. A shared attachment may hold these handles and the body/header correlation data; a separate actor is a deployment choice. [Detailed contract](../consensus/block-body.md).
+<a id="blockservice"></a>
 
-The signatures below come from pinned [Automaton](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/lib.rs#L116), [Relay](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/lib.rs#L224), and [Reporter](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/lib.rs#L245). These are method excerpts with application comments; enclosing trait bounds, associated-type declarations and imports are omitted. They are not standalone declarations.
+## Automaton: existing payload callbacks
+
+The existing [Automaton trait](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/lib.rs#L125) requires a cloneable, sendable `'static` handle. For Multimmit, choose `Context = multimmit::types::Context<D>` and `Digest = D`. The methods below appear inside that trait:
 
 ```rust,ignore
-// Existing commonware_consensus::Automaton methods.
-/// Select transactions, build and retain a body for the supplied producer context.
-/// Resolve the receiver with its digest only when custody requirements hold.
+// Existing commonware_consensus::Automaton method excerpts.
 fn propose(
     &mut self,
     context: Self::Context,
 ) -> impl Future<Output = oneshot::Receiver<Self::Digest>> + Send;
-/// Locate or fetch the exact body and required parents; verify and retain custody.
-/// Missing data keeps the receiver pending; false means permanent invalidity.
+
 fn verify(
     &mut self,
     context: Self::Context,
     payload: Self::Digest,
 ) -> impl Future<Output = oneshot::Receiver<bool>> + Send;
+```
 
-// Existing commonware_consensus::Relay method; Multimmit uses Plan = ().
-/// Schedule body lookup and buffered dissemination without waiting for peer ACKs.
-/// Feedback describes local admission, not remote receipt or durable peer custody.
-fn broadcast(&mut self, payload: Self::Digest, plan: Self::Plan) -> Feedback;
+`propose` selects App transactions, builds the exact producer-context block and returns its body digest after staged admission. It commits the proposer to successful verification of the same pair. `verify` confirms payload validity and Multimmit's durable custody obligations; it records usable scheduler input without awaiting speculative execution. Keep temporary missing data pending and reserve `false` for permanent invalidity. The shared trait documents terminal closure, but current remote Multimmit reschedules closed-receiver `Unavailable` results; local/recovery paths instead require success. Deduplicate live repeats and recovery. [Path-specific behavior](../baton/interfaces.md#automatonverify-validity-custody-and-scheduling).
 
-// Existing commonware_consensus::Reporter method.
-/// Hand an accepted artifact notice to the header/body join attachment.
-/// This observation callback is not the durable canonical evidence export.
+The body implements existing `Codec` and `Digestible` with the same hasher digest; Multimmit's blanket `Body<H>` implementation supplies the marker. Use existing `TransactionBlock<H,B>` and header types rather than another generic block trait. The producer header `parent` identifies lane ancestry, not application execution state.
+
+`CertifiableAutomaton` belongs to consensus paths with a separate certification callback, such as Simplex. Multimmit's attachment here requires Automaton; adding `certify` does not create an application execution hook for it.
+
+## Reporter: two typed application connections
+
+The existing [Reporter trait](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/lib.rs#L258) has one associated `Activity` and a synchronous method:
+
+```rust,ignore
+// Existing commonware_consensus::Reporter method excerpt.
 fn report(&mut self, activity: Self::Activity) -> Feedback;
 ```
 
-Use `buffered::Mailbox::{broadcast_shared,get,subscribe}` for dissemination and local cached availability, and generic resolver `fetch` plus `Producer`/`Consumer` for active peer lookup and validation. The body type implements upstream codec and `Digestible`; archives provide writes, reads and sync. Implement body format, exact context/header correspondence, custody and retention handoffs. Do not add parallel generic cache, network retry or broadcast implementations. Native retirement is a separate lifecycle bridge; Relay has no `on_retire` method. See [the real-chain assembly recipe](../reference/integration.md#copy-the-assembly-from-real-chains).
+| Handle passed to | Associated Activity | Use |
+|---|---|---|
+| Native `multimmit::Config::reporter` | `multimmit::types::Activity<V,D>` | Route to Marshal; optionally fan out native observations to App |
+| Marshal `Service::start(..., application)` | `multimmit::marshal::Update<TransactionBlock<H,B>>` | Transfer canonical block/index/ACK into App's retained delivery inbox |
 
-<a id="orderer"></a>
+Use Marshal's mailbox for native reporting. If App also consumes native Activity, give it a separate typed handle from its Update reporter and reuse the existing sibling composition shown in [log-multimmit node assembly](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L306). Native observations are best-effort hints; canonical Updates require retained, non-dropping handoff. Reporter callbacks return promptly without transaction execution or storage I/O inline.
 
-<a id="planner"></a>
+## Marshal: existing full-block custody and delivery
 
-## Baton
+The following [mailbox methods](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L326) are excerpts from the existing generic mailbox implementation:
 
-**Baton chooses advisory direction and delivers consensus-confirmed execution order.** Its handlers receive CandidateBlock, Context, Report, Direction, native Evidence, and local completion results. Native consensus remains the finality authority; Baton verifies/retains exact history and internally delivers continuous OrderedRange inputs to Executor. History recovery and durable delivery tracking are internal responsibilities, with no public record/next_range/acknowledge/recover methods. The former Orderer role is absorbed into Baton. `plan` evaluates a frozen report snapshot over bounded admissible candidates and returns an optional completed PreparedPolicy. The handlers return local admission/scheduling success or Error. `prepared_policy` immediately returns an optional completed PreparedPolicy. These returns are not state-finalization approval or remote direction ACKs. [Detailed contract](../baton/interfaces.md).
+```rust,ignore
+// Existing multimmit::marshal::Mailbox method excerpts; enclosing bounds omitted.
+pub async fn stage_block(
+    &self,
+    block: impl Into<Arc<TransactionBlock<H, B>>>,
+) -> Result<Custody, Error>;
 
-```rust
-use std::future::Future;
+pub async fn put_block(
+    &self,
+    block: impl Into<Arc<TransactionBlock<H, B>>>,
+) -> Result<(), Error>;
+```
 
-pub trait Baton: Send {
-    type CandidateBlock;
-    type Context: Send;
-    type ReportSnapshot: Send;
-    type Candidates: Send;
-    type Report;
-    type Direction;
-    type Evidence: Send;
-    type ExecutionResult;
-    type CommitResult;
-    type PreparedPolicy: Send;
-    type Error;
+`stage_block` returns an accepted custody token. `token.wait().await` establishes durable recoverability. Dropping that token does not cancel already accepted storage work. `put_block` performs both steps. For lookup use existing `get_block`, `subscribe_block` and `fetch_block`: local lookup, custody subscription and explicit network fetch are different operations. Subscription alone does not promise to start a peer fetch. A get/fetch result can still be buffered ahead of storage sync; verify must establish durable custody through subscription or completed stage/put, rather than equating fetched bytes with persistence.
 
-    /// Evaluate a frozen report snapshot over the bounded admissible candidate set.
-    /// Return Some only after valid completed selection; native cut never awaits this work.
-    /// This selects direction; Executor independently manages its parent-linked execution tree.
-    fn plan(
-        &mut self,
-        context: Self::Context,
-        reports: Self::ReportSnapshot,
-        candidates: Self::Candidates,
-    ) -> impl Future<Output = Result<Option<Self::PreparedPolicy>, Self::Error>> + Send;
+The [delivery value](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L130) is already defined by Marshal:
 
-    /// Admit an authenticated header/body pair and sort eligible not-yet-started candidates.
-    /// Preserve completed/current execution order; arrival does not rebuild the started prefix.
-    /// While the predecessor runs, only sort pending; dispatch after its valid completion.
-    /// Dispatch/reports use the fixed prefix plus the same rule-sorted pending snapshot.
-    /// Native confirmed-order commit may separately require exact-parent repair.
-    fn on_block(&mut self, block: Self::CandidateBlock) -> Result<(), Self::Error>;
-    /// Admit the current leader context and manage its report window and immutable frontier.
-    fn on_context(&mut self, context: Self::Context) -> Result<(), Self::Error>;
-    /// Authenticate a same-context original intended-order report and count each identity once.
-    /// Honest construction preserves the local started prefix and sorts only pending candidates.
-    /// This intention is not a progress proof; reception never reconstructs missing inputs
-    /// or rewrites the original signed sequence.
-    fn on_report(&mut self, report: Self::Report) -> Result<(), Self::Error>;
-    /// Authenticate leader direction and submit its parent-linked blocks through Executor::execute.
-    /// This local handler adds no direction vote, receipt ACK, or Ready quorum.
-    fn on_direction(&mut self, direction: Self::Direction) -> Result<(), Self::Error>;
-    /// Admit native finality/history evidence for independent exact-order processing.
-    /// Internally verify and retain the exact source; deliver only continuous irrevocable
-    /// ranges to Executor::commit and track its durable result for recovery/redelivery.
-    /// Local admission is not finality proof or durable completion. This path never waits
-    /// for advisory reports, direction, planning, or optional on_commit handling.
-    fn on_finality(&mut self, evidence: Self::Evidence) -> Result<(), Self::Error>;
-    /// Accept a completed execution result only for a matching context.
-    /// Executor retains ownership of branch links, checkpoints, and worker lifetimes.
-    fn on_execution(&mut self, result: Self::ExecutionResult) -> Result<(), Self::Error>;
-    /// Cache a completed Baton planning result only for its original context and window.
-    /// Late or incomplete evaluation cannot overwrite current prepared policy.
-    fn on_planned(
-        &mut self,
-        context: Self::Context,
-        policy: Option<Self::PreparedPolicy>,
-    ) -> Result<(), Self::Error>;
-    /// Optionally observe durable applied progress to avoid scheduling canonical inputs.
-    /// Executor application, result certification, and internal delivery tracking do not await this handler.
-    fn on_commit(&mut self, result: Self::CommitResult) -> Result<(), Self::Error>;
-    /// Immediately return the currently prepared valid policy, if any.
-    /// The native owner still rechecks actual proposal context; cut never waits for Some.
-    fn prepared_policy(&self) -> Option<Self::PreparedPolicy>;
+```rust,ignore
+// Existing multimmit::marshal::Update; imports/derives omitted.
+pub struct Update<B: Block> {
+    pub index: OutputIndex,
+    pub block: Arc<B>,
+    pub acknowledgement: Exact,
 }
 ```
+
+App retains the token while reconciling/applying that exact input, then consumes it through `Acknowledgement::acknowledge`. ACK follows application durability; Marshal's cursor sync is a subsequent boundary. Redelivery must be idempotent. The current delivery actor does not retry a dropped Update on `Feedback::Backoff`; account for its ordinary delivery window and floor-reset overlap while preserving accepted tokens. Update has no generation field; App coordinates the state-import/floor lifecycle itself. [Detailed failure and queue contract](../baton/interfaces.md#marshal-reportupdate-canonical-input-and-ack).
+
+Open the public `multimmit::marshal::open`, connect its resolver bridge, obtain its reusable relay, then start the service with `SchemeVerifier` and the application Update reporter. The public service start returns the mailbox and service handle. [Assembly](../reference/integration.md) follows the current example rather than copying historical Simplex wiring.
+
+## Relay: reuse Marshal's implementation
+
+```rust,ignore
+// Existing commonware_consensus::Relay method excerpt.
+fn broadcast(&mut self, digest: Self::Digest, plan: Self::Plan) -> Feedback;
+```
+
+For Multimmit `Plan = ()`; `digest` is the full header/block identity. Marshal's relay looks up the staged full block and submits it to buffered dissemination. The application need not add a new Relay service, body cache or retry protocol. Local Feedback does not mean remote receipt or durable peer custody.
+
+<a id="txpolicy"></a>
+<a id="txpool"></a>
+
+## Pool stays inside App
+
+Use concrete admission/selection functions. Admission applies bounded structural/static selected-or-unselected policy; selection packs retained selected candidates for `propose`. Selection and proposal do not establish canonical retirement. Canonical outcomes update the chosen pool backend internally. Backend, policy and P2P retention remain open. [Pool behavior](../tx/interfaces.md).
+
+<a id="orderer"></a>
+<a id="planner"></a>
+<a id="baton"></a>
+
+## Schedulers stay inside App
+
+Select a concrete Pre-cut or Baton implementation at startup. Both operate on shared candidate/checkpoint state and preserve `F ++ sort_G(S_pending)`. Baton additionally handles reports, frozen-window evaluation and direction. Private handlers and existing runtime workers suffice; no public `on_block/on_finality/execute/commit` framework is introduced. Marshal already supplies ordinary ordered delivery. [Scheduling behavior](../baton/direction.md).
 
 <a id="runtime"></a>
 <a id="resultservice"></a>
+<a id="executor"></a>
+<a id="storage"></a>
 
-## Executor
+## Execution and state stay inside App
 
-**Executor computes transaction changes and controls which execution path becomes canonical.** `execute(block)` resolves the execution parent, links the child, and returns completed changes and outputs. Those changes may be an upstream unmerkleized batch or an application draft for a rootless branch; execute does not require hashing every attempt. `commit(range)` verifies the exact finalized path, delegates preparation/application to Storage, and logically prunes conflicts. Valid descendants remain pending. Baton owns direction selection; Executor owns certification and normal-path peer state-sync orchestration. [Detailed contract](../execution/interfaces.md).
-
-```rust
-use std::future::Future;
-
-pub trait Executor: Send {
-    type Block: Send;
-    type OrderedRange: Send;
-    type Recovery: Send;
-    type Checkpoint: Send;
-    type ExecutionResult: Send;
-    type PreparedResult: Clone + Send;
-    type CommitResult: Send;
-    type SignedStatement: Send;
-    type ExecutionStatement: Send;
-    type ResultCertificate: Send;
-    type ResultQuery: Send;
-    type Error: Send;
-
-    /// Resolve block.parent_block_hash to the exact valid execution-parent checkpoint.
-    /// Validate context, link the child in the execution tree, and compute the transaction effects on that branch.
-    /// Return completed changes and outputs; Storage calculates a root when needed.
-    /// Reuse only matching completed work; unsealed child forks need a separate read-view adapter.
-    /// A missing or unfinished parent cannot be executed from an unrelated state.
-    fn execute(
-        &mut self,
-        block: Self::Block,
-    ) -> impl Future<Output = Result<Self::ExecutionResult, Self::Error>> + Send;
-    /// Verify the exact irrevocable range and canonical predecessor; complete missing work.
-    /// Select the matching path; ask Storage to prepare and durably apply exact material.
-    /// Fence conflicting workers, prune conflicting branches, and retain valid descendants.
-    /// Return CommitResult only after durable completion; physical GC follows safe retention.
-    fn commit(
-        &mut self,
-        range: Self::OrderedRange,
-    ) -> impl Future<Output = Result<Self::CommitResult, Self::Error>> + Send;
-    /// Use Storage recovery to restore the canonical base, outputs, cursor and provenance.
-    /// Rebuild only execution branches with verified ancestry; reject stale worker results.
-    fn recover(
-        &mut self,
-        recovery: Self::Recovery,
-    ) -> impl Future<Output = Result<Self::Checkpoint, Self::Error>> + Send;
-    /// Sign a Storage-prepared result with retained own direct execution/validation evidence.
-    /// Require irrevocable exact input, canonical base, runtime and the computed result commitment.
-    /// Sign the stable full subject; local worker generations are not shared signature fields.
-    /// Never sign imported material as own execution or sign before the commitment exists.
-    fn sign_result(
-        &mut self,
-        result: Self::PreparedResult,
-    ) -> impl Future<Output = Result<Self::SignedStatement, Self::Error>> + Send;
-    /// Verify and collect matching statements from distinct eligible epoch validators.
-    /// Return a certificate once f+1 signatures match the full subject; fewer returns None.
-    fn collect_result(
-        &mut self,
-        signed: Self::SignedStatement,
-    ) -> impl Future<Output = Result<Option<Self::ResultCertificate>, Self::Error>> + Send;
-    /// Verify certificate signatures, exact irrevocable order, and canonical input-state chain.
-    /// Verification does not establish state-material availability or durable local application.
-    fn verify_result(
-        &mut self,
-        certificate: Self::ResultCertificate,
-    ) -> impl Future<Output = Result<Self::ExecutionStatement, Self::Error>> + Send;
-    /// Return a retained certificate for the exact query, if available.
-    /// Serving a certificate does not create an own direct-execution signature.
-    fn result_certificate(
-        &mut self,
-        query: Self::ResultQuery,
-    ) -> impl Future<Output = Result<Option<Self::ResultCertificate>, Self::Error>> + Send;
-}
-```
-
-## Storage
-
-**Storage turns completed changes into authenticated, recoverable state.** It owns QMDB handles, root calculation, canonical database mutation, queries, physical retention and storage recovery. It does not choose direction, execute transactions, establish native order or sign execution results. Executor supplies the verified canonical range or certified-import authorization; Storage also checks applicable base/ancestry and writer access.
-
-This is a thin proposed boundary over existing QMDB operations, not a new database implementation or mandatory independent actor. Concrete `ExecutionResult` can carry `DatabaseSet::Unmerkleized`, or a concrete staged batch plus completed indexed updates; `PreparedResult` can carry `DatabaseSet::Merkleized`. A rootless effects-chain adapter may replay retained base-bound mutations into independent existing drafts, or supply an application working overlay. No extra generic read-view engine is mandatory. Keep direct QMDB calls inside the adapter rather than recreating batching, Merkle or persistence algorithms. [Native lifecycle and release differences](../execution/qmdb.md#existing-apis-at-the-native-pin-and-indexed-release).
-
-```rust
-use std::future::Future;
-
-pub trait Storage: Send {
-    type ExecutionResult: Send;
-    type Preparation: Send;
-    type PreparedResult: Clone + Send;
-    type CanonicalInput: Send;
-    type CommitResult: Send;
-    type Recovery: Send;
-    type Checkpoint: Send;
-    type Query: Send;
-    type ReadResult: Send;
-    type Error: Send;
-
-    /// Prepare the exact selected prefix from completed changes, without executing transactions.
-    /// Use concrete QMDB merkleize calls and calculate the chosen result commitment.
-    /// A QMDB unsealed draft is consumed; retain effects first if more rootless branches need them.
-    /// Keep valid access/fencing through lazy reads, staged expansion and materialization.
-    /// Bind the selected storage rule, exact base/input, outputs and material to the prepared result.
-    /// Root type and deterministic batch/normalization rules remain open design choices.
-    fn prepare(
-        &mut self,
-        result: Self::ExecutionResult,
-        preparation: Self::Preparation,
-    ) -> impl Future<Output = Result<Self::PreparedResult, Self::Error>> + Send;
-    /// Check authorized exact canonical input, applicable ancestry and single-writer access.
-    /// Use concrete validate_batch preflight under that authority; it is not application proof verification.
-    /// Apply through QMDB and observe successful durability plus recoverable metadata linkage.
-    /// Return CommitResult only when state, outputs, cursor and provenance recover together.
-    /// Canonical mutation is not canceled with advisory workers; failed flush is not success.
-    fn apply(
-        &mut self,
-        input: Self::CanonicalInput,
-        result: Self::PreparedResult,
-    ) -> impl Future<Output = Result<Self::CommitResult, Self::Error>> + Send;
-    /// Recover the authoritative durable state, outputs, cursor and provenance together.
-    /// Restore retained storage bases; a prior readable notification is not a durable receipt.
-    fn recover(
-        &mut self,
-        recovery: Self::Recovery,
-    ) -> impl Future<Output = Result<Self::Checkpoint, Self::Error>> + Send;
-    /// Read a retained canonical version and its readiness/output metadata.
-    /// An arbitrary historical snapshot API is not promised by QMDB readers.
-    /// Result-certificate queries remain Executor responsibilities.
-    fn read(
-        &mut self,
-        query: Self::Query,
-    ) -> impl Future<Output = Result<Self::ReadResult, Self::Error>> + Send;
-}
-```
-
-PreparedResult is a retained/cloneable material handle so signing and application can share the same sealed result; use upstream retained batches rather than copying a second database. Batch creation, sealed-parent forks, pruning, sync sources and barrier observation use the upstream handles described in [QMDB](../execution/qmdb.md). This facade does not hide the crucial limit: `DatabaseSet::fork_batches` accepts a merkleized parent. Continuing one unsealed batch can defer roots; rootless branching across completed blocks requires an application read/effects adapter. A local generation, writer permit or retention coordinate must not become part of the cross-validator signing subject merely because it appears in a local binding record.
-
-The concrete Storage attachment also supplies authorized branch handles internally: upstream new_batches at an applied base, fork_batches at a sealed parent, or conditional replay/materialization or an application overlay for a rootless parent. Executor reads/writes through those concrete handles. Storage::read cannot substitute for pending-parent access. The inspected Any/Current unsealed/staged handles are one-shot and non-Clone; retain required effects before preparing them. See [concrete branch access](../execution/qmdb.md#give-executor-concrete-branch-access) for production wrapper and generic type constraints.
+Transaction workers produce effects/checkpoints on exact parents. App's backend prepares roots when useful, applies canonical material through a single writer and recovers state/applied metadata. Reuse concrete QMDB handles; keep root-deferred branching limits explicit. No additional public execution/storage traits are needed to call these functions from `verify` and `report(Update)` handlers.
 
 ## Interface boundary for state finalization and state sync
 
-Transaction execution and result certification are Executor responsibilities. Storage computes the selected root and manages canonical application/durability. Commonware supplies signature, storage, collection, fetch and network primitives. Executor adds the full application statement, exact-order/input-state binding, validated distinct-identity collection, and safe peer switching. Storage adds application commit linkage and access/retention integration. Imported results cannot become own DirectExecuted signatures.
+App's execution components exchange signatures, certificates and change sets directly over Commonware P2P. Retain full input/range, canonical base, runtime and result binding; collect `f+1` distinct eligible epoch signatures for the research result endpoint. A received certificate is not durable state, and imported material cannot become an own direct-execution signature.
 
-`Executor::commit` returns after Storage proves durable local completion. Complete direct effects → Storage preparation/root → Executor full-subject signing → verified f+1 certificate is the certification path. Direct canonical application may progress independently of peer collection once exact order/base hold. Imported application additionally requires a verified certificate and applicable material before stopping local work. Concrete peer codec, material requests, verification and switching remain undecided. These declarations do not claim a complete state-sync API. See [State sync](../execution/state-sync.md) and [Execution responsibilities](../execution/README.md).
+Direct canonical apply may proceed while peer signatures are collected once exact order/base and valid direct effects hold. Imported apply additionally verifies its certificate, material and applicability before stopping local work. The scheduler supplies no approval for either path. Concrete VM, result wire format, safe switching and rootless branch representation remain implementation work. [Execution](../execution/interfaces.md), [state backend](../execution/qmdb.md) and [state sync](../execution/state-sync.md) retain those contracts without requiring public layer traits.

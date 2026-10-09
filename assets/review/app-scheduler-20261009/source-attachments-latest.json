@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-10-09T09:37:29.821689+00:00",
+  "cases": [
+    {
+      "case": "linked-only-byte-exact-download-and-existing-links",
+      "passed": true
+    },
+    {
+      "case": "lexical-path-escape-rejected",
+      "passed": true
+    },
+    {
+      "case": "symlink-escape-rejected",
+      "passed": true
+    },
+    {
+      "case": "directory-attachment-rejected",
+      "passed": true
+    }
+  ],
+  "scope": "Isolated docs builder checks, not protocol or App runtime tests"
+}

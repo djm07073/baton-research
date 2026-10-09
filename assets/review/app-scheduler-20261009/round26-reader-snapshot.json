@@ -1,0 +1,204 @@
+{
+  "recorded_at_utc": "2026-10-09T09:26:31.763006+00:00",
+  "purpose": "Round26 reader requirements snapshot, not implementation evidence",
+  "navigation_pages": 32,
+  "root_local_links_checked": 43,
+  "root_local_link_failures": [],
+  "files": [
+    {
+      "path": "docs/README.md",
+      "sha256": "f3fcb23974477d9f7a064b1b9acf1fc36372175f43524746f8c95480175fdefa",
+      "bytes": 3398
+    },
+    {
+      "path": "docs/overview/architecture.md",
+      "sha256": "f8a49ffb411a9885371dcf02f7ca3eddf03bf61598c716b9bddaf278f254bea2",
+      "bytes": 6654
+    },
+    {
+      "path": "docs/overview/glossary.md",
+      "sha256": "8fa8e852906f61a3baf8ea97039492ca6751b59981526b573568a55f8dee19d0",
+      "bytes": 7080
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "ac24f4baa5ab56efb58d7ea1d0c16749458ea8309b5e19018d9d1fe90223acd2",
+      "bytes": 10480
+    },
+    {
+      "path": "docs/overview/networking.md",
+      "sha256": "9b6f40ebf53c6b7c83a8e01c63d3daab0c5d71fcdb8c8b2971af484600a7176f",
+      "bytes": 4602
+    },
+    {
+      "path": "docs/overview/interfaces.md",
+      "sha256": "c3aa4c34cb39ba0506b3dd040df63ec30c9f387ad1d0de70c3f7061f77ceb26c",
+      "bytes": 3774
+    },
+    {
+      "path": "docs/tx/interfaces.md",
+      "sha256": "000d26910db81d098c24bb15bde475a83561c0474e462718a2226767a728a7c2",
+      "bytes": 5433
+    },
+    {
+      "path": "docs/tx/README.md",
+      "sha256": "124ffa9fcac7060ccff9d2614ad40d871345a77e01d60e9be444beda98b8b510",
+      "bytes": 23963
+    },
+    {
+      "path": "docs/consensus/README.md",
+      "sha256": "94d5b0e0a1f5cec6d0d492261018d426d7411d1f820d8e8a6bdc09a0c8337fa0",
+      "bytes": 7895
+    },
+    {
+      "path": "docs/consensus/block-body.md",
+      "sha256": "8fa9708883db364f9a7f794a22a147796622a5183f5f36a7a15d43069ccbd537",
+      "bytes": 13009
+    },
+    {
+      "path": "docs/consensus/ordered-input.md",
+      "sha256": "8fb5fb111c1da587c2968e82c61c0f0ceb6214e1f6f641e7b85613f20ae7ef04",
+      "bytes": 8779
+    },
+    {
+      "path": "docs/consensus/decisions.md",
+      "sha256": "ae57166bbab81443de014003fb01bcfececc90eb330205647a7881cf0c5a4f56",
+      "bytes": 3836
+    },
+    {
+      "path": "docs/baton/README.md",
+      "sha256": "bfd48640fe6b7b2d0599e9c8780eac38046804253b221617db5c8265632dfd82",
+      "bytes": 9764
+    },
+    {
+      "path": "docs/baton/direction.md",
+      "sha256": "c2bf3f623226c3ac8936a1ca2f2f59e1053992f47c595e20b191dd8d07345e35",
+      "bytes": 11782
+    },
+    {
+      "path": "docs/baton/interfaces.md",
+      "sha256": "663b34b5c841527e08cedf607203a57afbad10ba45b0176bd1b46b20a916ebf0",
+      "bytes": 16157
+    },
+    {
+      "path": "docs/execution/README.md",
+      "sha256": "7ed0be32734248b825e50e4de88f9185937aaf56cf369de0e90c535200fc4be6",
+      "bytes": 6806
+    },
+    {
+      "path": "docs/execution/interfaces.md",
+      "sha256": "733f5460b1facb14ebcba05e2f28d5840c5fdb0d97dbf7e1d3097b61c9a75538",
+      "bytes": 9064
+    },
+    {
+      "path": "docs/execution/qmdb.md",
+      "sha256": "ed8eaf8444a2e2c6013118586984824f6b4222c6f2b3992c55a776a57748ccda",
+      "bytes": 14681
+    },
+    {
+      "path": "docs/execution/state-sync.md",
+      "sha256": "7e5dac91af51a829e8b04bac1bd411844f82c821f007bb8ae511e5832d1aad21",
+      "bytes": 8499
+    },
+    {
+      "path": "docs/e2e/normal.md",
+      "sha256": "dd4e0784d237dad73ac7c311df670a24ed448b121e95ed98472ad3011a0e1ab2",
+      "bytes": 5286
+    },
+    {
+      "path": "docs/e2e/block-body.md",
+      "sha256": "d88e71e79fa2f09967f27de07907a81d1cf306eaa76281cd4cb14d8bfe2b4032",
+      "bytes": 5767
+    },
+    {
+      "path": "docs/e2e/native-consensus.md",
+      "sha256": "81588b9a3d7949601d904fc6418841689ae574896a2011534edd738f76063446",
+      "bytes": 3601
+    },
+    {
+      "path": "docs/e2e/leader.md",
+      "sha256": "a3ba754e7dac2cb554de5778adb28a9086c6b5ede0534bb7cef66d6ab2c86058",
+      "bytes": 5295
+    },
+    {
+      "path": "docs/e2e/reschedule.md",
+      "sha256": "088fff708bf7739be5f7682069804b32aab5eaa1a5e1d5e5ffa78f9f933b9505",
+      "bytes": 3766
+    },
+    {
+      "path": "docs/e2e/canonical.md",
+      "sha256": "42d3bceeba8cfaf7d602c0ea3704ac73ad8ab2a084283895a661bf0c3282120e",
+      "bytes": 7275
+    },
+    {
+      "path": "docs/e2e/recovery.md",
+      "sha256": "36f0bd8c96796301bbe1e978d6292a31d2911c4497253c346aecd7d0ce840be2",
+      "bytes": 8588
+    },
+    {
+      "path": "docs/e2e/results.md",
+      "sha256": "fe48138a0ef55784eed6a27a724755f27fed0f1a1ea4a18ca17b9e45e1990edb",
+      "bytes": 3047
+    },
+    {
+      "path": "docs/e2e/state-sync.md",
+      "sha256": "c973fe80c48b6043ee256767d7a3622fec78edaea850279f27fffd40464ab07e",
+      "bytes": 3578
+    },
+    {
+      "path": "docs/baselines/precut.md",
+      "sha256": "6ca66de11a463c8b5e78c2793c0ff53665b45b2df0cddf90db72da865043e600",
+      "bytes": 12213
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "2baf9044517a8f79e78c855277f01869f149deeba5550502c0ae482cc34da214",
+      "bytes": 15690
+    },
+    {
+      "path": "docs/reference/verification.md",
+      "sha256": "a3f7af1a89bb5415b368aa85989293fde565186010865525a43a5842fa42669f",
+      "bytes": 7832
+    },
+    {
+      "path": "docs/reference/sources.md",
+      "sha256": "553f14a9762e169ad9a7266054b3cf883498cd5a6588683962e6e01a74680507",
+      "bytes": 2015
+    },
+    {
+      "path": "docs/SUMMARY.md",
+      "sha256": "1651f058c94fba2b36433bc974e28880d6e9a48ca7c0d7a4da56d041841499ac",
+      "bytes": 1897
+    },
+    {
+      "path": "README.md",
+      "sha256": "5f619b66f47621cc2f26e3b6d5f65e52c35c58c0b2b9f5db0c10bb68bf6befca",
+      "bytes": 3854
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "16a18611d99d0fc5ab6aba9ec7f690c94be5625e684de826e8dad59a6947181c",
+      "bytes": 15680
+    },
+    {
+      "path": "BATON_HANDOFF.md",
+      "sha256": "36ad93dbdf5f471ea506d27fd265b3ab2ab71282ec4d83aeb67b128234f50b51",
+      "bytes": 41042
+    },
+    {
+      "path": "IMPLEMENTATION_SPEC.md",
+      "sha256": "2b51e22c3122f32b6e3f005f0599161de6cc20de580cf5d830f54dc98ea12a87",
+      "bytes": 8467
+    },
+    {
+      "path": "docs/assets/interfaces/baton.rs",
+      "sha256": "33a1028ebb501cf0d00c153b451c06d8e2918ec732d368d47be10191fb66eb2c",
+      "bytes": 1245
+    },
+    {
+      "path": "docs/assets/diagrams/render-manifest.json",
+      "sha256": "8f28b7e985aa8ce1f9c96126156bf7e09c3d57f0f17d1faf78b3a5cddb911a63",
+      "bytes": 5187
+    }
+  ]
+}

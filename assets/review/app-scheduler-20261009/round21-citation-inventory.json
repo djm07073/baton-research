@@ -1,0 +1,826 @@
+{
+  "pin": "6233438985d8249d2b2bc1204191d5d405652288",
+  "scope": [
+    "docs/consensus/*.md",
+    "docs/reference/*.md"
+  ],
+  "unique_blob_citations": 53,
+  "blob_citation_occurrences": 65,
+  "distinct_cited_files": 37,
+  "tree_pin_citations": [
+    {
+      "url": "https://github.com/0xEyrie/monorepo/tree/6233438985d8249d2b2bc1204191d5d405652288",
+      "doc": "consensus/README.md",
+      "line": 5,
+      "claim": "This page follows the current parent checkout at [6233438985d8249d2b2bc1204191d5d405652288](https://github.com/0xEyrie/monorepo/tree/6233438985d8249d2b2bc1204191d5d405652288). The earlier `534af0...` research pin predates this Marshal implementation. See [source status](../reference/sources.md)."
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/tree/6233438985d8249d2b2bc1204191d5d405652288",
+      "doc": "reference/integration.md",
+      "line": 7,
+      "claim": "Current native source is [6233438985d8249d2b2bc1204191d5d405652288](https://github.com/0xEyrie/monorepo/tree/6233438985d8249d2b2bc1204191d5d405652288). These anchors describe that checkout, not the older research baseline."
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/tree/6233438985d8249d2b2bc1204191d5d405652288",
+      "doc": "reference/sources.md",
+      "line": 9,
+      "claim": "| [Current native checkout 6233438985d8249d2b2bc1204191d5d405652288](https://github.com/0xEyrie/monorepo/tree/6233438985d8249d2b2bc1204191d5d405652288) | Current Multimmit Engine, Marshal, existing callbacks and `log-multimmit` assembly |"
+    }
+  ],
+  "citations": [
+    {
+      "number": 1,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L260",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 17,
+          "claim": "These are shared Commonware traits. `Reporter` has one associated Activity type: use separate typed ingress handles for native Activity and finalized Update, even when both reach the same App owner. The existing [example assembly](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L260) uses this pattern. No additional public BlockService, Executor or Orderer trait is required."
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/mod.rs#L50",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 19,
+          "claim": "Multimmit uses `n \u2265 5f+1`; Baton comparisons use `n=5f+1`. Keep native tip extraction, extension, signing and recovery. App transaction execution is separate from the private native `AppExecutor`, which dispatches local `propose`/`verify` jobs and returns completions to the machine. [Application contract and fault model](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/mod.rs#L50), [callback executor](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/app.rs#L64)."
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/app.rs#L64",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 19,
+          "claim": "Multimmit uses `n \u2265 5f+1`; Baton comparisons use `n=5f+1`. Keep native tip extraction, extension, signing and recovery. App transaction execution is separate from the private native `AppExecutor`, which dispatches local `propose`/`verify` jobs and returns completions to the machine. [Application contract and fault model](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/mod.rs#L50), [callback executor](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/app.rs#L64)."
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L446",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 55,
+          "claim": "`Engine::open` can call `verify` while restoring retained payloads. Start App custody handlers and Marshal before opening Engine; waiting for `Running::ready` before servicing those callbacks deadlocks recovery. Readiness is separate from App execution progress. [Open/start](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L446), [recovered verification](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/storage/recovery.rs#L466)."
+        },
+        {
+          "doc": "reference/integration.md",
+          "line": 14,
+          "claim": "| 4. Engine startup | [engine/mod.rs](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L446) | Service recovery `verify` callbacks during open; then start planes and await readiness |"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/storage/recovery.rs#L466",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 55,
+          "claim": "`Engine::open` can call `verify` while restoring retained payloads. Start App custody handlers and Marshal before opening Engine; waiting for `Running::ready` before servicing those callbacks deadlocks recovery. Readiness is separate from App execution progress. [Open/start](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L446), [recovered verification](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/storage/recovery.rs#L466)."
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mod.rs",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 61,
+          "claim": "Use current `multimmit::marshal::{open, Mailbox, Relay, Update}` with buffered broadcast, the supplied resolver bridge and `SchemeVerifier`. Marshal already composes its catalog, synchronizer, delivery and retention mechanisms. App implements body codec/digest and transaction validity. [Marshal module](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mod.rs), [concrete assembly](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126)."
+        },
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 7,
+          "claim": "Native Engine finality is sparse and chain-local. Marshal verifies L-QCs, resolves history and ancestry, derives continuous native order, obtains bodies and assigns `OutputIndex`. Its supplied service already owns these responsibilities. `Activity::LeaderFinalized` is an observation of native finality; `Update` is the App's canonical ordered input. [Native finality boundary](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/mod.rs#L93), [Marshal ownership](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mod.rs)."
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 61,
+          "claim": "Use current `multimmit::marshal::{open, Mailbox, Relay, Update}` with buffered broadcast, the supplied resolver bridge and `SchemeVerifier`. Marshal already composes its catalog, synchronizer, delivery and retention mechanisms. App implements body codec/digest and transaction validity. [Marshal module](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mod.rs), [concrete assembly](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126)."
+        },
+        {
+          "doc": "consensus/block-body.md",
+          "line": 26,
+          "claim": "The earlier Tempo/Alto investigation established the buffer/resolver/storage composition. Current native `log-multimmit` supplies directly compatible assembly: buffered full-block broadcast \u2192 `marshal::open` \u2192 resolver bridge \u2192 `Service::relay` \u2192 `Service::start`. Start from [that code](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126). Other chain versions remain [historical references](../reference/integration.md#reference-versions-are-not-one-compatible-dependency-graph)."
+        },
+        {
+          "doc": "reference/integration.md",
+          "line": 12,
+          "claim": "| 2. Marshal assembly | [marshal.rs](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126) | Reuse buffered Engine, `marshal::open`, resolver bridge, supplied Relay and SchemeVerifier |"
+        },
+        {
+          "doc": "reference/integration.md",
+          "line": 117,
+          "claim": "Copy the current [Marshal constructor](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126) and [node constructor](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242). Their configs include body decode limits, peer provider/blocker, resolver timing, archive/cache sizes, committee verification and native strategy separation. Numeric example tuning and mock committee/key generation are not selected application production settings."
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/activity.rs#L58",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 65,
+          "claim": "`Activity` is best-effort and idempotent. Always give native activities to Marshal as the example does. Use [Marshal Update](ordered-input.md) for canonical application input and [verify](../baton/interfaces.md) for opportunistic early work. `CertificateRecorded` has a special retention release contract already consumed by Marshal. [Activity semantics](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/activity.rs#L58)."
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/scheme/bls12381_threshold/claims.rs#L234",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 67,
+          "claim": "For signed candidate provenance, correlate the retained candidate's exact header identity with `TransactionProposed.block` or `ProtocolAccepted` containing `Artifact::TransactionBlock`; neither supplies App execution or body custody. This meaning is artifact-specific: native DA shares are structurally prechecked before aggregate recovery. [Producer-header authentication](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/scheme/bls12381_threshold/claims.rs#L234), [DA share admission](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/verifier/verify.rs#L92)."
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/verifier/verify.rs#L92",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 67,
+          "claim": "For signed candidate provenance, correlate the retained candidate's exact header identity with `TransactionProposed.block` or `ProtocolAccepted` containing `Artifact::TransactionBlock`; neither supplies App execution or body custody. This meaning is artifact-specific: native DA shares are structurally prechecked before aggregate recovery. [Producer-header authentication](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/scheme/bls12381_threshold/claims.rs#L234), [DA share admission](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/verifier/verify.rs#L92)."
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L99",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 69,
+          "claim": "Keep the supplied Marshal mailbox directly in `Reporters`; place optional App observation beside it, without an intervening lossy App queue. Marshal routes releases to a per-chain coalescing catalog lane and retains/coalesces L-QC synchronization inputs under queue pressure. Header/history/direct-finality hints may be dropped; later proof-driven backfill can recover needed material, not replay every observation. Engine ignores Reporter feedback, so `Backoff` requests no retry and `Closed` requires node lifecycle handling. [Marshal ingress policy](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L99), [synchronizer policy](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/synchronizer/mailbox.rs#L152)."
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/synchronizer/mailbox.rs#L152",
+      "uses": [
+        {
+          "doc": "consensus/README.md",
+          "line": 69,
+          "claim": "Keep the supplied Marshal mailbox directly in `Reporters`; place optional App observation beside it, without an intervening lossy App queue. Marshal routes releases to a per-chain coalescing catalog lane and retains/coalesces L-QC synchronization inputs under queue pressure. Header/history/direct-finality hints may be dropped; later proof-driven backfill can recover needed material, not replay every observation. Engine ignores Reporter feedback, so `Backoff` requests no retry and `Closed` requires node lifecycle handling. [Marshal ingress policy](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L99), [synchronizer policy](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/synchronizer/mailbox.rs#L152)."
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L265",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 16,
+          "claim": "Implement the body's existing `Codec` and `Digestible` requirements. The `Body<H>` marker is blanket-implemented for matching types. `TransactionBlock::from_context` constructs the pair; `TransactionBlock::new` verifies a body commitment against an existing header. [Native block types](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L265)."
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/codec/src/codec.rs#L197",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 18,
+          "claim": "Concretely, implement `Write`, `Read`, and `EncodeSize` (or `FixedSize`) for the body; these supply `Codec`. `Digestible` additionally requires `Clone + Send + Sync + 'static`. The body's `Read::Cfg` has those same bounds and supplies Marshal's `body_codec_config`; use it to bound untrusted body decoding. `TransactionBlock` already implements the shared consensus `Block` trait. [Codec requirements](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/codec/src/codec.rs#L197), [digest requirements](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/cryptography/src/lib.rs#L233), [Marshal configuration](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L339)."
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/cryptography/src/lib.rs#L233",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 18,
+          "claim": "Concretely, implement `Write`, `Read`, and `EncodeSize` (or `FixedSize`) for the body; these supply `Codec`. `Digestible` additionally requires `Clone + Send + Sync + 'static`. The body's `Read::Cfg` has those same bounds and supplies Marshal's `body_codec_config`; use it to bound untrusted body decoding. `TransactionBlock` already implements the shared consensus `Block` trait. [Codec requirements](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/codec/src/codec.rs#L197), [digest requirements](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/cryptography/src/lib.rs#L233), [Marshal configuration](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L339)."
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L339",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 18,
+          "claim": "Concretely, implement `Write`, `Read`, and `EncodeSize` (or `FixedSize`) for the body; these supply `Codec`. `Digestible` additionally requires `Clone + Send + Sync + 'static`. The body's `Read::Cfg` has those same bounds and supplies Marshal's `body_codec_config`; use it to bound untrusted body decoding. `TransactionBlock` already implements the shared consensus `Block` trait. [Codec requirements](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/codec/src/codec.rs#L197), [digest requirements](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/cryptography/src/lib.rs#L233), [Marshal configuration](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L339)."
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L327",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 37,
+          "claim": "Accepted DA evidence may independently trigger backfill that fulfills a subscription. `get_block` can read buffered local material, and `fetch_block` can complete after buffered admission before its storage sync. Neither success alone establishes the verify custody fence. Use successful `subscribe_block`, `put_block`, or a staged Custody token's successful wait; a successful subscription needs no redundant second flush. [Mailbox contracts](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L327)."
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/router.rs#L330",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 39,
+          "claim": "If missing broadcast requires active retrieval, start `fetch_block(reference)` without waiting for the pending subscription to finish. When fetch supplies the exact valid block first, `put_block(block).await` can establish custody and the superseded subscription can be canceled. Do not assume a successful fetch wakes every earlier subscription: a subscription whose backfill wait failed may still be waiting only on buffered ingress. This uses the existing APIs; a subscription that already succeeded needs no extra put. [Subscription race](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/router.rs#L330)."
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L309",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 48,
+          "claim": "This is the example's [build/stage/answer](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L309) and native [custody sequence](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/app.rs#L121). Waiting for `put_block` before the proposal answer also satisfies the contract. Neither requires speculative execution completion."
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/app.rs#L121",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 48,
+          "claim": "This is the example's [build/stage/answer](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L309) and native [custody sequence](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/app.rs#L121). Waiting for `put_block` before the proposal answer also satisfies the contract. Neither requires speculative execution completion."
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/lib.rs#L134",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 50,
+          "claim": "The callback futures yield oneshot receivers. Keep temporary missing input pending; a definite proposal decline may close its receiver. Returning a digest commits App to verifying that contextual payload. An uncanceled local verification failure is a fatal Engine error (internally `Fatal::Automaton`); resource pressure cannot become payload invalidity. [Automaton contract](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/lib.rs#L134), [local failure](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/live.rs#L578)."
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/live.rs#L578",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 50,
+          "claim": "The callback futures yield oneshot receivers. Keep temporary missing input pending; a definite proposal decline may close its receiver. Returning a digest commits App to verifying that contextual payload. An uncanceled local verification failure is a fatal Engine error (internally `Fatal::Automaton`); resource pressure cannot become payload invalidity. [Automaton contract](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/lib.rs#L134), [local failure](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/live.rs#L578)."
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/publish.rs#L124",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 54,
+          "claim": "Headers and bodies have separate channels. A receiver may authenticate a header first and wait for its body, or buffer a body before native header admission. Sender-side Relay submission before native transmission does not guarantee receiver arrival order. [Native publication](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/publish.rs#L124), [supplied Relay](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/relay.rs#L107)."
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/relay.rs#L107",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 54,
+          "claim": "Headers and bodies have separate channels. A receiver may authenticate a header first and wait for its body, or buffer a body before native header admission. Sender-side Relay submission before native transmission does not guarantee receiver arrival order. [Native publication](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/publish.rs#L124), [supplied Relay](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/relay.rs#L107)."
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/chain_plane.rs#L522",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 56,
+          "claim": "For a remote lane, native authentication/ancestry eligibility precedes `verify`. A producer parent may still be pending application validation; dispatch does not prove all predecessor payloads are already valid/available for App scheduling. App reconstructs the expected header from context/body digest, subscribes by its exact BlockRef, checks application bytes, retains eligible scheduler candidate state and resolves true. Execution then runs asynchronously when its exact execution parent is ready. True does not wait for speculative execution, report collection or result certification. [Remote dispatch](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/chain_plane.rs#L522), [custody verification](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L70)."
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L70",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 56,
+          "claim": "For a remote lane, native authentication/ancestry eligibility precedes `verify`. A producer parent may still be pending application validation; dispatch does not prove all predecessor payloads are already valid/available for App scheduling. App reconstructs the expected header from context/body digest, subscribes by its exact BlockRef, checks application bytes, retains eligible scheduler candidate state and resolves true. Execution then runs asynchronously when its exact execution parent is ready. True does not wait for speculative execution, report collection or result certification. [Remote dispatch](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/chain_plane.rs#L522), [custody verification](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L70)."
+        },
+        {
+          "doc": "reference/integration.md",
+          "line": 13,
+          "claim": "| 3. Application callbacks | [application/actor.rs](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L70) | Replace synthetic body construction/checks with App pool and validity; register scheduling independently of execution completion |"
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/config/protocol.rs#L197",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 60,
+          "claim": "For a producing validator, derive the local lane from the epoch's `Protocol::producer_chain(participant)` before comparing it with `context.chain()`: participant and chain indices need not match. A nonproducing validator has no local lane to exclude. [Producer assignment](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/config/protocol.rs#L197)."
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/machine/eligibility.rs#L326",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 62,
+          "claim": "The shared Automaton contract describes requests as single-shot and reserves closure for terminal inability. Current Multimmit remote validation nevertheless maps a closed receiver to `Unavailable` and schedules that block again; local closure is fatal and recovery closure makes `Engine::open` fail. Keep temporary absence pending instead of using this remote behavior as a retry API, and tolerate repeated calls even without restart. [Remote rescheduling](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/machine/eligibility.rs#L326)."
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L313",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 66,
+          "claim": "`stage_block` can return `Busy` when router intake is full, and explicit `fetch_block` can return `Busy` at the pending-fetch bound. `subscribe_block` waits for a caller slot instead of rejecting that intake pressure; its acquisition and custody can still fail. Handle recoverable pressure within the live request's cancellation/lifecycle policy, without returning false or claiming custody. `Closed` signals a stopped service; a `Failed` result needs its underlying cause assessed. Failed mutable storage requires recovery of that instance. [Request/error paths](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L313), [public errors](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L178)."
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L178",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 66,
+          "claim": "`stage_block` can return `Busy` when router intake is full, and explicit `fetch_block` can return `Busy` at the pending-fetch bound. `subscribe_block` waits for a caller slot instead of rejecting that intake pressure; its acquisition and custody can still fail. Handle recoverable pressure within the live request's cancellation/lifecycle policy, without returning false or claiming custody. `Closed` signals a stopped service; a `Failed` result needs its underlying cause assessed. Failed mutable storage requires recovery of that instance. [Request/error paths](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L313), [public errors](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L178)."
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L449",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 68,
+          "claim": "Marshal already bounds native custody retention with `CertificateRecorded`, floors and the durable ACK cursor. During ordinary delivery, `prune` protects outputs beyond the current ACK cursor and blocks Engine may reverify. A coordinated floor installation replaces the delivery boundary; it does not install App state itself. App separately retains live execution/checkpoint/result material. [Retention API](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L449)."
+        },
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 46,
+          "claim": "Reuse these owners directly. A second Baton proof archive, global-order interpreter, delivery cursor database or public Orderer contract would duplicate existing code. [Mailbox APIs](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L449)."
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/activity.rs#L104",
+      "uses": [
+        {
+          "doc": "consensus/block-body.md",
+          "line": 70,
+          "claim": "`CertificateRecorded.released` is a per-producer custody bound that trails the certified height by the native pipeline depth; it is not the App's applied index. A previously dispatched verify can still reach App after release, but Engine ignores its settled verdict. Do not recreate speculative work for that stale request. Route native activities to Marshal so its existing retention can use the release; no release conservatively keeps bodies. App transaction/result/query retention has separate obligations. [Release contract](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/activity.rs#L104)."
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L802",
+      "uses": [
+        {
+          "doc": "consensus/decisions.md",
+          "line": 7,
+          "claim": "**Status: not implemented or proved.** Current `LeaderBlock` contains `round`, `parent`, `history` and per-lane `proposals`. It carries no selected Baton cross-lane prefix or frozen policy. `Automaton::propose` constructs a producer body, not this leader proposal; `Reporter<Activity>` observes admitted activity and cannot validate proposals before voting. [Current LeaderBlock](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L802)."
+        },
+        {
+          "doc": "reference/integration.md",
+          "line": 16,
+          "claim": "| 6. Native policy boundary | [LeaderBlock](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L802), [Marshal order](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/protocol/order.rs) | Full Baton needs authenticated policy construction/validation/continuation/recovery; callbacks alone do not provide it |"
+        }
+      ]
+    },
+    {
+      "number": 34,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/mod.rs#L93",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 7,
+          "claim": "Native Engine finality is sparse and chain-local. Marshal verifies L-QCs, resolves history and ancestry, derives continuous native order, obtains bodies and assigns `OutputIndex`. Its supplied service already owns these responsibilities. `Activity::LeaderFinalized` is an observation of native finality; `Update` is the App's canonical ordered input. [Native finality boundary](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/mod.rs#L93), [Marshal ownership](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mod.rs)."
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L128",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 17,
+          "claim": "[Update definition](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L128)."
+        },
+        {
+          "doc": "reference/integration.md",
+          "line": 15,
+          "claim": "| 5. Ordered input | [Update](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L128) | Retain canonical input and ACK, select/reuse/repair execution, durably apply, acknowledge |"
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L235",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 27,
+          "claim": "Marshal can report multiple Updates before receiving their ACKs, up to configured `max_pending_acks`. It advances the oldest contiguous acknowledged prefix and synchronizes its own durable cursor separately. Native voting, views and finality do not await application ACKs. A full delivery window pauses further App delivery, while native consensus continues. [Delivery loop](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L235), [ACK window](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/acks.rs#L1)."
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/acks.rs#L1",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 27,
+          "claim": "Marshal can report multiple Updates before receiving their ACKs, up to configured `max_pending_acks`. It advances the oldest contiguous acknowledged prefix and synchronizes its own durable cursor separately. Native voting, views and finality do not await application ACKs. A full delivery window pauses further App delivery, while native consensus continues. [Delivery loop](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L235), [ACK window](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/acks.rs#L1)."
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L303",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 29,
+          "claim": "For ordinary delivery within one generation, give Updates a non-dropping owned queue whose capacity accounts for that delivery window; do not share a lossy notification queue. Delivery checks `Feedback::Closed`, but a `Backoff` return does not request an Update retry. Keep its ACK while queued and while application work runs. All cloned Exact handles must acknowledge; dropping any unacknowledged clone cancels the waiter and fails delivery. [Report handling](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L303), [Exact semantics](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/utils/src/acknowledgement.rs#L38)."
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/utils/src/acknowledgement.rs#L38",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 29,
+          "claim": "For ordinary delivery within one generation, give Updates a non-dropping owned queue whose capacity accounts for that delivery window; do not share a lossy notification queue. Delivery checks `Feedback::Closed`, but a `Backoff` return does not request an Update retry. Keep its ACK while queued and while application work runs. All cloned Exact handles must acknowledge; dropping any unacknowledged clone cancels the waiter and fails delivery. [Report handling](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L303), [Exact semantics](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/utils/src/acknowledgement.rs#L38)."
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L423",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 33,
+          "claim": "A floor installation resets Marshal's delivery generation and discards its old waiters; it does not remove Update values already retained by App. The new generation can deliver another window, so `max_pending_acks` alone does not bound old plus new App-held work. Update has no generation field. App owns the floor/import lifecycle and must serialize and fence that handoff, reconcile old retained input/tokens, and budget any overlap before resuming ordinary delivery. Exact switching and crash sequencing remain implementation work. [Native reset](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L423)."
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/reporter.rs#L33",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 35,
+          "claim": "The example's headless reporter immediately acknowledges synthetic output; it has no transaction-state database. Use it as a wiring example, not an application durability contract. [Example output reporter](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/reporter.rs#L33)."
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L164",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 48,
+          "claim": "Fresh-namespace `Start::Floor { floor_generation, floor }` is a caller-authenticated import: authenticate the anchor signature and bind the emitted frontier and positive monotone `floor_generation` to the App snapshot before opening. `Config::validate` and `marshal::open` check structure/history linkage, not that anchor's signature; a recovered checkpoint takes precedence over Start. For a peer-served floor, the native source recommends `Start::Genesis` followed by verified `install_floor`. Reuse that verifier path while App authenticates and durably installs the matching state; no second App order interpreter is needed. [Startup authority](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L164)."
+        },
+        {
+          "doc": "reference/integration.md",
+          "line": 58,
+          "claim": "For checkpoint bootstrap, `Start::Floor` only seeds a fresh namespace and requires caller authentication of its anchor and snapshot binding; recovered storage wins over Start. Open/config validation does not verify that anchor signature, and the later `Service::start` verifier does not retroactively authenticate it. Prefer the documented `Start::Genesis` plus `install_floor` path for peer-served floors, coordinated with App state import. [Existing startup contract](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L164), [floor and App authority](../consensus/ordered-input.md#reuse-proof-verification-and-storage)."
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/protocol/order.rs#L361",
+      "uses": [
+        {
+          "doc": "consensus/ordered-input.md",
+          "line": 50,
+          "claim": "Current Marshal follows native history traversal and positional/extension passes, including final-sweep halt conditions. It does not expose an App-selected ordering comparator. Missing required history or included bodies cannot be treated as empty slots. [Native order reconstruction](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/protocol/order.rs#L361)."
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242",
+      "uses": [
+        {
+          "doc": "reference/integration.md",
+          "line": 11,
+          "claim": "| 1. Node assembly | [node.rs](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242) | Register four Engine planes, Marshal resolver and body-broadcast channels; construct typed App handles |"
+        },
+        {
+          "doc": "reference/integration.md",
+          "line": 117,
+          "claim": "Copy the current [Marshal constructor](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126) and [node constructor](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242). Their configs include body decode limits, peer provider/blocker, resolver timing, archive/cache sizes, committee verification and native strategy separation. Numeric example tuning and mock committee/key generation are not selected application production settings."
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/protocol/order.rs",
+      "uses": [
+        {
+          "doc": "reference/integration.md",
+          "line": 16,
+          "claim": "| 6. Native policy boundary | [LeaderBlock](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L802), [Marshal order](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/protocol/order.rs) | Full Baton needs authenticated policy construction/validation/continuation/recovery; callbacks alone do not provide it |"
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/mod.rs#L1",
+      "uses": [
+        {
+          "doc": "reference/integration.md",
+          "line": 44,
+          "claim": "`Engine::open` spawns no native actors. `marshal::open` already starts its catalog and optional promoter; `Service::start` starts the remaining Marshal actors. Own that entire startup attempt through the existing node/runtime lifetime so a later open failure does not leave earlier services unmanaged. [Marshal lifecycle](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/mod.rs#L1)."
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L550",
+      "uses": [
+        {
+          "doc": "reference/integration.md",
+          "line": 50,
+          "claim": "Pass native Activity directly to the supplied Marshal mailbox; an optional App observer is a sibling, not a forwarding dependency. Use its existing [pressure policy](../consensus/README.md#native-activities). Configure `catalog_mailbox_size`, `resolver_mailbox_size` and `backfill_concurrency` through Marshal's existing capacities; these derive router jobs/subscription slots and backfill bounds. They do not make every hint reliable or convert service errors into invalid-payload verdicts. [Derived actor bounds](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L550)."
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/supervisor.rs#L64",
+      "uses": [
+        {
+          "doc": "reference/integration.md",
+          "line": 54,
+          "claim": "Own service handles through existing runtime supervision. Engine and Marshal each supervise their own actors; the node owner coordinates failures and shutdown across Engine, App and transport lifetimes. Unexpected handle completion is a stop signal even when its result is Ok. Stop native callback producers and fence App work before tearing down body/state services. Abort/join is task termination, not an App flush barrier. Reopen matching native custody and application state on restart; native readiness is not durable application readiness. [Startup/recovery](../e2e/recovery.md), [Marshal supervisor](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/supervisor.rs#L64)."
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L60",
+      "uses": [
+        {
+          "doc": "reference/integration.md",
+          "line": 56,
+          "claim": "Use the callback response's existing cancellation signal to stop obsolete App waits, as the example does. Canceling a request does not undo accepted staging or a subscription's begun durable settlement. Stopping the service also does not guarantee those writes completed: only the successful custody/durable-apply boundary supports the corresponding promise. [Callback cancellation](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L60), [subscription lifecycle](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/subscriptions.rs#L1)."
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/subscriptions.rs#L1",
+      "uses": [
+        {
+          "doc": "reference/integration.md",
+          "line": 56,
+          "claim": "Use the callback response's existing cancellation signal to stop obsolete App waits, as the example does. Canceling a request does not undo accepted staging or a subscription's begun durable settlement. Stopping the service also does not guarantee those writes completed: only the successful custody/durable-apply boundary supports the corresponding promise. [Callback cancellation](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L60), [subscription lifecycle](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/subscriptions.rs#L1)."
+        }
+      ]
+    },
+    {
+      "number": 51,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/tests.rs",
+      "uses": [
+        {
+          "doc": "reference/verification.md",
+          "line": 5,
+          "claim": "Use the deterministic Commonware runtime and simulated network with the same public Sender/Receiver interfaces as deployment. Construct real App callbacks and current Multimmit Marshal; native mock callbacks alone do not establish transaction/body/scheduler behavior. Reuse the current [Marshal integration fixtures](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/tests.rs) for assembly patterns."
+        },
+        {
+          "doc": "reference/verification.md",
+          "line": 38,
+          "claim": "Existing native tests include custody subscriptions, staged Relay, exact body/history backfill, restart redelivery and bounded ACK pipelining. Their presence is source evidence of native mechanisms, not proof that the proposed App has been tested. Useful starting points are `buffered_ingress_subscription_establishes_durable_custody`, `production_engine_reporter_survives_engine_and_marshal_restart`, `crash_redelivers_only_until_acknowledgement_is_durable`, and `delivery_pipelines_exact_acknowledgements_up_to_the_configured_bound` in the [current Marshal tests](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/tests.rs)."
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/runtime/src/mocks.rs#L1240",
+      "uses": [
+        {
+          "doc": "reference/verification.md",
+          "line": 14,
+          "claim": "Inspect the current sync controls rather than copying an older API name. Observe actual operation gates/completion counts; starting a sync does not prove durability. A lost application ACK is a separate boundary after application state is durable. Runtime mocks model their storage abstraction, not every possible physical device failure. [Current sync controls](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/runtime/src/mocks.rs#L1240), [runtime recovery](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/runtime/src/deterministic.rs#L578)."
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/runtime/src/deterministic.rs#L578",
+      "uses": [
+        {
+          "doc": "reference/verification.md",
+          "line": 14,
+          "claim": "Inspect the current sync controls rather than copying an older API name. Observe actual operation gates/completion counts; starting a sync does not prove durability. A lost application ACK is a separate boundary after application state is durable. Runtime mocks model their storage abstraction, not every possible physical device failure. [Current sync controls](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/runtime/src/mocks.rs#L1240), [runtime recovery](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/runtime/src/deterministic.rs#L578)."
+        }
+      ]
+    }
+  ],
+  "source_files": {
+    "examples/log-multimmit/src/node.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "74f3f522b8b3777add05e44bdfdb62164b46c72f8000ecd33d2637c35200dfae"
+    },
+    "consensus/src/multimmit/mod.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "a7dc8ead32d1a5b4687e951e8105ed9cbef431cfc2808c881dd6c1fdc801d46b"
+    },
+    "consensus/src/multimmit/actors/voter/actor/app.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "8f1b6d8b7a5bf3077ad0d5ed45104a0e2891e0b3aa7adfeedb4349760c745312"
+    },
+    "consensus/src/multimmit/engine/mod.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "f846af7ff5bd290c087cc6c676cb473ecab6cb936d8f2c15c493c27fb47818a7"
+    },
+    "consensus/src/multimmit/storage/recovery.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "64f8b6d68886c51de555f699f40e599594cd17214b42c4424cc30ae0b623247f"
+    },
+    "consensus/src/multimmit/marshal/mod.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "f477c7444df3e18693344fb578b05d1fc1c800b6a4f6768ec1927e19804fc13e"
+    },
+    "examples/log-multimmit/src/marshal.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "1f4fe669d2883fd3508b59929e1bc52136c9f7619dc2eb12d745df62dfb02d87"
+    },
+    "consensus/src/multimmit/types/activity.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "7198a9626e39913841d951eac2f5e05dd3c7dfe54144a3fb4edc213f4c60474f"
+    },
+    "consensus/src/multimmit/scheme/bls12381_threshold/claims.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "3477d1fafc73a722cff8908df0e78c2f1695bad61364ec41ea3d5570fb894f48"
+    },
+    "consensus/src/multimmit/actors/verifier/verify.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "b53476a2a58e6539106cd9b72be1c6b7aa72689299fcff64535789e4bb47b22a"
+    },
+    "consensus/src/multimmit/marshal/mailbox.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "b81299e900e9f37d0dea1e60c700cd02b9c4a7c2202cecfc15b7f04813d0a4c7"
+    },
+    "consensus/src/multimmit/marshal/actors/synchronizer/mailbox.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "5dab3bf0c73863a2fb30a25cef198ab1409f23ef4124a71606e261ee3c615351"
+    },
+    "consensus/src/multimmit/types/block.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "10f0eaae1519052669c1311a3975598ff30ed8628ce22bff0f300abf6230b3e7"
+    },
+    "codec/src/codec.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "49cc14ea607fc4ece84cdbf25cba96b7f7ad675fe24614fe8a2287d93baeb3fd"
+    },
+    "cryptography/src/lib.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "1d243f6936c55dd4c2d89eb70d5ed61aa15c780f4a893a14332aa2c527ba7574"
+    },
+    "consensus/src/multimmit/marshal/config.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "cd7fe1a918fd9e3a00f7d598556b9b7f886b52c0b291623f4d1dcdf99e022f7c"
+    },
+    "consensus/src/multimmit/marshal/service/router.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "512ed03c4a9436353d6c21632d7b58392601acc07af7599f8be2645747f73f5f"
+    },
+    "examples/log-multimmit/src/application/actor.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "7745d1ee6fc3b06f4bc15aaad3f8965bfc5a7593d7c49f333f88f1ebc5b15c22"
+    },
+    "consensus/src/lib.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "10ee4b31e18bb0ceeebdfac3128290f5b6b0f6a46d647d07429335ac0dcd39f9"
+    },
+    "consensus/src/multimmit/actors/voter/actor/live.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "d394e235f5fc252e44963acde3ecae5a0e47aa9ac9ac8e02336679a1bec70f52"
+    },
+    "consensus/src/multimmit/actors/voter/actor/publish.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "35f2ff683a1152b35427800eb88321657d88d44e43d7ff6cd763cc824372febd"
+    },
+    "consensus/src/multimmit/marshal/relay.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "ee59df2747fd29a9f1a867a11220fb239e96e4a983a31adc3002b2a7318bfd5f"
+    },
+    "consensus/src/multimmit/actors/voter/chain_plane.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "31049470c8b3fa1efcab48d4ba0140becbd8f1f48759f04ddad5ef1a3b6a7d3b"
+    },
+    "consensus/src/multimmit/config/protocol.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "e737706ee2ff02bd7800a10f644a292da3515af1d498d6d1ee42801d71d26fe6"
+    },
+    "consensus/src/multimmit/machine/eligibility.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "25fa9b471b6dbeda1de556992b999131e2a78afe4c0e980b639d0d708b62dfbb"
+    },
+    "consensus/src/multimmit/marshal/types.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "f5fb70336398760dbfba256736d460d5544204677b9bc3e84fe57c3ce07388bd"
+    },
+    "consensus/src/multimmit/marshal/actors/delivery/actor.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "dacc581a3d3b3e1be4ca83b76b38202391a0dd33240e5eaf9c0f5d25085a853b"
+    },
+    "consensus/src/multimmit/marshal/actors/delivery/acks.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "9028b098b5d672bcdce28608b96a2d655e1f4c03bc374f0dee95e61675041085"
+    },
+    "utils/src/acknowledgement.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8"
+    },
+    "examples/log-multimmit/src/application/reporter.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "14d2ddc3fa248fc1ddcf6ebefb16ec2f5127532ce0e551ca53389bfdb5a0109c"
+    },
+    "consensus/src/multimmit/marshal/protocol/order.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "d1cac14edc62c26903d7c571467e66607ee07eafa7ee110e96ade76cf6782081"
+    },
+    "consensus/src/multimmit/marshal/service/mod.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "c21ce05466dbd4d9ecabf67b0f14d2829f54b9fd7c945bee129ae20270e7bd97"
+    },
+    "consensus/src/multimmit/marshal/service/supervisor.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "e180514484bb179e04248fc789d2d01f3102d5e41432a161f69f165115d0db1a"
+    },
+    "consensus/src/multimmit/marshal/service/subscriptions.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "9c62b37126d9842dc571e7fade85965f55cfea0a4b552180f4109133edfc72e4"
+    },
+    "consensus/src/multimmit/marshal/tests.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "42007b1cc627bb7744f37528fa8b0981508c390f654af9f51dc5fc40d1ddeb7f"
+    },
+    "runtime/src/mocks.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "8813d91812ccaa16ae860dfae45538be2cec26cf5149c3c804d929e20f50f660"
+    },
+    "runtime/src/deterministic.rs": {
+      "matches_pinned_blob": true,
+      "sha256": "024e14bcc0bf090925a8d9746a16f3b3bc0b0b3d1537e7e9b3aa5159d34af8e9"
+    }
+  },
+  "limits": "Local source text and pinned Git blob comparison only. Remote URL reachability and native runtime tests not checked."
+}

@@ -1,0 +1,305 @@
+{
+  "pin": "6233438985d8249d2b2bc1204191d5d405652288",
+  "unique_links": 23,
+  "items": [
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/cryptography/src/certificate.rs",
+      "source_path": "cryptography/src/certificate.rs",
+      "start_line": 1,
+      "sha256": "b3901c46106ec544ae3793e413cceef1d255472bcbecd03101c477961413f9b8",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/interfaces.md",
+          "label": "certificate APIs"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/p2p/src/utils/codec.rs",
+      "source_path": "p2p/src/utils/codec.rs",
+      "start_line": 1,
+      "sha256": "f8535af175d1fe4aa8540dff3be11d398d135e0f173f6e652f1c37013848ddfe",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/interfaces.md",
+          "label": "typed transport"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/collector/src/p2p/engine.rs#L190",
+      "source_path": "collector/src/p2p/engine.rs",
+      "start_line": 190,
+      "sha256": "81c967951e5787fefcfc8c65ca7abe3d5d6acd15ccd0bc0236fdb660037518aa",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/interfaces.md",
+          "label": "collector response handling"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/utils/src/faults.rs",
+      "source_path": "utils/src/faults.rs",
+      "start_line": 1,
+      "sha256": "2fcb405f20d0c198c458d02a25f9cf2bc1f16db3a87039daa99e0eba7d158d4f",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/interfaces.md",
+          "label": "Current fault model"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/mod.rs",
+      "source_path": "storage/src/qmdb/mod.rs",
+      "start_line": 1,
+      "sha256": "1239567ff0cbf722a7ca898dd7db30e324d0c86eb455699c4af8221ca1b00154",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/qmdb.md",
+          "label": "QMDB"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/db.rs#L274",
+      "source_path": "storage/src/qmdb/current/db.rs",
+      "start_line": 274,
+      "sha256": "857f407a0d728f5ab849247f9683a1d2dfbfb0592dc1c30e2626aad8d58f2bfd",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/qmdb.md",
+          "label": "Current root/witness"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L498",
+      "source_path": "glue/src/stateful/db/mod.rs",
+      "start_line": 498,
+      "sha256": "1f3d8c538efcb717868a0911280d34e6ebae65912c9ba49df98731045e1d614d",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/qmdb.md",
+          "label": "Current DatabaseSet"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L327",
+      "source_path": "glue/src/stateful/db/mod.rs",
+      "start_line": 327,
+      "sha256": "1f3d8c538efcb717868a0911280d34e6ebae65912c9ba49df98731045e1d614d",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/qmdb.md",
+          "label": "ManagedDb ownership"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/any.rs#L95",
+      "source_path": "glue/src/stateful/db/any.rs",
+      "start_line": 95,
+      "sha256": "c429161cfc158bcbfff25a82301dde4838b9b44a9e10d1fc088bda1bbc6260c8",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/qmdb.md",
+          "label": "Any wrapper"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L148",
+      "source_path": "glue/src/stateful/db/mod.rs",
+      "start_line": 148,
+      "sha256": "1f3d8c538efcb717868a0911280d34e6ebae65912c9ba49df98731045e1d614d",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/qmdb.md",
+          "label": "Existing lock contract"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/any/batch.rs#L2855",
+      "source_path": "storage/src/qmdb/any/batch.rs",
+      "start_line": 2855,
+      "sha256": "038381d494051f415f68a992943d67d28827daf71a5528d78c31b523fd27af58",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/qmdb.md",
+          "label": "Ancestor retention"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/db.rs#L665",
+      "source_path": "storage/src/qmdb/current/db.rs",
+      "start_line": 665,
+      "sha256": "857f407a0d728f5ab849247f9683a1d2dfbfb0592dc1c30e2626aad8d58f2bfd",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/qmdb.md",
+          "label": "Current preflight/apply"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L334",
+      "source_path": "glue/src/stateful/db/mod.rs",
+      "start_line": 334,
+      "sha256": "1f3d8c538efcb717868a0911280d34e6ebae65912c9ba49df98731045e1d614d",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/qmdb.md",
+          "label": "Existing recovery contract"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/sync/mod.rs",
+      "source_path": "storage/src/qmdb/sync/mod.rs",
+      "start_line": 1,
+      "sha256": "9d11820e694a26e723f88a7583a8109e8a7a138c12e20eeffd2fbe9e37ec0f64",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "Sync trust model and entry point"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/sync/target.rs#L11",
+      "source_path": "storage/src/qmdb/sync/target.rs",
+      "start_line": 11,
+      "sha256": "64340009cbeaaf8a0fcf0033f73b9a6f21bcda39892776ec9d959b355ce40d1c",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "Target"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/proof/mod.rs#L125",
+      "source_path": "storage/src/qmdb/current/proof/mod.rs",
+      "start_line": 125,
+      "sha256": "ea29424d3ae9dc53160d594fc8e01a1c74e0af69fd9bd4f6ac9e3ed91dfbebfe",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "Current witness"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/sync/engine.rs#L691",
+      "source_path": "storage/src/qmdb/sync/engine.rs",
+      "start_line": 691,
+      "sha256": "7facf7472338d776389154d53ee11ffa1ff6fee65b659c9a2d55b0d1d4219e54",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "Current engine completion"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/sync/journal.rs#L21",
+      "source_path": "storage/src/qmdb/sync/journal.rs",
+      "start_line": 21,
+      "sha256": "56b2abdd3c7d0dbd12ecdd69e7c3c2344cc1f82cebdcfe0513143c719f0e8b1c",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "Journal initialization contract"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/sync/mod.rs#L152",
+      "source_path": "storage/src/qmdb/current/sync/mod.rs",
+      "start_line": 152,
+      "sha256": "31fc2472910f229ac8958c7373cdceb434924527e9c966bdf5f19297ed15013e",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "Current range requirement"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/p2p/mailbox.rs#L161",
+      "source_path": "glue/src/stateful/db/p2p/mailbox.rs",
+      "start_line": 161,
+      "sha256": "158d139af144e09747a81719e489fd443fe0c69a35dac50b072b33b01b7968f3",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "DB P2P mailbox"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L450",
+      "source_path": "consensus/src/multimmit/marshal/mailbox.rs",
+      "start_line": 450,
+      "sha256": "b81299e900e9f37d0dea1e60c700cd02b9c4a7c2202cecfc15b7f04813d0a4c7",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "Marshal floor APIs"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L163",
+      "source_path": "consensus/src/multimmit/marshal/config.rs",
+      "start_line": 163,
+      "sha256": "cd7fe1a918fd9e3a00f7d598556b9b7f886b52c0b291623f4d1dcdf99e022f7c",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "Existing startup contract"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L423",
+      "source_path": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "start_line": 423,
+      "sha256": "dacc581a3d3b3e1be4ca83b76b38202391a0dd33240e5eaf9c0f5d25085a853b",
+      "matches_pinned_blob": true,
+      "references": [
+        {
+          "doc": "docs/execution/state-sync.md",
+          "label": "Delivery reset"
+        }
+      ]
+    }
+  ]
+}

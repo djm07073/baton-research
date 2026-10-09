@@ -1,38 +1,41 @@
 # P2P and message paths
 
-**Commonware P2P carries the messages between nodes.** Logical channels separate transactions, bodies, native consensus, Baton scheduling, and execution results while sharing the same network.
+**Reuse one Commonware network and the existing Multimmit/Marshal channels.** App transaction, report/direction and execution-result messages can use additional logical channels on that network. They need no second networking stack.
 
 ## P2P connections and message planes
 
-| Plane | Participants | Payload | Channel ID |
-|---|---|---|---|
-| Native data | Native peers | `DataMessage::Block / DaVote / DaCertificate` | Existing example: `0` |
-| Native consensus | Native peers | `ConsensusMessage::Proposal / Vote / NoVote / Nullify` | Existing example: `1` |
-| Native certificates | Native peers | `CertificateMessage::Nullification / Vqc / Lqc` | Existing example: `2` |
-| Native resolver | Native peers | Native view proofs and recovery material | Existing example: `3` |
-| Application tx | Tx peers, admission adapter, producer pool | Transaction bytes / inventory; concrete format undecided | |
-| Application body | Body store / resolver peers | Body bytes and fetch responses for exact references | |
-| Baton report | Validator Baton ↔ leader Baton | Window announcement / signed intended-order report | |
-| Baton direction | Leader Baton → producer / executor Baton | Advisory direction | |
-| Execution result / state sync | Validator Executor ↔ Executor; query consumer → Executor | Exact statement signatures, result certificates, change sets, queries, and retries | |
+| Plane | Payload | Current example channel |
+|---|---|---|
+| Native data | Signed producer headers, DA votes and DA certificates | `0` |
+| Native consensus | Leader proposals, votes, no-votes and nullification messages | `1` |
+| Native certificates | Nullification, V-QC and L-QC certificates | `2` |
+| Native resolver | Native view proofs and recovery material | `3` |
+| Marshal resolver | Exact block/history/certificate backfill | `4` |
+| Marshal broadcast | Complete `TransactionBlock` values with header and body | `5` |
+| App transactions | Bounded transaction messages / inventory according to selected pool policy | Undecided |
+| App Baton reports / direction | Signed intended-order reports, window context and advisory direction | Undecided |
+| App execution results / state sync | Exact statements, signatures, result certificates, material and queries | Undecided |
 
-Additional planes can use logical channels on the same Commonware network. The design does not require a new physical connection or a separate P2P stack per plane. Transport authentication and message-context verification are separate responsibilities. Transactions, bodies, and reports still compete for CPU, queues, and bandwidth. A logical no-wait rule does not guarantee physical resource isolation. Runtime placement and quotas remain undecided.
+The first six IDs are an example node's assembly choices, not protocol-mandated IDs. Pre-cut has no Baton report/direction channel. Transport peer authentication does not establish application statement validity or epoch signer membership. Report, body and transaction floods still compete for processing and bandwidth; queues, quotas and runtime placement must keep native work serviceable.
 
 ## Reuse the existing network handles
 
-**Register channels once, then pass their handles to existing engines.** At the native pin, `discovery::Network::register(channel, quota)` returns a Sender/Receiver pair. Register all channels before starting the network. The pinned log-multimmit example still passes a third `256` argument; use the actual two-argument primitive signature when adapting that wiring reference. This is a source mismatch, not a recorded compiler result or a reason to change the native pin. [Network API](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/discovery/network.rs#L169), [example calls](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/examples/log-multimmit/src/main.rs#L366).
+The [current log-multimmit node](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242) registers all channels with `network.register(channel, quota)`, starts the network, then starts Marshal and the App before opening Engine. The old example/signature mismatch recorded in historical reviews is not the current wiring.
 
-| Connection | Existing handle or API | Application responsibility |
+| Connection | Existing mechanism | App responsibility |
 |---|---|---|
-| Body broadcast channel | `buffered::Engine::start((sender, receiver))` | Body codec/config, retained body mapping and recipients |
-| Missing-body/history channel | `resolver::p2p::Engine::start((sender, receiver))` | Archive-backed Producer, verifying Consumer and exact request keys |
-| Peer discovery/availability | Network Oracle, Provider and Blocker | Use the tracked peer set appropriate for serving; no separate peer-discovery actor is required just to connect engines |
-| Typed application messages | `p2p::utils::codec::wrap` | Supply tx/report/direction/result schemas, decode limits and subject verification |
+| Complete block broadcast | `buffered::Engine` and Marshal's existing `Relay` | Define bounded body codec/digest and stage exact local blocks |
+| Missing block/history retrieval | Generic resolver plus Marshal's `BackfillBridge` | Request exact references through Marshal; do not recreate a fetch/cache engine |
+| Native activity → Marshal | Marshal `Mailbox` implements `Reporter<Activity>` | Compose with optional App observation using existing `Reporters` |
+| Finalized blocks → App | App handle implements `Reporter<Update<TransactionBlock>>` | Retain every accepted Update, process in order, ACK after durable apply |
+| Typed App P2P | Existing codec wrapping and registered channel handles | Bounded decode, schema, subject validation and per-message semantics |
 
-Both ends of a channel and the consuming engine must use the same authenticated public-key type. A relay peer can serve a body authored by another producer. Transport peers, currently connected recipients and eligible execution-result signers are different sets; verify author/committee membership in the signed application subject. An Oracle clone supplies transport services, not trusted epoch-signing provenance. [Typed channel wrapper](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L16).
+Follow the [existing Marshal assembly](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126) for buffer, resolver, service, verifier and Relay. These components already own their wire types. Raw channel pairs passed to them must use compatible public-key and runtime types; an extra typed wrapper is useful only for an actual App message loop.
 
-Register/construct handles before startup, and bind the network before their first active send/fetch. A pre-binding submission can return accepted feedback while dropping the bytes. Idle actor initialization may precede binding; local send feedback still never proves remote receipt. The public body resolver must be usable during native recovered-body verification, before native Running is returned. [Binding and pre-bind send](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/authenticated/router/ingress.rs#L204), [startup dependency](../e2e/recovery.md#startup-prepare-custody-before-native-recovery).
+`subscribe_block` establishes durable custody from local storage or buffered ingress and does not start an explicit peer fetch. `fetch_block` initiates retrieval through the existing resolver. Native headers and complete bodies travel independently, so header-first reception is expected. [Body exchange](../e2e/block-body.md)
 
-Buffered broadcast and resolver already wrap their own wire types. Pass them raw registered channel pairs. For an application receive loop that needs parallel decoding, the existing `WrappedBackgroundReceiver` is a conditional option; it is not the raw Receiver these engines expect. Its decoded mailbox is bounded and lossy, and codec-invalid frames can trigger peer blocking. Local storage failure or stale context must not be treated as a codec-invalid peer response. [Background receiver](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/p2p/src/utils/codec.rs#L169).
+`Relay::broadcast` returns local `Feedback`, not a remote receipt or custody ACK. Even `Ok` can mean that no matching staged block was found and nothing was sent. Reuse the existing Relay and its bounded staged lookup. [Relay implementation](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/relay.rs#L107)
 
-Bound the complete encoded application message, including fetch response framing, against the transport maximum. A configured mailbox size alone does not bound pending subscribers, queued overflow or concurrent serving work. Numeric limits, targeting and runtime placement remain open. See [body wire budgets](../consensus/block-body.md#select-transactions-and-build-a-block).
+Provide usable App body access before `Engine::open` can issue recovered verify requests. Keep native and Marshal resolver channels distinct; application execution readiness must not create a cycle in native custody recovery. [Startup sequence](../e2e/recovery.md#startup-prepare-custody-before-native-recovery)
+
+Bound complete encoded messages and outstanding requests/subscriptions, not only mailbox item count. Application result signers are the authenticated epoch identities in the exact signed subject, not arbitrary connected peers. Concrete wire formats, numerical budgets, transaction propagation and result transport remain open.

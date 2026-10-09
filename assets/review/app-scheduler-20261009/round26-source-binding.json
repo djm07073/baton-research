@@ -1,0 +1,182 @@
+{
+  "captured_utc": "2026-10-09T09:26:48.190049+00:00",
+  "native_pin": "6233438985d8249d2b2bc1204191d5d405652288",
+  "root_head": "6233438985d8249d2b2bc1204191d5d405652288",
+  "scope": "Source/document inspection; no native tests or remote reachability claim",
+  "files": [
+    {
+      "group": "reader",
+      "path": "docs/baton/README.md",
+      "sha256": "bfd48640fe6b7b2d0599e9c8780eac38046804253b221617db5c8265632dfd82"
+    },
+    {
+      "group": "reader",
+      "path": "docs/baton/interfaces.md",
+      "sha256": "663b34b5c841527e08cedf607203a57afbad10ba45b0176bd1b46b20a916ebf0"
+    },
+    {
+      "group": "reader",
+      "path": "docs/baton/direction.md",
+      "sha256": "c2bf3f623226c3ac8936a1ca2f2f59e1053992f47c595e20b191dd8d07345e35"
+    },
+    {
+      "group": "reader",
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "ac24f4baa5ab56efb58d7ea1d0c16749458ea8309b5e19018d9d1fe90223acd2"
+    },
+    {
+      "group": "reader",
+      "path": "docs/reference/integration.md",
+      "sha256": "2baf9044517a8f79e78c855277f01869f149deeba5550502c0ae482cc34da214"
+    },
+    {
+      "group": "reader",
+      "path": "docs/reference/verification.md",
+      "sha256": "a3f7af1a89bb5415b368aa85989293fde565186010865525a43a5842fa42669f"
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/lib.rs",
+      "sha256": "10ee4b31e18bb0ceeebdfac3128290f5b6b0f6a46d647d07429335ac0dcd39f9",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/mod.rs",
+      "sha256": "a7dc8ead32d1a5b4687e951e8105ed9cbef431cfc2808c881dd6c1fdc801d46b",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/engine/mod.rs",
+      "sha256": "f846af7ff5bd290c087cc6c676cb473ecab6cb936d8f2c15c493c27fb47818a7",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/actors/voter/actor/app.rs",
+      "sha256": "8f1b6d8b7a5bf3077ad0d5ed45104a0e2891e0b3aa7adfeedb4349760c745312",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/actors/voter/actor/chains.rs",
+      "sha256": "87e5ba88999a3857838163af84eb01a8f0cca249642a844975647a4ca70370f7",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/actors/voter/actor/live.rs",
+      "sha256": "d394e235f5fc252e44963acde3ecae5a0e47aa9ac9ac8e02336679a1bec70f52",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/actors/voter/actor/publish.rs",
+      "sha256": "35f2ff683a1152b35427800eb88321657d88d44e43d7ff6cd763cc824372febd",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/actors/voter/chain_plane.rs",
+      "sha256": "31049470c8b3fa1efcab48d4ba0140becbd8f1f48759f04ddad5ef1a3b6a7d3b",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/storage/recovery.rs",
+      "sha256": "64f8b6d68886c51de555f699f40e599594cd17214b42c4424cc30ae0b623247f",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/machine/chain.rs",
+      "sha256": "15c4c411c0e93dedce1f78778f31e305b2648477d9bc38d6d87f61a67e9bb1c0",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/machine/eligibility.rs",
+      "sha256": "25fa9b471b6dbeda1de556992b999131e2a78afe4c0e980b639d0d708b62dfbb",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/machine/producer.rs",
+      "sha256": "92c06efb5a1eab48b56a6148b6fdb4e33ff8b5d582d7e851a389d9b7a14435db",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/types/block.rs",
+      "sha256": "10f0eaae1519052669c1311a3975598ff30ed8628ce22bff0f300abf6230b3e7",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/config/mod.rs",
+      "sha256": "6936212134dcc86b3bd19cc6c2a67fb7a396cdff7d60849dc993ba56020e5685",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/marshal/service/mod.rs",
+      "sha256": "c21ce05466dbd4d9ecabf67b0f14d2829f54b9fd7c945bee129ae20270e7bd97",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/marshal/mailbox.rs",
+      "sha256": "b81299e900e9f37d0dea1e60c700cd02b9c4a7c2202cecfc15b7f04813d0a4c7",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/marshal/relay.rs",
+      "sha256": "ee59df2747fd29a9f1a867a11220fb239e96e4a983a31adc3002b2a7318bfd5f",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/marshal/types.rs",
+      "sha256": "f5fb70336398760dbfba256736d460d5544204677b9bc3e84fe57c3ce07388bd",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "sha256": "dacc581a3d3b3e1be4ca83b76b38202391a0dd33240e5eaf9c0f5d25085a853b",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/marshal/actors/delivery/acks.rs",
+      "sha256": "9028b098b5d672bcdce28608b96a2d655e1f4c03bc374f0dee95e61675041085",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "consensus/src/multimmit/marshal/protocol/order.rs",
+      "sha256": "d1cac14edc62c26903d7c571467e66607ee07eafa7ee110e96ade76cf6782081",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "utils/src/acknowledgement.rs",
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "examples/log-multimmit/src/application/mailbox.rs",
+      "sha256": "b7383de50c7e43bc2d939d69513473c04241afa65c4a151931f33857b0d8d240",
+      "matches_pinned_blob": true
+    },
+    {
+      "group": "native",
+      "path": "examples/log-multimmit/src/application/reporter.rs",
+      "sha256": "14d2ddc3fa248fc1ddcf6ebefb16ec2f5127532ce0e551ca53389bfdb5a0109c",
+      "matches_pinned_blob": true
+    }
+  ]
+}

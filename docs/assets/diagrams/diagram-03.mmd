@@ -1,23 +1,22 @@
 sequenceDiagram
-    participant C as Client / Tx peer
-    participant P as TxPool
-    participant B as BlockService
-    participant E as Executor
-    C->>P: admit(tx, source)
-    P->>P: Stateless validation and internal payload policy
+    participant C as Client / tx peer
+    participant A as App
+    participant P as App TxPool
+    participant W as App canonical worker
+    C->>A: Submit transaction
+    A->>P: Internal admit(tx, source)
+    P->>P: Stateless validation and payload policy
     alt Invalid input
-        P-->>C: Admission: dropped
+        P-->>A: Reject
     else Valid selected candidate
         P->>P: Deduplicate and retain as selected
-        P-->>C: Admission: selected
+        P-->>A: Admission accepted
     else Valid unselected candidate
-        P->>P: Deduplicate and retain as unselected
-        P-->>C: Admission: unselected
-        Note over C,P: Retained for chosen P2P policy, excluded from local batches
+        P->>P: Retain for selected propagation / retention policy
+        P-->>A: Admission accepted, excluded from local batches
     end
-    B->>P: select(producer context, limits)
-    P->>P: Read selected candidates, preserve dependency and size limits
-    P-->>B: Candidate batch, candidates remain retained
-    Note over P,B: Proposal cancellation needs no public pool callback
-    E-->>P: Durable canonical tx outcomes to internal maintenance
-    P->>P: Reconcile retained candidates through existing backend
+    A->>P: Internal select(Context, limits) during propose
+    P-->>A: Bounded candidate batch, candidates retained
+    Note over A,P: Selection and proposal cancellation are not canonical retirement
+    W-->>P: Durable canonical transaction outcomes
+    P->>P: Reconcile candidates through the selected backend

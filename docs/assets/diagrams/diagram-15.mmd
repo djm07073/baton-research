@@ -1,36 +1,30 @@
 sequenceDiagram
     participant P as Producer native owner
-    participant A as Validator BlockService
+    participant A as Producer App
     participant V as Validator native owner
-    participant L as Current view's leader owner
-    participant F as Receiving node's view / finality owner
-    P-->>V: Disseminate signed producer header to native peers
-    V->>A: verify(producer Context, commitment)
-    A-->>V: true: valid + durable custody
-    V->>V: Contiguous DA choice / durable publication gate
-    V-->>P: DA share sent only to that producer
-    par Producer certification
-        opt n−2f valid shares for the same header available
-            P->>P: Recover exact DA certificate / durable admission
-            P-->>V: Disseminate DA certificate
-        end
-    and Leader proposal / direct voting
-        L->>L: Earlier V-QC parent + lane anchors / local DA-voted paths
-        L-->>V: Signed LeaderBlock + required exact parent V-QC
-        V->>V: Validate native proposal / reserve position and extension vote
-        V-->>F: Broadcast complete signed vote to native peers
-    end
-    F->>F: Retain verified distinct attributed votes / view messages
-    par Local sticky pool
-        opt n−f votes for one LeaderBlock
-            F->>F: Local leader / tip finality
-        end
-    and Portable L-QC
-        opt n−f exact votes for one LeaderBlock
-            F->>F: L-QC aggregate / admission
-        end
-    and V-QC / view exit
-        opt n−f..n messages / ≥2f+1 designated votes
-            F->>F: V-QC aggregate / safe tips / view exit
-        end
+    participant B as Validator App
+    participant L as Native leader / view owner
+    participant M as Multimmit Marshal
+    P->>A: Automaton::propose(Context)
+    A-->>P: Body digest through proposal receiver
+    P->>A: Automaton::verify(Context, body digest)
+    A-->>P: Valid durable custody through true verdict
+    P->>P: Sign producer header
+    P-->>V: Signed header on native data plane
+    V->>V: Native authentication and eligibility checks
+    V->>B: Automaton::verify(Context, body digest)
+    B-->>V: Valid durable custody through true verdict
+    par Application speculation
+        B->>B: Eligible candidate enters App scheduler
+    and Native DA
+        V->>V: Continue DA path and native durability gates
+        V-->>P: DA vote
+        P-->>V: DA certificate when native threshold is met
+    and Native view / finality
+        Note over P,L: DA certificate assembly and leader proposal progress are independent, native eligibility still applies
+        L-->>V: Native leader proposal and required parent evidence
+        V-->>L: Broadcast native votes to peers (L included)
+        L->>L: Native finality / extension processing
+        L-->>M: Reporter::report(Activity)
+        M->>M: Existing history interpretation and ordered body delivery
     end

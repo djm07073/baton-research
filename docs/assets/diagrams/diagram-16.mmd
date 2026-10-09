@@ -1,19 +1,16 @@
 flowchart TB
-    W[Authenticated native P2P peer] --> B[Batcher: decode / identify]
-    B -->|untrusted Observed cohort| V[Voter runtime shell]
-    V <-->|Verify job / completed verdict| K[Batcher crypto worker]
-    R[Native view-proof resolver] <-->|proof transport / retry| W
-    R <-->|correlated resolution| V
-    V <-->|events / typed capabilities| C[CoreState / private semantic owner]
-    V <-->|append / sync / covering ACK| J[Native journal / checkpoints]
-    V <-->|payload callbacks / accepted-artifact notices| A[BlockService / Automaton]
-    C -. new planning / policy bridge .-> P[Baton: direction and confirmed-order delivery]
-    P -. prepared matching candidate .-> C
-    C -. new exact evidence export .-> P
-    P -->|confirmed exact range| E[Executor]
+    N[Native network planes] --> I[Ingress and verifier]
+    I --> V[Voter runtime shell]
+    R[Native proof resolver] <--> V
+    V <--> M[Machine: producer, DA, view, finality]
+    V <--> J[Native safety journal]
+    V -->|propose / verify| A[App: TxPool, scheduler, execution, state]
+    A -->|custody calls / ACK| S[Existing Multimmit Marshal]
+    V -->|Activity and Relay requests| S
+    B[Body broadcast and backfill channels] <--> S
+    S -->|ordered Update| A
+    A -. Baton policy: future .-> M
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
-    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
-    classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
-    class W,B,K,V,R,C,J reuse;
-    class A adapt;
-    class P,E fresh;
+    classDef app fill:#dcfce7,stroke:#16a34a,color:#14532d;
+    class N,I,V,R,M,J,S,B reuse;
+    class A app;

@@ -1,0 +1,22 @@
+{
+  "captured_utc": "2026-10-09T09:35:04.890514+00:00",
+  "native_pin": "6233438985d8249d2b2bc1204191d5d405652288",
+  "reader_files": [
+    {
+      "path": "docs/baton/README.md",
+      "sha256": "bfd48640fe6b7b2d0599e9c8780eac38046804253b221617db5c8265632dfd82"
+    },
+    {
+      "path": "docs/baton/interfaces.md",
+      "sha256": "663b34b5c841527e08cedf607203a57afbad10ba45b0176bd1b46b20a916ebf0"
+    },
+    {
+      "path": "docs/reference/integration.md",
+      "sha256": "2baf9044517a8f79e78c855277f01869f149deeba5550502c0ae482cc34da214"
+    },
+    {
+      "path": "docs/overview/rust-interfaces.md",
+      "sha256": "ac24f4baa5ab56efb58d7ea1d0c16749458ea8309b5e19018d9d1fe90223acd2"
+    }
+  ]
+}

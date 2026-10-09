@@ -1,63 +1,62 @@
 # Roles and terminology
 
-**Each module has one main job.** TxPool manages transaction candidates, BlockService manages block bodies, Baton coordinates advisory order and delivers the agreed order, Executor controls execution paths, effects and certification; Storage manages roots and durable state. The tables below define their exact responsibilities and the facts each result establishes.
+**The App owns application state and work; Multimmit and Marshal supply the existing consensus connections.** TxPool, the selected scheduler, execution workers and storage are internal responsibilities of one App. The names below do not require separate public traits, actors or crates.
 
 ## Roles and terms
 
-Use the five role names below consistently. BlockService uses existing Commonware callbacks rather than an additional application trait. Words such as `owner`, `controller`, and `adapter` describe internal responsibilities or Commonware integration points. They do not introduce extra top-level modules. A trait boundary also does not determine how many actors, crates, or servers to deploy.
-
-| Module | Main responsibility | Detailed contract |
-|---|---|---|
-| `TxPool` | Admit and retain transactions; analyze static payload features and policy; select batches; track results | [Tx interfaces](../tx/interfaces.md#interface-overview) |
-| `BlockService` | Thin body/codec/custody attachment over existing buffer, resolver, archives and native callbacks | [Block body interfaces](../consensus/block-body.md#interface-overview) |
-| `Baton` | Collect reports, select/disseminate direction, request speculative blocks, and deliver confirmed exact input with recoverable history/cursors | [Baton interfaces](../baton/interfaces.md#interface-overview) |
-| `Executor` | Link execution parents; compute completed changes; select/promote/prune paths; certify and orchestrate peer sync | [Execution interfaces](../execution/interfaces.md#interface-overview) |
-| `Storage` | Prepare selected roots; apply canonical material; query, retain and recover durable state | [Storage interface](rust-interfaces.md#storage) |
-
-Static analysis and selected/unselected classification are internal TxPool responsibilities; its public actions are admit and select. Direction selection belongs to Baton. Transaction computation and result certification belong to Executor; Runtime and ResultService are no longer separate application traits. Commonware runtime means task/I/O infrastructure, not our transaction executor. Module boundaries do not prescribe separate actors or crates. Keep upstream names such as `Multimmit`, `Automaton`, `Relay`, `Reporter`, and `DatabaseSet` unchanged.
-
-| Data name | Meaning and completion condition |
+| Owner or internal part | Responsibility |
 |---|---|
-| `StoredBody` | Durable local custody of a body and required parent material. Native header authentication is a separate step. |
-| `CandidateBlock` | An authenticated producer header joined with the matching StoredBody in the exact context. Cut inclusion and final order remain separate. |
-| `Executor::Block` | A parent-linked execution-tree input: block hash, parent block hash, exact input/body references, and execution context. Its parent is an execution predecessor, not one producer lane's header parent. |
-| Global rule | Shared deterministic policy for eligible work not yet started. Ordinary dispatch/report preserves completed/current order and appends sorted pending blocks. It does not globally re-sort started work or prove finality. |
-| `Report` / `Direction` | A report of intended execution order / the leader's advisory ordering guidance. Baton is the module; direction is the message. |
-| `PreparedPolicy` | A proposal-binding candidate from completed evaluation of valid candidates. The native owner still rechecks and adopts it in the actual context. |
-| `OrderedRange` | A continuous, irreversible sequence of exact execution inputs established from authenticated history. |
-| `Checkpoint` | Completed work for a particular base state, runtime, and input prefix that may be reused. It is not a raw QMDB batch. |
-| `ExecutionResult` | Completed changes/batch, context, outputs and execution provenance. It need not include a computed root and does not establish canonical application. |
-| `PreparedResult` | Storage-prepared selected material and commitment, bound to exact input/base/rule and outputs; signing still needs direct execution evidence and irrevocable order. |
-| `CommitResult` | Durable local application of the exact ordered range, with state, outputs, and cursor recoverable together. |
-| `ExecutionStatement` / `ResultCertificate` | The signed subject binding exact range, base, runtime, and result / f+1 distinct eligible signatures on that same subject. |
+| Multimmit Engine | Native producer signing, DA, leader proposal/voting, finality and safety recovery |
+| Multimmit Marshal | Complete-block custody/broadcast/backfill, ordinary native total-order interpretation, indexed delivery and durable ACK cursor |
+| App | Implement existing Automaton callbacks and the application Update reporter; own transaction and execution semantics |
+| App TxPool | Validate/admit, retain selected/unselected candidates, select bounded bodies, reconcile canonical transaction outcomes |
+| App Pre-cut scheduler | Admit eligible pre-cut candidates, preserve started prefix and sort pending work, reconcile finalized input |
+| App Baton scheduler | The same local scheduling foundation plus intended-order reports, bounded direction selection and advisory handling |
+| App execution/storage code | Execute exact parent-linked work, prepare selected roots, certify results, import verified peer material, and apply through one durable canonical writer |
 
-Producer, validator, leader, and non-leader are node **roles**. A cut is a native finality event. The **immutable ordering frontier** ends the input prefix that direction cannot rearrange. `AppliedCursor` records how far local state has been durably applied. Keep these boundaries separate, along with the completion conditions of ExecutionResult, CommitResult, and ResultCertificate.
+The scheduler mode is chosen for the application configuration. Pre-cut has no Baton instance, report windows, direction messages or native prefix-policy modification. Both modes use the same body, pool, execution backend and storage resources. The concrete global comparator, scheduler resource limits and backend remain open.
+
+`Automaton`, `Relay` and `Reporter` are existing Commonware traits. Marshal provides the reusable body Relay and a native-activity Reporter. The App implements Automaton and an Update Reporter; an optional native-activity handle can observe additional native activity. Different `Reporter::Activity` types require different concrete handle types when forwarding into the same App.
+
+Engine [derives Validator when the configured scheme's `me()` returns a participant, or Observer otherwise](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L615); the epoch's separate [`producer_chain(participant)` mapping](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/config/protocol.rs#L202) supplies an optional local producer lane, so a validator need not be a producer.
+
+| Data or term | Meaning and completion condition |
+|---|---|
+| Body digest | Hash commitment to the application payload returned by `Automaton::propose` |
+| Producer header | Native epoch/chain/height/parent plus body digest; does not contain the transaction body |
+| Header digest | Hash of the full producer header, including epoch/context and body digest; this is the digest requested by Relay |
+| `BlockRef` | Structured producer chain, chain-local height and header digest used for exact block lookup; epoch is committed by that digest, not a separate field |
+| `TransactionBlock` | Complete header plus application body; Marshal stores and broadcasts this value |
+| `Custody` | Token returned after accepted `stage_block` work; its successful wait establishes durable recovery |
+| `verify(true)` | Valid payload with required local custody; it does not establish execution completion or finality |
+| Eligible candidate | App-retained exact validated block facts satisfying its authentication, ancestry and scheduling requirements |
+| Global rule | Shared deterministic ordering for eligible not-yet-started work; preserve the started/completed prefix `F` |
+| Report / direction | Authenticated intended order / leader's advisory scheduling suggestion; neither is execution proof or finality |
+| Prepared policy candidate | Completed bounded planning result for possible future native authenticated adoption; current native policy integration is missing |
+| `Update` | Marshal's complete finalized block with canonical `OutputIndex` and `Exact` acknowledgement |
+| Execution checkpoint | Completed work for an exact base state, ordered prefix and runtime; reusable only under the same context |
+| Execution result | Computed changes and outputs with provenance; a root may be deferred and canonical durability is not implied |
+| Applied record | App's durable state/output/applied-index/block-identity/provenance linkage |
+| Delivery ACK | Local completion signal issued after durable application; Marshal persists its cursor separately |
+| Execution statement / result certificate | Full exact input/base/runtime/result subject / f+1 eligible distinct signatures on that same subject |
+
+A producer lane's header parent is distinct from an execution predecessor across lanes. The body digest, header digest, leader proposal identity, canonical output index and application state root identify different facts. A native [`View`](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/types.rs#L257) counts consensus attempts within one epoch, producer height counts blocks in one lane, and Marshal's [`OutputIndex`](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L53) counts blocks in the finalized output stream. An integer output index alone is not a state root or a cryptographic block identity.
+
+The immutable ordering frontier ends the input prefix that future direction cannot rearrange. The local started prefix `F` can include speculation and is not canonical finality. Marshal's delivery cursor and the App's applied record are also separate: a crash can require redelivery of input already durably applied.
 
 <details>
-<summary>Mapping older names to the current names</summary>
+<summary>Mapping earlier names to the current composition</summary>
 
-| Earlier name | Current name |
+| Earlier design name | Current location |
 |---|---|
-| ExecutionController / scheduling controller | Baton admits scheduling messages; Executor owns execution-tree scheduling |
-| Planner / reschedule request | Baton::plan / parent-linked Executor::execute; no separate trait or reschedule API |
-| BranchOwner / CanonicalApplyOwner / Execution owner | Executor's logical branch management / Storage's canonical single writer |
-| TxPolicy | Internal TxPool admission policy |
-| Application runtime | Transaction execution inside Executor |
-| ExecutionSigner / ResultCollector | Executor's sign_result / collect_result responsibilities |
-| BodyService / body builder / custody adapter | Internal BlockService responsibilities |
-| ProofArchive / HistoryResolver / ordered delivery / Marshal responsibilities | Internal Baton history retention, interpretation and delivery; the earlier proposed Orderer role is merged here. Distinct from upstream Marshal. |
-| BodyReady / BlockAvailable | StoredBody / CandidateBlock; keep both stages |
-| BranchReady / speculative outcome | ExecutionResult |
-| CommitApplied / durable commit result | CommitResult |
-| OnBlockAvailable / OnCommitApplied | Baton::on_block / on_commit; local input / optional advisory applied notification |
-| Orderer / OnOrderedRange | Baton internal confirmed-order delivery → Executor::commit |
+| BlockService / body custody adapter | Existing Multimmit Marshal plus App body codec and validity logic |
+| Orderer / Baton confirmed delivery | Existing Multimmit Marshal for ordinary native order |
+| Public TxPool / Executor / Storage / Baton traits | Concrete App-internal pool, work, persistence and scheduling code |
+| Planner / ResultService / Runtime | Internal bounded planning, result handling and transaction computation; Commonware runtime still supplies task/I/O primitives |
+| StoredBody / CandidateBlock events | Internal retained custody and eligibility facts; no mandatory new public event API |
+| Executor::commit / CommitResult | Internal processing of Marshal Update through the App canonical writer and durable applied record |
+| Baton::on_block / on_commit | Internal candidate admission and optional scheduling progress handling |
 
 </details>
 
-Producer and validator are separate roles; a node may perform both. Leader direction must reach producers and the validator Baton instances responsible for the affected execution. Sending only to producers does not establish that every Executor received it.
-
-**A native producer-parent header ID differs from an application input state root.** One producer lane's parent does not determine the execution state of a merged multi-lane order. Also distinguish the body digest, producer header ID, leader proposal ID, and canonical ordered-input ID.
-
-Fixing each producer prefix still leaves the exact merged execution order to establish. Once verified, that continuous input becomes an OrderedRange. [Canonical delivery](../e2e/canonical.md#cut-commit--ordered-range--execution-commit) explains history gaps and ordering settledness.
-
-Transactions live in the [producer payload/body](../e2e/block-body.md#block-lifecycle-mempool--propose--body-dissemination). The native leader proposal gathers ordering evidence across lanes and is itself transaction-free. [Proposal freeze](../e2e/leader.md#planning-completion-versus-proposal-freeze) explains how Baton policy is attached to its actual proposal context.
+The historical paper and preserved reviews retain their original terminology and source pin. Current connection details are in [Baton integration](../baton/README.md), [body flow](../e2e/block-body.md), and [canonical delivery](../e2e/canonical.md).

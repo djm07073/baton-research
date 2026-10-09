@@ -1,77 +1,86 @@
 # Normal flow: transaction to applied state
 
-**A transaction moves from a candidate to a block, then to an ordered input and durable state.** TxPool admits it, BlockService packages it through existing body primitives, consensus fixes the order, Executor computes the changes, and Storage applies and persists them. The sequences below show the normal path and transaction-admission cases.
+**One App owns the transaction pool, scheduler and transaction execution.** Multimmit calls the App through `Automaton`; Marshal stores and broadcasts complete blocks and delivers their finalized order through `Reporter<Update>`. App storage applies the matching execution result durably.
 
 ## Full E2E: transaction input to canonical state
 
 ```mermaid
 sequenceDiagram
-    participant C as Client
-    participant T as TxPool
-    participant N as Multimmit / body attachment
-    participant B as Baton
-    participant E as Executor
-    participant S as Storage / QMDB
-    C->>T: admit(tx)
-    T-->>C: Admission result
-    N->>T: TxPool::select(producer context, limits)
-    T-->>N: Candidate tx batch
-    N->>N: Body codec + Archive sync, Relay uses buffered broadcast
-    N-->>B: CandidateBlock(exact authenticated header + retained body)
-    B->>E: execute(block, execution-parent hash, exact context)
-    E-->>B: Completed changes / outputs, no root required per attempt
-    Note over N,E: Native consensus and Baton reports/directions proceed in parallel
-    N-->>B: Native exact finality / history evidence
-    B->>B: Independently verify and retain continuous irrevocable input
-    B-->>E: OrderedRange to Executor::commit
-    E->>E: commit(range): reuse exact prefix / finish missing work
-    E->>S: prepare(completed changes, selected boundary/rule)
-    S-->>E: Prepared material + result commitment
-    Note over E,S: Root exists before direct-result signing, peer collection does not gate native cut
-    E->>S: apply(authorized canonical input, prepared material)
-    S->>S: QMDB apply/flush + recoverable metadata linkage
-    S-->>E: Durable CommitResult
-    E-->>B: Durable result to internal delivery tracking
-    E-->>T: Canonical tx outcomes
-    opt Optional scheduling notification
-        E-->>B: Applied progress, no approval/ACK
+    participant C as Client / tx peer
+    participant A as App
+    participant N as Multimmit Engine
+    participant M as Multimmit Marshal
+    participant Q as App scheduler / workers
+    participant S as App storage / QMDB
+    C->>A: Submit transaction
+    A->>A: Validate, deduplicate, retain in TxPool
+    N->>A: Automaton::propose(producer Context)
+    A->>A: Select bounded batch and build complete block
+    A->>M: stage_block(header + body)
+    M-->>A: Custody token: accepted storage work
+    A-->>N: Resolve proposal receiver with body digest
+    N->>A: Automaton::verify(same Context, body digest)
+    A->>M: Establish exact durable custody
+    M-->>A: Complete retained block
+    A->>A: Validate payload and retain candidate state
+    A-->>N: Resolve verification receiver true
+    N->>N: Sign producer header
+    N->>M: Relay::broadcast(header digest, ())
+    M->>M: Broadcast complete block through existing buffer
+    opt Eligible live candidate
+        A->>Q: Admit or update pending candidate
+        Q->>Q: Start asynchronous work when exact parent and worker capacity are ready
     end
+    N-->>M: Reporter::report(native Activity)
+    M->>M: Verify history, order, recover bodies, retain outputs
+    M-->>A: Reporter::report(Update(index, block, acknowledgement))
+    A->>A: Retain Update and return Feedback promptly
+    A->>A: Reconcile confirmed input in exact index order
+    A->>Q: Select matching work or finish / repair from canonical base
+    Q->>S: Prepare selected result, apply and persist
+    S-->>A: Durable state + outputs + applied identity / provenance
+    A->>A: Advance applied base, schedule pool maintenance
+    A-->>M: acknowledgement.acknowledge()
+    M->>M: Persist acknowledged continuous delivery cursor
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-02.svg)
 
-This diagram shows one arrival order where speculative work finishes first. If cut or OrderedRange arrives first, use [canonical execution / repair](canonical.md#cut-commit--ordered-range--execution-commit). Admission does not establish block inclusion or transaction success. Local durable commit and f+1 result certification are separate events. Certification does not become a prerequisite for the next native cut or speculative execution.
+Speculative execution may finish before or after `Update` arrives. `verify(true)` establishes payload validity and custody; it does not wait for that execution. For local blocks, candidate admission must respect the fact that this verify occurs before native header signing. The [callback contract](../baton/interfaces.md) covers peer, local and recovery requests.
+
+Marshal already delivers the ordinary native total order. The App reconciles retained work against these Updates and its canonical worker applies their exact sequence. It does not sort Updates again or require an earlier speculative candidate. In Baton mode, reports and direction operate alongside this path; native proposal-policy integration remains [open](../consensus/decisions.md).
+
+Local durable application and f+1 result certification are separate milestones. Neither creates a wait in native cut formation. If the matching speculative result already exists, confirmation can consist of selecting it and completing storage work. Otherwise the App still needs the missing execution or verified peer material before durable application and ACK.
 
 ## Tx lifecycle: new, duplicate, and invalid transactions
 
 ```mermaid
 sequenceDiagram
-    participant C as Client / Tx peer
-    participant P as TxPool
-    participant B as BlockService
-    participant E as Executor
-    C->>P: admit(tx, source)
-    P->>P: Stateless validation and internal payload policy
+    participant C as Client / tx peer
+    participant A as App
+    participant P as App TxPool
+    participant W as App canonical worker
+    C->>A: Submit transaction
+    A->>P: Internal admit(tx, source)
+    P->>P: Stateless validation and payload policy
     alt Invalid input
-        P-->>C: Admission: dropped
+        P-->>A: Reject
     else Valid selected candidate
         P->>P: Deduplicate and retain as selected
-        P-->>C: Admission: selected
+        P-->>A: Admission accepted
     else Valid unselected candidate
-        P->>P: Deduplicate and retain as unselected
-        P-->>C: Admission: unselected
-        Note over C,P: Retained for chosen P2P policy, excluded from local batches
+        P->>P: Retain for selected propagation / retention policy
+        P-->>A: Admission accepted, excluded from local batches
     end
-    B->>P: select(producer context, limits)
-    P->>P: Read selected candidates, preserve dependency and size limits
-    P-->>B: Candidate batch, candidates remain retained
-    Note over P,B: Proposal cancellation needs no public pool callback
-    E-->>P: Durable canonical tx outcomes to internal maintenance
-    P->>P: Reconcile retained candidates through existing backend
+    A->>P: Internal select(Context, limits) during propose
+    P-->>A: Bounded candidate batch, candidates retained
+    Note over A,P: Selection and proposal cancellation are not canonical retirement
+    W-->>P: Durable canonical transaction outcomes
+    P->>P: Reconcile candidates through the selected backend
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-03.svg)
 
-RPC and peer transactions enter through the same `admit` contract. Static analysis and classification are internal. Selected/unselected are logical candidate classes in one reused pool; their physical representation and the chosen policy remain open. Duplicate admission preserves the retained candidate identity rather than creating a second entry. Invalid input differs from a valid unselected candidate.
+`admit` and `select` name App-internal pool operations, not a new public consensus trait. Selected/unselected are logical classes; their physical representation and policy remain open. RPC and peer input use the same validation and admission policy. Duplicate suppression in one pool does not establish global exactly-once execution when multiple producers include the same transaction.
 
-Several producers may include the same transaction in their bodies. Local pool duplicate detection and canonical duplicate execution semantics are separate contracts; admission deduplication does not establish global exactly-once behavior. Do not permanently delete a transaction merely because it entered an unagreed body. Concrete semantics and cleanup remain open in the Tx decisions.
+See [transaction admission and selection](../tx/interfaces.md) for the App pool contract, the [backend survey](../tx/README.md) for reuse options, and [canonical application](canonical.md) for durable outcome handling. The node assembly is grounded in the current [log-multimmit example](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242); its synthetic payload generator does not implement this transaction application.

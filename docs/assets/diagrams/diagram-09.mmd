@@ -1,33 +1,25 @@
 sequenceDiagram
-    participant B as Baton
-    participant E as Executor
-    participant S as Storage / QMDB
-    B->>E: execute(block, execution-parent hash, exact context)
-    E->>E: Resolve completed parent, link execution child
-    E->>S: Obtain valid branch access / working draft
-    S-->>E: Unsealed batch or rootless read/effects adapter
-    E->>E: Compute ordered transaction changes and outputs
-    E-->>B: Completed ExecutionResult, hashing may be deferred
-    B-->>E: OrderedRange(irrevocable input, canonical predecessor)
-    E->>E: commit(range): select exact completed prefix
-    E->>E: Finish missing work, fence incompatible/unknown workers
-    E->>S: prepare(exact selected prefix, storage rule)
-    S->>S: Materialize / concrete merkleize with valid read-access fence
-    S-->>E: Prepared material, root and exact result/output binding
-    E->>S: apply(authorized canonical range, prepared result)
-    S->>S: DatabaseSet::finalize(sealed batches)
-    S->>S: Observe Barrier::durable + metadata/provenance linkage
-    alt Durable barrier and recoverable linkage succeed
-        S-->>E: Durable CommitResult
-        E->>E: Promote canonical path, logically prune conflicts
-        E-->>B: Durable result to internal delivery tracking
-        opt Optional scheduling notification
-            E-->>B: Optional advisory progress only
+    participant Q as App execution owner
+    participant W as App execution workers
+    participant S as App storage / QMDB
+    Q->>W: Dispatch eligible block on exact completed parent
+    W->>S: Obtain valid branch access
+    S-->>W: Working state access / batch
+    W->>W: Compute transaction effects and outputs
+    W-->>Q: Completed result bound to parent, input and runtime
+    Note over W,S: Roots can be deferred until a selected result needs one
+    Q->>Q: Reconcile a confirmed Update against speculative path
+    Q->>W: Select matching result or repair missing suffix
+    W->>S: Prepare selected effects and result commitment
+    S-->>W: Prepared material and exact result/output binding
+    W->>S: Canonical single writer applies authorized material
+    S->>S: Persist state plus recoverable output / applied metadata linkage
+    alt Durable completion succeeds
+        S-->>W: Durable applied record
+        W->>Q: Promote path and logically prune conflicts
+        opt Retention and reference obligations permit reclamation
+            S->>S: Reclaim retained material
         end
-        opt References and serving obligations permit release
-            S->>S: Physically reclaim unreferenced material
-        end
-    else Failed flush / shutdown / incomplete linkage
-        S-->>E: No successful durable completion
-        Note over B,E: No CommitResult/ACK, recover authoritative durable state
+    else Storage completion fails
+        Note over W,S: No ACK or durable completion, stop using failed storage and recover
     end

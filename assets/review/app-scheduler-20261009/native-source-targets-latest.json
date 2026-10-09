@@ -1,0 +1,1257 @@
+{
+  "checked_at": "2026-10-09T09:57:54.963413+00:00",
+  "native_commit": "6233438985d8249d2b2bc1204191d5d405652288",
+  "native_head": "6233438985d8249d2b2bc1204191d5d405652288",
+  "references": [
+    {
+      "page": "docs/baton/direction.md",
+      "line": 91,
+      "source": "consensus/src/multimmit/config/mod.rs",
+      "fragment": "L32",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/baton/interfaces.md",
+      "line": 7,
+      "source": "examples/log-multimmit/src/application/mailbox.rs",
+      "fragment": "L148",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/baton/interfaces.md",
+      "line": 61,
+      "source": "consensus/src/multimmit/actors/voter/chain_plane.rs",
+      "fragment": "L522",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/baton/interfaces.md",
+      "line": 61,
+      "source": "consensus/src/multimmit/machine/eligibility.rs",
+      "fragment": "L352",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 17,
+      "source": "examples/log-multimmit/src/node.rs",
+      "fragment": "L260",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 19,
+      "source": "consensus/src/multimmit/mod.rs",
+      "fragment": "L50",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 19,
+      "source": "consensus/src/multimmit/actors/voter/actor/app.rs",
+      "fragment": "L64",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 55,
+      "source": "consensus/src/multimmit/engine/mod.rs",
+      "fragment": "L446",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 55,
+      "source": "consensus/src/multimmit/storage/recovery.rs",
+      "fragment": "L466",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 61,
+      "source": "consensus/src/multimmit/marshal/mod.rs",
+      "fragment": null,
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 61,
+      "source": "examples/log-multimmit/src/marshal.rs",
+      "fragment": "L126",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 65,
+      "source": "consensus/src/multimmit/types/activity.rs",
+      "fragment": "L58",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 67,
+      "source": "consensus/src/multimmit/scheme/bls12381_threshold/claims.rs",
+      "fragment": "L234",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 67,
+      "source": "consensus/src/multimmit/actors/verifier/verify.rs",
+      "fragment": "L92",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 69,
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "fragment": "L99",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "line": 69,
+      "source": "consensus/src/multimmit/marshal/actors/synchronizer/mailbox.rs",
+      "fragment": "L152",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 16,
+      "source": "consensus/src/multimmit/types/block.rs",
+      "fragment": "L265",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 18,
+      "source": "codec/src/codec.rs",
+      "fragment": "L197",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 18,
+      "source": "cryptography/src/lib.rs",
+      "fragment": "L233",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 18,
+      "source": "consensus/src/multimmit/marshal/config.rs",
+      "fragment": "L339",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 28,
+      "source": "examples/log-multimmit/src/marshal.rs",
+      "fragment": "L126",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 39,
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "fragment": "L327",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 41,
+      "source": "consensus/src/multimmit/marshal/service/router.rs",
+      "fragment": "L330",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 50,
+      "source": "examples/log-multimmit/src/application/actor.rs",
+      "fragment": "L309",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 50,
+      "source": "consensus/src/multimmit/actors/voter/actor/app.rs",
+      "fragment": "L121",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 52,
+      "source": "consensus/src/lib.rs",
+      "fragment": "L134",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 52,
+      "source": "consensus/src/multimmit/actors/voter/actor/live.rs",
+      "fragment": "L578",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 56,
+      "source": "consensus/src/multimmit/actors/voter/actor/publish.rs",
+      "fragment": "L124",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 56,
+      "source": "consensus/src/multimmit/marshal/relay.rs",
+      "fragment": "L107",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 58,
+      "source": "consensus/src/multimmit/actors/voter/chain_plane.rs",
+      "fragment": "L522",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 58,
+      "source": "examples/log-multimmit/src/application/actor.rs",
+      "fragment": "L70",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 62,
+      "source": "consensus/src/multimmit/config/protocol.rs",
+      "fragment": "L197",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 64,
+      "source": "consensus/src/multimmit/machine/eligibility.rs",
+      "fragment": "L326",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 68,
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "fragment": "L313",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 68,
+      "source": "consensus/src/multimmit/marshal/types.rs",
+      "fragment": "L178",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 70,
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "fragment": "L449",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "line": 72,
+      "source": "consensus/src/multimmit/types/activity.rs",
+      "fragment": "L104",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/decisions.md",
+      "line": 7,
+      "source": "consensus/src/multimmit/types/block.rs",
+      "fragment": "L802",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 7,
+      "source": "consensus/src/multimmit/mod.rs",
+      "fragment": "L93",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 7,
+      "source": "consensus/src/multimmit/marshal/mod.rs",
+      "fragment": null,
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 17,
+      "source": "consensus/src/multimmit/marshal/types.rs",
+      "fragment": "L128",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 27,
+      "source": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "fragment": "L235",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 27,
+      "source": "consensus/src/multimmit/marshal/actors/delivery/acks.rs",
+      "fragment": "L1",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 29,
+      "source": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "fragment": "L303",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 29,
+      "source": "utils/src/acknowledgement.rs",
+      "fragment": "L38",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 33,
+      "source": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "fragment": "L423",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 35,
+      "source": "examples/log-multimmit/src/application/reporter.rs",
+      "fragment": "L33",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 46,
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "fragment": "L449",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 48,
+      "source": "consensus/src/multimmit/marshal/config.rs",
+      "fragment": "L164",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "line": 50,
+      "source": "consensus/src/multimmit/marshal/protocol/order.rs",
+      "fragment": "L361",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/block-body.md",
+      "line": 37,
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "fragment": "L327",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "line": 43,
+      "source": "consensus/src/multimmit/marshal/types.rs",
+      "fragment": "L128",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "line": 53,
+      "source": "examples/log-multimmit/src/application/reporter.rs",
+      "fragment": "L33",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "line": 55,
+      "source": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "fragment": "L303",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "line": 55,
+      "source": "consensus/src/multimmit/marshal/actors/delivery/acks.rs",
+      "fragment": "L107",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/native-consensus.md",
+      "line": 52,
+      "source": "examples/log-multimmit/src/node.rs",
+      "fragment": "L306",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/normal.md",
+      "line": 86,
+      "source": "examples/log-multimmit/src/node.rs",
+      "fragment": "L242",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "line": 7,
+      "source": "consensus/src/multimmit/marshal/types.rs",
+      "fragment": "L55",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "line": 42,
+      "source": "examples/log-multimmit/src/node.rs",
+      "fragment": "L242",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "line": 42,
+      "source": "examples/log-multimmit/src/marshal.rs",
+      "fragment": "L126",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "line": 44,
+      "source": "consensus/src/multimmit/engine/mod.rs",
+      "fragment": "L446",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "line": 50,
+      "source": "examples/log-multimmit/src/node.rs",
+      "fragment": "L343",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "line": 92,
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "fragment": "L452",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/README.md",
+      "line": 27,
+      "source": "glue/src/stateful/actor/core/mailbox.rs",
+      "fragment": "L8",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "line": 77,
+      "source": "cryptography/src/certificate.rs",
+      "fragment": null,
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "line": 77,
+      "source": "p2p/src/utils/codec.rs",
+      "fragment": null,
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "line": 77,
+      "source": "collector/src/p2p/engine.rs",
+      "fragment": "L190",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "line": 81,
+      "source": "utils/src/faults.rs",
+      "fragment": null,
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "line": 81,
+      "source": "consensus/src/multimmit/scheme/bls12381_threshold/mod.rs",
+      "fragment": "L3",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "line": 81,
+      "source": "cryptography/src/bls12381/certificate/threshold/mod.rs",
+      "fragment": "L92",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 9,
+      "source": "storage/src/qmdb/mod.rs",
+      "fragment": null,
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 9,
+      "source": "storage/src/qmdb/current/db.rs",
+      "fragment": "L274",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 55,
+      "source": "glue/src/stateful/db/mod.rs",
+      "fragment": "L498",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 55,
+      "source": "glue/src/stateful/db/mod.rs",
+      "fragment": "L327",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 63,
+      "source": "glue/src/stateful/db/any.rs",
+      "fragment": "L95",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 67,
+      "source": "glue/src/stateful/db/mod.rs",
+      "fragment": "L148",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 69,
+      "source": "storage/src/qmdb/any/batch.rs",
+      "fragment": "L2855",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 69,
+      "source": "storage/src/qmdb/current/db.rs",
+      "fragment": "L665",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 129,
+      "source": "glue/src/stateful/db/mod.rs",
+      "fragment": "L334",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "line": 131,
+      "source": "glue/src/stateful/db/mod.rs",
+      "fragment": "L210",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 19,
+      "source": "storage/src/qmdb/sync/mod.rs",
+      "fragment": null,
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 29,
+      "source": "storage/src/qmdb/sync/target.rs",
+      "fragment": "L11",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 29,
+      "source": "storage/src/qmdb/current/proof/mod.rs",
+      "fragment": "L125",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 31,
+      "source": "storage/src/qmdb/sync/engine.rs",
+      "fragment": "L691",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 33,
+      "source": "storage/src/qmdb/sync/journal.rs",
+      "fragment": "L21",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 33,
+      "source": "storage/src/qmdb/current/sync/mod.rs",
+      "fragment": "L152",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 35,
+      "source": "glue/src/stateful/db/p2p/mailbox.rs",
+      "fragment": "L161",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 39,
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "fragment": "L450",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 41,
+      "source": "consensus/src/multimmit/marshal/config.rs",
+      "fragment": "L163",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "line": 43,
+      "source": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "fragment": "L423",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/glossary.md",
+      "line": 21,
+      "source": "consensus/src/multimmit/engine/mod.rs",
+      "fragment": "L615",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/glossary.md",
+      "line": 21,
+      "source": "consensus/src/multimmit/config/protocol.rs",
+      "fragment": "L202",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/glossary.md",
+      "line": 43,
+      "source": "consensus/src/types.rs",
+      "fragment": "L257",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/glossary.md",
+      "line": 43,
+      "source": "consensus/src/multimmit/marshal/types.rs",
+      "fragment": "L53",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/networking.md",
+      "line": 23,
+      "source": "examples/log-multimmit/src/node.rs",
+      "fragment": "L242",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/networking.md",
+      "line": 33,
+      "source": "examples/log-multimmit/src/marshal.rs",
+      "fragment": "L126",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/networking.md",
+      "line": 37,
+      "source": "consensus/src/multimmit/marshal/relay.rs",
+      "fragment": "L107",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "line": 24,
+      "source": "consensus/src/lib.rs",
+      "fragment": "L125",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "line": 48,
+      "source": "consensus/src/lib.rs",
+      "fragment": "L258",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "line": 60,
+      "source": "examples/log-multimmit/src/node.rs",
+      "fragment": "L306",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "line": 64,
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "fragment": "L326",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "line": 81,
+      "source": "consensus/src/multimmit/marshal/types.rs",
+      "fragment": "L130",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 11,
+      "source": "examples/log-multimmit/src/node.rs",
+      "fragment": "L242",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 12,
+      "source": "examples/log-multimmit/src/marshal.rs",
+      "fragment": "L126",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 13,
+      "source": "examples/log-multimmit/src/application/actor.rs",
+      "fragment": "L70",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 14,
+      "source": "consensus/src/multimmit/engine/mod.rs",
+      "fragment": "L446",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 15,
+      "source": "consensus/src/multimmit/marshal/types.rs",
+      "fragment": "L128",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 16,
+      "source": "consensus/src/multimmit/types/block.rs",
+      "fragment": "L802",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 16,
+      "source": "consensus/src/multimmit/marshal/protocol/order.rs",
+      "fragment": null,
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 44,
+      "source": "consensus/src/multimmit/marshal/service/mod.rs",
+      "fragment": "L1",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 50,
+      "source": "consensus/src/multimmit/marshal/config.rs",
+      "fragment": "L550",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 54,
+      "source": "consensus/src/multimmit/marshal/service/supervisor.rs",
+      "fragment": "L64",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 56,
+      "source": "examples/log-multimmit/src/application/actor.rs",
+      "fragment": "L60",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 56,
+      "source": "consensus/src/multimmit/marshal/service/subscriptions.rs",
+      "fragment": "L1",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 58,
+      "source": "consensus/src/multimmit/marshal/config.rs",
+      "fragment": "L164",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 117,
+      "source": "examples/log-multimmit/src/marshal.rs",
+      "fragment": "L126",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "line": 117,
+      "source": "examples/log-multimmit/src/node.rs",
+      "fragment": "L242",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/verification.md",
+      "line": 5,
+      "source": "consensus/src/multimmit/marshal/tests.rs",
+      "fragment": null,
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/verification.md",
+      "line": 14,
+      "source": "runtime/src/mocks.rs",
+      "fragment": "L1240",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/verification.md",
+      "line": 14,
+      "source": "runtime/src/deterministic.rs",
+      "fragment": "L578",
+      "valid_bounds": true
+    },
+    {
+      "page": "docs/reference/verification.md",
+      "line": 38,
+      "source": "consensus/src/multimmit/marshal/tests.rs",
+      "fragment": null,
+      "valid_bounds": true
+    }
+  ],
+  "sources": {
+    "consensus/src/multimmit/config/mod.rs": {
+      "lines": 153,
+      "pinned_sha256": "6936212134dcc86b3bd19cc6c2a67fb7a396cdff7d60849dc993ba56020e5685",
+      "working_sha256": "6936212134dcc86b3bd19cc6c2a67fb7a396cdff7d60849dc993ba56020e5685",
+      "matches_pin": true
+    },
+    "examples/log-multimmit/src/application/mailbox.rs": {
+      "lines": 247,
+      "pinned_sha256": "b7383de50c7e43bc2d939d69513473c04241afa65c4a151931f33857b0d8d240",
+      "working_sha256": "b7383de50c7e43bc2d939d69513473c04241afa65c4a151931f33857b0d8d240",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/actors/voter/chain_plane.rs": {
+      "lines": 994,
+      "pinned_sha256": "31049470c8b3fa1efcab48d4ba0140becbd8f1f48759f04ddad5ef1a3b6a7d3b",
+      "working_sha256": "31049470c8b3fa1efcab48d4ba0140becbd8f1f48759f04ddad5ef1a3b6a7d3b",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/machine/eligibility.rs": {
+      "lines": 1065,
+      "pinned_sha256": "25fa9b471b6dbeda1de556992b999131e2a78afe4c0e980b639d0d708b62dfbb",
+      "working_sha256": "25fa9b471b6dbeda1de556992b999131e2a78afe4c0e980b639d0d708b62dfbb",
+      "matches_pin": true
+    },
+    "examples/log-multimmit/src/node.rs": {
+      "lines": 389,
+      "pinned_sha256": "74f3f522b8b3777add05e44bdfdb62164b46c72f8000ecd33d2637c35200dfae",
+      "working_sha256": "74f3f522b8b3777add05e44bdfdb62164b46c72f8000ecd33d2637c35200dfae",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/mod.rs": {
+      "lines": 156,
+      "pinned_sha256": "a7dc8ead32d1a5b4687e951e8105ed9cbef431cfc2808c881dd6c1fdc801d46b",
+      "working_sha256": "a7dc8ead32d1a5b4687e951e8105ed9cbef431cfc2808c881dd6c1fdc801d46b",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/actors/voter/actor/app.rs": {
+      "lines": 214,
+      "pinned_sha256": "8f1b6d8b7a5bf3077ad0d5ed45104a0e2891e0b3aa7adfeedb4349760c745312",
+      "working_sha256": "8f1b6d8b7a5bf3077ad0d5ed45104a0e2891e0b3aa7adfeedb4349760c745312",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/engine/mod.rs": {
+      "lines": 620,
+      "pinned_sha256": "f846af7ff5bd290c087cc6c676cb473ecab6cb936d8f2c15c493c27fb47818a7",
+      "working_sha256": "f846af7ff5bd290c087cc6c676cb473ecab6cb936d8f2c15c493c27fb47818a7",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/storage/recovery.rs": {
+      "lines": 760,
+      "pinned_sha256": "64f8b6d68886c51de555f699f40e599594cd17214b42c4424cc30ae0b623247f",
+      "working_sha256": "64f8b6d68886c51de555f699f40e599594cd17214b42c4424cc30ae0b623247f",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/mod.rs": {
+      "lines": 96,
+      "pinned_sha256": "f477c7444df3e18693344fb578b05d1fc1c800b6a4f6768ec1927e19804fc13e",
+      "working_sha256": "f477c7444df3e18693344fb578b05d1fc1c800b6a4f6768ec1927e19804fc13e",
+      "matches_pin": true
+    },
+    "examples/log-multimmit/src/marshal.rs": {
+      "lines": 220,
+      "pinned_sha256": "1f4fe669d2883fd3508b59929e1bc52136c9f7619dc2eb12d745df62dfb02d87",
+      "working_sha256": "1f4fe669d2883fd3508b59929e1bc52136c9f7619dc2eb12d745df62dfb02d87",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/types/activity.rs": {
+      "lines": 147,
+      "pinned_sha256": "7198a9626e39913841d951eac2f5e05dd3c7dfe54144a3fb4edc213f4c60474f",
+      "working_sha256": "7198a9626e39913841d951eac2f5e05dd3c7dfe54144a3fb4edc213f4c60474f",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/scheme/bls12381_threshold/claims.rs": {
+      "lines": 436,
+      "pinned_sha256": "3477d1fafc73a722cff8908df0e78c2f1695bad61364ec41ea3d5570fb894f48",
+      "working_sha256": "3477d1fafc73a722cff8908df0e78c2f1695bad61364ec41ea3d5570fb894f48",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/actors/verifier/verify.rs": {
+      "lines": 363,
+      "pinned_sha256": "b53476a2a58e6539106cd9b72be1c6b7aa72689299fcff64535789e4bb47b22a",
+      "working_sha256": "b53476a2a58e6539106cd9b72be1c6b7aa72689299fcff64535789e4bb47b22a",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/mailbox.rs": {
+      "lines": 799,
+      "pinned_sha256": "b81299e900e9f37d0dea1e60c700cd02b9c4a7c2202cecfc15b7f04813d0a4c7",
+      "working_sha256": "b81299e900e9f37d0dea1e60c700cd02b9c4a7c2202cecfc15b7f04813d0a4c7",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/actors/synchronizer/mailbox.rs": {
+      "lines": 256,
+      "pinned_sha256": "5dab3bf0c73863a2fb30a25cef198ab1409f23ef4124a71606e261ee3c615351",
+      "working_sha256": "5dab3bf0c73863a2fb30a25cef198ab1409f23ef4124a71606e261ee3c615351",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/types/block.rs": {
+      "lines": 1343,
+      "pinned_sha256": "10f0eaae1519052669c1311a3975598ff30ed8628ce22bff0f300abf6230b3e7",
+      "working_sha256": "10f0eaae1519052669c1311a3975598ff30ed8628ce22bff0f300abf6230b3e7",
+      "matches_pin": true
+    },
+    "codec/src/codec.rs": {
+      "lines": 798,
+      "pinned_sha256": "49cc14ea607fc4ece84cdbf25cba96b7f7ad675fe24614fe8a2287d93baeb3fd",
+      "working_sha256": "49cc14ea607fc4ece84cdbf25cba96b7f7ad675fe24614fe8a2287d93baeb3fd",
+      "matches_pin": true
+    },
+    "cryptography/src/lib.rs": {
+      "lines": 654,
+      "pinned_sha256": "1d243f6936c55dd4c2d89eb70d5ed61aa15c780f4a893a14332aa2c527ba7574",
+      "working_sha256": "1d243f6936c55dd4c2d89eb70d5ed61aa15c780f4a893a14332aa2c527ba7574",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/config.rs": {
+      "lines": 915,
+      "pinned_sha256": "cd7fe1a918fd9e3a00f7d598556b9b7f886b52c0b291623f4d1dcdf99e022f7c",
+      "working_sha256": "cd7fe1a918fd9e3a00f7d598556b9b7f886b52c0b291623f4d1dcdf99e022f7c",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/service/router.rs": {
+      "lines": 468,
+      "pinned_sha256": "512ed03c4a9436353d6c21632d7b58392601acc07af7599f8be2645747f73f5f",
+      "working_sha256": "512ed03c4a9436353d6c21632d7b58392601acc07af7599f8be2645747f73f5f",
+      "matches_pin": true
+    },
+    "examples/log-multimmit/src/application/actor.rs": {
+      "lines": 989,
+      "pinned_sha256": "7745d1ee6fc3b06f4bc15aaad3f8965bfc5a7593d7c49f333f88f1ebc5b15c22",
+      "working_sha256": "7745d1ee6fc3b06f4bc15aaad3f8965bfc5a7593d7c49f333f88f1ebc5b15c22",
+      "matches_pin": true
+    },
+    "consensus/src/lib.rs": {
+      "lines": 352,
+      "pinned_sha256": "10ee4b31e18bb0ceeebdfac3128290f5b6b0f6a46d647d07429335ac0dcd39f9",
+      "working_sha256": "10ee4b31e18bb0ceeebdfac3128290f5b6b0f6a46d647d07429335ac0dcd39f9",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/actors/voter/actor/live.rs": {
+      "lines": 884,
+      "pinned_sha256": "d394e235f5fc252e44963acde3ecae5a0e47aa9ac9ac8e02336679a1bec70f52",
+      "working_sha256": "d394e235f5fc252e44963acde3ecae5a0e47aa9ac9ac8e02336679a1bec70f52",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/actors/voter/actor/publish.rs": {
+      "lines": 223,
+      "pinned_sha256": "35f2ff683a1152b35427800eb88321657d88d44e43d7ff6cd763cc824372febd",
+      "working_sha256": "35f2ff683a1152b35427800eb88321657d88d44e43d7ff6cd763cc824372febd",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/relay.rs": {
+      "lines": 174,
+      "pinned_sha256": "ee59df2747fd29a9f1a867a11220fb239e96e4a983a31adc3002b2a7318bfd5f",
+      "working_sha256": "ee59df2747fd29a9f1a867a11220fb239e96e4a983a31adc3002b2a7318bfd5f",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/config/protocol.rs": {
+      "lines": 589,
+      "pinned_sha256": "e737706ee2ff02bd7800a10f644a292da3515af1d498d6d1ee42801d71d26fe6",
+      "working_sha256": "e737706ee2ff02bd7800a10f644a292da3515af1d498d6d1ee42801d71d26fe6",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/types.rs": {
+      "lines": 612,
+      "pinned_sha256": "f5fb70336398760dbfba256736d460d5544204677b9bc3e84fe57c3ce07388bd",
+      "working_sha256": "f5fb70336398760dbfba256736d460d5544204677b9bc3e84fe57c3ce07388bd",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/actors/delivery/actor.rs": {
+      "lines": 468,
+      "pinned_sha256": "dacc581a3d3b3e1be4ca83b76b38202391a0dd33240e5eaf9c0f5d25085a853b",
+      "working_sha256": "dacc581a3d3b3e1be4ca83b76b38202391a0dd33240e5eaf9c0f5d25085a853b",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/actors/delivery/acks.rs": {
+      "lines": 223,
+      "pinned_sha256": "9028b098b5d672bcdce28608b96a2d655e1f4c03bc374f0dee95e61675041085",
+      "working_sha256": "9028b098b5d672bcdce28608b96a2d655e1f4c03bc374f0dee95e61675041085",
+      "matches_pin": true
+    },
+    "utils/src/acknowledgement.rs": {
+      "lines": 225,
+      "pinned_sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "working_sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "matches_pin": true
+    },
+    "examples/log-multimmit/src/application/reporter.rs": {
+      "lines": 50,
+      "pinned_sha256": "14d2ddc3fa248fc1ddcf6ebefb16ec2f5127532ce0e551ca53389bfdb5a0109c",
+      "working_sha256": "14d2ddc3fa248fc1ddcf6ebefb16ec2f5127532ce0e551ca53389bfdb5a0109c",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/protocol/order.rs": {
+      "lines": 1204,
+      "pinned_sha256": "d1cac14edc62c26903d7c571467e66607ee07eafa7ee110e96ade76cf6782081",
+      "working_sha256": "d1cac14edc62c26903d7c571467e66607ee07eafa7ee110e96ade76cf6782081",
+      "matches_pin": true
+    },
+    "glue/src/stateful/actor/core/mailbox.rs": {
+      "lines": 335,
+      "pinned_sha256": "55f86b93b586e68a7c7e925ae4dca34cbd61beccab4edbc4b57bd2db76de7123",
+      "working_sha256": "55f86b93b586e68a7c7e925ae4dca34cbd61beccab4edbc4b57bd2db76de7123",
+      "matches_pin": true
+    },
+    "cryptography/src/certificate.rs": {
+      "lines": 2063,
+      "pinned_sha256": "b3901c46106ec544ae3793e413cceef1d255472bcbecd03101c477961413f9b8",
+      "working_sha256": "b3901c46106ec544ae3793e413cceef1d255472bcbecd03101c477961413f9b8",
+      "matches_pin": true
+    },
+    "p2p/src/utils/codec.rs": {
+      "lines": 887,
+      "pinned_sha256": "f8535af175d1fe4aa8540dff3be11d398d135e0f173f6e652f1c37013848ddfe",
+      "working_sha256": "f8535af175d1fe4aa8540dff3be11d398d135e0f173f6e652f1c37013848ddfe",
+      "matches_pin": true
+    },
+    "collector/src/p2p/engine.rs": {
+      "lines": 228,
+      "pinned_sha256": "81c967951e5787fefcfc8c65ca7abe3d5d6acd15ccd0bc0236fdb660037518aa",
+      "working_sha256": "81c967951e5787fefcfc8c65ca7abe3d5d6acd15ccd0bc0236fdb660037518aa",
+      "matches_pin": true
+    },
+    "utils/src/faults.rs": {
+      "lines": 459,
+      "pinned_sha256": "2fcb405f20d0c198c458d02a25f9cf2bc1f16db3a87039daa99e0eba7d158d4f",
+      "working_sha256": "2fcb405f20d0c198c458d02a25f9cf2bc1f16db3a87039daa99e0eba7d158d4f",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/scheme/bls12381_threshold/mod.rs": {
+      "lines": 545,
+      "pinned_sha256": "b24d82801d693cf016ec22dcd4b08c7d2afe2f2b8334996ff1737ec6fe26555f",
+      "working_sha256": "b24d82801d693cf016ec22dcd4b08c7d2afe2f2b8334996ff1737ec6fe26555f",
+      "matches_pin": true
+    },
+    "cryptography/src/bls12381/certificate/threshold/mod.rs": {
+      "lines": 1733,
+      "pinned_sha256": "6a2ef894c78cebfd411caa2702a5522d073bc49c7b6af2fcd900eb191dd927b4",
+      "working_sha256": "6a2ef894c78cebfd411caa2702a5522d073bc49c7b6af2fcd900eb191dd927b4",
+      "matches_pin": true
+    },
+    "storage/src/qmdb/mod.rs": {
+      "lines": 1237,
+      "pinned_sha256": "1239567ff0cbf722a7ca898dd7db30e324d0c86eb455699c4af8221ca1b00154",
+      "working_sha256": "1239567ff0cbf722a7ca898dd7db30e324d0c86eb455699c4af8221ca1b00154",
+      "matches_pin": true
+    },
+    "storage/src/qmdb/current/db.rs": {
+      "lines": 1667,
+      "pinned_sha256": "857f407a0d728f5ab849247f9683a1d2dfbfb0592dc1c30e2626aad8d58f2bfd",
+      "working_sha256": "857f407a0d728f5ab849247f9683a1d2dfbfb0592dc1c30e2626aad8d58f2bfd",
+      "matches_pin": true
+    },
+    "glue/src/stateful/db/mod.rs": {
+      "lines": 4888,
+      "pinned_sha256": "1f3d8c538efcb717868a0911280d34e6ebae65912c9ba49df98731045e1d614d",
+      "working_sha256": "1f3d8c538efcb717868a0911280d34e6ebae65912c9ba49df98731045e1d614d",
+      "matches_pin": true
+    },
+    "glue/src/stateful/db/any.rs": {
+      "lines": 997,
+      "pinned_sha256": "c429161cfc158bcbfff25a82301dde4838b9b44a9e10d1fc088bda1bbc6260c8",
+      "working_sha256": "c429161cfc158bcbfff25a82301dde4838b9b44a9e10d1fc088bda1bbc6260c8",
+      "matches_pin": true
+    },
+    "storage/src/qmdb/any/batch.rs": {
+      "lines": 6140,
+      "pinned_sha256": "038381d494051f415f68a992943d67d28827daf71a5528d78c31b523fd27af58",
+      "working_sha256": "038381d494051f415f68a992943d67d28827daf71a5528d78c31b523fd27af58",
+      "matches_pin": true
+    },
+    "storage/src/qmdb/sync/mod.rs": {
+      "lines": 65,
+      "pinned_sha256": "9d11820e694a26e723f88a7583a8109e8a7a138c12e20eeffd2fbe9e37ec0f64",
+      "working_sha256": "9d11820e694a26e723f88a7583a8109e8a7a138c12e20eeffd2fbe9e37ec0f64",
+      "matches_pin": true
+    },
+    "storage/src/qmdb/sync/target.rs": {
+      "lines": 382,
+      "pinned_sha256": "64340009cbeaaf8a0fcf0033f73b9a6f21bcda39892776ec9d959b355ce40d1c",
+      "working_sha256": "64340009cbeaaf8a0fcf0033f73b9a6f21bcda39892776ec9d959b355ce40d1c",
+      "matches_pin": true
+    },
+    "storage/src/qmdb/current/proof/mod.rs": {
+      "lines": 2698,
+      "pinned_sha256": "ea29424d3ae9dc53160d594fc8e01a1c74e0af69fd9bd4f6ac9e3ed91dfbebfe",
+      "working_sha256": "ea29424d3ae9dc53160d594fc8e01a1c74e0af69fd9bd4f6ac9e3ed91dfbebfe",
+      "matches_pin": true
+    },
+    "storage/src/qmdb/sync/engine.rs": {
+      "lines": 1321,
+      "pinned_sha256": "7facf7472338d776389154d53ee11ffa1ff6fee65b659c9a2d55b0d1d4219e54",
+      "working_sha256": "7facf7472338d776389154d53ee11ffa1ff6fee65b659c9a2d55b0d1d4219e54",
+      "matches_pin": true
+    },
+    "storage/src/qmdb/sync/journal.rs": {
+      "lines": 1170,
+      "pinned_sha256": "56b2abdd3c7d0dbd12ecdd69e7c3c2344cc1f82cebdcfe0513143c719f0e8b1c",
+      "working_sha256": "56b2abdd3c7d0dbd12ecdd69e7c3c2344cc1f82cebdcfe0513143c719f0e8b1c",
+      "matches_pin": true
+    },
+    "storage/src/qmdb/current/sync/mod.rs": {
+      "lines": 320,
+      "pinned_sha256": "31fc2472910f229ac8958c7373cdceb434924527e9c966bdf5f19297ed15013e",
+      "working_sha256": "31fc2472910f229ac8958c7373cdceb434924527e9c966bdf5f19297ed15013e",
+      "matches_pin": true
+    },
+    "glue/src/stateful/db/p2p/mailbox.rs": {
+      "lines": 389,
+      "pinned_sha256": "158d139af144e09747a81719e489fd443fe0c69a35dac50b072b33b01b7968f3",
+      "working_sha256": "158d139af144e09747a81719e489fd443fe0c69a35dac50b072b33b01b7968f3",
+      "matches_pin": true
+    },
+    "consensus/src/types.rs": {
+      "lines": 2432,
+      "pinned_sha256": "4f63200e6e95687ad8e1f28dae42d16e7241cfa3d8825c810e97a2babb7f014b",
+      "working_sha256": "4f63200e6e95687ad8e1f28dae42d16e7241cfa3d8825c810e97a2babb7f014b",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/service/mod.rs": {
+      "lines": 326,
+      "pinned_sha256": "c21ce05466dbd4d9ecabf67b0f14d2829f54b9fd7c945bee129ae20270e7bd97",
+      "working_sha256": "c21ce05466dbd4d9ecabf67b0f14d2829f54b9fd7c945bee129ae20270e7bd97",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/service/supervisor.rs": {
+      "lines": 113,
+      "pinned_sha256": "e180514484bb179e04248fc789d2d01f3102d5e41432a161f69f165115d0db1a",
+      "working_sha256": "e180514484bb179e04248fc789d2d01f3102d5e41432a161f69f165115d0db1a",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/service/subscriptions.rs": {
+      "lines": 412,
+      "pinned_sha256": "9c62b37126d9842dc571e7fade85965f55cfea0a4b552180f4109133edfc72e4",
+      "working_sha256": "9c62b37126d9842dc571e7fade85965f55cfea0a4b552180f4109133edfc72e4",
+      "matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/tests.rs": {
+      "lines": 3598,
+      "pinned_sha256": "42007b1cc627bb7744f37528fa8b0981508c390f654af9f51dc5fc40d1ddeb7f",
+      "working_sha256": "42007b1cc627bb7744f37528fa8b0981508c390f654af9f51dc5fc40d1ddeb7f",
+      "matches_pin": true
+    },
+    "runtime/src/mocks.rs": {
+      "lines": 2023,
+      "pinned_sha256": "8813d91812ccaa16ae860dfae45538be2cec26cf5149c3c804d929e20f50f660",
+      "working_sha256": "8813d91812ccaa16ae860dfae45538be2cec26cf5149c3c804d929e20f50f660",
+      "matches_pin": true
+    },
+    "runtime/src/deterministic.rs": {
+      "lines": 3106,
+      "pinned_sha256": "024e14bcc0bf090925a8d9746a16f3b3bc0b0b3d1537e7e9b3aa5159d34af8e9",
+      "working_sha256": "024e14bcc0bf090925a8d9746a16f3b3bc0b0b3d1537e7e9b3aa5159d34af8e9",
+      "matches_pin": true
+    }
+  },
+  "excerpt_sha256": "33a1028ebb501cf0d00c153b451c06d8e2918ec732d368d47be10191fb66eb2c",
+  "declarations": [
+    {
+      "name": "propose",
+      "source": "consensus/src/lib.rs",
+      "line": 155,
+      "matches_ignoring_whitespace_and_comments": true
+    },
+    {
+      "name": "verify",
+      "source": "consensus/src/lib.rs",
+      "line": 179,
+      "matches_ignoring_whitespace_and_comments": true
+    },
+    {
+      "name": "report",
+      "source": "consensus/src/lib.rs",
+      "line": 268,
+      "matches_ignoring_whitespace_and_comments": true
+    },
+    {
+      "name": "broadcast",
+      "source": "consensus/src/lib.rs",
+      "line": 254,
+      "matches_ignoring_whitespace_and_comments": true
+    },
+    {
+      "name": "stage_block",
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 337,
+      "matches_ignoring_whitespace_and_comments": true
+    },
+    {
+      "name": "put_block",
+      "source": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 354,
+      "matches_ignoring_whitespace_and_comments": true
+    },
+    {
+      "name": "Update",
+      "source": "consensus/src/multimmit/marshal/types.rs",
+      "line": 130,
+      "matches_ignoring_whitespace_and_comments": true
+    }
+  ],
+  "failures": [],
+  "scope": "Local current-pin file/line/blob and signature checks only; no semantic proof, remote URL check, Rust compilation or App/runtime test"
+}

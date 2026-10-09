@@ -1,6 +1,16 @@
 # Baton — current research handoff
 
-Updated 2026-10-04. This supersedes the current-state claims in [SESSION_HANDOFF.md](archive/2026-10-03-root-history/repository/SESSION_HANDOFF.md), while preserving that earlier handoff as history. Research/specification work only; no native adapter, completed integration proof or E2E results.
+Updated 2026-10-09. The newest decision below supersedes earlier architecture entries; those entries preserve research and publication history. Research/specification work only; no completed Baton native integration proof or application E2E results.
+
+## 2026-10-09 App-owned pool and schedulers
+
+The current reader design connects one App directly to existing Multimmit and its current Marshal at parent checkout `6233438985d8249d2b2bc1204191d5d405652288`. App owns the pool, Pre-cut or Baton scheduler, transaction workers and state backend. Existing Automaton propose/verify and Marshal Reporter<Update> are the integration surface. Required public TxPool/Baton/Executor/Storage traits and the proposed app-owned ordinary order-delivery machinery are removed. Marshal already supplies body custody/exchange, native order/history recovery and delivery ACK cursor.
+
+Verify registers usable speculative input after payload/custody checks without waiting for transaction execution. It also runs for local pre-sign custody and Engine::open recovery. Update is retained synchronously; app workers reuse/repair exact-parent work, durably apply, then ACK. Marshal's bounded delivery and cursor durability remain separate from native consensus progress and app state durability. State-sync floor changes require coordinating old retained Updates; no hidden Update generation field is assumed.
+
+Pending-only sorting, report rules, cut no-wait, result certification and direct/imported provenance remain. Full protected-prefix Baton still needs native proposal/policy validation and matching Marshal continuation/recovery changes; an app scheduler cannot reorder finalized Updates. Existing `534af0e` research remains historical source evidence. The paper and earlier publication receipts are preserved, and this local rewrite does not update GitBook or other external documents.
+
+The user requested three hours of iterative subagent simplification and source verification. [Current review record](assets/review/app-scheduler-20261009/README.md) tracks the work and completion status; the first rewrite is not a completed-window claim.
 
 ## 2026-10-06 GitBook documentation update
 

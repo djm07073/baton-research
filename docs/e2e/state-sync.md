@@ -1,49 +1,50 @@
 # State sync from certified execution results
 
-**A validator can import a verified peer result while still executing.** Its Executor checks the certificate and exact context, asks Storage to validate applicable material, then fences unfinished work and uses the shared canonical writer at the correct base.
+**An App may import verified peer material during normal execution.** It verifies the result certificate and exact input context, checks applicable material, then fences conflicting work and applies through the same canonical writer used for direct execution.
 
 ## State sync from certified execution results
 
-This sequence illustrates state sync as an option on the **normal validator path**. The receiving Executor verifies and applies certified results and material from a peer Executor. No Baton-to-Baton exchange or separate catch-up coordinator is added. It shares the single writer, access fencing, and durability contract of [canonical application](../execution/qmdb.md#commit-a-branch-to-canonical-state). Responsibility and path are adopted, while wire format, switching, storage, and validation remain unimplemented.
+State sync belongs to App execution/storage code. Peer result messages do not pass through either scheduler mode for approval. The path shares the single writer, access fencing and durability contract of [canonical application](canonical.md).
 
 ```mermaid
 sequenceDiagram
-    participant P as Peer Validator Executor
-    participant E as Local Validator Executor
-    participant Q as Storage / QMDB
-    participant B as Local Baton
-    E->>E: Continue direct execution while result is unavailable
-    P-->>E: Result certificate
-    E->>E: Verify eligible f+1 signatures and irrevocable exact context
-    alt Ordering / predecessor evidence unresolved
-        E->>E: Keep certificate pending, recover evidence / continue valid local work
-    else Result certificate verified
-        E->>P: Request matching change set / outputs
-        P-->>E: State material
-        E->>Q: Validate material against authorized base/target/output commitments
-        Q-->>E: Applicable material or validation failure
-        alt Material missing, invalid or not applicable
-            E->>E: Keep executing / request valid material, no canonical adoption
-        else Applicable target and material verified
-            E->>E: Fence unfinished work at a safe boundary
-            E->>Q: apply(authorized range, verified prepared material)
-            Q->>Q: QMDB apply / Barrier durability / state-output-cursor-provenance linkage
+    participant P as Peer Validator App
+    participant A as Local App
+    participant S as App storage / QMDB
+    participant M as Multimmit Marshal
+    A->>A: Continue valid local execution while result is unavailable
+    P-->>A: Result certificate
+    A->>A: Verify f+1 eligible signatures and exact input / predecessor
+    alt Irrevocable input or predecessor unresolved
+        A->>A: Retain pending certificate and continue valid local work
+    else Certificate valid in exact context
+        A->>P: Request matching material and outputs
+        P-->>A: State material
+        A->>S: Validate material against authorized base and target
+        S-->>A: Applicable material or failure
+        alt Material unavailable or invalid
+            A->>A: Keep executing / recover valid material
+        else Material applicable
+            A->>A: Fence conflicting unfinished work
+            A->>S: Apply through canonical writer and persist linked metadata
             alt Durable import completes
-                Q-->>E: Durable CommitResult / recoverable target checkpoint
-                E->>E: Preserve imported provenance and original certificate
-                E->>E: Complete delivery ACK / tx outcome handoff
-                opt Local scheduling notification
-                    E-->>B: Applied progress only, no approval / ACK required
+                S-->>A: Durable applied identity / outputs / provenance
+                A->>A: Keep imported provenance and original certificate
+                A->>A: Advance canonical base and schedule pool maintenance
+                opt Pending Updates covered by this exact durable prefix
+                    A-->>M: Acknowledge retained matching Updates
                 end
-                E->>E: Execute next range from synced canonical state
-            else Durable completion unconfirmed or failed
-                Note over E,B: No local ready / CommitResult, recheck during recovery
+                A->>A: Resume work from imported canonical state
+            else Durable completion fails
+                A->>A: No ACK, recover authoritative state before reuse
             end
         end
     end
-    Note over P,E: No own direct-execution signature for imported range
+    Note over P,A: No own direct-execution signature for imported input
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-14.svg)
 
-Relaying the original certificate, establishing state finalization, and achieving durable local readiness are different events. A certificate alone does not stop remaining execution; verified applicable material must also be available. Do not append a canonical-base delta to partially executed state. Material format, checkpoint switching, root verification, and import commit remain undecided. The next range can use the existing execution interface for direct execution from the correct canonical base.
+A certificate alone does not justify stopping unfinished execution; applicable material must also be verified. Do not apply a canonical-base delta to arbitrary partial speculative state. A verified import can satisfy an outstanding Update only when its exact input and durable applied identity cover that Update in order. Do not synthesize ACK tokens or skip unrelated outstanding delivery.
+
+For checkpoint catch-up, coordinate Marshal's authenticated floor and output identity with App state installation. `install_floor` restores Marshal's input prefix, not the application database. Serialize this App-owned transition with canonical intake and fence old workers; reconcile already retained Updates against the exact durable imported prefix before resuming. A Marshal floor reset may open a new delivery window while App still holds old Updates, so either prevent that overlap through the transition lifecycle or bound it explicitly. `Update` has no generation tag; local import ownership and exact identity checks must supply the fence. Wire/material formats, checkpoint switching, result verification and atomic recovery linkage remain implementation work. [State-sync responsibilities](../execution/state-sync.md)

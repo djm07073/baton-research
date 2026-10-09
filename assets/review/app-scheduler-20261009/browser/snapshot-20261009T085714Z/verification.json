@@ -1,0 +1,362 @@
+{
+  "checked_at": "2026-10-09T08:57:14.857Z",
+  "pages": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "title": "Start here · Baton",
+      "h1": "Baton Docs",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "overview/architecture.html",
+      "status": 200,
+      "title": "Architecture · Baton",
+      "h1": "Architecture",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-01.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "overview/glossary.html",
+      "status": 200,
+      "title": "Roles and terminology · Baton",
+      "h1": "Roles and terminology",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "overview/rust-interfaces.html",
+      "status": 200,
+      "title": "Rust interfaces · Baton",
+      "h1": "Rust connection points",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "overview/networking.html",
+      "status": 200,
+      "title": "P2P and message paths · Baton",
+      "h1": "P2P and message paths",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "overview/interfaces.html",
+      "status": 200,
+      "title": "Reading the interfaces · Baton",
+      "h1": "Reading the application connections",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "tx/interfaces.html",
+      "status": 200,
+      "title": "Transaction admission and selection · Baton",
+      "h1": "Transaction admission and selection",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "tx/README.html",
+      "status": 200,
+      "title": "Pool backend survey · Baton",
+      "h1": "Transaction pool inside the application",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "consensus/README.html",
+      "status": 200,
+      "title": "Consensus: native structure · Baton",
+      "h1": "Consensus: roles and native structure",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-16.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "consensus/block-body.html",
+      "status": 200,
+      "title": "Block construction and body exchange · Baton",
+      "h1": "Block construction and body exchange",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "consensus/ordered-input.html",
+      "status": 200,
+      "title": "Finalized ordered input · Baton",
+      "h1": "Delivering finalized execution order",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "consensus/decisions.html",
+      "status": 200,
+      "title": "Consensus open decisions · Baton",
+      "h1": "Consensus open decisions",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "baton/README.html",
+      "status": 200,
+      "title": "App and Multimmit · Baton",
+      "h1": "Connect the application to Multimmit",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "baton/direction.html",
+      "status": 200,
+      "title": "Pre-cut and Baton scheduling · Baton",
+      "h1": "Pre-cut and Baton scheduling inside App",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "baton/interfaces.html",
+      "status": 200,
+      "title": "App callback behavior · Baton",
+      "h1": "Application callbacks and scheduler behavior",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "execution/README.html",
+      "status": 200,
+      "title": "Execution: responsibilities · Baton",
+      "h1": "Execution inside the application",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "execution/interfaces.html",
+      "status": 200,
+      "title": "App execution and certification · Baton",
+      "h1": "App execution and result certification",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "execution/qmdb.html",
+      "status": 200,
+      "title": "QMDB branches and canonical application · Baton",
+      "h1": "QMDB branches, reuse, and state application",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-17.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-18.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "execution/state-sync.html",
+      "status": 200,
+      "title": "State sync from certified results · Baton",
+      "h1": "State sync from certified execution results",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "e2e/normal.html",
+      "status": 200,
+      "title": "Normal flow: transaction to state · Baton",
+      "h1": "Normal flow: transaction to applied state",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-02.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-03.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/block-body.html",
+      "status": 200,
+      "title": "Block body exchange · Baton",
+      "h1": "Block body send, fetch, and receive",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-04.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-05.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/native-consensus.html",
+      "status": 200,
+      "title": "Native proposal, DA, and finality · Baton",
+      "h1": "Block proposal, DA, and cut finality",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-15.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/leader.html",
+      "status": 200,
+      "title": "Leader reports and proposal races · Baton",
+      "h1": "Leader reports, direction, and proposal races",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-06.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-12.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/reschedule.html",
+      "status": 200,
+      "title": "Direction receipt and branch execution · Baton",
+      "h1": "Receiving direction and executing branches",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-07.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/canonical.html",
+      "status": 200,
+      "title": "Finalized order and canonical application · Baton",
+      "h1": "Finalized order and canonical state application",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-08.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-09.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/recovery.html",
+      "status": 200,
+      "title": "Startup, restart, and recovery · Baton",
+      "h1": "Startup, restart, and history recovery",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-13.svg"
+        },
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-10.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/results.html",
+      "status": 200,
+      "title": "App certification and queries · Baton",
+      "h1": "App result certification and queries",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-11.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "e2e/state-sync.html",
+      "status": 200,
+      "title": "State sync from certified results · Baton",
+      "h1": "State sync from certified execution results",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-14.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "baselines/precut.html",
+      "status": 200,
+      "title": "Pre-cut execution without Baton · Baton",
+      "h1": "Pre-cut execution without Baton",
+      "images": [
+        {
+          "loaded": true,
+          "src": "../assets/diagrams/diagram-19.svg"
+        }
+      ],
+      "nav": 32
+    },
+    {
+      "file": "reference/integration.html",
+      "status": 200,
+      "title": "Commonware integration and development order · Baton",
+      "h1": "Commonware integration and development order",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "reference/verification.html",
+      "status": 200,
+      "title": "Cases to verify · Baton",
+      "h1": "Cases to verify",
+      "images": [],
+      "nav": 32
+    },
+    {
+      "file": "reference/sources.html",
+      "status": 200,
+      "title": "Sources and document status · Baton",
+      "h1": "Sources and document status",
+      "images": [],
+      "nav": 32
+    }
+  ],
+  "screenshots": [
+    "overview-architecture.html.png",
+    "baton-README.html.png",
+    "baton-interfaces.html.png",
+    "overview-rust-interfaces.html.png",
+    "baton-interfaces-mobile.png",
+    "baton-roles-390.png",
+    "baton-roles-1440.png"
+  ],
+  "failures": [],
+  "search_results": "Architecture\nOverview\nRoles and terminology\nOverview\nRust interfaces\nOverview\nP2P and message paths\nOverview\nReading the interfaces\nOverview\nTransaction admission and selection\nApp transactions\nPool backend survey\nApp transactions\nConsensus: native structure\nMultimmit and Marshal\nBlock construction and body exchange\nMultimmit and Marshal\nFinalized ordered input\nMultimmit and Marshal\nApp and Multimmit\nApp scheduling\nApp callback behavior\nApp scheduling\nApp execution and certification\nApp execution and storage\nNormal flow: transaction to state\nE2E cases\nBlock body exchange\nE2E cases\nStartup, restart, and recovery\nE2E cases\nPre-cut execution without Baton\nBenchmark baselines\nCommonware integration and development order\nDevelopment and references\nCases to verify\nDevelopment and references",
+  "mobile_menu": "true"
+}

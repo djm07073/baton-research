@@ -1,42 +1,40 @@
-# Executor result certification and queries
+# App result certification and queries
 
-**Executor certifies results signed by eligible validators.** It exchanges signatures directly with peer Executors. A verified f+1 certificate establishes a certified result; local durability is a separate milestone.
+**The App certifies results through direct execution-peer messages.** Its internal execution code constructs the statement and checks eligible signers. A verified f+1 certificate establishes the adopted result endpoint; local durable application remains a separate milestone.
 
 ## Result endpoint: direct execution and f+1 certification
 
-Signing and collection are **Executor responsibilities** using Commonware cryptographic primitives plus execution-context checks. Storage prepares the selected root and complete result/output binding before the signing call; execute does not hash every speculative attempt. The sequence shows direct signature exchange and collection between validator Executors. Certificates and change sets use the same execution-peer boundary without Baton relay. See [result certification interfaces](../execution/interfaces.md#result-certification-inside-executor).
+The App prepares the selected result commitment before signing. Each speculative attempt need not calculate a root. Result exchange uses Commonware transport and cryptographic primitives, with application-specific exact-context checks; the Baton scheduler does not relay or approve it.
 
 ```mermaid
 sequenceDiagram
-    participant E as Validator Executor
-    participant S as Storage / QMDB
-    participant P as Peer Validator Executor
-    participant R as Certified result consumer
-    E->>E: Complete direct execution, verify exact irrevocable input/base
-    E->>S: prepare(exact completed range, selected storage rule)
-    S-->>E: Computed commitment + bound outputs/material
-    E->>E: sign_result(prepared result) with own direct provenance
-    E->>E: Retain statement/provenance under chosen recovery contract
-    E-->>P: Signature on stable full ExecutionStatement
-    P-->>E: Matching signatures or original certificate
-    E->>E: Validate full subject, eligible distinct signers and context
-    alt At least f+1 matching eligible signatures verified
-        E->>E: Result certificate verified
-        Note over E,S: State finalization established, durable local application is separate
-        E-->>P: Original certificate, material on request
-        E-->>R: Certificate + exact input/base/result identity
-        R->>R: Verify certificate, order and input-state chain
-    else Insufficient validated signatures
-        E->>E: Continue valid local execution, retain/reprovide statements
+    participant A as Validator App
+    participant S as App storage / QMDB
+    participant P as Peer Validator App
+    participant R as Result consumer
+    A->>A: Complete direct execution for exact irrevocable input and base
+    A->>S: Prepare selected effects and result commitment
+    S-->>A: Commitment with exact output / material binding
+    A->>A: Sign full statement with own direct-execution provenance
+    A->>A: Retain statement and required serving material
+    A-->>P: Signature on exact ExecutionStatement
+    P-->>A: Matching signatures or original certificate
+    A->>A: Verify full subject, epoch membership and distinct identities
+    alt At least f+1 eligible matching signatures verified
+        A->>A: Establish result certificate
+        A-->>R: Certificate plus exact input / base / result identity
+        R->>R: Verify certificate and irrevocable input-state chain
+    else Insufficient matching signatures
+        A->>A: Continue valid work and retain / request statements
     end
-    Note over E,P: Collector may support pull requests, its raw count is not this certificate
-    Note over E,P: No Baton gate, imported range receives no own direct-execution signature
+    Note over A,S: Result certification and local durable application are separate
+    Note over A,P: Imported results receive no own direct-execution signature
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-11.svg)
 
-Do not aggregate signatures merely because their state root values match. The statement must bind the same exact input range, canonical predecessor, runtime, and full result. An imported certificate or synced result cannot become the receiver's own direct-execution signature. Common signing boundary and wire schema remain undecided. Compare full statements bound to the same [root kind/version and operation/batch-boundary interpretation](../execution/qmdb.md#qmdb-state-and-reuse-boundaries).
+The full subject binds the exact input/range, canonical predecessor state, runtime and result. Equal state roots alone do not make two subjects equal. Each identity counts once under the relevant epoch membership. Honest signers directly execute and validate the subject; relaying an imported certificate cannot create local direct-execution provenance.
 
-Reuse Commonware cryptographic primitives for signing and signature verification. The common single-signature entry points are [`Signer::sign(namespace, msg)`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs#L93) and [`Verifier::verify(namespace, msg, sig)`](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/cryptography/src/lib.rs#L130).
+The f+1 result threshold is separate from native Multimmit quorums and the 2f+1 intention-prefix support rule. Reports are not result proofs. Result certification does not wait for Baton approval or gate native cut formation. Common signing boundaries, wire encoding, result transport limits and cryptographic scheme remain undecided. [Certification responsibilities](../execution/interfaces.md)
 
-Executor constructs ExecutionStatement, checks eligible epoch identities, and verifies that distinct identities signed the same full statement. Native [message signing](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1143) and [verification](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/scheme/bls12381_threshold.rs#L1189) are examples of primitive calls. Scheme, keys, domain, codec, and aggregation remain undecided; the example BLS scheme is not adopted as the default.
+A certified result consumer still distinguishes certificate verification, local readable state and durable applied state. Queries must identify the selected state and result contract. Required outputs and intermediate boundaries must remain available under an explicit retention policy; a root by itself cannot reprovide them. [QMDB and retention](../execution/qmdb.md)

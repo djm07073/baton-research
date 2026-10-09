@@ -1,89 +1,84 @@
 # Block body send, fetch, and receive
 
-**BlockService makes block contents available and keeps them recoverable.** A producer builds and distributes the body; receiving nodes fetch missing bytes, verify the expected content, and establish durable custody. Native consensus handles the header and ordering separately.
+**Use the existing Multimmit Marshal for complete-block custody and exchange.** The App defines the transaction body codec, digest and validity checks. Native Multimmit handles signed producer headers, DA and ordering; the body travels through Marshal's buffered broadcast and backfill services.
 
 ## Block lifecycle: mempool → propose → body dissemination
 
 ```mermaid
 sequenceDiagram
-    participant N as Native producer owner
-    participant A as BlockService / upstream callbacks
-    participant T as TxPool
-    participant S as Commonware Archive
-    participant D as Commonware buffered Engine
-    participant V as Peer body attachment
-    N->>A: Automaton::propose(Context)
-    A->>T: select(producer context, limits)
-    T-->>A: Candidate transactions
-    A->>A: Build bounded body, calculate digest/context binding
-    A->>S: Put exact body/required parents and sync
-    S-->>A: Covering durability + retained exact custody
-    A-->>N: Resolve payload digest receiver
-    N->>N: Native header signing under native authority
-    N->>A: Relay::broadcast(digest, ())
-    A->>A: Schedule retained-body lookup
-    A->>D: Mailbox::broadcast_shared(recipients, retained Arc)
-    D-->>V: Body over authenticated P2P channel
-    Note over A,V: Local broadcast admission is not remote receipt/custody ACK
-    Note over N,V: Native headers/DA use native data plane, bodies use application channels
+    participant N as Native producer
+    participant A as App Automaton
+    participant P as App TxPool
+    participant M as Multimmit Marshal
+    participant B as Buffered broadcast
+    participant R as Peer node
+    N->>A: propose(producer Context)
+    A->>P: Select retained transactions within limits
+    P-->>A: Candidate batch
+    A->>A: Build complete block from body and Context
+    A->>M: stage_block(complete block)
+    M-->>A: Custody token for accepted storage work
+    A-->>N: Proposal receiver resolves to body digest
+    N->>A: verify(Context, body digest), local custody check
+    A->>M: subscribe_block(exact BlockRef) or await retained custody
+    M-->>A: Durable custody established
+    A->>A: Check expected header/body and payload validity
+    A-->>N: Verification receiver resolves true
+    N->>N: Sign producer header
+    N->>M: Relay::broadcast(header digest, ())
+    M->>B: Broadcast staged complete block
+    B-->>R: Header and body together
+    N-->>R: Signed header through separate native data plane
+    Note over N,R: Separate channels may deliver in either order
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-04.svg)
 
-Native Core owns producer-header signing authority. The builder creates a body and returns its digest. Application code does not call the native header signer in Core's place.
+`stage_block().await` returns a `Custody` token after admission of storage work. Awaiting `Custody::wait()` establishes durable recovery; `put_block()` combines staging and that wait. Dropping the token does not cancel accepted storage work. The local native custody verify provides the required gate before header signing. An App may wait earlier in propose, but need not add a second durability path. [Marshal mailbox](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L327)
 
-TxPool selection retains candidates, so local proposal cancellation needs no public pool callback or generic reinsertion step. A destructively selecting backend requires internal retention/reselection integration to meet this contract. Cancellation does not undo retained native custody or establish canonical deletion.
-
-Canonical lifecycle is a later, independent path: **durable Executor outcomes → internal pool maintenance → selected backend refresh/reconciliation**. It includes applicable certified imports and uses actual transaction outcomes/next canonical nonces. Body publication, accepted-header observation and native ordering alone cannot substitute for those results. A backend's lossy notification is not processed completion and adds no native cut/direction gate. [Backend completion contract](../tx/interfaces.md#connect-the-trait-to-one-existing-backend).
+The body digest commits to the payload. The header digest identifies the native producer block, including its producer Context and body digest. `propose` returns the body digest; native `Relay::broadcast` requests propagation using the header digest. The existing Marshal Relay resolves that digest to the staged complete block. Its local Feedback does not prove remote receipt or custody, and even `Ok` can mean no matching staged block was found. [Relay completion](../overview/networking.md)
 
 ## Body lookup, verification, and missing-content handling
 
 ```mermaid
 sequenceDiagram
     participant N as Native engine
-    participant A as BlockService: Automaton adapter
-    participant S as Commonware Archive / buffer / resolver
-    participant P as Peer resolver / archive-backed Producer
-    participant I as Baton: block intake
-    participant B as Baton: scheduling
-    N->>A: Automaton::verify(Context from native header, payload)
-    A->>S: Lookup body and required parent
-    alt Required body / parent missing
-        S->>P: Generic resolver fetch by exact key
-        P-->>S: Response bytes
-        S->>S: Validate expected digest and context
-        opt Correct response for exact expected reference
-            S-->>A: Expected body / parent bytes
-        end
-        Note over A,S: Missing / bad peer response keeps request pending
-    else Already stored
-        S-->>A: Stored bytes
+    participant A as App Automaton
+    participant M as Multimmit Marshal
+    participant Q as App scheduler
+    N->>A: verify(Context, body digest)
+    A->>A: Derive exact header and BlockRef
+    A->>M: subscribe_block(BlockRef)
+    Note over A,M: Waits for durable local / buffered custody, no explicit peer fetch
+    opt Concurrent active retrieval if required
+        A->>M: fetch_block(BlockRef)
+        M->>M: Existing resolver / peer backfill
     end
-    alt Required bytes remain unresolved
-        A->>A: Keep receiver pending, resolver retries / buffer subscription waits
-        Note over N,A: No true / false result returned for this request yet
-    else Expected bytes are available
-        alt Expected payload is structurally invalid
-            A-->>N: verify(false)
-        else Structurally valid expected payload
-            A->>S: Store / sync custody
-            alt Covering durable custody succeeds
-                S-->>A: Durable body reference
-                A-->>N: verify(true)
-                A-->>I: StoredBody(durable body, producer context)
-                alt Matching authenticated header observation is available
-                    I->>I: Match exact body / header identity and source provenance
-                    I-->>B: CandidateBlock(block_ref, body, context)
-                else Header observation or matching context remains unresolved
-                    Note over I,B: Candidate join stays pending, native verify completion above is independent
-                end
-            else Local storage / sync failure
-                Note over N,S: No custody success, distinct from peer invalidity
+    alt Required exact block still unavailable
+        Note over N,A: Keep verdict pending while the condition may change
+    else Expected block available
+        M-->>A: subscribe_block resolves with durable complete block
+        A->>A: Check context, digest and application payload validity
+        alt Expected payload permanently invalid
+            A-->>N: Verification receiver resolves false
+        else Valid payload with durable custody
+            A->>A: Deduplicate and retain validated candidate facts
+            A-->>N: Verification receiver resolves true
+            opt Live candidate has required authentication / ancestry
+                A->>Q: Internal eligible pending admission
+                Q->>Q: Sort pending, dispatch only with exact parent ready
             end
         end
     end
+    Note over A,Q: Speculative execution completion does not gate verify
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-05.svg)
 
-A peer sending bytes with the wrong digest differs from permanent invalidity of the expected payload itself. Temporary unavailability or a delayed fetch cannot become an invalidity or empty-slot verdict. Native DA verification must not wait for completed speculative execution. StoredBody is an application validity/custody event. Baton intake obtains authenticated headers from Reporter accepted-artifact notices and joins a body and producer context to the exact matching header to form CandidateBlock. Reporter notices may arrive before or after StoredBody. Neither body availability nor candidate formation proves ordering inclusion or finality.
+`subscribe_block` waits for local storage or buffered ingress to establish custody. It does not initiate peer fetch; DA evidence may independently cause Marshal backfill. `fetch_block` is the explicit network retrieval API and can return buffered bytes before storage sync; a fetch response alone does not establish custody. A wrong peer response is not proof that the expected payload itself is permanently invalid. Local storage failure is also distinct from invalid peer content.
+
+The diagram shows one eligible live validation request. `verify` also runs locally before signing and during recovery; qualify role/lane, lifecycle and exact identity before treating success as a new peer candidate. Nonproducing validators have no own-lane exclusion, while Observers normally enter through Update. [Role and origin rules](../baton/README.md#when-speculative-execution-begins).
+
+Admission uses the App owner's current state after custody completes. Required producer ancestry and authentication still apply, and the scheduler waits for the exact execution checkpoint before dispatch. Already-applied or retired speculative work can still require an honest native custody response. Follow the [candidate/dispatch handler](../baton/interfaces.md#automatonverify-validity-custody-and-scheduling) for deferred-capacity, duplicate and stale-request handling.
+
+Transactions retire through durable canonical outcomes, not body publication, `verify(true)`, or selection. See [TxPool](../tx/interfaces.md) for internal backend reconciliation and [canonical delivery](canonical.md) for the later Update path.

@@ -1,10 +1,10 @@
 flowchart LR
-    S[S0: canonical state] --> A[A: parent hash S0]
-    A --> AB[B: parent hash A, AB checkpoint]
-    AB --> ABC[C: parent hash AB, existing branch]
-    AB --> ABD[D: parent hash AB, new direction branch]
-    S --> X[Checkpoint after X]
-    X --> XA[X → A: execute A from another base]
+    S[S0: canonical state] --> A[A from S0]
+    A --> AB[B from A: AB checkpoint]
+    AB --> ABC[C from AB]
+    AB --> ABD[D from AB]
+    S --> X[X from S0]
+    X --> XA[A from X: different execution]
     classDef canonical fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef reuse fill:#dcfce7,stroke:#16a34a,color:#14532d;
     classDef pending fill:#ffedd5,stroke:#ea580c,color:#431407;

@@ -1,16 +1,19 @@
 flowchart TB
-    T[TxPool: admit / select] --> B[Body attachment: Automaton / Relay]
-    B --> N[Native Multimmit: producer / DA / ordering]
-    B -->|stored valid body| A[Baseline attachment: candidate scheduling / confirmed input]
-    N -->|authenticated header notice| A
-    N -->|exact finality / history handoff| A
-    A -->|execute with exact parent / commit exact range| E[Executor: changes / branch reuse / repair / result certification]
-    E --> S[Storage: selected roots / canonical apply / durability]
-    E <-->|execution signatures / certified state sync| P[Peer Executors]
-    E -->|completion / durable delivery result| A
+    N[Native Multimmit] -->|propose / verify| I
+    N -->|Activity| M[Existing Multimmit Marshal]
+    M -->|ordered Update and ACK token| I
+    subgraph A[PreCut]
+        T[Transaction pool] -->|selected txs for propose| I[Existing callback handles]
+        I -->|eligible candidate after valid custody| Q[PreCut: sort pending only]
+        Q -->|exact-parent work| E[Shared execution tree / transaction backend]
+        I -->|canonical index and block| E
+        E --> S[Shared selected-root and durable application path]
+        S -->|durable outcomes| T
+    end
+    I -->|stage / subscribe / fetch| M
+    S -->|ACK after durable apply| M
+    E <-->|execution certificates / verified state material| P[Peer applications]
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
-    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
-    class N reuse;
-    class B adapt;
-    class T,A,E,S,P fresh;
+    class N,M reuse;
+    class T,I,Q,E,S,P fresh;

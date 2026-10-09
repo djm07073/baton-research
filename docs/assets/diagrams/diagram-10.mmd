@@ -1,15 +1,22 @@
 sequenceDiagram
-    participant S as Startup owner
-    participant Q as Storage / QMDB / commit metadata
-    participant M as Baton
-    participant E as Executor
-    S->>Q: Recover last durable applied commit
-    Q-->>S: State / outputs / AppliedCursor / provenance
-    Note over S,M: Body custody follows the separate startup sequence
-    S->>M: Recover archive and delivery cursors
-    M->>M: Fetch missing authenticated history / bodies
-    S->>E: Open recovered canonical checkpoint
-    Note over E: Reconstruct speculative branches from durable canonical state
-    M-->>E: Redeliver unacknowledged exact range
-    E->>E: Idempotent commit(range)
-    E-->>M: Existing matching durable CommitResult / delivery ACK
+    participant O as Startup owner
+    participant M as Multimmit Marshal
+    participant A as App
+    participant S as App storage / QMDB
+    O->>S: Recover state, outputs, applied position and provenance
+    S-->>A: Authoritative durable applied record
+    O->>M: Reopen catalog, bodies and delivery cursor
+    M->>M: Recover / fetch missing native history and blocks
+    M-->>A: Redeliver Update after durable Marshal cursor
+    A->>A: Check exact index and block against applied record
+    alt Same input already durably applied
+        A-->>M: Acknowledge without duplicate effects
+    else Next unapplied input
+        A->>A: Reuse or execute from recovered canonical base
+        A->>S: Apply and persist exact result / metadata
+        S-->>A: Durable completion
+        A-->>M: Acknowledge
+    else Identity conflict or gap
+        A->>A: Stop advancement and reconcile / recover
+    end
+    M->>M: Persist acknowledged continuous prefix

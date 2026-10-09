@@ -1,21 +1,25 @@
 sequenceDiagram
-    participant N as Native producer owner
-    participant A as BlockService / upstream callbacks
-    participant T as TxPool
-    participant S as Commonware Archive
-    participant D as Commonware buffered Engine
-    participant V as Peer body attachment
-    N->>A: Automaton::propose(Context)
-    A->>T: select(producer context, limits)
-    T-->>A: Candidate transactions
-    A->>A: Build bounded body, calculate digest/context binding
-    A->>S: Put exact body/required parents and sync
-    S-->>A: Covering durability + retained exact custody
-    A-->>N: Resolve payload digest receiver
-    N->>N: Native header signing under native authority
-    N->>A: Relay::broadcast(digest, ())
-    A->>A: Schedule retained-body lookup
-    A->>D: Mailbox::broadcast_shared(recipients, retained Arc)
-    D-->>V: Body over authenticated P2P channel
-    Note over A,V: Local broadcast admission is not remote receipt/custody ACK
-    Note over N,V: Native headers/DA use native data plane, bodies use application channels
+    participant N as Native producer
+    participant A as App Automaton
+    participant P as App TxPool
+    participant M as Multimmit Marshal
+    participant B as Buffered broadcast
+    participant R as Peer node
+    N->>A: propose(producer Context)
+    A->>P: Select retained transactions within limits
+    P-->>A: Candidate batch
+    A->>A: Build complete block from body and Context
+    A->>M: stage_block(complete block)
+    M-->>A: Custody token for accepted storage work
+    A-->>N: Proposal receiver resolves to body digest
+    N->>A: verify(Context, body digest), local custody check
+    A->>M: subscribe_block(exact BlockRef) or await retained custody
+    M-->>A: Durable custody established
+    A->>A: Check expected header/body and payload validity
+    A-->>N: Verification receiver resolves true
+    N->>N: Sign producer header
+    N->>M: Relay::broadcast(header digest, ())
+    M->>B: Broadcast staged complete block
+    B-->>R: Header and body together
+    N-->>R: Signed header through separate native data plane
+    Note over N,R: Separate channels may deliver in either order

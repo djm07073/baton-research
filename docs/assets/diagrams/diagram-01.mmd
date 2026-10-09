@@ -1,23 +1,18 @@
 flowchart TB
-    C[Client / Tx API] --> T[TxPool: candidates and static policy]
-    T -->|candidate batch| B[BlockService: body / custody adapter]
-    B <-->|bytes / fetch / durability| BP[Commonware buffer / resolver / archive]
-    B -->|payload / custody| N[commonware_consensus::multimmit]
-    N -->|exact evidence / history| O[Baton: direction and confirmed-order delivery]
-    B -->|StoredBody| O
-    N -. Reporter artifact .-> O
-    O -. PreparedPolicy .-> H[Native policy hook]
-    H -. recheck / freeze .-> N
-    O -->|Direction| PE[Peer Baton]
-    O <-->|execute / commit / results| E[Executor: tree, execution and certification]
-    E -->|completed changes / selected commit| S[Storage: roots / canonical writer / recovery]
-    S -->|batch / merkleize / apply / sync| Q[Commonware QMDB]
-    E <-->|signatures / certificates / change sets| V[Peer Executor]
-    E -->|canonical tx outcomes to internal maintenance| T
-    NET[Commonware P2P: shared by all planes] --- N
+    N[Multimmit engine] -->|propose / verify| A
+    N -->|Relay / Activity| M[Multimmit Marshal]
+    M -->|ordered Update| A
+    A -->|stage / subscribe / fetch| M
+    subgraph APP[Application]
+        T[Transaction pool] -->|select batch| A[Existing callback handles]
+        A -->|usable candidate| S[Pre-cut or Baton scheduler]
+        S -->|exact-parent job| E[Execution workers and checkpoints]
+        A -->|canonical input| E
+        E -->|selected effects| W[State backend and canonical writer]
+    end
+    W -->|ACK after durable apply| M
+    W --> Q[Commonware QMDB]
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
-    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
-    classDef new fill:#dcfce7,stroke:#16a34a,color:#14532d;
-    class N,NET,BP,Q reuse;
-    class T,B,H,S adapt;
-    class O,PE,E,V new;
+    classDef app fill:#dcfce7,stroke:#16a34a,color:#14532d;
+    class N,M,Q reuse;
+    class T,A,S,E,W app;

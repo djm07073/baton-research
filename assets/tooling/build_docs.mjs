@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir, cp, rm } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, cp, rm, realpath, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
@@ -26,6 +26,7 @@ await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await cp(path.join(source, 'assets'), path.join(output, 'assets'), { recursive: true });
 const relative = (from, to) => path.posix.relative(path.posix.dirname(from), to) || path.posix.basename(to);
+const attachments = new Map();
 const search = [];
 for (let i = 0; i < pages.length; i++) {
   const page = pages[i];
@@ -52,13 +53,17 @@ for (let i = 0; i < pages.length; i++) {
   };
   let content = marked.parse(markdown, { renderer, gfm: true });
   content = content.replace(/href="([^"#][^"]*\.md)(#[^"]*)?"/g, (all, file, anchor = '') => {
-    if (/^[a-z]+:/i.test(file)) return all;
+    if (/^(?:[a-z]+:|\/)/i.test(file)) return all;
     const target = path.posix.normalize(path.posix.join(path.posix.dirname(page.file), file));
-    if (!pages.some(p => p.file === target)) return all;
-    return `href="${relative(destination, htmlPath(target))}${anchor}"`;
+    if (target === 'SUMMARY.md') return `href="${relative(destination, 'index.html')}${anchor}"`;
+    if (pages.some(p => p.file === target)) return `href="${relative(destination, htmlPath(target))}${anchor}"`;
+    // Preserve directly linked source documents without publishing the whole repository.
+    const attachment = path.resolve(source, target);
+    if (!attachment.startsWith(repo + path.sep)) throw new Error(`Link outside repository in ${page.file}: ${file}`);
+    const attachmentPath = `repository/${path.relative(repo, attachment).split(path.sep).join('/')}`;
+    attachments.set(attachmentPath, attachment);
+    return `href="${relative(destination, attachmentPath)}${anchor}" download title="Download source Markdown"`;
   });
-  // SUMMARY is represented by the sidebar; preserve its links as the start page.
-  content = content.replace(/href="([^"#]*SUMMARY\.md)(#[^"]*)?"/g, `href="${relative(destination, 'index.html')}"`);
   const linkTo = p => relative(destination, htmlPath(p.file));
   let lastGroup = '';
   const navigation = pages.map(p => {
@@ -78,7 +83,15 @@ for (let i = 0; i < pages.length; i++) {
   await writeFile(path.join(output, destination), html);
   search.push({ title: page.title, group: page.group, url: destination, text: markdown.replace(/```[\s\S]*?```/g, '').replace(/<[^>]+>/g, '').replace(/[#*`|]/g, '') });
 }
+for (const [destination, attachment] of attachments) {
+  const resolved = await realpath(attachment);
+  if (!resolved.startsWith(repo + path.sep) || !(await stat(resolved)).isFile()) {
+    throw new Error(`Source attachment is not a repository file: ${attachment}`);
+  }
+  await mkdir(path.dirname(path.join(output, destination)), { recursive: true });
+  await cp(resolved, path.join(output, destination));
+}
 await writeFile(path.join(output, 'search.json'), JSON.stringify(search));
 await cp(path.join(repo, 'assets/tooling/docs-style.css'), path.join(output, 'style.css'));
 await cp(path.join(repo, 'assets/tooling/docs-app.js'), path.join(output, 'app.js'));
-console.log(`Built ${pages.length} pages and ${diagrams.size} diagrams in ${output}`);
+console.log(`Built ${pages.length} pages, ${diagrams.size} diagrams and ${attachments.size} source attachments in ${output}`);

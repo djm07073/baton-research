@@ -1,0 +1,855 @@
+{
+  "kind": "local source link target/line bounds check, not semantic or remote URL verification",
+  "native_commit": "6233438985d8249d2b2bc1204191d5d405652288",
+  "references": 94,
+  "unique_targets": 68,
+  "failures": [],
+  "entries": [
+    {
+      "doc": "docs/baton/interfaces.md",
+      "line": 9,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/baton/interfaces.md",
+      "line": 11,
+      "path": "consensus/src/multimmit/marshal/config.rs",
+      "start": 164,
+      "end": null,
+      "valid": true,
+      "anchor_text": "///"
+    },
+    {
+      "doc": "docs/baton/interfaces.md",
+      "line": 55,
+      "path": "consensus/src/multimmit/actors/voter/chain_plane.rs",
+      "start": 522,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Dispatches every ready application validation this chain can start."
+    },
+    {
+      "doc": "docs/baton/interfaces.md",
+      "line": 55,
+      "path": "consensus/src/multimmit/machine/eligibility.rs",
+      "start": 352,
+      "end": null,
+      "valid": true,
+      "anchor_text": "match completion.validity() {"
+    },
+    {
+      "doc": "docs/consensus/README.md",
+      "line": 17,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": 260,
+      "end": null,
+      "valid": true,
+      "anchor_text": "let (application, application_mailbox) = application::Actor::new("
+    },
+    {
+      "doc": "docs/consensus/README.md",
+      "line": 19,
+      "path": "consensus/src/multimmit/mod.rs",
+      "start": 50,
+      "end": null,
+      "valid": true,
+      "anchor_text": "//! # Application Contract"
+    },
+    {
+      "doc": "docs/consensus/README.md",
+      "line": 19,
+      "path": "consensus/src/multimmit/actors/voter/actor/app.rs",
+      "start": 64,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Runs local application jobs and collects their outcomes."
+    },
+    {
+      "doc": "docs/consensus/README.md",
+      "line": 55,
+      "path": "consensus/src/multimmit/engine/mod.rs",
+      "start": 446,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub async fn open("
+    },
+    {
+      "doc": "docs/consensus/README.md",
+      "line": 55,
+      "path": "consensus/src/multimmit/storage/recovery.rs",
+      "start": 466,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Asks the application to verify every recovered payload, at most `max_inflight` at a time."
+    },
+    {
+      "doc": "docs/consensus/README.md",
+      "line": 61,
+      "path": "consensus/src/multimmit/marshal/mod.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/consensus/README.md",
+      "line": 61,
+      "path": "examples/log-multimmit/src/marshal.rs",
+      "start": 126,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub async fn start<S, R>("
+    },
+    {
+      "doc": "docs/consensus/README.md",
+      "line": 63,
+      "path": "consensus/src/multimmit/types/activity.rs",
+      "start": 58,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// A local proposal, contextually admitted artifact, consensus finality observation, or durable"
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 15,
+      "path": "consensus/src/multimmit/types/block.rs",
+      "start": 265,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub trait Body<H: Hasher>: Codec + Digestible<Digest = H::Digest> {}"
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 21,
+      "path": "examples/log-multimmit/src/marshal.rs",
+      "start": 126,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub async fn start<S, R>("
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 32,
+      "path": "consensus/src/multimmit/marshal/mailbox.rs",
+      "start": 327,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Stages one complete producer block without broadcasting it."
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 41,
+      "path": "examples/log-multimmit/src/application/actor.rs",
+      "start": 309,
+      "end": null,
+      "valid": true,
+      "anchor_text": "fn complete(&mut self, marshal: &Marshal, completion: Completion) {"
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 41,
+      "path": "consensus/src/multimmit/actors/voter/actor/app.rs",
+      "start": 121,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Validates and durably retains one locally prepared body before its header may be signed."
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 43,
+      "path": "consensus/src/lib.rs",
+      "start": 134,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Select or construct a payload for the given context and return its commitment."
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 43,
+      "path": "consensus/src/multimmit/actors/voter/actor/live.rs",
+      "start": 578,
+      "end": null,
+      "valid": true,
+      "anchor_text": "AppOutcome::Custodied {"
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 47,
+      "path": "consensus/src/multimmit/actors/voter/actor/publish.rs",
+      "start": 124,
+      "end": null,
+      "valid": true,
+      "anchor_text": "for transmission in transmissions.iter() {"
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 47,
+      "path": "consensus/src/multimmit/marshal/relay.rs",
+      "start": 107,
+      "end": null,
+      "valid": true,
+      "anchor_text": "fn broadcast(&mut self, digest: Self::Digest, (): Self::Plan) -> Feedback {"
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 49,
+      "path": "consensus/src/multimmit/actors/voter/chain_plane.rs",
+      "start": 522,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Dispatches every ready application validation this chain can start."
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 49,
+      "path": "examples/log-multimmit/src/application/actor.rs",
+      "start": 70,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Waits for marshal to hold the block `header` names durably, then checks it against `header`."
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 53,
+      "path": "consensus/src/multimmit/machine/eligibility.rs",
+      "start": 326,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Applies one application-validation completion of this plane's current generation."
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 57,
+      "path": "consensus/src/multimmit/marshal/mailbox.rs",
+      "start": 449,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Gets the retained floor with the highest index at or below `at`, with that index."
+    },
+    {
+      "doc": "docs/consensus/block-body.md",
+      "line": 59,
+      "path": "consensus/src/multimmit/types/activity.rs",
+      "start": 104,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// The engine durably recorded `certified` as the newest certified block of its chain: a DA"
+    },
+    {
+      "doc": "docs/consensus/decisions.md",
+      "line": 7,
+      "path": "consensus/src/multimmit/types/block.rs",
+      "start": 802,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub struct LeaderBlock<V: Variant, D: Digest> {"
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 7,
+      "path": "consensus/src/multimmit/mod.rs",
+      "start": 93,
+      "end": null,
+      "valid": true,
+      "anchor_text": "//! # Finality and Delivery"
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 7,
+      "path": "consensus/src/multimmit/marshal/mod.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 17,
+      "path": "consensus/src/multimmit/marshal/types.rs",
+      "start": 128,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// One complete block in the finalized application stream, at the next output index."
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 25,
+      "path": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "start": 235,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Reports hot outputs from the delivery cursor, starting a cold read at the first output"
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 25,
+      "path": "consensus/src/multimmit/marshal/actors/delivery/acks.rs",
+      "start": 1,
+      "end": null,
+      "valid": true,
+      "anchor_text": "//! The application acknowledgement window and the cursor syncs it feeds."
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 27,
+      "path": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "start": 303,
+      "end": null,
+      "valid": true,
+      "anchor_text": "fn report("
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 27,
+      "path": "utils/src/acknowledgement.rs",
+      "start": 38,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// [Acknowledgement] that returns after all instances are acknowledged."
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 31,
+      "path": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "start": 423,
+      "end": null,
+      "valid": true,
+      "anchor_text": "Message::Reset {"
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 33,
+      "path": "examples/log-multimmit/src/application/reporter.rs",
+      "start": 33,
+      "end": null,
+      "valid": true,
+      "anchor_text": "impl<C: Clock> Reporter for OutputReporter<C> {"
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 44,
+      "path": "consensus/src/multimmit/marshal/mailbox.rs",
+      "start": 449,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Gets the retained floor with the highest index at or below `at`, with that index."
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 46,
+      "path": "consensus/src/multimmit/marshal/config.rs",
+      "start": 164,
+      "end": null,
+      "valid": true,
+      "anchor_text": "///"
+    },
+    {
+      "doc": "docs/consensus/ordered-input.md",
+      "line": 48,
+      "path": "consensus/src/multimmit/marshal/protocol/order.rs",
+      "start": 361,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Offset-major traversal from one canonical tip vector toward a higher one, pass A first and"
+    },
+    {
+      "doc": "docs/e2e/block-body.md",
+      "line": 37,
+      "path": "consensus/src/multimmit/marshal/mailbox.rs",
+      "start": 327,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Stages one complete producer block without broadcasting it."
+    },
+    {
+      "doc": "docs/e2e/canonical.md",
+      "line": 41,
+      "path": "consensus/src/multimmit/marshal/types.rs",
+      "start": 128,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// One complete block in the finalized application stream, at the next output index."
+    },
+    {
+      "doc": "docs/e2e/canonical.md",
+      "line": 49,
+      "path": "examples/log-multimmit/src/application/reporter.rs",
+      "start": 33,
+      "end": null,
+      "valid": true,
+      "anchor_text": "impl<C: Clock> Reporter for OutputReporter<C> {"
+    },
+    {
+      "doc": "docs/e2e/canonical.md",
+      "line": 51,
+      "path": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "start": 303,
+      "end": null,
+      "valid": true,
+      "anchor_text": "fn report("
+    },
+    {
+      "doc": "docs/e2e/canonical.md",
+      "line": 51,
+      "path": "consensus/src/multimmit/marshal/actors/delivery/acks.rs",
+      "start": 107,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub(super) fn complete(&mut self, result: Result<(), Canceled>) -> Result<Acknowledged, Error> {"
+    },
+    {
+      "doc": "docs/e2e/canonical.md",
+      "line": 53,
+      "path": "utils/src/acknowledgement.rs",
+      "start": 39,
+      "end": null,
+      "valid": true,
+      "anchor_text": "///"
+    },
+    {
+      "doc": "docs/e2e/native-consensus.md",
+      "line": 47,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": 306,
+      "end": null,
+      "valid": true,
+      "anchor_text": "let engine = Engine::open("
+    },
+    {
+      "doc": "docs/e2e/normal.md",
+      "line": 86,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": 242,
+      "end": null,
+      "valid": true,
+      "anchor_text": "let (mut network, mut oracle) = discovery::Network::new(context.child(\"network\"), p2p);"
+    },
+    {
+      "doc": "docs/e2e/recovery.md",
+      "line": 7,
+      "path": "consensus/src/multimmit/marshal/types.rs",
+      "start": 55,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Marshal delivers finalized blocks in order, and each delivered block takes the next index."
+    },
+    {
+      "doc": "docs/e2e/recovery.md",
+      "line": 42,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": 242,
+      "end": null,
+      "valid": true,
+      "anchor_text": "let (mut network, mut oracle) = discovery::Network::new(context.child(\"network\"), p2p);"
+    },
+    {
+      "doc": "docs/e2e/recovery.md",
+      "line": 42,
+      "path": "examples/log-multimmit/src/marshal.rs",
+      "start": 126,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub async fn start<S, R>("
+    },
+    {
+      "doc": "docs/e2e/recovery.md",
+      "line": 44,
+      "path": "consensus/src/multimmit/engine/mod.rs",
+      "start": 446,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub async fn open("
+    },
+    {
+      "doc": "docs/e2e/recovery.md",
+      "line": 50,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": 343,
+      "end": null,
+      "valid": true,
+      "anchor_text": "// Stop consumers before the services they depend on. The engine was aborted, so its join"
+    },
+    {
+      "doc": "docs/e2e/recovery.md",
+      "line": 92,
+      "path": "consensus/src/multimmit/marshal/mailbox.rs",
+      "start": 452,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// [`Self::install_floor`], which verifies it, and then receives the outputs after its"
+    },
+    {
+      "doc": "docs/execution/interfaces.md",
+      "line": 82,
+      "path": "cryptography/src/certificate.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/execution/interfaces.md",
+      "line": 82,
+      "path": "p2p/src/utils/codec.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/execution/interfaces.md",
+      "line": 82,
+      "path": "collector/src/p2p/engine.rs",
+      "start": 190,
+      "end": null,
+      "valid": true,
+      "anchor_text": "// Response from a handler"
+    },
+    {
+      "doc": "docs/execution/interfaces.md",
+      "line": 86,
+      "path": "utils/src/faults.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/execution/qmdb.md",
+      "line": 9,
+      "path": "storage/src/qmdb/mod.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/execution/qmdb.md",
+      "line": 9,
+      "path": "storage/src/qmdb/current/db.rs",
+      "start": 274,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Returns the ops tree root."
+    },
+    {
+      "doc": "docs/execution/qmdb.md",
+      "line": 55,
+      "path": "glue/src/stateful/db/mod.rs",
+      "start": 498,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub trait DatabaseSet<E>: Clone + Send + Sync + 'static {"
+    },
+    {
+      "doc": "docs/execution/qmdb.md",
+      "line": 55,
+      "path": "glue/src/stateful/db/mod.rs",
+      "start": 327,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// A database whose batches [`Stateful`](super::Stateful) builds, applies, persists, and prunes."
+    },
+    {
+      "doc": "docs/execution/qmdb.md",
+      "line": 61,
+      "path": "glue/src/stateful/db/any.rs",
+      "start": 95,
+      "end": null,
+      "valid": true,
+      "anchor_text": "S: Strategy,"
+    },
+    {
+      "doc": "docs/execution/qmdb.md",
+      "line": 65,
+      "path": "storage/src/qmdb/any/batch.rs",
+      "start": 2855,
+      "end": null,
+      "valid": true,
+      "anchor_text": "///"
+    },
+    {
+      "doc": "docs/execution/qmdb.md",
+      "line": 65,
+      "path": "storage/src/qmdb/current/db.rs",
+      "start": 665,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// [`Self::apply_batch`] runs the same validation but consumes the database when it"
+    },
+    {
+      "doc": "docs/execution/state-sync.md",
+      "line": 21,
+      "path": "storage/src/qmdb/sync/mod.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/execution/state-sync.md",
+      "line": 31,
+      "path": "storage/src/qmdb/sync/target.rs",
+      "start": 11,
+      "end": null,
+      "valid": true,
+      "anchor_text": "///"
+    },
+    {
+      "doc": "docs/execution/state-sync.md",
+      "line": 31,
+      "path": "storage/src/qmdb/current/proof/mod.rs",
+      "start": 125,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub struct OpsRootWitness<F: Graftable, D: Digest> {"
+    },
+    {
+      "doc": "docs/execution/state-sync.md",
+      "line": 33,
+      "path": "storage/src/qmdb/sync/engine.rs",
+      "start": 691,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Returns `NextStep::Complete(database)` when sync is finished, or"
+    },
+    {
+      "doc": "docs/execution/state-sync.md",
+      "line": 35,
+      "path": "storage/src/qmdb/sync/journal.rs",
+      "start": 21,
+      "end": null,
+      "valid": true,
+      "anchor_text": ""
+    },
+    {
+      "doc": "docs/execution/state-sync.md",
+      "line": 37,
+      "path": "glue/src/stateful/db/p2p/mailbox.rs",
+      "start": 161,
+      "end": null,
+      "valid": true,
+      "anchor_text": "where"
+    },
+    {
+      "doc": "docs/execution/state-sync.md",
+      "line": 41,
+      "path": "consensus/src/multimmit/marshal/mailbox.rs",
+      "start": 450,
+      "end": null,
+      "valid": true,
+      "anchor_text": "///"
+    },
+    {
+      "doc": "docs/execution/state-sync.md",
+      "line": 43,
+      "path": "consensus/src/multimmit/marshal/config.rs",
+      "start": 163,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Startup anchor used only when no durable checkpoint exists."
+    },
+    {
+      "doc": "docs/execution/state-sync.md",
+      "line": 45,
+      "path": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "start": 423,
+      "end": null,
+      "valid": true,
+      "anchor_text": "Message::Reset {"
+    },
+    {
+      "doc": "docs/overview/networking.md",
+      "line": 23,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": 242,
+      "end": null,
+      "valid": true,
+      "anchor_text": "let (mut network, mut oracle) = discovery::Network::new(context.child(\"network\"), p2p);"
+    },
+    {
+      "doc": "docs/overview/networking.md",
+      "line": 33,
+      "path": "examples/log-multimmit/src/marshal.rs",
+      "start": 126,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub async fn start<S, R>("
+    },
+    {
+      "doc": "docs/overview/rust-interfaces.md",
+      "line": 24,
+      "path": "consensus/src/lib.rs",
+      "start": 125,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub trait Automaton: Clone + Send + 'static {"
+    },
+    {
+      "doc": "docs/overview/rust-interfaces.md",
+      "line": 48,
+      "path": "consensus/src/lib.rs",
+      "start": 258,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub trait Reporter: Clone + Send + 'static {"
+    },
+    {
+      "doc": "docs/overview/rust-interfaces.md",
+      "line": 60,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": 306,
+      "end": null,
+      "valid": true,
+      "anchor_text": "let engine = Engine::open("
+    },
+    {
+      "doc": "docs/overview/rust-interfaces.md",
+      "line": 64,
+      "path": "consensus/src/multimmit/marshal/mailbox.rs",
+      "start": 326,
+      "end": null,
+      "valid": true,
+      "anchor_text": ""
+    },
+    {
+      "doc": "docs/overview/rust-interfaces.md",
+      "line": 81,
+      "path": "consensus/src/multimmit/marshal/types.rs",
+      "start": 130,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub struct Update<B: Block> {"
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 11,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": 242,
+      "end": null,
+      "valid": true,
+      "anchor_text": "let (mut network, mut oracle) = discovery::Network::new(context.child(\"network\"), p2p);"
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 12,
+      "path": "examples/log-multimmit/src/marshal.rs",
+      "start": 126,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub async fn start<S, R>("
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 13,
+      "path": "examples/log-multimmit/src/application/actor.rs",
+      "start": 70,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// Waits for marshal to hold the block `header` names durably, then checks it against `header`."
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 14,
+      "path": "consensus/src/multimmit/engine/mod.rs",
+      "start": 446,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub async fn open("
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 15,
+      "path": "consensus/src/multimmit/marshal/types.rs",
+      "start": 128,
+      "end": null,
+      "valid": true,
+      "anchor_text": "/// One complete block in the finalized application stream, at the next output index."
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 16,
+      "path": "consensus/src/multimmit/types/block.rs",
+      "start": 802,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub struct LeaderBlock<V: Variant, D: Digest> {"
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 16,
+      "path": "consensus/src/multimmit/marshal/protocol/order.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 50,
+      "path": "consensus/src/multimmit/marshal/config.rs",
+      "start": 164,
+      "end": null,
+      "valid": true,
+      "anchor_text": "///"
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 109,
+      "path": "examples/log-multimmit/src/marshal.rs",
+      "start": 126,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub async fn start<S, R>("
+    },
+    {
+      "doc": "docs/reference/integration.md",
+      "line": 109,
+      "path": "examples/log-multimmit/src/node.rs",
+      "start": 242,
+      "end": null,
+      "valid": true,
+      "anchor_text": "let (mut network, mut oracle) = discovery::Network::new(context.child(\"network\"), p2p);"
+    },
+    {
+      "doc": "docs/reference/verification.md",
+      "line": 5,
+      "path": "consensus/src/multimmit/marshal/tests.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    },
+    {
+      "doc": "docs/reference/verification.md",
+      "line": 14,
+      "path": "runtime/src/mocks.rs",
+      "start": 1240,
+      "end": null,
+      "valid": true,
+      "anchor_text": "impl PendingSyncs {"
+    },
+    {
+      "doc": "docs/reference/verification.md",
+      "line": 14,
+      "path": "runtime/src/deterministic.rs",
+      "start": 578,
+      "end": null,
+      "valid": true,
+      "anchor_text": "pub fn start_and_recover<F, Fut>(self, f: F) -> (Fut::Output, Checkpoint)"
+    },
+    {
+      "doc": "docs/reference/verification.md",
+      "line": 37,
+      "path": "consensus/src/multimmit/marshal/tests.rs",
+      "start": null,
+      "end": null,
+      "valid": true,
+      "anchor_text": null
+    }
+  ]
+}

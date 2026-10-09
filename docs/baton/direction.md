@@ -1,86 +1,100 @@
-# Choosing direction and executing branches
+# Pre-cut and Baton scheduling inside App
 
-**Baton chooses and shares a promising order; Executor manages its execution tree.** The leader evaluates original reports, chooses a valid candidate, and shares advisory direction. Each receiving Baton adjusts its speculative schedule without introducing a direction-approval quorum.
+**Both schedulers consume usable blocks and the same canonical Marshal Updates. Pre-cut starts local work early. Baton additionally exchanges intended orders and chooses advisory direction.** Execution workers, checkpoints, storage, result certification and state sync belong to the same application in both modes.
+
+## Shared application state and different scheduling policy
+
+| Input / state | Pre-cut | Baton |
+|---|---|---|
+| Valid usable candidate, commonly after `verify` | Deduplicate and sort eligible pending work | Same local admission rule |
+| Valid predecessor checkpoint and free worker | Dispatch next eligible block | Dispatch under the applicable local/advisory policy |
+| Worker completion | Retain exact-parent effects/checkpoint; reject stale completion | Same, also available when forming future intentions |
+| Marshal `Update(index, block, ACK)` | Reconcile exact canonical order; reuse/repair; durably apply; ACK | Identical canonical authority; reports never gate it |
+| Intended-order reports / direction | Absent; no Baton instance | Authenticate, admit, choose and disseminate inside App |
+| Change to native cut policy | None | Required for full protected-prefix research objective; still open |
+
+A scheduler chooses **what to start next**. It does not duplicate Marshal's history verifier, body resolver, dense order or delivery cursor. It also does not own a second canonical writer. App's execution state supplies the exact checkpoints used by the scheduler; private functions are enough for this connection.
 
 ## Global rule for local execution and reports
 
-**Keep the order of work already started; sort only work that has not started.** Global rule G orders eligible pending blocks in ordinary local speculation. For one valid local path, let F be its completed sequence plus the currently executing block, and S_pending the known authenticated eligible blocks not yet started, after the immutable ordering frontier and within the chosen horizon. The intended order is `F ++ sort_G(S_pending)`. These are explanatory symbols, not new Rust types. The rule preserves required ancestry/dependencies; comparator, tie-break and identity encoding remain open. Arrival time is not a pending-queue tie-break.
+Keep completed/current execution order `F` on a valid local path. Sort only eligible, authenticated, not-yet-started candidates `S_pending` after the immutable frontier and within the selected horizon:
 
-Baton sorts pending candidates on admission and rechecks before dispatch. While the preceding block runs, admission only updates the queue: it does not start the next state-dependent block, cancel current work, or rebuild the started prefix. After the valid predecessor checkpoint is ready, dispatch the first eligible pending block with that exact parent. Starting a block fixes its position on this path. Unsent requests may be rebuilt; completed and in-flight work are outside this sorting operation. Executor owns checkpoints, branches and completion validation.
+```text
+intended_order = F ++ sort_G(S_pending)
+```
 
-| Event with G = A → B → C | Intended order / next action |
+`F`, `G` and `S_pending` are explanatory notation. They do not require public Rust types or a `GlobalRule` trait. Required producer ancestry/dependencies still hold. Comparator, deterministic tie-break and rule identity remain open; arrival time is not the tie-break.
+
+| Arrival with G = A → B → C | Scheduler action |
 |---|---|
-| A is executing | F = A; preserve its execution position |
-| C is admitted while A runs | Pending = C; only sort the queue |
-| B is admitted before C starts | Pending = B → C; keep A unchanged |
-| A completes and its valid checkpoint is ready | Execute B on A, then C on AB; path/report = ABC |
-| C starts on A before B is admitted | F = AC; eligible B becomes pending; path/report = ACB |
+| A is executing; C becomes eligible | Keep F = A, pending = C |
+| B becomes eligible before C starts | Sort pending to B → C; leave A running |
+| A completes on a valid parent | Start B on A, then C on AB: ABC |
+| C already started on A when B becomes eligible | Keep F = AC; place eligible B pending: ACB |
 
-Reports use the same fixed-prefix-plus-sorted-pending sequence as dispatch. The prefix records actual local execution order and the suffix describes intended work; the combined report is still an intention, not proof of completion or progress. Sign a stable original snapshot. Later arrivals do not mutate submitted reports or the leader's once-closed snapshot. The leader scores original signed sequences without re-sorting F or inserting missing blocks to manufacture support.
+Before dispatch, recheck pending eligibility and the exact execution parent. While that parent is running, enqueue/sort only; do not execute a dependent block from an unrelated state. Starting a block fixes its position on this local path. Ordinary arrival does not cancel or reexecute it just to make the complete known set match G. If only A and C are known, valid AC work need not wait for a hypothetical future B.
 
-A late B does not turn started AC into ABC merely because G prefers B before C. Preserve AC and append eligible B; do not reexecute C solely to sort an arrival. This assumes B is valid after AC: ancestry and input constraints still apply. If only A and C are known, AC may be dispatched/reported without waiting for hypothetical missing B. Confirmed native order differing from speculation still requires exact-parent reuse/repair through Executor::commit; this local rule does not prohibit that repair or make F canonical. Conflicting advisory direction precedence remains an unresolved policy.
+The local started prefix is not canonical. A later continuous Marshal Update can require exact-parent repair. Newly confirmed continuous input is the working repair trigger; unfinalized-proposal-triggered repair remains undecided. Equal rule/context/F/pending yields equal intended order. Equal total known blocks alone does not: two nodes can legitimately have ABC and ACB because their work started at different times.
 
-Equal rule, authenticated context, fixed local prefix F and pending set produce equal intended order. Equal total known blocks alone are insufficient: a node already on AC and a node still on A with B/C pending can report ACB and ABC. Pending sorting reduces queue-order differences but cannot erase differences in started execution. It is neither native finality nor a progress proof and changes no report threshold, deadline, or cut no-wait condition.
+## Canonical reconciliation is shared
+
+Both schedulers use the same [canonical Update worker](interfaces.md#marshal-reportupdate-canonical-input-and-ack). Compare retained work with the exact canonical predecessor, ordered prefix, input state and runtime. A matching block digest alone is insufficient, and a producer-header parent is not the merged execution parent. Missing required bodies or state keep work pending; they do not create empty inputs.
+
+The shared worker reuses valid work or finishes/repairs the canonical path, fences incompatible workers and live database access, and durably applies before ACK. After application, advance App's canonical base once, remove applied pending entries and rebase/fence conflicting work. Retain compatible descendants only within the resource and retention budget. Reports and direction add no approval step.
 
 ## Leader: choose direction from reports
 
-Rust declaration: [Baton::plan](../overview/rust-interfaces.md#baton). The Rust interfaces page owns the complete declaration.
+Baton uses the same fixed-prefix-plus-sorted-pending sequence to form a report. A report is an authenticated **intention**, even though part of it has already started locally. It is not a progress proof, result certificate or direction vote. Bind exact epoch, view, history, canonical parent, rule, window and immutable frontier. Count each eligible identity once in the same window.
 
-`ReportSnapshot` is a once-closed set of distinct, same-context original reports. `Candidates` is a bounded set of admissible full candidates. Return `Some` only when evaluation of that set has completed and the selection is valid. Incomplete evaluation or absence of valid candidates cannot be published as prepared policy. Never await this background future on the native cut path. Tail selection, budgets, adoption, and continuation remain open.
+| Step | Rule |
+|---|---|
+| Open window | Fix context and deadline once |
+| Admit verified reports | Owner checks matching context, identity and limits; worker completion alone is not admission |
+| Close snapshot | Once, at the first processed event of `4f+1` valid distinct admissions or the fixed deadline; `m ≤ 4f+1` |
+| Evaluate | Finish the bounded admissible full-candidate set; preserve ancestry, actual parent and original signed sequences |
+| First choice | Maximize the length of a valid nonempty **entire prefix** supported by at least `2f+1` original reports |
+| Fallback | With a nonempty report snapshot but no such prefix, choose by raw sum-LCP among valid candidates |
+| No reports or no prepared valid candidate | Native cut uses a valid actual-parent base before protected adoption; it never awaits planning |
+| Disseminate | Send an authenticated advisory direction; no direction ACK or Ready quorum |
 
-The snapshot owner admits verified reports; packet observation or worker completion alone is not admission. A verification result processed after closure stays outside that snapshot. Fix the deadline once with the existing Clock and run evaluation through [Commonware task/completion mechanisms](README.md#commonware-primitives-in-the-baton-layer). Synchronous strategy cases must also stay off the admission/cut owner; no new scheduler or direction collector is required.
+New arrivals do not extend the deadline or rewrite a closed snapshot. Reports arriving or finishing verification after closure stay outside it. Completing a candidate with missing inputs does not add support to the original reports. Evaluation runs in bounded background work using existing Clock/runtime/P2P/crypto primitives. On completion, the App owner checks the original window/context and current planning attempt before publishing prepared state; a stale result cannot overwrite a newer context. The native actual-proposal recheck remains a separate later boundary.
 
-| Stage | Input | Responsibility | Output |
+Create and poll strategy work inside the appropriately placed worker: some strategies compute immediately when creating the future, and others can execute work while it is polled. A future return type alone does not keep admission or cut handling responsive.
+
+For a candidate P, `score(P) = Σ_i |LCP(P, R_i)|`. Entire-prefix support means the same distinct reports match every position from the shared origin. It is not per-position votes collected from different identities. An unfinished search cannot claim longest selection over the full admissible set.
+
+With `f=1`, these five synthetic reports illustrate the distinction: `R1=ABCD`, `R2=R3=ABDC`, `R4=R5=ACBD`. For this illustration, assume the complete admissible candidate set consists of the two valid rows below. This is arithmetic, not an executed native trace or a choice of candidate-generation policy.
+
+| Candidate | LCP lengths | Longest prefix with 3 supporters | Sum-LCP |
 |---|---|---|---|
-| Start window | New work and actual planning context | Fix context and set the deadline | Window context |
-| Admit reports | Signed reports | Verify shared context and distinct identity | Original report snapshot |
-| Close snapshot | First `4f+1` admissions or fixed deadline | Close once; arrivals do not extend the deadline | `m≤4f+1` frozen reports |
-| Evaluate candidates | Bounded admissible full candidates | Validate ancestry, predecessor closure, and actual context; compute LCP | Completed evaluation or incomplete work |
-| Primary selection | Same-context original reports | Maximize the length of a valid nonempty entire prefix shared by `2f+1` reports | Full candidate containing the selected prefix |
-| Fallback | No such prefix | Maximize raw sum-LCP among valid candidates | Valid direction candidate |
-| NativeBase | No reports / no prepared valid candidate | Use an actual-parent-valid base policy | Native cut continues |
-| Disseminate | Prepared direction | Send to producer and executor-validator Baton endpoints | Parent-linked speculative execution |
+| ABCD | 4, 2, 2, 1, 1 | AB, length 2 | 10 |
+| ACBD | 1, 1, 1, 4, 4 | A, length 1 | 11 |
 
-Let `ℓᵢ(P)=|LCP(P,Rᵢ)|`. The fallback score is `Σᵢℓᵢ(P)`. Filtering or completing reports must not manufacture support. An unfinished candidate search cannot establish a completed longest-prefix selection. Support from `2f+1` reports leaves at least `f+1` honest **intentions** under the fault assumption; it does not establish finished work, reuse, or native inclusion.
-
-A prefix of length k has `2f+1` support when at least that many original reports match **all of the candidate's first k inputs in the same order**. This is neither a sum of separate supporters per block nor a requirement that the complete full candidate match every report.
-
-The scoring fixture below is synthetic arithmetic, not an honest global-rule report-generation trace. Actual scenarios must generate reports from the shared G, each fixed local prefix and each pending snapshot, then validate the admissible candidate set.
-
-For an illustrative calculation, take `f=1,n=6` and five distinct identities in the same context: `R1=[A,B,C,D]`, `R2=R3=[A,B,D,C]`, and `R4=R5=[A,C,B,D]`. Assume evaluation has completed over the two bounded admissible candidates below and that both candidates and their tested prefixes are valid. This is an analytical example, not an executed native trace.
-
-| Full candidate | LCP lengths against original reports | Longest entire prefix supported by at least 3 reports | Raw sum-LCP |
-|---|---|---|---|
-| `P1=[A,B,C,D]` | `(4,2,2,1,1)` | `[A,B]`, length 2 | 10 |
-| `P2=[A,C,B,D]` | `(1,1,1,4,4)` | `[A]`, length 1 | 11 |
-
-The primary rule selects **P1**: supported prefix length takes priority even though P2 has a larger sum. If a different deadline snapshot contains only `R1=[A,B,C,D]` and `R2=[A,C,D,B]`, three-report support is impossible, so use the fallback. The raw sums are `4+1=5` for P1 and `1+2=3` for P2, selecting P1. Do not subtract the largest f LCP values. This calculation does not establish a global optimum outside the candidate set, native inclusion, or completed execution work.
-
-How to choose the tail after an equally long supported prefix, including any secondary score, remains undecided. A cut does not wait for reports, timers, or Baton planning. Distinguish using a valid base before a candidate is prepared from preserving an already authenticated protected prefix. Native prefix adoption and exact continuation remain unimplemented and unproved.
-
-Suppose a valid prefix `p=[A1,B1]` is selected after the same immutable frontier. The following comparison assumes the same canonical input state and runtime and valid predecessor closure. It illustrates the requirement, without claiming an executed trace or completed preservation proof.
-
-| Emitted order O | Contains every input of p | Preserves p as the exact leading prefix |
-|---|---|---|
-| `[A1,B1,A2]` | Yes | Yes |
-| `[A1,X,B1]` | Yes | No |
-| `[B1,A1]` | Yes | No |
-
-If X is a required predecessor of B1, `[A1,B1]` is not a valid candidate in that context in the first place. Check both candidate validity and preservation of leading order after adoption.
+Choose ABCD because supported-prefix length takes priority. Ties after the same longest prefix, tail selection and hysteresis remain open. `2f+1` support leaves at least `f+1` honest intentions under the shared fault budget; it proves neither completed work nor native inclusion. Preserve the original signed snapshot when scoring; do not re-sort its fixed prefix or trim/inject inputs to manufacture support.
 
 ## Leader: disseminate direction
 
-Send to producer Baton endpoints and the validator Baton endpoints responsible for execution. Overlapping roles on one node may share handling, but the whole committee is not assumed to be producers. Direction cannot arbitrarily change an existing body or signed producer ancestry.
-
-There is no direction-receipt vote, ACK, or Ready quorum. Once the leader-local collection, selection, and dissemination cycle closes, the next cycle may start for new work or context. It does not wait for every node to finish the previous direction.
+Use authenticated Commonware P2P channels between peer Apps. Producer and execution-validator roles may overlap on one node. Direction does not alter an existing body or signed lane ancestry. Finish the local collection/evaluation/enqueue-or-skip cycle and allow a new eligible context/work event to open another window; do not wait for every node to finish executing the preceding direction.
 
 <a id="non-leader-request-execution-and-rescheduling"></a>
 
 ## Non-leader: request parent-linked execution
 
-Accept direction only from the current leader and for the matching context. Resolve the required bodies and submit the proposed path as parent-linked `Executor::Block` values through `Executor::execute(block)`. A→B→C changing to A→B→D submits D with the hash of the completed AB execution parent. Executor reuses AB only when its input state, runtime, exact prefix, and storage ancestry match. A fresh public reschedule command is unnecessary.
+App validates the leader and complete direction context, then gives usable work to its Baton scheduler. A suggested A→B→D path needs the valid AB execution checkpoint before D can start. Reuse AB only for matching exact input, canonical base, runtime and storage ancestry. Missing or unfinished parents leave work pending or require recovery.
 
-Executor owns parent lookup, child linking, task priority, duplicate-work reuse, and stale-result fencing. An unfinished or missing parent leaves dependent work pending or triggers recovery; it never licenses execution from a different state. Old compatible branches may remain until commit or resource cleanup; a direction update does not itself make another branch canonical. Late completions cannot replace canonical state. Missing bodies or parent state add no native cut wait for direction replies.
+A direction can adjust eligible unstarted work within the adopted policy. The precedence of a conflicting advisory direction over a local started prefix remains undecided; do not silently adopt cancel-and-reexecute or automatic override. Retaining a compatible branch does not make it canonical. Reject stale worker results by local job/context fencing; local worker generations are not cross-validator signing fields.
+
+## Existing callbacks versus the native policy gap
+
+Existing `Automaton::Context` contains producer epoch/chain/height/parent. It is not a leader report-window context. `propose` builds a lane payload; `verify` checks that payload. Neither method selects the cross-lane leader cut, authenticates a Baton ordering policy or changes Marshal's deterministic native order.
+
+The existing [`ProposalPolicy::Endorsed/Certified`](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/config/mod.rs#L32) chooses whether a lane proposal extends its certified anchor with locally DA-voted blocks. Both forms use the same native validation rules; this setting does not accept an App comparator or Baton prefix.
+
+For full Baton, a native integration must expose the actual leader parent/frontier, recheck a prepared policy immediately, bind it to the authenticated proposal, and let validators verify its adoption/preservation conditions. Marshal must then recover and interpret the same frozen policy across extensions and view recovery. Current `LeaderBlock` and `Update` do not implement that contract. This is specific future protocol work, not a reason to replace existing custody and delivery machinery with a new public layer.
+
+The required result is `p` as the exact leading prefix of final order `O` after the same immutable frontier and canonical input state/runtime. For selected `p=[A1,B1]`, `[A1,B1,A2]` preserves it; `[A1,X,B1]` merely includes its members. A missing mandatory predecessor makes the candidate invalid from the start. Preserve native tip extraction/extensions and do not delete extra native inputs to force the preferred sequence.
+
+Report-window closure is not protected-prefix adoption. Before adoption, a ready cut can use a valid base when preparation is absent. After authenticated adoption, losing a policy/body or receiving late reports does not permit dropping the protected prefix or reinterpreting that proposal as base order. Recover the authenticated interpretation. Adoption/availability, native sufficiency, exact continuation and view-recovery proof remain open. A commitment field alone does not solve them.
 
 ## Open decisions
 

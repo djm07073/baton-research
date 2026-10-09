@@ -1,43 +1,30 @@
 sequenceDiagram
     participant N as Native engine
-    participant A as BlockService: Automaton adapter
-    participant S as Commonware Archive / buffer / resolver
-    participant P as Peer resolver / archive-backed Producer
-    participant I as Baton: block intake
-    participant B as Baton: scheduling
-    N->>A: Automaton::verify(Context from native header, payload)
-    A->>S: Lookup body and required parent
-    alt Required body / parent missing
-        S->>P: Generic resolver fetch by exact key
-        P-->>S: Response bytes
-        S->>S: Validate expected digest and context
-        opt Correct response for exact expected reference
-            S-->>A: Expected body / parent bytes
-        end
-        Note over A,S: Missing / bad peer response keeps request pending
-    else Already stored
-        S-->>A: Stored bytes
+    participant A as App Automaton
+    participant M as Multimmit Marshal
+    participant Q as App scheduler
+    N->>A: verify(Context, body digest)
+    A->>A: Derive exact header and BlockRef
+    A->>M: subscribe_block(BlockRef)
+    Note over A,M: Waits for durable local / buffered custody, no explicit peer fetch
+    opt Concurrent active retrieval if required
+        A->>M: fetch_block(BlockRef)
+        M->>M: Existing resolver / peer backfill
     end
-    alt Required bytes remain unresolved
-        A->>A: Keep receiver pending, resolver retries / buffer subscription waits
-        Note over N,A: No true / false result returned for this request yet
-    else Expected bytes are available
-        alt Expected payload is structurally invalid
-            A-->>N: verify(false)
-        else Structurally valid expected payload
-            A->>S: Store / sync custody
-            alt Covering durable custody succeeds
-                S-->>A: Durable body reference
-                A-->>N: verify(true)
-                A-->>I: StoredBody(durable body, producer context)
-                alt Matching authenticated header observation is available
-                    I->>I: Match exact body / header identity and source provenance
-                    I-->>B: CandidateBlock(block_ref, body, context)
-                else Header observation or matching context remains unresolved
-                    Note over I,B: Candidate join stays pending, native verify completion above is independent
-                end
-            else Local storage / sync failure
-                Note over N,S: No custody success, distinct from peer invalidity
+    alt Required exact block still unavailable
+        Note over N,A: Keep verdict pending while the condition may change
+    else Expected block available
+        M-->>A: subscribe_block resolves with durable complete block
+        A->>A: Check context, digest and application payload validity
+        alt Expected payload permanently invalid
+            A-->>N: Verification receiver resolves false
+        else Valid payload with durable custody
+            A->>A: Deduplicate and retain validated candidate facts
+            A-->>N: Verification receiver resolves true
+            opt Live candidate has required authentication / ancestry
+                A->>Q: Internal eligible pending admission
+                Q->>Q: Sort pending, dispatch only with exact parent ready
             end
         end
     end
+    Note over A,Q: Speculative execution completion does not gate verify

@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-09T09:49:37.638592+00:00",
+  "scope": "Latest screenshots are byte-identical to the prior actual root image inspections; this is not a new pixel inspection",
+  "images": [
+    {
+      "file": "baton-README.html.png",
+      "sha256": "bb7f93165d88847705298ab7251145996d52fd13105b4c76be295e19ab9b1f67",
+      "same_as_root_viewed_snapshot": "browser/snapshot-094438-before-download-check/baton-README.html.png"
+    },
+    {
+      "file": "baton-interfaces-mobile.png",
+      "sha256": "094a312a385222b34c8412aad7f387afe1718c34a51bf3157799e926cdb5cfaf",
+      "same_as_root_viewed_snapshot": "browser/snapshot-094438-before-download-check/baton-interfaces-mobile.png"
+    }
+  ]
+}

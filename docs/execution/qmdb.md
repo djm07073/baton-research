@@ -1,159 +1,99 @@
 # QMDB branches, reuse, and state application
 
-**Executor produces changes; Storage prepares their roots and applies the selected canonical result through QMDB.** A checkpoint marks reusable completed work and need not imply hashing every abandoned attempt. QMDB supplies batch, authentication and persistence algorithms. Readable state and durable completion are separate milestones.
+**Transaction execution and root preparation are internal app responsibilities.** Execution produces effects and outputs. The app uses existing QMDB batches to prepare selected commitments, then applies canonical material through one writer. A reusable execution checkpoint need not imply hashing every abandoned attempt. No public Storage or Executor trait is required.
+
+The current recipe below was checked against Commonware `6233438985d8249d2b2bc1204191d5d405652288`. Earlier `534af0e…` and release comparisons remain [historical reuse evidence](../../assets/review/commonware-reuse-20261004/README.md); they are not the current `DatabaseSet` call sequence.
 
 ## QMDB state and reuse boundaries
 
-QMDB here is the authenticated database family implemented in Commonware `storage::qmdb`. Database state is derived from an append-only log of state-changing operations. Executor interprets transactions/bodies and produces state reads and mutations. Storage gathers completed Executor changes into QMDB batches, computes selected commitments and applies/persists valid canonical material. QMDB itself is neither a transaction execution engine nor native consensus. [Terminology and lifecycle](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/mod.rs#L1).
+QMDB supplies authenticated database, batch, journal and persistence algorithms, not transaction semantics. Mutable keyed Any maintains an operation journal and latest-key index. Current adds authentication of active operations; its canonical root differs from the operations root used by sync. Choose the result-root scheme explicitly. A storage root alone does not bind an execution range, runtime or completed direct work. [QMDB](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/mod.rs), [Current root/witness](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/db.rs#L274).
 
-For mutable keyed Any, internal structures include an **operations journal**, **key-to-latest-operation index**, **active-operation bitmap**, and **operations root**. Reads find candidate locations through the index, check the journal operation and key, and return the value. Its snapshot field names the current-key index, not an immutable historical Baton state snapshot. [Any fields](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs#L57), [Lookup](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs#L203).
-
-The operations journal combines a contiguous item journal and a Merkle-family structure. An operation location maps to the Merkle leaf at that location and supports inclusion proofs. This does not replace body archives or consensus vote journals. Storing runtime outputs or receipts there is an application encoding/commit-adapter choice. [Authenticated journal](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/authenticated.rs#L1).
-
-Current adds a bitmap/grafted Merkle layer authenticating which operations remain active over Any history. Its canonical root commits to that storage view and differs from an ops-only root. Do not assume it forgets historical operations and authenticates only a separate logical application-state map. The root used in execution certificates remains a decision. [Current structure](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/mod.rs#L32), [Fields](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/db.rs#L122), [Wrapper](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/current.rs).
-
-An unmerkleized batch retains pending writes and its parent branch before application. Merkleization produces a sealed batch with resolved operations, computed root, and ancestor metadata. Merkleization itself does not commit the canonical database. [Branch management](qmdb.md#manage-the-branch-tree-for-execution-requests) explains child prefix trees and access validity.
-
-`glue::stateful::db` wraps concrete QMDB types in Unmerkleized, Merkleized, ManagedDb, and DatabaseSet lifecycles. DatabaseSet coordinates one or more databases and collects their finalize flush handles in a Barrier. Coordinating databases does not itself establish crash-atomic state/output/cursor commit. See [canonical durability](qmdb.md#commit-a-branch-to-canonical-state).
+An unmerkleized batch retains pending mutations. Merkleization consumes the draft and produces a sealed batch with root and ancestry; it does not apply that batch canonically. The app associates each retained batch/effects checkpoint with exact base, runtime, ordered input prefix, outputs and direct/imported provenance. Local generations and retention bookkeeping are not shared signature fields.
 
 ```mermaid
 flowchart TB
-    B[Baton / execute blocks and confirmed ranges] --> E[Executor: execution tree and transaction effects]
-    B -->|irrevocable OrderedRange| E
-    E -->|branch access / selected effects| S[Storage: prepare / canonical writer / recovery]
-    S -->|valid read and write handles| U[Commonware Unmerkleized batch]
-    E -->|optional rootless pending-parent path| O[Application effects chain / working read overlay]
-    O -->|selected exact prefix materialization| S
-    U -->|selected concrete merkleize call| K[Commonware Merkleized batch / root and ancestry]
-    S -->|prepare selected commitment| K
-    K -->|authorized canonical material| D[Commonware DatabaseSet / ManagedDb]
-    subgraph Q[Any keyed DB: illustration]
-        I[Key to latest operation location index]
-        L[Authenticated operations journal]
-        M[Merkle-family structure / ops root]
-        A[Active-operation bitmap / floor metadata]
-        I -->|resolve actual op| L
-        L --- M
-        A --- L
+    M[Multimmit Marshal] -->|ordered Update and ACK token| E
+    subgraph A[Application]
+        Q[PreCut or Baton scheduler] --> E[Transaction execution and exact-parent tree]
+        E -->|completed effects| P[Selected root preparation]
+        P --> W[Single canonical writer]
+        E -->|optional rootless prefix| O[Retained effects / working overlay]
+        O --> P
+        W --> D[Durable applied identity / outputs / provenance]
     end
-    D -->|apply_batch| I
-    D -->|apply_batch| L
-    U -. valid read-through .-> I
-    U -. valid read-through .-> L
-    Q -. optional Current layer .-> C[Bitmap grafted structure / Current root]
-    D -->|start_sync handles| F[Commonware Barrier / durability observation]
-    F -->|successful observation| S
-    S -->|recoverable state-output-cursor-provenance linkage| E
-    E -->|durable result to internal delivery tracking| B
-    E -. optional progress .-> B
+    E -->|valid concrete reads and writes| U[QMDB unmerkleized batches]
+    U -->|merkleize when selected| K[QMDB sealed batches]
+    K --> W
+    W -->|apply then finalize| B[DatabaseSet / QMDB]
+    B -->|covering durability| D
+    D -->|acknowledge Update| M
     classDef reuse fill:#dbeafe,stroke:#2563eb,color:#172554;
-    classDef adapt fill:#ffedd5,stroke:#ea580c,color:#431407;
     classDef fresh fill:#dcfce7,stroke:#16a34a,color:#14532d;
-    class U,K,D,I,L,M,A,C,F reuse;
-    class S adapt;
-    class B,E,O fresh;
+    class M,U,K,B reuse;
+    class Q,E,P,W,D,O fresh;
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-17.svg)
 
-A merkleized QMDB batch supplies sealed storage work, roots and ancestry. Storage creates that storage material; Executor retains the execution checkpoint binding exact runtime, input prefix, completed direct work and outputs. Imported provenance stays distinct. Local access generations and retention metadata are not shared signature fields.
+The subgraph is one application, not a required actor graph. Use concrete `glue::stateful::db` utilities if they fit; do not require `commonware_glue::stateful::Application` or the full Stateful actor. Its merkleized execution lifecycle is not necessary for deferred-root speculation over merged Multimmit input.
 
-The orange Storage adapter connects existing DatabaseSet / ManagedDb APIs to application commit responsibilities; it does not require changing those upstream traits. The internal Any/Current diagram is illustrative, not a variant selection. Keyless, Immutable, and compact have different access and retention structures. Review concrete APIs before choosing reuse scope; no variant is adopted yet. Executor transaction/tree logic is a new application responsibility, while QMDB indexing, journals, and Merkle algorithms remain Commonware responsibilities.
+<a id="existing-apis-at-the-native-pin-and-indexed-release"></a>
 
-Reuse QMDB databases, batches and commit lifecycle directly. `commonware_glue::stateful` is a reference for parent forks, pending tips and recovery, but its block-DAG/Marshal contract differs from Multimmit merged execution order. **Do not depend on its Application or full actor.** Our execute result is completed effects; Storage prepares a selected root when needed. [Stateful source](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs).
+## Current QMDB APIs
 
-| Logical storage action | Actual upstream API at native pin | Application adapter must additionally verify |
+| Need | Existing current API | App obligation |
 |---|---|---|
-| Create batch at canonical base | `DatabaseSet::new_batches` | Exact base, runtime, cursor, and current database identity |
-| Fork sealed pending parent | `DatabaseSet::fork_batches(&Merkleized)`, `Merkleized::new_batch` | Valid actual ancestor batch and exact execution prefix; not an unsealed-parent fork |
-| Compute checkpoint after execution | `Unmerkleized::merkleize`, `Merkleized::root` | Completed work, deterministic root construction, root kind/version |
-| Apply to canonical database | `DatabaseSet::finalize`, concrete `ManagedDb::finalize` | Proof-validated exact range applied by a single writer |
-| Observe disk durability | `Barrier::durable` | Flush failures and recoverable state/output/cursor linkage |
-| Read applied state | `DatabaseSet::readers` | Retained query/access scope; readable state is not a durable ACK |
-| Prune operations / align database recovery | `DatabaseSet::prune`, `rewind_to_targets` | Active branch references, query/sync/replay retention, chosen recovery contract |
+| Draft at applied base | `DatabaseSet::new_batches()` | Match actual canonical base/runtime/input position |
+| Child of pending sealed parent | `DatabaseSet::fork_batches(&parent)` / `Merkleized::new_batch()` | Retain required ancestors and exact execution identity |
+| Selected root | Concrete `Unmerkleized::merkleize()` / sealed `root()` | Deterministic boundary, completed effects and full output/material binding |
+| Apply batch | `DatabaseSet::apply(sealed).await` | Single writer, valid ancestry and authorized exact input |
+| Start persistence | `DatabaseSet::finalize().await` | Await prior barrier before finalizing again |
+| Observe durability | Returned `Barrier::durable().await` | Require `true` and app state/output/applied-index linkage before ACK |
+| Query applied state | `DatabaseSet::readers()` / `Reader::read()` | Guard current DB access; bind checkpoint/readiness separately |
+| Prune | `DatabaseSet::prune(targets)` | Targets already durable, no pending barrier, retention obligations satisfied |
 
-Merkleize each database's batch and compute its root. DatabaseSet has no single root/merkleize operation. Binding multiple database roots and outputs into one result is an open adapter contract. The names above refer to [database lifecycle traits](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L508); distinguish generic execution commands from upstream methods.
+`apply` and `finalize` are separate current calls. A barrier covers checkpoints applied before that finalize call, not later applies. Do not overlap mutation method bodies or prune while durability is pending. Multi-database application does not automatically establish crash-atomic linkage with an app output journal or Marshal's separate ACK cursor. [Current DatabaseSet](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L498), [ManagedDb ownership](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L327).
 
-Generic Unmerkleized does not expose identical get/write/delete APIs across variants. Storage supplies access to the selected concrete methods; Executor computes transaction changes through that valid view. Storage::read is a proposed query contract; DatabaseSet::readers does not promise arbitrary historical cursor snapshots. Query and pruning policy define which versions remain readable.
+DatabaseSet has no tuple-wide `merkleize` or single root. Seal concrete component batches and bind the chosen roots/outputs under the app's deterministic result rule. Keyless, compact, Any and Current differ; no variant is adopted by this design.
 
-**Reuse guarded reads and existing QMDB proof APIs for state queries.** If Current fits the chosen root scheme, ordered/unordered `key_value_proof` authenticates an active value against its canonical root; ordered also supplies `exclusion_proof`. Their verifiers and bounded codecs already exist. Capture value, proof and root under the same valid DB read authority, then bind the retained canonical checkpoint and readiness metadata through Storage. Local `None` and historical operation inclusion do not prove current absence. A DB proof does not supply the full f+1 execution certificate, order/runtime checks or local durability; certificate queries stay in Executor. Reader handles are guarded access, not arbitrary historical snapshots. [Current value verifier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/unordered/db.rs#L58), [Ordered absence verifier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs#L144), [Proof generation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/ordered/db.rs#L204), [Reader guard](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L205), [Historical operation scope](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/db.rs#L477).
+<a id="give-executor-concrete-branch-access"></a>
 
-## Existing APIs at the native pin and indexed release
+## Give App execution concrete branch access
 
-The Commonware MCP was queried at explicit `v2026.9.0`. That release's lifecycle differs from Baton's native pin. The columns below are separate recipes; no dependency migration or type compatibility has been established.
+Pass existing concrete batch handles directly to App execution code. Generic `Unmerkleized` exposes merkleization; keyed `get`/`write` belong to selected concrete wrappers. Canonical query readers do not supply a speculative pending-parent view. [Any wrapper](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/any.rs#L95).
 
-| Operation | Adopted native pin `534af0e…` | Indexed release `v2026.9.0` |
-|---|---|---|
-| Batch at applied base | `dbs.new_batches().await` | Same family |
-| Child of retained pending parent | `D::fork_batches(&merkleized_parent)` | Same family; sealed parent required |
-| Root preparation | Concrete unmerkleized/staged `merkleize`; sealed `root` | Same family; inspect exact variant signatures |
-| Canonical database-set application | `dbs.finalize(sealed).await` returns Barrier after apply/start-sync | `dbs.apply(sealed).await`, then `dbs.finalize().await` returns Barrier |
-| Managed DB application | `finalize(self, batch)` returns DB plus flush handle | `apply(self, batch)`, then `finalize(self)` returns DB plus flush handle |
-| Durable observation | `barrier.durable().await` | Same call; false/flush failure is not success |
-| Recovery/prune | Existing target/rewind/prune APIs with durable retained targets | Mutation methods must not overlap; active barrier resolves before prune |
+Batch reads can fall through to the shared DB's **current applied state**, not an immutable snapshot from creation. Preserve valid ancestry during reads, child creation, materialization and hashing that accesses live state. Advancing the DB along an actual ancestor can remain valid; applying a sibling can invalidate the branch. Validate and use under the same access authority, including all shared/cloned handles. Draft creation and queries must not observe a partially applied database set. Generation checks alone reject stale results but do not prevent invalid reads.
 
-For the release recipe, a later apply may run while an already-returned durability barrier remains pending, but later changes need covering durability too. Observe the previous barrier before calling finalize again. Allowing later apply does not permit overlapping apply/finalize/prune/rewind method bodies. In the native recipe, finalize applies supplied batches and starts their flushes. Neither coordinates a crash-atomic application state/output/cursor/provenance record by itself. [Native database traits](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L344), [release database traits](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/glue/src/stateful/db/mod.rs#L344).
+`Shared` is writer-preferring. Do not implement that fence by holding its read guard across `batch.get()` or another operation that reacquires the same cell: a queued writer can deadlock the nested read. [Existing lock contract](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L148).
 
-DatabaseSet has no tuple-wide merkleize or single root. Storage dispatches concrete per-DB operations and binds the chosen root representation/outputs/material under the selected rule. Root construction, signing boundary and deterministic normalization remain open.
-
-## Give Executor concrete branch access
-
-**Storage supplies a valid working batch; Executor uses it to read and compute changes.** At the applied canonical base, use `DatabaseSet::new_batches`. At a sealed pending parent, use `fork_batches` or the sealed batch's `new_batch`. The concrete attachment passes that authorized handle internally to Executor; this does not require another public application trait or Storage method. `Storage::read` remains a canonical query boundary, not a pending-parent reader.
-
-Public `commonware_glue::stateful::db` exports `Shared`, `DatabaseSet`, `ManagedDb`, `Unmerkleized` and `Merkleized`. Its `any` / `current` modules supply the concrete batch wrappers. Reuse these Shared-backed wrappers where the chosen variant fits, without implementing glue's Application or starting its Stateful actor. Importing the DB utilities still uses the commonware-glue crate; its module is labelled ALPHA. [Public database utilities](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L106).
-
-AnyUnmerkleized provides inherent `get`, `get_many`, owned `write` and `stage`; Current has corresponding methods. Generic Unmerkleized only provides merkleize, and DatabaseSet's unsealed output is merely Send. The production keyed path therefore uses the chosen concrete wrapper, not an assumed generic get/write trait. `qmdb::any::traits` is test/test-traits gated. `Reader` reads the applied DB and adds no pending-parent overlay. [Any wrapper methods](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs#L110).
-
-For one concrete DB, use its `ManagedDb::Unmerkleized` and `ManagedDb::Merkleized` projections. A generic seal helper additionally needs `DB::Unmerkleized: Unmerkleized<Merkleized = DB::Merkleized>`; ManagedDb's bounds do not imply that reverse equality. Tuple database sets require separate component sealing and an application result commitment. There is no tuple-wide upstream merkleize/root call. [ManagedDb bounds](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L341), [DatabaseSet bounds](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L508).
-
-The inspected Any/Current unsealed and staged wrappers are owned, non-Clone handles; merkleize consumes them and their mutation maps are private. Retain exact application effects separately before consuming the only draft if AB must support multiple rootless children or later selected-prefix preparation. Otherwise retain the sealed AB and use its existing child fork, or reexecute missing effects. A sealed Any wrapper cheaply clones its Arc and matching Shared handle, which can supply PreparedResult's cloneable material. [Sealed clone](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs#L174). These options preserve the open checkpoint/root policy.
-
-**Keep existing prepared handles for each still-needed unapplied ancestor.** A child draft retains its immediate sealed parent strongly, while sealed parent links are Weak. Keeping only the leaf does not preserve every ancestor object needed for later reads, forks and merkleization. Reuse the existing handle ownership rather than duplicating QMDB's ancestor diffs; Executor still associates those handles with exact execution context. Release unused handles separately from Storage's durable-history pruning. [Child retention contract](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2587), [Weak sealed parent](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L338).
-
-Public `bounds()` exposes storage commitments and ancestor bounds, not live parent handles or execution-node identity. Current's bounds carry the ops-only root; its `root()` returns the canonical root. Use concrete DB applicability checks alongside the exact-context association and shared access fence. Public bounds do not replace that validation or determine the application result-root scheme. [Public bounds](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L65), [Current root distinction](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/batch.rs#L1052).
-
-Before taking the canonical DB for by-value mutation, reuse concrete Any/Current `validate_batch` under the same writer/access authority as application. It checks authenticated ancestry/floors, not arbitrary material validity, exact application input or provenance. It does not prevent later I/O, grafted-state or cancellation failures. Preserve the existing fencing and recoverable commit contract. [Any preflight](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2733), [Current preflight](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/current/db.rs#L776).
+Keep every still-needed unapplied ancestor alive. A child draft retains its immediate parent strongly, while retained sealed ancestor links can be weak. Keeping only a leaf is insufficient for further branch reads, proofs or child merkleization. Use existing handles, not duplicated QMDB ancestor machinery. Concrete `validate_batch` can reject invalid ancestry before consuming a DB, but does not verify application semantics or prevent later I/O failure. [Ancestor retention](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/any/batch.rs#L2855), [Current preflight/apply](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/db.rs#L665).
 
 ## Defer roots without inventing an unsealed-parent fork
 
-There are three distinct paths:
-
-| Path | Existing reuse | Remaining adapter |
+| Path | Existing support | Remaining app work |
 |---|---|---|
-| Continue one unsealed attempt | Any unmerkleized `write`, `get` and `get_many` read pending writes before sealing | Exact execution/outputs tracking; no root needed for each transaction |
-| Fork a sealed checkpoint | QMDB merkleized child batches and ancestor validation | Select useful checkpoint boundaries; do not seal every attempt automatically |
-| Branch from a completed unsealed prefix | Independent existing drafts at one valid applied/sealed anchor can receive retained exact-parent keyed mutations | Conditional replay/materialization or an application overlay; reviewed fork API does not supply an unsealed-parent tree |
+| Continue one draft | Concrete unsealed reads/writes | Exact effects/outputs and execution context |
+| Fork a sealed prefix | Existing child batches | Choose useful sealing boundaries and retain ancestors |
+| Branch from an unsealed completed prefix | Independent drafts at a valid applied/sealed anchor | Replay retained exact effects or use an application overlay; an unsealed-parent fork is not supplied |
 
-Any's staged `stage`/`expand` can retain read locations and avoid later re-probes, but values computed by the caller do not appear in subsequent staged reads until supplied at merkleization. The caller needs read-your-writes in its working overlay; stage indices are not automatically deduplicated. Preserve the variant's update/upsert ordering. [Native batch interfaces](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs), [release staged expansion](https://github.com/commonwarexyz/monorepo/blob/v2026.9.0/storage/src/qmdb/any/batch.rs#L1318).
+For rootless AB with children C and D, one conditional recipe is to retain exact base-bound keyed AB effects, make two drafts at the same valid anchor, replay AB into each, and execute C/D through those concrete drafts. This materializes an existing prefix; it does not clone private mutation maps or grant access to an unavailable old base. If effects/anchor are absent, reexecute from a valid checkpoint.
 
-**A separate generic read-view engine is not required for every rootless branch.** Plain concrete Any/Current drafts already read their own pending `write` values. For rootless AB with children C and D, a conditional alternative is to retain Storage-ready mutations for the exact AB prefix, create independent existing drafts at the same valid applied/sealed anchor, replay those mutations, then execute C or D through each draft's existing `get`/`write`. This is materialization using existing batches, not `fork_batches` on an unsealed parent or cloning private mutations. The path is unavailable without valid retained effects and anchor access. [Concrete reads/writes](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/any.rs#L93), [sealed-parent fork and applied-base capture](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2603).
+Unsealed/staged wrappers can be single-owner values consumed by merkleization. Retain needed effects before consuming the only draft. Staged read locations do not imply computed values are already visible in future reads; preserve read-your-writes semantics in the chosen path. Rootless replay/overlay remains a choice, not an adopted extra generic read-view service.
 
-Replay must use base-bound keyed mutations under the chosen deterministic normalization, not arbitrary logical ChangeSet merging. A fresh applied batch cannot rewind an advanced DB to an earlier state. Retain outputs and direct-execution evidence separately, and preserve writer/read fencing during replay and hashing. Flattening several prefixes into one batch need not preserve the operations root of separately sealed intermediate batches. Replay and an application overlay remain alternatives; neither chooses the root or checkpoint policy.
-
-Constantinople demonstrates staged transaction computation followed by Merkleization of state and transaction-history batches. It still seals at its consensus block boundary; it does not implement Baton's deferred-root Multimmit tree. Copy that compute/hash separation where compatible, while keeping our Executor independent of glue Application. Alto's inspected application builds opaque test payloads and supplies body/consensus composition evidence, not a QMDB storage recipe. [Constantinople execution](https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/application/src/consensus/execution.rs), [Alto application](https://github.com/commonwarexyz/alto/blob/1d87569348b5560699465a72d691d90f18affb9c/chain/src/application.rs).
-
-Constantinople's concrete `compute` returns the existing staged batch plus computed indexed updates; a separate helper seals them. That supplies an internal Executor→Storage handoff shape without another batch engine. Kora instead returns application ChangeSet/receipts and uses an application overlay; its keyed conversion reads the current account generation, so that conversion must match the retained base. Neither example proves crash-atomic state/output/cursor commit or supplies a native rootless fork. [Staged handoff](https://github.com/commonwarexyz/constantinople/blob/3b6c92e76bf582855615844a4175b8304808f6a9/crates/application/src/consensus/execution.rs#L160), [Kora base-bound conversion](https://github.com/refcell/kora/blob/446b4c7aba80e8358486ddb43a276c5bfa183102/crates/storage/qmdb/src/store.rs#L266).
-
-Deferral is not permission to change authenticated operation history independently at each node. Storage materializes the exact selected prefix under the chosen deterministic boundary/normalization rule. That rule and the complete input/base/result/output binding survive preparation and signing. The result commitment must exist before signatures; abandoned attempts need not be hashed. A rootless overlay may preserve AB effects without sealing AB, but cannot promise that a previously sealed ABC batch remains a child of a newly prepared, different AB commitment.
-
-Identical transaction order and final logical values do not automatically imply identical operations history or roots when checkpoint batching or repeated-key normalization differs.
-
-For example, writing `k=1` then `k=2` in one Any batch retains only the final mutation. Sealing between the writes adds a CommitFloor at each seal and changes the storage operation sequence. Both end with `k=2`, yet actual ancestor commitments need not match. [Reusing old ABC after new AB](qmdb.md#commit-a-branch-to-canonical-state) therefore checks actual ancestry and context, not only values. This illustrates a storage contract without claiming computed root results. [Write normalization](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L1306), [Commit-boundary operation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L1228).
-
-Deterministic derivation of canonical operations/batch boundaries versus separation of logical and storage roots remains open. Until resolved, do not directly use node-specific speculative-batching storage roots as f+1 matching execution results.
+Prepare a deterministic selected prefix under the chosen operation/batch rule. Identical transaction order and final key values do not automatically yield identical operation histories or roots when nodes choose different speculative sealing boundaries. Writing one key twice in one batch versus sealing between writes can produce different operation histories. Do not sign arbitrary local speculative-batching roots as matching results. Root scheme, normalization and canonical boundaries remain open.
 
 ## Manage the branch tree for execution requests
 
-The execution branch tree is a **parent-linked prefix tree of execution orders**, separate from producer-header ancestry. Each execute(block) input identifies its block hash and parent block hash; Executor resolves the parent to a valid execution checkpoint before linking and running the child. Hash identity must bind the exact predecessor state, runtime, and ordered inputs. A producer payload occurring after different execution prefixes needs distinct execution-node identity even when its body/header hash is unchanged. Concrete encoding remains open. All branches in this example start from the same canonical state S0.
+The app's tree tracks exact execution prefixes. One producer block after different prior inputs has different execution identity, even when its header/body digest is unchanged. The execution parent is not `Context.parent`. A child may run only after its actual predecessor checkpoint is valid.
 
 ```mermaid
 flowchart LR
-    S[S0: canonical state] --> A[A: parent hash S0]
-    A --> AB[B: parent hash A, AB checkpoint]
-    AB --> ABC[C: parent hash AB, existing branch]
-    AB --> ABD[D: parent hash AB, new direction branch]
-    S --> X[Checkpoint after X]
-    X --> XA[X → A: execute A from another base]
+    S[S0: canonical state] --> A[A from S0]
+    A --> AB[B from A: AB checkpoint]
+    AB --> ABC[C from AB]
+    AB --> ABD[D from AB]
+    S --> X[X from S0]
+    X --> XA[A from X: different execution]
     classDef canonical fill:#dbeafe,stroke:#2563eb,color:#172554;
     classDef reuse fill:#dcfce7,stroke:#16a34a,color:#14532d;
     classDef pending fill:#ffedd5,stroke:#ea580c,color:#431407;
@@ -164,60 +104,32 @@ flowchart LR
 
 [Open full-size diagram](../assets/diagrams/diagram-18.svg)
 
-Changing `A→B→C` to `A→B→D` submits `execute(D)` with `parent_block_hash = hash(AB)`; Executor links D to completed AB and executes only D at the same S0 and runtime. There is no public reschedule operation. The A in `X→A` has a different input state and cannot be reused just because the block has the same name.
+A valid requested path A→B→D can reuse completed AB from the same S0/runtime and run D. A after X cannot reuse A from S0 merely by block identity. Ordinary late arrivals preserve started order; precedence for a conflicting advisory direction remains open. Canonical Updates determine which exact path must be reconciled.
 
-Executor validates parent hashes and base/context, and finds reusable checkpoints. It manages internal worker generations and retains parents required by child branches. A reused checkpoint must remain compatible with the current canonical frontier. Once AB is canonical, advisory direction cannot return to A→D. Committing AB retains valid C and D descendants. Committing ABD prunes the competing C branch and the X→A branch; canonical ancestor metadata remains as required for recovery and queries. Pruning must preserve worker-referenced state and checkpoints needed for commit/recovery. Numerical budgets and GC policies remain open.
-
-Mutable keyed Any/Current batch read-through is a **branch-scoped view combining ancestor overlays with the applied database**, not an independent immutable snapshot. This description does not apply to variants such as compact that lack keyed get.
-
-Advancing canonical DB to an actual ancestor commitment of a batch can remain valid. Advancing to a sibling invalidates continued branch reads, child creation, and apply. Before canonical application, quiesce or fence incompatible workers and those with unknown ancestry. [Batch applicability](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L188), [Stateful quiescence](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/verifications.rs#L158).
-
-Invalidating a generation revokes **result adoption**. Fencing worker access blocks **reads, forks, and application against an invalid parent state**. Canonical DB may change after an owner checks the base but before it obtains access. Keep validation and use within acquired database-access authority through execution, lazy reads, stage/expand, materialization and merkleize. This fence must cover every shared/cloned database handle, not just one facade instance. The concrete [fencing protocol remains open](README.md#open-decisions).
-
-CPU hashing over an immutable Merkle snapshot may finish after caller cancellation, with its result discarded. Canonical safety fencing need not wait for every background CPU task to terminate. Separate prevention of invalid live-DB access and stale-result admission from snapshot-reference/resource lifetime management. [Hashing cancellation](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/authenticated.rs#L325).
+After AB becomes canonical, retain compatible C/D descendants when actual QMDB ancestry permits. After ABD becomes canonical, revoke adoption of the competing C and X branches. Release their memory/disk only when worker, query, recovery, certificate/material serving and sync retention permit. Canceling an awaiting future may leave CPU work running; fence live-DB access separately from eventual resource release.
 
 ## Commit a branch to canonical state
 
-| Step | Action | Required boundary |
-|---|---|---|
-| 1 | Verify ordered-range evidence, predecessor, runtime | Advisory local order is not canonical evidence |
-| 2 | Find the completed branch prefix matching the exact range | Commit only the finalized prefix even if the branch is longer |
-| 3 | Execute missing/mismatching suffix from canonical base or prepare verified peer material | Equal roots alone cannot substitute different inputs |
-| 4 | Fence incompatible/unknown active workers; apply matching batches | Single canonical writer and valid branch-scoped reads |
-| 5 | Produce durable CommitResult | State, outputs, and cursor must be recoverable together |
-| 6 | Prune incompatible forks from the live execution tree; retain/reconnect compatible suffixes | Never reverse finalized input/interpretation; physical recovery alignment follows the selected contract |
+| Step on Marshal Update | Required condition |
+|---|---|
+| Admit ordered index/block/ACK | Preserve Marshal order; do not substitute a local scheduler order |
+| Reconcile from preceding canonical state | Exact input, runtime and execution ancestry match |
+| Reuse/complete/repair or import | Completed valid direct effects, or fully verified applicable imported material |
+| Prepare selected boundary | Full exact-prefix/root/output identity; no slicing an unrelated sealed batch |
+| Apply and persist through one writer | App state, outputs, applied index/block and provenance recover consistently |
+| ACK Update | Matching durable application established; Marshal syncs its cursor independently |
+| Maintain pool and branch retention | Reconcile durable outcomes; retain still-required references |
 
-If A→B→C was executed speculatively but the canonical range is A→B, apply only AB. C remains pending; preserving its work depends on actual ancestry and context. If AB is still speculative at the same base and canonical range becomes A→D, the B→C results cannot serve that commit.
+Applying a sealed leaf also applies its unapplied ancestors, so authorize the entire exact prefix it carries. If ABC was speculatively executed but only AB is canonical, apply exactly AB. If only a sealed ABC batch exists, applying it and hiding C is invalid; prepare AB from retained exact effects or reexecute. A newly prepared AB commitment may differ from ABC's original parent commitment, so old C reuse requires actual ancestry checks as well as logical input checks.
 
-Canonical promotion is more than changing a branch pointer. Executor selects and authorizes the canonical path; Storage applies/syncs QMDB writes and makes outputs, metadata, AppliedCursor and direct/imported provenance consistently recoverable after a crash. Logical pruning is part of commit: conflicting branches lose live-tree membership and result-adoption authority. Physical deletion releases batches/checkpoints only after worker references and required retention are clear. GC scheduling remains open and separate from durable state/output/cursor completion. Active-access fencing and required retention always remain necessary.
+One canonical writer serves both direct and imported results. Advisory cancellation cannot interrupt a by-value DB mutation and turn the lost handle into an ordinary retry. Mutable storage failure is fatal for that instance; recover authoritative durable state rather than continue using it. A readable applied DB with pending flush is not durable completion. A closed/failed barrier is not success or proof of zero disk writes.
 
-**Keep the commit connection inside Storage and reuse the existing persistence mechanisms.** A separate generic transaction, WAL or cursor engine is not mandatory.
+Reuse existing QMDB, Journal and Metadata mechanisms for app recovery linkage. An atomic Metadata update covers its own store; it does not atomically commit QMDB and another journal. Record enough exact identity to recover state/output/applied-position/provenance consistently before ACK. Marshal separately owns its durable delivery cursor; a crash between those stores can redeliver an already applied block, which the app validates and ACKs idempotently. No second generic cursor engine or public CommitResult type is required.
 
-| Selected data need | Existing mechanism | Application connection |
-|---|---|---|
-| Matching sealed state | Native `DatabaseSet::finalize` and `Barrier::durable` | Cover the exact prepared state; coordinate retained outputs/cursor/provenance separately |
-| Small linked metadata collection | `Metadata::put` then `sync`, or `put_sync` | Atomic update of that store's pending metadata; exact record/recovery binding remains open |
-| Deferred metadata persistence | `Metadata::start_sync` returns store plus completion handle | Await covering completion; later sync observes the retained previous completion before writing |
-| Retained output/replay records, if selected | Existing variable Journal append/sync/Contiguous replay, or a fitting QMDB history batch | Chosen record encoding, durability and retention; append alone is not commit |
+An applied checkpoint may survive a crash before durability was observed. Existing `ManagedDb::init(expected)` and `DatabaseSet::init(..., Some(targets))` reopen selected checkpoints and durably discard later state. App must select matching database targets, outputs and provenance under its recovery rule; opening each DB's latest checkpoint or reading Marshal's cursor alone does not choose a consistent App checkpoint. That multi-store selection/linkage remains implementation work. [Existing recovery contract](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L334).
 
-Metadata already implements versioned two-copy/checksum recovery and can commit several pending entries together. `put_sync` commits all pending metadata changes, not only its supplied key. Dropping the `start_sync` completion handle does not cancel the sync or erase its recorded failure. These guarantees apply within Metadata; they do not atomically commit QMDB plus an output journal. Storage connects the selected stores under its existing owner and validates exact recovered identities before issuing CommitResult. No record layout, sync ordering or recovery policy is selected here. [Metadata atomic scope](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/mod.rs#L1), [public updates and completion](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/metadata/storage.rs#L683), [Journal ownership/replay](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/journal/contiguous/variable.rs#L2160).
+`readers()` returns handles to the live databases, not pinned historical versions. A held `Reader::read()` guard stabilizes that DB during a query; separate calls or tuple-component guards do not by themselves establish one atomic App checkpoint. Bind value, proof, root and applied identity under the same valid access authority. [Reader implementation](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L210).
 
-If ABC is one sealed batch with no AB checkpoint, applying ABC and hiding C cannot commit only AB. Executor and Storage must prepare a separate boundary at AB from retained exact effects and a valid predecessor, or reexecute through AB when no usable prefix effects remain. new_batches starts at the currently applied database; it cannot automatically restore an earlier prefix after the database advances. [Actual base capture](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/any/batch.rs#L2704).
+Current value/absence proofs can serve guarded app queries, but an operation-inclusion proof does not prove current absence. These proofs do not supply the full execution certificate or establish durability. Query scope and historical retention remain open.
 
-A new AB commitment differing from old ABC ancestry prevents automatic reuse of that sealed ABC batch. If AB is an actual ancestor, check that canonical DB operation count and authenticated ops root match its commitment. Continue old ABC only when storage applicability and exact input/runtime/completed-result context all hold. Storage checks floors; the owner checks application input, runtime, and output binding. [Storage bounds](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/storage/src/qmdb/batch_chain.rs#L98).
-
-A sibling with apparently equal logical state cannot replace these conditions. Descendant access follows [branch validity](qmdb.md#manage-the-branch-tree-for-execution-requests). Durability remains separate from the finalized/barrier boundaries below.
-
-As a reference only, existing glue Application::finalized may run once the database is readable while flush is still pending; our Executor does not depend on that trait. [Finalized callback](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/mod.rs#L308). Do not connect it as a durable-completion callback. Check the Barrier::durable result from DatabaseSet::finalize and satisfy the selected state/output/cursor commit contract before reporting completion. [DatabaseSet / Barrier](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L558), [Stateful delivery ACK](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/actor/core/processing.rs#L307).
-
-| Execution / storage stage | Cancellation or failure means | Adapter must preserve |
-|---|---|---|
-| Branch work / waiting for Shared lock | No by-value canonical DB mutation yet | Discard stale results; stop invalid state access |
-| Between Shared::write DB take and WriteSlot::put | Dropping/failing the future may leave DB outside the cell | Separate canonical mutation from advisory cancellation; a lost handle is not an ordinary retry |
-| Applied database with flush pending | Readable, without confirmed durability | No ACK before barrier and state/output/cursor linkage complete |
-| Barrier handle Closed / Aborted | Upstream returns false for handle closure documented at shutdown boundaries | No completion evidence; do not assume zero disk writes; recheck in recovery |
-| Other deferred flush error | Fatal/panic boundary after applied DB advancement | No successful ACK and no claimed automatic rollback of the entire database set |
-
-Shared is a writer-preferring lock. Holding an outer read guard while awaiting batch.get or another reacquisition of the same cell may deadlock behind a queued writer. Multi-DB lock order must follow DatabaseSet ownership discipline. Lock safety and crash atomicity of state/outputs/cursor are different requirements. [Shared ownership / locks](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/glue/src/stateful/db/mod.rs#L139).
-
-Aborting a flush-completion handle does not imply canceling all underlying disk work. Distinguish task handles from completion handles. After lost completion, recover authoritative durable state and cursor and recheck. [Runtime handle kinds](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/runtime/src/utils/handle.rs#L26).
+For active imports, use the same writer/fences and verify both certificate and material before stopping direct work. [Certified state sync](state-sync.md) explains why a progress notification or Marshal floor alone cannot establish application-state readiness.

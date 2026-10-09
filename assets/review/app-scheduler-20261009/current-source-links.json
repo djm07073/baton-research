@@ -1,0 +1,1023 @@
+{
+  "checked_at": "2026-10-09T08:15:59.036547+00:00",
+  "native_commit": "6233438985d8249d2b2bc1204191d5d405652288",
+  "reference_count": 109,
+  "source_files": {
+    "consensus/src/multimmit/config/mod.rs": {
+      "lines": 153,
+      "sha256": "6936212134dcc86b3bd19cc6c2a67fb7a396cdff7d60849dc993ba56020e5685",
+      "working_tree_matches_pin": true
+    },
+    "examples/log-multimmit/src/application/mailbox.rs": {
+      "lines": 247,
+      "sha256": "b7383de50c7e43bc2d939d69513473c04241afa65c4a151931f33857b0d8d240",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/actors/voter/chain_plane.rs": {
+      "lines": 994,
+      "sha256": "31049470c8b3fa1efcab48d4ba0140becbd8f1f48759f04ddad5ef1a3b6a7d3b",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/machine/eligibility.rs": {
+      "lines": 1065,
+      "sha256": "25fa9b471b6dbeda1de556992b999131e2a78afe4c0e980b639d0d708b62dfbb",
+      "working_tree_matches_pin": true
+    },
+    "examples/log-multimmit/src/node.rs": {
+      "lines": 389,
+      "sha256": "74f3f522b8b3777add05e44bdfdb62164b46c72f8000ecd33d2637c35200dfae",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/mod.rs": {
+      "lines": 156,
+      "sha256": "a7dc8ead32d1a5b4687e951e8105ed9cbef431cfc2808c881dd6c1fdc801d46b",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/actors/voter/actor/app.rs": {
+      "lines": 214,
+      "sha256": "8f1b6d8b7a5bf3077ad0d5ed45104a0e2891e0b3aa7adfeedb4349760c745312",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/engine/mod.rs": {
+      "lines": 620,
+      "sha256": "f846af7ff5bd290c087cc6c676cb473ecab6cb936d8f2c15c493c27fb47818a7",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/storage/recovery.rs": {
+      "lines": 760,
+      "sha256": "64f8b6d68886c51de555f699f40e599594cd17214b42c4424cc30ae0b623247f",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/mod.rs": {
+      "lines": 96,
+      "sha256": "f477c7444df3e18693344fb578b05d1fc1c800b6a4f6768ec1927e19804fc13e",
+      "working_tree_matches_pin": true
+    },
+    "examples/log-multimmit/src/marshal.rs": {
+      "lines": 220,
+      "sha256": "1f4fe669d2883fd3508b59929e1bc52136c9f7619dc2eb12d745df62dfb02d87",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/types/activity.rs": {
+      "lines": 147,
+      "sha256": "7198a9626e39913841d951eac2f5e05dd3c7dfe54144a3fb4edc213f4c60474f",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/mailbox.rs": {
+      "lines": 799,
+      "sha256": "b81299e900e9f37d0dea1e60c700cd02b9c4a7c2202cecfc15b7f04813d0a4c7",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/actors/synchronizer/mailbox.rs": {
+      "lines": 256,
+      "sha256": "5dab3bf0c73863a2fb30a25cef198ab1409f23ef4124a71606e261ee3c615351",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/types/block.rs": {
+      "lines": 1343,
+      "sha256": "10f0eaae1519052669c1311a3975598ff30ed8628ce22bff0f300abf6230b3e7",
+      "working_tree_matches_pin": true
+    },
+    "examples/log-multimmit/src/application/actor.rs": {
+      "lines": 989,
+      "sha256": "7745d1ee6fc3b06f4bc15aaad3f8965bfc5a7593d7c49f333f88f1ebc5b15c22",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/lib.rs": {
+      "lines": 352,
+      "sha256": "10ee4b31e18bb0ceeebdfac3128290f5b6b0f6a46d647d07429335ac0dcd39f9",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/actors/voter/actor/live.rs": {
+      "lines": 884,
+      "sha256": "d394e235f5fc252e44963acde3ecae5a0e47aa9ac9ac8e02336679a1bec70f52",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/actors/voter/actor/publish.rs": {
+      "lines": 223,
+      "sha256": "35f2ff683a1152b35427800eb88321657d88d44e43d7ff6cd763cc824372febd",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/relay.rs": {
+      "lines": 174,
+      "sha256": "ee59df2747fd29a9f1a867a11220fb239e96e4a983a31adc3002b2a7318bfd5f",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/types.rs": {
+      "lines": 612,
+      "sha256": "f5fb70336398760dbfba256736d460d5544204677b9bc3e84fe57c3ce07388bd",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/actors/delivery/actor.rs": {
+      "lines": 468,
+      "sha256": "dacc581a3d3b3e1be4ca83b76b38202391a0dd33240e5eaf9c0f5d25085a853b",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/actors/delivery/acks.rs": {
+      "lines": 223,
+      "sha256": "9028b098b5d672bcdce28608b96a2d655e1f4c03bc374f0dee95e61675041085",
+      "working_tree_matches_pin": true
+    },
+    "utils/src/acknowledgement.rs": {
+      "lines": 225,
+      "sha256": "889156f7cfe79ef5a16a8e2875121ff34d73e4ee9d9cf5995decb03000d851c8",
+      "working_tree_matches_pin": true
+    },
+    "examples/log-multimmit/src/application/reporter.rs": {
+      "lines": 50,
+      "sha256": "14d2ddc3fa248fc1ddcf6ebefb16ec2f5127532ce0e551ca53389bfdb5a0109c",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/config.rs": {
+      "lines": 915,
+      "sha256": "cd7fe1a918fd9e3a00f7d598556b9b7f886b52c0b291623f4d1dcdf99e022f7c",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/protocol/order.rs": {
+      "lines": 1204,
+      "sha256": "d1cac14edc62c26903d7c571467e66607ee07eafa7ee110e96ade76cf6782081",
+      "working_tree_matches_pin": true
+    },
+    "cryptography/src/certificate.rs": {
+      "lines": 2063,
+      "sha256": "b3901c46106ec544ae3793e413cceef1d255472bcbecd03101c477961413f9b8",
+      "working_tree_matches_pin": true
+    },
+    "p2p/src/utils/codec.rs": {
+      "lines": 887,
+      "sha256": "f8535af175d1fe4aa8540dff3be11d398d135e0f173f6e652f1c37013848ddfe",
+      "working_tree_matches_pin": true
+    },
+    "collector/src/p2p/engine.rs": {
+      "lines": 228,
+      "sha256": "81c967951e5787fefcfc8c65ca7abe3d5d6acd15ccd0bc0236fdb660037518aa",
+      "working_tree_matches_pin": true
+    },
+    "utils/src/faults.rs": {
+      "lines": 459,
+      "sha256": "2fcb405f20d0c198c458d02a25f9cf2bc1f16db3a87039daa99e0eba7d158d4f",
+      "working_tree_matches_pin": true
+    },
+    "storage/src/qmdb/mod.rs": {
+      "lines": 1237,
+      "sha256": "1239567ff0cbf722a7ca898dd7db30e324d0c86eb455699c4af8221ca1b00154",
+      "working_tree_matches_pin": true
+    },
+    "storage/src/qmdb/current/db.rs": {
+      "lines": 1667,
+      "sha256": "857f407a0d728f5ab849247f9683a1d2dfbfb0592dc1c30e2626aad8d58f2bfd",
+      "working_tree_matches_pin": true
+    },
+    "glue/src/stateful/db/mod.rs": {
+      "lines": 4888,
+      "sha256": "1f3d8c538efcb717868a0911280d34e6ebae65912c9ba49df98731045e1d614d",
+      "working_tree_matches_pin": true
+    },
+    "glue/src/stateful/db/any.rs": {
+      "lines": 997,
+      "sha256": "c429161cfc158bcbfff25a82301dde4838b9b44a9e10d1fc088bda1bbc6260c8",
+      "working_tree_matches_pin": true
+    },
+    "storage/src/qmdb/any/batch.rs": {
+      "lines": 6140,
+      "sha256": "038381d494051f415f68a992943d67d28827daf71a5528d78c31b523fd27af58",
+      "working_tree_matches_pin": true
+    },
+    "storage/src/qmdb/sync/mod.rs": {
+      "lines": 65,
+      "sha256": "9d11820e694a26e723f88a7583a8109e8a7a138c12e20eeffd2fbe9e37ec0f64",
+      "working_tree_matches_pin": true
+    },
+    "storage/src/qmdb/sync/target.rs": {
+      "lines": 382,
+      "sha256": "64340009cbeaaf8a0fcf0033f73b9a6f21bcda39892776ec9d959b355ce40d1c",
+      "working_tree_matches_pin": true
+    },
+    "storage/src/qmdb/current/proof/mod.rs": {
+      "lines": 2698,
+      "sha256": "ea29424d3ae9dc53160d594fc8e01a1c74e0af69fd9bd4f6ac9e3ed91dfbebfe",
+      "working_tree_matches_pin": true
+    },
+    "storage/src/qmdb/sync/engine.rs": {
+      "lines": 1321,
+      "sha256": "7facf7472338d776389154d53ee11ffa1ff6fee65b659c9a2d55b0d1d4219e54",
+      "working_tree_matches_pin": true
+    },
+    "storage/src/qmdb/sync/journal.rs": {
+      "lines": 1170,
+      "sha256": "56b2abdd3c7d0dbd12ecdd69e7c3c2344cc1f82cebdcfe0513143c719f0e8b1c",
+      "working_tree_matches_pin": true
+    },
+    "storage/src/qmdb/current/sync/mod.rs": {
+      "lines": 320,
+      "sha256": "31fc2472910f229ac8958c7373cdceb434924527e9c966bdf5f19297ed15013e",
+      "working_tree_matches_pin": true
+    },
+    "glue/src/stateful/db/p2p/mailbox.rs": {
+      "lines": 389,
+      "sha256": "158d139af144e09747a81719e489fd443fe0c69a35dac50b072b33b01b7968f3",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/config/protocol.rs": {
+      "lines": 589,
+      "sha256": "e737706ee2ff02bd7800a10f644a292da3515af1d498d6d1ee42801d71d26fe6",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/service/mod.rs": {
+      "lines": 326,
+      "sha256": "c21ce05466dbd4d9ecabf67b0f14d2829f54b9fd7c945bee129ae20270e7bd97",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/service/supervisor.rs": {
+      "lines": 113,
+      "sha256": "e180514484bb179e04248fc789d2d01f3102d5e41432a161f69f165115d0db1a",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/service/subscriptions.rs": {
+      "lines": 412,
+      "sha256": "9c62b37126d9842dc571e7fade85965f55cfea0a4b552180f4109133edfc72e4",
+      "working_tree_matches_pin": true
+    },
+    "consensus/src/multimmit/marshal/tests.rs": {
+      "lines": 3598,
+      "sha256": "42007b1cc627bb7744f37528fa8b0981508c390f654af9f51dc5fc40d1ddeb7f",
+      "working_tree_matches_pin": true
+    },
+    "runtime/src/mocks.rs": {
+      "lines": 2023,
+      "sha256": "8813d91812ccaa16ae860dfae45538be2cec26cf5149c3c804d929e20f50f660",
+      "working_tree_matches_pin": true
+    },
+    "runtime/src/deterministic.rs": {
+      "lines": 3106,
+      "sha256": "024e14bcc0bf090925a8d9746a16f3b3bc0b0b3d1537e7e9b3aa5159d34af8e9",
+      "working_tree_matches_pin": true
+    }
+  },
+  "references": [
+    {
+      "page": "docs/baton/direction.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/config/mod.rs#L32",
+      "target": "consensus/src/multimmit/config/mod.rs",
+      "line": 32,
+      "line_exists": true
+    },
+    {
+      "page": "docs/baton/interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/mailbox.rs#L148",
+      "target": "examples/log-multimmit/src/application/mailbox.rs",
+      "line": 148,
+      "line_exists": true
+    },
+    {
+      "page": "docs/baton/interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/chain_plane.rs#L522",
+      "target": "consensus/src/multimmit/actors/voter/chain_plane.rs",
+      "line": 522,
+      "line_exists": true
+    },
+    {
+      "page": "docs/baton/interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/machine/eligibility.rs#L352",
+      "target": "consensus/src/multimmit/machine/eligibility.rs",
+      "line": 352,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L260",
+      "target": "examples/log-multimmit/src/node.rs",
+      "line": 260,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/mod.rs#L50",
+      "target": "consensus/src/multimmit/mod.rs",
+      "line": 50,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/app.rs#L64",
+      "target": "consensus/src/multimmit/actors/voter/actor/app.rs",
+      "line": 64,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L446",
+      "target": "consensus/src/multimmit/engine/mod.rs",
+      "line": 446,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/storage/recovery.rs#L466",
+      "target": "consensus/src/multimmit/storage/recovery.rs",
+      "line": 466,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mod.rs",
+      "target": "consensus/src/multimmit/marshal/mod.rs",
+      "line": null,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126",
+      "target": "examples/log-multimmit/src/marshal.rs",
+      "line": 126,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/activity.rs#L58",
+      "target": "consensus/src/multimmit/types/activity.rs",
+      "line": 58,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L99",
+      "target": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 99,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/README.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/synchronizer/mailbox.rs#L152",
+      "target": "consensus/src/multimmit/marshal/actors/synchronizer/mailbox.rs",
+      "line": 152,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L265",
+      "target": "consensus/src/multimmit/types/block.rs",
+      "line": 265,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126",
+      "target": "examples/log-multimmit/src/marshal.rs",
+      "line": 126,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L327",
+      "target": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 327,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L309",
+      "target": "examples/log-multimmit/src/application/actor.rs",
+      "line": 309,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/app.rs#L121",
+      "target": "consensus/src/multimmit/actors/voter/actor/app.rs",
+      "line": 121,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/lib.rs#L134",
+      "target": "consensus/src/lib.rs",
+      "line": 134,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/live.rs#L578",
+      "target": "consensus/src/multimmit/actors/voter/actor/live.rs",
+      "line": 578,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/actor/publish.rs#L124",
+      "target": "consensus/src/multimmit/actors/voter/actor/publish.rs",
+      "line": 124,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/relay.rs#L107",
+      "target": "consensus/src/multimmit/marshal/relay.rs",
+      "line": 107,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/actors/voter/chain_plane.rs#L522",
+      "target": "consensus/src/multimmit/actors/voter/chain_plane.rs",
+      "line": 522,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L70",
+      "target": "examples/log-multimmit/src/application/actor.rs",
+      "line": 70,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/machine/eligibility.rs#L326",
+      "target": "consensus/src/multimmit/machine/eligibility.rs",
+      "line": 326,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L313",
+      "target": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 313,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L178",
+      "target": "consensus/src/multimmit/marshal/types.rs",
+      "line": 178,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L449",
+      "target": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 449,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/activity.rs#L104",
+      "target": "consensus/src/multimmit/types/activity.rs",
+      "line": 104,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/decisions.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L802",
+      "target": "consensus/src/multimmit/types/block.rs",
+      "line": 802,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/mod.rs#L93",
+      "target": "consensus/src/multimmit/mod.rs",
+      "line": 93,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mod.rs",
+      "target": "consensus/src/multimmit/marshal/mod.rs",
+      "line": null,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L128",
+      "target": "consensus/src/multimmit/marshal/types.rs",
+      "line": 128,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L235",
+      "target": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "line": 235,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/acks.rs#L1",
+      "target": "consensus/src/multimmit/marshal/actors/delivery/acks.rs",
+      "line": 1,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L303",
+      "target": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "line": 303,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/utils/src/acknowledgement.rs#L38",
+      "target": "utils/src/acknowledgement.rs",
+      "line": 38,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L423",
+      "target": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "line": 423,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/reporter.rs#L33",
+      "target": "examples/log-multimmit/src/application/reporter.rs",
+      "line": 33,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L449",
+      "target": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 449,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L164",
+      "target": "consensus/src/multimmit/marshal/config.rs",
+      "line": 164,
+      "line_exists": true
+    },
+    {
+      "page": "docs/consensus/ordered-input.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/protocol/order.rs#L361",
+      "target": "consensus/src/multimmit/marshal/protocol/order.rs",
+      "line": 361,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/block-body.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L327",
+      "target": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 327,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L128",
+      "target": "consensus/src/multimmit/marshal/types.rs",
+      "line": 128,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/reporter.rs#L33",
+      "target": "examples/log-multimmit/src/application/reporter.rs",
+      "line": 33,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L303",
+      "target": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "line": 303,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/acks.rs#L107",
+      "target": "consensus/src/multimmit/marshal/actors/delivery/acks.rs",
+      "line": 107,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/canonical.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/utils/src/acknowledgement.rs#L39",
+      "target": "utils/src/acknowledgement.rs",
+      "line": 39,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/native-consensus.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L306",
+      "target": "examples/log-multimmit/src/node.rs",
+      "line": 306,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/normal.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242",
+      "target": "examples/log-multimmit/src/node.rs",
+      "line": 242,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L55",
+      "target": "consensus/src/multimmit/marshal/types.rs",
+      "line": 55,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242",
+      "target": "examples/log-multimmit/src/node.rs",
+      "line": 242,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126",
+      "target": "examples/log-multimmit/src/marshal.rs",
+      "line": 126,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L446",
+      "target": "consensus/src/multimmit/engine/mod.rs",
+      "line": 446,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L343",
+      "target": "examples/log-multimmit/src/node.rs",
+      "line": 343,
+      "line_exists": true
+    },
+    {
+      "page": "docs/e2e/recovery.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L452",
+      "target": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 452,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/cryptography/src/certificate.rs",
+      "target": "cryptography/src/certificate.rs",
+      "line": null,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/p2p/src/utils/codec.rs",
+      "target": "p2p/src/utils/codec.rs",
+      "line": null,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/collector/src/p2p/engine.rs#L190",
+      "target": "collector/src/p2p/engine.rs",
+      "line": 190,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/utils/src/faults.rs",
+      "target": "utils/src/faults.rs",
+      "line": null,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/mod.rs",
+      "target": "storage/src/qmdb/mod.rs",
+      "line": null,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/db.rs#L274",
+      "target": "storage/src/qmdb/current/db.rs",
+      "line": 274,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L498",
+      "target": "glue/src/stateful/db/mod.rs",
+      "line": 498,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L327",
+      "target": "glue/src/stateful/db/mod.rs",
+      "line": 327,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/any.rs#L95",
+      "target": "glue/src/stateful/db/any.rs",
+      "line": 95,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L148",
+      "target": "glue/src/stateful/db/mod.rs",
+      "line": 148,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/any/batch.rs#L2855",
+      "target": "storage/src/qmdb/any/batch.rs",
+      "line": 2855,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/db.rs#L665",
+      "target": "storage/src/qmdb/current/db.rs",
+      "line": 665,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/qmdb.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/mod.rs#L334",
+      "target": "glue/src/stateful/db/mod.rs",
+      "line": 334,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/sync/mod.rs",
+      "target": "storage/src/qmdb/sync/mod.rs",
+      "line": null,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/sync/target.rs#L11",
+      "target": "storage/src/qmdb/sync/target.rs",
+      "line": 11,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/proof/mod.rs#L125",
+      "target": "storage/src/qmdb/current/proof/mod.rs",
+      "line": 125,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/sync/engine.rs#L691",
+      "target": "storage/src/qmdb/sync/engine.rs",
+      "line": 691,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/sync/journal.rs#L21",
+      "target": "storage/src/qmdb/sync/journal.rs",
+      "line": 21,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/storage/src/qmdb/current/sync/mod.rs#L152",
+      "target": "storage/src/qmdb/current/sync/mod.rs",
+      "line": 152,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/glue/src/stateful/db/p2p/mailbox.rs#L161",
+      "target": "glue/src/stateful/db/p2p/mailbox.rs",
+      "line": 161,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L450",
+      "target": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 450,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L163",
+      "target": "consensus/src/multimmit/marshal/config.rs",
+      "line": 163,
+      "line_exists": true
+    },
+    {
+      "page": "docs/execution/state-sync.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/actors/delivery/actor.rs#L423",
+      "target": "consensus/src/multimmit/marshal/actors/delivery/actor.rs",
+      "line": 423,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/glossary.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L615",
+      "target": "consensus/src/multimmit/engine/mod.rs",
+      "line": 615,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/glossary.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/config/protocol.rs#L202",
+      "target": "consensus/src/multimmit/config/protocol.rs",
+      "line": 202,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/networking.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242",
+      "target": "examples/log-multimmit/src/node.rs",
+      "line": 242,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/networking.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126",
+      "target": "examples/log-multimmit/src/marshal.rs",
+      "line": 126,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/networking.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/relay.rs#L107",
+      "target": "consensus/src/multimmit/marshal/relay.rs",
+      "line": 107,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/lib.rs#L125",
+      "target": "consensus/src/lib.rs",
+      "line": 125,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/lib.rs#L258",
+      "target": "consensus/src/lib.rs",
+      "line": 258,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L306",
+      "target": "examples/log-multimmit/src/node.rs",
+      "line": 306,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/mailbox.rs#L326",
+      "target": "consensus/src/multimmit/marshal/mailbox.rs",
+      "line": 326,
+      "line_exists": true
+    },
+    {
+      "page": "docs/overview/rust-interfaces.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L130",
+      "target": "consensus/src/multimmit/marshal/types.rs",
+      "line": 130,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242",
+      "target": "examples/log-multimmit/src/node.rs",
+      "line": 242,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126",
+      "target": "examples/log-multimmit/src/marshal.rs",
+      "line": 126,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L70",
+      "target": "examples/log-multimmit/src/application/actor.rs",
+      "line": 70,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/engine/mod.rs#L446",
+      "target": "consensus/src/multimmit/engine/mod.rs",
+      "line": 446,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/types.rs#L128",
+      "target": "consensus/src/multimmit/marshal/types.rs",
+      "line": 128,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/types/block.rs#L802",
+      "target": "consensus/src/multimmit/types/block.rs",
+      "line": 802,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/protocol/order.rs",
+      "target": "consensus/src/multimmit/marshal/protocol/order.rs",
+      "line": null,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/mod.rs#L1",
+      "target": "consensus/src/multimmit/marshal/service/mod.rs",
+      "line": 1,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L550",
+      "target": "consensus/src/multimmit/marshal/config.rs",
+      "line": 550,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/supervisor.rs#L64",
+      "target": "consensus/src/multimmit/marshal/service/supervisor.rs",
+      "line": 64,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/application/actor.rs#L60",
+      "target": "examples/log-multimmit/src/application/actor.rs",
+      "line": 60,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/service/subscriptions.rs#L1",
+      "target": "consensus/src/multimmit/marshal/service/subscriptions.rs",
+      "line": 1,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/config.rs#L164",
+      "target": "consensus/src/multimmit/marshal/config.rs",
+      "line": 164,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/marshal.rs#L126",
+      "target": "examples/log-multimmit/src/marshal.rs",
+      "line": 126,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/integration.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L242",
+      "target": "examples/log-multimmit/src/node.rs",
+      "line": 242,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/verification.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/tests.rs",
+      "target": "consensus/src/multimmit/marshal/tests.rs",
+      "line": null,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/verification.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/runtime/src/mocks.rs#L1240",
+      "target": "runtime/src/mocks.rs",
+      "line": 1240,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/verification.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/runtime/src/deterministic.rs#L578",
+      "target": "runtime/src/deterministic.rs",
+      "line": 578,
+      "line_exists": true
+    },
+    {
+      "page": "docs/reference/verification.md",
+      "url": "https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/consensus/src/multimmit/marshal/tests.rs",
+      "target": "consensus/src/multimmit/marshal/tests.rs",
+      "line": null,
+      "line_exists": true
+    }
+  ],
+  "scope": "Current documentation native links match existing pinned local source file/line targets; working tree bytes match pin. No remote URL availability or automatic semantic proof claimed."
+}

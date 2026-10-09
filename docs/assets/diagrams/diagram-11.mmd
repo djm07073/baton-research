@@ -1,24 +1,22 @@
 sequenceDiagram
-    participant E as Validator Executor
-    participant S as Storage / QMDB
-    participant P as Peer Validator Executor
-    participant R as Certified result consumer
-    E->>E: Complete direct execution, verify exact irrevocable input/base
-    E->>S: prepare(exact completed range, selected storage rule)
-    S-->>E: Computed commitment + bound outputs/material
-    E->>E: sign_result(prepared result) with own direct provenance
-    E->>E: Retain statement/provenance under chosen recovery contract
-    E-->>P: Signature on stable full ExecutionStatement
-    P-->>E: Matching signatures or original certificate
-    E->>E: Validate full subject, eligible distinct signers and context
-    alt At least f+1 matching eligible signatures verified
-        E->>E: Result certificate verified
-        Note over E,S: State finalization established, durable local application is separate
-        E-->>P: Original certificate, material on request
-        E-->>R: Certificate + exact input/base/result identity
-        R->>R: Verify certificate, order and input-state chain
-    else Insufficient validated signatures
-        E->>E: Continue valid local execution, retain/reprovide statements
+    participant A as Validator App
+    participant S as App storage / QMDB
+    participant P as Peer Validator App
+    participant R as Result consumer
+    A->>A: Complete direct execution for exact irrevocable input and base
+    A->>S: Prepare selected effects and result commitment
+    S-->>A: Commitment with exact output / material binding
+    A->>A: Sign full statement with own direct-execution provenance
+    A->>A: Retain statement and required serving material
+    A-->>P: Signature on exact ExecutionStatement
+    P-->>A: Matching signatures or original certificate
+    A->>A: Verify full subject, epoch membership and distinct identities
+    alt At least f+1 eligible matching signatures verified
+        A->>A: Establish result certificate
+        A-->>R: Certificate plus exact input / base / result identity
+        R->>R: Verify certificate and irrevocable input-state chain
+    else Insufficient matching signatures
+        A->>A: Continue valid work and retain / request statements
     end
-    Note over E,P: Collector may support pull requests, its raw count is not this certificate
-    Note over E,P: No Baton gate, imported range receives no own direct-execution signature
+    Note over A,S: Result certification and local durable application are separate
+    Note over A,P: Imported results receive no own direct-execution signature

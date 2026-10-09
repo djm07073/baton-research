@@ -66,12 +66,11 @@ def main():
                         decisions += 1
     directory = docs / 'assets/diagrams'
     rust_page = (docs / 'overview/rust-interfaces.md').read_text()
-    declarations = [block.replace('use std::future::Future;\n\n', '', 1)
-                    for block in re.findall(r'```rust\n([\s\S]*?)\n```', rust_page)]
+    declarations = re.findall(r'```rust,ignore\n([\s\S]*?)\n```', rust_page)
     exported = (docs / 'assets/interfaces/baton.rs').read_text()
     expected = ('// @generated from docs/overview/rust-interfaces.md; edit that Markdown source.\n'
-                '// Application interface proposals only; no protocol implementation.\n\n'
-                'use std::future::Future;\n\n' + '\n\n'.join(declarations) + '\n')
+                '// Existing Commonware API excerpts; not standalone declarations or protocol implementation.\n\n'
+                + '\n\n'.join(declarations) + '\n')
     if exported != expected:
         failures.append('Stale Rust export; run npm run docs:interfaces')
     manifest = json.loads((directory / 'render-manifest.json').read_text())

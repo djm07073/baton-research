@@ -1,26 +1,25 @@
 sequenceDiagram
-    participant L as Leader Baton
-    participant P as Baton: planning task
+    participant A as App Baton scheduler
+    participant P as App planning task
     participant N as Native leader proposal owner
     participant V as Native validators
-    L->>P: Frozen reports / exact planning context
-    alt Evaluated candidate reaches owner before proposal freeze
-        P-->>L: PreparedPolicy(context, validity material)
-        L-->>N: Cached prepared policy for actual-context recheck
-        N->>N: Recheck actual parent / history / frontier / request correlation
-        alt Recheck admits candidate for this actual proposal
-            N->>N: Freeze selected prefix and policy before signing
-        else Context or admissibility recheck fails
-            N->>N: Use actual-parent valid NativeBase before adoption
+    A->>P: Frozen nonempty report snapshot and exact context
+    alt Complete candidate is ready before proposal freeze
+        P-->>A: Prepared policy candidate
+        A-->>N: Candidate through future proposal-policy integration
+        N->>N: Recheck actual parent, history, frontier and admissibility
+        alt Valid and adoptable in actual proposal context
+            N->>N: Freeze selected prefix and interpretation in signed subject
+        else Recheck fails before adoption
+            N->>N: Use valid actual-parent native base
         end
-    else Candidate is stale, unavailable, or unfinished
-        N->>N: Use actual-parent valid NativeBase before adoption
+    else No valid prepared candidate
+        N->>N: Use valid actual-parent native base without waiting
     end
-    N-->>V: Authenticated native proposal with fixed interpretation
-    V-->>N: Native proposal votes
-    opt Late planning result / new report / larger native pool
-        P-->>L: Late prepared result
-        L-->>N: Current cache, no mutation of frozen proposal
-        N->>N: Do not mutate this proposal policy
+    N-->>V: Authenticated proposal with fixed interpretation
+    V->>V: Validate exact leading-prefix preservation
+    V-->>N: Native votes
+    opt Late report, completion or larger native pool
+        P-->>A: Future scheduling information
+        N->>N: Preserve this already authenticated proposal interpretation
     end
-    Note over L,V: Native votes are not a direction-reply quorum

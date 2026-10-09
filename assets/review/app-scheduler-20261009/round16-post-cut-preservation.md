@@ -1,0 +1,82 @@
+# Round 16: preservation after the prose cuts
+
+Reviewer: `/root/docs_alignment`. Independently reread the three current `docs/baton/` pages, `docs/execution/README.md`, and the body/canonical E2E pages against their contents at research baseline `08cfe68b8b565fff4a0f8119cb36ec9b22062a31`. Used the Round 8 preservation inventory to follow retained requirements into current execution, transaction, consensus, baseline and integration pages. This is a semantic documentation review, not protocol validation.
+
+## Result
+
+No adopted requirement was lost by the three approved Round 13 paragraph cuts. Each removed repetition remains in the directly linked canonical page, while the shortened scenario still states the timing facts needed to read its diagram. No restoration or additional core edit is recommended.
+
+**Later correction (Round 21):** an independent review found the rewrite had omitted the baseline's explicit zero-report → NativeBase condition. This pass did not detect it, so the broader preservation conclusion below was too strong. The canonical direction table and leader E2E restore it without choosing a tie-break; see [the restoration record](round21-empty-report-restoration.md). The three specific Round 13 cuts remain accounted for by their fact maps.
+
+The baseline's public-layer obligations and absence-of-Marshal premise are superseded by the user's one-App design and current native source. Preserving the old method declarations would restore obsolete architecture, not preserve necessary behavior. The retained functions, failure boundaries, algorithm and fair-comparison contract remain mapped below.
+
+## The three cuts, checked individually
+
+| Shortened page | Still stated locally | Required detail still reachable through its actual link |
+|---|---|---|
+| `docs/e2e/block-body.md:80–82` | The drawn request is one live eligible case, not every verify origin. Local pre-sign and recovery calls still exist; role/lane/lifecycle/exact identity qualify candidate admission. Current owner state is checked after custody; ancestry and exact execution-parent readiness remain separate. App retirement does not negate honest native custody. | The role link reaches `baton/README.md#when-speculative-execution-begins` (`:44–52`): all three origins, nonproducing validators, Observer behavior, no origin flag, pre-sign authentication and best-effort observations. The handler link reaches `baton/interfaces.md#automatonverify-validity-custody-and-scheduling` (`:35–87`): temporary pending request, permanent invalidity, custody, deduplication, invalid ancestry, deferred/forgone speculation, current-attempt dispatch and completion/failure ownership. |
+| `docs/e2e/canonical.md:55` | Synchronous retained full-Update/Exact handoff; Backoff is not redelivery; dropping an unacknowledged clone cancels completion; floor reset does not clear App-held inputs. The preceding ACK/window paragraphs still distinguish transaction completion, local durable apply, native progress, window capacity and Marshal cursor I/O. | The callback link reaches `baton/interfaces.md#marshal-reportupdate-canonical-input-and-ack` (`:91–135`): retained intake, exact continuous input, replay identity, first-seen Update, one writer, current-predecessor checks, linked durability, scheduled pool maintenance, every-clone obligation, Closed/Backoff, crash replay, active-window bound and bounded floor overlap. Storage recovery detail remains in its linked execution pages. |
+| `docs/execution/README.md:21` | Exact input/parent/runtime governs reuse; a different canonical path requires repair; started work stays fixed while only eligible pending work is sorted. The responsibility table still separates effects, roots, durability, ACK, result certification and sync; the introduction still explains private native AppExecutor. | The direct callback link reaches the same canonical `baton/interfaces.md` guide, including startup, verify origins, asynchronous handoff and Update/replay. The scheduling link reaches `baton/direction.md#global-rule-for-local-execution-and-reports` (`:18–43`): F plus sorted pending, before/after-start A/C/B cases, ancestry, readiness, no hypothetical missing-block wait, canonical repair and conflicting-direction policy left open. |
+
+These links target existing headings or compatibility anchors and the intended content, not a merely surviving filename. No reader must recover the contract from an old public Executor/Baton trait declaration. The body E2E's fetch-versus-custody paragraph (`:78`) and canonical E2E's immediate-ACK example warning (`:51`) also remain outside the cuts.
+
+## Retained semantic obligations
+
+| Obligation family from the baseline / Round 8 | Current owner and evidence | Preservation assessment |
+|---|---|---|
+| Pool admission, selection and maintenance | `tx/interfaces.md:13–17,29–47`: shared ingress classification, immutable selection facts versus live readiness, dependency/full-byte/work bounds, stable selected bytes, outcome-driven maintenance and destructive-backend adaptation. `baton/README.md:17,31` connects it to App. | Preserved internally. Peer/canonical validity additionally cannot require local membership/selection. No pool-processing ACK was added. |
+| Exact complete bodies and local custody | `baton/interfaces.md:20–31,35–67`; `consensus/block-body.md:28–66`; body E2E diagrams and adjacent prose. | Stage acceptance, durable custody and publication are separate. Native signs only after its local custody check; remote header/body arrival may differ. Exact identity, storage failure, temporary missing input and native retention after App retirement remain explicit. |
+| Candidate admission versus transaction execution | `baton/README.md:40–52`; `baton/interfaces.md:65–87`. | Admission may happen while the exact execution parent is unavailable. No speculative-capacity or CPU-completion barrier was inserted into verify. Duplicate candidates do not duplicate active attempts; failed/current attempts settle ownership safely. |
+| Fixed started prefix and deterministic pending intent | `baton/direction.md:18–37`; `e2e/reschedule.md`; `baselines/precut.md:83–106`. | F plus sorted eligible pending, producer dependencies, selected horizon, deterministic open comparator, no arrival tie-break, ABC versus ACB and no arrival-driven redo all remain. F is not canonical finality; confirmed Update repair is distinct. |
+| Report closure, scoring and planning | `baton/direction.md:47–73`; `e2e/leader.md:15–41`. | Exact-context original reports, one eligible identity, fixed deadline, first processed 4f+1/deadline closure, immutable snapshot, complete bounded evaluation, longest entire 2f+1 prefix and raw sum-LCP remain. Original reports cannot be trimmed or supplemented to manufacture support. The synthetic scoring example remains explicitly non-executed. |
+| Prepared completion and native policy adoption | `baton/direction.md:60–62,89–99`; `consensus/decisions.md`; leader E2E future-integration sequence. | App checks the original planning window/context/current attempt before publication; native later rechecks its actual proposal context. Cut does not await planning. Exact leading-prefix preservation, pre-adoption fallback versus post-adoption recovery, continuation and authenticated Marshal interpretation remain open obligations. |
+| Ordinary canonical authority and delivery | `baton/interfaces.md:91–143`; `consensus/ordered-input.md`; canonical E2E. | Current Marshal owns native proof/history/backfill/order and supplies complete continuous Updates. App cannot reorder them, fill missing bodies with empty slots or depend on advisory approval. Trusted local Update is not portable finality evidence. |
+| Durable application, replay and bounded handoff | `baton/interfaces.md:95–135`; `execution/interfaces.md:37–55,73`; `execution/qmdb.md:111–129`. | Exact-parent reuse/repair/import, writer/access fences, current-predecessor recheck, linked state/outputs/index/identity/provenance and durable ACK remain. Replay checks exact identity without effects; cursor I/O is separate. Durability boundaries must progress within the delivery window. Floor overlap remains separately bounded/serialized. |
+| Execution effects and concrete QMDB constraints | `execution/README.md:23–29`; `execution/qmdb.md:55–87,107–135`. | Deferred selected roots, no supplied unsealed-parent fork, retained effects before consuming the sole draft, actual ancestry/strong ancestor retention, deterministic selected operation boundaries and exact-prefix application remain. One writer and live-access fences are distinct from stale-result rejection; failed mutable instances require recovery. |
+| Result certificates and direct/imported provenance | `execution/interfaces.md:63–88`; `execution/README.md:33–35`; result E2E. | Direct evidence plus exact irrevocable input/base/runtime/result; f+1 distinct eligible matching signatures; bounded decoding, verification before assembly/counting and original provenance remain. Roots, transport counts, intentions, native quorum and local ACK are different authorities. Direct durable application need not await peer signatures. |
+| Active certified import and floor authority | `execution/state-sync.md`; `e2e/state-sync.md`; startup/recovery E2E. | Continue direct work until certificate and applicable material are ready. Same canonical writer, candidate storage ownership, exact authorized target and completed persisted DB are required. Imported work stays imported. Native floor is not App state; startup authentication, positive monotone native floor generation and retained-Update reconciliation remain explicit. |
+| Fair Original / PreCut / Baton comparison | `baselines/precut.md:3–5,110–136`; `reference/integration.md` development stages. | Independent PreCut has no Baton instance/messages/policy change; shared pool/body/backend/resources/endpoints/import capability and matched native profile/cadence remain. Report latency distributions, throughput and all total costs; distinguish repair from transaction failure and compare deterministic outputs/roots. Advisory-only Baton does not prove protected-prefix integration. No benchmark/runtime result is claimed. |
+
+## All five Round 8 restorations remain present
+
+1. The original planning window/context/current-attempt check is explicit at `baton/direction.md:60`, separate from native adoption's later recheck.
+2. Writer-preferring `Shared` and the nested-read reacquisition deadlock caution remain at `execution/qmdb.md:67`.
+3. Bounded peer `certificate_codec_config`, rather than trusted-storage decoding, remains at `execution/interfaces.md:86`.
+4. Current's retained operation range must start at or below the target `sync_boundary()` at `execution/state-sync.md:33`.
+5. Latency distributions, throughput and repair-versus-transaction-failure distinctions remain at `baselines/precut.md:124`.
+
+## Newer source corrections retained by the current simplified route
+
+- Body verification reconstructs the exact header and BlockRef. It can start active fetch while subscription is pending, then establish fetched-byte custody with existing put/stage completion; it need not assume that an earlier failed-backfill subscription wakes. `baton/interfaces.md:37–40,59` and `consensus/block-body.md:35–37` retain this latest correction. The body E2E links that canonical handler.
+- Verify has remote/live, local pre-sign and open-time recovery origins. The private native AppExecutor is local callback dispatch, not transaction execution. Nonproducing validators and Observers are described separately. Native ready success plus valid App base activates retained work; no repeated callback is assumed.
+- Current remote closed receivers can redispatch, unlike the shared single-shot prose; local uncanceled and recovery failures remain fatal/failing-open. Temporary absence is kept pending rather than treated as a retry/invalidity API.
+- App candidate retirement and native custody release remain distinct. A late async verify checks current owner state before speculative admission; dependent candidates remain ineligible if required producer ancestry is invalid.
+- Reporter is synchronous. An Update may be App's first encounter with a block. Every Exact clone must acknowledge; Backoff does not recreate a dropped Update. Native voting/finality is independent of the application window.
+- Start::Floor and MarshalProgress contain `floor_generation`; Floor and Update themselves do not. Startup authority and App floor/import fencing remain at `execution/state-sync.md:39–43`, with no invented per-Update generation.
+- QMDB uses current `apply` then `finalize`/covering durability, not the old finalize(sealed) recipe. Recovery can select matching targets instead of treating the latest readable checkpoint as already durable. The statement that failed durability means no ACK does not falsely claim that no write occurred.
+- Current result-key guidance distinguishes native DA/nullification sharings from an f+1 result role; changing a quorum adapter cannot reduce a BLS polynomial's signing threshold (`execution/interfaces.md:88`). The result protocol remains an open compatible integration, not an adopted native key reuse shortcut.
+
+## What is intentionally not restored
+
+- Public TxPool/Baton/Executor/Storage/BlockService/Orderer traits, `StoredBody`/`CandidateBlock` as mandatory cross-layer events, or `Executor::commit -> CommitResult` as a new delivery API. Concrete App ownership and existing Automaton/Reporter/Marshal replace that ceremony.
+- The `534af0e` claim that ordinary Multimmit Marshal dense ordering/body custody/ACK recovery must be newly implemented. Current source already supplies those responsibilities; full Baton policy interpretation remains different unfinished work.
+- The old propose-before-response flush as the sole possible sequence. Current stage acceptance plus native local durable verify before signing preserves the actual custody promise.
+- Old source-specific names and recipes such as finalize(sealed), a nonexistent current `N5f1::f_plus_one`, or panic-based signer-set construction. Their necessary durability, threshold and validation semantics remain current and source-correct.
+- Optional collector slot/retry trivia, private future-holder choices or ecosystem type details as adopted mandatory App modules. The compatible-use checks and evidence remain in detail/reference pages.
+
+Blank policy rows still leave comparator/tie-break, budgets, report wire formats, tails/hysteresis, conflicting direction precedence, root/transaction backend, result signing boundaries, import switching and native authenticated continuation unselected. No per-block signing, automatic override, incumbent-first tail, inline policy representation or finite-prefix permutation continuation was silently adopted.
+
+## Review scope and fingerprints
+
+No content or diagram change was warranted in this round. The current pages and their linked contracts were read directly; earlier review conclusions were used as an obligation list rather than as proof of preservation. No unchanged rendering/build/protocol tests were rerun solely to produce another pass.
+
+These SHA-256 values identify the six primary pages read; companion pages were also inspected for the mapped detail contracts. They do not assert runtime correctness or freeze later concurrent review edits.
+
+| File | Baseline SHA-256 | Current SHA-256 |
+|---|---|---|
+| `docs/baton/README.md` | `a5fc7e6175b6402c399fbc3761f984d8c463004e1d4f0937ed870cd350fb7743` | `3a5f656c7170ebd85914a7fe9f6e3ddb7d9811e71bd3e247f316775455601803` |
+| `docs/baton/interfaces.md` | `1180631c37c446a4ed429c1cf63b147127dbf56de6ae56aab3746ec24d78cc24` | `e12dd6200f16ac7d51a32c4b89fbafc2d4e9893c6342307ec8a6a3e39f8d763d` |
+| `docs/baton/direction.md` | `f02de51cc93a28f10a27fb3cb13be76f34d5802f40a9b7abde626775c2937c6d` | `60f00a686c6301f5df04c96e78aa0739a6a2caeac4e06d23f6c1ffc908cf7cf3` |
+| `docs/execution/README.md` | `de6c18b7bd92df8319ef85cca8b1cae56824c296e28c99984f8d1f88bd4d2300` | `6f00f9ad0082cfba06ed3a3d12a245575a9c6fe02a766ca954485868fc6a2877` |
+| `docs/e2e/block-body.md` | `24f78b8e4eae4771d9320e2b364473e4d482017cd18020e865f25299632fa63f` | `d88e71e79fa2f09967f27de07907a81d1cf306eaa76281cd4cb14d8bfe2b4032` |
+| `docs/e2e/canonical.md` | `8d4dfc754f4696f569959af4d3d40733dfddf3ac8c5e77a5dd2b1084510985a9` | `fbaadab7ccdc8046b12dcb5166452dd2bac89e059a59c4c5f2aa87f1ef931343` |

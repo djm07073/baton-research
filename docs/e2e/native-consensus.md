@@ -1,52 +1,54 @@
 # Block proposal, DA, and cut finality
 
-**Multimmit establishes availability and native ordering evidence.** Follow producer custody through header signing, DA, leader proposal, votes, and finality. Baton later interprets the exact execution order in the canonical case.
+**Multimmit owns native signing, voting and finality.** The App provides payloads and validity/custody verdicts. Marshal consumes native activity to retain and deliver the ordinary finalized total order.
 
-## Normal native consensus: producer DA → leader proposal → finality
+<a id="normal-native-consensus-producer-da--leader-proposal--finality"></a>
 
-This connects body preparation to the normal native consensus path. One producer lane represents independently progressing lanes. Lifelines distinguish node roles and responsibilities inside Core.
+## Native producer, DA and view/finality paths
+
+This diagram highlights the App connections. Native protocol details remain in the [consensus source map](../consensus/README.md).
 
 ```mermaid
 sequenceDiagram
     participant P as Producer native owner
-    participant A as Validator BlockService
+    participant A as Producer App
     participant V as Validator native owner
-    participant L as Current view's leader owner
-    participant F as Receiving node's view / finality owner
-    P-->>V: Disseminate signed producer header to native peers
-    V->>A: verify(producer Context, commitment)
-    A-->>V: true: valid + durable custody
-    V->>V: Contiguous DA choice / durable publication gate
-    V-->>P: DA share sent only to that producer
-    par Producer certification
-        opt n−2f valid shares for the same header available
-            P->>P: Recover exact DA certificate / durable admission
-            P-->>V: Disseminate DA certificate
-        end
-    and Leader proposal / direct voting
-        L->>L: Earlier V-QC parent + lane anchors / local DA-voted paths
-        L-->>V: Signed LeaderBlock + required exact parent V-QC
-        V->>V: Validate native proposal / reserve position and extension vote
-        V-->>F: Broadcast complete signed vote to native peers
-    end
-    F->>F: Retain verified distinct attributed votes / view messages
-    par Local sticky pool
-        opt n−f votes for one LeaderBlock
-            F->>F: Local leader / tip finality
-        end
-    and Portable L-QC
-        opt n−f exact votes for one LeaderBlock
-            F->>F: L-QC aggregate / admission
-        end
-    and V-QC / view exit
-        opt n−f..n messages / ≥2f+1 designated votes
-            F->>F: V-QC aggregate / safe tips / view exit
-        end
+    participant B as Validator App
+    participant L as Native leader / view owner
+    participant M as Multimmit Marshal
+    P->>A: Automaton::propose(Context)
+    A-->>P: Body digest through proposal receiver
+    P->>A: Automaton::verify(Context, body digest)
+    A-->>P: Valid durable custody through true verdict
+    P->>P: Sign producer header
+    P-->>V: Signed header on native data plane
+    V->>V: Native authentication and eligibility checks
+    V->>B: Automaton::verify(Context, body digest)
+    B-->>V: Valid durable custody through true verdict
+    par Application speculation
+        B->>B: Eligible candidate enters App scheduler
+    and Native DA
+        V->>V: Continue DA path and native durability gates
+        V-->>P: DA vote
+        P-->>V: DA certificate when native threshold is met
+    and Native view / finality
+        Note over P,L: DA certificate assembly and leader proposal progress are independent, native eligibility still applies
+        L-->>V: Native leader proposal and required parent evidence
+        V-->>L: Broadcast native votes to peers (L included)
+        L->>L: Native finality / extension processing
+        L-->>M: Reporter::report(Activity)
+        M->>M: Existing history interpretation and ordered body delivery
     end
 ```
 
 [Open full-size diagram](../assets/diagrams/diagram-15.svg)
 
-DA certification and leader proposal do not wait for each other to finish. A leader may also propose an uncertified DA-voted suffix satisfying native conditions. Complete votes are broadcast to native peers, each maintaining its own local pool. Local finality does not wait for L-QC creation or V-QC completion. Parallel branches describe independent work, without adding a join barrier. [DA / proposal / direct vote](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/docs/STATE_MACHINE.md#L290), [DA-share and vote recipients](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/machine/durability.rs#L616), [Certificates and local finality](https://github.com/commonwarexyz/monorepo/blob/534af0ede48affd35b2111522527547b4cc9bf72/consensus/src/multimmit/mod.rs#L149).
+The App's speculative execution is independent of the native DA path after successful validity/custody verification. Neither speculative worker completion nor application delivery ACK is a native vote/cut prerequisite. Native availability, ancestry and durability gates still apply; the body validity callback is not permission to bypass them.
 
-Finality here consists of sparse native facts. Building an exact ordered range requires [delivery and history interpretation](canonical.md#cut-commit--ordered-range--execution-commit). See the [native actor map](../consensus/README.md#native-actors-and-source-layout) for timeout, rescue, and view recovery, and [ordered-input evidence](../consensus/ordered-input.md#consensus-and-baton-integration) for the distinct V-QC and L-QC conditions. This explains pinned native behavior; it is neither an executed trace nor completed Baton policy integration.
+Native view work can already be running during producer validation. The leader/view-owner lifeline represents one native owner; each view owner processes finality locally.
+
+The native data message carries the signed producer header. Marshal separately broadcasts the full `TransactionBlock` containing header and body. A receiver can therefore have a header while still waiting for its body. Verification begins when native eligibility chooses the request, not for every packet arrival. [Body flow](block-body.md)
+
+Native activity is also useful for App observations through a composed `Reporters` value. It is distinct from Marshal `Update`: the former reports native activity, while the latter supplies an indexed finalized complete block and application ACK token. The [current assembly](https://github.com/0xEyrie/monorepo/blob/6233438985d8249d2b2bc1204191d5d405652288/examples/log-multimmit/src/node.rs#L306) passes native activities to Marshal and an App handle.
+
+For Baton to change the agreed execution order, a separate native proposal-policy extension must preserve selected leading prefixes through validation, extension and recovery. Current App scheduling callbacks alone do not implement that extension. [Open native decisions](../consensus/decisions.md)
